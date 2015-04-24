@@ -853,24 +853,3 @@ Switch1(config-line)#login
 * 使用 `show vlan` 命令验证 VLAN 配置
 * 使用 `show interface switchport` 命令和 `show interface trunk` 命令，验证接口中继工作状态及 VLAN 配置
 * 删除 `vlan.dat` 文件
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
