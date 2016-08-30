@@ -213,4 +213,6 @@ R2(config-if)#
 *Mar 1 01:22:26.478: HSRP: Fa0/0 Grp 1 Redundancy “hsrp-Fa0/0-1” state Speak -> Standby
 ```
 
+###HSRP寻址
 
+**HSRP Addressing**
