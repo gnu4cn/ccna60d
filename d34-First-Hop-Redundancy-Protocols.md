@@ -244,4 +244,81 @@ FastEthernet0/0 - Group 2
     Virtual IP address is 172.16.1.254
     <b>Active virtual MAC address is 0000.0c07.ac02
         Local virtual MAC address is 0000.0c07.ac02 (v1 default)</b>
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 2.423 secs
+    Preemption disabled
+    Active router is local
 </pre>
+
+在上面的输出中，由于是默认的HSRP版本，那么HSRP组1的虚拟MAC地址就是`0000.0c07.ac01`，同时HSRP组2的就是`0000.0c07.ac02`。这就意味着连接此网关的交换机端口要学习三个不同地址：物理接口`Fastethernet0/0`的实际或出厂地址、HSRP组1的虚拟MAC地址，以及HSRP组2的虚拟MAC地址。
+
+下面的输出，演示了如何将HSRP配置为使用该网关接口的实际MAC地址，作为不同HSRP分组的虚拟MAC地址：
+
+```
+Gateway-1#conf
+Configuring from terminal, memory, or network [terminal]?
+Enter configuration commands, one per line. End with CNTL/Z.
+Gateway-1(config)#int f0/0
+Gateway-1(config-if)#standby use-bia
+Gateway-1(config-if)#exit
+```
+
+基于上面的输出中的配置，命令`show standby`会反应出HSRP组的新MAC地址，如下面的输出所示:
+
+<pre>
+Gateway-1#show standby
+FastEthernet0/0 - Group 1
+    State is Active
+        8 state changes, last state change 00:13:07
+    Virtual IP address is 192.168.1.254
+    <b>Active virtual MAC address is 0013.1986.0a20
+        Local virtual MAC address is 0013.1986.0a20 (bia)</b>
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 2.756 secs
+    Preemption disabled
+    Active router is local
+    Standby router is 192.168.1.2, priority 100 (expires in 9.019 sec)
+    Priority 105 (configured 105)
+    IP redundancy name is “hsrp-Fa0/0-1” (default)
+FastEthernet0/0 - Group 2
+    State is Active
+        2 state changes, last state change 00:09:45
+    Virtual IP address is 172.16.1.254
+    <b>Active virtual MAC address is 0013.1986.0a20
+        Local virtual MAC address is 0013.1986.0a20 (bia)</b>
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 0.188 secs
+    Preemption disabled
+    Active router is local
+    Standby router is unknown
+    Priority 105 (configured 105)
+    IP redundancy name is "hsrp-Fa0/0-2" (default)
+</pre>
+
+那么这里两个HSRP组所用的MAC地址，都是`0013.1986.0a20`，就是分配给物理网关接口的MAC地址了。这在下面的输出中有证实：
+
+<pre>
+Gateway-1#show interface FastEthernet0/0
+FastEthernet0/0 is up, line protocol is up
+    Hardware is AmdFE, address is <b>0013.1986.0a20 (bia 0013.1986.0a20)</b>
+    Internet address is 192.168.1.1/24
+    MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
+        reliability 255/255, txload 1/255, rxload 1/255
+    Encapsulation ARPA, loopback not set
+...
+[Truncated Output]
+</pre>
+
+> **注意**：除了将HSRP配置为使用出厂地址（the burnt-in address, BIA）, 管理员亦可经由接口配置命令`standby [number] mac-address [mac]`，静态指定虚拟网关要使用的MAC地址。但一般不会这样做，因为这可能会导致交换网络中的重复MAC地址，这就会引起严重的网络故障，甚至造成网络中断。
+
+###HSRP的明文认证
+
+**HSRP Plain Text Authentication**
+
+HSRP报文默认以明文密钥字串(the plain text key string)`cisco`发送，以此作为一种对HSRP成员（HSRP peers）进行认证的简单方式。如报文中的密钥字串与HSRP成员路由器上所配置的密钥匹配，报文就被接受。否则，HSRP就忽略那些未认证的报文。
+
+明文密钥提供了最低的安全性，因为使用诸如Wireshark或Ethereal这样的简单抓包软件，它们就可被抓包捕获。下图34.13显示了HSRP报文中所使用的默认命令认证密钥：
+
+![查看默认HSRP明文密钥](images/3413.png)
+*图 34.13 -- 查看HSRP默认明文密钥*
+
