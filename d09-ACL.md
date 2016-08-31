@@ -6,10 +6,10 @@
 
 ##第九天的任务
 
-+ 阅读今天的课文
-+ 完成今天的实验
-+ 阅读ICND1记诵指南
-+ 在[subnetting.org](http://www.subnetting.org)上花15分钟
+- 阅读今天的课文
+- 完成今天的实验
+- 阅读ICND1记诵指南
+- 在[subnetting.org](http://www.subnetting.org)上花15分钟
 
 和子网划分及VLSM一样，访问控制清单（access control lists, ACL）对于新CCNA学员来说，也是一大难点（one of the bugbear subjects）。有关ACL的问题包括，学习相关的IOS配置命令、理解ACL规则（包括隐式的“deny all”规则），以及掌握端口号及协议类型。
 
@@ -17,12 +17,12 @@
 
 今天你将学到以下内容。
 
-+ ACL基础
-+ 标准ACLs，扩展ACLs， 以及命名ACLs
-+ ACL 规则
-+ 反掩码（wildcard masks）
-+ ACL的配置
-+ ACLs 故障排除
+- ACL基础
+- 标准ACLs，扩展ACLs， 以及命名ACLs
+- ACL 规则
+- 反掩码（wildcard masks）
+- ACL的配置
+- ACLs 故障排除
 
 本课程对应了以下CCNA大纲要求。
 
@@ -48,9 +48,9 @@
 
 下面是3中主要的ACLs类型。
 
-+ 标准的编号ACLs
-+ 扩展的编号ACLs
-+ 标准或扩展的命名ACLs
+- 标准的编号ACLs
+- 扩展的编号ACLs
+- 标准或扩展的命名ACLs
 
 **标准的编号ACLs是可以应用到路由器上的最为基本的ACL形式**。它们是最易于配置的，因此其可用的过滤有着最大的限制。**它们仅能依据源IP地址或源网络进行过滤**。识别标准ACL的方法就是看配置行的前导数字；标准ACLs的该数字为1到99。
 
@@ -60,9 +60,9 @@
 
 为在CCNA考试中取得成功，并成为一名思科工程师，你需要理解以下内容。
 
-+ 端口号，port numbers
-+ ACL规则，ACL rules
-+ ACLs的命令语法，command syntax for ACLs
+- 端口号，port numbers
+- ACL规则，ACL rules
+- ACLs的命令语法，command syntax for ACLs
 
 ##端口号，Port Numbers
 
@@ -434,8 +434,8 @@ Router(config-ext-nacl)#permit ip any any
 
 命名ACL的验证，可通过下面的命令完成。
 
-+ `show ip access-list`: 显示设备上所创建的所有ACLs
-+ `show ip access-list <acl_name>`: 显示某条特定的命名ACL
+- `show ip access-list`: 显示设备上所创建的所有ACLs
+- `show ip access-list <acl_name>`: 显示某条特定的命名ACL
 
 ```
 Router(config)#do show ip access-lists
@@ -649,9 +649,9 @@ access-class VTY_ACCESS in
 
 相信有了对配置命令和规则的深入理解，在访问控制清单上就不会有问题了。在ACL不工作的时候，首先要通过ping操作，检查有没有基本的IP连通性问题。接着看看有没有应用该ACL，看看在ACL中有没有什么文字错误，以及你是否需要允许任何IP流量通过（记住那个隐式的”deny all“条目）。而一些在ACL故障排除过程中最重要的检查点包括下面这些。
 
-+ 查看ACL统计信息
-+ 检查所允许的网络
-+ 检查应用ACL的接口及方向
+- 查看ACL统计信息
+- 检查所允许的网络
+- 检查应用ACL的接口及方向
 
 ###查看ACL统计信息
 
