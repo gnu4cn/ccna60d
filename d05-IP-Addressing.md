@@ -147,21 +147,24 @@ IP 版本 4(IPv4）设计用于解决设备命名问题。IPv4 使用二进制�
 
 **表5.2 -- 十进制、十六进制和二进制位数，Decimal, Hex, and Binary Digits**
 
-| 十进制，Decimal | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-| 十六进制，Hex | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
-| 二进制，Binary | 0000 | 0001 | 0010 | 0011 | 0100 | 0101 | 0110 | 0111 |
-
-| 十进制，Decimal | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
-| 十六进制，Hex | 8 | 9 | A | B | C | D | E | F |
-| 二进制，Binary | `1000` | `1001` | `1010` | `1011` | `1100` | `1101` | `1110` | `1111` |
+<table>
+<tr><th>十进制，Decimal</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><th>十六进制，Hex</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><th>二进制，Binary</th><td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td></tr>
+<tr><th>十进制，Decimal</th><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr> 
+<tr><th>十六进制，Hex</th><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+<tr><th>二进制，Binary</th><td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr>
+</table>
 
 将二进制转换成十六进制及十进制，是相当简单的，如表5.3所示。
 
 **表5.3 -- 二进制到十六进制、十进制的转换**
 
-| 十进制，Decimal | 13 | 6 | 2 | 12 |
-| 十六进制, Hex | D | 6 | 2 | C |
-| 二进制，Binary | 1101 | 0110 | 0010 | 1100 |
+<table>
+<tr><th>十进制，Decimal</th><td>13</td><td>6</td><td>2</td><td>12</td></tr>
+<tr><th> 十六进制, Hex</th><td>D</td><td>6</td><td>2</td><td>C</td></tr>
+<tr><th> 二进制，Binary</th><td>1101</td><td>0110</td><td>0010</td><td>1100</td></tr>
+</table>
 
 相对于二进制，十六进制对人类来讲更易于掌握，其又能够近似于二进制那样为计算机和网络设备所使用。任何的数都可由十六进制构造出来，这点跟二进制和十进制一样；如下面的例子一样，只需计算16的乘积。
 
