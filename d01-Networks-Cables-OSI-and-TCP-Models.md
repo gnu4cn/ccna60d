@@ -348,18 +348,22 @@ CCNA 考试要求你理解 OSI 模型，以及各层有哪些应用和协议。�
 
 TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由 先进防务研究计划署（the Defense Advanced Research Projects Agency，DARPA）创建的四层或五层模型。它就是为人熟知的国防部模型。自顶向下的四层分别是：
 
+```
 4 - 应用, Application [Telnet/FTP/DNS/RIP]
 3 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
 2 - 互联网/网际网络, Internet or Internetwork [IPSec/IP]
 1 - 链路/网络接口，Link/Network Interface [Frame Relay/Ethernet/ATM]
+```
 
 TCP/IP 模型已由四层更新为五层，所以你会在考试中被问到有关五层 TCP 模型（a five-layered TCP model）的问题。较高的层离用户较近，而较低的层描述了其它系统交互时所采用的技术或协议。五层 TCP 模型如下所示：
 
+```
 5 - 应用, Application [Telnet/FTP/DNS/RIP]
 4 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
 3 - 网络层，Network [IPSec/IP]
 2 - 数据链路层，Data Link [Ethernet/Frame Relay/PPP]
 1 - 链路/网络接口/物理，Link/Network Interface/Physical [Bits on the wire]
+```
 
 五层的 TCP 模型具有更细的粒度，能更精确地表示数据放在线路之前所发生的事情。比如在第二层处，进行了数据封装以及寻址（如数据链路寻址）。考试中思科偏向选择五层模型。
 
