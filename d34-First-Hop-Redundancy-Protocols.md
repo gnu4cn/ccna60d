@@ -109,7 +109,7 @@ HSRP版本1的分组编号是限制在0到255的，而版本2的分组编号则�
 ![HSRP版本2的识别符字段](images/3409.png)
 *图 34.9 -- HSRP版本2中的识别符字段*
 
-在HSRP版本1中，虚拟IP地址所使用的二层地址将是一个由`0000.0C07.ACxx`构成的虚拟MAC地址，这里的`xx`就是HSRP分组编号的十六进制值，同时是基于相应接口的。而在HSRP版本2中，虚拟网关IP地址则是使用了新的MAC地址范围`0000.0C9F.F000`到`0000.0C9F.FFFF`。下图34.10给出了这些不同，该图现实了HSRP组1的版本1的虚拟MAC地址，同时在图34.11中显示了版本2的虚拟MAC地址，也是HSRP组1的：
+在HSRP版本1中，虚拟IP地址所使用的二层地址将是一个由`0000.0C07.ACxx`构成的虚拟MAC地址，这里的`xx`就是HSRP分组编号的十六进制值，同时是基于相应接口的。而在HSRP版本2中，虚拟网关IP地址则是使用了新的MAC地址范围`0000.0C9F.F000`到`0000.0C9F.FFFF`。下图34.10给出了这些不同，该图现实了HSRP `Group 1`的版本1的虚拟MAC地址，同时在图34.11中显示了版本2的虚拟MAC地址，也是HSRP `Group 1`的：
 
 ![HSRP版本1的虚拟MAC地址格式](images/3410.png)
 *图 34.10 -- HSRP版本1的虚拟MAC地址格式*
@@ -250,7 +250,7 @@ FastEthernet0/0 - Group 2
     Active router is local
 </pre>
 
-在上面的输出中，由于是默认的HSRP版本，那么HSRP组1的虚拟MAC地址就是`0000.0c07.ac01`，同时HSRP组2的就是`0000.0c07.ac02`。这就意味着连接此网关的交换机端口要学习三个不同地址：物理接口`Fastethernet0/0`的实际或出厂地址、HSRP组1的虚拟MAC地址，以及HSRP组2的虚拟MAC地址。
+在上面的输出中，由于是默认的HSRP版本，那么HSRP `Group 1`的虚拟MAC地址就是`0000.0c07.ac01`，同时HSRP组2的就是`0000.0c07.ac02`。这就意味着连接此网关的交换机端口要学习三个不同地址：物理接口`Fastethernet0/0`的实际或出厂地址、HSRP `Group 1`的虚拟MAC地址，以及HSRP组2的虚拟MAC地址。
 
 下面的输出，演示了如何将HSRP配置为使用该网关接口的实际MAC地址，作为不同HSRP分组的虚拟MAC地址：
 
@@ -378,5 +378,37 @@ HSRP允许管理员在一些物理接口上配置多个HSRP组，以实现负载
 
 ![一个采用HSRP实现负载均衡的网络](images/3416.png)
 *图 34.16 -- 一个采用HSRP实现负载均衡的网络*
+
+这里通过将Switch 1配置为HSRP `Group 1`的活动网关，将Switch 2配置为HSRP组2的活动网关，管理员就令到来自两个不同组的流量，在Switch 1与Switch 2之间实现了负载均衡，并最终通过这两条专用T3/E3广域网连接。同时每台交换机又互为对方HSRP组的备份。比如在Switch 2失效时，Switch 1就将接过HSRP组2活动网关的角色，相反亦然。
+
+> **真实世界的部署**
+
+> 在生产网络中，需要记住多个HSRP组的建立，会造成网关上CPU使用率的上升，以及有HSRP报文交换所造成的网络带宽占用的增加。诸如Catalyst 4500及6500系列的思科Catalyst交换机，提供了对HSRP客户组（HSRP client groups）的支持。
+
+> 在前面的小节中，了解到HSRP允许在单个的网关接口上配置多个HSRP组。而在网关接口上允许许多不同HSRP组的主要问题，就是这样做会导致网关上CPU使用率的上升，并也因为HSRP每隔3秒的Hello数据包，而潜在可能增加网络流量。
+
+> 为解决这个潜在的问题，HSRP就还允许客户或从组的配置（the configuration of client or slave groups）。这些组是一些简单的HSRP组，它们跟随某个主HSRP组（a master HSRP group），而不参与HSRP选举。这些客户或从组跟随主组的允许与状态，因此它们本身无需周期性地交换Hello数据包。这样在运用多个HSRP组时，降低CPU与网络的使用。
+
+> 但是，为了刷新那些交换机的虚拟MAC地址，这些客户组仍然要发送周期性的报文。不过与主组的协议选举报文相比，这些刷新报文是以低得多的频率发送的。尽管HSRP客户组的配置是超出CCNA考试要求的，下面的输出还是演示两个客户组的配置，这两个客户组被配置为跟随主组HSRP `Group 1`, 该主组又被命名为`SWITCH-HSRP`组：
+
+```
+Gateway-1(config)#interface vlan100
+Gateway-1(config-if)#ip address 192.168.1.1 255.255.255.0
+Gateway-1(config-if)#ip address 172.16.31.1 255.255.255.0 secondary
+Gateway-1(config-if)#ip address 10.100.10.1 255.255.255.0 secondary
+Gateway-1(config-if)#standby 1 ip 192.168.1.254
+Gateway-1(config-if)#standby 1 name SWITCH-HSRP
+Gateway-1(config-if)#standby 2 ip 172.16.31.254
+Gateway-1(config-if)#standby 2 follow SWITCH-HSRP
+Gateway-1(config-if)#standby 3 ip 10.100.10.254
+Gateway-1(config-if)#standby 3 follow SWITCH-HSRP
+Gateway-1(config-if)#exit
+```
+
+> 在上面的输出配置中，`Group 1` 被配置为了主HSRP组， 同时`Group 2`与`Group 3`被配置为了客户组或叫做从组。
+
+###网关上HSRP的配置
+
+在网关上配置HSRP，需要完成以下步骤：
 
 
