@@ -13,3 +13,4 @@
 * [第十一天, 静态路由](d11-Static-Routing.md)
 * [第十二天, OSPF基础知识](d12-OSPF-Basics.md)
 * [第十三天, OSPF版本3](d13-OSPFv3.md)
+* [第十四天, DHCP及DNS](d14-DHCP-and-DNS.md)
