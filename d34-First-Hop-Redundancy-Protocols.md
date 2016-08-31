@@ -359,7 +359,9 @@ HSRP接口跟踪功能令到管理员可将HSRP配置为追踪某个接口的状
 > - 某个接口的IP路由状态，The IP routing state of an interface
 > - IP路由的可达性，IP route reachablity
 > - IP路由度量值阈值，The threshold of IP route metrics
-> - IP SLA 的运作，IP SLA operations
+> - IP SLA 的运作，IP SLA operations([Service-Level Agreements](http://www.cisco.com/c/en/us/tech/ip/ip-service-level-agreements-ip-slas/index.html), 服务等级协议)
+
+
 
 
 
