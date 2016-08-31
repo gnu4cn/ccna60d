@@ -6,11 +6,11 @@
 
 ##第14天任务
 
-+ 阅读今天的课文
-+ 复习昨天的课文
-+ 完成今天的实验
-+ 阅读ICND1记诵指南
-+ 花15分钟在[subnetting.org](http://www.subnetting.org)上
+- 阅读今天的课文
+- 复习昨天的课文
+- 完成今天的实验
+- 阅读ICND1记诵指南
+- 花15分钟在[subnetting.org](http://www.subnetting.org)上
 
 主机使用动态主机配置协议（Dynamic Host Configuration Protocol, DHCP），紧接着加电启动后，收集到包括了IP地址、子网掩码及默认网关等初始配置信息。因为所有主机都需要一个IP地址，以在IP网络中进行通信，而DHCP就减轻了手动为每台主机配置一个IP地址的管理性负担。
 
@@ -18,12 +18,12 @@
 
 今天将学到以下内容。
 
-+ DHCP操作, DHCP operations
-+ 配置DHCP, configuring DHCP
-+ DHCP故障排除, troubleshooting DHCP issues
-+ DNS操作, DNS operations
-+ 配置DNS, configuring DNS
-+ DNS故障排除, troubleshooting DNS issues
+- DHCP操作, DHCP operations
+- 配置DHCP, configuring DHCP
+- DHCP故障排除, troubleshooting DHCP issues
+- DNS操作, DNS operations
+- 配置DNS, configuring DNS
+- DNS故障排除, troubleshooting DNS issues
 
 本课对应了以下CCNA大纲要求。
 
@@ -57,12 +57,12 @@ DHCP具体使用UDP端口67和68，来在网络上通信，同时，尽管在需
 
 客户端的DHCP状态如下：
 
-+ 初始化，initialising
-+ 选择，selecting
-+ 请求，requesting
-+ 绑定，bound
-+ 更新，renewing
-+ 重绑定，rebinding
+- 初始化，initialising
+- 选择，selecting
+- 请求，requesting
+- 绑定，bound
+- 更新，renewing
+- 重绑定，rebinding
 
 DHCP服务器可被配置为在一个名为租期的特定时期，赋予某台主机一个IP地址。租期可以是几个小时或几天。对于那些不能在网络上分配给主机的IP地址，可以也应该予以保留。这些保留的IP地址，将是已被路由器接口或服务器所使用的地址。如未能保留这些地址，就会看到网络上的重复IP地址告警，因为DHCP服务器已将配置给路由器或服务器的地址，分配给了主机。
 
@@ -86,9 +86,9 @@ DHCP服务器可被配置为在一个名为租期的特定时期，赋予某台�
 
 DHCP服务器可被配置为以几种不同方式提供IP地址，包括下面这些。
 
-+ 动态分配, Dynamic allocation
-+ 自动分配, Automatic allocation
-+ 静态分配, Static allocation
+- 动态分配, Dynamic allocation
+- 自动分配, Automatic allocation
+- 静态分配, Static allocation
 
 **动态分配**
 
@@ -119,12 +119,12 @@ DHCP服务器的IP地址静态分配，是指定义出一些期望在网络上�
 
 在定义的DHCP范围内部，可以配置诸如下面的一些参数。
 
-+ IP地址范围, IP address range
-+ 子网掩码, subnet mask
-+ 租约持续时间，lease duration
-+ 默认网关，default gateway
-+ DNS服务器，DNS server
-+ WINS服务器，WINS server
+- IP地址范围, IP address range
+- 子网掩码, subnet mask
+- 租约持续时间，lease duration
+- 默认网关，default gateway
+- DNS服务器，DNS server
+- WINS服务器，WINS server
 
 依据所使用的DHCP服务器，也可以使用不同参数，创建出不同的范围，而这通常与不同子网有关。
 
@@ -138,13 +138,13 @@ DHCP租期关乎每次DHCP分配，限定允许用户使用一个分配到的1P�
 
 工作站也能手动释放其IP地址，比如在以下情况下。
 
-+ 设备无限期关机，the device is turned off indefinitely
-+ 设备移至另一子网（比如，从有线网络移到无线网络），the device moves to another subnet(e.g, to a wireless network from a wired network)
+- 设备无限期关机，the device is turned off indefinitely
+- 设备移至另一子网（比如，从有线网络移到无线网络），the device moves to another subnet(e.g, to a wireless network from a wired network)
 
 租借过程有几个相关的计时器，因此可以肯定在所有网络设备上总是会有一个更新过的IP地址。下面是两个重要的DHCP计时器。
 
-+ **续借（T1）计时器**（renewal(T1) timer, 默认是租期的一半）：在工作站取得一个IP地址后，此计时器就开始计时，当到达租期的50%时，DHCP客户端将向来源DHCP服务器重申租约。
-+ **重新绑定（T2）计时器**（rebinding(T2) timer, 默认是租期的87.5%）：这第二个计时器用在DHCP服务器未有在续借计时器超时后，进行回应或确认的情形。该计数器指出，如租期已过7/8, 那么客户端将尝试找到（发出一个DHCP请求）另一能够提供DHCP地址的DHCP服务器。
+- **续借（T1）计时器**（renewal(T1) timer, 默认是租期的一半）：在工作站取得一个IP地址后，此计时器就开始计时，当到达租期的50%时，DHCP客户端将向来源DHCP服务器重申租约。
+- **重新绑定（T2）计时器**（rebinding(T2) timer, 默认是租期的87.5%）：这第二个计时器用在DHCP服务器未有在续借计时器超时后，进行回应或确认的情形。该计数器指出，如租期已过7/8, 那么客户端将尝试找到（发出一个DHCP请求）另一能够提供DHCP地址的DHCP服务器。
 
 有了租借过程及上述有关计时器，就可以肯定总是会及时拥有一个IP地址，且连带不会有任何停止时间，同时自动地有着一种构建于DHCP过程中的冗余机制。
 
@@ -164,14 +164,14 @@ DHCP租期关乎每次DHCP分配，限定允许用户使用一个分配到的1P�
 
 DHCP提供了256选项值，其中仅254个是可用的，因为0是垫底选项，而255是最后选项（0 is the pad option and 255 is the end option）。许多DHCP选项都是通常所了解的经常使用到的参数，包括下面这些。
 
-+ 子网掩码，subnet mask
-+ 域名服务器，domain name server
-+ 域名，domain name
+- 子网掩码，subnet mask
+- 域名服务器，domain name server
+- 域名，domain name
 
 这些年来，已加入一些额外的DHCP选项，尤其是VoIP用途的那些选项，比如下面这些。
 
-+ 选项129: 呼叫服务器IP地址
-+ 选项135: 话机相关应用的HTTP代理服务器
+- 选项129: 呼叫服务器IP地址
+- 选项135: 话机相关应用的HTTP代理服务器
 
 所有这些选项都是直接在DHCP服务器上配置，但不是所有DHCP服务器都提供了设置DHCP选项的能力。如网络管理员要用到这些特性，就应该采用一种企业级别的DHCP服务器。在将小型路由器作为家庭办公环境的DHCP服务器是，就可能不会有这些功能上的益处。
 
@@ -204,10 +204,10 @@ Router(dhcp-config)#lease 30
 
 该DHCP池配置模式（the DHCP Pool Configuration mode）同时也是配置其它DHCP选项的地方。在上面的配置输出中，配置了以下这些参数。
 
-+ 默认网关：`192.168.1.1`(指派到将该路由器作为DHCP服务器所服务网络中的路由器接口地址)
-+ DNS服务器：`8.8.8.8`
-+ 域名：Network+
-+ 租期：30天
+- 默认网关：`192.168.1.1`(指派到将该路由器作为DHCP服务器所服务网络中的路由器接口地址)
+- DNS服务器：`8.8.8.8`
+- 域名：Network+
+- 租期：30天
 
 在需要时，也可以配置一些从`192.168.1.0/24`范围中排除的地址。我们就说要排除路由器接口IP地址（`192.168.1.1`）及`192.168.1.250`到`192.168.1.255`地址范围，从该范围就可手动为网络中的服务器分配地址。这是通过下面的配置完成的。
 
@@ -297,7 +297,7 @@ DHCP分配过程的最后数据包就是由服务器发出的DCHP确认数据包
 
 该数据包发自DHCP服务器并被广播到网络上；其同样包含了在上面的截屏中所看到的一些额外字段。
 
-+ DHCP服务器标识：该DHCP服务器的IP地址（192.168.1.1）
+- DHCP服务器标识：该DHCP服务器的IP地址（192.168.1.1）
 + 路由器上配置的所有选项。
     - 租期：30天（以及派生出的早前讨论的过续租时间和重新绑定时间值）
     - 子网掩码：`255.255.255.0`

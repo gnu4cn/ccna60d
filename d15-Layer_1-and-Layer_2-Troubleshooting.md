@@ -6,11 +6,11 @@
 
 ##第15天任务
 
-+ 阅读今天的课文
-+ 复习昨天的课文
-+ 完成今天的实验
-+ 阅读ICND1记诵指南
-+ 在[subnetting.org](http://www.subnetting.org)花15分钟
+- 阅读今天的课文
+- 复习昨天的课文
+- 完成今天的实验
+- 阅读ICND1记诵指南
+- 在[subnetting.org](http://www.subnetting.org)花15分钟
 
 先前数课中已涵盖ICND1排错的许多要求，尤其是关于ACLs及IP分址方面。许多可能的故障都发生在一二层，一二层故障及其原因，是今天这课的重点。
 
@@ -18,10 +18,10 @@ LAN交换是一种用在局域网中的包交换形式。LAN交换是在数据�
 
 今天将学习以下内容。
 
-+ 物理层排错
-+ VLAN、VTP及中继概述
-+ VLANs排错
-+ 运用`show vlan`命令
+- 物理层排错
+- VLAN、VTP及中继概述
+- VLANs排错
+- 运用`show vlan`命令
 
 本模块对应了下面的CCNA大纲要求。
 
@@ -169,20 +169,20 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 在对线路故障进行排错时（一层排错），因为可以直接地查看及检查网线，所以通常都是非常容易找到问题的。但是，有些时候线路问题可以是看不见的，所以就不得不完成一个系统性的排错过程，以确保问题确实是在一层当中。一个一般性建议就是在进行复杂步骤之前，先适当地对所有网线进行测试（however, sometimes cabling problems can be invisible, so you will have to engage in a systematic troubleshooting process to make sure the problem is really localised at Layer 1. A general recommendation is to properly test all cabling before engaging in a complex infrastructure implementation）。下面是一些常见的线路问题。
 
-+ 有插入网线但没有连接
-+ 有插入网线且有得到连接，但那条连接的吞吐量极低
-+ 所有都工作正常，但突然没有了连接，接着又恢复正常，接着又无连接（也就是抖动，flapping）
-+ 间歇的连通性，看起来工作正常，但信号一次又一次地丢失
+- 有插入网线但没有连接
+- 有插入网线且有得到连接，但那条连接的吞吐量极低
+- 所有都工作正常，但突然没有了连接，接着又恢复正常，接着又无连接（也就是抖动，flapping）
+- 间歇的连通性，看起来工作正常，但信号一次又一次地丢失
 
 一些针对这些问题的建议测试有下面这些。
 
-+ 检查交换机链路灯是否亮起
-+ 检查链路灯有没有间隙地开启和关闭
-+ 检查网线压得对不对
-+ 检查网线未有物理损坏
-+ 检查网线不是过长（这会导致信号恶化）
-+ 检查网线连接头没有问题（可能需要另外的连接头）
-+ 检查电线针脚顺序是正确的（如是铜线的话）
+- 检查交换机链路灯是否亮起
+- 检查链路灯有没有间隙地开启和关闭
+- 检查网线压得对不对
+- 检查网线未有物理损坏
+- 检查网线不是过长（这会导致信号恶化）
+- 检查网线连接头没有问题（可能需要另外的连接头）
+- 检查电线针脚顺序是正确的（如是铜线的话）
 
 如要确认遇到的不是网线故障，最简单的做法就是换一根好的网线，在进行同样的测试。这很容易办到同时可马上解决问题，而无需在排错过程中耗费过多的时间和资源。
 
@@ -203,13 +203,13 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 尽管SFP模块看起来都一样，但依据所使用的连接类型，根据下面这些参数，来选用适当的SFP模块。
 
-+ 介质类型：光纤还是铜缆, optical fibre or copper
-+ 光纤类别：单模还是多模光纤（single-mode or multi-mode fibre）
-+ 带宽, bandwidth
-+ 波长, wavelength
-+ 光纤规格，core size
-+ 模带宽，modal bandwidth
-+ 运行距离，operating distance
+- 介质类型：光纤还是铜缆, optical fibre or copper
+- 光纤类别：单模还是多模光纤（single-mode or multi-mode fibre）
+- 带宽, bandwidth
+- 波长, wavelength
+- 光纤规格，core size
+- 模带宽，modal bandwidth
+- 运行距离，operating distance
 
 > **注意：**在为网络采购收发器时，应总要对设备端口、模块类型及所使用的光纤进行检查。
 
@@ -217,11 +217,11 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 此外，插入光纤将激活那个端口，但又因为各种不同故障而致使连通性受到影响（比如性能恶化或是间歇的连通性），或是没有连通性。此时，有着下面几种可供采行的方法。
 
-+ 依据收发器的类型，检查使用的线缆类型是正确的（多模还是单模）
-+ 检查线缆是完好的，要使用那些专门的光纤测试工具
-+ 检查所使用的收发器是正确的类型
-+ 检查收发器没有硬件故障（换另一个收发器并进行测试）
-+ 依据所使用的收发器和线缆类别，检查设备端口有配置上正确的参数
+- 依据收发器的类型，检查使用的线缆类型是正确的（多模还是单模）
+- 检查线缆是完好的，要使用那些专门的光纤测试工具
+- 检查所使用的收发器是正确的类型
+- 检查收发器没有硬件故障（换另一个收发器并进行测试）
+- 依据所使用的收发器和线缆类别，检查设备端口有配置上正确的参数
 
 为令到连接停机时间最低，就应检测那些插入了SFP模块的端口，以观察出现在统计信息中的可能错误。而这可通过标准监测工具完成，最常用的就是SNMP。
 
@@ -233,13 +233,13 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 `show interfaces`命令是一个提供过剩信息的强大工具，提供包括以下这些信息。
 
-+ 交换机端口的管理状态
-+ 端口允许状态
-+ 介质类型（对于特定交换机及端口，for select switches and ports）
-+ 端口输入及输出数据包数目
-+ 端口缓存失效数及端口错误数
-+ 端口输入及输出错误
-+ 端口输入及输出队列丢失情况
+- 交换机端口的管理状态
+- 端口允许状态
+- 介质类型（对于特定交换机及端口，for select switches and ports）
+- 端口输入及输出数据包数目
+- 端口缓存失效数及端口错误数
+- 端口输入及输出错误
+- 端口输入及输出队列丢失情况
 
 下面是在一个GigabitEthernet交换端口上的`show interfaces`命令的输出。
 
@@ -286,13 +286,13 @@ Output queue: 0/40 (size/max)
 
 `show interfaces`的输出中的一些其它接口相关的可分析的，同时在一二层排错中非常有用的术语，有下面这些。
 
-+ **帧数目**（frame number）：该字段给出了接收到的带有不正确的CRC及大小不是整数个字节的数据包数目。这通常是由不正常功能的以太网设备（硬件错误）而导致的冲突造成的。
-+ **循环冗余校验**（CRC）：该字段表示由发送设备生成的CRC与接收设备计算出的校验和不一致。这通常表示LAN上的传输错误、冲突或是系统传输不良数据。
-+ **畸形帧**（runts）: 此字段表示由于比最小数据包大小还小而丢弃的包数量。在以太网段上，比64字节还小的包都被看作畸形帧。
-+ **巨大帧**（giants）: 此字段表示由于比最大数据包大小还大而丢弃的包数量。在以太网段上，比起1518字节还大的数据包被看作巨大帧。
-+ **晚发冲突**(late collisions): 晚发冲突通常在网线过长或网络中有过多中继器时。冲突数目反应了因为以太网冲突而导致的重传报文数目。而这通常是由于对LAN的过度扩展造成的。
-+ **输入错误**（input errors）: 该字段提供所有畸形帧、巨大帧、CRC错误帧、超出帧（overruns）及忽略数据包的总数。
-+ **输出错误**（output errors）: 该字段提供了阻止数据报最后从接口发出的错误总数（this field provides the total sum of all errors that prevented the final transmission of datagrams out of the interface）。
+- **帧数目**（frame number）：该字段给出了接收到的带有不正确的CRC及大小不是整数个字节的数据包数目。这通常是由不正常功能的以太网设备（硬件错误）而导致的冲突造成的。
+- **循环冗余校验**（CRC）：该字段表示由发送设备生成的CRC与接收设备计算出的校验和不一致。这通常表示LAN上的传输错误、冲突或是系统传输不良数据。
+- **畸形帧**（runts）: 此字段表示由于比最小数据包大小还小而丢弃的包数量。在以太网段上，比64字节还小的包都被看作畸形帧。
+- **巨大帧**（giants）: 此字段表示由于比最大数据包大小还大而丢弃的包数量。在以太网段上，比起1518字节还大的数据包被看作巨大帧。
+- **晚发冲突**(late collisions): 晚发冲突通常在网线过长或网络中有过多中继器时。冲突数目反应了因为以太网冲突而导致的重传报文数目。而这通常是由于对LAN的过度扩展造成的。
+- **输入错误**（input errors）: 该字段提供所有畸形帧、巨大帧、CRC错误帧、超出帧（overruns）及忽略数据包的总数。
+- **输出错误**（output errors）: 该字段提供了阻止数据报最后从接口发出的错误总数（this field provides the total sum of all errors that prevented the final transmission of datagrams out of the interface）。
 
 除了`show interfaces`命令，命令`show interfaces [name] counters errors`也可以用来查看接口错误及促进一层的排错。下面就是命令`show interface [name] counters errors`打印出的输出。
 
@@ -384,8 +384,8 @@ Transmit GigabitEthernet3/0/1   Receive
 
 各台网络设备都可以不同方式进行配置。多数类型的错误配置都产生网络中的问题，包括下面这些。
 
-+ 极低的流量吞吐，poor throughput
-+ 没有连通性，lack of connectivity
+- 极低的流量吞吐，poor throughput
+- 没有连通性，lack of connectivity
 
 某台设备可以连接到网络，有着网络信号，同时可以与Internet及其它设备通信，却有着以持续的、易于重现方式的低通信性能。这种情况可能在正常运行中，包括与网络其它部分进行文件传输或其它类型的通信中出现。
 
@@ -393,9 +393,9 @@ Transmit GigabitEthernet3/0/1   Receive
 
 配置端口时有几项不同的设置，包括下面这些。
 
-+ 速率，speed
-+ 双工，duplex
-+ 封装/VLAN, encapsulation/VLAN
+- 速率，speed
+- 双工，duplex
+- 封装/VLAN, encapsulation/VLAN
 
 大多数的这些参数都必须在链路两侧保持一致，要么通过手动配置，或是通过开启端口自动配置。如能探测到，自动配置方式将在链路上发送协商数据包，来探测另一端的各种能力，并就两端设备的最佳参数达成一致，以建立最优传输。问题在于有的时候自动配置并不会按照需求选择出最佳参数，所以就要对此进行检查并针对各种特定情形对端口进行手动配置。
 
@@ -411,13 +411,13 @@ Transmit GigabitEthernet3/0/1   Receive
 
 先前的小节中，我们谈到可用用于物理层故障排除的三个命令行命令的使用。本节将给出一些用于对VLAN内倍连通性故障进行鉴别及排错的常见方法（the use of three CLI commands that can be used for troubleshooting Physical Layer issues. this section describes some common approaches to identifying and troubleshooting intra-VLAN connectivitiy issues）。VLAN内部连通性故障的一些相对来讲更为常见的原因，有下面这些。
 
-+ 双工不匹配，duplex mismatches
-+ 坏的网卡或网线，bad NIC or cable
-+ 壅塞，congestion
-+ 硬件故障，hardware issues
-+ 软件故障, software issues
-+ 资源过度预订, resource oversubscription, [Cisco MDS交换机端口组速率模式介绍](pdfs/EMC_Community_Network-ECN_Cisco_MDS交换机端口组速率模式介绍.pdf)
-+ 配置问题，configuration issues
+- 双工不匹配，duplex mismatches
+- 坏的网卡或网线，bad NIC or cable
+- 壅塞，congestion
+- 硬件故障，hardware issues
+- 软件故障, software issues
+- 资源过度预订, resource oversubscription, [Cisco MDS交换机端口组速率模式介绍](pdfs/EMC_Community_Network-ECN_Cisco_MDS交换机端口组速率模式介绍.pdf)
+- 配置问题，configuration issues
 
 **双工不匹配**可导致甚低网络性能及连通性。尽管已有对自动协商的改进，同时采行自动协商被认为是有效的做法，双工不匹配仍有可能发生。比如，在网卡设置为100/Full，而交换机端口是自动协商时，网卡将保持其100/Full设置，但交换机端口将被设置为100/Half。而与此相反，也会出现双工不匹配的问题。也就是网卡设置自动协商，交换机端口设置为100/Full。此时，网卡将自动协商为100/Half，而交换机端口保持其静态的100/Full配置，导致双工不匹配。
 
@@ -447,12 +447,12 @@ Transmit GigabitEthernet3/0/1   Receive
 
 某台交换机在加入到VTP域时无法动态接收任何VLAN信息的原因有好几个。下面是一些常见的原因。
 
-+ 二层中继配置错误，Layer 2 trunking misconfiguration
-+ 不正确的VTP配置，incorrect VTP configuration
-+ 配置修订号，configuration revision number
-+ 物理层故障, Physical Layer issues
-+ 软件或硬件故障或缺陷，software or hardware issues or bugs
-+ 交换机性能问题, switch performance issues
+- 二层中继配置错误，Layer 2 trunking misconfiguration
+- 不正确的VTP配置，incorrect VTP configuration
+- 配置修订号，configuration revision number
+- 物理层故障, Physical Layer issues
+- 软件或硬件故障或缺陷，software or hardware issues or bugs
+- 交换机性能问题, switch performance issues
 
 为令到交换机采用VTP交换VLAN信息，交换机间必须建立中继链路。思科IOS交换机支持ISL和802.1Q两种中继机制。尽管一些交换机默认采用ISL这种思科专有中继机制，不过当前思科IOS Catalyst交换机默认都采用802.1Q了。在提供交换机间中继时，手动指定中继封装协议被认为是好的做法。这是通过在将链路配置为中继端口时，使用接口配置命令`switchport trunk encapsulation [isl|dot1q]`完成的。
 
@@ -569,14 +569,13 @@ MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 
 某个VLAN中端到端连通性丢失有好几个原因。而最常见的原因包括下面这些。
 
-+ 物理层故障，Physical Layer issues
-+ VTP修剪，VTP pruning
-+ VLAN中继链路过滤，VLAN trunk filtering
-+ 新的交换机，new switches
-+ 交换机性能问题，switch performance issues
-+ 网络壅塞, network congestion
-
-+ 软件或硬件问题或缺陷，software or hardware issues or bugs
+- 物理层故障，Physical Layer issues
+- VTP修剪，VTP pruning
+- VLAN中继链路过滤，VLAN trunk filtering
+- 新的交换机，new switches
+- 交换机性能问题，switch performance issues
+- 网络壅塞, network congestion
+- 软件或硬件问题或缺陷，software or hardware issues or bugs
 
 
 > **注意：**为简明扼要地讲解，这里只会对中继、VTP修剪、以及往域内新加入交换机三个方面进行说明。软件或硬件问题或缺陷及交换机性能问题在本书中已有说明。而物理层排错在本模块早前已经进行了讲解。
@@ -620,8 +619,8 @@ Fa0/2   1,40,50,60,70,80,90,254
 
 解决中继故障的另一重要步骤，就是查明中继链路两端所配置的正确封装类型。大多数思科交换机都允许ISL及802.1Q封装类型。而尽管大多数现代网络都是设计使用dot1Q, 仍然可能存在一些网络优先使用ISL的情形。封装类型是通过使用接口配置命令`switchport trunk encapsulation <type>`配置的。而可用于查看封装类型的命令如下。
 
-+ `show interfaces trunk`
-+ `show interfaces <number> switchport`
+- `show interfaces trunk`
+- `show interfaces <number> switchport`
 
 在某个已被静态配置为802.1Q中继链路端口上的`show interfaces [name] switchport`命令的输出如下所示。
 
@@ -755,8 +754,8 @@ VLAN与属于该VLAN的接入端口一样，再度包含在了输出中。中继
 
 带上或不带参数的`show vlan`命令，在排错过程的以下方面，都是最为有用的命令。
 
-+ 确认设备上所配置的VLANs
-+ 判定端口成员关系
+- 确认设备上所配置的VLANs
+- 判定端口成员关系
 
 另一个有用的VLAN排错命令，就是`show vtp counters`。该命令打印有关VTP数据包统计的信息。以下是在某台配置为VTP服务器的交换机上，`show vtp counters`的输出。
 
@@ -842,20 +841,20 @@ Fa0/12                0                  1                        0
 
 在真实设备上对本模块中提到的一层排错相关命令进行测试。
 
-    + 如同模块中所讲解的那样，检查不同场景下交换机系统及端口LED状态
-    + 执行一下`show interface`命令，并对本模块中所说明的有关信息进行查证
-    + 对`show controllers`及`show interface counters errors`进行同样的执行
+    - 如同模块中所讲解的那样，检查不同场景下交换机系统及端口LED状态
+    - 执行一下`show interface`命令，并对本模块中所说明的有关信息进行查证
+    - 对`show controllers`及`show interface counters errors`进行同样的执行
 
 ###二层排错使用
 
 在真实设备上对本模块中提到的二层排错相关命令进行测试。
 
-    + 在交换机之间配置VTP，并将一些VLANs从VTP服务器通告到VTP客户端（查看第三天的VTP实验）
-    + 在两台交换机之间配置一条中继链路，并生成一些流量（ping操作）
-    + 测试`show vlan`命令
-    + 测试`show interface counters trunk`命令
-    + 测试`show interface switchport`命令
-    + 测试`show interface trunk`命令
-    + 测试`show VTP status`命令
-    + 测试`show VTP counter`命令
+    - 在交换机之间配置VTP，并将一些VLANs从VTP服务器通告到VTP客户端（查看第三天的VTP实验）
+    - 在两台交换机之间配置一条中继链路，并生成一些流量（ping操作）
+    - 测试`show vlan`命令
+    - 测试`show interface counters trunk`命令
+    - 测试`show interface switchport`命令
+    - 测试`show interface trunk`命令
+    - 测试`show VTP status`命令
+    - 测试`show VTP counter`命令
 
