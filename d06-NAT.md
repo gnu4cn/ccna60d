@@ -6,19 +6,19 @@
 
 ##第六天的任务
 
-+ 阅读今天的课文
-+ 回顾昨天的课文内容
-+ 完成今天的实验
-+ 阅读 ICND1 记诵指南
-+ 在网站[subnetting.org](http://www.subnetting.org) 上花15分钟
+- 阅读今天的课文
+- 回顾昨天的课文内容
+- 完成今天的实验
+- 阅读 ICND1 记诵指南
+- 在网站[subnetting.org](http://www.subnetting.org) 上花15分钟
 
 网络地址转换是另一个生僻内容(another strange subject)，思科把网络地址转换拆分到ICND1和ICND2两个大纲中了。
 
 今天你会学到下面这些知识。
 
-+ NAT基础
-+ 对NAT的配置和验证
-+ NAT故障排除
+- NAT基础
+- 对NAT的配置和验证
+- NAT故障排除
 
 今天的课程涵盖了ICND1大纲的以下要求。
 
@@ -30,7 +30,7 @@
 	- NAT过载，Overloading
 	- 源地址NAT
 	- 单向NAT
-+ 按需求配置并验证NAT
+- 按需求配置并验证NAT
 
 ##NAT基础，NAT Basics
 
@@ -40,12 +40,11 @@
 
 *图6.1 -- 内部凭据被替换成了外部凭据*
 
-<table>
-<tr><th>内部凭据</th><th>外部凭据</th></tr>
-<tr><td>蓝色1号</td><td>绿色1号</td></tr>
-<tr><td>蓝色2号</td><td>绿色2号</td></tr>
-<tr><td>蓝色3号</td><td>绿色3号</td></tr>
-</table>
+| 内部凭据 | 外部凭据 |
+| -- | -- |
+| 蓝色1号 | 绿色1号 |
+| 蓝色2号 | 绿色2号 |
+| 蓝色3号 | 绿色3号 |
 
 在各台蓝色设备完成与外部的连接后，对应的绿色凭据会释放给其它蓝色设备使用。这么做的好处在于**外部设备无法看到内部凭据编号**，且**有助于留下互联网上十分有限的可用凭据**。
 
@@ -55,11 +54,10 @@
 
 *图6.2 -- 内部地址被替换成外部地址*
 
-<table>
-<tr><th>内部地址</th><th>外部地址</th></tr>
-<tr><td>192.168.1.1</td><td>200.100.1.5</td></tr>
-<tr><td>192.168.1.3</td><td>200.100.1.7</td></tr>
-</table>
+| 内部地址 | 外部地址 |
+| -- | -- |
+| 192.168.1.1 | 200.100.1.5 |
+| 192.168.1.3 | 200.100.1.7 |
 
 根据特定的需求，**在路由器上配置NAT有三种方式**。CCNA考试要求你掌握所有三种方式。
 
@@ -71,12 +69,12 @@ NAT令到私有网络上的主机可以访问互联网上的资源，或是可�
 
 NAT为进入和发出的流量去改装数据包的头部，并对每个会话进行跟踪。理解NAT的关键，同时也是NAT故障排除的关键，就是对NAT的有关术语有扎实理解。你应熟悉下面这些NAT名词。
 
-+ NAT内部接口
-+ 内部本地地址
-+ 内部全球地址
-+ NAT外部接口
-+ 外部本地地址
-+ 外部全球地址
+- NAT内部接口
+- 内部本地地址
+- 内部全球地址
+- NAT外部接口
+- 外部本地地址
+- 外部全球地址
 
 上面NAT术语中的**内部接口，是指由该组织所控制的管理域的边界接口（the border interface of the administrative domain controlled by the organization）。而并不非得要是内部网络上的主机所使用的默认网关**。
 
@@ -100,15 +98,15 @@ NAT内部和外部的分址，是一个经典的考试问题，所以还需在�
 
 在思科IOS上对网络地址转换的配置和验证是一个简单的事情。在配置NAT时，要执行下面这些操作。
 
-+ 使用接口配置命令`ip nat inside`将一个或多个的接口指定为内部接口。
+- 使用接口配置命令`ip nat inside`将一个或多个的接口指定为内部接口。
 
-+ 使用接口配置命令`ip nat outside`将某个接口指定为外部接口。
+- 使用接口配置命令`ip nat outside`将某个接口指定为外部接口。
 
-+ 配置一条访问控制清单（access control list, ACL）, 其将匹配所有需要转换的流量。此访问控制清单可以是标准、扩展的命名ACL或编号ACL（a standard or an extended named or numbered ACL）。
+- 配置一条访问控制清单（access control list, ACL）, 其将匹配所有需要转换的流量。此访问控制清单可以是标准、扩展的命名ACL或编号ACL（a standard or an extended named or numbered ACL）。
 
-+ 作为可选项，使用全局配置命令`ip nat pool <name> <start-ip> <end-ip> [netmaske <mask> | prefix-length <length>]`, 配置一个全球地址池(a pool of global addresses)。这会定义出一个内部本地地址将会转换成的内部全球地址池。
+- 作为可选项，使用全局配置命令`ip nat pool <name> <start-ip> <end-ip> [netmaske <mask> | prefix-length <length>]`, 配置一个全球地址池(a pool of global addresses)。这会定义出一个内部本地地址将会转换成的内部全球地址池。
 
-+ 使用全局配置命令`ip nat inside source list <ACL> [interface | pool] <name> [overload]`，全局性地配置上NAT。
+- 使用全局配置命令`ip nat inside source list <ACL> [interface | pool] <name> [overload]`，全局性地配置上NAT。
 
 > Farai 指出 -- “请看看命令`ip nat inside source static`, 可以在[www.howtonetwork.net/public/698.cfm](http://www.howtonetwork.net/public/698.cfm)免费查阅。”
 
@@ -144,9 +142,9 @@ tcp		150.1.1.5:159	10.5.5.3:159	200.1.1.1:23	200.1.1.1:23
 
 在路由器上配置NAT时，通常有以下三个选择。
 
-+ 对一个内部地址，用一个外部地址进行替换（静态NAT，static NAT）
-+ 对多个内部地址，用两个以上的外部地址进行替换（动态NAT，dynamic NAT）
-+ 将多个内部地址，用多个外部端口进行转换（这就是**端口地址转换**，或者叫**单向NAT**, Port Address Translation or one-way NAT）
+- 对一个内部地址，用一个外部地址进行替换（静态NAT，static NAT）
+- 对多个内部地址，用两个以上的外部地址进行替换（动态NAT，dynamic NAT）
+- 将多个内部地址，用多个外部端口进行转换（这就是**端口地址转换**，或者叫**单向NAT**, Port Address Translation or one-way NAT）
 
 ###静态NAT
 
@@ -160,11 +158,10 @@ tcp		150.1.1.5:159	10.5.5.3:159	200.1.1.1:23	200.1.1.1:23
 
 **图6.4 -- 在用的静态NAT**
 
-<table>
-<tr><th>内部地址</th><th>外部NAT地址</th></tr>
-<tr><td>192.168.1.1</td><td>200.1.1.1</td></tr>
-<tr><td>192.168.2.1</td><td>200.1.1.2</td></tr>
-</table>
+| 内部地址 | 外部NAT地址 |
+| -- | -- |
+| 192.168.1.1 | 200.1.1.1 |
+| 192.168.2.1 | 200.1.1.2 |
 
 对上面的网络，配置应像下面这样。
 
@@ -197,11 +194,10 @@ Router(config)#ip nat inside source static 192.168.2.1 200.1.1.2
 
 当路由器上的内部主机发出到外部的连接时，如执行命令`show ip nat translations`, 就会看到下面的包含类似信息的图表。
 
-<table>
-<tr><th>内侧地址</th><th>外侧NAT地址</th></tr>
-<tr><td>192.168.1.3</td><td>200.1.1.11</td></tr>
-<tr><td>192.168.1.2</td><td>200.1.1.14</td></tr>
-</table>
+| 内侧地址 | 外侧NAT地址 |
+| -- | -- |
+| 192.168.1.3 | 200.1.1.11 |
+| 192.168.1.2 | 200.1.1.14 |
 
 在上面的图6.5中，让内部地址使用的是一个从200.1.1.1到200.1.1.16的地址池。下面是要实现该目的的配置文件。这里就不再给出路由器接口地址了。
 
@@ -231,15 +227,14 @@ IP地址处于紧缺之中，在有着成千上万的地址需要路由时，将
 
 此时，命令`show ip nat translations`给出的表格，将会显示下面这样的IP地址及端口号。
 
-<table>
-<tr><th>内侧地址</th><th>外侧NAT地址（带有端口号）</th></tr>
-<tr><td>192.168.1.1</td><td>200.1.1.1:30922</td></tr>
-<tr><td>192.168.2.1</td><td>200.1.1.2:30975</td></tr>
-</table>
+| 内侧地址 | 外侧NAT地址（带有端口号） |
+| -- | -- |
+| 192.168.1.1 | 200.1.1.1:30922 |
+| 192.168.2.1 | 200.1.1.2:30975 |
 
 而要配置PAT，需要进行如同动态NAT的那些同样配置，还要在地址池后面加上关键字“overload”。
 
-<pre>
+```
 Router(config)#interface f0/0
 Router(config-if)#ip nat inside
 Router(config)#interface s0/1
@@ -247,7 +242,7 @@ Router(config-if)#ip nat outside
 Router(config)#ip nat pool poolname 200.1.1.1 200.1.1.1 netmask 255.255.255.0
 Router(config)#ip nat inside source list 1 pool poolname <b>overload</b>
 Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
-</pre>
+```
 
 这该很容易记住吧！
 
@@ -365,7 +360,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此就可以看到转换的进行。此时再执行另一个扩展ping操作（自L0接口的），并查看NAT表。因为IOS的不同，你的输出可能与我的不一样。
 
-<pre>
+```
 RouterA#debug ip nat
 IP NAT debugging is on
 RouterA#
@@ -411,7 +406,7 @@ icmp 	172.16.1.1:8 	10.1.1.1:8 		192.168.1.2:8 	192.168.1.2:8
 icmp 	172.16.1.1:9 	10.1.1.1:9 		192.168.1.2:9 	192.168.1.2:9
 ---		172.16.1.1		10.1.1.1 			--- 			---
 RouterA#
-</pre>
+```
 
 7. 记住，路由器随后很快就会清除该NAT转换，为其它IP地址使用这个/这些NAT地址而对其进行清理。
 
@@ -442,7 +437,7 @@ NAT: expiring 172.16.1.1 (10.1.1.1) icmp 7 (7)
 
 2. 需要给RouterA添加两个IP地址来模拟LAN上的主机。通过两个环回接口，可以达到这个目的。这两个IP地址将位处不同子网，但都一10地址开头。
 
-<pre>
+```
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#interface Loopback0
@@ -450,7 +445,7 @@ RouterA(config-if)#ip add 10.1.1.1 255.255.255.0
 RouterA(config-if)#int l1 <b>← short for Loopback1</b>
 RouterA(config-if)#ip address 10.2.2.2 255.255.255.0
 RouterA(config-if)#
-</pre>
+```
 
 3. 为了进行测试，需要告诉RouterB将到任何网络的任何流量，都发往RouterA。用一条静态路由完成这点。
 
@@ -511,7 +506,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此才可以看到转换的发生。接着执行扩展ping（自L0和L1发出的），并查看NAT表。因为IOS平台的不同，你的输出可能和下面的不一样。将会看到NAT地址池中的两个地址正在用到。
 
-<pre>
+```
 RouterA#debug ip nat
 RouterA#ping
 Protocol [ip]:
@@ -592,7 +587,7 @@ icmp	172.16.1.2:23 	10.2.2.2:23 	192.168.1.2:23 	192.168.1.2:23
 icmp 	172.16.1.2:24 	10.2.2.2:24 	192.168.1.2:24 	192.168.1.2:24
 icmp 	172.16.1.2:25 	10.2.2.2:25 	192.168.1.2:25 	192.168.1.2:25
 RouterA#
-</pre>
+```
 
 ###NAT Overload实验
 
@@ -604,8 +599,8 @@ RouterA#
 
 我已经为方便而使用思科Packet Tracer，完成了上面的实验，所以你通常会碰到与我的输出所不一致的输出。下面是一个PAT实验的示例输出。从中可以看出，路由器给每个转换都加上了一个端口号。不幸的是，在NAT地址池实验中，会看到相似的编号，这是一个PAT的混淆之处。
 
-<pre>
+```
 RouterA#show ip nat tran
 Inside global	Inside local		Outside local		Outside global
 10.0.0.1:<b>8759</b> 	172.16.1.129:<b>8759</b> 	192.168.1.2:<b>8759</b> 	192.168.1.2:<b>8759</b>
-</pre>
+```
