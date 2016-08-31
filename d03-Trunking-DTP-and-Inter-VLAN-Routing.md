@@ -66,7 +66,7 @@ Switch (config-if)#switchport trunk encapsulation dot1q
 
 此配置可通过命令 `show interfaces [name] switchport` 进行验证，如下列输出所示。
 
-```
+<pre>
 Switch#show interfaces FastEthernet1/1 switchport
 Name: Fa0/2
 Switchport: Enabled
@@ -79,7 +79,7 @@ Access Mode VLAN: 1 (default)
 Trunking Native Mode VLAN: 1 (default)
 ...
 [Truncated Output]
-```
+</pre>
 
 中继端口配置的第三步，就是部署配置，以确保该端口已被指定为中继端口。可以通过两种方式完成。
 
@@ -119,7 +119,7 @@ Trunking Native Mode VLAN: 1 (default)
 
 尽管中继链路的静态配置强制交换机建立一条中继，动态 ISL 和动态中继协议（DTP）数据包仍能从该接口发出。这样做了后，一条静态配置的中继链路就可以与相邻的使用了 DTP 的交换机，建立起中继关系，接着的小节将会讲到。经由 `show interfaces [name] switchport` 命令的输出，便可验证这点。如下面的输出所示。
 
-```
+<pre>
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -131,8 +131,7 @@ Access Mode VLAN: 1 (default)
 Trunking Native Mode VLAN: 1 (default)
 ...
 [Truncated Output]
-```
-
+</pre>
 
 在上面的输出中，粗体文字表明尽管中继链路是静态配置的，端口仍然在发出 DTP 和 DISL 数据包。在一些场合，此特性被看成是不受欢迎的。因此，通过执行接口配置命令 `switchport nonegotiate`，在静态配置作为中继链路的端口上关闭 DISL 及 DTP 数据包发送，被认为是一种良好实践，具体操作如以下的输出。
 
@@ -148,7 +147,7 @@ VTP-Server(config)#
 
 再一次，`show interfaces [name] switchport` 命令可被用作验证配置，像下面这样。
 
-```
+<pre>
 VTP-Server#<b>show interfaces FastEthernet0/1 switchport</b>
 Name: Fa0/1
 Switchport: Enabled
@@ -161,7 +160,7 @@ Access Mode VLAN: 1 (default)
 Trunking Native Mode VLAN: 1 (default)
 ...
 [Truncated Output]
-```
+</pre>
 
 ### 动态中继协议，Dynamic Trunking Protocol, DTP
 
@@ -233,7 +232,7 @@ DTP information for FastEthernet0/1:
 
 默认情况下，802.1Q 中继将 VLAN 1 作为原生 VLAN。执行命令 `show interfaces [name] switchport` 或命令 `show interfaces trunk`，就可查看到默认原生 VLAN 是哪一个，如下面的输出所示。
 
-```
+<pre>
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: EnabledAdministrative Mode: trunk
@@ -246,7 +245,7 @@ Access Mode VLAN: 1 (default)
 Voice VLAN: none
 ...
 [Truncated Output]
-```
+</pre>
 
 交换机使用 VLAN 1 来承载一些特定的协议流量，比如思科发现协议（Cisco Discovery Protocol, CDP）、VLAN 中继协议（VLAN Trunking Protocol, VTP）、端口聚合协议（Port Aggregation Protocol, PAgP）, 以及动态中继协议（Dynamic Trunking Protocol, DTP） 等的协议信息。CDP 和 PAgP 将在今天的课程后面部分详细讨论。尽管默认原生 VLAN 总是 VLAN 1, 它是可以手动修改为任何不在**保留 VLANs** 中的任何有效 VLAN 编号的。
 
@@ -363,7 +362,7 @@ VTP-Server-1(config)#ip default-gateway 10.30.30.1
 图 3.4 中的路由器之配置如下面的输出所示。
 
 
-```
+<pre>
 R1(config)#interface FastEthernet0/0
 R1(config-if)#no ip address
 <b>R1(config-if)#no shut </b> <- 这一步相当重要，否则子接口也会处于 down down 状态
@@ -383,7 +382,7 @@ R1(config-subitf)#description ‘Subinterface For Management’
 R1(config-subif)#encapsulation dot1Q 30 native
 R1(config-subif)#ip add 10.30.30.1 255.255.255.0
 R1(config-subif)#exit
-```
+</pre>
 
 此方案的主要优在于，路由器上仅需一个物理接口。主要的劣势在于，该物理端口的带宽，是为所配置的多个子接口所公用的。因此，如果存在很多 VLAN 间流量时，路由器就很快会成为网络的性能瓶颈。
 
@@ -497,7 +496,7 @@ Switch#
 
 要让交换机进行 VLAN 信息交换，这些交换机就务必要配置在同一个 VTP 域中，如下面的输出这样。
 
-```
+<pre>
 Switch(config)#vtp mode server  ←this is on by default
 Switch(config)#vtp domain in60days
 Changing VTP domain name from NULL to in60days
@@ -508,7 +507,7 @@ Maximum VLANs Supported Locally :   255
 Number of Existing VLANs :          5
 VTP Operating Mode :                Server
 VTP Domain Name :                   <b>in60days</b>
-```
+</pre>
 
 如要安全的传输 VTP 更新数据，可以为其加上一个口令，但要求 VTP 域中的每台交换机的口令都要匹配。
 
@@ -578,7 +577,7 @@ VLANs 是一种相当直观的交换机特性，它很少需要进行故障排�
     - 接口务必要是 up/up
     - 中继链路两端的封装方式要匹配
 
-```
+<pre>
 SwitchA#show interface fa1/1 switchport
 Name: Fa1/1
 <b>Switchport: Enabled</b>
@@ -588,7 +587,7 @@ Administrative Trunking Encapsulation: dot1q
 Operational Trunking Encapsulation: dot1q
 Negotiation of Trunking: Disabled
 Access Mode VLAN: 0 ((Inactive))
-```
+</pre>
 
 + VLAN 信息未有传输
     - 该 VLAN 在中继链路上阻塞了吗
@@ -628,7 +627,7 @@ VLAN 间路由故障可以多种形式出现，尤其是考虑在该过程中涉
 
 这里有个输出示例。
 
-```
+<pre>
 Cat-3550-1#show interfaces trunk
 Port        Mode        Encapsulation       Status      Native vlan
 Fa0/1       on          <b>802.1q</b>              trunking    1
@@ -636,7 +635,7 @@ Fa0/2       on          <b>802.1q</b>              trunking    1
 Port        Vlans allowed on trunk
 Fa0/1       1,10,20,30,40,50
 Fa0/2       1-99,201-4094
-```
+</pre>
 
 命令 `show interface trunk` 提供的另一重要细节是中继状态。从中继状态可以看出中继是否形成，同时在链路两端都要检查中继状态。如果接口未处于“中继”模式，那么接口的运行模式（on, auto, 等）是最重要的检查项，以弄清接口能否允许与链路另一端形成中继态（a trunking state）。
 
@@ -699,8 +698,7 @@ Fa0/2       1-99,201-4094
 1. 你需要在每台 PC 上添加 IP 地址。可自由选择，只要求它们在同一子网上。
 2. 在交换机 A 上设置主机名（hostname）, 创建 VLAN 2, 并将连接 PC 的那个接口放到 VLAN 2 中。如你愿意，你也可以赋予 VLAN 2 一个名称。
 
-
-```
+<pre>
 Switch>en
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -726,11 +724,11 @@ VLAN    Name                Status      Ports
 1004    fddinet-default     active
 1005    trnet-default       active
 SwitchA#
-```
+</pre>
 
 3. 将中继链路设置为中继模式。
 
-```
+<pre>
 SwitchA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 SwitchA(config)#int FastEthernet0/2
@@ -740,11 +738,11 @@ Port    Mode        Encapsulation   Status      Native vlan
 Fa0/2   on          802.1q          trunking    1
 Port    Vlans allowed on trunk
 <b>Fa0/2   1-1005</b>
-```
+</pre>
 
 4. 如你愿意，设置在该中继链路上仅允许 VLAN 2。
 
-```
+<pre>
 SwitchA(config)#int FastEthernet0/2
 SwitchA(config-if)#switchport trunk allowed vlan 2
 SwitchA(config-if)#^Z
@@ -755,7 +753,7 @@ Port    Mode    Encapsulation   Status      Native vlan
 Fa0/2   on      802.1q          trunking    1
 Port    Vlans allowed on trunk
 <b>Fa0/2   2</b>
-```
+</pre>
 
 5. 此时，如你自其中一台 PC ping 往另一台，将会失败。这是因为一边是在 VLAN 1 中，另一边在 VLAN 2 中。
 
