@@ -81,17 +81,17 @@
 
 IEEE 将自动协商作为解决此问题的方案，该技术让设备在传输流量前，就双工和速率上达成一致。速率设置为低速设备的速率。在下面的输出中，速率可被手动设定为 10Mbps 或 100Mbps， 或者设定为 auto-negotiation。
 
-<pre>
+```
 Switch(config)#int f1/0/1
 Switch(config-if)#speed ?
 10 Force 10 Mbps operation
 100 Force 100 Mbps operation
 auto Enable AUTO speed configuration
-</pre>
+```
 
 该设置可用命令 `show interface x` 进行查看。
 
-<pre>
+```
 Switch#show int f1/0/1
 FastEthernet1/0/1 is down, line protocol is down (notconnect)
     Hardware is FastEthernet, address is 001e.13da.c003 (bia 001e.13da.c003)
@@ -100,7 +100,7 @@ FastEthernet1/0/1 is down, line protocol is down (notconnect)
     Encapsulation ARPA, Loopback not set
     Keepalive set (10 sec)
     Auto-duplex, Auto-speed, media type is 10/100BaseTX
-</pre>
+```
 
 请务必牢记，尽管有如此设置，**auto-negotiation 仍可能会引起问题**。这就是为何许多生产性网络仍然坚持将端口直接配置成 100/full 或者千兆以太网的 1000/full。思科这样解释的：
 
@@ -182,18 +182,18 @@ Fragment-free 交换是直通交换的一个修改变种。检查帧的前 64 �
 
 **在首次启动时，交换机并未在其 CAM 表（思科考试又此表称为 MAC 地址表）中存储任何地址**。一有帧开始传输，该表就建立起来。如果在指定时间过后没有帧从某个端口传送，这条记录就会过期。下面的输出表明，至今仍没有帧在交换机上通过。
 
-<pre>
+```
 Switch#show mac-address-table
         Mac Address Table
 -------------------------------------------
 Vlan    Mac Address     Type        Ports
 ----    -----------     --------    -----
 Switch#
-</pre>
+```
 
 交换机中没有记录，不过当你从一台路由器 ping 另一台时（两台都连接上交换机），表格条目建立起来。
 
-<pre>
+```
 Router#ping 192.168.1.2
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.1.2, timeout is 2 seconds:
@@ -206,7 +206,7 @@ Vlan    Mac Address     Type        Ports
 ----    -----------     --------    -----
 1       0001.c74a.0a01  DYNAMIC     Fa0/1
 1       0060.5c55.da01  DYNAMIC     Fa0/2
-</pre>
+```
 
 该条目的意思是，任何目的地址为连接到交换机上 FastEthernet 端口 0/1 或 0/2 的 MAC 地址的帧，都会直接发送到对应的端口。对于任何其它帧，交换机都将执行一次广播查询，看看目的设备是否插入了交换机。从上面的五次 ping 中的第一个句点可以看出。在等待交换机广播查询及收到目的路由器回应时，第一次 ping 发生了超时（80% 的成功率）。
 
@@ -307,7 +307,7 @@ Configuration register is 0xF
 
 我们还没有涉及 VLANs 的知识，但现在，你可以把 VLAN 看着是一个逻辑上的局域网，在 VLAN 上的设备物理上可以在不同地方，但在能它们所能关注到的细节下（as far as they are concerned），他们都是直接连接在一台交换机下的。在下列配置中，交换机所有端口都是默认在 VLAN 1 中。
 
-<pre>
+```
 Switch#show vlan
 VLAN    Name        Status      Ports
 ----    -------     ------      ------------------------------
@@ -317,11 +317,11 @@ VLAN    Name        Status      Ports
                                 Fa0/13, Fa0/14, Fa0/15, Fa0/16,
                                 Fa0/17, Fa0/18, Fa0/19, Fa0/20,
                                 Fa0/21, Fa0/22, Fa0/23, Fa0/24,
-</pre>
+```
 
 如你打算给交换机添加一个 IP 地址（就是**管理地址**），以便通过网络连上该交换机，只需给某个 VLAN 配置 IP 地址即可；本例中就是 VLAN1。
 
-<pre>
+```
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#interface vlan1
@@ -331,38 +331,38 @@ Switch#show interface vlan1
 Vlan1 is administratively down, line protocol is down
     Hardware is CPU Interface, address is 0010.1127.2388 (bia 0010.1127.2388)
     Internet address is 192.168.1.3/24
-</pre>
+```
 
 而 **VLAN1 默认是关闭的**，你需要执行一个 `no shutdown` 命令来开启它。**还需告诉交换机往哪里发送所有 IP 流量，因为 2 层交换机没有建立路由表的能力**；该操作如下面的输出所示。
 
-<pre>
+```
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#ip default-gateway 192.168.1.1
 Switch(config)#
-</pre>
+```
 
 在网络上有多台交换机时，你会想着去修改交换机默的主机名，这样在远程连接它们时才更容易区分（见下面的配置命令行）。设想一下通过远程 Telnet 对五台同样叫做 “Switch” 的交换机进行故障排除时的情形吧。
 
-<pre>
+```
 Switch(config)#hostname Switch1
-</pre>
+```
 
 如你要经由网络 Telnet (或 SSH) 到某台交换机，你还需开启该协议。交换机远程访问默认是关闭的。
 
-<pre>
+```
 Switch1#conf t
 Enter configuration commands, one per line.
 Switch1(config)#line vty 0 15
 Switch1(config-line)#password cisco
 Switch1(config-line)#login
-</pre>
+```
 
 **请完成上述操作，然后从另一设备（同一子网）连上交换机来测试你的配置**。这是一道 CCNA 基础题目。
 
 **VTYs（Virtual TeletYpe terminal） 是路由器或交换机用于对其进行 Telnet 或安全 Telnet ( SSH ) 访问的虚拟端口**。在你为其配置上一种认证方式之前，它们都是关闭的（最简单的方法是给它们加上一个口令，然后执行 `login` 命令）。你可以见到 0 到 4 端口、inclusive (包含)或 0 到 15 端口。要得知你有多少个可用的端口的一种方法是在编号 0 后面输入一个问号， 或者使用 `show line` 命令，如下面的输出所示。
 
-<pre>
+```
 Router(config)#line vty 0 ?
 <1-15>  Last Line number
 Router#show line
@@ -374,14 +374,14 @@ Router#show line
     4   VTY             -   -   -       -       -       0       0       0/0
     5   VTY             -   -   -       -       -       0       0       0/0
     6   VTY             -   -   -       -       -       0       0       0/0
-</pre>
+```
 CTY 就是控制台线路，同时 VTY 线路用于 Telnet 连接，AUX 是指辅助端口。
 
 为了获得更为安全的访问方式，你可以仅允许 SSH 连接进入交换机，这就是说流量会被加密。而要让 SSH 工作，你需要在交换机上允许安全性 IOS 镜像，如下面的输出那样。
 
-<pre>
+```
 Switch1(config-line)#transport input ssh
-</pre>
+```
 现在，Telnet 流量就不再被允许传入到 VTY 端口了。
 
 请在交换机上配置一下这所有的命令。仅仅阅读它们无助于你在考试当天记起它们。
@@ -487,13 +487,13 @@ VLAN 中继用于传输多个 VLAN 的数据。为将属于某个 VLAN 的帧与
 
 下面是一台交换机上的简短示例配置。我将 `switchport` 命令包括了进去，该命令告诉交换机将其某个端口作为二层端口，而不是三层。
 
-<pre>
+```
 Sw(config)#interface FastEthernet 0/1
 Sw(config-if)#switchport
 Sw(config-if)#switchport mode trunk
 Sw(config-if)#switchport trunk encapsulation dot1q
 Sw(config-if)#exit
-</pre>
+```
 
 当然，在 2960 系列交换机上，`encapsulation` 不被识别，因为它只有一种类型。**在将一台交换机与其它交换机连接时，你需要将其接口设置为中继接口，以令到 VLANs 都被标记上**。`switchport` 命令的作用同样如此。再次说明，我在这里提到这个，是因为在现实中，你可能要配置一台三层交换机，如我们死盯 2960 型号，你可能会感到迷惑，我们不要这个！
 
@@ -515,16 +515,16 @@ Sw(config-if)#exit
 
 在将端口指派到 VLANs 之前，务必先要全局配置命令 `vlan <vlan#>` 创建出那个 VLAN。而此命令又会将你带入 VLAN 配置模式，在那里又可以为 VLANs 赋予一个描述性的名称。这里有一个示例。
 
-<pre>
+```
 Switch1(config)#vlan 5
 Switch1(config-vlan)#name RnD
 Switch2(config)vlan 5
 Switch2(config-vlan)#name RnD
-</pre>
+```
 
 使用命令 `show vlan` 命令来查看交换上存在着哪些 VLANs。其输出与下面的相似。
 
-<pre>
+```
 Switch1#show vlan
 VLAN    Name        Status      Ports
 ----    --------    -------     --------------------------------------------
@@ -536,20 +536,20 @@ VLAN    Name        Status      Ports
 5       RnD         active
 ...
 [Truncated Output]
-</pre>
+```
 
 我们在通过使用接口配置命令 `switchport access vlan [vlan#]`, 将端口 fa0/1 加入到 VLAN 5 中去。
 
-<pre>
+```
 Switch1(config)#int fa0/1
 Switch1(config-if)#switchport access vlan 5
 Switch2(config)#int fa0/1
 Switch2(config-if)#switchport access vlan 5
-</pre>
+```
 
 在形如 3560 这样的三层交换机上，在将某个端口加入到一个 VLAN 前，你务必要使用命令 `switchport mode access` 将端口手动设置为接入模式。现在我们来看看 `show vlan` 命令的输出。
 
-<pre>
+```
 Switch1#show vlan
 VLAN    Name        Status      Ports
 ----    ----        -----       --------------------------------------------
@@ -562,34 +562,34 @@ VLAN    Name        Status      Ports
 5       RnD         active      Fa0/1
 ...
 [Truncated Output]
-</pre>
+```
 
 注意 fa0/1 现在被指派给了 VLAN 5。让我们来将两台交换机的 fa0/15 接口配置为中继链路。这里要注意的是 3550 型号交换机端口的默认模式是我要模式（desirable， 3560 型号的是自动模式）。 动态中继协议（Dynamic Trunk Protocol, DTP）会导致两台交换机上的 fa0/15 接口成为 ISL 中继链路。下一节课会学 DTP 的内容，但这里会简要提到 DTP 的一些东西。这种情况可用 `show interface trunk` 命令看到。
 
-<pre>
+```
 Switch1#show interface trunk
 Port    Mode        Encapsulation   Status      Native vlan
 Fa0/15  desirable   n-isl           trunking    1
-</pre>
+```
 
 请注意，其模式为我要（desirable）, 封装方式是 ISL （“n” 代表 negotiated, 协商出的）。以下输出演示了配置中继为 ISL 方式的做法。
 
-<pre>
+```
 Switch1(config)#interface fa0/15
 Switch1(config-if)#switchport trunk encapsulation isl
 Switch1(config-if)#switchport mode trunk
 Switch2(config)#interface fa0/15
 Switch2(config-if)#switchport trunk encapsulation isl
 Switch2(config-if)#switchport mode trunk
-</pre>
+```
 
 `switchport trunk encapsulation` 命令设置端口的中继协议，而命令 `switchport mode trunk` 命令则是将端口设置为中继工作方式。现在的 `show interface trunk` 命令输出会是下面这样。
 
-<pre>
+```
 Switch2#show interface trunk
 Port    Mode    Encapsulation   Status      Native vlan
 Fa0/15  on      isl             trunking    1
-</pre>
+```
 
 取代 N-ISL 的是 ISL。这是因为此次的协议是在接口上配置的，而不是协商出的。
 
@@ -597,28 +597,28 @@ Fa0/15  on      isl             trunking    1
 
 与此类似，你可将交换机端口配置为 802.1Q 而不是 ISL，如下面的输出那样。
 
-<pre>
+```
 Switch1(config)#interface fa0/15
 Switch1(config-if)#switchport trunk encapsulation dot1q
 Switch1(config-if)#switchport mode trunk
 Switch2(config)#interface fa0/15
 Switch2(config-if)#switchport trunk encapsulation dot1q
 Switch2(config-if)#switchport mode trunk
-</pre>
+```
 
 命令 `show interface trunk` 命令的输出又成了这样。
 
-<pre>
+```
 Switch2#show interface trunk
 Port    Mode    Encapsulation   Status      Native vlan
 Fa0/15  on      802.1q          trunking    1
-</pre>
+```
 
 请注意，原生 VLAN 是 1。这正是一个 802.1Q 中继上的默认原生 VLAN，同时可使用 `switchport trunk native vlan <vlan#>` 命令进行修改。**中继链路上的两个接口原生 VLAN 必须匹配**。这条命令是 CCNA 大纲的一部分，**也被作为一中安全手段**。
 
 > **重要提示:** 交换机能存储所有 VLAN 的信息，在重启后也还在。如你打算交换机以空白配置启动，就需要在交换机上运行 `delete vlan.dat` 命令，如下面的输出所示。这只适用于真实交换机，在诸如 Packet Tracer 等交换机模拟器是做不到的。
 
-<pre>
+```
 SwitchA#dir flash:
 Directory of flash:/
     1   -rw-    3058048     <no date>   c2960-i6q4l2-mz.121-22.EA4.bin
@@ -633,7 +633,7 @@ Directory of flash:/
     1   -rw-    3058048         <no date>   c2960-i6q4l2-mz.121-22.EA4.bin
 64016384 bytes total (60958336 bytes free)
 SwitchA#
-</pre>
+```
 
 ## 交换故障排除基础，Basic Switching Troubleshooting
 
@@ -645,28 +645,28 @@ SwitchA#
 
 首先要问的是 Telnet 曾正常运行过吗？如曾正常运行过，现在却不行了，那就是有人对交换机进行了改动、重启过交换机，从而导致配置丢失，或者是网络上的某台设备阻止了 Telnet 流量。
 
-<pre>
+```
 Switch#telnet 192.168.1.1
 Trying 192.168.1.1 ...Open
 [Connection to 192.168.1.1 closed by foreign host]
-</pre>
+```
 
 要检查的头一件事就是交换机上的 Telnet 是否已被确实开启（见下面的输出）。网络的 80% 错误都是由于唐突或疏忽造成的，所以请不要信誓旦旦，要亲历亲为，别去相信其他人的言词。
 
 一个简单的 `show running-config` 命令就可以将交换机的配置列出。在 `vty` 线路下，你将看到 Telnet 是否有被打开。注意你需要在 vty 线路下有 `login` 或者 `login local` (或者配置了 AAA， 而 AAA 配置超出了 CCNA 考试范围) 命令，以及 `password` 命令。如下面所示。
 
-<pre>
+```
 line vty 0 4
 password cisco
 login
 line vty 5 15
 password cisco
 login
-</pre>
+```
 
 `login local` 命令告诉交换机或路由器去查找配置在其上的用户名和口令，如下面输出的那样。
 
-<pre>
+```
 Switch1#sh run
 Building configuration...
 Current configuration : 1091 bytes!
@@ -681,7 +681,7 @@ password cisco
 login local
 ...
 [Truncated Output]
-</pre>
+```
 
 **Ping 不通交换机， Can't Ping the Switch**
 
@@ -695,25 +695,25 @@ login local
 
 默认情况下，所有路由器接口都是对流量关闭的，而交换机接口是开启的。如你发现交换机接口处于管理性关闭状态，可以通过执行接口级命令 `no shutdown` 来开启它。
 
-<pre>
+```
 Switch1(config)#int FastEthernet0/3
 Switch1(config-if)#no shut
-</pre>
+```
 
 **二层接口可被设置成三种模式：中继、接入，或动态模式**。**中继模式下，交换机可与其它交换机或服务器连接**。而接入模式用于连接终端设备，比如一台 PC 或笔记本计算机。动态模式令到交换机去探测采用何种设置。
 
 在形如 3550 型号交换机平台上，默认设置通是动态我要模式（dynamic desirable），你需要在 [Cisco.com](http://cisco.com) 上去查看你的交换机型号的设置以及发行注记。**CCNA 考试中，你将被要求配置一台 2960 型号交换机**。此型号的交换机在除非你硬性设置接口为中继或接入模式的情况下，会动态选择工作模式。
 
-<pre>
+```
 Switch1#show interfaces switchport
 Name: Fa0/1
 Switchport: Enabled
 Administrative Mode: dynamic auto
-</pre>
+```
 
 默认设置可以方便地进行更改，如下面的输出这样。
 
-<pre>
+```
 Switch1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch1(config)#int FastEthernet0/1
@@ -733,13 +733,13 @@ Name: Fa0/1
 Switchport: Enabled
 Administrative Mode: trunk
 Operational Mode: trunk
-</pre>
+```
 
 **更多有关接口的故障， More Interface Issues**
 
 交换机端口的默认设置是双工自动侦测（auto-detect duplex）以及速率自动侦测（auto-detect speed）。如你将一台 10Mbps 的设备插入到以半双工方式运行的交换机（现在已经很难找到这样的交换机了）上，该端口就会探测到插入的设备并运作起来。然而并不是任何时候都这样的，所以一般建议将交换机端口的双工方式及速率硬性设置，如下面的输出那样。
 
-<pre>
+```
 Switch1#show interfaces switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -763,11 +763,11 @@ Switch1(config-if)#speed ?
     10      Force 10Mbps operation
     100     Force 100Mbps operation
     auto    Enable AUTO speed configuration
-</pre>
+```
 
 双工模式不匹配的一些迹象（除开错误消息外）有接口上的输入错误以及 CRC 错误，如下面的输出所示。请同时看看 ICND1 章节的第 15 天的一层和二层故障排除部分。
 
-<pre>
+```
 Switch#show interface f0/1
 FastEthernet0/1 is down, line protocol is down (disabled)
     Hardware is Lance, address is 0030.a388.8401 (bia 0030.a388.8401)
@@ -795,7 +795,7 @@ BW 100000 Kbit, DLY 1000 usec,
         0 babbles, 0 late collision, 0 deferred
         0 lost carrier, 0 no carrier
         0 output buffer failures, 0 output buffers swapped out
-</pre>
+```
 
 **硬件故障，Hardware Issues**
 
@@ -845,11 +845,11 @@ VLAN 相关故障，通常是经由观察网络主机之间连通性（比如某
 2. `show mac-address-table`
 3. The `interface vlan x` command and the `ip address x.x.x.x`command.
 4.
-<pre>
+```
 Switch1(config)#line vty 0 15
 Switch1(config-line)#password cisco
 Switch1(config-line)#login
-</pre>
+```
 5. Use the `Switch1(config-line)#transport input ssh` command.
 6. The authentication method is not defined on another switch.
 7. True.
