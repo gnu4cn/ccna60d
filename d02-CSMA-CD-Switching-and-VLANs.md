@@ -110,9 +110,9 @@ FastEthernet1/0/1 is down, line protocol is down (notconnect)
 
 **交换机是为交换帧而生（也就是说，将来自某进入接口的帧传输到正确的出口接口）**。广播帧被交换出所有接口（除了接收到广播帧的那个接口），带有不明目的地（目的地址不在 MAC 表中）的那些帧也一样，交换机执行下面三个动作：
 
-+ 根据目的 MAC 地址，进行帧转发或过滤(forwarding or filtering<dropping>)
-+ 从进来的帧学习 MAC 地址
-+ 使用 STP 协议来阻止二层环回的发生（STP 在 ICND2 第 31 天学习）
+- 根据目的 MAC 地址，进行帧转发或过滤(forwarding or filtering<dropping>)
+- 从进来的帧学习 MAC 地址
+- 使用 STP 协议来阻止二层环回的发生（STP 在 ICND2 第 31 天学习）
 
 图 2.6 中，交换机将来自主机 A （F0/1）以主机 C 为目的地的帧正确转发出 F0/3， 而阻止其离开接口 F0/2。
 
@@ -128,9 +128,9 @@ FastEthernet1/0/1 is down, line protocol is down (notconnect)
 
 流量传输中的任何延时(delay)，都被称为传输延迟（latency）。**依据你所希望的在流量传输前对帧的检查程度，思科交换机提供了三种流量交换的方式**。对帧的检查越多，引入到交换机的延迟就越多。三种可供选择的交换模式(switching modes)为：
 
-+ 直通模式，Cut-through
-+ 存储转发模式(交换机默认)，Store-and-forward
-+ Fragment-free（改进的直通模式）
+- 直通模式，Cut-through
+- 存储转发模式(交换机默认)，Store-and-forward
+- Fragment-free（改进的直通模式）
 
 **直通模式**
 
@@ -234,10 +234,10 @@ Vlan    Mac Address     Type        Ports
 
 有四种不同类型的以太网帧：
 
-+ 以太网 802.3 帧
-+ 以太网 II 帧
-+ 以太网 802.2 SAP 帧
-+ 以太网 802.2 SNAP 帧
+- 以太网 802.3 帧
+- 以太网 II 帧
+- 以太网 802.2 SAP 帧
+- 以太网 802.2 SNAP 帧
 
 前两种以太网标准用于在网卡之间通信时的组帧方式。**它们不能识别上层协议，802.2 类型帧才具备此能力**。你**只需要注意 802.3 类帧**，此类型的帧构成如下。
 
@@ -247,13 +247,13 @@ Vlan    Mac Address     Type        Ports
 
 IEEE 委员确定的 IEEE 802.3 以太网帧有以下特定字段。
 
-+ 前同步信号，preamble -- 为传入的数据对网卡进行信号同步及告知
-+ 帧开始界定符，start-of-frame delimiter, SFD -- 标志着帧的开始
-+ 目的地址 -- 目的 MAC 地址，可以是单播（Unicast）、广播或多播(Multicast)
-+ 源地址 -- 发送主机的 MAC 地址
-+ 长度 -- 定义帧中数据字段的长度
-+ 数据 -- 帧中的载荷（就是传输中的数据）
-+ 帧校验序列，frame-check sequence, FCS -- 给出了帧中所有数据的循环冗余校验（cyclic redundancy check, CRC）
+- 前同步信号，preamble -- 为传入的数据对网卡进行信号同步及告知
+- 帧开始界定符，start-of-frame delimiter, SFD -- 标志着帧的开始
+- 目的地址 -- 目的 MAC 地址，可以是单播（Unicast）、广播或多播(Multicast)
+- 源地址 -- 发送主机的 MAC 地址
+- 长度 -- 定义帧中数据字段的长度
+- 数据 -- 帧中的载荷（就是传输中的数据）
+- 帧校验序列，frame-check sequence, FCS -- 给出了帧中所有数据的循环冗余校验（cyclic redundancy check, CRC）
 
 
 ### 交换机初始配置，Initial Switch Configuration
@@ -264,13 +264,13 @@ IEEE 委员确定的 IEEE 802.3 以太网帧有以下特定字段。
 
 `show version` 命令提供了很多有用信息，包括这些。
 
-+ 交换机运行时间，switch uptime
-+ 型号
-+ IOS 版本， IOS release
-+ 上次重启的原因
-+ 所有接口及其类型
-+ 所有安装的存储器
-+ 背板 MAC 地址，base MAC address
+- 交换机运行时间，switch uptime
+- 型号
+- IOS 版本， IOS release
+- 上次重启的原因
+- 所有接口及其类型
+- 所有安装的存储器
+- 背板 MAC 地址，base MAC address
 
 ```
 Switch>en
@@ -452,9 +452,9 @@ Switch1(config-line)#transport input ssh
 
 交换机端（在 CCNA 考试范围内）可一分为以下三种。
 
-+ 接入端口，或接入链路，access links or ports
-+ 中继端口，或中链路，trunk links or ports
-+ 动态端口（很快就会学到这个）
+- 接入端口，或接入链路，access links or ports
+- 中继端口，或中链路，trunk links or ports
+- 动态端口（很快就会学到这个）
 
 ### 接入链路，Access Links
 
@@ -480,10 +480,10 @@ VLAN 中继用于传输多个 VLAN 的数据。为将属于某个 VLAN 的帧与
 
 以下是有关 802.1Q 特性的小结。
 
-+ 支持最多 4096 个 VLANs
-+ 采用帧内标记机制，修改原始帧
-+ 是由 IEEE 开发的开发标准协议
-+ 不对原生 VLAN 上的帧打标签；除此之外的所有帧都被标记
+- 支持最多 4096 个 VLANs
+- 采用帧内标记机制，修改原始帧
+- 是由 IEEE 开发的开发标准协议
+- 不对原生 VLAN 上的帧打标签；除此之外的所有帧都被标记
 
 下面是一台交换机上的简短示例配置。我将 `switchport` 命令包括了进去，该命令告诉交换机将其某个端口作为二层端口，而不是三层。
 
@@ -499,11 +499,11 @@ Sw(config-if)#exit
 
 交换机上的某中继链路可以是下列五种模式之一。
 
-+ 开启（On）模式 -- 强制该端口进入永久中继模式。不管插入设备是否同意将它们之间的链路转换成中继链路，该端口都会成为一个中继端口。
-+ 关闭（Off）模式 -- 该链路不被作为中继链路使用，就算插入设备被设置成“中继”模式。
-+ 自动（Auto）模式 -- 该端口不情愿成为一条中继链路。在插入设备被设置为“开启”或“我要（desirable)”模式时，链路就成为中继链路。当两端都被设置为“自动”模式时，链路就绝不会变成中继链路了，因为没有一方有转换成中继的意愿。
-+ 我要（Desirable）模式 -- 该端口积极尝试转换成中继链路。如另一设备被设置为 “开启”、“自动” 或 “我要” 模式，链路就会成为中继链路
-+ 没商量（No-negotiate）模式 -- 阻止端口经由协商成为中继连接。配置上此模式后，端口会强制进入接入模式或中继模式。
+- 开启（On）模式 -- 强制该端口进入永久中继模式。不管插入设备是否同意将它们之间的链路转换成中继链路，该端口都会成为一个中继端口。
+- 关闭（Off）模式 -- 该链路不被作为中继链路使用，就算插入设备被设置成“中继”模式。
+- 自动（Auto）模式 -- 该端口不情愿成为一条中继链路。在插入设备被设置为“开启”或“我要（desirable)”模式时，链路就成为中继链路。当两端都被设置为“自动”模式时，链路就绝不会变成中继链路了，因为没有一方有转换成中继的意愿。
+- 我要（Desirable）模式 -- 该端口积极尝试转换成中继链路。如另一设备被设置为 “开启”、“自动” 或 “我要” 模式，链路就会成为中继链路
+- 没商量（No-negotiate）模式 -- 阻止端口经由协商成为中继连接。配置上此模式后，端口会强制进入接入模式或中继模式。
 
 ### 配置 VLANs， Configuring VLANs
 
@@ -864,14 +864,14 @@ Switch1(config-line)#login
 
 请登入到一台思科交换机，并输入那些本单元课程中解释到的命令。包括：
 
-+ 在不同交换机端口上配置不同的端口速率/自动协商速率
-+ 使用 `show running-config` 和 `show interface` 命令，验证这些端口参数
-+ 执行一下 `show version` 命令，来查看硬件信息以及 IOS 版本
-+ 查看交换机 MAC 地址表
-+ 给 VTY 线路配置一个口令
-+ 定义出一些 VLANs 并为其指派名称
-+ 将一个 VLAN 指派到一个配置为接入模式的端口上
-+ 将某个端口配置为中继端口（ISL 以及 802.1Q），并将一些 VLANs 指派到该中继链路
-+ 使用 `show vlan` 命令验证 VLAN 配置
-+ 使用 `show interface switchport` 命令和 `show interface trunk` 命令，验证接口中继工作状态及 VLAN 配置
-+ 删除 `vlan.dat` 文件
+- 在不同交换机端口上配置不同的端口速率/自动协商速率
+- 使用 `show running-config` 和 `show interface` 命令，验证这些端口参数
+- 执行一下 `show version` 命令，来查看硬件信息以及 IOS 版本
+- 查看交换机 MAC 地址表
+- 给 VTY 线路配置一个口令
+- 定义出一些 VLANs 并为其指派名称
+- 将一个 VLAN 指派到一个配置为接入模式的端口上
+- 将某个端口配置为中继端口（ISL 以及 802.1Q），并将一些 VLANs 指派到该中继链路
+- 使用 `show vlan` 命令验证 VLAN 配置
+- 使用 `show interface switchport` 命令和 `show interface trunk` 命令，验证接口中继工作状态及 VLAN 配置
+- 删除 `vlan.dat` 文件
