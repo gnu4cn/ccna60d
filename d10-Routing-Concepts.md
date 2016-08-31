@@ -6,19 +6,19 @@
 
 ##第10天的任务
 
-+ 阅读今天的课文
-+ 回顾昨天的课文
-+ 完成今天的实验
-+ 阅读ICND1记诵指南
-+ 在网站[subnetting.org](http://subnetting.org/)上花15分钟
+- 阅读今天的课文
+- 回顾昨天的课文
+- 完成今天的实验
+- 阅读ICND1记诵指南
+- 在网站[subnetting.org](http://subnetting.org/)上花15分钟
 
 ICND1考试要求你对**基本路由**（basic routing）及**数据包流经某个网络的过程**(packet flow accross a network)，有所掌握。我们也会**对各种路由协议背后的技术有所了解**(take a look at the technology behind routing protocols)。
 
 今天将会学到以下知识。
 
-+ 路由基础知识, basic routing
-+ 各种有类和无类协议，classful and classless protocols
-+ 路由协议的分类，routing protocol classes
+- 路由基础知识, basic routing
+- 各种有类和无类协议，classful and classless protocols
+- 路由协议的分类，routing protocol classes
 
 本模块对应了CCNA大纲要求的以下方面。
 
@@ -54,8 +54,8 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 包转发涉及两个过程。
 
-+ 确定最优路径, determining the best path
-+ 发出数据包（交换），sending the packet(switching)
+- 确定最优路径, determining the best path
+- 发出数据包（交换），sending the packet(switching)
 
 当路由器接收到一个发往其直接连接网络的数据包时，该路由器就检查其路由表并将该数据包转发到那个网络，如图10.1所示。
 
@@ -196,12 +196,12 @@ Distance: (default is 115 )
 
 不同路由算法用到不同变量来计算路由度量值。一些路由算法仅用到一个变量，而其它先进路由算法会用到多于一个变量来决定某条特定路由的度量值。多数情况下，由一种路由协议计算出的度量值，是不兼容于那些由另一种路由协议所使用的度量值的。不同路由协议的度量值都会基于下面变量的一种或几种。
 
-+ 带宽，bandwidth
-+ 成本，cost
-+ 延迟，delay
-+ 负载, Load
-+ 路径长度，path length
-+ 可靠性, reliability
+- 带宽，bandwidth
+- 开销，cost
+- 延迟，delay
+- 负载, Load
+- 路径长度，path length
+- 可靠性, reliability
 
 **带宽**
 
@@ -354,8 +354,8 @@ RIP protocol debugging is on
 
 路由协议设计和配置的一个重要考虑，就是要限制不必要的对等传送（an important routing protocol design and configuration consideration is to limit unnecessary peerings）, 如下图10.10所示。这是通过使用被动接口实现的, 被动接口可以阻止路由器在指定接口上形成路由邻接关系（routing adjacencies）。基于特定路由协议，此功能的使用会有所不同，但其做法通常有以下两类。
 
-+ 路由器不在被动接口上发出路由更新
-+ 路由器不在该接口上发送Hello数据包，这样做就不会形成邻居关系
+- 路由器不在被动接口上发出路由更新
+- 路由器不在该接口上发送Hello数据包，这样做就不会形成邻居关系
 
 被动接口通常能接收到路由更新或Hello数据包，但不被允许发出任何种类的路由协议信息出去。
 
@@ -399,10 +399,10 @@ RIP protocol debugging is on
 
 距离矢量是一种**用距离或跳数计数作为主要度量值**，来决定最佳转发路径的路由协议。距离矢量路由协议又是主要建立在Bellman-Ford算法基础上。距离矢量路由协议发送其邻居路由器的完整路由表，以保持这些路由器有关网络状态的最新信息（Distance Vector routing protocols periodically send their neighbour routers copies of their entire routing tables to keep them up to date on the state of the network）。**在某个小型网络中这也许可以接受，而当网络增大时，通过网络发送的流量数量就会增长**。所有距离矢量路由协议都有着以下的特征。
 
-+ 计数到无限大，counting to infinity
-+ 水平分割, split horizon
-+ 反向投毒，poison reverse
-+ 保持计数器，hold-down timers
+- 计数到无限大，counting to infinity
+- 水平分割, split horizon
+- 反向投毒，poison reverse
+- 保持计数器，hold-down timers
 
 对计数到无穷的运用，如某个目的网络远于路由协议所允许的最大跳数，该网络就认为其是不可达的。该网络的路由条目因此就不会安装到IP路由表中。
 
@@ -446,11 +446,11 @@ RIP protocol debugging is on
 
 这些路由算法尽管生来就有所不同，但都有着同样的基本目标。虽然一些算法好于其它一些，但所有路由协议都有其优势和不足。这些路由算法的设计，都有着下面这些目标和目的。
 
-+ 最优路由, optimal routing
-+ 稳定性, stability
-+ 易于使用, easy of use
-+ 灵活性, flexibility
-+ 快速收敛, rapid of convergence
+- 最优路由, optimal routing
+- 稳定性, stability
+- 易于使用, easy of use
+- 灵活性, flexibility
+- 快速收敛, rapid of convergence
 
 ###最优路由
 
@@ -488,14 +488,14 @@ RIP protocol debugging is on
 
 距离矢量路由协议因其过于简单的“依据传言的路由”方法，而容易造成大问题（it is a known fact that Distance Vector routing protocols are prone to major problems as a result of their simplistic "routing by rumor" approach）。距离矢量和链路中台协议采用不同方法来防止路由故障。有下面这些最为重要的机制。
 
-+ **无效计数器**，invalidation timers: 在很长时间内都没有收到一些路由的更新时，这些计数器被用于将这些路由标记为不可达。
-+ **跳数限制**, hop count limit: 当一些路由的跳数，比预先定义的跳数限制还多时，此参数就将这些路由标记为不可达。RIP的跳数限制是15, 而大型网络通常不会使用RIP。不可达路由不会作为最佳路由安装到路由表中。跳数限制防止网络中的环回更新，就想IP头部的TTL字段一样。
-+ **触发的更新**, triggered updates：此特性允许有重要更新时对更新计数器进行旁路、忽视。比如，在有一个重要的路由更新必须要在网络中宣传是，就可以忽略RIP的30秒计数器。
-+ **保持计数器**, hold-down timers: 如某条特定路由的度量值持续变差，那条路由的更新就会在一个延迟时期内不被接受了。
-+ **异步的更新**, asynchronous updates：异步更新代表另一种防止网络上的路由器，在同一时间其全部路由信息被冲掉的安全机制。在前面提到，OSPF每30分钟执行一次异步更新。异步更新机制为每台设备生成一个小的延时，因此这些设备不会准确地在同一时间信息全被冲掉。这样做可以改进带宽的使用以及处理能力。
-+ **路由投毒**, route poisoning: 此特性防止路由器通过已为无效的路由发送数据。距离矢量协议使用这个特性表明某条路由不再可达。路由投毒是通过将该路由的度量值设置为最大值完成的。
-+ **水平分割**, split horizon：水平分割防止路由更新再从收到的接口上发送出去，因为在那个区域中的路由器应该已经知道了那条特定路由了。
-+ **反向投毒**, poison reverse: 该机制是因被投毒路由而造成的水平分割的一个例外。
+- **无效计数器**，invalidation timers: 在很长时间内都没有收到一些路由的更新时，这些计数器被用于将这些路由标记为不可达。
+- **跳数限制**, hop count limit: 当一些路由的跳数，比预先定义的跳数限制还多时，此参数就将这些路由标记为不可达。RIP的跳数限制是15, 而大型网络通常不会使用RIP。不可达路由不会作为最佳路由安装到路由表中。跳数限制防止网络中的环回更新，就想IP头部的TTL字段一样。
+- **触发的更新**, triggered updates：此特性允许有重要更新时对更新计数器进行旁路、忽视。比如，在有一个重要的路由更新必须要在网络中宣传是，就可以忽略RIP的30秒计数器。
+- **保持计数器**, hold-down timers: 如某条特定路由的度量值持续变差，那条路由的更新就会在一个延迟时期内不被接受了。
+- **异步的更新**, asynchronous updates：异步更新代表另一种防止网络上的路由器，在同一时间其全部路由信息被冲掉的安全机制。在前面提到，OSPF每30分钟执行一次异步更新。异步更新机制为每台设备生成一个小的延时，因此这些设备不会准确地在同一时间信息全被冲掉。这样做可以改进带宽的使用以及处理能力。
+- **路由投毒**, route poisoning: 此特性防止路由器通过已为无效的路由发送数据。距离矢量协议使用这个特性表明某条路由不再可达。路由投毒是通过将该路由的度量值设置为最大值完成的。
+- **水平分割**, split horizon：水平分割防止路由更新再从收到的接口上发送出去，因为在那个区域中的路由器应该已经知道了那条特定路由了。
+- **反向投毒**, poison reverse: 该机制是因被投毒路由而造成的水平分割的一个例外。
 
 ##基于拓扑（CEF）的交换
 
@@ -541,9 +541,9 @@ CEF使用一个FIB来做出基于IP目的地址前缀的交换决定（CEF uses 
 
 总体上说，dCEF和aCEF都是用到多个三层交换引擎的技术，这样就实现了多个三层交换操作同时并行运作，从而提升整体系统性能。CEF技术提供以下好处。
 
-+ 性能改善，improved performance -- 比起快速交换路由缓存技术，CEF是较少CPU-密集的（CEF is less CPU-intensive than fast-switching route caching）。那么就有更多的CPU处理能力用在譬如QoS和加密等的三层业务上。
-+ 伸缩性, scalability -- 当dCEF模式开启时，CEF在诸如Catalyst 6500系列交换机等的高端平台的所有线路卡上，提供了全部的交换能力。
-+ 迅速恢复的能力, resilience -- CEF提供了大型动态网络中无例可循水平的数据交换一致性和稳定性。在动态网络中，快速交换缓存条目由于路由变化而频繁地过期和作废。这些变动能够引起流量经由使用路由表的进程交换而不是使用路由缓存的快速交换（CEF offers **an unprecedented level of switching consistency and stability** in large dynamic networks. In dynamic networks, fast-switching cache entries are frequently invalidated due to routing changes. These changes can cause traffic to be process-switched using the routing table rather than fast-switched using the route cache）。
+- 性能改善，improved performance -- 比起快速交换路由缓存技术，CEF是较少CPU-密集的（CEF is less CPU-intensive than fast-switching route caching）。那么就有更多的CPU处理能力用在譬如QoS和加密等的三层业务上。
+- 伸缩性, scalability -- 当dCEF模式开启时，CEF在诸如Catalyst 6500系列交换机等的高端平台的所有线路卡上，提供了全部的交换能力。
+- 迅速恢复的能力, resilience -- CEF提供了大型动态网络中无例可循水平的数据交换一致性和稳定性。在动态网络中，快速交换缓存条目由于路由变化而频繁地过期和作废。这些变动能够引起流量经由使用路由表的进程交换而不是使用路由缓存的快速交换（CEF offers **an unprecedented level of switching consistency and stability** in large dynamic networks. In dynamic networks, fast-switching cache entries are frequently invalidated due to routing changes. These changes can cause traffic to be process-switched using the routing table rather than fast-switched using the route cache）。
 
 ###CEF的配置
 
@@ -585,18 +585,18 @@ VTP-Server-1(config)#exit
 
 要对网络设备进行监控，有着不同工具。而这些工具都用到同样的网络管理协议，那就是简单网络管理协议（Simple Network Management Protocol, SNMP）, 该协议设计从某台管理工作站对网络设备发起不同参数的查询（ICND2涵盖了SNMP）。除了检查标准的“健康度”参数（比如CPU、内存、磁盘空间等等）外，SNMP还会查询路由器的下面这些参数。
 
-+ 接口上数据包计数
-+ 使用到的带宽及通过量
-+ 设备接口上的CRC及其他类型的错误
-+ 路由表信息
+- 接口上数据包计数
+- 使用到的带宽及通过量
+- 设备接口上的CRC及其他类型的错误
+- 路由表信息
 
 其它可以用到工具就是标准的用于验证端到端连通性的`ping`和`traceroute`了。它们亦能展示一些可能有助于确定出网络中发生故障的点位的相关输出。
 
 下面是在对几乎所有路由故障进行排错时所涉及的步骤。
 
-+ 检查路由是否开启
-+ 检查路由表是否有效
-+ 检查当前的路径选择
+- 检查路由是否开启
+- 检查路由表是否有效
+- 检查当前的路径选择
 
 ###检查路由是否开启
 
@@ -675,9 +675,9 @@ Router#show ip bgp ?
 
 在成功确定已开启路由进程后，下一步就要对各协议的路由表进行分析，看看那里列出的信息是否正确。一些需要着重注意的地方有下面这些。
 
-+ 验明经由正确的协议学习到正确的前缀
-+ 验明学到的前缀条数
-+ 验明这些路由的度量值及下一跳信息
+- 验明经由正确的协议学习到正确的前缀
+- 验明学到的前缀条数
+- 验明这些路由的度量值及下一跳信息
 
 依据路由协议的不同，还要对从设备向外通告的那些前缀的正确性进行检查。
 
@@ -685,9 +685,9 @@ Router#show ip bgp ?
 
 在检查了有关前缀在路由表中确有出现后，就应对这些前缀的属性值（译者注：其路由跳数及各条路由的度量值、下一跳等信息）及路径选择方式进行仔细分析。这些分析包括下面这些。
 
-+ 检查通告了该前缀的所有路由协议（还要包括静态路由）
-+ 对AD进行比较和修改，以令到优先选择某种指定的路由协议，而不是默认正确的
-+ 检查并调整这些协议的度量值
+- 检查通告了该前缀的所有路由协议（还要包括静态路由）
+- 对AD进行比较和修改，以令到优先选择某种指定的路由协议，而不是默认正确的
+- 检查并调整这些协议的度量值
 
 通过对网络中某台路由器的恰当配置，并在配置过程中对每一步都做好文档，以及对网络中两点自荐路径的持续监测，就能够对网络中流量是如何准确地流经那些设备，有扎实掌握。
 
@@ -728,10 +728,10 @@ metric for determining the best forwarding path. True or false?
 
 采用两台直连的路由器，并测试本模块中提到的那些基本命令。RIP已不在CCNA考试中了，但其对于一个简单的实验来说，是十分简单易用的。
 
-+ 给直连接口分配一个IPv4地址（10.10.10.1/24及10.10.10.2/24）
-+ 用`ping`测试直连的连通性
-+ 在两台路由器上都配置一个环回接口，并从两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
-+ 配置标准RIP并通告所有本地网络
+- 给直连接口分配一个IPv4地址（10.10.10.1/24及10.10.10.2/24）
+- 用`ping`测试直连的连通性
+- 在两台路由器上都配置一个环回接口，并从两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
+- 配置标准RIP并通告所有本地网络
 
 <pre>
 <b>R1:</b>
@@ -749,7 +749,7 @@ network 10.10.10.0
 network 12.12.12.0
 </pre>
 
-+ 自R1向R2的环回接口进行`ping`操作，以测试连通性
-+ 执行一条`show ip route`命令，来检查经由RIP收到了那些路由
-+ 执行一条`show ip protocols`命令，来检查有配置了RIP且RIP在设备上是允许着的
+- 自R1向R2的环回接口进行`ping`操作，以测试连通性
+- 执行一条`show ip route`命令，来检查经由RIP收到了那些路由
+- 执行一条`show ip protocols`命令，来检查有配置了RIP且RIP在设备上是允许着的
 

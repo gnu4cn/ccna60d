@@ -10,3 +10,5 @@
 * [第七天, 互联网协议版本6](d07-IPv6.md)
 * [第九天, 访问控制清单](d09-ACL.md)
 * [第十天, 路由的一些概念](d10-Routing-Concepts.md)
+* [第十一天, 静态路由](d11-Static-Routing.md)
+* [第十二天, OSPF基础知识](d12-OSPF-Basics.md)
