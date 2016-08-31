@@ -6,4 +6,5 @@
 * [第三章, 中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
 * [第四章, 路由器和交换机安全](d04-Router-and-Switch-Security.md)
 * [第五章, IP 地址分配](d05-IP-Addressing.md)
+* [第六章, 网络地址转换](d06-NAT.md)
 
