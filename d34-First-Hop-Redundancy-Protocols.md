@@ -361,6 +361,15 @@ HSRP接口跟踪功能令到管理员可将HSRP配置为追踪某个接口的状
 > - IP路由度量值阈值，The threshold of IP route metrics
 > - IP SLA 的运作，IP SLA operations([Service-Level Agreements](http://www.cisco.com/c/en/us/tech/ip/ip-service-level-agreements-ip-slas/index.html), 服务等级协议)
 
+> 对于这些FHRPs，比如HSRP，可被配置为对这些增强对象进行跟踪，以令到在部署FHRP失效情形时具有更大的灵活性。比如，在采用EOT时，可将活动HSRP路由器配置为在网络或主机路由不可达时（也就是出现在路由表中），降低其优先级某个数值。EOT功能是超出了CCNA考试要求的，在配置示例中不会涉及。
+
+###HSRP的负载均衡
+
+HSRP允许管理员在一些物理接口上配置多个HSRP组，以实现负载均衡。默认情况下，在两台网关之间配置HSRP时，在任何时期都只有一台网关对那个组的流量进行转发。这样就导致了备份网关链路上带宽的浪费。这在下图34.15中进行了演示：
+
+![不具备HSRP负载均衡的一个网络](images/3415.png)
+*图 34.15 -- 不具备HSRP负载均衡的一个网络*
+
 
 
 
