@@ -837,7 +837,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
 
 ### 二进制转换及子网划分练习， Binary Conversion and Subnetting Practice
 
-请将今天所剩下的时间，用来做下面这些重要的联系。
+请将今天所剩下的时间，用来做下面这些重要的练习。
 
 - 十进制到二进制的转换（随机数字）
 - 二进制到十进制的转换（随机数字）
