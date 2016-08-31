@@ -7,4 +7,5 @@
 * [第四章, 路由器和交换机安全](d04-Router-and-Switch-Security.md)
 * [第五章, IP 地址分配](d05-IP-Addressing.md)
 * [第六章, 网络地址转换](d06-NAT.md)
+* [第七章, 互联网协议版本6](d07-IPv6.md)
 

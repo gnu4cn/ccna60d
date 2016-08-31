@@ -6,8 +6,8 @@
 
 ##第七天任务
 
-+ 阅读下面的课文理论部分
-+ 阅读ICND1记诵指南
+- 阅读下面的课文理论部分
+- 阅读ICND1记诵指南
 
 IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4共同运行）。许多网络工程师在面对不得不学习一种新的分址方式时，表现出了他们的恐惧，笔者也曾听他们中的许多人说希望在IPv6成为一项必备技能之前能够退休。
 
@@ -15,14 +15,14 @@ IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4
 
 今天将会学到下面这些知识点。
 
-+ IPv6的历史
-+ IPv6分址格式
-+ 应用IPv6
-+ IPv6子网划分
+- IPv6的历史
+- IPv6分址格式
+- 应用IPv6
+- IPv6子网划分
 
 本模块对应了以下CCNA大纲要求。
 
-+ 拿出恰当的IPv6分址方案，以满足某个LAN/WAN环境的分址要求
+- 拿出恰当的IPv6分址方案，以满足某个LAN/WAN环境的分址要求
 + 正确描述IPv6的各种地址
 	- 全球单播地址, Global Unicast addresses
 	- 多播地址, Multicast addresses
@@ -55,14 +55,14 @@ IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4
 
 下面是迁移到IPv6所能带来的一些好处。
 
-+ 简化了的IPv6数据包头部
-+ 更大的地址空间
-+ IPv6层次化的分址方法
-+ IPv6的扩展性扩充性
-+ IPv6消除了广播
-+ 无状态的自动配置
-+ 集成移动能力
-+ 集成了安全增强
+- 简化了的IPv6数据包头部
+- 更大的地址空间
+- IPv6层次化的分址方法
+- IPv6的扩展性扩充性
+- IPv6消除了广播
+- 无状态的自动配置
+- 集成移动能力
+- 集成了安全增强
 
 我喜欢从其**数据包层的探究，来分析IPv6, 同时也会去探究IPv6中可用的许多种类型的包头部**，但限于篇幅，同时考试中也不会考到这两点，所以就不包含这两方面的内容了。而着重在为考试和成为一名思科工程师，所需要掌握的内容上。
 
@@ -82,44 +82,42 @@ IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4
 
 在写下这些地址时，可能不会意识到是在使用那些从右往左的列；最右边的列是权重为1的列，接下来的列，是权重为计数基数的前一列序号次幂的列。如同下表所示。
 
-<table>
-<tr><th>计数基数</th><th>N乘计数基数的3次幂</th><th>N乘计数基数的2次幂</th><th>N乘计数基数的1次幂</th><th>N乘1</th></tr>
-<tr><td>10 -- 十进制</td><td>1000</td><td>100</td><td>10</td><td>1</td></tr>
-<tr><td>2 -- 二进制</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
-<tr><td>16 -- 十六进制</td><td>4096</td><td>256</td><td>16</td><td>1</td></tr>
-</table>
+| 计数基数 | N乘计数基数的3次幂 | N乘计数基数的2次幂 | N乘计数基数的1次幂 | N乘1 |
+| -- | -- | -- | -- | -- |
+| 10 -- 十进制 | 1000 | 100 | 10 | 1 |
+| 2 -- 二进制 | 8 | 4 | 2 | 1 |
+| 16 -- 十六进制 | 4096 | 256 | 16 | 1 |
 
 可以看出每一位都从其右边的那位继承了数值。十进制基数是10乘1。二进制是1, 同时1乘了计数系统的2。如对三种计数系统的最后一个十六进制数位进行比较，就会发现将十六进制作为IPv6分址首选格式的原因了。
 
-<table>
-<tr><th>十进制</th><th>二进制</th><th>十六进制</th></tr>
-<tr><td>0</td><td>0000</td><td>0</td></tr>
-<tr><td>1</td><td>0001</td><td>1</td></tr>
-<tr><td>2</td><td>0010</td><td>2</td></tr>
-<tr><td>3</td><td>0011</td><td>3</td></tr>
-<tr><td>4</td><td>0100</td><td>4</td></tr>
-<tr><td>5</td><td>0101</td><td>5</td></tr>
-<tr><td>6</td><td>0110</td><td>6</td></tr>
-<tr><td>7</td><td>0111</td><td>7</td></tr>
-<tr><td>8</td><td>1000</td><td>8</td></tr>
-<tr><td>9</td><td>1001</td><td>9</td></tr>
-<tr><td>10</td><td>1010</td><td>A</td></tr>
-<tr><td>11</td><td>1011</td><td>B</td></tr>
-<tr><td>12</td><td>1100</td><td>C</td></tr>
-<tr><td>13</td><td>1101</td><td>D</td></tr>
-<tr><td>14</td><td>1110</td><td>E</td></tr>
-<tr><td>15</td><td>1111</td><td>F</td></tr>
-</table>
+| 十进制 | 二进制 | 十六进制 |
+| -- | -- | -- |
+| 0 | 0000 | 0 |
+| 1 | 0001 | 1 |
+| 2 | 0010 | 2 |
+| 3 | 0011 | 3 |
+| 4 | 0100 | 4 |
+| 5 | 0101 | 5 |
+| 6 | 0110 | 6 |
+| 7 | 0111 | 7 |
+| 8 | 1000 | 8 |
+| 9 | 1001 | 9 |
+| 10 | 1010 | A |
+| 11 | 1011 | B |
+| 12 | 1100 | C |
+| 13 | 1101 | D |
+| 14 | 1110 | E |
+| 15 | 1111 | F |
 
 为提供足够的地址来满足我们在今后许多年的需求，IPv6已被设计成可以提供数以百亿亿的地址。为做到这点，计数范围从32位二进制数，扩展到128位。每4位可用一个十六进制数位表示（这可从上面的图表看出）。逻辑上推断就是2个十六进制位给出的是8位二进制数，也就是一个字节。
 
 一个IPv6地址有128位长，又被分为8组的16位，在以完整格式写出时，用冒号将每组分开。每4位十六进制数的范围是`0000`到`FFFF`，其中F是十六进制计数方法中最高的数。
 
-<table>
-<tr><th>0000</th><th>0000</th><th>0000</th><th>0000</th><th>0000</th><th>0000</th><th>0000</th><th>0000</th></tr>
-<tr><td>to</td><td>to</td><td>to</td><td>to</td><td>to</td><td>to</td><td>to</td><td>to</td></tr>
-<tr><td>FFFF</td><td>FFFF</td><td>FFFF</td><td>FFFF</td><td>FFFF</td><td>FFFF</td><td>FFFF</td><td>FFFF</td></tr>
-</table>
+| 第8组 | 第7组 | 第6组 | 第5组 | 第4组 | 第3组 | 第2组 | 第1组 |
+| -- | -- | -- | -- | -- | -- | -- | -- |
+| 0000 | 0000 | 0000 | 0000 | 0000 | 0000 | 0000 | 0000 |
+| to | to | to | to | to | to | to | to |
+| FFFF | FFFF | FFFF | FFFF | FFFF | FFFF | FFFF | FFFF |
 
 ##IPv6分址
 
@@ -127,15 +125,15 @@ IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4
 
 我们已经知道，IPv6用到128位的地址。因为**此种地址格式不同于我们所熟悉的IPv4地址格式，在初次见到时通常会犯迷糊**。但是，一旦掌握了，那么就知道其逻辑和结构都十分简单。**这些128位的IPv6地址，使用了十六进制数值**（也就是说，0到9以及字母A到F）。**而在IPv4中，子网掩码既可以用CIDR表示法表示**（比如`/16`或`/32`）, **也可以用点分十进制表示法表示**（dotted-decimal notation, 比如`255.255.0.0`或`255.255.255.255`）, 但**在IPv6中，子网掩码只用CIDR表示法表示**，因为IPv6地址的长度很长。全球范围内的128位IPv6地址，由下面3部分组成。
 
-+ 由服务商分配的前缀，the provider-assigned prefix
-+ 站点前缀，the site prefix
-+ 接口或主机ID，the interface or host ID
+- 由服务商分配的前缀，the provider-assigned prefix
+- 站点前缀，the site prefix
+- 接口或主机ID，the interface or host ID
 
 所谓服务商分配的前缀，也被称作**全球地址空间**(the global address space)，是一个**48位**的前缀，又被分为下面的3部分。
 
-+ 16位保留的IPv6全球前缀，the 16-bit reserved IPv6 global prefix
-+ 16位服务商持有的前缀，the 16-bit provider-owned prefix
-+ 16位服务商分配给其客户的前缀，the 16-bit provider-assigned prefix
+- 16位保留的IPv6全球前缀，the 16-bit reserved IPv6 global prefix
+- 16位服务商持有的前缀，the 16-bit provider-owned prefix
+- 16位服务商分配给其客户的前缀，the 16-bit provider-assigned prefix
 
 **IPv6全球前缀，用于表示IPv6全球地址空间**（the IPv6 global address space）。**所有IPv6全球互联网地址，都位于从`2000::/16`到`3FFF::/16`的范围**。而16位**服务商持有的IPv6前缀，是IANA分配给服务商，且归其所有的**。ISP持有前缀，处于`0000::/32`到`FFFF::/32`范围。
 
@@ -165,9 +163,9 @@ IPv6已经开发了很多年，且已在全世界网络中投入使用（与IPv4
 
 IPv6地址可像下面这三种方式进行表示。
 
-+ 首选的或者说完整地址表示/形式
-+ 压缩的表示法
-+ 带有一个嵌入了IPv4地址的IPv6地址
+- 首选的或者说完整地址表示/形式
+- 压缩的表示法
+- 带有一个嵌入了IPv4地址的IPv6地址
 
 尽管在以文本格式表示128位IPv6地址时，**首选形式或表示法是最常用的方式**，**熟悉其它两种IPv6地址表示法**也很重要。下面会对这三种方式进行说明。
 
@@ -185,11 +183,11 @@ IPv6地址可像下面这三种方式进行表示。
 
 下面的这些IPv6地址，是完整形式下的有效IPv6地址实例。
 
-+ `0000:0000:0000:0000:0000:0000:0000:0001`
-+ `2001:0000:0000:1234:0000:5678:af23:bcd5`
-+ `3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F`
-+ `fec0:2004:ab10:00cd:1234:0000:0000:6789`
-+ `0000:0000:0000:0000:0000:0000:0000:0000`
+- `0000:0000:0000:0000:0000:0000:0000:0001`
+- `2001:0000:0000:1234:0000:5678:af23:bcd5`
+- `3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F`
+- `fec0:2004:ab10:00cd:1234:0000:0000:6789`
+- `0000:0000:0000:0000:0000:0000:0000:0000`
 
 ###压缩的表示法
 
@@ -201,16 +199,15 @@ IPv6地址可像下面这三种方式进行表示。
 
 *表7.1 -- 首选和压缩形式下的完整IPv6地址*
 
-<table>
-<tr><th>完整IPv6地址表示法</th><th>压缩的IPv6地址表示法</th></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:0000:0000:0001</pre></td><td><pre>::0001</pre></pre></td></tr>
-<tr><td><pre>2001:0000:0000:1234:0000:5678:af23:bcd5</pre></td><td><pre>2001::1234:0:5678:af23:bcd5</pre></td></tr>
-<tr><td><pre>3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F</pre></td><td><pre>3FFF::1010:1A2B:5000:B00:DE0F</pre></td></tr>
-<tr><td><pre>FEC0:2004:AB10:00CD:1234:0000:0000:6789</pre></td><td><pre>FEC0:2004:AB10:CD:1234::6789</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:FFFF:172.16.255.1</pre></td><td><pre>::FFFF:172.16.255.1</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:0000:172.16.255.1</pre></td><td><pre>::172.16.255.1</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:0000:0000:0000</pre></td><td><pre>::</pre></td></tr>
-</table>
+| 完整IPv6地址表示法 | 压缩的IPv6地址表示法 |
+| -- | -- |
+| `0000:0000:0000:0000:0000:0000:0000:0001` | `::0001` |
+| `2001:0000:0000:1234:0000:5678:af23:bcd5` | `2001::1234:0:5678:af23:bcd5` |
+| `3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F` | `3FFF::1010:1A2B:5000:B00:DE0F` |
+| `FEC0:2004:AB10:00CD:1234:0000:0000:6789` | `FEC0:2004:AB10:CD:1234::6789` |
+| `0000:0000:0000:0000:0000:FFFF:172.16.255.1` | `::FFFF:172.16.255.1` |
+| `0000:0000:0000:0000:0000:0000:172.16.255.1` | `::172.16.255.1` |
+| `0000:0000:0000:0000:0000:0000:0000:0000` | `::` |
 
 跟前面指出的那样，在单个的IPv6地址中，双冒号不能多于一次地使用。比如说，如要对这个完整IPv6地址`2001:0000:0000:1234:0000:0000:af23:bcd5`以压缩形式表示，那么你就只能使用双冒号一次，就算在该地址中有两组连续的0s字符串。那么，在尝试将该地址压缩成`2001::1234::af23:bcd5`，就被看成是非法的；但是此IPv6地址既可以压缩成`2001::1234:0:0:af23:bcd5`, 也可以压缩成`2001:0:0:1234::af23:bcd5`, 取决于自己喜好。
 
@@ -218,28 +215,26 @@ IPv6地址可像下面这三种方式进行表示。
 
 *表7.2 -- 以替代的压缩形式表示的完整IPv6地址*
 
-<table>
-<tr><th>完整IPv6地址表示法</th><th>压缩IPv6地址表示法</th></tr>
-<tr><td><pre>0000:0123:0abc:0000:04b0:0678:f000:0001</pre></td><td><pre>::123:abc:0:4b0:678:f000:1</pre></td></tr>
-<tr><td><pre>2001:0000:0000:1234:0000:5678:af23:bcd5</pre></td><td><pre>2001::1234:0:5678:af23:bcd5</pre></td></tr>
-<tr><td><pre>3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F</pre></td><td><pre>3FFF::1010:1A2B:5000:B00:DE0F</pre></td></tr>
-<tr><td><pre>fec0:2004:ab10:00cd:1234:0000:0000:6789</pre></td><td><pre>fec0:2004:ab10:cd:1234::6789</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:FFFF:172.16.255.1</pre></td><td><pre>::FFFF:172.16.255.1</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:0000:172.16.255.1</pre></td><td><pre>::172.16.255.1</pre></td></tr>
-<tr><td><pre>0000:0000:0000:0000:0000:0000:0000:0000</pre></td><td><pre>::</pre></td></tr>
-</table>
+| 完整IPv6地址表示法 | 压缩IPv6地址表示法 |
+| -- | -- |
+| `0000:0123:0abc:0000:04b0:0678:f000:0001` | `::123:abc:0:4b0:678:f000:1` |
+| `2001:0000:0000:1234:0000:5678:af23:bcd5` | `2001::1234:0:5678:af23:bcd5` |
+| `3FFF:0000:0000:1010:1A2B:5000:0B00:DE0F` | `3FFF::1010:1A2B:5000:B00:DE0F` |
+| `fec0:2004:ab10:00cd:1234:0000:0000:6789` | `fec0:2004:ab10:cd:1234::6789` |
+| `0000:0000:0000:0000:0000:FFFF:172.16.255.1` | `::FFFF:172.16.255.1` |
+| `0000:0000:0000:0000:0000:0000:172.16.255.1` | `::172.16.255.1` |
+| `0000:0000:0000:0000:0000:0000:0000:0000` | `::` |
 
 这里就有了两种以压缩形式表示完整IPv6地址的方法，要记住，**两种方法之间并不互相排斥**。也就是说，在表示一个IPv6地址时，可以同时使用这两种方法。当某个完整IPv6地址既包含了连续0s字符串，又在其它字段中有前导0s时，这经常会用到。表7.3展示了一些既包含了连续0s字符串，又有前导0s的一些IPv6地址的完整形式，以及如何将这些地址表示成压缩形式。
 
 *表7.3 -- 使用了两种压缩格式方法的完整IPv6地址*
 
-<table>
-<tr><th>完整IPv6地址表示法</th><th>压缩IPv6地址表示法</th></tr>
-<tr><td><pre>0000:0000:0000:0000:1a2b:000c:f123:4567</pre></td><td><pre>::1a2b:c:f123:4567</pre></td></tr>
-<tr><td><pre>FEC0:0004:AB10:00CD:1234:0000:0000:6789</pre></td><td><pre>FEC0:4:AB10:CD:1234::6789</pre></td></tr>
-<tr><td><pre>3FFF:0c00:0000:1010:1A2B:0000:0000:DE0F</pre></td><td><pre>3FFF:c00:0:1010:1A2B::DE0F</pre></td></tr>
-<tr><td><pre>2001:0000:0000:1234:0000:5678:af23:00d5</pre></td><td><pre>2001::1234:0:5678:af23:d5</pre></td></tr>
-</table>
+| 完整IPv6地址表示法 | 压缩IPv6地址表示法 |
+| -- | -- |
+| `0000:0000:0000:0000:1a2b:000c:f123:4567` | `::1a2b:c:f123:4567` |
+| `FEC0:0004:AB10:00CD:1234:0000:0000:6789` | `FEC0:4:AB10:CD:1234::6789` |
+| `3FFF:0c00:0000:1010:1A2B:0000:0000:DE0F` | `3FFF:c00:0:1010:1A2B::DE0F` |
+| `2001:0000:0000:1234:0000:5678:af23:00d5` | `2001::1234:0:5678:af23:d5` |
 
 ###带有一个嵌入的IPv4地址的IPv6地址
 
@@ -269,13 +264,13 @@ IPv6地址可像下面这三种方式进行表示。
 
 在CCNA层次，IPv4的广播、多播及单播地址都无需更为详尽地阐述，本课程及本模块都不会对它们进行更为详细的说明。与IPv4支持这四种类型的地址相比，IPv6废除了广播地址，同时取而代之的仅支持以下类型的地址。
 
-+ 本地链路地址，Link-Local addresses
-+ 站点本地地址，Site-Local addresses
-+ 可聚合全球单播地址，Aggregatable Global Unicast addresses
-+ 多播地址，Multicast addresses，已被废除，取而代之的是本地唯一地址（Unique-Local addresses, ULAs)
-+ 任意播地址，Anycast addresses
-+ 环回地址，Loopback addresses
-+ 未指明的地址，Unspecified addresses，`::/128`
+- 本地链路地址，Link-Local addresses
+- 站点本地地址，Site-Local addresses
+- 可聚合全球单播地址，Aggregatable Global Unicast addresses
+- 多播地址，Multicast addresses，已被废除，取而代之的是本地唯一地址（Unique-Local addresses, ULAs)
+- 任意播地址，Anycast addresses
+- 环回地址，Loopback addresses
+- 未指明的地址，Unspecified addresses，`::/128`
 
 ###本地链路地址
 
@@ -319,23 +314,21 @@ IPv6的可聚合全球单播地址，是由互联网号码分配局（the Intern
 
 *表7.4 -- IPv6可聚合全球单播地址*
 
-<table>
-<tr><th>说明</th><th>地址</th><tr>
-<tr><td><pre>范围中的第一个地址</pre></td><td><pre>2000:0000:0000:0000:0000:0000:0000:0000</pre></td></tr>
-<tr><td><pre>范围中的最后一个地址</pre></td><td><pre>3FFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF</pre></td></tr>
-<tr><td><pre>二进制标记</pre></td><td><pre>高位序的三位被设置为001</pre></td></tr>
-</table>
+| 说明 | 地址 |
+| -- | -- |
+| `范围中的第一个地址` | `2000:0000:0000:0000:0000:0000:0000:0000` |
+| `范围中的最后一个地址` | `3FFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF` |
+| `二进制标记` | `高位序的三位被设置为001` |
 
 在本模块编写时，`2000::/3`IPv6地址块中，仅分配使用了3个子网。这三个子网如下表7.5所示。
 
 *表7.5 -- 由IANA所分配的IPv6可聚合全球单播地址*
 
-<table>
-<tr><th>IPv6全球前缀</th><th>二进制表示法</th><th>说明</th></tr>
-<tr><td><pre>2001::/16</pre></td><td><pre>0010 0000 0000 0001</pre></td><td>全球IPv6互联网(单播)</td></tr>
-<tr><td><pre>2002::/16</pre></td><td><pre>0010 0000 0000 0000</pre></td><td>6to4迁移前缀</td></tr>
-<tr><td><pre>3FFE::/16</pre></td><td><pre>0010 1111 1111 1110</pre></td><td>6bone前缀</td></tr>
-</table>
+| IPv6全球前缀 | 二进制表示法 | 说明 |
+| -- | -- | -- |
+| `2001::/16` | `0010 0000 0000 0001` | 全球IPv6互联网(单播) |
+| `2002::/16` | `0010 0000 0000 0000` | 6to4迁移前缀 |
+| `3FFE::/16` | `0010 1111 1111 1110` | 6bone前缀 |
 
 >**注意：** 6to4迁移地址和6bone前缀将在本课程的后面说明。
 
@@ -359,39 +352,36 @@ IPv6中用到的多播地址，是从`FF00::/8`这个IPv6前缀中得到的。IP
 
 *表7.6 -- IPv6永久及临时多播地址*
 
-<table>
-<tr><th><pre>多播地址类型</pre></th><th><pre>二进制表示法</pre></th><th><pre>十六进制值</pre></th></tr>
-<tr><td>永久</td><td><pre>0000</pre></td><td>0</td></tr>
-<tr><td>临时</td><td><pre>0001</pre></td><td>1</td></tr>
-</table>
+| 多播地址类型 | 二进制表示法 | 十六进制值 |
+| -- | -- | -- |
+| 永久 | `0000` | 0 |
+| 临时 | `0001` | 1 |
 
 多播地址中接下来的4位表示**多播范围**。在IPv6多播分址中，该字段是一个**用于限制多播数据包发往网络其它区域的_强制_字段**（this field is a mandatory field that restricts Multicast packets from being sent to other areas in the network）。该字段本质上提供了与IPv4中所用到的TTL字段一样的功能。但是，**在IPv6中，范围的类型有好几种**，下表7.7中列出了这些类型。
 
 *表7.7 -- IPv6多播地址范围的类型*
 
-<table>
-<tr><th><pre>范围类型</pre></th><th><pre>二进制表示法</pre></th><th><pre>十六进制值</pre></th></tr>
-<tr><td><pre>本地接口，Interface-Local</pre></td><td><pre>0001</pre></td><td>1</td></tr>
-<tr><td><pre>本地链路，Link-Local</pre></td><td><pre>0010</pre></td><td>2</td></tr>
-<tr><td><pre>本地子网, Subnet-Local</pre></td><td><pre>0011</pre></td><td>3</td></tr>
-<tr><td><pre>本地管理域范围，Admin-Local</pre></td><td><pre>0100</pre></td><td>4</td></tr>
-<tr><td><pre>本地站点范围，Site-Local</pre></td><td><pre>0101</pre></td><td>5</td></tr>
-<tr><td><pre>组织范围，Organization</pre></td><td><pre>1000</pre></td><td>8</td></tr>
-<tr><td><pre>全球范围，Global</pre></td><td><pre>1110</pre></td><td>E</td></tr>
-</table>
+| 范围类型 | 二进制表示法 | 十六进制值 |
+| -- | -- | -- |
+| 本地接口，Interface-Local | `0001` | 1 |
+| 本地链路，Link-Local | `0010` | 2 |
+| 本地子网, Subnet-Local | `0011` | 3 |
+| 本地管理域范围，Admin-Local | `0100` | 4 |
+| 本地站点范围，Site-Local | `0101` | 5 |
+| 组织范围，Organization | `1000` | 8 |
+| 全球范围，Global | `1110` | E |
 
 在这些IPv6多播前缀中，又**保留了一些地址**。这些保留地址称作多播指定地址（Multicast Assigned addresses）, 如下表7.8中所示。
 
 *表7.8 -- 保留的IPv6多播地址*
 
-<table>
-<tr><th>地址</th><th>范围</th><th>说明</th></tr>
-<tr><td><pre>FF01::1</pre></td><td>主机</td><td>所有在本地接口范围内的主机</td></tr>
-<tr><td><pre>FF01::2</pre></td><td>主机</td><td>所有在本地接口范围内的路由器</td></tr>
-<tr><td><pre>FF02::1</pre></td><td>本地链路</td><td>所有在本地链路范围内的主机</td></tr>
-<tr><td><pre>FF02::2</pre></td><td>本地链路</td><td>所有在本地链路范围内的路由器</td></tr>
-<tr><td><pre>FF05::2</pre></td><td>站点</td><td>所有在本地站点范围内的路由器</td></tr>
-</table>
+| 地址 | 范围 | 说明 |
+| -- | -- | -- |
+| `FF01::1` | 主机 | 所有在本地接口范围内的主机 |
+| `FF01::2` | 主机 | 所有在本地接口范围内的路由器 |
+| `FF02::1` | 本地链路 | 所有在本地链路范围内的主机 |
+| `FF02::2` | 本地链路 | 所有在本地链路范围内的路由器 |
+| `FF05::2` | 站点 | 所有在本地站点范围内的路由器 |
 
 除了这些地址外，对路由器接口和网络主机上配置的每个单播和任意播地址，都自动启用了一个节点询问多播地址（a Solicited-Node Multicast address）。此地址有着一个本地链路范围，就是说该地址绝不会超出本地网段之外（this address has a Link-Local scope, which means that it will never traverse farther than the local network segment）。**节点询问多播地址用于以下两个目的：取代IPv4的ARP和DAD**。
 
@@ -431,10 +421,10 @@ IPv6中的环回地址，用法和IPv4中的一样。与IPv4中用到的环回�
 
 尽管互联网协议版本6与版本4是相似的，但在具体运作上，前者与后者相比仍然有着显著的不同。本节对以下的一些IPv6协议和机制进行了说明。
 
-+ IPv6的ICMP
-+ IPv6邻居发现协议（the IPv6 Neighbor Discovery Protocol, NDP）
-+ IPv6的有状态自动配置机制（IPv6 stateful autoconfiguration）
-+ IPv6的无状态自动配置机制（IPv6 stateless autoconfiguration）
+- IPv6的ICMP
+- IPv6邻居发现协议（the IPv6 Neighbor Discovery Protocol, NDP）
+- IPv6的有状态自动配置机制（IPv6 stateful autoconfiguration）
+- IPv6的无状态自动配置机制（IPv6 stateless autoconfiguration）
 
 ###IPv6下的ICMP
 
@@ -450,14 +440,13 @@ ICMP用于将有关发往预期目的主机的IP数据的错误和其他信息�
 
 *表7.9 -- ICMPv6报文类型*
 
-<table>
-<tr><th>ICMPv6 类型</th><th>说明</th></tr>
-<tr><td>1</td><td>目的主机不可达</td></tr>
-<tr><td>2</td><td>数据包太大</td></tr>
-<tr><td>3</td><td>发生了超时</td></tr>
-<tr><td>128</td><td>Echo请求</td></tr>
-<tr><td>129</td><td>Echo回应</td></tr>
-</table>
+| ICMPv6 类型 | 说明 |
+| -- | -- |
+| 1 | 目的主机不可达 |
+| 2 | 数据包太大 |
+| 3 | 发生了超时 |
+| 128 | Echo请求 |
+| 129 | Echo回应 |
 
 > **注意：** ICMPv4也是使用的这些报文类型。
 
@@ -465,23 +454,22 @@ ICMP用于将有关发往预期目的主机的IP数据的错误和其他信息�
 
 *表7.10 -- ICMPv6代码*
 
-<table>
-<tr><th>ICMPv6代码</th><th>说明</th></tr>
-<tr><td>0</td><td>Echo回应</td></tr>
-<tr><td>3</td><td>目的主机不可达</td></tr>
-<tr><td>8</td><td>Echo</td></tr>
-<tr><td>11</td><td>发生了超时</td></tr>
-</table>
+| ICMPv6代码 | 说明 |
+| -- | -- |
+| 0 | Echo回应 |
+| 3 | 目的主机不可达 |
+| 8 | Echo |
+| 11 | 发生了超时 |
 
 在代码字段后面的16位**校验和字段**（the 16-bit Checksum field），包含一个用于检测ICMPv6中数据错误的运算值。ICMPv6数据包的最后，就是报文或数据二选一的字段（the Message or Data field is an optional）, 它是一个可变长度字段，包含了由类型及代码字段指明的报文类型特定数据。在用到报文或数据字段时，该字段提供了发送给目的主机的信息。
 
 **ICMPv6是IPv6的一个核心部件**。在IPv6中，ICMPv6有以下用途。
 
-+ 重复地址检测，Duplicate Address Detection, DAD
-+ ARP的替代，the replacement of ARP
-+ IPv6无状态自动配置, IPv6 stateless autoconfiguration
-+ IPv6前缀重新编号, IPv6 prefix renumbering
-+ 路径MTU发现，Path MTU Discovery, PMTUD
+- 重复地址检测，Duplicate Address Detection, DAD
+- ARP的替代，the replacement of ARP
+- IPv6无状态自动配置, IPv6 stateless autoconfiguration
+- IPv6前缀重新编号, IPv6 prefix renumbering
+- 路径MTU发现，Path MTU Discovery, PMTUD
 
 > **注意：** 在上述用途中，DAD和无状态自动配置会在本章的稍后进行说明。PMTUD是超出当前CCNA考试要求范围的，在本模块及本教程中不会对其进行任何细节上的说明。
 
@@ -491,15 +479,15 @@ ICMP用于将有关发往预期目的主机的IP数据的错误和其他信息�
 
 **IPv6邻居发现协议带来IPv6的即插即用特性**。它是在RFC 2461中定义的，是IPv6的一个必不可少的组成部分。**NDP运行在链路层**，负责**发现链路上的其它节点**、**确定其它节点的链路层地址**、**发现可用的路由器**，以及**维护有关到其它邻居节点路径的可达性信息**。**NDP实现了IPv6的类似于IPv4的ARP**（这正是其取代的功能）、**ICMP路由器发现**(ICMP Router Discovery)以及**路由器重定向协议（Router Redirect Protocols）等功能**。尽管如此，要记住NDP提供了比起IPv4中用到的诸多机制，都更为了不起的功能。在与ICMPv6配合使用时，NDP可以完成以下任务。
 
-+ 动态邻居和路由器发现，dynamic neighbor and router discovery
-+ 取代ARP，the replacement of ARP
-+ IPv6无状态自动配置，IPv6 stateless autoreconfiguration
-+ 路由器重定向，router redirection
-+ 主机参数发现，host parameter discovery
-+ IPv6地址解析，IPv6 address resolution
-+ 确定下一跳路由器，next-hop router determination
-+ 邻居不可达检测，Neighbor Unreachablitiy Detection, NUD
-+ 重复地址检测，Duplicate Address Detection, DAD
+- 动态邻居和路由器发现，dynamic neighbor and router discovery
+- 取代ARP，the replacement of ARP
+- IPv6无状态自动配置，IPv6 stateless autoreconfiguration
+- 路由器重定向，router redirection
+- 主机参数发现，host parameter discovery
+- IPv6地址解析，IPv6 address resolution
+- 确定下一跳路由器，next-hop router determination
+- 邻居不可达检测，Neighbor Unreachablitiy Detection, NUD
+- 重复地址检测，Duplicate Address Detection, DAD
 
 > **注意：** 并不要求对上面列出的每个优势进行细节上的探究。
 
@@ -507,14 +495,13 @@ ICMP用于将有关发往预期目的主机的IP数据的错误和其他信息�
 
 *表7.11 -- ICMPv6邻居发现报文类型*
 
-<table>
-<tr><th>ICMPv6类型</th><th>说明</th></tr>
-<tr><td>133</td><td>用于路由器询问报文，used for Router Solicitation(RS) messages</td></tr>
-<tr><td>134</td><td>用于路由器通告报文，used for Router Advertisement(RA) messages</td></tr>
-<tr><td>135</td><td>用于邻居询问报文，used for Neighbor Solicitation(NS) messages</td></tr>
-<tr><td>136</td><td>用于邻居通告报文，used for Neighbor Advertisement(NA) messages</td></tr>
-<tr><td>137</td><td>用于路由器重定向报文, used for Router Redirect messages</td></tr>
-</table>
+| ICMPv6类型 | 说明 |
+| -- | -- |
+| 133 | 用于路由器询问报文，used for Router Solicitation(RS) messages |
+| 134 | 用于路由器通告报文，used for Router Advertisement(RA) messages |
+| 135 | 用于邻居询问报文，used for Neighbor Solicitation(NS) messages |
+| 136 | 用于邻居通告报文，used for Neighbor Advertisement(NA) messages |
+| 137 | 用于路由器重定向报文, used for Router Redirect messages |
 
 **路由器询问报文**（Router Solicition messages）由主机在其接口开启IPv6时所发出。这些报文用于请求本地网段上的路由器立即生成RA报文，而不要等到下一个计划的RA时间间隔才生成RA报文。下图7.2演示了一条在线路上捕获到的RS报文。
 
@@ -564,17 +551,17 @@ RA报文中的M位，指的是受管理的地址配置标志位（the Managed Ad
 
 如某台主机未曾配置一个IPv6地址，它就可以采用下面的三种方法之一，来获得一个IPv6地址，及诸如DNS服务器地址等的其他网络设置。
 
-+ SLAAC -- 无状态自动配置（StateLess Address AutoConfiguration），M和O位设置为0。也就是没有DHCPv6信息。主机从一条RA收到所有必要信息。
-+ 有状态DHCPv6 -- M标志位设置为1, 告诉主机使用DHCPv6取得所有地址和网络信息。
-+ 无状态DHCPv6 -- M标志位设置为0, O标志位设置为1, 意味着主机将采用SLAAC来得到地址（从一条RA），而同时从DNS服务器取得其它信息。
+- SLAAC -- 无状态自动配置（StateLess Address AutoConfiguration），M和O位设置为0。也就是没有DHCPv6信息。主机从一条RA收到所有必要信息。
+- 有状态DHCPv6 -- M标志位设置为1, 告诉主机使用DHCPv6取得所有地址和网络信息。
+- 无状态DHCPv6 -- M标志位设置为0, O标志位设置为1, 意味着主机将采用SLAAC来得到地址（从一条RA），而同时从DNS服务器取得其它信息。
 
 尽管SLAAC能力是IPv6的一项优势，有状态自动配置仍然有着许多好处，包括以下这些。
 
-+ 相较SLAAC所提供的那些项目，有状态自动配置有着更大的控制权
-+ 在SLAAC网络上，同样可以使用有状态自动配置
-+ 在缺少路由器的情形下，仍然可以为网络主机提供分址
-+ 通过分配新的前缀给主机，而用来对网络重新编号
-+ 可用于将全部子网发布给用户侧设备（can be used to issue entire subnets to customer premise equipment，稍后会有说明）
+- 相较SLAAC所提供的那些项目，有状态自动配置有着更大的控制权
+- 在SLAAC网络上，同样可以使用有状态自动配置
+- 在缺少路由器的情形下，仍然可以为网络主机提供分址
+- 通过分配新的前缀给主机，而用来对网络重新编号
+- 可用于将全部子网发布给用户侧设备（can be used to issue entire subnets to customer premise equipment，稍后会有说明）
 
 ###IPv6无状态自动配置
 
@@ -584,9 +571,9 @@ IPv6容许设备为自己配置一个IP地址，以便进行主机到主机的�
 
 在IPv6中，SLAAC允许主机依据本地网络网段上的路由器发出的前缀通告，自己配置其单播IPv6地址。所需的其它信息（比如DNS服务器地址等）则可从DHCPv6服务器获取。IPv6中SLAAC用到的三种机制，如下所示。
 
-+ 前缀通告，prefix advertisement
-+ 重复地址检测，DAD
-+ 前缀重编号，prefix renumbering
+- 前缀通告，prefix advertisement
+- 重复地址检测，DAD
+- 前缀重编号，prefix renumbering
 
 **前缀通告**
 
@@ -596,10 +583,10 @@ IPv6地址前缀通告用到了ICMPv6 RA报文，而ICMPv6 RA是发往链路上�
 
 在前缀配置之后，SLAAC用到的RA报文还包含了以下信息。
 
-+ IPv6前缀，the IPv6 prefix
-+ 生命期，the lifetime
-+ 默认路由器信息，default router information
-+ 标志和/或选项字段，Flags and/or Options fields
+- IPv6前缀，the IPv6 prefix
+- 生命期，the lifetime
+- 默认路由器信息，default router information
+- 标志和/或选项字段，Flags and/or Options fields
 
 就像刚才指出的那样，**IPv6前缀必须是64位**。此外，**本地网段上还可以通告多个的IPv6前缀**。在该网络网段上的主机收到IPv6前缀后，就将它们的MAC地址以EUI-64格式，追加到前缀后面，从而自动地配置上他们的IPv6单播地址，这在本模块的先前部分已有说明。这样就为该网段上的每台主机，都提供了一个唯一的128位IPv6地址。
 
@@ -637,9 +624,9 @@ DAD通过使用邻居询问（135类型的ICMPv6）及节点询问多播地址�
 
 为在某台路由器上配置无状态的DHCPv6, 需要完成一些简单的步骤。
 
-+ 创建地址池名称和其它参数, create the pool name and other parameters
-+ 在某个借口上开启它, enable it on an interface
-+ 修改RA设置，modify Router Advertisement settings
+- 创建地址池名称和其它参数, create the pool name and other parameters
+- 在某个借口上开启它, enable it on an interface
+- 修改RA设置，modify Router Advertisement settings
 
 一个身份关联是分配给客户端的一些地址（an Identity Association is a collection of addresses assigned to the client）。使用到DHCPv6的每个借口都必须要有至少一个的身份关联（IA）。这里不会有CCNA考试的配置示例。
 
@@ -827,10 +814,8 @@ FastEthernet0/0 is up, line protocol is up
 
 如你看着下面图表中的分址，就能更清楚这个情况。
 
-<table>
-<tr><th>全球路由前缀</th><th>子网ID</th><th>接口ID</th></tr>
-<tr><td>48位或/48</td><td>16位（65535个可能的子网）</td><td>64位</td></tr>
-</table>
+| 全球路由前缀 | 子网ID | 接口ID |
+| 48位或/48 | 16位（65535个可能的子网） | 64位 |
 
 绝不用担心会用完每个子网的主机位，因为每个子网有超过2的64次幂的主机。任何组织要用完这些子网都是不大可能的，而就算发生了这种情况，也可以轻易地从ISP那里要一个前缀。
 
@@ -840,33 +825,32 @@ FastEthernet0/0 is up, line protocol is up
 
 用一个更简单的前缀来打比方吧 -- `2001:123:abc/48`。第一个子网就是全零，当然，每个子网上的第一台主机也可以是全零，这也是合法的（只要不保留IPv6中的全0s和全1s地址）。又会将全零主机表示为缩写形式的`::`。那么这里就有开头的几个子网及主机地址。
 
-<table>
-<tr><th>全球前缀</th><th>子网</th><th>第一个地址</th></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0000</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0001</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0002</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0003</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0004</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0005</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0006</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0007</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0008</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0009</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000A</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000B</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000C</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000D</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000E</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>000F</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0010</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0011</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0012</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0013</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0014</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0015</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0016</pre></td><td><pre>::</pre></td></tr>
-<tr><td><pre>2001:123:abc</pre></td><td><pre>0017</pre></td><td><pre>::</pre></td></tr>
-</table>
+| 全球前缀 | 子网 | 第一个地址 |
+| -- | -- | -- |
+| `2001:123:abc` | `0000` | `::` |
+| `2001:123:abc` | `0001` | `::` |
+| `2001:123:abc` | `0002` | `::` |
+| `2001:123:abc` | `0003` | `::` |
+| `2001:123:abc` | `0004` | `::` |
+| `2001:123:abc` | `0005` | `::` |
+| `2001:123:abc` | `0006` | `::` |
+| `2001:123:abc` | `0007` | `::` |
+| `2001:123:abc` | `0008` | `::` |
+| `2001:123:abc` | `0009` | `::` |
+| `2001:123:abc` | `000A` | `::` |
+| `2001:123:abc` | `000B` | `::` |
+| `2001:123:abc` | `000C` | `::` |
+| `2001:123:abc` | `000D` | `::` |
+| `2001:123:abc` | `000E` | `::` |
+| `2001:123:abc` | `000F` | `::` |
+| `2001:123:abc` | `0010` | `::` |
+| `2001:123:abc` | `0011` | `::` |
+| `2001:123:abc` | `0012` | `::` |
+| `2001:123:abc` | `0013` | `::` |
+| `2001:123:abc` | `0014` | `::` |
+| `2001:123:abc` | `0015` | `::` |
+| `2001:123:abc` | `0016` | `::` |
+| `2001:123:abc` | `0017` | `::` |
 
 我肯定你已经注意到这与IPv4分址规则有所不同，不同之处就在与**可以使用全零子网，同时子网的第一个地址总是全零**。请看看下面这个简单的网络拓扑，可以照这种方式进行子网分配。
 
@@ -900,21 +884,21 @@ FastEthernet0/0 is up, line protocol is up
 
 一名网络工程师应有一幅IPv6比起IPv4所带来众多优势的图景。看着IPv6的增强，可以总结出下面这些优势。
 
-+ IPv6有着一个扩展的地址空间，从32位扩展到了128位, IPv6 has an expanded address space, from 32 bits to 128bits
-+ IPv6使用十六进制表示法，而不是IPv4中的点分十进制表示法, IPv6 uses hexadecimal notation instead of dotted-decimal notation(as in IPv4)
-+ 因为采用了扩充的地址空间，IPv6地址是全球唯一地址，从而消除了NAT的使用需求, IPv6 addresses are globally unique due to the extended address space, eliminating the need for NAT
-+ IPv6有着一个固定的头部长度（40字节），允许厂商在交换效率上进行提升, IPv6 has a fixed header length(40 bytes), allowing vendors to improve switching efficiency
-+ IPv6通过在IPv6头部和传输层之间放入扩展头部，而实现对一些增强选项（这可以提供新特性）的支持, IPv6 supports enhanced options(that offer new features)by placing extension headers between the IPv6 header and the Transport Layer header
-+ IPv6具备地址自动配置的能力，提供无需DHCP服务器的IP地址动态分配, IPv6 offers address autoconfiguration, providing for dynamic assignment of IP addresses even without a DHCP server
-+ IPv6具备对流量打标签的支持, IPv6 offers support for labeling traffic flows
-+ IPv6有着内建的安全功能，包括经由IPSec实现的认证和隐私保护功能等, IPv6 has security capabilities built in, including authentication and privacy via IPSec
-+ IPv6具备在往目的主机发送数据包之前的路径MTU发现功能，从而消除碎片的需求, IPv6 offers MTU path discovery before sending packets to a destination, eliminating the need for fragmentation
-+ IPv6支持站点多处分布，IPv6 supports site multi-homing
-+ IPv6使用ND（邻居发现，Neighbor Discovery）协议取代ARP，IPv6 uses the ND protocol instead of ARP
-+ IPv6使用AAAA DNS记录，取代IPv4中的A记录, IPv6 uses AAAA DNS records instead of A records (as in IPv4)
-+ IPv6使用站点本地分址，取代IPv4中的RFC 1918， IPv6 uses Site-Local addressing instead of RFC 1918(as in IPv4)
-+ IPv4和IPv6使用不同的路由协议, IPv4 and IPv6 use different routing protocols
-+ IPv6提供了任意播分址, IPv6 provides for Anycast addressing
+- IPv6有着一个扩展的地址空间，从32位扩展到了128位, IPv6 has an expanded address space, from 32 bits to 128bits
+- IPv6使用十六进制表示法，而不是IPv4中的点分十进制表示法, IPv6 uses hexadecimal notation instead of dotted-decimal notation(as in IPv4)
+- 因为采用了扩充的地址空间，IPv6地址是全球唯一地址，从而消除了NAT的使用需求, IPv6 addresses are globally unique due to the extended address space, eliminating the need for NAT
+- IPv6有着一个固定的头部长度（40字节），允许厂商在交换效率上进行提升, IPv6 has a fixed header length(40 bytes), allowing vendors to improve switching efficiency
+- IPv6通过在IPv6头部和传输层之间放入扩展头部，而实现对一些增强选项（这可以提供新特性）的支持, IPv6 supports enhanced options(that offer new features)by placing extension headers between the IPv6 header and the Transport Layer header
+- IPv6具备地址自动配置的能力，提供无需DHCP服务器的IP地址动态分配, IPv6 offers address autoconfiguration, providing for dynamic assignment of IP addresses even without a DHCP server
+- IPv6具备对流量打标签的支持, IPv6 offers support for labeling traffic flows
+- IPv6有着内建的安全功能，包括经由IPSec实现的认证和隐私保护功能等, IPv6 has security capabilities built in, including authentication and privacy via IPSec
+- IPv6具备在往目的主机发送数据包之前的路径MTU发现功能，从而消除碎片的需求, IPv6 offers MTU path discovery before sending packets to a destination, eliminating the need for fragmentation
+- IPv6支持站点多处分布，IPv6 supports site multi-homing
+- IPv6使用ND（邻居发现，Neighbor Discovery）协议取代ARP，IPv6 uses the ND protocol instead of ARP
+- IPv6使用AAAA DNS记录，取代IPv4中的A记录, IPv6 uses AAAA DNS records instead of A records (as in IPv4)
+- IPv6使用站点本地分址，取代IPv4中的RFC 1918， IPv6 uses Site-Local addressing instead of RFC 1918(as in IPv4)
+- IPv4和IPv6使用不同的路由协议, IPv4 and IPv6 use different routing protocols
+- IPv6提供了任意播分址, IPv6 provides for Anycast addressing
 
 ##第七天的问题
 
@@ -950,16 +934,16 @@ FastEthernet0/0 is up, line protocol is up
 
 在一对直接连接的思科路由器上，对在本模块中提到的IPv6概念和命令，进行测试。
 
-+ 在两台路由器上都开启IPv6全球单播路由
+- 在两台路由器上都开启IPv6全球单播路由
 + 在每个连接的接口上手动配置一个IPv6地址，比如下面这样。
 	- 在路由器R1的连接接口上配置`2001:100::1/64`
 	- 在路由器R2的连接接口上配置`2001:100::2/64`
-+ 使用命令`show ipv6 interface`和`show ipv6 interface prefix`对配置进行验证
-+ 测试直接ping的连通性
-+ 使用IPv6无状态自动配置（`ipv6 address autoconfig default`）进行重新测试
-+ 使用EUI-64地址（IPv6地址`2001::/64` EUI-64）进行重新测试
-+ 硬编码一个借口本地链路地址: `ipv6 address fe80:1234:adcd:1::3 link-local`
-+ 查看IPv6路由表
+- 使用命令`show ipv6 interface`和`show ipv6 interface prefix`对配置进行验证
+- 测试直接ping的连通性
+- 使用IPv6无状态自动配置（`ipv6 address autoconfig default`）进行重新测试
+- 使用EUI-64地址（IPv6地址`2001::/64` EUI-64）进行重新测试
+- 硬编码一个借口本地链路地址: `ipv6 address fe80:1234:adcd:1::3 link-local`
+- 查看IPv6路由表
 
 ###十六进制转换及子网划分练习
 
@@ -967,7 +951,7 @@ FastEthernet0/0 is up, line protocol is up
 
 请把今天剩下的时间用于练习这些重要的题目上。
 
-+ 将十进制转换成十六进制（随机数字）
-+ 将十六进制转换成十进制（随机数字）
-+ IPv6子网划分（随机网络和场景）
+- 将十进制转换成十六进制（随机数字）
+- 将十六进制转换成十进制（随机数字）
+- IPv6子网划分（随机网络和场景）
 
