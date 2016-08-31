@@ -6,10 +6,10 @@
 
 ##第31天任务
 
-+ 阅读今天的课文
-+ 完成今天的实验
-+ 阅读ICND2记诵指南
-+ 在[subneting.org](http://subnetting.org/)上花15分钟
+- 阅读今天的课文
+- 完成今天的实验
+- 阅读ICND2记诵指南
+- 在[subneting.org](http://subnetting.org/)上花15分钟
 
 生成树协议（Spanning Tree Protocol, STP）的作用, 是在具备冗余的交换网络拓扑中，允许存在多条物理链路的同时, 通过建立一个无循环逻辑拓扑，阻止网络上循环的发生（the role of Spanning Tree Protocol(STP) is to prevent loops from occuring on your network by creating a loop-free logical topology, while allowing physical links in redundant switched network topologies）。随着网络中所用到交换机数量的急剧增加，以及传播VLAN信息的主要目的下，围绕网络数据帧无尽循环问题开始出现。
 
@@ -17,13 +17,13 @@
 
 今天将学习以下内容。
 
-+ STP的需求，the need of STP
-+ STP桥ID，STP Bridge ID
-+ STP根桥选举，STP Root Bridge election
-+ STP开销及优先级，STP cost and priority
-+ STP根及候选端口，STP Root and Designated Ports
-+ STP增强，STP enhancements
-+ STP排错，Troubleshooting STP
+- STP的需求，the need of STP
+- STP桥ID，STP Bridge ID
+- STP根桥选举，STP Root Bridge election
+- STP开销及优先级，STP cost and priority
+- STP根及候选端口，STP Root and Designated Ports
+- STP增强，STP enhancements
+- STP排错，Troubleshooting STP
 
 本课对应了以下CCNA大纲要求。
 
@@ -47,11 +47,11 @@ STP运行着一种算法，用于根据所考虑的特定VLAN，决定出哪些�
 
 **位处生成树域中的所有交换机，都使用BPDUs来沟通和交换报文。**STP利用BPDUs的交换，来确定网络拓扑，而网络拓扑则是由以下三个变量决定的。
 
-+ 与各台交换机相关联的唯一MAC地址（交换机识别符），the unique MAC address(switch identifier) that is associated with each switch
+- 与各台交换机相关联的唯一MAC地址（交换机识别符），the unique MAC address(switch identifier) that is associated with each switch
 
-+ 各个交换机端口到根桥的路径开销，the path cost to the Root Bridge associated with each switch port
+- 各个交换机端口到根桥的路径开销，the path cost to the Root Bridge associated with each switch port
 
-+ 各个交换机端口的端口识别符（该端口的MAC地址），the port identifier(MAC address of the port) associated with each switch port
+- 各个交换机端口的端口识别符（该端口的MAC地址），the port identifier(MAC address of the port) associated with each switch port
 
 BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测及拓扑信息交换。BPDUs的两个类型分别是**配置BPDUs**及**拓扑变化通知BPDUs**（Configuration BPDUs and Topology Change Notification BPDUs）; 这里只会对配置BPDUs进行说明。
 
@@ -71,15 +71,15 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 配置BPDU交换的完成，导致以下动作。
 
-+ 选举出整个生成树域的根桥, a Root Switch is elected for the entire Spanning Tree domain
+- 选举出整个生成树域的根桥, a Root Switch is elected for the entire Spanning Tree domain
 
-+ 选举出生成树域中所有非根交换机上的根端口，a Root Port is elected on every Non-Root Switch in the Spanning Tree domain
+- 选举出生成树域中所有非根交换机上的根端口，a Root Port is elected on every Non-Root Switch in the Spanning Tree domain
 
-+ 选举出所有LAN网段中的候选交换机，a Designated Switch is elected for every LAN segment
+- 选举出所有LAN网段中的候选交换机，a Designated Switch is elected for every LAN segment
 
-+ 选举出所有网段的候选交换机的候选端口(根交换机上的所有活动端口也都是候选端口)，a Designated Port is elected on the Designated Switch for every segment(all active ports on the Root Switch are also designated)
+- 选举出所有网段的候选交换机的候选端口(根交换机上的所有活动端口也都是候选端口)，a Designated Port is elected on the Designated Switch for every segment(all active ports on the Root Switch are also designated)
 
-+ 通过阻塞冗余路径，网络中的循环得以消除，loops in the network are eliminated by blocking redundant paths
+- 通过阻塞冗余路径，网络中的循环得以消除，loops in the network are eliminated by blocking redundant paths
 
 > **注意：**随着逐步深入本模块内容，这些特性将会一一介绍。
 
@@ -119,15 +119,15 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 生成树算法（Spanning Tree Algorithm, STA）定义了STP控制下端口在进入到活动的转发状态之前，需要经历的几种状态。802.1D标准中端口状态有下面这些。
 
-+ 阻塞中 -- 仅接收BPDUs（为期20s）， blocking -- BPDUs received only (20 seconds)
+- 阻塞中 -- 仅接收BPDUs（为期20s）， blocking -- BPDUs received only (20 seconds)
 
-+ 侦听中 -- 有BPDUs发出和接收（为期15s），listening -- BPDUs sent and received (15 seconds)
+- 侦听中 -- 有BPDUs发出和接收（为期15s），listening -- BPDUs sent and received (15 seconds)
 
-+ 学习中 -- 桥接表被建立起来（为期15s），learning -- bridging table is built (15 seconds)
+- 学习中 -- 桥接表被建立起来（为期15s），learning -- bridging table is built (15 seconds)
 
-+ 转发中 -- 发送/接收数据，forwarding -- sending/receiving data
+- 转发中 -- 发送/接收数据，forwarding -- sending/receiving data
 
-+ 关闭 -- 管理性关闭，disabled -- administratively down
+- 关闭 -- 管理性关闭，disabled -- administratively down
 
 端口按以下方式在这些状态间依序移动。
 
@@ -143,11 +143,11 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 在该过程中用到**STP计时器**来控制收敛。
 
-+ Hello计时器 -- 2s（每个配置BPDU直接的时间）
+- Hello计时器 -- 2s（每个配置BPDU直接的时间）
 
-+ 转发延迟计数器 -- 15s（侦听/控制学习状态的为期），Forward Delay -- 15 seconds (controls durations of Listening/Learning states)
+- 转发延迟计数器 -- 15s（侦听/控制学习状态的为期），Forward Delay -- 15 seconds (controls durations of Listening/Learning states)
 
-+ 最大存活时间 -- 20s（控制阻塞状态的为期），Max Age -- 20 seconds (controls the duration of the Blocking state)
+- 最大存活时间 -- 20s（控制阻塞状态的为期），Max Age -- 20 seconds (controls the duration of the Blocking state)
 
 **默认收敛时间是30到50秒。**
 
@@ -157,17 +157,17 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 处于阻塞状态的交换机端口，完成以下动作。
 
-+ 丢弃在该端口上接收到的来自所连接网段的数据帧，discards frames received on the port from the attached segment
+- 丢弃在该端口上接收到的来自所连接网段的数据帧，discards frames received on the port from the attached segment
 
-+ 丢弃交换自另一端口的数据帧，discards frames switched from another port
+- 丢弃交换自另一端口的数据帧，discards frames switched from another port
 
-+ 不将工作站地址放入到其地址数据库中，does not incorporate station location into its address database
+- 不将工作站地址放入到其地址数据库中，does not incorporate station location into its address database
 
-+ 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
+- 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
 
-+ 不传送自系统模块接收到的BPDUs，does not transmit BPDUs received from the system module
+- 不传送自系统模块接收到的BPDUs，does not transmit BPDUs received from the system module
 
-+ 接收网络管理报文，并对这些报文进行响应，receives and responds to network management messages
+- 接收网络管理报文，并对这些报文进行响应，receives and responds to network management messages
 
 ###生成树侦听状态
 
@@ -175,17 +175,17 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 侦听状态是端口在阻塞状态之后所进入的第一个过渡状态。在STP确定端口应参与到帧转发时，该端口就进入此状态。处于侦听状态的交换机端口完成以下动作。
 
-+ 丢弃接收自所连接网段的帧, discards frames received from the attached segment
+- 丢弃接收自所连接网段的帧, discards frames received from the attached segment
 
-+ 丢弃转发自另一端口的帧, discards frames switched from another port
+- 丢弃转发自另一端口的帧, discards frames switched from another port
 
-+ 不将工作站地址加入到其地址数据库，does not incorporate station location into its address database
+- 不将工作站地址加入到其地址数据库，does not incorporate station location into its address database
 
-+ 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
+- 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
 
-+ 接收、处理并传送接收自系统模块的BPDUs, receives, processes, and transmits BPDUs received from the system module
+- 接收、处理并传送接收自系统模块的BPDUs, receives, processes, and transmits BPDUs received from the system module
 
-+ 对网络管理报文进行接收和响应，receives and responds to network management messages
+- 对网络管理报文进行接收和响应，receives and responds to network management messages
 
 ###生成树学习状态
 
@@ -193,17 +193,17 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 学习状态是端口所进入的第二个过渡状态。此状态在侦听状态之后，且在端口进入转发状态之前到来。在此状态中，端口学习MAC地址并将学习到的MAC地址装入到其转发表中。处于学习状态的交换机端口完成以下动作。
 
-+ 丢弃接收自所连接网段的帧, discards frames received from the attached segment
+- 丢弃接收自所连接网段的帧, discards frames received from the attached segment
 
-+ 丢弃转发自另一端口的帧, discards frames switched from another port
+- 丢弃转发自另一端口的帧, discards frames switched from another port
 
-+ 将工作站地址加入到其地址数据库，incorporates(installs) station location into its address database
+- 将工作站地址加入到其地址数据库，incorporates(installs) station location into its address database
 
-+ 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
+- 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
 
-+ 接收、处理并传送接收自系统模块的BPDUs, receives, processes, and transmits BPDUs received from the system module
+- 接收、处理并传送接收自系统模块的BPDUs, receives, processes, and transmits BPDUs received from the system module
 
-+ 对网络管理报文进行接收和响应，receives and responds to network management messages
+- 对网络管理报文进行接收和响应，receives and responds to network management messages
 
 ###生成树转发状态
 
@@ -211,17 +211,17 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 转发状态是端口在学习状态之后所进入的第三个过渡状态。处于转发状态的端口对帧进行转发。处于转发状态的交换机端口完成以下动作。
 
-+ 转发接收自所连接网段的数据帧
+- 转发接收自所连接网段的数据帧
 
-+ 转发交换自另一端口的数据帧
+- 转发交换自另一端口的数据帧
 
-+ 将站点地址信息加入（安装）到其地址数据库
+- 将站点地址信息加入（安装）到其地址数据库
 
-+ 接收BPDUs并将这些BPDUs导向给系统模块
+- 接收BPDUs并将这些BPDUs导向给系统模块
 
-+ 处理接收自系统模块的BPDUs
+- 处理接收自系统模块的BPDUs
 
-+ 接收网络管理报文并对其进行响应
+- 接收网络管理报文并对其进行响应
 
 
 ###生成树关闭状态
@@ -230,17 +230,17 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 关闭状态不是端口正常STP进展的部分。而是端口被网络管理员进行管理性关闭，或因为某种错误条件而被系统所关闭时，就被认为处于关闭状态。关闭的端口完成以下动作。
 
-+ 丢弃接收自所连接网段的数据帧
+- 丢弃接收自所连接网段的数据帧
 
-+ 丢弃转发自另一端口的数据帧
+- 丢弃转发自另一端口的数据帧
 
-+ 不将工作站地址加入其地址数据库
+- 不将工作站地址加入其地址数据库
 
-+ 接收BPDUs但不将这些BPDUs导向给系统模块
+- 接收BPDUs但不将这些BPDUs导向给系统模块
 
-+ 不接收来自系统模块的BPDUs
+- 不接收来自系统模块的BPDUs
 
-+ 对网络管理报文进行接收和响应
+- 对网络管理报文进行接收和响应
 
 
 ##生成树桥ID
@@ -311,14 +311,14 @@ Fa0/2       128.2       19      FWD 19  32770   0008.21a9.4f80  128.2
 
 **考试技巧：**如要强制某台交换机成为根桥，可执行下面的命令（同时参见下图31.6）。
 
-+ 可以手动设置优先级
+- 可以手动设置优先级
 
 ```
 Switch(config)#spanning-tree vlan 2 priority ?
 <0-61440>   bridge priority in increments of 4096
 ```
 
-+ 或者使用宏命令`primary`或`secondary`将其设置为根桥
+- 或者使用宏命令`primary`或`secondary`将其设置为根桥
 
 ```
 Switch(config)#spanning-tree vlan 2 root ?
@@ -504,8 +504,8 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 如早前指出的那样，STP对其所在环境做出以下两点假设。
 
-+ 所有链路都是双向的，而能够发送和接收桥协议数据单元。
-+ 所有交换机都能正常地接收、处理及发出BPDUs
+- 所有链路都是双向的，而能够发送和接收桥协议数据单元。
+- 所有交换机都能正常地接收、处理及发出BPDUs
 
 在现实世界的网络中，这两个假设并不总是正确。在这种情况下，STP就可能无法阻止网络中循环的形成（in situations where that is the case, STP may not be able to prevent loops from being formed within the network）。正是由于存在这种可能，且为提升基本的802.1D STA性能，思科引入了一些对IEEE 802.1D标准的增强，将在下面进行说明。
 
@@ -571,12 +571,12 @@ BPDU守护与BPDU过滤器两个特性常常混淆或甚至被想成是同一个
 
 在循环守护开启时，Switch 3保持对所有非候选端口的追踪。在端口持续接收到BPDUs时，该端口就是好的；但如该端口停止接收到BPDUs，就被转移到循环不一致状态（a loop-inconsistent state）。也就是说，在循环守护开启时，STP端口状态机（the STP port state machine）被修改为在缺少BPDUs时，阻止该端口从非候选端口角色转变成候选端口角色（in other words, when Loop Guard is enabled, the STP port state machine is modified to prevent the port from transitioning from the Non-Designated Port role to the Designated Port role in the absence of BPDUs）。在应用循环守护时，应知道以下这些应用准则。
 
-+ 不能在开启了根守护（Root Guard）的交换机上开启循环守护, Loop Guard cannot be enabled on a switch that also has Root Guard enabled
-+ 循环守护不影响上行快速（Uplink Fast）或骨干快速（Backbone Fast）的运行, Loop Guard does not affect Uplink Fast or Backbone Fast operation
-+ 循环守护只是必须在点对点链路上开启，Loop Guard must be enabled on Point-to-Point links only
-+ 循环守护的运行不受生成树计时器的影响，Loop Guard operation is not affected by the Spanning Tree timers
-+ 循环守护无法真正探测出一条单向链路，Loop Guard cannot actually detect a unidirectional link
-+ 循环守护无法在端口快速或动态VLAN端口上开启，Loop Guard cannot be enabled on Port Fast or Dynamic VLAN ports
+- 不能在开启了根守护（Root Guard）的交换机上开启循环守护, Loop Guard cannot be enabled on a switch that also has Root Guard enabled
+- 循环守护不影响上行快速（Uplink Fast）或骨干快速（Backbone Fast）的运行, Loop Guard does not affect Uplink Fast or Backbone Fast operation
+- 循环守护只是必须在点对点链路上开启，Loop Guard must be enabled on Point-to-Point links only
+- 循环守护的运行不受生成树计时器的影响，Loop Guard operation is not affected by the Spanning Tree timers
+- 循环守护无法真正探测出一条单向链路，Loop Guard cannot actually detect a unidirectional link
+- 循环守护无法在端口快速或动态VLAN端口上开启，Loop Guard cannot be enabled on Port Fast or Dynamic VLAN ports
 
 ###根守护
 
@@ -658,9 +658,9 @@ RLQs的类型有两种：RLQ请求和RLQ响应。**RLQ请求典型地在根端�
 
 STP故障通常有以下三类（STP issues usually fall within the following three categories）。
 
-+ 不正确的根桥, incorrect Root Bridge
-+ 不正确的根端口, incorrect Root Port
-+ 不正确的候选端口，incorrect Designated Port
+- 不正确的根桥, incorrect Root Bridge
+- 不正确的根端口, incorrect Root Port
+- 不正确的候选端口，incorrect Designated Port
 
 ###不正确的根桥
 

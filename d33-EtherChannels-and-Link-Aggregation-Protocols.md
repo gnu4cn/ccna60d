@@ -1,6 +1,6 @@
 #第33天
 
-**各种以太网通道及链路聚合协议**
+**以太网通道及链路聚合协议**
 
 **EtherChannels and Link Aggregation Protocols**
 

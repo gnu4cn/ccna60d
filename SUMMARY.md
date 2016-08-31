@@ -15,3 +15,6 @@
 * [第十三天, OSPF版本3](d13-OSPFv3.md)
 * [第十四天, DHCP及DNS](d14-DHCP-and-DNS.md)
 * [第十五天, 一二层排错](d15-Layer_1-and-Layer_2-Troubleshooting.md)
+* [第三十一天, 生成树协议](d31-Spanning-Tree-Protocol.md)
+* [第三十二天, 快速生成树协议](d32-Rapid-Spanning-Tree-Protocol.md)
+* [第三十三天, 以太网通道及链路聚合协议](d33-EtherChannels-and-Link-Aggregation-Protocols.md)

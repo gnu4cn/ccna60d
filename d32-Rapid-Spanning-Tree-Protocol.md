@@ -4,11 +4,11 @@
 
 #第32天任务
 
-+ 阅读今天的课文
-+ 复习昨天的课文
-+ 完成今天的实验
-+ 阅读ICND2记诵指南
-+ 在网站[http://subnetting.org/](subnetting.org)
+- 阅读今天的课文
+- 复习昨天的课文
+- 完成今天的实验
+- 阅读ICND2记诵指南
+- 在网站[http://subnetting.org/](subnetting.org)
 
 IEEE 802.1D标准是在连通性从失去到恢复需要一分钟左右，就被认为性能已经可观的时期设计出来的。在IEEE 802.1D STP下，恢复大约需要50秒，这其中包括20秒的最大老化计时器（the Max Age timer）超时，以及额外的给端口从阻塞状态过渡到转发状态的30秒。
 
@@ -16,8 +16,8 @@ IEEE 802.1D标准是在连通性从失去到恢复需要一分钟左右，就被
 
 今天你将学到以下知识。
 
-+ RSTP的需求, the need for RSTP
-+ 配置RSTP，RSTP configuration
+- RSTP的需求, the need for RSTP
+- 配置RSTP，RSTP configuration
 
 本课对应了以下CCNA大纲要求。
 
@@ -39,18 +39,18 @@ IEEE 802.1W标准，或者是快速生成树协议（Rapid Spanning Tree Protoco
 
 RSTP的各种端口状态可如下这样与STP端口状态对应起来。
 
-+ 关闭 -- 丢弃，Disabled -- Discarding
-+ 阻塞 -- 丢弃，Blocking -- Discarding
-+ 侦听 -- 丢弃，Listening -- Discarding
-+ 学习 -- 学习，Learning -- Learning
-+ 转发 -- 转发，Forwarding -- Forwarding
+- 关闭 -- 丢弃，Disabled -- Discarding
+- 阻塞 -- 丢弃，Blocking -- Discarding
+- 侦听 -- 丢弃，Listening -- Discarding
+- 学习 -- 学习，Learning -- Learning
+- 转发 -- 转发，Forwarding -- Forwarding
 
 RSTP包含了以下的端口角色。
 
-+ 根端口（转发状态）, Root(Forwarding state)
-+ 候选端口（转发状态），Designated(Forwarding state)
-+ 可变端口（阻塞状态），Alternate(Blocking state)
-+ 备份端口（阻塞状态），Bakup(Blocking state)
+- 根端口（转发状态）, Root(Forwarding state)
+- 候选端口（转发状态），Designated(Forwarding state)
+- 可变端口（阻塞状态），Alternate(Blocking state)
+- 备份端口（阻塞状态），Bakup(Blocking state)
 
 对于考试，掌握上面这些着重号标记的内容是非常重要的，尤其是哪些端口状态转发流量（一旦网络完成收敛）。图32.2及32.3分别演示了一个RSTP可变端口及一个RSTP备份端口。
 
@@ -70,15 +70,13 @@ RSTP包含了以下的端口角色。
 
 ###RPVST+
 
-**RPVST+**
-
-快速的基于各VLAN的生成树加强版，允许与PVST+一起使用802.1W（Rapid Per VLAN Spanning Tree Plus(RPVST+) allows for the use of 802.1W with PVST+）。这就允许在每个VLAN都有一个单独的RSTP实例的同时，提供比起802.1D STP所能提供的更为快速的收敛。**默认情况下，在某台思科交换机上开启RSTP时，也就在该交换机上开启了R-PVST+。**
+快速的基于各VLAN的生成树加强版，允许与PVST+ 一起使用802.1W（Rapid Per VLAN Spanning Tree Plus(RPVST+) allows for the use of 802.1W with PVST+）。这就允许在每个VLAN都有一个单独的RSTP实例的同时，提供比起802.1D STP所能提供的更为快速的收敛。**默认情况下，在某台思科交换机上开启RSTP时，也就在该交换机上开启了R-PVST+。**
 
 这里有一些可用来记住IEEE STP规格字母命名的记忆窍门。
 
-+ 802.1D（“经典的”生成树） -- It's dog-gone slow
-+ 802.1W(快速生成树) -- Imagine Elmer Fudd saying "rapid" as "wapid"
-+ 802.1S（多生成树） -- You add the letter "s" to nouns to make them plural(multiple) but this is a CCNP SWITCH subject
+- 802.1D（“经典的”生成树） -- It's dog-gone slow
+- 802.1W(快速生成树) -- Imagine Elmer Fudd saying "rapid" as "wapid"
+- 802.1S（多生成树） -- You add the letter "s" to nouns to make them plural(multiple) but this is a CCNP SWITCH subject
 
 ##RSTP的配置
 
