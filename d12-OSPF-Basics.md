@@ -6,16 +6,16 @@
 
 ##今天的任务
 
-+ 阅读今天的理论课文
-+ 复习昨天的理论课文
+- 阅读今天的理论课文
+- 复习昨天的理论课文
 
 先前版本的CCNA考试只要求对OSPF有基本了解。**现今版本要求对OSPFv2、v3及多区域OSPF都要有更为深入的掌握**。OSPF考点在ICND1和ICND2中都有，ICND2中增加了难度。
 
 今天将会学到下面这些内容。
 
-+ 链路状态要点，Link State fundamentals
-+ OSPF组网类型，OSPF network types
-+ OSPF的配置，Configuring OSPF
+- 链路状态要点，Link State fundamentals
+- OSPF组网类型，OSPF network types
+- OSPF的配置，Configuring OSPF
 
 本模块对应了以下CCNA大纲要求。
 
@@ -37,12 +37,12 @@
 
 人们为OSPF撰写了多个RFCs。在本小节，将通过一些有关OSPF最常见的几个RFCs，来了解一下OSPF的历史。OSPF工作组成立于1987年，自成立以后，该工作组发布了为数众多的RFCs。下面列出了OSPF有关的一些最常见的RFCs。
 
-+ RFC 1131 -- OSPF规格，OSPF Specification
-+ RFC 1584 -- OSPF的多播扩展, Multicast Extensions to OSPF
-+ RFC 1587 -- OSPF的NSSA选项，the OSPF NSSA Option
-+ RFC 1850 -- OSPF版本2的管理信息库，OSPF Version 2 Management Informaiton Base
-+ RFC 2328 -- OSPF版本2
-+ RFC 2740 -- OSPF版本3
+- RFC 1131 -- OSPF规格，OSPF Specification
+- RFC 1584 -- OSPF的多播扩展, Multicast Extensions to OSPF
+- RFC 1587 -- OSPF的NSSA选项，the OSPF NSSA Option
+- RFC 1850 -- OSPF版本2的管理信息库，OSPF Version 2 Management Informaiton Base
+- RFC 2328 -- OSPF版本2
+- RFC 2740 -- OSPF版本3
 
 RFC 1131对OSPF的第一次迭代（the first iteration of OSPF）进行了说明, 而应用在明确该协议是否工作的早期测试中。
 
@@ -82,10 +82,10 @@ OSPF是一种层次化的路由协议，将网络以逻辑方式，分为称作�
 
 位处区域中的路由器，都存储着其所在区域的详细拓扑信息。而在各区域中，一台或多台的路由器，又被作为**区域边界路由器**（Area Border Routers, ABRs），区域边界路由器通过在不同区域之间通告汇总路由信息，而促进区域间路由（facilitate inter-area routing）。本功能实现OSPF网络中的以下几个目标。
 
-+ 在OSPF域层面减小LSAs的扩散范围
-+ 在区域之间隐藏详细拓扑信息
-+ OSPF域中端到端连通性（end-to-end connectivity）的实现
-+ 在OSPF域内部创建逻辑边界
+- 在OSPF域层面减小LSAs的扩散范围
+- 在区域之间隐藏详细拓扑信息
+- OSPF域中端到端连通性（end-to-end connectivity）的实现
+- 在OSPF域内部创建逻辑边界
 
 > **注意：** 尽管ICND1大纲仅涉及到单区域OSPF（single-area OSPF）, 但为把大部分理论纳入讨论背景，有必要说一下多区域OSPF（multi-area OSPF）。
 
@@ -109,11 +109,11 @@ R4是2号区域的ABR，从0号区域接收到R3通告出的汇总信息，并�
 
 OSPF对不同传输介质，采用不同默认组网类型，有下面这些组网类型。
 
-+ 非广播组网（在多点非广播多路复用传输介质上，也就是FR和ATM，默认采用此种组网类型）， Non-Broadcast(default on Multipoint Non-Broadcast Multi-Access(FR and ATM))
-+ 点对点组网（在HDLC、PPP、FR及ATM的P2P子接口，以及ISDN上，默认采用此种组网类型）， Point-to-Point(default on HDLC, PPP, P2P subinterface on FR and ATM, and ISDN)
-+ 广播组网（在以太网和令牌环上，默认采用此种组网类型）， Broadcast(default on Ethernet and Token Ring)
-+ 点对多点组网，Point-to-Multipoint
-+ 环回组网（默认在环回接口上采用此种组网类型）， Loopback(default on Loopback interfaces)
+- 非广播组网（在多点非广播多路复用传输介质上，也就是FR和ATM，默认采用此种组网类型）， Non-Broadcast(default on Multipoint Non-Broadcast Multi-Access(FR and ATM))
+- 点对点组网（在HDLC、PPP、FR及ATM的P2P子接口，以及ISDN上，默认采用此种组网类型）， Point-to-Point(default on HDLC, PPP, P2P subinterface on FR and ATM, and ISDN)
+- 广播组网（在以太网和令牌环上，默认采用此种组网类型）， Broadcast(default on Ethernet and Token Ring)
+- 点对多点组网，Point-to-Multipoint
+- 环回组网（默认在环回接口上采用此种组网类型）， Loopback(default on Loopback interfaces)
 
 **非广播网络是指那些没有原生的广播或多播流量支持的网络类型**。非广播类型网络的最常见实例就是帧中继网络。非广播类型网络**需要额外配置，以实现广播和多播支持**。在这种网络上，OSPF选举出一台指定路由器(a Designate Router, DR), 及/或一台备用指定路由器（a Backup Designated Router, BDR）。在本书后面会对这两台路由器进行说明。
 
@@ -252,8 +252,8 @@ OSPF进程号是一个1与65535之间的整数。每个OSPF进程都维护着其
 
 在思科IOS软件早期版本中，如路由器上没有至少一个的接口配置了有效IP地址且处于up/up状态，就无法开启OSPF。此限制在当前版本思科IOS软件中去除了。假如路由器没有接口配置了有效IP地址且处于up/up状态，那么思科IOS将创建出一个接近数据库（a Proximity Database, PDB）并允许创建出进程。但是，要记住除非选定路由器ID，该进程就是非活动的进程，而**路由器ID的选定**，可通过下面两种方式完成。
 
-+ 在某个接口上配置一个有效IP地址，并将该接口开启
-+ 使用命令`router-id`为该路由器手动配置一个ID（见下）
+- 在某个接口上配置一个有效IP地址，并将该接口开启
+- 使用命令`router-id`为该路由器手动配置一个ID（见下）
 
 作为一个例子，看看下面的所有接口都关闭的路由器。
 
@@ -303,8 +303,8 @@ R3#show ip ospf 1
 
 在开启OSPF后，就可以执行两个操作，来为路由器上一个或更多的网络或接口开启OSPF路由。这两个操作如下。
 
-+ 使用路由器配置命令(router configuration command)`[network] [wildcard] area [area id]`
-+ 使用接口配置命令`ip ospf [process id] area [area id]`
+- 使用路由器配置命令(router configuration command)`[network] [wildcard] area [area id]`
+- 使用接口配置命令`ip ospf [process id] area [area id]`
 
 与EIGRP不同，OSPF强制使用反掩码且必须配置反掩码; 但与在EIGRP中的情况一样，反掩码提供了同样的功能，也就是匹配指定范围中的接口（unlike EIGRP, the wildcard is mandatory in OSPF and must be configured; however, as is the case with EIGRP, it serves the same function in that it matches interfaces within the range specified）。比如，语句`network 10.0.0.0 0.255.255.255 area 0`，就会对10.0.0.1/30、10.5.5.1/24, 甚至10.10.10.1/25这样的IP地址和子网掩码组合的接口，开启OSPF路由。基于该OSPF网络配置，这些接口都会被分配到0号区域。
 
@@ -314,11 +314,11 @@ R3#show ip ospf 1
 
 在命令`network [network] [wildcard] area [area id]`之后，路由器又对最具体条目做出匹配，以决定将接口要分配给的区域。作为实例，想想下面这些OSPF网络语句。
 
-+ 第一条网络配置语句：`network 10.0.0.0 0.255.255.255 area 0`
-+ 第二条：`network 10.1.0.0 0.0.255.255 area 1`
-+ 第三条：`network 10.1.1.0 0.0.0.255 area 2`
-+ 第四条：`network 10.1.1.1 0.0.0.0 area 3`
-+ 第五条：`network 0.0.0.0 0.0.0.0 area 4`
+- 第一条网络配置语句：`network 10.0.0.0 0.255.255.255 area 0`
+- 第二条：`network 10.1.0.0 0.0.255.255 area 1`
+- 第三条：`network 10.1.1.0 0.0.0.255 area 2`
+- 第四条：`network 10.1.1.1 0.0.0.0 area 3`
+- 第五条：`network 0.0.0.0 0.0.0.0 area 4`
 
 按照路由器上的此种配置，同时路由器上又配置了如下表12.1中展示的这些环回接口。
 
@@ -474,10 +474,10 @@ FastEthernet0/0 is up, line protocol is up
 
 沿用第10天的实验场景（两台直接连接的路由器，各自其上的环回接口），但取代配置RIP及对物理和环回接口进行通告的是，使用OSPF 0号区域实现（but instead of configuring RIP and advertising the physical and Loopback interfaces, do this using OSPF Area 0）。
 
-+ 分配一个IPv4地址给直接连接的接口（10.10.10.1/24及10.10.10.2/24）
-+ 运用ping操作，测试直接连通性
-+ 分别在两台路由器上配置一个环回接口，并自两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
-+ 配置上标准OSPF 1号进程，并在0号区域中通告所有本地网络。同时为两台设备配置一个路由器ID。
+- 分配一个IPv4地址给直接连接的接口（10.10.10.1/24及10.10.10.2/24）
+- 运用ping操作，测试直接连通性
+- 分别在两台路由器上配置一个环回接口，并自两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
+- 配置上标准OSPF 1号进程，并在0号区域中通告所有本地网络。同时为两台设备配置一个路由器ID。
 
 **R1:**
 
@@ -497,10 +497,10 @@ network 10.10.10.0 0.0.0.255 area 0
 network 12.12.12.2 0.0.0.0 area 0
 ```
 
-+ 自R1向R2的环回接口执行ping操作，以测试连通性
-+ 执行一条`show ip route`命令，来验证有通过OSPF接收到路由
-+ 执行一条`show ip protocols`命令，来验证有配置OSPF且在设备上是活动的
-+ 坚持特定于OSPF的接口参数：`show ip ospf interface`及`show ip ospf interface brief`
-+ 在两台路由器上（直接连接接口）修改OSPF的Hello包和死亡计时器：`ip ospf hello`及`ip ospf dead`
-+ 执行一下`show ip ospf 1`命令，看看路由进程参数
-+ 重复该实验，但这次使用`ip ospf 1 area 0 interface specific`命令，而不是在router OSPF 下的`network`命令，对各个网络进行通告。
+- 自R1向R2的环回接口执行ping操作，以测试连通性
+- 执行一条`show ip route`命令，来验证有通过OSPF接收到路由
+- 执行一条`show ip protocols`命令，来验证有配置OSPF且在设备上是活动的
+- 坚持特定于OSPF的接口参数：`show ip ospf interface`及`show ip ospf interface brief`
+- 在两台路由器上（直接连接接口）修改OSPF的Hello包和死亡计时器：`ip ospf hello`及`ip ospf dead`
+- 执行一下`show ip ospf 1`命令，看看路由进程参数
+- 重复该实验，但这次使用`ip ospf 1 area 0 interface specific`命令，而不是在router OSPF 下的`network`命令，对各个网络进行通告。
