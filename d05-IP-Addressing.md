@@ -777,7 +777,7 @@ C类地址 = 255.255.255.0
 
 1. 先是明确路由器上的串行借口编号，你的路由器与上面拓扑图中的可能有所不同。同时，还要明确串行链路的哪一端连接的是DCE线，因为在该端是需要`clock rate`命令的。
 
-```
+<pre>
 Router>en
 Router#sh ip interface brief
 Interface		IP-Address	OK?	Method	Status					Protocol
@@ -793,7 +793,7 @@ idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
 Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
 line state: down
 <b>DCE cable</b>, no clock rate
-```
+</pre>
 
 2. 在一侧为路由器加上主机名及IP地址，如该侧是DCE，就为其加上时钟速率（the clock rate）。
 
