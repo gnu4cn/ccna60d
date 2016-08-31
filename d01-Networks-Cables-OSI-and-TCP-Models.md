@@ -519,9 +519,9 @@ UDP 也是工作于 OSI 模型的网络层。它不像 TCP 那样事先建立起
 
 文件传输协议工作于应用层，负责透过一条远程链路**可靠地**传数据。因为它是可靠的，所以使了 TCP 来传输数据。
 
-你可以使用<pre>debug ip ftp</pre>命令来对 FTP 流量进行调试。
+你可以使用`debug ip ftp`命令来对 FTP 流量进行调试。
 
-FTP 使用了 <pre>20</pre> 和 <pre>21</pre> 号端口。通常，自客户端发起的到 FTP 服务器的第一次连接是在 <pre>21</pre>号端口上。随后的数据连接可以是从 FTP 服务器的 <pre>20</pre>号端口上离开，或者从客户端的随机端口到 FTP 服务器的 <pre>20</pre> 端口的连接建立。关于主动（active）和被动（passive）FTP 的内容，CCNA 考试不要求。
+FTP 使用了 `20` 和 `21` 号端口。通常，自客户端发起的到 FTP 服务器的第一次连接是在 `21`号端口上。随后的数据连接可以是从 FTP 服务器的 `20`号端口上离开，或者从客户端的随机端口到 FTP 服务器的 `20` 端口的连接建立。关于主动（active）和被动（passive）FTP 的内容，CCNA 考试不要求。
 
 ### 简单的文件传输协议， Trivial File Transfer Protocol, TFTP
 
@@ -541,10 +541,10 @@ TFTP 在思科路由器上用到很多，用来备份配置以及升级路由器
 
 然后你必须输入其它路由器上的 flash 镜像的文件名：
 
-<pre>
+```
 Source filename []? / c2500-js-1.121-17.bin
 Destination filename [c2500-js-1.121-17.bin]?
-</pre>
+```
 
 如你有一个旧版本的 IOS， 你会收到是否要在拷贝前擦除路由器 flash 的提示，之后文件将被传输。当路由器再次启动是，你的新 flash 镜像就可使用了。
 
@@ -578,7 +578,7 @@ ICMP 是一个在某网络上用 IP 数据包（或数据报）来报告问题�
 
 因为这些 ping 包有一个生存时间的字段（a Time to Live, TTL）, 它们提供了一个很好的网络延迟数据。下面的 ping 输出来自一台桌面 PC：
 
-<pre>
+```
 C:\ping cisco.com
 
 Pinging cisco.com [198.133.219.25] with 32 bytes of data:
@@ -592,13 +592,13 @@ Ping staticstics for 192.133.219.25:
     Packets: Sent = 4,  Received = 4, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
 Minimum = 160ms,    Maximun = 460ms, Average = 240ms
-</pre>
+```
 
 在上述输出中，ping 数据包是 32 字节长，时间字段报告响应耗时的毫秒数，TTL 是存活时间字段（数据包在多少毫秒后过期）。
 
 思科路由器的 ping 命令有着复杂的参数，提供了更细的粒度，你可以指定指定 ping 发出的源地址，发出多少次 ping，ping 数据包的大小，以及其它参数。此特性在测试中是很有用的，在后面的实验部分用到很多次，如下面的输出所示：
 
-<pre>
+```
 Router#ping <- press Enter here
 Protocol [ip]:
 Target IP address: 172.16.1.5
@@ -615,7 +615,7 @@ Type escape sequence to abort.
 Sending 5, 1000-byte, ICMP Echos to 131.108.2.27, timeout is 2 seconds:
 U   U   U   U   U
 Success rate is 0% percent, round-trip min/avg/max = 4/6/12 ms
-</pre>
+```
 
 下面是其它几个表示回应 ping 数据包的符号所表示的意义：
 
@@ -642,7 +642,7 @@ Traceroute 可以用来测试网络的连通性，是一个广泛使用的工具
 
 
 
-<pre>
+```
 C:\Documents and Settings\pc>tracert hello.com
 Tracing route to hello.com [63.146.123.17]
 over a maximum of 30 hops:
@@ -668,17 +668,17 @@ over a maximum of 30 hops:
 20 220 ms 221 ms 220 ms msfc-24.buc.qwest.net [66.77.125.66]
 21 221 ms 230 ms 220 ms www.hello.com [63.146.123.17]
 Trace complete.
-</pre>
+```
 
 Traceroute 的输出字段有如下定义：
 
-+ ...   --  超时
-+ U     --  端口不可达消息
-+ H     --  主机不可达消息
-+ P     --  协议不可达消息
-+ N     --  网络不可达消息
-+ ?     --  未知包类型
-+ Q     --  收到源抑制（source quench received）
+- ...   --  超时
+- U     --  端口不可达消息
+- H     --  主机不可达消息
+- P     --  协议不可达消息
+- N     --  网络不可达消息
+- ?     --  未知包类型
+- Q     --  收到源抑制（source quench received）
 
 在你想要对网络连通性进行故障排除时，Traceroute 是一个非常有用的命令。尽管有超出 CCNA 大纲，下面还是对此有更多的说明。
 
