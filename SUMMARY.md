@@ -18,3 +18,4 @@
 * [第三十一天, 生成树协议](d31-Spanning-Tree-Protocol.md)
 * [第三十二天, 快速生成树协议](d32-Rapid-Spanning-Tree-Protocol.md)
 * [第三十三天, 以太网通道及链路聚合协议](d33-EtherChannels-and-Link-Aggregation-Protocols.md)
+* [第三十四天, 第一跳冗余协议](d34-First-Hop-Redundancy-Protocols.md)

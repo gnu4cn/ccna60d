@@ -6,28 +6,28 @@
 
 ##第33天任务
 
-+ 阅读今天的课文
-+ 复习昨天的课文
-+ 完成今天的实验
-+ 阅读ICND2记诵指南
-+ 在网站[subnetting.org](http://subnetting.org/)上花15分钟
+- 阅读今天的课文
+- 复习昨天的课文
+- 完成今天的实验
+- 阅读ICND2记诵指南
+- 在网站[subnetting.org](http://subnetting.org/)上花15分钟
 
 思科IOS软件允许管理员将交换机上的多条物理链路（multiple physical links），结合成为一条单一的逻辑链路。这样做提供了一种负载分配以及链路冗余的理想方案，且可同时为二层及三层子系统所使用（provides an ideal solution for load sharing, as well as link redundancy, and can be used by both Layer 2 and Layer 3 subsystems）。
 
 今天将学习以下内容。
 
-+ 掌握各种以太网通道, Understanding EtherChannels
-+ 端口聚合协议概述，Port Aggregation Protocol(PAgP) overview
-+ PAgP的端口模式，PAgP port modes
-+ PAgP 以太网通道协议的数据包转发, PAgP EtherChannel Protocol packet forwarding
-+ 链路聚合控制协议概述，Link Aggregation Control Protocol(LACP) overview
-+ 各种LACP端口模式，LACP port modes
-+ 不同以太网通道负载分配方法，EtherChannel load-distribution methods
-+ 不同二层以太网通道的配置和验证，Configuring and verifying Layer 2 EtherChannels
+- 掌握各种以太网通道, Understanding EtherChannels
+- 端口聚合协议概述，Port Aggregation Protocol(PAgP) overview
+- PAgP的端口模式，PAgP port modes
+- PAgP 以太网通道协议的数据包转发, PAgP EtherChannel Protocol packet forwarding
+- 链路聚合控制协议概述，Link Aggregation Control Protocol(LACP) overview
+- 各种LACP端口模式，LACP port modes
+- 不同以太网通道负载分配方法，EtherChannel load-distribution methods
+- 不同二层以太网通道的配置和验证，Configuring and verifying Layer 2 EtherChannels
 
 本课对应了以下ICND2大纲要求。
 
-+ 不同以太网通道技术，EtherChannels
+- 不同以太网通道技术，EtherChannels
 
 ##掌握各种以太网通道
 
@@ -230,14 +230,14 @@ LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远
 
 以下小节列出并说明了配置二层PAgP以太网通道所需要的步骤。但在深入到这些配置步骤之前，有必要熟悉下面这些配置二层以太网通道时的限制。
 
-+ 每个以太网通道可以有最多8个兼容配置的以太网接口。而LACP则允许一个以太网通道组中多于8个的端口。不过这些额外端口都是热备份（hot-standby）端口。
-+ 以太网通道中的所有接口都必须以相同的速率及双工模式运行。记住，与PAgP不同，LACP并不支持半双工端口。
-+ 确保以太网通道中的所有接口都是开启的。在某些情况下，如这些接口没有开启，那么该逻辑端口通道接口（the logical port channel interface）就不会被自动创建。
-+ 在初次配置一个以太网通道组时，重要的是记住这些端口与所加入的第一个组端口参数集一致（when first configuring an EtherChannel group, it is important to remember that ports follow the parameters set for the first group port added）。
-+ 如有为某个以太网通道中的某个成员端口配置交换机端口分析器（Switch Port Analyzer, SPAN）, 那么该端口将会从该以太网通道组中移除。
-+ 将以太网通道中的所有端口都指派到同一个VLAN，或将它们配置成中继端口，是必要的。而如果这些参数不同，该通道就不会形成。
-+ 记住有着不同STP路径开销（由某位管理员所修改的）的那些类似接口，仍可用于组成一个以太网通道。
-+ 在开始通道配置之前，建议首先关闭所有成员接口（it is recommended to shut down all member interfaces prior to beginning channelling configuration）。
+- 每个以太网通道可以有最多8个兼容配置的以太网接口。而LACP则允许一个以太网通道组中多于8个的端口。不过这些额外端口都是热备份（hot-standby）端口。
+- 以太网通道中的所有接口都必须以相同的速率及双工模式运行。记住，与PAgP不同，LACP并不支持半双工端口。
+- 确保以太网通道中的所有接口都是开启的。在某些情况下，如这些接口没有开启，那么该逻辑端口通道接口（the logical port channel interface）就不会被自动创建。
+- 在初次配置一个以太网通道组时，重要的是记住这些端口与所加入的第一个组端口参数集一致（when first configuring an EtherChannel group, it is important to remember that ports follow the parameters set for the first group port added）。
+- 如有为某个以太网通道中的某个成员端口配置交换机端口分析器（Switch Port Analyzer, SPAN）, 那么该端口将会从该以太网通道组中移除。
+- 将以太网通道中的所有端口都指派到同一个VLAN，或将它们配置成中继端口，是必要的。而如果这些参数不同，该通道就不会形成。
+- 记住有着不同STP路径开销（由某位管理员所修改的）的那些类似接口，仍可用于组成一个以太网通道。
+- 在开始通道配置之前，建议首先关闭所有成员接口（it is recommended to shut down all member interfaces prior to beginning channelling configuration）。
 
 ###配置并验证二层以太网通道
 
