@@ -478,3 +478,38 @@ Interface   Grp Pri  <b>P</b> State   Active  Standby         Virtual IP
 Vl172       1   105  <b>P</b> Active  local   172.16.31.2     172.16.31.254
 </pre>
 
+有了这个修改，在因`VTP-Server-1`失效而导致`VTP-Server-2`接过VLAN172的活动网关角色时，一旦`VTP-Server-1`再度上线，其就将强制性再度接手那个角色。在配置抢占特性时，思科IOS软件允许指定在交换机抢占及强制重新获得活动网关角色之前的时间间隔。
+
+默认下抢占是立即发生的。但可使用接口配置命令`standby [number] preempt delay [minimum|reload|sync]`对此时间间隔进行修改。关键字`[minimum]`用于指定在抢占前等待的最短时间（秒）。下面的输出展示了如何配置在抢占前等待30秒钟：
+
+```
+VTP-Server-1(config)#interface vlan172
+VTP-Server-1(config-if)#standby 1 preempt delay minimum 30
+```
+
+此配置可使用命令`show standby [interface]`进行验证。下面的输出对此进行了演示：
+
+<pre>
+VTP-Server-1#show standby vlan172
+Vlan172 - Group 1
+    State is Active
+        5 state changes, last state change 00:00:32
+Virtual IP address is 172.16.31.254
+Active virtual MAC address is 0000.0c07.ac01
+    Local virtual MAC address is 0000.0c07.ac01 (v1 default)
+Hello time 3 sec, hold time 10 sec
+    Next hello sent in 0.636 secs
+<b>Preemption enabled, delay min 30 secs</b>
+Active router is local
+Standby router is 172.16.31.2, priority 100 (expires in 8.629 sec)
+Priority 105 (configured 105)
+IP redundancy name is “hsrp-Vl172-1” (default)
+</pre>
+
+而关键字`[reload]`用于指定网关在其重启后需要等待的时间（the `[reload]` keyword is used to specify the amount of time the gateway should wait after it initiates following a reload）。关键字`[sync]`是与IP冗余客户端配合使用的。此配置超出了CCNA考试要求，但在生产环境中是十分有用的，因为在出现某个正在被跟踪的抖动接口，或类似情况下，此配置可以阻止不必要的角色切换（this configuration is beyond the scope of the CCNA exam requirements but is very useful in production environments because it prevents an unnecessary change of roles in the case of a flapping interface that is being tracked, or similar activity）。
+
+###配置HSRP接口跟踪
+
+HSRP接口跟踪特性，令到管理员可以将HSRP配置为追踪接口状态，从而将当前优先级降低一个默认数值（10）或指定数值，以允许另一网关接过指定HSRP组的主网关角色。
+
+在下面的输出中，
