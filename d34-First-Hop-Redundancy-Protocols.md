@@ -743,3 +743,11 @@ VTP-Server-2#show vrrp brief
 Interface          Grp Pri Time Own Pre State   Master addr     Group addr
 Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
 ```
+
+###配置VRRP的接口跟踪特性
+
+为将VRRP配置为对某个接口进行跟踪，就必须要在全局配置模式下，为接口追踪而使用全局配置命令`track [object number] interface [line-protocol|ip routing]`, 或为IP前缀追踪而使用全局配置命令`track [object number] ip route [address | prefix] [reachablity | metric threshold]`，建立一个被跟踪的对象。依据软件与平台的不同，交换机上可对高达500个的被追踪对象进行跟踪。随后再使用接口配置命令`vrrp [number] track [object]`, 实现VRRP对被追踪对象的跟踪。
+
+> **注意**：CCNA考试不要求完成这些高级对象追踪的配置。
+
+
