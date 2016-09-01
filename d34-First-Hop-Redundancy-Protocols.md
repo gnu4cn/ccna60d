@@ -808,3 +808,20 @@ Track 2
         VRRP Vlan192 1</b>
 </pre>
 
+> **注意**：这些被追踪对象亦可与HSRP和GLBP配合使用。GLBP在下面的小节进行说明。
+
+###VRRP的调试
+
+命令`debug vrrp`提供给管理员用于查看有关VRRP运作情况实时信息的诸多选项。这些选项如下面的输出所示：
+
+```
+VTP-Server-1#debug vrrp ?
+    all Debug all VRRP information
+    auth VRRP authentication reporting
+    errors VRRP error reporting
+    events Protocol and Interface events
+    packets VRRP packet details
+    state VRRP state reporting
+    track Monitor tracking
+    <cr>
+```
