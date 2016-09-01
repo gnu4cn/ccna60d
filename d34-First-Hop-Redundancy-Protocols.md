@@ -788,3 +788,23 @@ Vlan192 - Group 1
     Master Advertisement interval is 0.100 sec
     Master Down interval is 0.889 sec
 </pre>
+
+而要查看被追踪对象的各项参数，就使用命令`show track [number] [brief] [interface] [ip] [resolution] [timers]`。下面是`show track`命令输出的演示：
+
+<pre>
+VTP-Server-1#show track
+Track 1
+    Interface Loopback0 line-protocol
+    Line protocol is Up
+        1 change, last change 00:11:36
+    <b>Tracked by:
+        VRRP Vlan192 1</b>
+Track 2
+    IP route 1.1.1.1 255.255.255.255 reachability
+    Reachability is Up (connected)
+        1 change, last change 00:08:48
+    First-hop interface is Loopback0
+    <b>Tracked by:
+        VRRP Vlan192 1</b>
+</pre>
+
