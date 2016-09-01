@@ -825,3 +825,26 @@ VTP-Server-1#debug vrrp ?
     track Monitor tracking
     <cr>
 ```
+
+
+##网关负载均衡协议
+
+**Gateway Load Balancing Protocol**
+
+与HSRP一样，网关负载均衡协议也是一种思科专有的协议。GLBP以与HSRP和VRRP类似的方式，提供了高的网络可用性。但与HSRP与VRRP在任何时候都由单一网关来转发特定组的流量不同，GLBP允许在同一GLBP组中的多台网关，同时进行流量的转发。
+
+GLBP网关之间的通信，是通过以每隔3秒的频率，往多播地址`224.0.0.102`上，使用UDP端口3322发送Hello报文进行的。下图34.24对此进行了演示：
+
+![GLBP的三层及四层协议与地址](images/3424.png)
+*图 34.24 -- GLBP的三层及四层协议与地址，GLBP Layer 3 and Layer 4 Protocols and Addresses*
+
+###GLBP的运作
+
+在启用了GLBP后，该GLBP组的那些成员就选举出一台网关，作为改组的活动虚拟网关（the active virtual gateway, AVG）。该活动网关有着最高的优先级值。在成员优先级值相等时，组中带有最高IP地址的活动虚拟网关将被选举为网关。组中剩下的其它网关，就会在活动虚拟网关不可用时，提供活动虚拟网关的备份。
+
+活动虚拟网关将应答所有对虚拟路由器地址的地址解析协议（Address Resolution Protocol, ARP）请求。此外活动虚拟网关还会将一个虚拟MAC地址，指派给GLBP组的每个成员网关。因此每个成员网关都要负责转发发送到由活动虚拟网关所指派的虚拟MAC地址上的数据包了。这些网关一起, 作为它们所分配到的虚拟MAC地址所对应活动虚拟转发器（active virtual forwarders, AVFs）被看待。这就令到GLBP能够提供负载的共同承担。下图34.25对此概念进行了演示:
+
+![GLBP的活动虚拟网关与活动虚拟转发器](images/3425.png)
+*图 34.25 -- GLBP的活动虚拟网关与活动虚拟转发器，GLBP Active Virtual Gateway and Active Virtual Forwarders*
+
+
