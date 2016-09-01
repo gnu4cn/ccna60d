@@ -750,4 +750,41 @@ Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
 
 > **注意**：CCNA考试不要求完成这些高级对象追踪的配置。
 
+下面的输出展示了如何配置VRRP的跟踪，引用了对象1, 该被跟踪对象对`Loopback0`接口的线路协议进行跟踪：
 
+```
+VTP-Server-1(config)#track 1 interface Loopback0 line-protocol
+VTP-Server-1(config-track)#exit
+VTP-Server-1(config)#interface vlan192
+VTP-Server-1(config-if)#vrrp 1 track 1
+VTP-Server-1(config-if)#exit
+```
+
+而下面的输出则展示了如何将VRRP配置为对引用对象2的追踪，此被追踪对象追踪了到前缀`1.1.1.1/32`的可达性。一个被追踪的IP路由对象在存在一个该路由的路由表条目时，被认为是在线且可达的，同时该路由不是无法访问的（无法访问就是说有着255的路由度量值）, 当发生无法访问时，该路由就会从路由信息数据库中被移除（a tracked IP route object is considered to be up and reachable when a routing table entry exists for the route and the route is not accessible(i.e., has a route metric of 255)，in which case the route is removed from the Routing Information Base(RIB) anyway）。
+
+```
+VTP-Server-1(config)#track 2 ip route 1.1.1.1/32 reachability
+VTP-Server-1(config-track)#exit
+VTP-Server-1(config)#interface vlan192
+VTP-Server-1(config-if)#vrrp 1 track 2
+```
+
+VRRP跟踪的配置，是通过使用命令`show vrrp interface [name]`命令进行验证的。下面的输出对此进行了演示：
+
+<pre>
+VTP-Server-1#show vrrp interface vlan192
+Vlan192 - Group 1
+‘SWITCH-VRRP-Example’
+    State is Master
+    Virtual IP address is 192.168.1.254
+    Virtual MAC address is 0000.5e00.0101
+    Advertisement interval is 0.100 sec
+    Preemption enabled
+    Priority is 105
+        <b>Track object 1 state Up decrement 10
+        Track object 2 state Up decrement 10</b>
+    Authentication MD5, key-string
+    Master Router is 192.168.1.1 (local), priority is 105
+    Master Advertisement interval is 0.100 sec
+    Master Down interval is 0.889 sec
+</pre>
