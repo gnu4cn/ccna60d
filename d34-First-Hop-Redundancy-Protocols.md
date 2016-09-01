@@ -413,7 +413,7 @@ Gateway-1(config-if)#exit
 
 1. 使用接口配置命令`ip address [address] [mask] [secondary]`配置网关接口的IP地址及掩码。
 
-2. 通过接口配置命令`standby [number] ip [virtual address] [secondary]`, 在网关接口上建立一个HSRP组，以及给该HSRP组指派虚拟IP地址。关键词（keyword）`[secondary]`将该IP地址指定为指定组的第二网关IP地址。
+2. 通过接口配置命令`standby [number] ip [virtual address] [secondary]`, 在网关接口上建立一个HSRP组，以及给该HSRP组指派虚拟IP地址。关键词（keyword）`[secondary]`将该IP地址指定为指定组的次网关IP地址。
 
 3. 这里作为可选项，使用接口配置命令`standby [number] name [name]`, 为HSRP组指派一个名称。
 
@@ -675,7 +675,7 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 
 1. 使用接口配置命令`ip address [address] [mask] [secondary]`，给网关接口配置正确的IP地址与子网掩码。
 
-2. 通过接口配置命令`vrrp [number] ip [virtual address] [secondary]`，在该网关接口上建立一个VRRP组，并为其指派一个虚拟IP地址。关键字`[secondary]`将该虚拟IP地址配置为指定VRRP组的第二网关地址。
+2. 通过接口配置命令`vrrp [number] ip [virtual address] [secondary]`，在该网关接口上建立一个VRRP组，并为其指派一个虚拟IP地址。关键字`[secondary]`将该虚拟IP地址配置为指定VRRP组的次网关地址。
 
 3. 作为可选项，使用接口配置命令`vrrp [number] description [name]`, 为该VRRP组指派一个描述性名称。
 
@@ -859,4 +859,22 @@ GLBP网关之间的通信，是通过以每隔3秒的频率，往多播地址`22
 
 ###GLBP的虚拟MAC地址分配
 
+一个GLBP允许每组有4个的虚拟MAC地址。由活动虚拟网关来负责将虚拟MAC地址分配给组中的各个成员。其它组成员是在它们发现了活动虚拟网关后，精油Hello报文，请求到虚拟MAC地址的。
+
+这些网关是依序分配到下一个虚拟MAC地址的。已通过活动虚拟网关分配到了虚拟MAC地址的网关，被称作主虚拟转发器（a primary virtual forwarder）, 而已学习到某个虚拟MAC地址的网关，被称作是从虚拟转发器（a secondary virtual forwarder）。
+
+###GLBP的冗余
+
+在GLBP组中，是单一一台网关被选举为活动虚拟网关，有另一网关被选举为备份虚拟网关（the standby virtual gateway）的。组中剩下的其它网关，都被置于侦听状态（a Listen state）。在活动虚拟网关失效时，备份虚拟网关将接过该虚拟IP地址的角色。于此同时，又会再进行一次选举，此时将从那些处于侦听状态的网关中选出一个新的备份虚拟网关。
+
+在该活动虚拟网关失效时，处于侦听状态的某台从虚拟转发器，会接过该虚拟MAC地址的职责。但是因为新的活动虚拟转发器已是使用了另一虚拟MAC地址的转发器，GLBP就需要确保原有的转发器MAC地址停止使用，同时那些主机已从此MAC地址迁移。这是通过使用下面的两个计时器实现的（in the event the AVF fails, one of the secondary virtual forwarders in the Listen state assumes responsibility for the virtual MAC address. However, because the new AVF is already a forwarder using another virtual MAC address, GLBP needs to ensure that the old forwarder MAC address ceases being used and hosts are migrated away from this address. This is archived using the following two timers）：
+
+- 重定向计时器，the redirect timer
+
+- 超时计时器，the timeout timer
+
+
+重定向时间是指在活动虚拟网关持续将主机重新到原有该虚拟转发器MAC地址的间隔。在此计时器超时后，活动虚拟网关就在ARP应答中停止使用原有的虚拟转发器MAC地址了，就算该虚拟转发器仍将持续发送到原有虚拟转发器MAC地址的数据包。
+
+而在超时计时器超时后，该虚拟转发器就被从该GLBP组的所有网关中移除。那些仍在使用ARP缓存中原有MAC地址的客户端，就必须刷新此项条目，以获取到新的虚拟MAC地址。GLBP使用Hello报文，来就这两个计时器的状态进行通信。
 
