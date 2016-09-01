@@ -533,3 +533,32 @@ Vlan172 - Group 1
     Interface or object           Decrement  State
     GigabitEthernet5/1            10         Up</b>
 </pre>
+
+而要将该网关降低值配置为比如50, 就可以执行命令`standby [name] track [interface] [decrement value]`, 如下面的输出所示：
+
+```
+VTP-Server-1(config)#interface vlan172
+VTP-Server-1(config-if)#standby 1 track GigabitEthernet5/1 50
+```
+
+此项配置可使用命令`show standby [interface]`进行验证。下面对此进行了演示：
+
+<pre>
+VTP-Server-1#show standby vlan172
+Vlan172 - Group 1
+    State is Active
+        5 state changes, last state change 00:33:22
+    Virtual IP address is 172.16.31.254
+    Active virtual MAC address is 0000.0c07.ac01
+    Local virtual MAC address is 0000.0c07.ac01 (v1 default)
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 1.085 secs
+    Preemption enabled
+    Active router is local
+    Standby router is 172.16.31.2, priority 100 (expires in 7.616 sec)
+    Priority 105 (configured 105)
+    IP redundancy name is “hsrp-Vl172-1” (default)
+    <b>Priority tracking 1 interfaces or objects, 1 up:
+    Interface or object           Decrement  State
+    GigabitEthernet5/1            50         Up</b>
+</pre>
