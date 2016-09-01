@@ -444,14 +444,37 @@ VTP-Server-2(config-if)#exit
 
 <pre>
 VTP-Server-1#<b>show standby brief</b>
-                        P indicates configured to preempt.
-                        |
-Interface   Grp     Pri P State   Active  Standby         Virtual IP
-Vl172       1       105   Active  local   172.16.31.2     172.16.31.254
+                     P indicates configured to preempt.
+                     |
+Interface   Grp      Pri P State   Active  Standby         Virtual IP
+Vl172       1        105   Active  local   172.16.31.2     172.16.31.254
 VTP-Server-2#<b>show standby brief</b>
-                        P indicates configured to preempt.
-                        |
-Interface   Grp     Pri P State   Active  Standby         Virtual IP
-Vl172       1       100   Standby local   172.16.31.1     172.16.31.254
+                     P indicates configured to preempt.
+                     |
+Interface   Grp      Pri P State   Active  Standby         Virtual IP
+Vl172       1        100   Standby local   172.16.31.1     172.16.31.254
+</pre>
+
+基于此种配置，只有在`VTP-Server-1`失效时，`VTP-Server-2`才会成为活动网关。此外，因为没有配置抢占（preemption），那么即使在`VTP-Server-1`重新上线时，就算在该HSRP组中，其比起`VTP-Server-2`有着更高的优先级，它仍然无法强制性地接过活动网关角色。
+
+###HSRP抢占的配置
+
+**Configuring HSRP Preemption**
+
+抢占特性令到某台网关在本身比当前活动网关有着更高优先级时，强制性地接过活动网关的角色。使用命令`standby [number] preempt`命令，来配置HSRP抢占特性。下面的输出，演示了在`VTP-Server-1`上的此项配置：
+
+```
+VTP-Server-1(config)#interface vlan172
+VTP-Server-1(config-if)#standby 1 preempt
+```
+
+这里同样使用命令`show standby [interface [name] |brief]`, 来验证在某个网关上已有配置抢占特性。是通过下面的`show standby brief`命令输出中的“P”字样演示的：
+
+<pre>
+VTP-Server-1#show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp Pri  <b>P</b> State   Active  Standby         Virtual IP
+Vl172       1   105  <b>P</b> Active  local   172.16.31.2     172.16.31.254
 </pre>
 
