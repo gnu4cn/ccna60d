@@ -988,3 +988,90 @@ Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
 Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
 Vl192       1    4   -   Active     0007.b400.0104  local           -
 </pre>
+
+从上面的输出可以看出，基于`VTP-Server-1`（192.168.1.1）有着优先级值110, 该值高于所有其它网关的优先级值，而已被选举作为活动虚拟网关。网关`VTP-Server-4`（192.168.1.4）, 由于有着剩下三台网关中最高的IP地址，而就算这三台网关有着同样的优先级值，被选举作备份虚拟网关。因此网关`VTP-Server-2`与`VTP-Server-3`都被置于侦听状态了。
+
+命令`show glbp`将有关该GLBP组状态的详细信息打印了出来，下面对此命令的输出进行了演示：
+
+<pre>
+VTP-Server-1#show glbp
+Vlan192 - Group 1
+    State is Active
+        2 state changes, last state change 02:52:22
+    Virtual IP address is 192.168.1.254
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 1.465 secs
+    Redirect time 600 sec, forwarder time-out 14400 sec
+    Preemption disabled
+    <b>Active is local
+    Standby is 192.168.1.4, priority 100 (expires in 9.619 sec)
+    Priority 110 (configured)</b>
+    Weighting 100 (default 100), thresholds: lower 1, upper 100
+    Load balancing: round-robin
+    <b>Group members:
+        0004.c16f.8741 (192.168.1.3)
+        000c.cea7.f3a0 (192.168.1.2)
+        0013.1986.0a20 (192.168.1.1) local
+        0030.803f.ea81 (192.168.1.4)
+    There are 4 forwarders (1 active)
+    Forwarder 1
+        State is Active</b>
+            1 state change, last state change 02:52:12
+        MAC address is 0007.b400.0101 (default)
+        Owner ID is 0013.1986.0a20
+        Redirection enabled
+        Preemption enabled, min delay 30 sec
+        Active is local, weighting 100
+    <b>Forwarder 2
+        State is Listen
+        MAC address is 0007.b400.0102 (learnt)
+        Owner ID is 000c.cea7.f3a0</b>
+        Redirection enabled, 599.299 sec remaining (maximum 600 sec)
+        Time to live: 14399.299 sec (maximum 14400 sec)
+        Preemption enabled, min delay 30 sec
+        Active is 192.168.1.2 (primary), weighting 100 (expires in 9.295 sec)
+    <b>Forwarder 3
+        State is Listen
+        MAC address is 0007.b400.0103 (learnt)
+        Owner ID is 0004.c16f.8741</b>
+        Redirection enabled, 599.519 sec remaining (maximum 600 sec)
+        Time to live: 14399.519 sec (maximum 14400 sec)
+        Preemption enabled, min delay 30 sec
+        Active is 192.168.1.3 (primary), weighting 100 (expires in 9.515 sec)
+    <b>Forwarder 4
+        State is Listen
+        MAC address is 0007.b400.0104 (learnt)
+        Owner ID is 0030.803f.ea81</b>
+        Redirection enabled, 598.514 sec remaining (maximum 600 sec)
+        Time to live: 14398.514 sec (maximum 14400 sec)
+        Preemption enabled, min delay 30 sec
+        Active is 192.168.1.4 (primary), weighting 100 (expires in 8.510 sec)
+</pre>
+
+当在活动虚拟网关上执行时，命令`show glbp`除了展示其它内容外，还会给出备份虚拟网关的地址和组中所有活动虚拟转发器的数目，以及由活动虚拟网关所指派给这些活动虚拟转发器的状态。同时还显示了各台活动虚拟转发器的虚拟MAC地址。
+
+##第34天问题
+
+1. Name two FHRP protocols that are Cisco proprietary.
+2. Name the open standard FHRP protocol.
+3. By default, when HSRP is enabled in Cisco IOS software, version 1 is enabled. True or false?
+4. Which Multicast address does HSRP version 2 use to send Hello packets?
+5. HSRP version 1 group numbers are restricted to the range of 0 to 255, whereas the version 2 group numbers have been extended from 0 to 4095. True or false?
+6. Which parameter can be adjusted in order to influence the HSRP primary gateway election?
+7. How does HSRP interface tracking influence the primary gateway election process?
+8. Which command can you use to configure an HSRP address on an interface?
+9. Just like HSRP, VRRP has the option of allowing the gateway to use the BIA or a statically configured address as the MAC address for VRRP groups. True or false?
+10. Which command can you use to configure a GLBP group IP address on a router interface?
+
+##第34天问题答案
+
+1. HSRP and GLBP.
+2. VRRP.
+3. True.
+4. 224.0.0.102.
+5. True.
+6. HSRP priority.
+7. It modifies HSRP priority based on interface status.
+8. The `standby [number] ip [virtual address]` command.
+9. False.
+10. The `glbp [number] ip [virtual address]` command.
