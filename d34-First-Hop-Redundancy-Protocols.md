@@ -563,4 +563,91 @@ Vlan172 - Group 1
     GigabitEthernet5/1           50         Up</b>
 </pre>
 
-###
+###配置HSRP的版本
+
+如同在本课程模块先前指出的那样，默认当HSRP开启时，是启用的版本1。但可通过接口配置命令`standby version [1|2]`来手动开启HSRP版本2。下面的输出演示了HSRP版本2的配置：
+
+```
+VTP-Server-1(config)#interface vlan172
+VTP-Server-1(config-if)#standby version 2
+```
+
+使用命令`show standby [interface]`，可对此配置进行验证。下面的输出对此进行了演示：
+
+<pre>
+VTP-Server-1#show standby vlan172
+Vlan172 - Group 1 <b>(version 2)</b>
+    State is Active
+        5 state changes, last state change 00:43:42
+    Virtual IP address is 172.16.31.254
+    <b>Active virtual MAC address is 0000.0c9f.f001
+        Local virtual MAC address is 0000.0c9f.f001 (v2 default)
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 2.419 secs</b>
+    Preemption enabled
+    Active router is local
+    Standby router is 172.16.31.2, priority 100 (expires in 4.402 sec)
+    Priority 105 (configured 105)
+    IP redundancy name is “hsrp-Vl172-1” (default)
+</pre>
+
+而HSRP的开启，就自动将HSRP所使用的MAC地址范围，从`0000.0C07.ACxx`，改变为`0000.0C9F。F000`到`0000.0C9F.FFFF`。因此务必要记住这将导致生产网络中的一些数据包丢失，因为网络中的设备必须要掌握到网关的新MAC地址。这类导致包丢失的变动，都推荐在维护窗口或几乎的断网窗口来进行。
+
+##虚拟路由器冗余协议
+
+**Virtual Router Redundancy Protocol**
+
+虚拟路由器冗余协议（Virtual Router Redundancy Protocol, VRRP），是一个动态地将一个或多个网关的职责，指派给LAN上的VRRP路由器的网关选举协议（a gateway election protocol）, 其令到在诸如以太网这样的某个多路访问网段（a Multi-Access segment）上的数台路由器，能够使用同一个虚拟IP地址，作为它们的默认网关。
+
+VRRP以与HSRP类似的方式运作；但与HSRP不同，VRRP是一个定义在[RFC 2338](http://www.ietf.org/rfc/rfc2338.txt)中的开放标准，RFC 2338 在[RFC 3768](http://www.ietf.org/rfc/rfc3768.txt)中被废弃。VRRP将通告发送到多播目的地址`224.0.0.18`（VRRP）, 使用的是IP协议编号`112`。在数据链路层，通告是从主虚拟路由器（the master virtual router）的MAC地址`00-00-5e-00-01xx`发出的，这里的"xx"表示了两位十六进制的组编号。这在下图34.18中进行了演示：
+
+![VRRP的多播地址](images/3418.png)
+*图 34.18 -- VRRP的多播地址，VRRP Multicast Addresses*
+
+> **注意**：这里的协议编号是十六进制形式的。而十六进制值`0x70`就等于是进制的112。与此类似，数据链路层目的地址`01-00-5e-00-00-12`中的十六进制值`12`就是十进制值18（也就是`224.0.0.18`）了。如你仍对这些数值是如何转换的没有掌握，那么本CCNA手册的十六进制到十进制转换在网上是很详细的。
+
+> **真是世界的部署**
+
+> 与HSRP不同，VRRP并没有允许网关使用出厂地址（Burnt-in Address, BIA）或静态配置的地址作为VRRP组的MAC地址的选项。因此，在带有多于VRRP组的生产网络中，对在某个特定接口上应用多个MAC地址的理解掌握，尤其是当部署了诸如端口安全这样的特性时， 是重要的。记得要着重于整体上；否则就会发现，尽管有正确配置，一些特性或协议也不会如预期那样跑起来。
+
+一个VRRP网关是在一台或多台连接到LAN的路由器上，配置用于运行VRRP协议的（A VRRP gateway is configured to run the VRRP protocol in conjunction with one or more other routers attached to a LAN）。在VRRP配置中，一台网关被选举为主虚拟路由器（the master router）, 而其它网关则扮演在主虚拟路由器失效时的备份虚拟路由器。下图34.19对此概念进行了演示：
+
+![VRRP的基本运作](images/3419.png)
+*图 34.19 -- VRRP的基本运作*
+
+###VRRP的多虚拟路由器支持特性
+
+可在某个接口上配置多大255个的虚拟路由器。而某个路由器接口实际能支持的虚拟路由器数目，由以下因素决定：
+
+- 路由器的处理能力，Router processing capability
+
+- 路由器的内存容量，Router memory capability
+
+- 路由器接口对多MAC地址的支持情况，Router interface support of multiple MAC addresses 
+
+###VRRP的主路由器选举
+
+**VRRP Master Router Election**
+
+VRRP默认使用优先级值来决定哪台路由器将被选举为主虚拟路由器。默认的VRRP优先级值为100; 但此数值可被手工修改为一个1到254之间的数值。而如多台网关有着相同的优先级数值，那么有着最高IP地址的网关将被选举为主虚拟路由器，同时有着较低IP地址的那台就成为备份虚拟路由器。
+
+加入有多于两台的路由器被配置为VRRP组的组成部分，那么备份虚拟路由器中有着第二高优先级的，就会在当前主虚拟路由器失效或不可用时，被选举为主虚拟路由器。又假如那些备份虚拟路由器又有着相同的优先级，那么这些备份路由器中有着最高IP地址的那台，将被选举为主路由器。下图34.20对此概念进行了演示：
+
+![VRRP主虚拟路由器及备份虚拟路由器的选举](images/3420.png)
+*图 34.20 -- VRRP主虚拟路由器及备份虚拟路由器的选举*
+
+图34.20演示了一个采用了VRRP作为网关冗余的网络。主机1与主机2都配置了默认`192.168.1.254`作为默认网关，此网关就是配置在交换机`VRRP-1`、`VRRP-2`及`VRRP-3`上，给VRRP `group 192`的虚拟IP地址。
+
+交换机`VRRP-1`已被配置了优先级值110, `VRRP-2`的是105, `VRRP-3`的是默认VRRP优先级100。基于此种配置，`VRRP-1`就被选举为主虚拟路由器，同时`VRRP-2`和`VRRP-3`就成为备份虚拟路由器。
+
+在`VRRP-1`失效时，因为`VRRP-2`有着比起`VRRP-3`更高的优先级，所以它就成为主虚拟路由器。但如果`VRRP-2`与`VRRP-3`有着相同优先级的话，`VRRP-3`将被选举为主虚拟路由器，因为它有着更高的IP地址。
+
+###VRRP的抢占
+
+与HSRP不同，VRRP的抢占特性是默认开启的，因此无需管理员为开启此功能而进行显式的配置。但此功能可经由使用接口配置命令`no vrrp [number] preempt`进行关闭。
+
+###VRRP的负载均衡
+
+VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于某台网关上配置了多个虚拟路由器的网络中，一个接口可作为某个虚拟路由器的主接口，同时又可作为另一或更多虚拟路由器的备份。下图34.21对此进行了演示：
+
+![VRRP的负载均衡](images/3421.png)
