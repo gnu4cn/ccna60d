@@ -530,8 +530,8 @@ Vlan172 - Group 1
     Priority 105 (configured 105)
     IP redundancy name is “hsrp-Vl172-1” (default)
     <b>Priority tracking 1 interfaces or objects, 1 up:
-    Interface or object           Decrement  State
-    GigabitEthernet5/1            10         Up</b>
+    Interface or object          Decrement  State
+    GigabitEthernet5/1           10         Up</b>
 </pre>
 
 而要将该网关降低值配置为比如50, 就可以执行命令`standby [name] track [interface] [decrement value]`, 如下面的输出所示：
@@ -559,6 +559,6 @@ Vlan172 - Group 1
     Priority 105 (configured 105)
     IP redundancy name is “hsrp-Vl172-1” (default)
     <b>Priority tracking 1 interfaces or objects, 1 up:
-    Interface or object           Decrement  State
-    GigabitEthernet5/1            50         Up</b>
+    Interface or object          Decrement  State
+    GigabitEthernet5/1           50         Up</b>
 </pre>
