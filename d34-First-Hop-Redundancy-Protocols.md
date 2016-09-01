@@ -686,4 +686,49 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 ![VRRP配置示例的拓扑](images/3423.png)
 *图 34.23 -- VRRP配置示例的拓扑*
 
-> **注意**：
+> **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
+
+```
+VTP-Server-1(config)#interface vlan192
+VTP-Server-1(config-if)#ip address 192.168.1.1 255.255.255.0
+VTP-Server-1(config-if)#vrrp 1 ip 192.168.1.254
+VTP-Server-1(config-if)#vrrp 1 priority 105
+VTP-Server-1(config-if)#vrrp 1 description ‘SWITCH-VRRP-Example’
+VTP-Server-1(config-if)#exit
+VTP-Server-2(config)#interface vlan192
+VTP-Server-2(config-if)#ip address 192.168.1.2 255.255.255.0
+VTP-Server-2(config-if)#vrrp 1 ip 192.168.1.254
+VTP-Server-2(config-if)#vrrp 1 description ‘SWITCH-VRRP-Example’
+VTP-Server-2(config-if)#exit
+```
+
+> **注意**：这里没有为`VTP-Server-2`上所应用的VRRP配置手动指派优先级数值。那么默认情况下，VRRP将使用100的优先级数值，这就令到带有优先级数值105的`VTP-Server-1`，在选举中获胜而被选举为该VRRP组的主虚拟路由器。此外，这里还为该VRRP组配置了一个描述信息。
+
+下面还使用命令`show vrrp [all|brief|interface]`, 对此配置进行了验证。关键字`[all]`展示了有关该VRRP配置的所有信息，包括了组的状态、描述信息（在配置了的情况下）、本地网关优先级，以及主虚拟路由器和其它信息。关键字`[brief]`则会列印出该VRRP配置的摘要信息。而`[interface]`关键字会列印出特定接口的VRRP信息。下面的输出展示了`show vrrp all`命令的输出：
+
+<pre>
+VTP-Server-1#show vrrp all
+Vlan192 - Group 1
+‘SWITCH-VRRP-Example’
+    <b>State is Master
+    Virtual IP address is 192.168.1.254
+    Virtual MAC address is 0000.5e00.0101</b>
+    Advertisement interval is 1.000 sec
+    <b>Preemption enabled
+    Priority is 105
+    Master Router is 192.168.1.1 (local), priority is 105</b>
+    Master Advertisement interval is 1.000 sec
+    Master Down interval is 3.589 sec
+VTP-Server-2#show vrrp all
+Vlan192 - Group 1
+‘SWITCH-VRRP-Example’
+    <b>State is Backup
+    Virtual IP address is 192.168.1.254
+    Virtual MAC address is 0000.5e00.0101</b>
+    Advertisement interval is 1.000 sec
+    <b>Preemption enabled
+    Priority is 100
+    Master Router is 192.168.1.1, priority is 105</b>
+    Master Advertisement interval is 1.000 sec
+    Master Down interval is 3.609 sec (expires in 3.328 sec)
+</pre>
