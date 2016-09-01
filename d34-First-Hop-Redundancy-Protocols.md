@@ -732,3 +732,14 @@ Vlan192 - Group 1
     Master Advertisement interval is 1.000 sec
     Master Down interval is 3.609 sec (expires in 3.328 sec)
 </pre>
+
+下面的输出展示了由命令`show vrrp brief`所列印出的信息：
+
+```
+VTP-Server-1#show vrrp brief
+Interface          Grp Pri Time Own Pre State   Master addr     Group addr
+Vl192              1   105 3589      Y  Master  192.168.1.1     192.168.1.254
+VTP-Server-2#show vrrp brief
+Interface          Grp Pri Time Own Pre State   Master addr     Group addr
+Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
+```
