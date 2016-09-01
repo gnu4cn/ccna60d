@@ -512,4 +512,24 @@ IP redundancy name is “hsrp-Vl172-1” (default)
 
 HSRP接口跟踪特性，令到管理员可以将HSRP配置为追踪接口状态，从而将当前优先级降低一个默认数值（10）或指定数值，以允许另一网关接过指定HSRP组的主网关角色。
 
-在下面的输出中，
+在下面的输出中，`VTP-Server-1`被配置为对连接到假想WAN路由器的接口`Gigabitethernet5/1`的状态，进行跟踪。在那个接口状态转变为`down`时，该网关就将其优先级值降低10（默认的）:
+
+<pre>
+VTP-Server-1#show standby vlan172
+Vlan172 - Group 1
+    State is Active
+        5 state changes, last state change 00:33:22
+    Virtual IP address is 172.16.31.254
+    Active virtual MAC address is 0000.0c07.ac01
+        Local virtual MAC address is 0000.0c07.ac01 (v1 default)
+    Hello time 3 sec, hold time 10 sec
+        Next hello sent in 1.085 secs
+    Preemption enabled
+    Active router is local
+    Standby router is 172.16.31.2, priority 100 (expires in 7.616 sec)
+    Priority 105 (configured 105)
+    IP redundancy name is “hsrp-Vl172-1” (default)
+    <b>Priority tracking 1 interfaces or objects, 1 up:
+    Interface or object           Decrement  State
+    GigabitEthernet5/1            10         Up</b>
+</pre>
