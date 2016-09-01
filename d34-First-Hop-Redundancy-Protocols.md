@@ -917,3 +917,74 @@ GLBP支持以下三种方式的负载分担：
 GLBP的客户端缓存，包含了使用到某个GLBP组作为默认网关的那些网络主机的信息。此缓存项目包含了关于发送了IPv4 ARP或IPv6 邻居发现（Neighbor Discovery, ND）请求主机，以及AVG指派了哪个转发器给它的信息，还有每台网络主机已被分配的GLBP转发器的编号，和当前分配给GLBP组中各台转发器的网络主机总数。
 
 可以开启某个GLBP组的活动虚拟网关，来存储一个使用到此GLBP组的所有LAN客户端的客户端缓存数据库（a client cache database）。客户端缓存数据库最多可以存储2000个条目，但建议条目数不要超过1000。同时GLBP缓存的配置，是超出CCNA考试要求的，此特性可使用命令`glbp client-cache`进行配置，使用命令`show glbp detail`进行验证。
+
+###在网关上配置GLBP
+
+在网关上配置GLBP，需要以下步骤：
+
+1. 使用接口配置命令`ip address [address] [mask] [secondary]`，为网关接口配置正确的IP地址与子网掩码。
+
+2. 通过接口配置命令`glbp [number] ip [virtual address] [secondary]`, 在网关接口上建立一个GLBP组，并给该组指派上虚拟IP地址。关键字`[secondary]`将该虚拟IP地址配置为指定组的第二网关地址。
+
+3. 作为可选项，可通过接口配置命令`glbp [number] name [name]`，为该GLBP组指派一个名称。
+
+4. 作为可选项，如打算对活动虚拟网关的选举进行控制，就要通过接口配置命令`glbp [number] priority [value]`，配置该组的优先级。
+
+本小节中的GLBP示例，将基于下图34.26的网络：
+
+![GLBP配置示例的拓扑](images/3426.png)
+*图 34.26 -- GLBP配置示例的拓扑*
+
+> **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
+
+```
+VTP-Server-1(config)#interface vlan192
+VTP-Server-1(config-if)#glbp 1 ip 192.168.1.254
+VTP-Server-1(config-if)#glbp 1 priority 110
+VTP-Server-1(config-if)#exit
+VTP-Server-2(config)#interface vlan192
+VTP-Server-2(config-if)#glbp 1 ip 192.168.1.254
+VTP-Server-2(config-if)#exit
+VTP-Server-3(config)#interface vlan192
+VTP-Server-3(config-if)#glbp 1 ip 192.168.1.254
+VTP-Server-3(config-if)#exit
+VTP-Server-4(config)#interface vlan192
+VTP-Server-4(config-if)#glbp 1 ip 192.168.1.254
+VTP-Server-4(config-if)#exit
+```
+
+一旦该GLBP组已被配置，就可使用命令`show glbp brief`来查看该GLBP配置的摘要信息了，如同下面的输出所示：
+
+<pre>
+VTP-Server-1#show glbp brief
+Interface   Grp  Fwd Pri State      Address         Active router   Standby router
+<b>Vl192       1    -   110 Active     192.168.1.254   local           192.168.1.4</b>
+Vl192       1    1   -   Active     0007.b400.0101  local           -
+Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
+Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
+Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
+
+VTP-Server-2#show glbp brief
+Interface   Grp  Fwd Pri State      Address         Active router   Standby router
+<b>Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4</b>
+Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
+Vl192       1    2   -   Active     0007.b400.0102  local           -
+Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
+Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
+
+VTP-Server-3#show glbp brief
+Interface   Grp  Fwd Pri State      Address         Active router   Standby router
+<b>Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4</b>
+Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
+Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
+Vl192       1    3   -   Active     0007.b400.0103  local           -
+Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
+
+VTP-Server-4#show glbp brief
+Interface   Grp  Fwd Pri State      Address         Active router   Standby router
+<b>Vl192       1    -   100 Standby    192.168.1.254   192.168.1.1     local</b>
+Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
+Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
+Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
+Vl192       1    4   -   Active     0007.b400.0104  local           -
+</pre>
