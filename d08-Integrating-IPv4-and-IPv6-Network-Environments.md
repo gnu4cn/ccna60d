@@ -180,4 +180,13 @@ R1(config)#ip name-server 192.168.1.2
 
 **Tunnelling IPv6 Datagrams across IPv4 Networks**
 
+通道技术，也就是集成IPv4与IPv6网络的第二种方法，是将IPv6数据包进行封装并通过IPv4网络发送的。为了对本小节中即将说到的几种不同隧道机制进行支持，思科IOS的边缘路由器（Cisco IOS edge routers）必须具有双栈部署（译者注：要配置IPv4和IPv6地址, 并开启IPv6路由），以令到IPv6数据包能够以IPv4数据包方式进行封装，且在终端路由器（the terminating router）处被解封装。需要注意的是，中途的那些路由器（intermediate routers）是无需运行IPv6的。也就是说，这些路由器只需简单的仅IPv4路由器。下图8.1演示了一个典型的隧道技术部署：
+
+![经由IPv4网络进行IPv6数据包的隧道传输](images/0801.png)
+*图 8.1 -- 经由IPv4网络进行IPv6数据包的隧道传输*
+
+参考图8.1, 假设那台IPv6 `Host 1`正在将数据报发送给IPv6 `Host 2`, 那么在这些数据包通过该网络时，会顺序发生下面这些事件：
+
+1. IPv6 `Host 1`将那些以IPv6 `Host 2`为目的的IPv6数据包，发送到其默认网关，也就是路由器`R4`。这些数据包是原生的、在数据包头部包含了IPv6源地址及目的地址的IPv6数据包。
+
 
