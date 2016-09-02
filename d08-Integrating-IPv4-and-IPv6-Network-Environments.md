@@ -162,6 +162,18 @@ Sending 10, 100-byte ICMP Echos to 3FFF:1234:ABCD:1::3, timeout is 2 seconds:
 Success rate is 100 percent (10/10), round-trip min/avg/max = 0/1/4 ms
 ```
 
+###在思科IOS软件中配置IPv4及IPv6的DNS服务器
+
+思科IOS软件中IPv4与IPv6 DNS服务器的配置，都依然是使用全局配置命令`ip name-server [address]`。不过这条命令现在已修改为允许将一个IPv4或IPv6地址，指定为DNS服务器的IP地址。下面的示例演示了如何将路由器配置为同时使用一台IPv4及IPv6 DNS服务器：
+
+```
+R1(config)#ip name-server ?
+    A.B.C.D Domain server IP address (maximum of 6)
+    X:X:X:X::X Domain server IP address (maximum of 6)
+R1(config)#ip name-server 3FFF:1234:ABCD:1::2
+R1(config)#ip name-server 192.168.1.2
+```
+
 > **注意**：正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找AAAA记录（也就是IPv6）。在如果未找到AAAA记录，主机就会查找一条A记录，以与该主机名进行通信。
 
 ##经由IPv4网络对IPv6数据报进行隧道传输
