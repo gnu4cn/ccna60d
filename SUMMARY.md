@@ -8,6 +8,7 @@
 * [第5天, IP 地址分配](d05-IP-Addressing.md)
 * [第6天, 网络地址转换](d06-NAT.md)
 * [第7天, 互联网协议版本6](d07-IPv6.md)
+* [第8天, IPv4与IPv6共存的网络环境](d08-Integrating-IPv4-and-IPv6-Network-Environments.md)
 * [第9天, 访问控制清单](d09-ACL.md)
 * [第10天, 路由的一些概念](d10-Routing-Concepts.md)
 * [第11天, 静态路由](d11-Static-Routing.md)
