@@ -189,4 +189,36 @@ R1(config)#ip name-server 192.168.1.2
 
 1. IPv6 `Host 1`将那些以IPv6 `Host 2`为目的的IPv6数据包，发送到其默认网关，也就是路由器`R4`。这些数据包是原生的、在数据包头部包含了IPv6源地址及目的地址的IPv6数据包。
 
+2. `R4`是一台双栈路由器。其LAN接口已开启了IPv6, 同时其WAN接口已开启了IPv4。R4有着一个配置在其WAN接口和`R1`的WAN接口，`R1`也是一台双栈路由器, 之间的隧道。在收到IPv6数据包后，`R4`就将它们以IPv4数据包格式进行封装，并转发给`R2`。这些数据包的目的地址被设置为`R1`, 同时该路由器（`R4`）将IPv4头的值设置为41, 以表明IPv6数据包是以IPv4数据包形式封装的。
 
+3. `R2`收到这些IPv4数据包，并简单地运用IPv4头部中的目的地址，将它们路由或转发到其最终目的地。
+
+4. `R3`从`R2`处收到这些IPv4数据包，并简单地运用IPv4头部中的目的地址，将它们路由或转发到其最终目的地。
+
+5. 最终路由器`R1`，也是该隧道的出口，接收到这些原生的IPv4数据包并将其解封装，从而仅剩下IPv6数据包。于是该路由器就该这些IPv6数据包转发给`Host 2`。
+
+封装与解封装过程，对这两台主机以及隧道两端（the tunnel endpoints）之间的中间那些路由器来说，是透明的。在以IPv4数据包进行IPv6数据包的隧道传输上，有着多种方式（参见后面）。因为超出了CCNA考试要求，这里不会涉及任何具体配置。
+
+下面列出了一些其它的隧道方式。思科可能会期望你知道有着这些方式，但不会出有关这些方式如何运作的题目。
+
+- 静态的（手动配置的）IPv6隧道传输，Static(manually configured) IPv6 tunnelling
+
+- 6to4 隧道技术，6to4 tunnelling
+
+- 自动的兼容IPv4隧道技术，Automatic IPv4-compatible tunnelling
+
+- ISATAP 隧道技术，ISATAP tunnelling
+
+- 通用路由封装隧道技术，Generic Routing Encapsulation tunnelling
+
+
+##第8天问题
+
+1. Name three IPv4 to IPv6 transition mechanism classes.
+2. `_______` implementation is required when internetwork devices and hosts use both protocol stacks (i.e., IPv4 and IPv6) at the same time.
+3. With dual-stack implementation, name two methods that help hosts decide when to use the IPv6 protocol stack instead of the IPv4 protocol stack.
+4. While IPv4 routing is enabled by default in Cisco IOS software, IPv6 routing is disabled by default and must be explicitly enabled. True or false?
+5. Name a command that will provide IPv6 interface parameters.
+6. The static IPv4 and IPv6 host configuration can be validated using the `_______` command.
+7. Which command is used to configure an IPv6 DNS server?
+8. `_______` entails encapsulating the IPv6 packets or datagrams and sending them over IPv4 networks.
