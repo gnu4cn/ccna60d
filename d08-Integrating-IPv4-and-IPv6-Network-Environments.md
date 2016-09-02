@@ -65,4 +65,49 @@
 
 尽管对那些不同厂商的具备双栈部署支持的不同类型主机的不同配置方式的讨论，是超出CCNA考试要求范围的。但作为一名未来的网络工程师，掌握如何在思科IOS软件下部署各种双栈方案，是强制性的（imperative to understand how to implement dual-stack solutions in Cisco IOS software）。在思科IOS路由器中，双栈运作的启用，通过简单地在路由器接口上配置好IPv4及IPv4即可。
 
+通过在接口配置命令`ip address [address] [mask]`后添加`[secondary]`关键字，就可以为接口指定多个的IPv4地址。对于IPv6来说，是不需要`[secondary]`关键字的，因为使用第7天课程中所介绍的接口配置命令`ipv6 address`，就可以为每个接口配置多个前缀。下面的配置示例，演示了如何在单一的路由器接口上配置多个IPv4地址和IPv6地址及前缀：
 
+```
+R3(config)#ipv6 unicast-routing
+R3(config)#interface FastEthernet0/0
+R3(config-if)#ip address 10.0.0.3 255.255.255.0
+R3(config-if)#ip address 10.0.1.3 255.255.255.0 secondary
+R3(config-if)#ip address 10.0.2.3 255.255.255.0 secondary
+R3(config-if)#ipv6 address 3fff:1234:abcd:1::3/64
+R3(config-if)#ipv6 address 3fff:1234:abcd:2::3/64
+R3(config-if)#ipv6 address 3fff:1234:abcd:3::3/64
+R3(config-if)#ipv6 enable
+R3(config-if)#exit
+```
+
+> **注意**：尽管在思科IOS软件中IPv4路由默认是开启的，但IPv6路由却是默认关闭的，所以必须显式地开启。
+
+依据这些IPv4与IPv6地址的配置，就可以通过简单地对查看路由器配置，来验证这些配置，如下面的输出所示：
+
+```
+R3#show running-config interface FastEthernet0/0
+Building configuration...
+Current configuration : 395 bytes
+!
+interface FastEthernet0/0
+ip address 10.0.1.3 255.255.255.0 secondary
+ip address 10.0.2.3 255.255.255.0 secondary
+ip address 10.0.0.3 255.255.255.0
+ipv6 address 3FFF:1234:ABCD:1::3/64
+ipv6 address 3FFF:1234:ABCD:2::3/64
+ipv6 address 3FFF:1234:ABCD:3::3/64
+ipv6 enable
+end
+```
+
+而要查看具体的IPv4及IPv6接口参数，只需使用思科IOS软件的`show ip interface [name]`或`show ipv6 interface [name]`命令即可。下面是`Fastethernet0/0`接口上`show ip interface`的输出：
+
+<pre>
+R3#show ip interface FastEthernet0/0 | section address
+    Internet address is 10.0.0.3/24
+    Broadcast address is 255.255.255.255
+    Helper address is not set
+    <b>Secondary address 10.0.1.3/24
+    Secondary address 10.0.2.3/24</b>
+    Network address translation is disabled
+</pre>
