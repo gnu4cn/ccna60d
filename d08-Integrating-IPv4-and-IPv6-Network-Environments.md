@@ -222,3 +222,38 @@ R1(config)#ip name-server 192.168.1.2
 6. The static IPv4 and IPv6 host configuration can be validated using the `_______` command.
 7. Which command is used to configure an IPv6 DNS server?
 8. `_______` entails encapsulating the IPv6 packets or datagrams and sending them over IPv4 networks.
+
+##第8天答案
+
+1. Dual-stack implementation, tunnelling, and protocol translation.
+2. Dual-stack.
+3. Manual configuration and naming service.
+4. True.
+5. The `show ipv6 interface` command.
+6. `show hosts`.
+7. The `ip name-server` command.
+8. Tunnelling.
+
+##第8天实验
+
+###IPv4 - IPv6 基础集成实验
+
+在两台直连的思科路由器上，对本课程模块中讲到的一些IPv6概念与命令进行测试：
+
+- 在设备上开启IPv6单播路由，并在直连接口上同时配置IPv4及IPv6地址
+
+- 使用命令`show interface`及`show ipv6 interface`, 对该配置进行验证
+
+- 为远端接口地址配置IPv4及IPv6主机，configure IPv4 and IPv6 hosts for remote interface addresses
+
+- 在设备上验证这些主机配置（`show`命令）
+
+- 在设备之间通过这些主机名字，进行`ping`操作
+
+- 在两台路由器上配置IPv4及IPv6的DNS服务器
+
+###IPv4 - IPv6 隧道技术实验
+
+在家庭网络环境下，重现“通过IPv4进行IPv6的隧道传输”小节的场景（包括所有的机制）。要依循该小节中所呈现的事件顺序。可访问[www.in60days.com](http://www.in60days.com/)，看看作者是如何完成这个实验的。
+
+
