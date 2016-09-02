@@ -111,3 +111,43 @@ R3#show ip interface FastEthernet0/0 | section address
     Secondary address 10.0.2.3/24</b>
     Network address translation is disabled
 </pre>
+
+下面的输出则演示了上一示例中用到的同样的`Fastethernet0/0`接口的`show ipv6 interface`命令，所打印出的信息：
+
+```
+R3#show ipv6 interface FastEthernet0/0 | section address
+    IPv6 is enabled, link-local address is FE80::213:19FF:FE86:A20
+    Global unicast address(es):
+        3FFF:1234:ABCD:1::3, subnet is 3FFF:1234:ABCD:1::/64
+        3FFF:1234:ABCD:2::3, subnet is 3FFF:1234:ABCD:2::/64
+        3FFF:1234:ABCD:3::3, subnet is 3FFF:1234:ABCD:3::/64
+    Joined group address(es):
+        FF02::1
+        FF02::2
+        FF02::5
+        FF02::6
+        FF02::9
+        FF02::1:FF00:3
+    Hosts use stateless autoconfig for addresses.
+```
+
+###思科IOS软件中配置静态IPv4及IPv6主机地址
+
+思科IOS软件通过使用全局配置命令`ip host [name] [v4-address]`及`ipv6 host [name] [v6-address]`, 而提供了对相应的静态IPv4与IPv6主机地址配置的支持。下面的示例演示了在思科IOS软件中，如何配置静态IPv4及IPv6的主机名字与地址：
+
+```
+R1(config)#ip host TEST-HOST 10.0.0.3
+R1(config)#ipv6 host TEST-HOST 3FFF:1234:ABCD:1::3
+```
+
+该静态IPv4与IPv6主机配置可使用`show hosts`命令进行验证，下面打印出了改命令的输出：
+
+<pre>
+R1#<b>show hosts</b>
+...
+[Truncated Output]
+...
+Host        Port  Flags      Age Type   Address(es)
+TEST-HOST   None  (perm, OK)  0  IP     10.0.0.3
+TEST-HOST   None  (perm, OK)  0  IPv6   3FFF:1234:ABCD:1::3
+</pre>
