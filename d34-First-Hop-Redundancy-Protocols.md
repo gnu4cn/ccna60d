@@ -1075,3 +1075,13 @@ Vlan192 - Group 1
 8. The `standby [number] ip [virtual address]` command.
 9. False.
 10. The `glbp [number] ip [virtual address]` command.
+
+##第34天实验
+
+###HSRP实验
+
+在包含了两台直连路由器的场景中（也就是`Fa0/0`连接到`Fa0/0`），对本课程模块中有解释的那些命令进行测试。这两天应都经由比如端口`Fa0/1`，连接到一台交换机。便在交换机上连接一台工作站（workstation）。
+
+- 在两台路由器上配置某种一致的IP分址方案（configure a consistent IP addressing scheme on the two routers），比如`192.168.0.1/24`与`192.168.0.2/24`
+
+
