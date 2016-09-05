@@ -135,3 +135,16 @@ Processor board ID 18086064, with hardware revision 00000003
 <pre>
 Router#copy startup-config tftp:<b>← You need to include the colon</b>
 </pre>
+
+还可以将IOS镜像复制到某台TFTP服务器上。如要将服务器IOS更新到另一较新版本，就必须要这么做，以防新版本可能带来的问题（管理员经常将一个路由器现有闪存装不下的IOS镜像放上去）。
+
+```
+Router#copy flash tftp:
+```
+
+路由器将提示输入TFTP服务器的IP地址，建议服务器与路由器位处同一子网。而如打算从TFTP服务器下载IOS镜像，就只需简单地逆转一下命令即可：
+
+```
+Router#copy tftp flash:
+```
+
