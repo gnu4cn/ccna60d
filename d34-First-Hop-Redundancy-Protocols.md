@@ -1084,4 +1084,39 @@ Vlan192 - Group 1
 
 - 在两台路由器上配置某种一致的IP分址方案（configure a consistent IP addressing scheme on the two routers），比如`192.168.0.1/24`与`192.168.0.2/24`
 
+- 使用地址`192.168.0.10`，在面向LAN的接口上配置HSRP 10（configure HSRP 10 on LAN-facing interfaces）
 
+- 将该HSRP组命名为`CCNA`
+
+- 使用命令`standby 10 priority 110`, 来对主HSRP网关的选举进行控制
+
+- 使用命令`show standby [brief]`，对HSRP配置进行验证
+
+- 在两台路由器都配置上HSRP抢占
+
+- 关闭`Router 1`，观察`Router 2`如何成为主路由器
+
+- 重启`Router 1`，并观察其如何因为开启了抢占，而再度成为主路由器
+
+- 将工作站的IP地址配置为`192.168.0.100/24`, 网关地址为`192.168.0.10`; 并从该工作站对网关进行`ping`操作
+
+- 配置接口跟踪：使用命令`standby 10 track [int number]`对路由器上的一个未使用接口进行跟踪; 将该接口循环置于不同根状态，进而对基于该接口状态，而发生的相应路由器优先级变化进行观察。
+
+- 使用命令`standby version 2`，配置上HSRP版本2
+
+- 通过命令`standby 10 timers x y`，在两台路由器上对不同HSRP计时器进行修改
+
+- 在两台路由器之间配置MD5的HSRP验证
+
+- 在一台路由器的主网关状态变化时，使用命令`debug standby`对HSRP进行调试，从而观察另一台是如何被选举为主网关的
+
+
+###VRRP实验
+
+重复上一实验，但这次在适用的命令改变下，用VRRP代替HSRP（repeat the previous lab but this time using VRRP instead of HSRP, with the applicable command changes）。
+
+###GLBP实验
+
+重复第一个实验，在适用的命令改变下，用GLBP代替HSRP。在两台路由器上使用`glbp 10 load-balancing round-robin`命令，配置GLBP的负载共担，并观察LAN中流量是如何同时到达两台路由器的。
+
+访问[www.in60days.com](http://www.in60days.com/), 看看作者是怎样完成此实验的。
