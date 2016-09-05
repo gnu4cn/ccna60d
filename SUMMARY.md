@@ -20,4 +20,5 @@
 * [第32天, 快速生成树协议](d32-Rapid-Spanning-Tree-Protocol.md)
 * [第33天, 以太网通道及链路聚合协议](d33-EtherChannels-and-Link-Aggregation-Protocols.md)
 * [第34天, 第一跳冗余协议](d34-First-Hop-Redundancy-Protocols.md)
+* [第35天, 启动与IOS](d35-booting-and-IOS.md)
 * [第36天, EIGRP](d36-EIGRP.md)
