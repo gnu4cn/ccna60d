@@ -58,4 +58,35 @@ ROM监测程序（ROM Monitor）-- 用于系统诊断及启动。ROM监测程序
 
 RxBoot程序 -- 小型的IOS（Mini-IOS）, 在此程序模式下允许上传一个完整的IOS。其又被称为启动装载器（the boot loader），可用于完成一些路由器维护操作（参见[这里](http://www.cisco.com/image/gif/paws/10252/13.pdf)）。
 
-路由器配置 -- 尽管严格来说这并非一类路由器组件，其是存储在NVRAM
+路由器配置 -- 尽管严格来说这并非一类路由器组件，其存储在NVRAM中，在启动是拉入到DRAM中。可将DRAM中的配置，经由命令`copy run start`，放入到NVRAM，同时也可以使用命令`copy start run`，将NVRAM中的配置文件放到内存中。
+
+配置寄存器（the Configuration Register）-- 设置启动中的一些指令（sets instructions for booting）。因为在实验中要对用到的路由器上的配置寄存器进行修改（比如无配置的干净启动），或是要完成一次口令恢复，所以对配置寄存器的掌握是非常重要的。虽然在某些模型上有所不同，但下面是两个最常见的设置：
+
+- 配置寄存器值`0x2142` -- 启动并忽略启动配置
+- 配置寄存器值`0x2102` -- 正常启动
+
+通过命令`show version`，就可以查看到当前的配置寄存器设置：
+
+<pre>
+Router#show version
+Cisco Internetwork Operating System Software
+IOS (tm) 2500 Software (C2500-JS-L), Version 12.1(17), RELEASE SOFTWARE (fc1) Copyright (c) 1986-2002 by Cisco Systems, Inc.
+Compiled Wed 04-Sep-02 03:08 by kellythw Image text-base: 0x03073F40, data-base: 0x00001000
+ROM: System Bootstrap, Version 11.0(10c)XB2, PLATFORM SPECIFIC RELEASE SOFTWARE (fc1) BOOTLDR: 3000 Bootstrap Software (IGS-BOOT-R), Version 11.0(10c)XB2, PLATFORM SPECIFIC RELEASE SOFTWARE (fc1)
+
+Router uptime is 12 minutes
+System returned to ROM by reload
+System image file is “flash:c2500-js-l.121-17.bin”
+
+Cisco 2500 (68030) processor (revision L) with 14336K/2048K bytes of memory.
+Processor board ID 01760497, with hardware revision 00000000 Bridging software.
+X.25 software, Version 3.0.0.
+SuperLAT software (copyright 1990 by Meridian Technology Corp).
+TN3270 Emulation software.
+2 Ethernet/IEEE 802.3 interface(s)
+2 Serial network interface(s)
+32K bytes of non-volatile configuration memory.
+16384K bytes of processor board System flash (Read ONLY)
+
+<b>Configuration register is 0x2102</b>
+</pre>
