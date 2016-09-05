@@ -90,3 +90,27 @@ TN3270 Emulation software.
 
 <b>Configuration register is 0x2102</b>
 </pre>
+
+命令还现实了该路由器已在线多长时间及上次重启的原因--在对启动问题进行故障排除时，这些信息是有用的。
+
+```
+Router uptime is 12 minutes
+System returned to ROM by reload
+```
+
+同时改命令将显示处路由器上不同类型的存储器：
+
+<pre>
+Router#show version
+Cisco Internetwork Operating System Software
+IOS (tm) 2500 Software (C2500-IS-L), Version 12.2(4)T1, RELEASE SOFTWARE Copyright (c) 1986-2001 by Cisco Systems, Inc.
+
+ROM: System Bootstrap, Version 11.0(10c), SOFTWARE<b>← ROM code</b>
+BOOTLDR: 3000 Bootstrap Software (IGS-BOOT-R), Version 11.0(10c)
+System image file is “flash:c2500-is-l_122-4_T1.bin”<b>← Flash image</b>
+Cisco 2522 (68030) processor CPU<b>← CPU</b>
+with 14336K/2048K bytes of memory. <b>← DRAM</b>
+Processor board ID 18086064, with hardware revision 00000003
+32K bytes of non-volatile configuration memory.<b>← NVRAM</b>
+16384K bytes of processor System flash (Read ONLY) <b>← EEPROM/FLASH</b>
+</pre>
