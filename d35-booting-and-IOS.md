@@ -114,3 +114,24 @@ Processor board ID 18086064, with hardware revision 00000003
 32K bytes of non-volatile configuration memory.<b>← NVRAM</b>
 16384K bytes of processor System flash (Read ONLY) <b>← EEPROM/FLASH</b>
 </pre>
+
+下面是路由器启动过程的一个图形化再现：
+
+![路由器的启动过程](images/3503.png)
+*图 35.3 -- 路由器的启动过程*
+
+##管理IOS
+
+做好一些简单的路由器及交换机日常工作，就可避免许多的网络灾难（many network disasters could have been avoided with simple router and switch housekeeping）。如路由器配置文件对于你及你的业务比较重要，那么就应对其进行备份。
+
+如觉得路由器的当前的运行配置，可作为工作版本，就可以使用命令`copy run start`，将其拷贝到NVRAM中。
+
+而为了将该路由器配置保存起来，就需要在网络上保有一台运行着TFTP服务器软件的PC及或服务器。可从诸如SolarWinds这类公司下载到免费版的TFTP服务器软件。升级闪存镜像也需要有TFTP服务器。
+
+路由器配置可在路由器或网络上的PC机或服务器之间移动。路由器上的运行配置保存在DRAM中。对配置做出的任何修改，都将保存在DRAM中，此时由于任何的原因而导致的重启，这些运行配置都会丢失。
+
+你可以将运行配置拷贝到一台运行了TFTP服务器软件的PC机或服务器上：
+
+<pre>
+Router#copy startup-config tftp:<b>← You need to include the colon</b>
+</pre>
