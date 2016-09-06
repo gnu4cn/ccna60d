@@ -323,3 +323,20 @@ Router#
 *Jun 25 11:18:20.234: %LICENSE-6-INSTALL: Feature datak9 1.0 was installed in this device. UDI=CISCO2951:FHH1216P07R; StoreIndex=0:Primary License Storage
 *Jun 25 11:18:20.386: %IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL: Module name = c2951 Next reboot level = datak9 and License = datak9
 </pre>
+
+此时将必须重启该路由器，以激活新的特性集。
+
+
+
+##第35天问题
+
+1. Which files would you usually find in DRAM?
+2. Where is the compressed IOS held?
+3. You want to boot the router and skip the startup configuration. Which command do you use to modify the configuration register?
+4. Which command puts the running configuration into NVRAM?
+5. Which command will copy your startup configuration onto a network server?
+6. You want to boot your router from a network server holding the IOS. Which command will achieve this?
+7. The universal image includes all the feature sets you require, but in order to gain access to the advanced features you need to buy the appropriate license and verify it on the actual device. True or false?
+8. The ROM monitor has a very small code called bootstrap or boothelper in it to check for attached memory and interfaces. True or false?
+9. Which command do you use to view the files stored on the flash memory on a Cisco router?
+10. What is the purpose of the POST?
