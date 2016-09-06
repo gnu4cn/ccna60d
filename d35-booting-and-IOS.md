@@ -340,3 +340,17 @@ Router#
 8. The ROM monitor has a very small code called bootstrap or boothelper in it to check for attached memory and interfaces. True or false?
 9. Which command do you use to view the files stored on the flash memory on a Cisco router?
 10. What is the purpose of the POST?
+
+
+##第35天答案
+
+1. Uncompressed IOS, running configuration, and routing tables.
+2. On the flash memory.
+3. The `config-register [version]` command in Global Configuration mode.
+4. The `copy run start` command.
+5. The `copy start tftp:` command.
+6. The `boot system [option]` command.
+7. True.
+8. True.
+9. The `show flash/dir` command.
+10. The POST tests the hardware in order to verify that all the components are present and healthy (interfaces, memory, CPU, ASICs, etc.).
