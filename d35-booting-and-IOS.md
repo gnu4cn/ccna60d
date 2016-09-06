@@ -354,3 +354,24 @@ Router#
 8. True.
 9. The `show flash/dir` command.
 10. The POST tests the hardware in order to verify that all the components are present and healthy (interfaces, memory, CPU, ASICs, etc.).
+
+
+##第35天实验
+
+对本课程模块中讲到的那些配置命令进行测试：
+
+- 在某台思科设备上执行一下`show version`命令，并对输出进行检查；将这些输出项与课程中详细解释进行联系
+
+- 将启动配置拷贝到一台TFTP服务器上
+
+- 从某台TFTP服务器拷贝配置文件到路由器上
+
+- 从某台TFTP服务器拷贝一个IOS镜像到路由器的闪存中
+
+- 使用`show flash`命令，对闪存中的内容进行检查
+
+- 以`boot system flash: [name]`命令，使用新的IOS文件启动设备
+
+访问[www.in60days.com](http://www.in60days.com/)网站，免费观看作者完成此实验。
+
+
