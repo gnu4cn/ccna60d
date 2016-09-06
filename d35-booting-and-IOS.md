@@ -250,4 +250,16 @@ RouterA(config)#boot system tftp:
 
 **License Activation**
 
+每种型号的思科路由器（支持许可证的），都已分配了一个叫做唯一设备标识符（the unique device identifier, UDI）的，唯一识别编号（a unique identifying number）。唯一设备标识符是由序列号及产品身份证组成的（this is compromised of the serial number(SN) and the product identification(PID)）。执行`show license udi`命令，来查看此信息。
 
+```
+Router#show license ?
+all        Show license all information
+detail     Show license detail information
+feature    Show license feature information
+udi        Show license udi information
+Router#show license udi
+Device#   PID               SN              UDI
+--------------------------------------------------------------------
+*0        CISCO1941/K9      FTX15240000     CISCO1941/K9:FTX15240000
+```
