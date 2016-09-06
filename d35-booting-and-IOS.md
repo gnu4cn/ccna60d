@@ -303,3 +303,23 @@ securityk9          yes          yes         no             no
 datak9              yes          no          no             no
 ```
 
+一旦许可证得到验证，就必须通过U盘或网络服务器，及在命令行执行`license install [url]`, 将该许可证密钥添加到路由器。需要注意“.lic”这个文件名。
+
+<pre>
+Router#dir usbflash0:
+
+Directory of usbflash0:/
+
+   1  -rw-        3064  Apr 18 2013 03:31:18 +00:00  FHH1216P07R_20090528163510702.<b>lic</b>
+
+255537152 bytes total (184524800 bytes free)
+Router#
+Router#license install usbflash0:FHH1216P07R_20090528163510702.<b>lic</b>
+Installing...Feature:datak9...Successful:Supported
+1/1 licenses were successfully installed
+0/1 licenses were existing licenses
+0/1 licenses were failed to install
+Router#
+*Jun 25 11:18:20.234: %LICENSE-6-INSTALL: Feature datak9 1.0 was installed in this device. UDI=CISCO2951:FHH1216P07R; StoreIndex=0:Primary License Storage
+*Jun 25 11:18:20.386: %IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL: Module name = c2951 Next reboot level = datak9 and License = datak9
+</pre>
