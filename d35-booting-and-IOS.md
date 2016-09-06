@@ -148,3 +148,69 @@ Router#copy flash tftp:
 Router#copy tftp flash:
 ```
 
+这些命令的问题在于大多数工程师一年也就用两三次，或者只在出现网络灾难时才用到。通常，你会发现在你的网络宕机时，互联网接入也没有了，所以必须要将路由器存储器中将它们备份出来！
+
+作者强烈建议在家庭网络上对配置完成一些备份及恢复的联系。此外，还建议观看一下作者在Youtube上的恢复实验：
+
+[www.youtube.com/user/paulwbrowning](http://www.youtube.com/user/paulwbrowning)
+
+通过`show version`或`show flash`命令, 或者经由`dir flash:`进入到flash目录，进入到flash目录将显示出闪存中所有的文件，就可以查看到闪存的文件名。
+
+<pre>
+RouterA#show flash
+System flash directory:
+File    Length      Name/status
+1       14692012    <b>c2500-js-l.121-17.bin</b>
+[14692076 bytes used, 2085140 available, 16777216 total]
+16384K bytes of processor board System flash (Read ONLY)
+</pre>
+
+作者本打算对此方面进行深入，但你应着重于CCNA考试本身及日常工作。不过灾难恢复应在深入研究及实验的目标清单当中。
+
+##各种启动选项
+
+**Booting Options**
+
+在路由器启动时，有着许多可选选项。通常在闪存中都只有一个IOS镜像，因此路由器将使用那个镜像进行启动。在有着多个镜像，或者路由器闪存对于镜像太小而无法放下镜像时，就可能需要路由器从网络上的某台保存了IOS镜像的TFTP服务器启动了。
+
+取决于所要配置的启动选项，命令可能有些许不同。所以要在一台开启的路由器上对所有选项都进行尝试。
+
+```
+RouterA(config)#boot system ?
+WORD           TFTP filename or URL
+flash          Boot from flash memory
+mop            Boot from a Decnet MOP server
+ftp            Boot from server via ftp
+rcp            Boot from server via rcp
+tftp           Boot from tftp server
+```
+
+对于闪存来说：
+
+```
+RouterA(config)#boot system flash ? WORD System image filename <cr>
+```
+
+而对于TFTP：
+
+```
+Enter configuration commands, one per line. End with CNTL/Z.
+RouterB(config)#boot system tftp: c2500-js-l.121-17.bin ? Hostname or A.B.C.D Address from which to download the file <cr>
+RouterA(config)#boot system tftp:
+```
+
+##启动过程及加电自检
+
+**Booting Process and POST**
+
+一次标准的路由器启动顺序，看起来像下面这样：
+
+1. 设备开机并将首先执行加电自检（Power on Self Test）动作。加电自检对硬件进行测试，以确保所有组件都不缺少且是正常的（包括各种接口、存储器、CPU、专用集成电路(ASICs)等等）。加电自检程序是存储在ROM中，并自ROM运行的。
+
+2. 启动引导程序（the bootstrap）查找并装入思科IOS软件。启动引导程序是ROM中的一个程序，用于执行一些其它程序，并负责查找各个IOS软件所处位置，接着就装入IOS镜像文件。启动引导程序找到思科IOS软件并将其装入到RAM中。思科IOS文件可在这三个地方找到：闪存、某台TFTP服务器，或在启动配置文件中所指定的另一位置。在所有思科路由器中，IOS软件默认都是从闪存装入的。要从其它位置进行装入，就必须对配置设置进行修改。
+
+3. IOS软件在NVRAM中查找一个可用的配置文件（也就是启动配置文件(the startup-config file)）。
+
+4. 如在NVRAM中确实有着一个启动配置文件，路由器就会装入此文件，此时路由器就将成为可运作的了。而如果在NVRAM中没有启动配置文件，路由器将启动设置模式的配置（the setup-mode configuration）。
+
+
