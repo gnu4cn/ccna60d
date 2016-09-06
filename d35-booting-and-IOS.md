@@ -292,3 +292,14 @@ StoreIndex: 1   Feature: datak9                     Version: 1.0
         License Count: Non-Counted
         License Priority: None
 </pre>
+
+命令`show license feature`将打印出已开启的特性摘要信息：
+
+```
+Router#show license feature
+Feature name        Enforcement  Evaluation  Subscription   Enabled
+ipbasek9            no           no          no             yes
+securityk9          yes          yes         no             no
+datak9              yes          no          no             no
+```
+
