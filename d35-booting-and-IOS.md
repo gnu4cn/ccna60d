@@ -240,3 +240,14 @@ RouterA(config)#boot system tftp:
 
 ![思科许可证管理器的下载页面](images/3505.png)
 *图 35.5 -- 思科许可证管理器的下载页面*
+
+可在某台允许客户在他们的设备与思科公司的许可证门户之间进行操作的服务器或主机上，安装CLM。CLM专注于对当前许可证及各台设备的特性的跟踪，使用图形界面。
+
+![思科许可证管理器的图形界面](images/3506.png)
+*图 35.6 -- 思科许可证管理器的图形界面（Image Copyright Cisco Systems Inc.）*
+
+##许可证的激活
+
+**License Activation**
+
+
