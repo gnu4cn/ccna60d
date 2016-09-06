@@ -263,3 +263,32 @@ Device#   PID               SN              UDI
 --------------------------------------------------------------------
 *0        CISCO1941/K9      FTX15240000     CISCO1941/K9:FTX15240000
 ```
+
+在[www.cisco.com/go/license](http://www.cisco.com/go/license)处将IOS于思科公司进行注册时，就需要输入UDI。还需要把由经销商在你为IOS付款后提供给你的许可证（产品授权密钥，Product Authorization Key, PAK）加入进去，此许可证将与UDI进行比对检查。在验证通过后，思科将发送给你一封许可证密钥的电子邮件。
+
+在下面可以看到有哪些特性也被激活。特性`ipbasek9`将总是开启的。
+
+<pre>
+Router#show license all
+License Store: Primary License Storage
+StoreIndex: 0   <b>Feature: ipbasek9</b>                   Version: 1.0
+        <b>License Type: Permanent
+        License State: Active, In Use</b>
+        License Count: Non-Counted
+        License Priority: Medium
+License Store: Evaluation License Storage
+StoreIndex: 0   <b>Feature: securityk9</b>                Version: 1.0
+        <b>License Type: Evaluation
+        License State: Inactive</b>
+            Evaluation total period: 208 weeks 2 days
+            Evaluation period left: 208 weeks 2 days
+        License Count: Non-Counted
+        License Priority: None
+StoreIndex: 1   Feature: datak9                     Version: 1.0
+        License Type:
+        License State: Inactive
+            Evaluation total period: 208 weeks 2 days
+            Evaluation period left: 208 weeks 2 days
+        License Count: Non-Counted
+        License Priority: None
+</pre>
