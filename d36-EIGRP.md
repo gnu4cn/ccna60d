@@ -228,3 +228,130 @@ Distance: internal 90 external 170
 </pre>
 
 为了提供到对那些开启EIGRP路由的网络进行更细粒度的控制，思科IOS软件支持在对EIGRP进行配置，将通配符掩码与`network`语句一起配合使用（in order to provide more granular control of the networks that are enabled for EIGRP routing, Cisco IOS software supports the use of wildcard masks in conjunction with the `network` statement when configuring EIGRP）。这里的通配符掩码，以与ACLs中用到的通配符掩码类似的方式运作，而与网络的子网掩码是不相干的。
+
+作为一个示例，命令`network 10.1.1.0 0.0.0.255`将匹配到网络`10.1.1.0/24`、`10.1.1.0/26`及`10.1.1.0/30`网络。参考上一输出中所配置的那些环回借口（the Loopback interfaces），为将R1配置为对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，且不对`10.0.0.0/24`子网或`10.2.2.0`子网开启，就应将其如下面那样进行配置：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.1.0 0.0.0.255
+R1(config-router)#network 10.3.3.0 0.0.0.255
+R1(config-router)#exit
+```
+
+使用命令`show ip protocols`，就可对此配置进行验证，如下所示：
+
+<pre>
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    Automatic network summarization is in effect
+    Maximum path: 4
+    <b>Routing for Networks:
+        10.1.1.0/24
+        10.3.3.0/24</b>
+    Routing Information Sources:
+        Gateway     Distance        Last Update
+Distance: internal 90 external 170
+</pre>
+
+此外，还可以使用命令`show ip eigrp interfaces`，确认到仅已对`Loopback1`与`Loopback3`开启了EIGRP路由：
+
+```
+R1#show ip eigrp interfaces
+IP-EIGRP interfaces for process 150
+                     Xmit Queue   Mean    Pacing Time    Multicast      Pending
+Interface      Peers Un/Reliable  SRTT    Un/Reliable    Flow Timer     Routes
+Lo1            0         0/0         0        0/10            0             0
+Lo3            0         0/0         0        0/10            0             0
+```
+
+如上面所示，因为这里的通配符掩码配置，而仅在`Loopback1`和`Loopback3`上启用了EIGRP路由。
+
+这里重要的是记住除了使用通配符掩码，也可以使用子网掩码来配置`network`命令。在此情况下，思科IOS软件将翻转子网掩码，而使用通配符掩码来保存该命令。比如，参照路由器上同样的环回借口，路由器R1也可被如下这样进行配置：
+
+```
+R1(config-router)#router eigrp 150
+R1(config-router)#network 10.1.1.0 255.255.255.0
+R1(config-router)#network 10.3.3.0 255.255.255.0
+R1(config-router)#exit
+```
+
+基于此种配置，就在运行配置中输入了下面的参数（这里使用了管道（pipe），取得运行配置中感兴趣的部分）：
+
+```
+R1#show running-config | begin router eigrp
+router eigrp 150
+network 10.1.1.0 0.0.0.255
+network 10.3.3.0 0.0.0.255
+auto-summary
+```
+
+通过上面的配置可以看出，可与那些`show`命令一道运用管道，来获得更细的粒度。这对于那些有着编程知识的人来说，是一种熟悉的概念。
+
+如将某个网络上的特定地址与通配符一起使用，那么思科IOS软件将执行一次逻辑与运算（a logical AND operation）, 从而确定出那个要启用EIGRP的网络。比如，在执行了`network 10.1.1.15 0.0.0.255`命令时，思科IOS软件会执行以下动作：
+
+- 将通配符掩码翻转为子网掩码值`255.255.255.0`
+- 执行一次逻辑与操作
+- 将命令`network 10.1.1.0 0.0.0.255`加入到配置中
+
+本示例中所用到的`network`配置，如下面输出所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.1.15 0.0.0.255
+R1(config-router)#exit
+```
+
+那么基于此配置，路由器上的运行配置，就会显示如下内容：
+
+```
+R1#show running-config | begin router eigrp
+router eigrp 150
+network 10.1.1.0 0.0.0.255
+auto-summary
+```
+
+如上面的配置所示，不管是使用通配符子网掩码，还是子网掩码，都会在思科IOS软件中造成同样的操作，并得到同样的`network`语句配置。
+
+> **真实世界的部署**
+
+> 当在生产网络中对EIGRP进行配置时，**一般做法都是使用全0的通配符掩码或全1的子网掩码**。比如，`network 10.1.1.1 0.0.0.0`及`network 10.1.1.1 255.255.255.255`，两个命令都会执行同样的动作。全0的通配符掩码或全1的子网掩码的使用，就将思科IOS软件配置为与一个具体接口地址进行匹配，而不考虑在接口本身上所配置哦子网掩码了。这两个命令都会匹配到配置了比如`10.1.1.1/8`、`10.1.1.1/16`、`10.1.1.1/24`, 以及`10.1.1.1/30`等地址的接口。这些命令的用法如下面的输出所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.0.0.1 0.0.0.0
+R1(config-router)#network 10.1.1.1 255.255.255.255
+R1(config-router)#exit
+```
+
+`show ip protocols`命令将验证到路由器对于两个`network`语句，都是以相似的方式进行处理的，如下所示：
+
+<pre>
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    Automatic network summarization is in effect
+    Maximum path: 4
+    Routing for Networks:
+        10.0.0.1/32
+        10.1.1.1/32
+    Routing Information Sources:
+        Gateway     Distance        Last Update
+Distance: internal 90 external 170
+</pre>
