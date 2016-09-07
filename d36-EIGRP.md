@@ -142,3 +142,54 @@ Routing Protocol is “eigrp 150”
         Gateway         Distance    Last Update
     Distance: internal 90 external 170
 </pre>
+
+使用命令`show ip eigrp topology`，可查看到EIGRP的拓扑表。此命令的输出如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.3.3.0/24, 1 successors, FD is 128256
+        via Connected, Loopback3
+P 10.2.2.0/24, 1 successors, FD is 128256
+        via Connected, Loopback2
+P 10.1.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback1
+P 10.0.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+```
+
+> **注意**：本课程模块稍后会对拓扑表、EIGRP的Hello数据包及更新数据包进行详细讲解。本小节仅着重于EIGRP的配置实施（EIGRP configuration implementation）。
+
+使用`network`命令来指明一个大的有类网络（a major classful network），就令到位于该有类网络中的多个子网，得以在最小配置下同时被通告出去。但可能存在管理员不想对某个有类网络中的所有子网，都开启EIGRP路由的情形。比如，参考前一示例中R1上所配置的环回接口，假设只打算对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，而不愿在`10.0.0.0/24`及`10.2.2.0/24`开启EIGRP路由。那么很明显这在使用`network`命令时，对这些网络（也就是`10.1.1.0`及`10.3.3.0`）予以指明就可以做到，思科IOS软件仍会将这些语句，转换成大的有类`10.0.0.0/8`网络，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.1.0
+R1(config-router)#network 10.3.3.0
+R1(config-router)#exit
+```
+
+尽管有着上面的配置，但`show ip protocols`命令给出的确实下面的输出：
+
+<pre>
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    Automatic network summarization is in effect
+    Maximum path: 4
+    <b>Routing for Networks:
+        10.0.0.0</b>
+    Routing Information Sources:
+        Gateway     Distance        Last Update
+Distance: internal 90 external 170
+</pre>
