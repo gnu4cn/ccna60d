@@ -391,17 +391,17 @@ Distance: internal 90 external 170
 
 在该EIGRP数据包头部，4位的OPCode字段被用于指定该EIGRP数据包或报文的类型。EIGRP使用到不同的报文或数据包类型，包括Hello数据包、确认数据包（Acknowledgment packets）、更新数据包（Update packets）、查询数据包（Query packets）、应答数据包（Reply packets）以及请求数据包（Request packets）。将在随后的小节对这些类型的数据包进行说明。
 
-##Hello数据包
+###Hello数据包
 
 在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别，Hello报文就用于在邻居直接作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。EIGRP的邻居发现与邻居关系维护机制，将在本课程模块的后面进行说明。
 
 EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`上。由EIGRP发出的Hello数据包，是不需要发出确认数据包来确认其已收到的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为不可靠的EIGRP数据包（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的OPCode为5。
 
-##确认数据包
+###确认数据包
 
 一个EIGRP确认数据包，简单地就是一个不包含数据的EIGRP Hello数据包。EIGRP使用确认数据包来对EIGRP数据包的可靠送达进行确认。这些确认数据包（the ACK packets）总是发送到一个单播地址（a Unicast address）, 该地址就是可靠数据包发送方的源地址（the source address of the sender of the reliable packet），而并不是EIGRP的多播组地址了。此外，确认数据包将总是会包含一个非零的确认编号（a non-zero acknowledgment number）。确认数据包使用了Hello数据包相同的OPCode, 因为其本来就是一个不包含任何信息的Hello数据包。其OPCode为5。
 
-##更新数据包
+###更新数据包
 
 增强IGRP的更新数据包被用于传送目标的可达性（used to convey reachability of destinations）。也就是说，更新数据包包含了EIGRP的路由更新。在发现了一个新的邻居是，就会通过单播发出更新数据包（往该新的邻居），如此新的邻居就能够建立起自己的EIGRP拓扑表了。在其它比如某条链路的开销改变时，就会经由多播发出更新数据包。重要的是记住更新数据包都是可靠地传输的，且总是要求显式的确认。**分配给更新数据包的OPCode是1**。下图36.3演示了一个EIGRP的更新数据包：
 
@@ -410,16 +410,18 @@ EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Loca
 
 > **注意**：并不要求对EIGRP各种数据包中的所包含的信息有深入了解。
 
-##查询数据包
+###查询数据包
 
 增强IGRP的查询数据包是多播的，并被用于请求可靠的路由信息。EIGRP的查询数据包是在某条路由不可用，但该路由器却需要为快速收敛而对该路由的状态进行应答时，发送给其邻居的数据包。如发出查询数据包的路由器未能从其所有邻居收到响应，其就会再度向那些未响应的邻居发出一次查询。如在16此尝试后都没有响应，那么EIGRP的邻居关系就被重置。本课程模块后面将对此概念进行更为深入的说明。**分配给EIGRP查询数据包的OPCode为3**。
 
-##应答数据包
+###应答数据包
 
 **Reply Packets**
 
 增强IGRP的应答数据包是作为对查询数据包的响应发送的。应答数据包用于响应一个查询数据包。应答数据包是到查询发起方的单播数据包。**分配给EIGRP应答数据包的OPCode为4**。
 
-##请求数据包
+###请求数据包
 
+增强IGRP的请求数据包，是用于从一个或多个邻居处获取特定信息的，且是在一些路由服务器应用中用到的（used in roue server applications）。这些数据包既可通过单播、也可通过多播进行发送，但它们总是以不可靠方式传输的。也就是说，它们无需显式的确认。
 
+> **注意**：尽管这里的Hello数据包和确认数据包是作为两种独立的数据包类型的，但重要的是记住在某些课本中，EIGRP的Hello数据包与确认数据包被认为是同一中类型的数据包。这是因为，正如在本小节中指出的那样，确认数据包就是不包含数据的Hello数据包。
