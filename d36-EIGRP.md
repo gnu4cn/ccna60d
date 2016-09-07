@@ -120,3 +120,25 @@ Lo2            0         0/0         0        0/10            0             0
 Lo3            0         0/0         0        0/10            0             0
 ```
 
+可使用`show ip protocols`命令，来对大的有类`10.0.0.0/8`网络上EIGRP的启用情况，进行验证。此命令的输出如下所示：
+
+<pre>
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    Automatic network summarization is in effect
+    Maximum path: 4
+    <b>Routing for Networks:
+        10.0.0.0</b>
+    Routing Information Sources:
+        Gateway         Distance    Last Update
+    Distance: internal 90 external 170
+</pre>
