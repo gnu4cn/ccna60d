@@ -106,3 +106,17 @@ R1#show ip eigrp 150 ?
 - 从这些子网相关的接口，发出EIGRP Hello 数据包，EIGRP Hello packets are sent out of the interfaces associated with these subnets.
 - EIGRP将这些网络，经由更新报文，通告给EIGRP邻居，EIGRP advertises the network(s) to EIGRP neighbours in Update messages.
 - 在报文交换的基础上，EIGRP的那些路由，此时就被加入到IP路由表中，Based on the exchange of messages, EIGRP routes are then added to the IP routing table.
+
+如EIGRP已开启使用，且将路由器配置命令`network`与大的有类`10.0.0.0/8`网络一道进行了使用，同时**所有4个环回接口**（all four Loopback interfaces）又都开启了EIGRP路由的话，那么下面就给出了此种情况下`show ip eigrp interfaces`的输出演示：
+
+```
+R1#show ip eigrp interfaces
+IP-EIGRP interfaces for process 150
+                     Xmit Queue   Mean    Pacing Time    Multicast      Pending
+Interface      Peers Un/Reliable  SRTT    Un/Reliable    Flow Timer     Routes
+Lo0            0         0/0         0        0/10            0             0
+Lo1            0         0/0         0        0/10            0             0
+Lo2            0         0/0         0        0/10            0             0
+Lo3            0         0/0         0        0/10            0             0
+```
+
