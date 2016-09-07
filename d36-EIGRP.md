@@ -445,3 +445,22 @@ R1#debug eigrp packets ?
   update    EIGRP update packets
   verbose   Display all EIGRP packets
   <cr>
+```
+
+而`show ip eigrp traffic`命令，是用于对本地路由器所发送及接收到的EIGRP数据包的数量进行查看的命令。该命令同时还是一个强大的故障排除工具。比如，假设某路由器在发出Hello数据包，却并未收到任何回复，这就表明其尚未配置好预期的邻居，或者甚至有可能某个确认数据包阻塞了EIGRP数据包（For example, if the router is sending out Hello packets but is not receiving any back, this could indicate that the intended neighbour is not configured, or even that an ACK may be blocking EIGRP packets）。下面的输出对此命令进行了演示：
+
+```
+R2#show ip eigrp traffic
+IP-EIGRP Traffic Statistics for AS 150
+    Hellos sent/received: 21918/21922
+    Updates sent/received: 10/6
+    Queries sent/received: 1/0
+    Replies sent/received: 0/1
+    Acks sent/received: 6/10
+    SIA-Queries sent/received: 0/0
+    SIA-Replies sent/received: 0/0
+    Hello Process ID: 178
+    PDM Process ID: 154
+    IP Socket queue: 0/2000/2/0 (current/max/highest/drops)
+    Eigrp input queue: 0/2000/2/0 (current/max/highest/drops)
+```
