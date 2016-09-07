@@ -193,3 +193,36 @@ Routing Protocol is “eigrp 150”
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
 </pre>
+
+> **注意**：一个常见的误解就是，关闭EIGRP的自动汇总特性，就能解决此问题；但是，这与`auto-summary`命令一点关系都没有。比如，假设对在前一示例中的配置执行了`no auto-summary`命令，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.1.0
+R1(config-router)#network 10.3.3.0
+R1(config-router)#no auto-summary
+R1(config-router)#exit
+```
+
+`show ip protocols`命令仍将显示对网络`10.0.0.0/8`开启了EIGRP，如下面的输出所示：
+
+<pre>
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    <b>Automatic network summarization is not in effect</b>
+    Maximum path: 4
+    <b>Routing for Networks:
+        10.0.0.0</b>
+    Routing Information Sources:
+        Gateway     Distance        Last Update
+Distance: internal 90 external 170
+</pre>
