@@ -370,4 +370,23 @@ Distance: internal 90 external 170
 ![EIGRP数据包头部的各种字段](images/3601.png)
 *图 36.1 -- EIGRP数据包头部的各种字段*
 
+在EIGRP数据包头部，其中的4位版本字段（the 4-bit Version field）用于表面该协议的版本。当前的思科IOS镜像都支持EIGRP版本`1.x`。后面的4为OPcode字段（the 4-bit OPCode field），则指定了EIGRP数据包或报文的类型。不同EIGRP数据包类型都被分配了一个唯一的OPcode数值，以将其与其它数据包类型进行区分。本课程模块后面会对这些报文类型进行说明。
+
+而那个24位的校验和字段（the 24-bit Checksum field）, 是用于对该EIGRP数据包做完整性检查的（a sanity check）。该字段是给予完整的EIGRP数据包的, 而不包括IP头部。32位的标志字段（the 32-bit Flags field），用于表明该EIGRP数据包或报文是一个新的EIGRP邻居的`INIT`, 还是EIGRP的可靠传输协议（Reliable Transport Protocol, RTP）的有条件接受（the Conditional Receive, CR）的`INIT`。这里的RTP及CR都将在本课程模块稍后讲到。
+
+后面的32为顺序字段（the 32-bit Sequence field）指定了EIGRP可靠传输协议所用到的顺序编号（the sequence number），用以可靠数据包的顺序投送。而32位的确认字段（the 32-bit Acknowledgment field），则被用于EIGRP可靠数据包的接收确认。
+
+后面的32位自治系统编号字段（the 32-bit Autonomous System Number field）, 指定了该EIGRP域（the EIGRP domain）的自治系统编号（ASN）。最后的32为类型/长度/值三联体字段（the 32-bit Type/Length/Value(TLV) triplet field），就被用于路由条目的加载及EIGRP弥散更新算法信息的提供了。EIGRP支持几种不同类型的TLVs，最常用的是下面几种：
+
+- 参数TLV, 有着建立邻居关系的那些参数，the Parameters TLV, which has the parameters to establish neighbour relationships
+- 顺号TLV，RTP使用的TLV，the Sequence TLV, which is used by RTP
+- 下一次多播序号TLV，RTP使用的TLV
+
+> **注意**：并不要求对EIGRP的各种TLVs有详细了解。
+
+下图36.2演示了一个抓包到的EIGRP数据包的所呈现的不同字段：
+
+![EIGRP数据包头部的抓包](images/3602.png)
+*图 36.2 -- 对EIGRP数据包头部的抓包*
+
 
