@@ -425,3 +425,23 @@ EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Loca
 增强IGRP的请求数据包，是用于从一个或多个邻居处获取特定信息的，且是在一些路由服务器应用中用到的（used in roue server applications）。这些数据包既可通过单播、也可通过多播进行发送，但它们总是以不可靠方式传输的。也就是说，它们无需显式的确认。
 
 > **注意**：尽管这里的Hello数据包和确认数据包是作为两种独立的数据包类型的，但重要的是记住在某些课本中，EIGRP的Hello数据包与确认数据包被认为是同一中类型的数据包。这是因为，正如在本小节中指出的那样，确认数据包就是不包含数据的Hello数据包。
+
+命令`debug eigrp packets`可用于本小节中所讲到的各种不同EIGRP数据包的实时调试信息。要知道此命令还包括了一些这里并没有说到的其它数据包，因为这些其它类型的数据包是超出了当前CCNA考试要求的。下面的输出对此命令的用法进行了演示：
+
+```
+R1#debug eigrp packets ?
+  SIAquery  EIGRP SIA-Query packets
+  SIAreply  EIGRP SIA-Reply packets
+  ack       EIGRP ack packets
+  hello     EIGRP hello packets
+  ipxsap    EIGRP ipxsap packets
+  probe     EIGRP probe packets
+  query     EIGRP query packets
+  reply     EIGRP reply packets
+  request   EIGRP request packets
+  retry     EIGRP retransmissions
+  stub      EIGRP stub packets
+  terse     Display all EIGRP packets except Hellos
+  update    EIGRP update packets
+  verbose   Display all EIGRP packets
+  <cr>
