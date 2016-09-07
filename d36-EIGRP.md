@@ -349,9 +349,11 @@ Routing Protocol is “eigrp 150”
     Automatic network summarization is in effect
     Maximum path: 4
     Routing for Networks:
-        10.0.0.1/32
-        10.1.1.1/32
+        <b>10.0.0.1/32
+        10.1.1.1/32</b>
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
 </pre>
+
+在使用了全1的子网掩码或全1的通配符掩码时，就会在所指定的（匹配的）接口上开启EIGRP，同时将通告那个接口所位处的网络。也就是说，EIGRP不会通告上面输出中的`/32`地址，而是通告基于配置在匹配接口上的子网掩码的具体网络。此配置的用法，是独立于配置在匹配的具体接口上的子网掩码的（when a subnet mask with all ones or a wildcard mask with all zeros is used, EIGRP is enabled for the specified(matched) interface and the network the interface resides on is advertised. In other words, EIGRP will not advertise the /32 address in the above but, instead, the actual network based on the subnet mask configured on the matched interface. The use of this configuration is independent of the subnet mask configuration on the actual interface matched）。
