@@ -389,4 +389,18 @@ Distance: internal 90 external 170
 ![EIGRP数据包头部的抓包](images/3602.png)
 *图 36.2 -- 对EIGRP数据包头部的抓包*
 
+在该EIGRP数据包头部，4位的OPCode字段被用于指定该EIGRP数据包或报文的类型。EIGRP使用到不同的报文或数据包类型，包括Hello数据包、确认数据包（Acknowledgment packets）、更新数据包（Update packets）、查询数据包（Query packets）、应答数据包（Reply packets）以及请求数据包（Request packets）。将在随后的小节对这些类型的数据包进行说明。
+
+##Hello数据包
+
+在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别，Hello报文就用于在邻居直接作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。EIGRP的邻居发现与邻居关系维护机制，将在本课程模块的后面进行说明。
+
+EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`上。由EIGRP发出的Hello数据包，是不需要发出确认数据包来确认其已收到的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为不可靠的EIGRP数据包（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的OPCode为5。
+
+##确认数据包
+
+一个EIGRP确认数据包，简单地就是一个不包含数据的EIGRP Hello数据包。EIGRP使用确认数据包来对EIGRP数据包的可靠送达进行确认。这些确认数据包（the ACK packets）总是发送到一个单播地址（a Unicast address）, 该地址就是可靠数据包发送方的源地址（the source address of the sender of the reliable packet），而并不是EIGRP的多播组地址了。此外，确认数据包将总是会包含一个非零的确认编号（a non-zero acknowledgment number）。确认数据包使用了Hello数据包相同的OPCode, 因为其本来就是一个不包含任何信息的Hello数据包。其OPCode为5。
+
+##更新数据包
+
 
