@@ -464,3 +464,17 @@ IP-EIGRP Traffic Statistics for AS 150
     IP Socket queue: 0/2000/2/0 (current/max/highest/drops)
     Eigrp input queue: 0/2000/2/0 (current/max/highest/drops)
 ```
+
+下表36.1对本小节中讲到的这些EIGRP的数据包进行了总结，以及各自是否以可靠或不可靠方式进行发送的：
+
+*表 36.1 -- EIGRP数据包总结*
+
+| 报文类型 | 说明 | 发送方式 |
+| -- | -- | -- |
+| Hello | 用于邻居发现、邻居关系维护及保持存活 | 不可靠 |
+| 确认数据包（Acknowledgment） | 用于对信息接收的确认 | 不可靠 |
+| 更新数据包（Update） | 用于传达路由信息 | 可靠的 |
+| 查询数据包（Query） | 用于请求指定的路由信息 | 可靠的 |
+| 应答数据包（Reply） | 用于对查询数据包的响应 | 可靠的 |
+| 请求数据包（Request） | 用于路由服务器应用中的信息请求 | 不可靠 |
+
