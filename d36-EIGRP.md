@@ -86,3 +86,15 @@ R1#show ip protocols
 
 [Truncated Output]
 </pre>
+
+而除了`show ip protocols`命令，命令`show ip eigrp neighbours`会打印出所有EIGRP邻居，以及这些邻居各自自治系统的信息。该命令及其可用选项，将在本课程模块的后面进行详细讲解。在那些运行了多个EIGRP实例的路由器上，可使用`show ip eigrp [ASN]`命令，来查看只与在此命令中所指定的自治系统有关的信息。下面的输出演示了这个命令的使用：
+
+```
+R1#show ip eigrp 150 ?
+  interfaces  IP-EIGRP interfaces
+  neighbors   IP-EIGRP neighbors
+  topology    IP-EIGRP topology table
+  traffic     IP-EIGRP traffic statistics
+```
+
+
