@@ -33,7 +33,7 @@
 
 本课程对应了以下CCNA大纲要求：
 
-- 配置并验证EIGRP（单一自治区域），configure and verify EIGRP(single AS)
+- 配置并验证EIGRP（单一自治系统），configure and verify EIGRP(single AS)
 - 可行距离/可行的后续路由/报告的距离/通告的距离分别是什么，Feasible Distance/Feasible Successor routes/Reported Distance/Advertised Distance
 - 可行性条件，Feasiblity condition
 - 度量值综合，Metric composition
@@ -69,4 +69,4 @@
 
 **EIGRP Configuration Fundamentals**
 
-
+在思科IOS软件中，是通过使用全局配置命令`router eigrp [ASN]`，来开启增强的IGRP的。关键字`[ASN]`指定EIGRP的自治系统编号（autonomous system number, ASN）
