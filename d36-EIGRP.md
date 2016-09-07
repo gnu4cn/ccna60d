@@ -31,4 +31,16 @@
 - 掌握EIGRP路由器ID的用法，understanding the use of the EIGRP router ID
 - EIGRP的日志与报表，EIGRP logging and reporting
 
+本课程对应了以下CCNA大纲要求：
 
+- 配置并验证EIGRP（单一自治区域），configure and verify EIGRP(single AS)
+- 可行距离/可行的后续路由/报告的距离/通告的距离分别是什么，Feasible Distance/Feasible Successor routes/Reported Distance/Advertised Distance
+- 可行性条件，Feasiblity condition
+- 度量值综合，Metric composition
+- 路由器ID，Router ID
+- 自动汇总，Auto summary
+- 路径选择，path selection
++ EIGRP的负载均衡，load balancing
+    - 开销一样时
+    - 开销不同时
+- 什么是EIGRP的被动接口，passive interfaces
