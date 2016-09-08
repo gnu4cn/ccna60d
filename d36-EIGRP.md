@@ -657,3 +657,19 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 0   192.168.1.3  Fa0/0      10     08:33:23    1      200    0     20
 ```
 
+在既有着动态发现与静态配置的邻居关系的环境中，可以使用`show ip eigrp neighbours detail`命令，来判断出哪个邻居是静态配置的，哪个是动态发现的，如下面所示：
+
+```
+R2#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
+                            (sec)             (ms)           Cnt   Num
+1   150.2.2.2    Se0/0      11     00:04:22    153    918    0     4
+   Version 12.3/1.2, Retrans: 0, Retries: 0, Prefixes: 1
+0   192.168.1.3  Fa0/0      10     08:33:23    1      200    0     20
+   Static neighbour
+   Version 12.4/1.2, Retrans: 0, Retries: 0, Prefixes: 1
+```
+
+
+
