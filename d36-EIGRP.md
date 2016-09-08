@@ -631,3 +631,19 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 0   192.168.1.3  Fa0/0      14     00:43:08    2      200    0     12
 ```
 
+对此命令所打印出的信息的掌握，是相当重要的，既是对一项核心EIGRP组件能力进行演示的基础，同时在对EIGRP故障进行排除时会用到（It is important to understand the information printed by this command, both as a basis for demonstrating competency on a core EIGRP component and for troubleshooting EIGRP issues）。下表36.2对此命令输出中所包含的那些字段，进行了列出和说明：
+
+*表 36.2 -- EIGRP邻居表的各个字段*
+| 字段 | 说明 |
+| -- | -- |
+| H | 邻居清单（编号），以所学习到的先后顺序，以“0”开始 |
+| Address | 邻居的IP地址 |
+| Interface | 通过其学习到邻居的那个接口（本地路由器上的？） |
+| Hold | 邻居的保持计数器；在其到0时，邻居就已宕机 |
+| Uptime | 邻居关系已建立了多长时间 |
+| SRTT | 平滑往返时间（Smooth Round-Trip Time）, 发送并接收到一个可靠EIGRP数据包所花费的时间 |
+| RTO | 重传超时（Retransmission Timeout）, 在未收到一次确认时，路由器重新传送EIGRP可靠数据包所要等待的时间 |
+| Q Cnt | 等待发送中的EIGRP数据包（Update, Query and Reply）数量 |
+| Sequence Number | 从该邻居所接收到的上一个EIGRP可靠数据包的顺序编号，用以确保自该邻居接收到的数据包是有序的 |
+
+
