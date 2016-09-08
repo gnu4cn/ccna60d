@@ -102,15 +102,15 @@ end
 
 而要查看具体的IPv4及IPv6接口参数，只需使用思科IOS软件的`show ip interface [name]`或`show ipv6 interface [name]`命令即可。下面是`Fastethernet0/0`接口上`show ip interface`的输出：
 
-<pre>
+```
 R3#show ip interface FastEthernet0/0 | section address
     Internet address is 10.0.0.3/24
     Broadcast address is 255.255.255.255
     Helper address is not set
-    <b>Secondary address 10.0.1.3/24
-    Secondary address 10.0.2.3/24</b>
+    Secondary address 10.0.1.3/24
+    Secondary address 10.0.2.3/24
     Network address translation is disabled
-</pre>
+```
 
 下面的输出则演示了上一示例中用到的同样的`Fastethernet0/0`接口的`show ipv6 interface`命令，所打印出的信息：
 
@@ -142,20 +142,20 @@ R1(config)#ipv6 host TEST-HOST 3FFF:1234:ABCD:1::3
 
 该静态IPv4与IPv6主机配置可使用`show hosts`命令进行验证，下面打印出了改命令的输出：
 
-<pre>
-R1#<b>show hosts</b>
+```
+R1#show hosts
 ...
 [Truncated Output]
 ...
 Host        Port  Flags      Age Type   Address(es)
 TEST-HOST   None  (perm, OK)  0  IP     10.0.0.3
 TEST-HOST   None  (perm, OK)  0  IPv6   3FFF:1234:ABCD:1::3
-</pre>
+```
 
 在同一主机同时配置一个IPv4及IPv6地址时，思科IOS软件将使用IPv6地址。如有使用DNS，那么在主机同时配置了IPv6及IPv4 DNS服务器时，该双栈主机将先搜寻AAAA（IPv6）记录，并（在查询不到时）回滚到A记录（IPv4）（If DNS is used, the dual-stack host will first search AAAA(IPv6) records and then fall back to the A records(IPv4) when configured with both IPv6 and IPv4 DNS servers）。可想下面这样通过执行一次简单的到先前配置的静态主机`TEST-HOST`的`ping`操作，对此默认行为进行验证：
 
 ```
-R1#<b>ping test-host repeat 10</b>
+R1#ping test-host repeat 10
 Type escape sequence to abort.
 Sending 10, 100-byte ICMP Echos to 3FFF:1234:ABCD:1::3, timeout is 2 seconds:
 !!!!!!!!!!
