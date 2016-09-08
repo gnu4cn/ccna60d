@@ -20,7 +20,7 @@
 - 思科公司EIGRP概述与基础知识, Cisco EIGRP overview and fundamentals
 - EIGRP配置基础, EIGRP configuration fundamentals
 - EIGRP的各种报文, EIGRP messages
-- EIGRP的邻居发现与邻居关系维护, EIGRP neighbour discovery and maintenance
+- EIGRP的邻居发现与邻居维护, EIGRP neighbour discovery and maintenance
 - 各种度量值、弥散更新算法（DUAL）与拓扑表，Metrics, DUAL, and the topology table
 - 相等与不相等开销下的负载均衡，equal cost and unequal cost load sharing
 - 采用EIGRP作为默认路由，default routing using EIGRP
@@ -393,7 +393,7 @@ Distance: internal 90 external 170
 
 ###Hello数据包
 
-在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别，Hello报文就用于在邻居直接作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。EIGRP的邻居发现与邻居关系维护机制，将在本课程模块的后面进行说明。
+在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别，Hello报文就用于在邻居直接作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。EIGRP的邻居发现与维护机制，将在本课程模块的后面进行说明。
 
 EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`上。由EIGRP发出的Hello数据包，是不需要发出确认数据包来确认其已收到的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为不可靠的EIGRP数据包（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的OPCode为5。
 
@@ -412,7 +412,7 @@ EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Loca
 
 ###查询数据包
 
-增强IGRP的查询数据包是多播的，并被用于请求可靠的路由信息。EIGRP的查询数据包是在某条路由不可用，但该路由器却需要为快速收敛而对该路由的状态进行应答时，发送给其邻居的数据包。如发出查询数据包的路由器未能从其所有邻居收到响应，其就会再度向那些未响应的邻居发出一次查询。如在16此尝试后都没有响应，那么EIGRP的邻居关系就被重置。本课程模块后面将对此概念进行更为深入的说明。**分配给EIGRP查询数据包的OPCode为3**。
+增强IGRP的查询数据包是多播的，并被用于请求可靠的路由信息。EIGRP的查询数据包是在某条路由不可用，但该路由器却需要为快速收敛而对该路由的状态进行应答时，发送给其邻居的数据包。如发出查询数据包的路由器未能从其所有邻居收到响应，其就会再度向那些未响应的邻居发出一次查询。如在16此尝试后都没有响应，那么EIGRP的邻居就被重置。本课程模块后面将对此概念进行更为深入的说明。**分配给EIGRP查询数据包的OPCode为3**。
 
 ###应答数据包
 
@@ -471,10 +471,17 @@ IP-EIGRP Traffic Statistics for AS 150
 
 | 报文类型 | 说明 | 发送方式 |
 | -- | -- | -- |
-| Hello | 用于邻居发现、邻居关系维护及保持存活 | 不可靠 |
+| Hello | 用于邻居发现、维护及保持存活 | 不可靠 |
 | 确认数据包（Acknowledgment） | 用于对信息接收的确认 | 不可靠 |
 | 更新数据包（Update） | 用于传达路由信息 | 可靠的 |
 | 查询数据包（Query） | 用于请求指定的路由信息 | 可靠的 |
 | 应答数据包（Reply） | 用于对查询数据包的响应 | 可靠的 |
 | 请求数据包（Request） | 用于路由服务器应用中的信息请求 | 不可靠 |
 
+##EIGRP的邻居发现与邻居维护
+
+可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关的话题，进行讨论。
+
+###动态的邻居发现
+
+动态的邻居发现，是通过往目的多播组地址`224.0.0.10`, 发送EIGRP的Hello数据包
