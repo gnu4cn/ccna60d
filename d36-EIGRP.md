@@ -493,4 +493,12 @@ IP-EIGRP Traffic Statistics for AS 150
 
 在这些邻居完成了它们的信息交换后，它们还将持续交换Hello数据包，以维护起邻居关系。除此之外，这些EIGRP邻居路由器此后就将仅发送增量更新了，通过增量更新来将其状态或路由变化，通告给它的邻居们。它们再也不会发送完整的更新给邻居们了。
 
+明白仅简单地在两台或多台路由器上开启EIGRP，并不能确保邻居关系的建立，是重要的。而是还需一些参数要匹配，这样这些路由器才能成为邻居。在下面几种情况下，就不能建立EIGRP邻居关系：
+
+- EIGRP认证参数不匹配（在有配置时），Mismatched EIGRP authentication parameters(if configured)
+- EIGRP的那些K值不一致，Mismatched EIGRP K values
+- EIGRP自治系统编号不一致，Mismatched EIGRP autonomous system number
+- 在EIGRP邻居关系中，使用了接口的第二地址，Using secondary addresses for EIGRP neighbour relationships
+- 邻居并不位于同一子网中，the neighbours are not on a common subnet
+
 
