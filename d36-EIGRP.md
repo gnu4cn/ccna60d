@@ -584,5 +584,26 @@ Fa0/0            1        0/0        2        0/1            50             0
 
 增强的IGRP计时器数值在那些相邻路由器上，不必为了形成邻居关系而要求保持一致（Enhanced IGRP timer value do not have to be the same on neighbouring routers in order for a neighbour relationship to be established）。此外，对保持时间是Hello间隔的三倍，也没有强制要求。这只是一种建议的做法（a recommended guideline），因此可在思科IOS软件中进行手动修改。可使用接口配置命令`ip hello-interval eigrp <ASN> <secs>`，对EIGRP的Hello时间进行调整，使用借口配置命令`ip hold-time eigrp <ASN> <secs>`，对EIGRP的保持时间进行调整。
 
+掌握EIGRP中Hello计时器及保持计时器的用法，是重要的。保持时间是在EIGRP的Hello数据包中通告的，同时Hello时间值告诉本地路由器往其邻居发送Hello数据包的频率。而保持时间，则告诉其邻居路由器，在等待多长时间后，就可以宣布其已“死亡”（the hold time, on the other hand, tells the neighbour router(s) of the local router how long to wait before declaring the local router "dead"）。下图36.6演示了EIGRP的Hello数据包，以及保持时间字段（the Hold Time field）:
 
+![EIGRP Hello 数据包中的EIGRP保持时间](images/3606.png)
+*图 36.6 -- EIGRP Hello 数据包中的EIGRP保持时间*
+
+参考图36.6, 除开其它方面，该EIGRP Hello数据包（OPCode 5）包含了所配置的保持时间数值。图36.6中所显示的值15, 是一个使用接口配置命令`ip hold-time eigrp <ASN> <secs>`所配置的非默认数值。重要的是记住，在Hello数据包中，是**没有包含Hello时间间隔的**。但可使用`show ip eigrp interfaces detail <name>`命令，查看道所配置的Hello时间。下面演示了此命令所打印出的信息：
+
+```
+R2#show ip eigrp interfaces detail FastEthernet0/0
+IP-EIGRP interfaces for process 150
+                      Xmit Queue   Mean   Pacing Time    Multicast      Pending
+Interface      Peers  Un/Reliable  SRTT   Un/Reliable    Flow Timer     Routes
+Fa0/0            1        0/0        7        0/1            50             0
+
+  Hello interval is 5 sec
+  Next xmit serial <none>
+  Un/reliable mcasts: 0/1  Un/reliable ucasts: 2/5
+  Mcast exceptions: 1  CR packets: 1  ACKs suppressed: 0
+  Retransmissions sent: 1  Out-of-sequence rcvd: 0
+  Authentication mode is not set
+  Use multicast
+```
 
