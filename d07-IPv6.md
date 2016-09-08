@@ -660,18 +660,18 @@ FastEthernet0/0 is up, line protocol is up
 
 就如在本模块早先指出的那样，IPv6允许在同一接口上配置多个前缀。而如过在同一借口上配置了多个前缀，`show ipv6 interface [name] prefix`命令，就可以用来查看所有分配的前缀，以及它们各自的有效和首选生命期数值。下面的输出显示了在一个配置了多个IPv6前缀的路由器接口上，该命令所打印出的信息。
 
-<pre>
+```
 R1#show ipv6 interface FastEthernet0/0 prefix
-<b>IPv6 Prefix Advertisements FastEthernet0/0</b>
+IPv6 Prefix Advertisements FastEthernet0/0
 Codes:	A - Address, P - Prefix-Advertisement, O - Pool
 		U - Per-user prefix, D - Default
 		N - Not advertised, C - Calendar
 	default [LA] Valid lifetime 2592000, preferred lifetime 604800
-AD	<b>3FFF:1234:ABCD:3456::/64</b> [LA] Valid lifetime 2592000, preferred lifetime 604800
-AD	<b>3FFF:1234:ABCD:5678::/64</b> [LA] Valid lifetime 2592000, preferred lifetime 604800
-AD	<b>3FFF:1234:ABCD:7890::/64</b> [LA] Valid lifetime 2592000, preferred lifetime 604800
-AD	<b>3FFF:1234:ABCD:9012::/64</b> [LA] Valid lifetime 2592000, preferred lifetime 604800
-</pre>
+AD	3FFF:1234:ABCD:3456::/64 [LA] Valid lifetime 2592000, preferred lifetime 604800
+AD	3FFF:1234:ABCD:5678::/64 [LA] Valid lifetime 2592000, preferred lifetime 604800
+AD	3FFF:1234:ABCD:7890::/64 [LA] Valid lifetime 2592000, preferred lifetime 604800
+AD	3FFF:1234:ABCD:9012::/64 [LA] Valid lifetime 2592000, preferred lifetime 604800
+```
 
 > **注意：** 和早前指出的一样，有效和首选生命期数值可自默认值进行修改，以实现在应用前缀重编号时的平滑过渡。但此配置是超出CCNA范围的，所以本教程不会对其进行演示。
 
@@ -690,20 +690,20 @@ R2(config-if)#exit
 
 按照这个配置，路由器R2将会监听FastEthernet0/0接口所在本地网段上的RA报文。该路由器将会对每个学习到的前缀，动态地配置一个EUI-64地址，并接着安装上指向该RA通告路由器本地链路地址的默认路由。使用`show ipv6 interface [name]`命令，即可对动态地址配置进行验证，如下面的输出所示。
 
-<pre>
+```
 R2#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80::213:19FF:FE86:A20
 	Global unicast address(es):
-		<b>3FFF:1234:ABCD:3456:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:3456::/64 [PRE]</b>
+		3FFF:1234:ABCD:3456:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:3456::/64 [PRE]
 			valid lifetime 2591967 preferred lifetime 604767
-		<b>3FFF:1234:ABCD:5678:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:5678::/64 [PRE]</b>
+		3FFF:1234:ABCD:5678:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:5678::/64 [PRE]
 			valid lifetime 2591967 preferred lifetime 604767
-		<b>3FFF:1234:ABCD:7890:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:7890::/64 [PRE]</b>
+		3FFF:1234:ABCD:7890:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:7890::/64 [PRE]
 			valid lifetime 2591967 preferred lifetime 604767
-		<b>3FFF:1234:ABCD:9012:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:9012::/64 [PRE]</b>
+		3FFF:1234:ABCD:9012:213:19FF:FE86:A20, subnet is 3FFF:1234:ABCD:9012::/64 [PRE]
 			valid lifetime 2591967 preferred lifetime 604767
-		<b>FEC0:1111:1111:E000:213:19FF:FE86:A20, subnet is FEC0:1111:1111:E000::/64 [PRE]</b>
+		FEC0:1111:1111:E000:213:19FF:FE86:A20, subnet is FEC0:1111:1111:E000::/64 [PRE]
 			valid lifetime 2591967 preferred lifetime 604767
 	  Joined group address(es):
 		FF02::1
@@ -712,11 +712,11 @@ FastEthernet0/0 is up, line protocol is up
 	  MTU is 1500 bytes
 ...
 [Truncated Output]
-</pre>
+```
 
 在上面的输出中，注意到尽管接口上没有配置显式的IPv6地址，还是动态地为经由侦听RA报文所发现的子网，配置了一个EUI-64地址。每个这些前缀的计时器，都继承自通告RA报文的那台路由器。为了进一步验证无状态自动配置，可以使用`show ipv6 route`命令，来验证到首选通告路由器本地链路地址的默认路由，如下面所演示的那样。
 
-<pre>
+```
 R2#show ipv6 route ::/0
 IPv6 Routing Table - 13 entries
 Codes:	C - Connected, L - Local, S - Static, R - RIP, B - BGP
@@ -724,9 +724,9 @@ Codes:	C - Connected, L - Local, S - Static, R - RIP, B - BGP
 		I1 - ISIS L1, I2 - ISIS L2, IA - ISIS inter area, IS - ISIS summary
 		O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
 		ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
-<b>S	::/0 [1/0]
-	via FE80::20C:CEFF:FEA7:F3A0, FastEthernet0/0</b>
-</pre>
+S	::/0 [1/0]
+	via FE80::20C:CEFF:FEA7:F3A0, FastEthernet0/0
+```
 
 在命令`ipv6 address`之后，关键字`[dhcp]`用于配置该路由器接口使用有状态自动配置（也就是DHPCv6），来请求该接口的分址配置。在此配置下，有着一个额外的关键字，`[rapid-commit]`, 同样可以追加到此命令之后，以开启地址分配及其它配置信息的二报文交换快速方式（the two-message exchange method）。
 
@@ -746,12 +746,12 @@ EUI-64分址的下一步，涉及64位的第7位设置。**此第7位用于区�
 
 按照这样的配置，命令`show ipv6 interface`就可用于验证验证分配到接口FastEthernet0/0上的IPv6接口ID， 如下面的输出所示。
 
-<pre>
+```
 R2#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80::213:19FF:FE86:A20
-	<b>Global unicast address(es):
-	  	3FFF:1A2B:3C4D:5E6F:213:19FF:FE86:A20, subnet is 3FFF:1A2B:3C4D:5E6F::/64 [EUI]</b>
+	Global unicast address(es):
+	  	3FFF:1A2B:3C4D:5E6F:213:19FF:FE86:A20, subnet is 3FFF:1A2B:3C4D:5E6F::/64 [EUI]
 	Joined group address(es):
 		FF02::1
 		FF02::2
@@ -759,16 +759,16 @@ FastEthernet0/0 is up, line protocol is up
 	MTU is 1500 bytes
 ...
 [Truncated Output]
-</pre>
+```
 
 要验证该EUI-64地址的构造过程，同样可以通过使用`show interface`命令，查看指定接口的MAC地址的方式，来检查该完整的IPv6地址。
 
-<pre>
+```
 R2#show interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
-	<b>Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)</b>
+	Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
 		Internet address is 10.0.1.1/30
-</pre>
+```
 
 从上面的输出可以看出，该EUI-64地址实际上是有效的，且是基于该接口的MAC地址。此外，该地址是全球地址，因为那个第七位是开启的（也就是改为包含的是一个非零值）。
 
@@ -862,15 +862,15 @@ FastEthernet0/0 is up, line protocol is up
 
 该前缀是56位，转换一下就是14个十六进制数位（14x4=56）, 那么就知道了该前缀将带到一个4位字节（quartet）的中间。**这里有个坑**。在前缀终止前，必须要将该4位字节的第3和4位置为零。
 
-<pre>2001:123:abc:<b>8b00</b>:0000:0000:0000:0000/56</pre>
+`2001:123:abc:8b00:0000:0000:0000:0000/56`
 
 上面对位界限分离的地方进行了加粗（I've made the quartet bold where the bit boundary is broken）。在匆忙中及考试中时间上的压力下，可能会完全忘记这重要的一步。请记住也要将下面这个地址（第一个子网上的第一台主机）写作这样。
 
-<pre>2001:123:abc:<b>8b00</b>::/56</pre>
+`2001:123:abc:8b00::/56`
 
 如他们硬要在考试中把你赶出去，就可能会试着让你把那两个零从位界限分离处之前的4位字节中去掉（If they do try to catch you out in the exam, it would probably be an attempt to have you remove the trailing zeros from the quartet before the bit boundary is broken）。
 
-<pre>2001:123:abc:<b>8b</b>::/56</pre>
+`2001:123:abc:8b::/56`
 
 那么上面这个缩写就是非法的了。
 
