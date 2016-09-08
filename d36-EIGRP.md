@@ -695,4 +695,12 @@ Static Address           Interface
 
 假设路由器R3响应了，R2却无法对此数据包进行响应。在EIGRP维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器R1将无法在收到来自R2的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器R3就间接收到R2上故障的影响了（Given that EIGRP maintains a transport window of one unacknowledged packet, which means that every individual reliable packet that is sent out must be acknowledged explicitly by the neighbour router(s) before the next reliable packet can be sent, this presents a possible issue on the Multi-access segment because R1 will not be able to send out packets until it has received the acknowledgment from R2. R3 is therefore indirectly affected by the issues on R2）。
 
+为了避免这种坑，路由器R1将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, R1 will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器R1将以多播方式，发出一个特殊的名为顺序TLV的EIGRP数据包（when the timer expires, R1 will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器R2（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists R2(the offender) and indicates an out-of-order Multicast packet）。而因为路由器R3未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器R1此时就使用单播，将该数据包重传给R2。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共16次尝试后，仍没有来自路由器R2的响应，EIGRP将重置该邻居。
+
+> **注意**：当前的CCNA考试不要求对MFT及RTO有深入了解。
+
+##各种度量值、弥散更新算法及拓扑表
+
+**Metrics, DUAL, and the Topology Table**
+
 
