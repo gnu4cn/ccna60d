@@ -527,4 +527,56 @@ Fa0/0            1        0/0        1        0/1            50             0
 
 在EIGRP网络中，静态邻居关系的使用是十分罕见的。这主要是因为手动邻居配置在大型网络中无法适应其规模。但重要的是明白在思考IOS软件中为何还是有此选项，以及在什么情况下可以运用到此特性。使用静态邻居配置的一个主要实例，就是在那些没有广播或多播数据原生支持的传输介质，比如帧中继上，部署EIGRP的情况下（A prime example of when static neighbour configuration could be used would be in a situation where EIGRP is being deployed across media that does not natively support Broadcast or Multicast packets, such as Frame Relay）。
 
-另一实例就是，为了在多路访问网络，比如以太网上，仅有少数几台开启了EIGRP的路由器时，为了防止发送不必要的EIGRP数据包的情形。在此情况下，除开基本的EIGRP配置，还必须在本地路由器上对所有静态EIGRP邻居配置`neighbour`命令。如果一台路由器被配置为使用单播（静态），而其它路由器又被配置为使用多播（动态），那么这些开启了EIGRP的路由器是不会建立邻接关系的（EIGRP-enabled routers will not establish an adjacency if one router is configured to use Unicast(static) while another uses Multicast(dynamic)）。
+另一实例就是，为了在多路访问网络，比如以太网上，仅有少数几台开启了EIGRP的路由器时，为了防止发送不必要的EIGRP数据包的情形。在此情况下，除开基本的EIGRP配置，还必须在本地路由器上对**所有**静态EIGRP邻居配置`neighbour`命令。如果一台路由器被配置为使用单播（静态），而其它路由器又被配置为使用多播（动态），那么这些开启了EIGRP的路由器是不会建立邻接关系的（EIGRP-enabled routers will not establish an adjacency if one router is configured to use Unicast(static) while another uses Multicast(dynamic)）。
+
+在思科IOS软件中，静态EIGRP的邻居，是通过使用路由器配置命令（router configuration command）`neighbour <address> <interface>`进行配置的。记住**这只是简单的对基础EIGRP配置的增加**（this is simply in addition to the basic EIGRP configuration）。下图36.5中给出的简单网络拓扑，将用于静态EIGRP邻居的演示和验证。
+
+![配置静态的EIGRP邻居](images/3605.png)
+*图 36.5 -- 配置静态的EIGRP邻居*
+
+参考图36.5中所给出的拓扑，路由器R2将作如下配置：
+
+```
+R2(config)#router eigrp 150
+R2(config-router)#network 192.168.1.0 0.0.0.255
+R2(config-router)#neighbor 192.168.1.3 FastEthernet0/0
+R2(config-router)#no auto-summary
+R2(config-router)#exit
+```
+
+而应用于路由器R3上的配置则如下：
+
+```
+R3(config)#router eigrp 150
+R3(config-router)#network 192.168.1.0 0.0.0.255
+R3(config-router)#neighbor 192.168.1.2 FastEthernet0/0
+R3(config-router)#no auto-summary
+R3(config-router)#exit
+```
+
+可使用`show ip eigrp interfaces detail <name>`命令，对路由器接口使用多播（动态），还是使用单播（静态）数据包来进行邻居发现与维护进行判断。下面的输出对此进行了演示：
+
+```
+R2#show ip eigrp interfaces detail FastEthernet0/0
+IP-EIGRP interfaces for process 150
+                      Xmit Queue   Mean   Pacing Time    Multicast      Pending
+Interface      Peers  Un/Reliable  SRTT   Un/Reliable    Flow Timer     Routes
+Fa0/0            1        0/0        2        0/1            50             0
+
+  Hello interval is 5 sec
+  Next xmit serial <none>
+  Un/reliable mcasts: 0/1  Un/reliable ucasts: 3/8
+  Mcast exceptions: 1  CR packets: 1  ACKs suppressed: 2
+  Retransmissions sent: 1  Out-of-sequence rcvd: 0
+  Authentication mode is not set
+  Use unicast
+```
+
+此外，可使用`show ip eigrp neighbours [detail]`命令来判断EIGRP邻居的类型。在本课程模块的后面将对此命令进行详细讲解。
+
+###EIGRP的Hello及保持计时器
+
+**EIGRP Hello and Hold Timers**
+
+
+
