@@ -234,15 +234,15 @@ IP地址处于紧缺之中，在有着成千上万的地址需要路由时，将
 
 而要配置PAT，需要进行如同动态NAT的那些同样配置，还要在地址池后面加上关键字“overload”。
 
-<pre>
+```
 Router(config)#interface f0/0
 Router(config-if)#ip nat inside
 Router(config)#interface s0/1
 Router(config-if)#ip nat outside
 Router(config)#ip nat pool poolname 200.1.1.1 200.1.1.1 netmask 255.255.255.0
-Router(config)#ip nat inside source list 1 pool poolname <b>overload</b>
+Router(config)#ip nat inside source list 1 pool poolname overload
 Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
-</pre>
+```
 
 这该很容易记住吧！
 
@@ -360,7 +360,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此就可以看到转换的进行。此时再执行另一个扩展ping操作（自L0接口的），并查看NAT表。因为IOS的不同，你的输出可能与我的不一样。
 
-<pre>
+```
 RouterA#debug ip nat
 IP NAT debugging is on
 RouterA#
@@ -371,7 +371,7 @@ Repeat count [5]:
 Datagram size [100]:
 Timeout in seconds [2]:
 Extended commands [n]: y
-Source address or interface: <b>10.1.1.1</b>
+Source address or interface: 10.1.1.1
 Type of service [0]:
 Set DF bit in IP header? [no]:
 Validate reply data? [no]:Data pattern [0xABCD]:
@@ -406,7 +406,7 @@ icmp 	172.16.1.1:8 	10.1.1.1:8 		192.168.1.2:8 	192.168.1.2:8
 icmp 	172.16.1.1:9 	10.1.1.1:9 		192.168.1.2:9 	192.168.1.2:9
 ---		172.16.1.1		10.1.1.1 			--- 			---
 RouterA#
-</pre>
+```
 
 7. 记住，路由器随后很快就会清除该NAT转换，为其它IP地址使用这个/这些NAT地址而对其进行清理。
 
@@ -437,15 +437,15 @@ NAT: expiring 172.16.1.1 (10.1.1.1) icmp 7 (7)
 
 2. 需要给RouterA添加两个IP地址来模拟LAN上的主机。通过两个环回接口，可以达到这个目的。这两个IP地址将位处不同子网，但都一10地址开头。
 
-<pre>
+```
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#interface Loopback0
 RouterA(config-if)#ip add 10.1.1.1 255.255.255.0
-RouterA(config-if)#int l1 <b>← short for Loopback1</b>
+RouterA(config-if)#int l1 ← short for Loopback1
 RouterA(config-if)#ip address 10.2.2.2 255.255.255.0
 RouterA(config-if)#
-</pre>
+```
 
 3. 为了进行测试，需要告诉RouterB将到任何网络的任何流量，都发往RouterA。用一条静态路由完成这点。
 
@@ -506,7 +506,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此才可以看到转换的发生。接着执行扩展ping（自L0和L1发出的），并查看NAT表。因为IOS平台的不同，你的输出可能和下面的不一样。将会看到NAT地址池中的两个地址正在用到。
 
-<pre>
+```
 RouterA#debug ip nat
 RouterA#ping
 Protocol [ip]:
@@ -514,7 +514,7 @@ Target IP address: 192.168.1.2
 Repeat count [5]:Datagram size [100]:
 Timeout in seconds [2]:
 Extended commands [n]: y
-Source address or interface: <b>10.1.1.1</b>
+Source address or interface: 10.1.1.1
 Type of service [0]:
 Set DF bit in IP header? [no]:
 Validate reply data? [no]:
@@ -548,7 +548,7 @@ Repeat count [5]:
 Datagram size [100]:
 Timeout in seconds [2]:
 Extended commands [n]: y
-Source address or interface: <b>10.2.2.2</b>
+Source address or interface: 10.2.2.2
 Type of service [0]:
 Set DF bit in IP header? [no]:Validate reply data? [no]:
 Data pattern [0xABCD]:
@@ -587,7 +587,7 @@ icmp	172.16.1.2:23 	10.2.2.2:23 	192.168.1.2:23 	192.168.1.2:23
 icmp 	172.16.1.2:24 	10.2.2.2:24 	192.168.1.2:24 	192.168.1.2:24
 icmp 	172.16.1.2:25 	10.2.2.2:25 	192.168.1.2:25 	192.168.1.2:25
 RouterA#
-</pre>
+```
 
 ###NAT Overload实验
 
@@ -599,8 +599,8 @@ RouterA#
 
 我已经为方便而使用思科Packet Tracer，完成了上面的实验，所以你通常会碰到与我的输出所不一致的输出。下面是一个PAT实验的示例输出。从中可以看出，路由器给每个转换都加上了一个端口号。不幸的是，在NAT地址池实验中，会看到相似的编号，这是一个PAT的混淆之处。
 
-<pre>
+```
 RouterA#show ip nat tran
 Inside global	Inside local		Outside local		Outside global
-10.0.0.1:<b>8759</b> 	172.16.1.129:<b>8759</b> 	192.168.1.2:<b>8759</b> 	192.168.1.2:<b>8759</b>
-</pre>
+10.0.0.1:8759 	172.16.1.129:8759 	192.168.1.2:8759 	192.168.1.2:8759
+```

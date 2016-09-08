@@ -777,13 +777,13 @@ C类地址 = 255.255.255.0
 
 1. 先是明确路由器上的串行借口编号，你的路由器与上面拓扑图中的可能有所不同。同时，还要明确串行链路的哪一端连接的是DCE线，因为在该端是需要`clock rate`命令的。
 
-<pre>
+```
 Router>en
 Router#sh ip interface brief
 Interface		IP-Address	OK?	Method	Status					Protocol
 FastEthernet0/0	unassigned	YES	unset	administratively down	down
 FastEthernet0/1	unassigned	YES	unset	administratively down	down
-<b>Serial0/1/0</b>		unassigned	YES	unset	administratively down	down
+Serial0/1/0		unassigned	YES	unset	administratively down	down
 Vlan1			unassigned	YES	unset	administratively down	down
 Router#
 Router#show controllers Serial0/1/0
@@ -792,8 +792,8 @@ PAS unit 0, subunit 0, f/w version 2-55, rev ID 0x2800001, version 2
 idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
 Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
 line state: down
-<b>DCE cable</b>, no clock rate
-</pre>
+DCE cable, no clock rate
+```
 
 2. 在一侧为路由器加上主机名及IP地址，如该侧是DCE，就为其加上时钟速率（the clock rate）。
 
