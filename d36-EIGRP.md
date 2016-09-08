@@ -518,3 +518,9 @@ Fa0/0            1        0/0        1        0/1            50             0
   Authentication mode is not set
   Use multicast
 ```
+
+> **注意**：`show ip eigrp neighbours`命令将在后面讲到。在查看`show ip eigrp interfaces detail <name>`命令的输出时，要注意因为EIGRP同时用到多播及单播数据包（both Multicast and Unicast packets），所以该命令的计数器将包含两种类型数据包的数值，如上面输出所示。
+
+###静态的邻居发现
+
+
