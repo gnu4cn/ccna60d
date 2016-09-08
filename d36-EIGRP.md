@@ -87,7 +87,7 @@ R1#show ip protocols
 
 
 [Truncated Output]
-</pre>
+```
 
 而除了`show ip protocols`命令，命令`show ip eigrp neighbours`会打印出所有EIGRP邻居，以及这些邻居各自自治系统的信息。该命令及其可用选项，将在本课程模块的后面进行详细讲解。在那些运行了多个EIGRP实例的路由器上，可使用`show ip eigrp [ASN]`命令，来查看只与在此命令中所指定的自治系统有关的信息。下面的输出演示了这个命令的使用：
 
@@ -124,7 +124,7 @@ Lo3            0         0/0         0        0/10            0             0
 
 可使用`show ip protocols`命令，来对大的有类`10.0.0.0/8`网络上EIGRP的启用情况，进行验证。此命令的输出如下所示：
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -138,12 +138,14 @@ Routing Protocol is “eigrp 150”
     EIGRP NSF-aware route hold timer is 240s
     Automatic network summarization is in effect
     Maximum path: 4
-    <b>Routing for Networks:
-        10.0.0.0</b>
+```
+    **`Routing for Networks:`**
+        **`10.0.0.0`**
+```
     Routing Information Sources:
         Gateway         Distance    Last Update
     Distance: internal 90 external 170
-</pre>
+```
 
 使用命令`show ip eigrp topology`，可查看到EIGRP的拓扑表。此命令的输出如下所示：
 
@@ -175,7 +177,7 @@ R1(config-router)#exit
 
 尽管有着上面的配置，但`show ip protocols`命令给出的确实下面的输出：
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -194,7 +196,7 @@ Routing Protocol is “eigrp 150”
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
-</pre>
+```
 
 > **注意**：一个常见的误解就是，关闭EIGRP的自动汇总特性，就能解决此问题；但是，这与`auto-summary`命令一点关系都没有。比如，假设对在前一示例中的配置执行了`no auto-summary`命令，如下所示：
 
@@ -208,7 +210,7 @@ R1(config-router)#exit
 
 `show ip protocols`命令仍将显示对网络`10.0.0.0/8`开启了EIGRP，如下面的输出所示：
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -227,7 +229,7 @@ Routing Protocol is “eigrp 150”
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
-</pre>
+```
 
 为了提供到对那些开启EIGRP路由的网络进行更细粒度的控制，思科IOS软件支持在对EIGRP进行配置，将通配符掩码与`network`语句一起配合使用（in order to provide more granular control of the networks that are enabled for EIGRP routing, Cisco IOS software supports the use of wildcard masks in conjunction with the `network` statement when configuring EIGRP）。这里的通配符掩码，以与ACLs中用到的通配符掩码类似的方式运作，而与网络的子网掩码是不相干的。
 
@@ -242,7 +244,7 @@ R1(config-router)#exit
 
 使用命令`show ip protocols`，就可对此配置进行验证，如下所示：
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -262,7 +264,7 @@ Routing Protocol is “eigrp 150”
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
-</pre>
+```
 
 此外，还可以使用命令`show ip eigrp interfaces`，确认到仅已对`Loopback1`与`Loopback3`开启了EIGRP路由：
 
@@ -336,7 +338,7 @@ R1(config-router)#exit
 
 `show ip protocols`命令将验证到路由器对于两个`network`语句，都是以相似的方式进行处理的，如下所示：
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -351,12 +353,14 @@ Routing Protocol is “eigrp 150”
     Automatic network summarization is in effect
     Maximum path: 4
     Routing for Networks:
-        <b>10.0.0.1/32
-        10.1.1.1/32</b>
+```
+        **`10.0.0.1/32`**
+        **`10.1.1.1/32`**
+```
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
-</pre>
+```
 
 在使用了全1的子网掩码或全1的通配符掩码时，就会在所指定的（匹配的）接口上开启EIGRP，同时将通告那个接口所位处的网络。也就是说，EIGRP不会通告上面输出中的`/32`地址，而是通告基于配置在匹配接口上的子网掩码的具体网络。此配置的用法，是独立于配置在匹配的具体接口上的子网掩码的（when a subnet mask with all ones or a wildcard mask with all zeros is used, EIGRP is enabled for the specified(matched) interface and the network the interface resides on is advertised. In other words, EIGRP will not advertise the /32 address in the above but, instead, the actual network based on the subnet mask configured on the matched interface. The use of this configuration is independent of the subnet mask configuration on the actual interface matched）。
 
