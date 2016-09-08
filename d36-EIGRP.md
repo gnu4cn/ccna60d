@@ -501,4 +501,20 @@ IP-EIGRP Traffic Statistics for AS 150
 - 在EIGRP邻居关系中，使用了接口的第二地址，Using secondary addresses for EIGRP neighbour relationships
 - 邻居并不位于同一子网中，the neighbours are not on a common subnet
 
+尽管`show ip eigrp neighbours`命令在动态与静态配置的邻居间没有区别，但**`show ip eigrp interfaces detail <name>` 命令却可以用于对路由器接口是否在发出多播数据包来发现和维护邻居关系，进行检查**。下面演示了在一台开启了动态邻居发现的路由器上该命令的输出：
 
+```
+R2#show ip eigrp interfaces detail FastEthernet0/0
+IP-EIGRP interfaces for process 150
+                      Xmit Queue   Mean   Pacing Time    Multicast      Pending
+Interface      Peers  Un/Reliable  SRTT   Un/Reliable    Flow Timer     Routes
+Fa0/0            1        0/0        1        0/1            50             0
+
+  Hello interval is 5 sec
+  Next xmit serial <none>
+  Un/reliable mcasts: 0/2  Un/reliable ucasts: 2/2
+  Mcast exceptions: 0  CR packets: 0  ACKs suppressed: 0
+  Retransmissions sent: 1  Out-of-sequence rcvd: 0
+  Authentication mode is not set
+  Use multicast
+```
