@@ -523,4 +523,8 @@ Fa0/0            1        0/0        1        0/1            50             0
 
 ###静态的邻居发现
 
+与动态EIGRP邻居发现过程不同，静态EIGRP邻居关系需要在路由器上对手动配置邻居。在配置好静态EIGRP邻居后，本地路由器就使用单播邻居地址，往所配置的那些路由器，发送数据包。
+
+在EIGRP网络中，静态邻居关系的使用是十分罕见的。这主要是因为手动邻居配置在大型网络中无法适应其规模。但重要的是明白在思考IOS软件中为何还是有此选项，以及在什么情况下可以运用到此特性。使用静态邻居配置的一个主要实例，就是在那些没有广播或多播数据原生支持的传输介质，比如帧中继上，部署EIGRP的情况下（A prime example of when static neighbour configuration could be used would be in a situation where EIGRP is being deployed across media that does not natively support Broadcast or Multicast packets, such as Frame Relay）。
+
 
