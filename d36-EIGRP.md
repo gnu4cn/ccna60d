@@ -703,4 +703,8 @@ Static Address           Interface
 
 **Metrics, DUAL, and the Topology Table**
 
+在部署EIGRP时，对在路由被真正放入到IP路由表中之前，在EIGRP中，以及为其所用到的那些方面的概念、方法及数据结构等的掌握，是重要的（when implementing EIGRP, it is important to understand the various aspects used within and by the protocol before routes are actually placed into the IP routing table）。在本小节中，将学到有关EIGRP的综合度量值及其计算方式（the EIGRP composite metric and how it is calculated）。还将学习影响度量值计算，及对计算出的度量值进行调整的不同方式（You will also learn about the different ways to influence metric calculation, as well as to adjust the calculated metric）。
 
+在那之后，将学习到弥散更新算法（the Diffusing Update Algorithm, DUAL）与EIGRP的拓扑表。此小节包括了一个有关如何在一台运行着EIGRP的路由器上，将所有这些信息进行配合，以最终产生出IP路由表的讨论。
+
+###
