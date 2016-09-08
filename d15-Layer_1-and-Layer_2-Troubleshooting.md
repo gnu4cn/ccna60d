@@ -140,7 +140,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 <tr><td>绿色</td><td>有链路且链路无问题</td></tr>
 <tr><td>绿色闪烁</td><td>活动的：端口在发送或接收数据</td></tr>
 <tr><td>绿色琥珀色交替闪烁</td><td>链路故障（link fault）：出现可影响连通性的错误帧，以及过多的冲突、循环冗余校验（CRC），同时将对以太网的alignment及jabber问题进行检测（<a href="pdfs/EthernetErrorDescription.pdf" >以太网错误描述</a>, <a href="pdfs/EthernetErrors.pdf">以太网错误</a>）</td></tr>
-<tr><td>琥珀色</td><td>端口被生成树协议（Spanning Tree Protocol, STP）阻塞而未转发数据。<b>注意：</b>在某端口重新配置后，端口LED将保持琥珀色30秒，因为STP会检查网络拓扑有没有可能的环回。</td></tr>
+<tr><td>琥珀色</td><td>端口被生成树协议（Spanning Tree Protocol, STP）阻塞而未转发数据。注意：在某端口重新配置后，端口LED将保持琥珀色30秒，因为STP会检查网络拓扑有没有可能的环回。</td></tr>
 <tr><td>琥珀色闪烁</td><td>端口被STP阻塞同时没有发送或接收数据。</td></tr>
 <tr><td rowspan=2>双工</td><td>不亮</td><td>端口以半双工方式运行。</td></tr>
 <tr><td>绿色</td><td>端口以全双工方式运行。</td></tr>
@@ -155,7 +155,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 <tr><td rowspan=5>PoE</td><td>不亮</td><td>PoE关闭。如被供电设备从交流电源取得电力，那么就算被供电设备是连接到交换机的，PoE端口LED也会不亮。</td></tr>
 <tr><td>绿色</td><td>PoE开启。端口LED只在该交换机端口供电时才亮起绿色。</td></tr>
 <tr><td>绿色和琥珀色交替亮起</td><td>因为向被供电设备提供电力会超出交换机电源功率，而将PoE禁用了。Catalyst 2960-24PC-L、2960 48PST-L、2960-48PST-S及2960-24PC-S可以提供最高370W的电力。而Catalyst 2960-24LT-L和2960-24LC-S交换机只能提供最高124W的电力。</td></tr>
-<tr><td>琥珀色闪烁</td><td>PoE因为故障而关闭。<br><b>注意：</b>在做网线不合规及加电的设备连接到PoE端口(non-compliant cabling or powered devices are connected to a PoE port)时，都会导致PoE故障。在将思科认证的IP电话、无线接入点或符合IEEE 802.3af规范的设备连接到PoE端口时，只能使用标准规范的做网线方式。必须将导致PoE故障的网线或设备从网络上移除。（Only standard-compliant cabling can be used to connect Cisco prestandard IP phones, wireless access points, or IEEE 802.3af-compliant devices to PoE ports. You must remove the cable or device that cause the PoE fault from the network.）</td></tr>
+<tr><td>琥珀色闪烁</td><td>PoE因为故障而关闭。<br>注意：在做网线不合规及加电的设备连接到PoE端口(non-compliant cabling or powered devices are connected to a PoE port)时，都会导致PoE故障。在将思科认证的IP电话、无线接入点或符合IEEE 802.3af规范的设备连接到PoE端口时，只能使用标准规范的做网线方式。必须将导致PoE故障的网线或设备从网络上移除。（Only standard-compliant cabling can be used to connect Cisco prestandard IP phones, wireless access points, or IEEE 802.3af-compliant devices to PoE ports. You must remove the cable or device that cause the PoE fault from the network.）</td></tr>
 <tr><td>琥珀色</td><td>端口的PoE已被关闭。默认PoE是开启的。</td></tr>
 </table>
 
@@ -243,9 +243,9 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 下面是在一个GigabitEthernet交换端口上的`show interfaces`命令的输出。
 
-<pre>
-Catalyst-3750-1#<b>show interfaces GigabitEthernet3/0/1</b>
-GigabitEthernet0/1 is up, line protocol is down <b>(notconnect)</b>
+```
+Catalyst-3750-1#show interfaces GigabitEthernet3/0/1
+GigabitEthernet0/1 is up, line protocol is down (notconnect)
 Hardware is GigabitEthernet, address is 000f.2303.2db1 (bia 000f.2303.2db1)
 MTU 1500 bytes, BW 10000 Kbit, DLY 1000 usec,
     reliability 255/255, txload 1/255, rxload 1/255
@@ -272,7 +272,7 @@ Output queue: 0/40 (size/max)
     0 babbles, 0 late collision, 0 deferred
     0 lost carrier, 0 no carrier, 0 PAUSE output
     0 output buffer failures, 0 output buffers swapped out
-</pre>
+```
 
 多数思科Catalyst交换机端口默认都是`notconnect`状态，如同该命令打印输出的第一行所示。但如果网线从该端口拔出或未有正确连接，端口状态也会转换成该状态。在连接的网线有问题或是网线另一端没有插入到活动端口或设备（比如某台工作站插入交换机的端口是关闭的）时，将同样显示为`notconnect`。
 
@@ -296,15 +296,15 @@ Output queue: 0/40 (size/max)
 
 除了`show interfaces`命令，命令`show interfaces [name] counters errors`也可以用来查看接口错误及促进一层的排错。下面就是命令`show interface [name] counters errors`打印出的输出。
 
-<pre>
-Catalyst-3750-1#<b>show interfaces GigabitEthernet3/0/1 counters errors</b>
+```
+Catalyst-3750-1#show interfaces GigabitEthernet3/0/1 counters errors
 Port        Align-Err   FCS-Err   Xmit-Err    Rcv-Err UnderSize
 Gi3/0/1         0         0          0          0         0
 Port     Single-Col Multi-Col Late-Col Excess-Col Carri-Sen Runts
 Gi3/0/1       0          0       0          0         0      0
 Port        Giants
 Gi3/0/1       0
-</pre>
+```
 
 接下来的部分对命令`show interfaces [name] counters errors`输出中的一些错误字段，以及这些字段所表示的故障或问题，进行讲述。
 
@@ -541,8 +541,8 @@ VTP客户端/服务器（clinet/server）或服务器/服务器(server/server)�
 
 最后，`show vtp status`命令的输出也包含了用于认证目的的MD5散列值。该散列值是从VTP域名称和密码生成的，域中所有交换机上的该散列值应是一致的。而如在这些交换机上的域名称和密码不同，则计算出的MD5也会不同。而如域名称或密码不同，那么`show vtp status`命令就会示出一条MD5摘要校验和不匹配（an MD5 digest checksum mismatch）消息，如下面的输出所示。
 
-<pre>
-Cat-3550-1#<b>show vtp status</b>
+```
+Cat-3550-1#show vtp status
 VTP Version                     : running VTP2
 Configuration Revision          : 0
 Maximum VLANs supported locally : 1005
@@ -553,11 +553,11 @@ VTP Pruning Mode                : Enabled
 VTP V2 Mode                     : Enabled
 VTP Traps Generation            : Disabled
 MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
-<b>*** MD5 digest checksum mismatch on trunk: Fa0/11 ***</b>
-<b>*** MD5 digest checksum mismatch on trunk: Fa0/12 ***</b>
+*** MD5 digest checksum mismatch on trunk: Fa0/11 ***
+*** MD5 digest checksum mismatch on trunk: Fa0/12 ***
 ...
 [Truncated Output]
-</pre>
+```
 
 最后，在应用VTP时，**配置修订号可能会造成严重破坏。VTP域中的交换机使用配置修订号来保持对域中最新信息的跟踪**（the configuration revision number can wreak havoc when using VTP. Switches use the configuration revision number to keep track of the most recent information in the VTP domain）。域中所有交换机都将其前一次从一条VTP通告中收听到的配置修订号存储起来，同时在每次接收到新信息时该号码都被增加。而在任何交换机接收到带有高于其自身配置修订号的通告报文时，都将覆写任何存储的VLAN信息，并将其自身存储的VLAN信息与所接收到的通告报文中的信息进行同步。
 

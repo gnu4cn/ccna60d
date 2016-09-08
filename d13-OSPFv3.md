@@ -130,22 +130,22 @@ Neighbor	ID Pri	State 		Dead Time	Interface ID 	Interface
 
 通过将`[detail]`关键字追加到本命令的后面，还可以查看详细的邻居信息。
 
-<pre>
+```
 R1#show ipv6 ospf neighbor detail
 Neighbor 3.3.3.3
 	In the area 0 via interface FastEthernet0/0
-	<b>Neighbor: interface-id 4, link-local address FE80::213:19FF:FE86:A20</b>
+	Neighbor: interface-id 4, link-local address FE80::213:19FF:FE86:A20
 	Neighbor priority is 1, State is FULL, 6 state changes
 	DR is 1.1.1.1 BDR is 3.3.3.3
-	<b>Options is 0x000013 in Hello (V6-Bit E-Bit R-bit )</b>
-	<b>Options is 0x000013 in DBD (V6-Bit E-Bit R-bit )</b>
+	Options is 0x000013 in Hello (V6-Bit E-Bit R-bit )
+	Options is 0x000013 in DBD (V6-Bit E-Bit R-bit )
 	Dead timer due in 00:00:39
 	Neighbor is up for 00:06:40
 	Index 1/1/1, retransmission queue length 0, number of retransmission 0
 	First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
 	Last retransmission scan length is 0, maximum is 0
 	Last retransmission scan time is 0 msec, maximum is 0 msec
-</pre>
+```
 
 在上面的输出中，注意真实的邻居地址是本地链路地址，而不是所配置的全球IPv6单播地址。
 
@@ -184,25 +184,25 @@ Neighbor 3.3.3.3
 
 **R1:**
 
-<pre>
+```
 ipv6 router ospf 1
 router-id 1.1.1.1
-int fa0/0<b>(或特定接口编号)</b>
+int fa0/0(或特定接口编号)
 ipv6 ospf 1 area 0
-int lo0<b>(或特定接口编号)</b>
+int lo0(或特定接口编号)
 ipv6 ospf 1 area 0
-</pre>
+```
 
 **R2:**
 
-<pre>
+```
 ipv6 router ospf 1
 router-id 2.2.2.2
-int fa0/0<b>(或特定接口编号)</b>
+int fa0/0(或特定接口编号)
 ipv6 ospf 1 area 0
-int lo0<b>(或特定接口编号)</b>
+int lo0(或特定接口编号)
 ipv6 ospf 1 area 0
-</pre>
+```
 
 - 自R1向R2的IPv6环回接口发出`ping`操作，以测试连通性
 - 执行一个`show ipv6 route`命令，来验证有通过OSPFv3接收到路由

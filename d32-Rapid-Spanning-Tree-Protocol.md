@@ -133,20 +133,20 @@ Root bridge for: VLAN0050, VLAN0060, VLAN0070
 
 1. 检查交换机上的生成树模式。
 
-<pre>
+```
 SwitchA#show spanning-tree summary
-Switch is in <b>pvst</b> mode
+Switch is in pvst mode
 Root bridge for: VLAN0002 VLAN0003
-</pre>
+```
 
 2. 将模式改为RSTP并再度检查。
 
-<pre>
+```
 SwitchA(config)#spanning-tree mode rapid-pvst
 SwitchA#show spanning-tree summary
-Switch is in <b>rapid-pvst</b> mode
+Switch is in rapid-pvst mode
 Root bridge for: VLAN0002 VLAN0003
-</pre>
+```
 
 3. 用RSTP模式来重复第31天的实验。
 

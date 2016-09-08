@@ -67,7 +67,7 @@ RxBoot程序 -- 小型的IOS（Mini-IOS）, 在此程序模式下允许上传一
 
 通过命令`show version`，就可以查看到当前的配置寄存器设置：
 
-<pre>
+```
 Router#show version
 Cisco Internetwork Operating System Software
 IOS (tm) 2500 Software (C2500-JS-L), Version 12.1(17), RELEASE SOFTWARE (fc1) Copyright (c) 1986-2002 by Cisco Systems, Inc.
@@ -88,8 +88,8 @@ TN3270 Emulation software.
 32K bytes of non-volatile configuration memory.
 16384K bytes of processor board System flash (Read ONLY)
 
-<b>Configuration register is 0x2102</b>
-</pre>
+Configuration register is 0x2102
+```
 
 命令还现实了该路由器已在线多长时间及上次重启的原因--在对启动问题进行故障排除时，这些信息是有用的。
 
@@ -100,20 +100,20 @@ System returned to ROM by reload
 
 同时改命令将显示处路由器上不同类型的存储器：
 
-<pre>
+```
 Router#show version
 Cisco Internetwork Operating System Software
 IOS (tm) 2500 Software (C2500-IS-L), Version 12.2(4)T1, RELEASE SOFTWARE Copyright (c) 1986-2001 by Cisco Systems, Inc.
 
-ROM: System Bootstrap, Version 11.0(10c), SOFTWARE<b>← ROM code</b>
+ROM: System Bootstrap, Version 11.0(10c), SOFTWARE← ROM code
 BOOTLDR: 3000 Bootstrap Software (IGS-BOOT-R), Version 11.0(10c)
-System image file is “flash:c2500-is-l_122-4_T1.bin”<b>← Flash image</b>
-Cisco 2522 (68030) processor CPU<b>← CPU</b>
-with 14336K/2048K bytes of memory. <b>← DRAM</b>
+System image file is “flash:c2500-is-l_122-4_T1.bin”← Flash image
+Cisco 2522 (68030) processor CPU← CPU
+with 14336K/2048K bytes of memory. ← DRAM
 Processor board ID 18086064, with hardware revision 00000003
-32K bytes of non-volatile configuration memory.<b>← NVRAM</b>
-16384K bytes of processor System flash (Read ONLY) <b>← EEPROM/FLASH</b>
-</pre>
+32K bytes of non-volatile configuration memory.← NVRAM
+16384K bytes of processor System flash (Read ONLY) ← EEPROM/FLASH
+```
 
 下面是路由器启动过程的一个图形化再现：
 
@@ -132,9 +132,9 @@ Processor board ID 18086064, with hardware revision 00000003
 
 你可以将运行配置拷贝到一台运行了TFTP服务器软件的PC机或服务器上：
 
-<pre>
-Router#copy startup-config tftp:<b>← You need to include the colon</b>
-</pre>
+```
+Router#copy startup-config tftp:← You need to include the colon
+```
 
 还可以将IOS镜像复制到某台TFTP服务器上。如要将服务器IOS更新到另一较新版本，就必须要这么做，以防新版本可能带来的问题（管理员经常将一个路由器现有闪存装不下的IOS镜像放上去）。
 
@@ -156,14 +156,14 @@ Router#copy tftp flash:
 
 通过`show version`或`show flash`命令, 或者经由`dir flash:`进入到flash目录，进入到flash目录将显示出闪存中所有的文件，就可以查看到闪存的文件名。
 
-<pre>
+```
 RouterA#show flash
 System flash directory:
 File    Length      Name/status
-1       14692012    <b>c2500-js-l.121-17.bin</b>
+1       14692012    c2500-js-l.121-17.bin
 [14692076 bytes used, 2085140 available, 16777216 total]
 16384K bytes of processor board System flash (Read ONLY)
-</pre>
+```
 
 作者本打算对此方面进行深入，但你应着重于CCNA考试本身及日常工作。不过灾难恢复应在深入研究及实验的目标清单当中。
 
@@ -268,18 +268,18 @@ Device#   PID               SN              UDI
 
 在下面可以看到有哪些特性也被激活。特性`ipbasek9`将总是开启的。
 
-<pre>
+```
 Router#show license all
 License Store: Primary License Storage
-StoreIndex: 0   <b>Feature: ipbasek9</b>                   Version: 1.0
-        <b>License Type: Permanent
-        License State: Active, In Use</b>
+StoreIndex: 0   Feature: ipbasek9                   Version: 1.0
+        License Type: Permanent
+        License State: Active, In Use
         License Count: Non-Counted
         License Priority: Medium
 License Store: Evaluation License Storage
-StoreIndex: 0   <b>Feature: securityk9</b>                Version: 1.0
-        <b>License Type: Evaluation
-        License State: Inactive</b>
+StoreIndex: 0   Feature: securityk9                Version: 1.0
+        License Type: Evaluation
+        License State: Inactive
             Evaluation total period: 208 weeks 2 days
             Evaluation period left: 208 weeks 2 days
         License Count: Non-Counted
@@ -291,7 +291,7 @@ StoreIndex: 1   Feature: datak9                     Version: 1.0
             Evaluation period left: 208 weeks 2 days
         License Count: Non-Counted
         License Priority: None
-</pre>
+```
 
 命令`show license feature`将打印出已开启的特性摘要信息：
 
@@ -305,16 +305,16 @@ datak9              yes          no          no             no
 
 一旦许可证得到验证，就必须通过U盘或网络服务器，及在命令行执行`license install [url]`, 将该许可证密钥添加到路由器。需要注意“.lic”这个文件名。
 
-<pre>
+```
 Router#dir usbflash0:
 
 Directory of usbflash0:/
 
-   1  -rw-        3064  Apr 18 2013 03:31:18 +00:00  FHH1216P07R_20090528163510702.<b>lic</b>
+   1  -rw-        3064  Apr 18 2013 03:31:18 +00:00  FHH1216P07R_20090528163510702.lic
 
 255537152 bytes total (184524800 bytes free)
 Router#
-Router#license install usbflash0:FHH1216P07R_20090528163510702.<b>lic</b>
+Router#license install usbflash0:FHH1216P07R_20090528163510702.lic
 Installing...Feature:datak9...Successful:Supported
 1/1 licenses were successfully installed
 0/1 licenses were existing licenses
@@ -322,7 +322,7 @@ Installing...Feature:datak9...Successful:Supported
 Router#
 *Jun 25 11:18:20.234: %LICENSE-6-INSTALL: Feature datak9 1.0 was installed in this device. UDI=CISCO2951:FHH1216P07R; StoreIndex=0:Primary License Storage
 *Jun 25 11:18:20.386: %IOS_LICENSE_IMAGE_APPLICATION-6-LICENSE_LEVEL: Module name = c2951 Next reboot level = datak9 and License = datak9
-</pre>
+```
 
 此时将必须重启该路由器，以激活新的特性集。
 

@@ -404,15 +404,15 @@ Router#pinging 192.168.1.2
 
 3. 配置DHCP地址池。接着为地址配置一个3天3小时5分的租期。最后将1到10的地址排除在分配给主机的地址之外。假设这些地址已为其它服务器或接口使用。
 
-<pre>
+```
 Router#conf t
 Router(config)#ip dhcp pool 60days
 Router(dhcp-config)#network 172.16.0.0 255.255.0.0
-Router1(dhcp-config)#lease 3 3 5    <b>← command won’t work on Packet Trer</b>
+Router1(dhcp-config)#lease 3 3 5    ← command won’t work on Packet Trer
 Router1(dhcp-config)#exit
 Router(config)#ip dhcp excluded-address 172.16.1.1 172.16.1.10
 Router(config)#
-</pre>
+```
 
 4. 执行一个`ipconfig /all`命令，查看是否有IP地址分配到PC。如旧地址仍在使用，就需要执行一下`ipconfig /renew`命令。
 

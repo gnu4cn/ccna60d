@@ -170,7 +170,7 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 默认路由来源管理距离会显示在`show ip protocols`命令的输出中。下面的输出演示了这点。
 
-<pre>
+```
 R1#show ip protocols
 Routing Protocol is “isis”
 	Invalid after 0 seconds, hold down 0, flushed after 0
@@ -184,9 +184,9 @@ Routing Protocol is “isis”
 		Serial0/0
 	Routing Information Sources:
 		Gateway		Distance	Last Update
-		10.0.0.2	     <b>115</b>		00:06:53
+		10.0.0.2	     115		00:06:53
 Distance: (default is 115 )
-</pre>
+```
 
 ###路由度量值
 
@@ -332,21 +332,21 @@ Routing entry for 80.1.1.0/24
 
 有类协议无法使用VLSM（也就是RIPv1和IGRP，它们都已不在CCNA大纲中了）。这是因为它们不会去识别除了默认网络掩码外的其它任何东西。
 
-<pre>
+```
 Router#debug ip rip
 RIP protocol debugging is on
 01:26:59: RIP: sending v1 update to 255.255.255.255 via Loopback0
-<b>192.168.1.1</b>
-</pre>
+192.168.1.1
+```
 
 有类协议用到VLSM（也就是RIPv2和EIGRP）。
 
-<pre>
+```
 Router#debug ip rip
 RIP protocol debugging is on
 01:29:15: RIP: received v2 update from 172.16.1.2 on Serial0
-01:29:15:<b>192.168.2.0/24</b> via 0.0.0.0
-</pre>
+01:29:15:192.168.2.0/24 via 0.0.0.0
+```
 
 ##被动接口
 
@@ -733,21 +733,21 @@ metric for determining the best forwarding path. True or false?
 - 在两台路由器上都配置一个环回接口，并从两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
 - 配置标准RIP并通告所有本地网络
 
-<pre>
-<b>R1:</b>
+```
+R1:
 router rip
 version 2
 no auto
 network 10.10.10.0
 network 11.11.11.0
 
-<b>R2:</b>
+R2:
 router rip
 version 2
 no auto
 network 10.10.10.0
 network 12.12.12.0
-</pre>
+```
 
 - 自R1向R2的环回接口进行`ping`操作，以测试连通性
 - 执行一条`show ip route`命令，来检查经由RIP收到了那些路由

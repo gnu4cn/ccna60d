@@ -223,14 +223,14 @@ R2(config-if)#
 
 为解决此问题，思科IOS软件允许管理员将HSRP配置为使用其所配置上的物理接口的实际MAC地址。那么结果就是一个单独的MAC地址为所有HSRP组所使用（也就是活动网关所使用的MAC地址），且在每次往连接到这些交换机上的路由器添加HSRP组的时候，无需对端口安全配置进行修改。此操作是通过使用接口配置命令`standby use-bia`命令完成的。下面的输出演示了命令`show standby`，该命令给出了一个配置了两个不同HSRP组的网关接口的信息：
 
-<pre>
+```
 Gateway-1#show standby
 FastEthernet0/0 - Group 1
     State is Active
         8 state changes, last state change 00:13:07
     Virtual IP address is 192.168.1.254
-    <b>Active virtual MAC address is 0000.0c07.ac01
-        Local virtual MAC address is 0000.0c07.ac01 (v1 default)</b>
+    Active virtual MAC address is 0000.0c07.ac01
+        Local virtual MAC address is 0000.0c07.ac01 (v1 default)
     Hello time 3 sec, hold time 10 sec
         Next hello sent in 2.002 secs
     Preemption disabled
@@ -242,13 +242,13 @@ FastEthernet0/0 - Group 2
     State is Active
         2 state changes, last state change 00:09:45
     Virtual IP address is 172.16.1.254
-    <b>Active virtual MAC address is 0000.0c07.ac02
-        Local virtual MAC address is 0000.0c07.ac02 (v1 default)</b>
+    Active virtual MAC address is 0000.0c07.ac02
+        Local virtual MAC address is 0000.0c07.ac02 (v1 default)
     Hello time 3 sec, hold time 10 sec
         Next hello sent in 2.423 secs
     Preemption disabled
     Active router is local
-</pre>
+```
 
 在上面的输出中，由于是默认的HSRP版本，那么HSRP `Group 1`的虚拟MAC地址就是`0000.0c07.ac01`，同时HSRP组2的就是`0000.0c07.ac02`。这就意味着连接此网关的交换机端口要学习三个不同地址：物理接口`Fastethernet0/0`的实际或出厂地址、HSRP `Group 1`的虚拟MAC地址，以及HSRP组2的虚拟MAC地址。
 
@@ -265,14 +265,14 @@ Gateway-1(config-if)#exit
 
 基于上面的输出中的配置，命令`show standby`会反应出HSRP组的新MAC地址，如下面的输出所示:
 
-<pre>
+```
 Gateway-1#show standby
 FastEthernet0/0 - Group 1
     State is Active
         8 state changes, last state change 00:13:07
     Virtual IP address is 192.168.1.254
-    <b>Active virtual MAC address is 0013.1986.0a20
-        Local virtual MAC address is 0013.1986.0a20 (bia)</b>
+    Active virtual MAC address is 0013.1986.0a20
+        Local virtual MAC address is 0013.1986.0a20 (bia)
     Hello time 3 sec, hold time 10 sec
         Next hello sent in 2.756 secs
     Preemption disabled
@@ -284,8 +284,8 @@ FastEthernet0/0 - Group 2
     State is Active
         2 state changes, last state change 00:09:45
     Virtual IP address is 172.16.1.254
-    <b>Active virtual MAC address is 0013.1986.0a20
-        Local virtual MAC address is 0013.1986.0a20 (bia)</b>
+    Active virtual MAC address is 0013.1986.0a20
+        Local virtual MAC address is 0013.1986.0a20 (bia)
     Hello time 3 sec, hold time 10 sec
         Next hello sent in 0.188 secs
     Preemption disabled
@@ -293,21 +293,21 @@ FastEthernet0/0 - Group 2
     Standby router is unknown
     Priority 105 (configured 105)
     IP redundancy name is "hsrp-Fa0/0-2" (default)
-</pre>
+```
 
 那么这里两个HSRP组所用的MAC地址，都是`0013.1986.0a20`，就是分配给物理网关接口的MAC地址了。这在下面的输出中有证实：
 
-<pre>
+```
 Gateway-1#show interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
-    Hardware is AmdFE, address is <b>0013.1986.0a20 (bia 0013.1986.0a20)</b>
+    Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
     Internet address is 192.168.1.1/24
     MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
         reliability 255/255, txload 1/255, rxload 1/255
     Encapsulation ARPA, loopback not set
 ...
 [Truncated Output]
-</pre>
+```
 
 > **注意**：除了将HSRP配置为使用出厂地址（the burnt-in address, BIA）, 管理员亦可经由接口配置命令`standby [number] mac-address [mac]`，静态指定虚拟网关要使用的MAC地址。但一般不会这样做，因为这可能会导致交换网络中的重复MAC地址，这就会引起严重的网络故障，甚至造成网络中断。
 
@@ -442,18 +442,18 @@ VTP-Server-2(config-if)#exit
 
 在配置应用后，就可使用`show standby [interface brief]`命令，对HSRP的配置进行验证。下面的输出对`show standby brief`命令进行了展示：
 
-<pre>
-VTP-Server-1#<b>show standby brief</b>
+```
+VTP-Server-1#show standby brief
                      P indicates configured to preempt.
                      |
 Interface   Grp      Pri P State   Active  Standby         Virtual IP
 Vl172       1        105   Active  local   172.16.31.2     172.16.31.254
-VTP-Server-2#<b>show standby brief</b>
+VTP-Server-2#show standby brief
                      P indicates configured to preempt.
                      |
 Interface   Grp      Pri P State   Active  Standby         Virtual IP
 Vl172       1        100   Standby local   172.16.31.1     172.16.31.254
-</pre>
+```
 
 基于此种配置，只有在`VTP-Server-1`失效时，`VTP-Server-2`才会成为活动网关。此外，因为没有配置抢占（preemption），那么即使在`VTP-Server-1`重新上线时，就算在该HSRP组中，其比起`VTP-Server-2`有着更高的优先级，它仍然无法强制性地接过活动网关角色。
 
@@ -470,13 +470,13 @@ VTP-Server-1(config-if)#standby 1 preempt
 
 这里同样使用命令`show standby [interface [name] |brief]`, 来验证在某个网关上已有配置抢占特性。是通过下面的`show standby brief`命令输出中的“P”字样演示的：
 
-<pre>
+```
 VTP-Server-1#show standby brief
                      P indicates configured to preempt.
                      |
-Interface   Grp Pri  <b>P</b> State   Active  Standby         Virtual IP
-Vl172       1   105  <b>P</b> Active  local   172.16.31.2     172.16.31.254
-</pre>
+Interface   Grp Pri  P State   Active  Standby         Virtual IP
+Vl172       1   105  P Active  local   172.16.31.2     172.16.31.254
+```
 
 有了这个修改，在因`VTP-Server-1`失效而导致`VTP-Server-2`接过VLAN172的活动网关角色时，一旦`VTP-Server-1`再度上线，其就将强制性再度接手那个角色。在配置抢占特性时，思科IOS软件允许指定在交换机抢占及强制重新获得活动网关角色之前的时间间隔。
 
@@ -489,7 +489,7 @@ VTP-Server-1(config-if)#standby 1 preempt delay minimum 30
 
 此配置可使用命令`show standby [interface]`进行验证。下面的输出对此进行了演示：
 
-<pre>
+```
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -499,12 +499,12 @@ Active virtual MAC address is 0000.0c07.ac01
     Local virtual MAC address is 0000.0c07.ac01 (v1 default)
 Hello time 3 sec, hold time 10 sec
     Next hello sent in 0.636 secs
-<b>Preemption enabled, delay min 30 secs</b>
+Preemption enabled, delay min 30 secs
 Active router is local
 Standby router is 172.16.31.2, priority 100 (expires in 8.629 sec)
 Priority 105 (configured 105)
 IP redundancy name is “hsrp-Vl172-1” (default)
-</pre>
+```
 
 而关键字`[reload]`用于指定网关在其重启后需要等待的时间（the `[reload]` keyword is used to specify the amount of time the gateway should wait after it initiates following a reload）。关键字`[sync]`是与IP冗余客户端配合使用的。此配置超出了CCNA考试要求，但在生产环境中是十分有用的，因为在出现某个正在被跟踪的抖动接口，或类似情况下，此配置可以阻止不必要的角色切换（this configuration is beyond the scope of the CCNA exam requirements but is very useful in production environments because it prevents an unnecessary change of roles in the case of a flapping interface that is being tracked, or similar activity）。
 
@@ -514,7 +514,7 @@ HSRP接口跟踪特性，令到管理员可以将HSRP配置为追踪接口状态
 
 在下面的输出中，`VTP-Server-1`被配置为对连接到假想WAN路由器的接口`Gigabitethernet5/1`的状态，进行跟踪。在那个接口状态转变为`down`时，该网关就将其优先级值降低10（默认的）:
 
-<pre>
+```
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -529,10 +529,10 @@ Vlan172 - Group 1
     Standby router is 172.16.31.2, priority 100 (expires in 7.616 sec)
     Priority 105 (configured 105)
     IP redundancy name is “hsrp-Vl172-1” (default)
-    <b>Priority tracking 1 interfaces or objects, 1 up:
+    Priority tracking 1 interfaces or objects, 1 up:
     Interface or object          Decrement  State
-    GigabitEthernet5/1           10         Up</b>
-</pre>
+    GigabitEthernet5/1           10         Up
+```
 
 而要将该网关降低值配置为比如50, 就可以执行命令`standby [name] track [interface] [decrement value]`, 如下面的输出所示：
 
@@ -543,7 +543,7 @@ VTP-Server-1(config-if)#standby 1 track GigabitEthernet5/1 50
 
 此项配置可使用命令`show standby [interface]`进行验证。下面对此进行了演示：
 
-<pre>
+```
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -558,10 +558,10 @@ Vlan172 - Group 1
     Standby router is 172.16.31.2, priority 100 (expires in 7.616 sec)
     Priority 105 (configured 105)
     IP redundancy name is “hsrp-Vl172-1” (default)
-    <b>Priority tracking 1 interfaces or objects, 1 up:
+    Priority tracking 1 interfaces or objects, 1 up:
     Interface or object          Decrement  State
-    GigabitEthernet5/1           50         Up</b>
-</pre>
+    GigabitEthernet5/1           50         Up
+```
 
 ###配置HSRP的版本
 
@@ -574,22 +574,22 @@ VTP-Server-1(config-if)#standby version 2
 
 使用命令`show standby [interface]`，可对此配置进行验证。下面的输出对此进行了演示：
 
-<pre>
+```
 VTP-Server-1#show standby vlan172
-Vlan172 - Group 1 <b>(version 2)</b>
+Vlan172 - Group 1 (version 2)
     State is Active
         5 state changes, last state change 00:43:42
     Virtual IP address is 172.16.31.254
-    <b>Active virtual MAC address is 0000.0c9f.f001
+    Active virtual MAC address is 0000.0c9f.f001
         Local virtual MAC address is 0000.0c9f.f001 (v2 default)
     Hello time 3 sec, hold time 10 sec
-        Next hello sent in 2.419 secs</b>
+        Next hello sent in 2.419 secs
     Preemption enabled
     Active router is local
     Standby router is 172.16.31.2, priority 100 (expires in 4.402 sec)
     Priority 105 (configured 105)
     IP redundancy name is “hsrp-Vl172-1” (default)
-</pre>
+```
 
 而HSRP的开启，就自动将HSRP所使用的MAC地址范围，从`0000.0C07.ACxx`，改变为`0000.0C9F。F000`到`0000.0C9F.FFFF`。因此务必要记住这将导致生产网络中的一些数据包丢失，因为网络中的设备必须要掌握到网关的新MAC地址。这类导致包丢失的变动，都推荐在维护窗口或几乎的断网窗口来进行。
 
@@ -706,32 +706,32 @@ VTP-Server-2(config-if)#exit
 
 下面还使用命令`show vrrp [all|brief|interface]`, 对此配置进行了验证。关键字`[all]`展示了有关该VRRP配置的所有信息，包括了组的状态、描述信息（在配置了的情况下）、本地网关优先级，以及主虚拟路由器和其它信息。关键字`[brief]`则会列印出该VRRP配置的摘要信息。而`[interface]`关键字会列印出特定接口的VRRP信息。下面的输出展示了`show vrrp all`命令的输出：
 
-<pre>
+```
 VTP-Server-1#show vrrp all
 Vlan192 - Group 1
 ‘SWITCH-VRRP-Example’
-    <b>State is Master
+    State is Master
     Virtual IP address is 192.168.1.254
-    Virtual MAC address is 0000.5e00.0101</b>
+    Virtual MAC address is 0000.5e00.0101
     Advertisement interval is 1.000 sec
-    <b>Preemption enabled
+    Preemption enabled
     Priority is 105
-    Master Router is 192.168.1.1 (local), priority is 105</b>
+    Master Router is 192.168.1.1 (local), priority is 105
     Master Advertisement interval is 1.000 sec
     Master Down interval is 3.589 sec
 VTP-Server-2#show vrrp all
 Vlan192 - Group 1
 ‘SWITCH-VRRP-Example’
-    <b>State is Backup
+    State is Backup
     Virtual IP address is 192.168.1.254
-    Virtual MAC address is 0000.5e00.0101</b>
+    Virtual MAC address is 0000.5e00.0101
     Advertisement interval is 1.000 sec
-    <b>Preemption enabled
+    Preemption enabled
     Priority is 100
-    Master Router is 192.168.1.1, priority is 105</b>
+    Master Router is 192.168.1.1, priority is 105
     Master Advertisement interval is 1.000 sec
     Master Down interval is 3.609 sec (expires in 3.328 sec)
-</pre>
+```
 
 下面的输出展示了由命令`show vrrp brief`所列印出的信息：
 
@@ -771,7 +771,7 @@ VTP-Server-1(config-if)#vrrp 1 track 2
 
 VRRP跟踪的配置，是通过使用命令`show vrrp interface [name]`命令进行验证的。下面的输出对此进行了演示：
 
-<pre>
+```
 VTP-Server-1#show vrrp interface vlan192
 Vlan192 - Group 1
 ‘SWITCH-VRRP-Example’
@@ -781,32 +781,32 @@ Vlan192 - Group 1
     Advertisement interval is 0.100 sec
     Preemption enabled
     Priority is 105
-        <b>Track object 1 state Up decrement 10
-        Track object 2 state Up decrement 10</b>
+        Track object 1 state Up decrement 10
+        Track object 2 state Up decrement 10
     Authentication MD5, key-string
     Master Router is 192.168.1.1 (local), priority is 105
     Master Advertisement interval is 0.100 sec
     Master Down interval is 0.889 sec
-</pre>
+```
 
 而要查看被追踪对象的各项参数，就使用命令`show track [number] [brief] [interface] [ip] [resolution] [timers]`。下面是`show track`命令输出的演示：
 
-<pre>
+```
 VTP-Server-1#show track
 Track 1
     Interface Loopback0 line-protocol
     Line protocol is Up
         1 change, last change 00:11:36
-    <b>Tracked by:
-        VRRP Vlan192 1</b>
+    Tracked by:
+        VRRP Vlan192 1
 Track 2
     IP route 1.1.1.1 255.255.255.255 reachability
     Reachability is Up (connected)
         1 change, last change 00:08:48
     First-hop interface is Loopback0
-    <b>Tracked by:
-        VRRP Vlan192 1</b>
-</pre>
+    Tracked by:
+        VRRP Vlan192 1
+```
 
 > **注意**：这些被追踪对象亦可与HSRP和GLBP配合使用。GLBP在下面的小节进行说明。
 
@@ -955,10 +955,10 @@ VTP-Server-4(config-if)#exit
 
 一旦该GLBP组已被配置，就可使用命令`show glbp brief`来查看该GLBP配置的摘要信息了，如同下面的输出所示：
 
-<pre>
+```
 VTP-Server-1#show glbp brief
 Interface   Grp  Fwd Pri State      Address         Active router   Standby router
-<b>Vl192       1    -   110 Active     192.168.1.254   local           192.168.1.4</b>
+Vl192       1    -   110 Active     192.168.1.254   local           192.168.1.4
 Vl192       1    1   -   Active     0007.b400.0101  local           -
 Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
 Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
@@ -966,7 +966,7 @@ Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
 
 VTP-Server-2#show glbp brief
 Interface   Grp  Fwd Pri State      Address         Active router   Standby router
-<b>Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4</b>
+Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4
 Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
 Vl192       1    2   -   Active     0007.b400.0102  local           -
 Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
@@ -974,7 +974,7 @@ Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
 
 VTP-Server-3#show glbp brief
 Interface   Grp  Fwd Pri State      Address         Active router   Standby router
-<b>Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4</b>
+Vl192       1    -   100 Listen     192.168.1.254   192.168.1.1     192.168.1.4
 Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
 Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
 Vl192       1    3   -   Active     0007.b400.0103  local           -
@@ -982,18 +982,18 @@ Vl192       1    4   -   Listen     0007.b400.0104  192.168.1.4     -
 
 VTP-Server-4#show glbp brief
 Interface   Grp  Fwd Pri State      Address         Active router   Standby router
-<b>Vl192       1    -   100 Standby    192.168.1.254   192.168.1.1     local</b>
+Vl192       1    -   100 Standby    192.168.1.254   192.168.1.1     local
 Vl192       1    1   -   Listen     0007.b400.0101  192.168.1.1     -
 Vl192       1    2   -   Listen     0007.b400.0102  192.168.1.2     -
 Vl192       1    3   -   Listen     0007.b400.0103  192.168.1.3     -
 Vl192       1    4   -   Active     0007.b400.0104  local           -
-</pre>
+```
 
 从上面的输出可以看出，基于`VTP-Server-1`（192.168.1.1）有着优先级值110, 该值高于所有其它网关的优先级值，而已被选举作为活动虚拟网关。网关`VTP-Server-4`（192.168.1.4）, 由于有着剩下三台网关中最高的IP地址，而就算这三台网关有着同样的优先级值，被选举作备份虚拟网关。因此网关`VTP-Server-2`与`VTP-Server-3`都被置于侦听状态了。
 
 命令`show glbp`将有关该GLBP组状态的详细信息打印了出来，下面对此命令的输出进行了演示：
 
-<pre>
+```
 VTP-Server-1#show glbp
 Vlan192 - Group 1
     State is Active
@@ -1003,50 +1003,50 @@ Vlan192 - Group 1
         Next hello sent in 1.465 secs
     Redirect time 600 sec, forwarder time-out 14400 sec
     Preemption disabled
-    <b>Active is local
+    Active is local
     Standby is 192.168.1.4, priority 100 (expires in 9.619 sec)
-    Priority 110 (configured)</b>
+    Priority 110 (configured)
     Weighting 100 (default 100), thresholds: lower 1, upper 100
     Load balancing: round-robin
-    <b>Group members:
+    Group members:
         0004.c16f.8741 (192.168.1.3)
         000c.cea7.f3a0 (192.168.1.2)
         0013.1986.0a20 (192.168.1.1) local
         0030.803f.ea81 (192.168.1.4)
     There are 4 forwarders (1 active)
     Forwarder 1
-        State is Active</b>
+        State is Active
             1 state change, last state change 02:52:12
         MAC address is 0007.b400.0101 (default)
         Owner ID is 0013.1986.0a20
         Redirection enabled
         Preemption enabled, min delay 30 sec
         Active is local, weighting 100
-    <b>Forwarder 2
+    Forwarder 2
         State is Listen
         MAC address is 0007.b400.0102 (learnt)
-        Owner ID is 000c.cea7.f3a0</b>
+        Owner ID is 000c.cea7.f3a0
         Redirection enabled, 599.299 sec remaining (maximum 600 sec)
         Time to live: 14399.299 sec (maximum 14400 sec)
         Preemption enabled, min delay 30 sec
         Active is 192.168.1.2 (primary), weighting 100 (expires in 9.295 sec)
-    <b>Forwarder 3
+    Forwarder 3
         State is Listen
         MAC address is 0007.b400.0103 (learnt)
-        Owner ID is 0004.c16f.8741</b>
+        Owner ID is 0004.c16f.8741
         Redirection enabled, 599.519 sec remaining (maximum 600 sec)
         Time to live: 14399.519 sec (maximum 14400 sec)
         Preemption enabled, min delay 30 sec
         Active is 192.168.1.3 (primary), weighting 100 (expires in 9.515 sec)
-    <b>Forwarder 4
+    Forwarder 4
         State is Listen
         MAC address is 0007.b400.0104 (learnt)
-        Owner ID is 0030.803f.ea81</b>
+        Owner ID is 0030.803f.ea81
         Redirection enabled, 598.514 sec remaining (maximum 600 sec)
         Time to live: 14398.514 sec (maximum 14400 sec)
         Preemption enabled, min delay 30 sec
         Active is 192.168.1.4 (primary), weighting 100 (expires in 8.510 sec)
-</pre>
+```
 
 当在活动虚拟网关上执行时，命令`show glbp`除了展示其它内容外，还会给出备份虚拟网关的地址和组中所有活动虚拟转发器的数目，以及由活动虚拟网关所指派给这些活动虚拟转发器的状态。同时还显示了各台活动虚拟转发器的虚拟MAC地址。
 

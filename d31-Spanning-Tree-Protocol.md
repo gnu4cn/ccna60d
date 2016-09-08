@@ -255,18 +255,18 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 **桥优先级是该交换机相对于其它交换机的优先级。**桥优先级取值范围是0到65535。思科Catalyst交换机的默认值为32768。
 
-<pre>
+```
 Switch2#show spanning-tree vlan 2
 
 VLAN0002
     Spanning tree enabled protocol ieee
-    <b>Root ID Priority    32768</b>
+    Root ID Priority    32768
                 Address     0009.7c87.9081
             Cost        19
             Port        1 (FastEthernet0/1)
             Hello Time  2 sec Max Age 20 sec Forward Delay 15 sec
     Bridge ID Priority  32770 (priority 32768 sys-id-ext 2)
-            <b>Address     0008.21a9.4f80</b>
+            Address     0008.21a9.4f80
             Hello Time  2 sec Max Age 20 sec Forward Delay 15 sec
             Aging Time  300
 
@@ -275,7 +275,7 @@ Name        Prior.Nbr   Cost    Sts Cost        Bridge ID       Prior.Nbr
 ----------  ---------   ----    --- ----------- --------------  ---------
 Fa0/1       128.1       19      FWD 0  32768    0009.7c87.9081  128.13
 Fa0/2       128.2       19      FWD 19  32770   0008.21a9.4f80  128.2
-</pre>
+```
 
 上面输出中的MAC地址是得自交换机背板或管理引擎的硬件地址（the hardware address derived from the switch backplane or supervisor engine， 又名为基底MAC地址，the base MAC address）。**在802.1D标准中，每个VLAN都需要一个唯一BID。**
 
@@ -330,33 +330,33 @@ Switch(config)#spanning-tree vlan 2 root ?
 
 *图31.6 -- 强制某台交换机成为根桥*
 
-<pre>
+```
 SwitchC#show spanning-tree vlan 5
 VLAN0005
 Spanning tree enabled protocol ieee
-Root ID  <b>Priority   0</b>
+Root ID  Priority   0
 Address  0000.0000.000c
-<b>This bridge is the root</b>
+This bridge is the root
 Bridge ID   Priority  0 (priority 0 sys-id-ext 5)
 SwitchD#show spanning-tree vlan 5
 VLAN0005
 Spanning tree enabled protocol ieee
-Root ID   <b>Priority  4096</b>
+Root ID   Priority  4096
 Address  0000.0000.000d
 Bridge ID   Priority  4096 (priority 8192 sys-id-ext 5)
 SwitchD#show spanning-tree vlan 5
 VLAN0005
 Spanning tree enabled protocol ieee
-Root ID   <b>Priority  4096</b>
+Root ID   Priority  4096
 Address  0000.0000.000d
 Bridge ID   Priority  4096 (priority 8192 sys-id-ext 5)
-</pre>
+```
 
 注意到VLAN编号通常会被加到优先级数字上，如下面的输出展示的那样。
 
-<pre>
+```
 SwitchA#show spanning-tree vlan 5
-Bridge ID   Priority <b>32773</b> (priority 32768 sys-id-ext 5)
+Bridge ID   Priority 32773 (priority 32768 sys-id-ext 5)
 Address 0013.c3e8.2500
 Hello Time  2 sec Max Age 20 sec Forward Delay 15 sec
 Aging Time 300
@@ -364,7 +364,7 @@ Interface  Role  Sts    Cost   Prio.Nbr  Type
 ---------  ----  ----   ----   --------  ----
 Fa0/15     Desg  FWD    19     128.15    P2p
 Fa0/18     Desg  FWD    19     128.18    P2
-</pre>
+```
 
 ##生成树开销及优先级
 
@@ -394,23 +394,23 @@ Fa0/18     Desg  FWD    19     128.18    P2
 
 在思科IOS Catalyst交换机中，可通过执行`show spanning-tree interface [name]`查看默认端口开销值，如下面的输出中演示的那样，该输出展示了一个FastEthernet接口的默认短整数端口开销。
 
-<pre>
+```
 
-VTP-Server#<b>show spanning-tree interface FastEthernet0/2</b>
-Vlan        Role    Sts    <b>Cost</b>    Prio.Nbr    Type
+VTP-Server#show spanning-tree interface FastEthernet0/2
+Vlan        Role    Sts    Cost    Prio.Nbr    Type
 ----        ----    ---    ----    --------    ----
-VLAN0050    Desg    FWD    <b>19</b>      128.2       P2p
-</pre>
+VLAN0050    Desg    FWD    19      128.2       P2p
+```
 
 下面的输出显示了同样的长整数端口开销分配（the following output shows the same for long port cost assignment）。
 
-<pre>
+```
 
-VTP-Server#<b>show spanning-tree interface FastEthernet0/2</b>
-Vlan        Role    Sts    <b>Cost</b>    Prio.Nbr    Type
+VTP-Server#show spanning-tree interface FastEthernet0/2
+Vlan        Role    Sts    Cost    Prio.Nbr    Type
 ----        ----    ---    ----    --------    ----
-VLAN0050    Desg    FWD    <b>200000</b>      128.2       P2p
-</pre>
+VLAN0050    Desg    FWD    200000      128.2       P2p
+```
 
 重要的是记住带有更低的（数值）开销的端口是更为首选的端口；端口开销越低，那个特定端口被选举为根端口的可能性就越高（the lower the port cost, the higher the probability of that particular port being elected the Root Port）。**端口开销全局重要，并影响整个生成树网络。**该数值被配置在生成树域中的所有非根交换机上（on all Non-Root Switches in the Spanning Tree domain）。
 
@@ -722,7 +722,7 @@ STP故障通常有以下三类（STP issues usually fall within the following th
 
 2. 在将一侧设置为中继链路之前，可能看不到中继链路变成活动的。
 
-<pre>
+```
 SwitchB#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 SwitchB(config)#int FastEthernet0/1
@@ -730,24 +730,24 @@ SwitchB(config-if)#switchport mode trunk
 SwitchB(config-if)#^Z
 SwitchB#sh int trunk
 Port    Mode        Encapsulation   Status      Native vlan
-Fa0/1   <b>on</b>   802.1q          trunking    1
+Fa0/1   on   802.1q          trunking    1
 Port    Vlans allowed on trunk
 Fa0/1   1-1005
 Port    Vlans allowed and active in management domain
 Fa0/1   1
-</pre>
+```
 
 3. 将看到另一交换机是留作自动模式的。
 
-<pre>
+```
 SwitchA#show int trunk
 Port    Mode        Encapsulation   Status      Native vlan
-Fa0/1   <b>auto</b> n-802.1q        trunking    1
+Fa0/1   auto n-802.1q        trunking    1
 Port    Vlans allowed on trunk
 Fa0/1   1-1005
 Port    Vlans allowed and active in management domain
 Fa0/1   1
-</pre>
+```
 
 4. 在每台交换机上创建出两个VLANs。
 
@@ -780,13 +780,13 @@ VLAN Name                   Status      Ports
 
 5. 确定哪台交换机是VLANs 2和3的根桥。
 
-<pre>
+```
 SwitchB#show spanning-tree vlan 2
 VLAN0002
     Spanning tree enabled protocol ieee
-    Root ID     <b>Priority</b>    <b>32770</b>
+    Root ID     Priority    32770
                 Address 0001.972A.7A23
-                <b>This bridge is the root</b>
+                This bridge is the root
                 Hello Time  2 sec
                 Max Age     20 sec  Forward Delay 15 sec
     Bridge ID   Priority    32770 (priority 32768 sys-id-ext 2)
@@ -796,17 +796,17 @@ VLAN0002
 Interface           Role  Sts  Cost      Prio.Nbr Type
 ---------           ----  ---  ----      -------- ----
 Fa0/1               Desg  FWD  19        128.1    P2p
-</pre>
+```
 
 可以看到，Switch B是根。在交换机A上完成同样的命令，并对VLAN 3进行检查。优先级是32768加上VLAN编号，这里就是2.最低MAC地址将确定出根桥。
 
-<pre>
+```
 SwitchB#show spanning-tree vlan 3
 VLAN0003
     Spanning tree enabled protocol ieee
     Root ID     Priority    32771
                 Address 0001.972A.7A23
-                <b>This bridge is the root</b>
+                This bridge is the root
                 Hello Time  2 sec   Max Age 20 sec  Forward Delay 15 sec
     Bridge ID   Priority    32771 (priority 32768 sys-id-ext 3)
                 Address 0001.972A.7A23
@@ -815,21 +815,21 @@ VLAN0003
 Interface           Role  Sts  Cost       Prio.Nbr Type
 ----------          ----  ---  ----       -------- ----
 Fa0/1               Desg  FWD  19         128.1    P2p
-</pre>
+```
 
 这里Switch A的MAC地址较高，这就是为何其不会成为根桥的原因：`0010：1123：D245`
 
 6. 将另一个交换机设置为VLANs 2和3的根桥。对VLAN 2使用命令`spanning-tree vlan 2 priority 4096`，以及对VLAN 3的`spanning-tree vlan 3 root primary`命令。
 
-<pre>
+```
 SwitchA(config)#spanning-tree vlan 2 priority 4096
 SwitchA(config)#spanning-tree vlan 3 root primary
 SwitchA#show spanning-tree vlan 2
 VLAN0002
     Spanning tree enabled protocol ieee
-    Root ID     <b>Priority     4098</b>
+    Root ID     Priority     4098
                 Address         0010.1123.D245
-                <b>This bridge is the root</b>
+                This bridge is the root
                 Hello Time      2 sec   Max Age 20 sec  Forward Delay 15 sec
     Bridge ID   Priority        4098  (priority 4096 sys-id-ext 2)
                 Address         0010.1123.D245
@@ -843,7 +843,7 @@ VLAN0003
     Spanning tree enabled protocol ieee
     Root ID    Priority    24579
                Address     0010.1123.D245
-               <b>This bridge is the root</b>
+               This bridge is the root
                Hello Time  2 sec    Max Age 20 sec  Forward Delay 15 sec
 Bridge ID      Priority    24579 (priority 24576 sys-id-ext 3)
                Address     0010.1123.D245
@@ -853,6 +853,6 @@ Interface          Role  Sts  Cost        Prio.Nbr Type
 ---------          ----  ---  ----        -------- ----
 Fa0/1              Desg  FWD  19          128.1    P2p
 SwitchA#
-</pre>
+```
 
 >**注意：**尽管Switch B有较低的桥ID，Switch A还是被强制作为根桥。

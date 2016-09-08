@@ -119,15 +119,15 @@ OSPF对不同传输介质，采用不同默认组网类型，有下面这些组�
 
 在思科IOS软件中，非广播类型网络上开启OSPF的路由器，默认每30秒发出Hello数据包。若4个Hello间隔，也就是120秒中都没有收到Hello数据包，那么该邻居路由器就被认为”死了“。下面的输出演示了在一个帧中继串行接口上`show ip ospf interface`命令的输出。
 
-<pre>
+```
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
-	Process ID 2, Router ID 2.2.2.2, <b>Network Type NON_BROADCAST,</b> Cost: 64
-	Transmit Delay is 1 sec, <b>State DR</b>, Priority 1
-	<b>Designated Router (ID) 2.2.2.2, Interface address 150.1.1.2
+	Process ID 2, Router ID 2.2.2.2, Network Type NON_BROADCAST, Cost: 64
+	Transmit Delay is 1 sec, State DR, Priority 1
+	Designated Router (ID) 2.2.2.2, Interface address 150.1.1.2
 	Backup Designated Router (ID) 1.1.1.1, Interface address 150.1.1.1
-	Timer intervals configured, Hello 30, Dead 120,</b> Wait 120, Retransmit 5
+	Timer intervals configured, Hello 30, Dead 120, Wait 120, Retransmit 5
 		oob-resync timeout 120
 		Hello due in 00:00:00
 	Supports Link-local Signaling (LLS)
@@ -135,20 +135,20 @@ Serial0/0 is up, line protocol is up
 	Next 0x0(0)/0x0(0)
 	Last flood scan length is 2, maximum is 2
 	Last flood scan time is 0 msec, maximum is 0 msec
-	<b>Neighbor Count is 1, Adjacent neighbor count is 1
-		Adjacent with neighbor 1.1.1.1 (Backup Designated Router)</b>
+	Neighbor Count is 1, Adjacent neighbor count is 1
+		Adjacent with neighbor 1.1.1.1 (Backup Designated Router)
 	Suppress Hello for 0 neighbor(s)
-</pre>
+```
 
 一条点对点连接（a Point-to-Point(P2P) connection）, 就是一条简单的两个端结点之间的连接。P2P连接的实例包括采用HDLC及PPP封装的物理WAN接口，以及FR和ATM的点对点子接口。在OSPF点对点组网类型中，不会选举DR和BDR。在P2P类型网络上，OSPF每10秒发出Hello数据包。在这些网络上，”死亡“间隔是Hello间隔的4倍，也就是40秒。下面的输出演示了在一条P2P链路上的`show ip ospf interface`命令的输出。
 
-<pre>
+```
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
-	Process ID 2, Router ID 2.2.2.2, <b>Network Type POINT_TO_POINT,</b> Cost: 64
-	Transmit Delay is 1 sec, <b>State POINT_TO_POINT
-	Timer intervals configured, Hello 10, Dead 40, Wait 40,</b> Retransmit 5
+	Process ID 2, Router ID 2.2.2.2, Network Type POINT_TO_POINT, Cost: 64
+	Transmit Delay is 1 sec, State POINT_TO_POINT
+	Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
 		oob-resync timeout 40
 		Hello due in 00:00:03
 	Supports Link-local Signaling (LLS)
@@ -156,22 +156,22 @@ Serial0/0 is up, line protocol is up
 	Next 0x0(0)/0x0(0)
 	Last flood scan length is 1, maximum is 1
 	Last flood scan time is 0 msec, maximum is 0 msec
-	<b>Neighbor Count is 1, Adjacent neighbor count is 1
-		Adjacent with neighbor 1.1.1.1</b>
+	Neighbor Count is 1, Adjacent neighbor count is 1
+		Adjacent with neighbor 1.1.1.1
 	Suppress Hello for 0 neighbor(s)
-</pre>
+```
 
 广播类型网络，是指那些原生支持广播和多播流量的网络，最常见例子就是以太网了。就如同在非广播网络中一样，OSPF也会在广播网络上选举一台DR及/或BDR。默认情况下，OSPF每隔10秒发出Hello数据包，而如在4倍Hello间隔中没有收到Hello数据包，就宣告邻居”死亡“。下面的输出演示了在一个FastEthernet接口上‘show ip ospf interface’命令的输出。
 
-<pre>
+```
 R2#show ip ospf interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	Internet Address 192.168.1.2/24, Area 0
-	Process ID 2, Router ID 2.2.2.2, <b>Network Type BROADCAST</b>, Cost: 64
-	Transmit Delay is 1 sec, <b>State BDR</b>, Priority 1
-	<b>Designated Router (ID) 192.168.1.3, Interface address 192.168.1.3
+	Process ID 2, Router ID 2.2.2.2, Network Type BROADCAST, Cost: 64
+	Transmit Delay is 1 sec, State BDR, Priority 1
+	Designated Router (ID) 192.168.1.3, Interface address 192.168.1.3
 	Backup Designated Router (ID) 2.2.2.2, Interface address 192.168.1.2
-	Timer intervals configured, Hello 10, Dead 40, Wait 40,</b> Retransmit 5
+	Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
 		oob-resync timeout 40
 		Hello due in 00:00:04
 	Supports Link-local Signaling (LLS)
@@ -179,10 +179,10 @@ FastEthernet0/0 is up, line protocol is up
 	Next 0x0(0)/0x0(0)
 	Last flood scan length is 1, maximum is 1
 	Last flood scan time is 0 msec, maximum is 0 msec
-	<b>Neighbor Count is 1, Adjacent neighbor count is 1
-		Adjacent with neighbor 192.168.1.3 (Designated Router)</b>
+	Neighbor Count is 1, Adjacent neighbor count is 1
+		Adjacent with neighbor 192.168.1.3 (Designated Router)
 	Suppress Hello for 0 neighbor(s)
-</pre>
+```
 
 点对多点是一种非默认OSPF组网（a non-default OSPF network type）。也就是说，此种组网类型必须使用接口配置命令`ip ospf network point-to-point-multicast [non-broadcast]`手动进行配置。默认情况下，该命令默认应用于一个广播型点对多点类型网络（this command defaults to a Broadcast Point-to-Point Multipoint network type）。该默认组网类型允许OSPF采用多播数据包来动态地发现其邻居路由器。此外在多播型点对多点网络类型上，不进行DR/BDR选举。
 
@@ -192,13 +192,13 @@ FastEthernet0/0 is up, line protocol is up
 
 下面的输出演示了在一个经手动配置为点对多点网络的帧中继串行接口上的`show ip ospf interface`命令的输出。
 
-<pre>
+```
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
-	Process ID 2, Router ID 2.2.2.2, <b>Network Type POINT_TO_MULTIPOINT</b>, Cost: 64
-	Transmit Delay is 1 sec, <b>State POINT_TO_MULTIPOINT</b>
-	<b>Timer intervals configured, Hello 30, Dead 120,</b> Wait 120, Retransmit 5
+	Process ID 2, Router ID 2.2.2.2, Network Type POINT_TO_MULTIPOINT, Cost: 64
+	Transmit Delay is 1 sec, State POINT_TO_MULTIPOINT
+	Timer intervals configured, Hello 30, Dead 120, Wait 120, Retransmit 5
 		oob-resync timeout 120
 		Hello due in 00:00:04
 	Supports Link-local Signaling (LLS)
@@ -206,10 +206,10 @@ Serial0/0 is up, line protocol is up
 	Next 0x0(0)/0x0(0)
 	Last flood scan length is 1, maximum is 2
 	Last flood scan time is 0 msec, maximum is 0 msec
-	<b>Neighbor Count is 1, Adjacent neighbor count is 1
-		Adjacent with neighbor 1.1.1.1</b>
+	Neighbor Count is 1, Adjacent neighbor count is 1
+		Adjacent with neighbor 1.1.1.1
 	Suppress Hello for 0 neighbor(s)
-</pre>
+```
 
 OSPF要求链路上两台路由器组网类型一致（一致的意思是两台路由器要么都进行选举要么都不进行选举）的主要原因在于计时器的数值。就像上面各个输出中演示的那样，不同组网类型采用了不同Hello数据包发送及死亡计时器间隔。为成功建立一个OSPF邻接关系，在两台路由器上这些数值必须匹配。
 
@@ -223,18 +223,18 @@ R2(config-if)#exit
 
 通过在上面的R2上将Hello数据包间隔设置为1, 思科IOS软件就会自动的将默认死亡计时器调整为Hello间隔的4倍，就是4秒。下面的输出对此进行了演示。
 
-<pre>
+```
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 10.0.2.4/24, Area 2
 	Process ID 4, Router ID 4.4.4.4, Network Type POINT_TO_POINT, Cost: 64
 	Transmit Delay is 1 sec, State POINT_TO_POINT
-	<b>Timer intervals configured, Hello 1, Dead 4,</b> Wait 4, Retransmit 5
+	Timer intervals configured, Hello 1, Dead 4, Wait 4, Retransmit 5
 		oob-resync timeout 40
 		Hello due in 00:00:00
 ...
 [Truncated Output]
-</pre>
+```
 
 ##配置OSPF
 
@@ -274,12 +274,12 @@ R3(config-router)#exit
 
 基于此配置，思科IOS软件分配给该进程一个默认`0.0.0.0`的路由器ID，如下面`show ip protocols`命令的输出所示。
 
-<pre>
+```
 R3#show ip protocols
 Routing Protocol is “ospf 1”
 	Outgoing update filter list for all interfaces is not set
 	Incoming update filter list for all interfaces is not set
-	<b>Router ID 0.0.0.0</b>
+	Router ID 0.0.0.0
 	Number of areas in this router is 0. 0 normal 0 stub 0 nssa
 	Maximum path: 4
 	Routing for Networks:
@@ -288,7 +288,7 @@ Reference bandwidth unit is 100 mbps
 	  Gateway	Distance	Last Update
 	Distance: (default is 110)
 ```
-</pre>
+```
 
 但是，命令`show ip ospf [process id]`揭示出该进程实际上并不是活动的，且表明需要配置一个路由器ID， 其输出如下面所示。
 
@@ -367,7 +367,7 @@ Lo3 		1 	3 		10.1.1.1/32 	1 		LOOP	0/0
 
 在下面的路由器上，给Loopback0配置了IP地址1.1.1.1/32, 给F0/0配置了2.2.2.2/24。接着在路由器上给所有接口配置了OSPF。
 
-<pre>
+```
 Router(config-if)#router ospf 1
 Router(config-router)#net 0.0.0.0 255.255.255.255 area 0
 Router(config-router)#end
@@ -377,7 +377,7 @@ Router#show ip protocols
 Routing Protocol is “ospf 1”
 	Outgoing update filter list for all interfaces is not set
 	Incoming update filter list for all interfaces is not set
-	<b>Router ID 1.1.1.1</b>
+	Router ID 1.1.1.1
 	Number of areas in this router is 1. 1 normal 0 stub 0 nssa
 	Maximum path: 4
 	Routing for Networks:
@@ -386,12 +386,12 @@ Routing Protocol is “ospf 1”
 	Gateway 	Distance	Last Update
 	1.1.1.1 	     110	00:00:14
 	Distance: (default is 110)
-</pre>
+```
 
 
 但又想要将路由器ID硬编码（hard code）为`10.10.10.1`。那么可通过再配置一个使用该IP地址的环回接口，或简单地将这个IP地址加在OSPF路由器ID处。**为令到改变生效，必须重启路由器或在路由器上清除该IP OSPF进程**（清除现有数据库）。
 
-<pre>
+```
 Router#conf t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -407,7 +407,7 @@ Router#show ip prot
 Routing Protocol is “ospf 1”
 	Outgoing update filter list for all interfaces is not set
 	Incoming update filter list for all interfaces is not set
-	<b>Router ID 10.10.10.1</b>
+	Router ID 10.10.10.1
 	Number of areas in this router is 1. 1 normal 0 stub 0 nssa
 	Maximum path: 4
 	Routing for Networks:
@@ -416,7 +416,7 @@ Routing Protocol is “ospf 1”
 	Gateway 	Distance	Last Update
 	1.1.1.1 	     110	00:03:15
 Distance: (default is 110)
-</pre>
+```
 
 到第39天，**DR和BDR选举时，就将看到这个路由器ID有着特别的重要性**。
 
@@ -428,7 +428,7 @@ Distance: (default is 110)
 
 被动接口配置在OSPF和EIGRP中的工作方式是一样的，也就是一旦某接口被标记为被动接口，经由该接口形成的所有邻居关系都会被拆除，同时再也不会通过该接口发送或接收Hello数据包了。不过，根据路由器上所配置的网络配置语句，该接口仍然会继续受通告。
 
-<pre>
+```
 Router(config)#router ospf 10
 Router(config-router)#passive-interface f0/0
 Router#show ip ospf int f0/0
@@ -439,8 +439,8 @@ FastEthernet0/0 is up, line protocol is up
 	No designated router on this network
 	No backup designated router on this network
 	Timer intervals configured,Hello 10, Dead 40, Wait 40,Retransmit 5
-		<b>No Hellos (Passive interface)</b>
-</pre>
+		No Hellos (Passive interface)
+```
 
 ##第12天问题
 

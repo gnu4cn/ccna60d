@@ -154,7 +154,7 @@ Code: * - installed in RIB
 2. 通过串行链路进行ping操作，以确保该链路是工作的。
 3. 在Router A上指定一条静态路由，将到10.1.1.0/10网络的所有流量，从串行接口发送出去。当然要使用你自己的串行端口编号；不要只是拷贝我的配置，你的接口有不同编号！
 
-<pre>
+```
 RouterA(config)#ip route 10.0.0.0 255.192.0.0 Serial0/1/0
 RouterA(config)#exit
 RouterA#ping 10.1.1.1
@@ -173,7 +173,7 @@ Codes: 	C - Connected, S - Static, I - IGRP, R - RIP, M - Mobile, B - BGP
 		P - Periodic downloaded static route
 Gateway of last resort is not set
 	  10.0.0.0/10 is subnetted, 1 subnets
-S		  <b>10.0.0.0</b> is directly connected, Serial0/1/0
+S		  10.0.0.0 is directly connected, Serial0/1/0
 	  172.16.0.0/24 is subnetted, 1 subnets
 C		  172.16.1.0 is directly connected, Loopback0
 	  192.168.1.0/30 is subnetted, 1 subnets
@@ -183,14 +183,14 @@ RouterA#show ip route 10.1.1.1
 Routing entry for 10.0.0.0/10
 Known via “static”, distance 1, metric 0 (connected)
   Routing Descriptor Blocks:
-  <b>* directly connected, via Serial0/1/0</b>
+  * directly connected, via Serial0/1/0
 		Route metric is 0, traffic share count is 1
 RouterA#
-</pre>
+```
 
 4. 在Router B上配置一条静态路由，将到172.16.1.0/24网络的所有流量，发到下一跳地址192.168.1.1。
 
-<pre>
+```
 RouterB(config)#ip route 172.16.1.0 255.255.255.0 192.168.1.1
 RouterB(config)#exit
 RouterB#ping 172.16.1.1
@@ -201,7 +201,7 @@ RouterB#show ip route 172.16.1.1
 Routing entry for 172.16.1.0/24
 Known via “static”, distance 1, metric 0
   Routing Descriptor Blocks:
-  <b>* 192.168.1.1</b>
+  * 192.168.1.1
 	  Route metric is 0, traffic share count is 1
 RouterB#
-</pre>
+```

@@ -381,7 +381,7 @@ access-list 101 deny tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq telnet
 
 在配置命名ACLs时的另一不同之处，就是必须一直使用命令`ip access-list`，这与编号ACLs可以只使用简单的`access-list`命令，是不一样的。
 
-<pre>
+```
 Router(config)#access-list ?
 	<1-99>				IP standard access list
 	<100-199>			IP extended access list
@@ -400,12 +400,12 @@ Router(config)#ip access-list ?
 	standard	Standard access list
 R1(config)#ip access-list standard ?
 	<1-99>	Standard IP access-list number<1300-1999> Standard IP access-list number (expanded range)
-	<b>WORD		Access-list name</b>
+	WORD		Access-list name
 R1(config)#ip access-list extended ?
 	<100-199>	Extended IP access-list number
 	<2000-2699>	Extended IP access-list number (expanded range)
-	<b>WORD 	Access-list name</b>
-</pre>
+	WORD 	Access-list name
+```
 
 命名ACLs在语法上与其它类型的ACLs（也就是标准和扩展的编号ACLs）有着轻微的不同。同时也**可以编辑活动的命名ACLs**, 这是一个有用的特性。只需简单地告诉路由器要配置一条命名ACL， 而不管它是标准的还是扩展的。在较新的IOS版本上，也可以编辑编号ACLs，所以请检查所用的平台。
 
@@ -572,12 +572,12 @@ Router(config-std-nacl)#
 
 默认情况下，通过那些为某个接口的数据包所匹配上的ACL条目，会创建出一个不断增大的计数器，该计数器可使用`show ip access-list`命令进行查看，如下面的例子所示。
 
-<pre>
+```
 Router#show ip access-lists
 Extended IP access list test
-	10 deny tcp any any eq 80 <b>(10 matches)</b>
-	20 permit ip any any <b>(56 matches)</b>
-</pre>
+	10 deny tcp any any eq 80 (10 matches)
+	20 permit ip any any (56 matches)
+```
 
 而如果需要更详细的有关那些为ACL条目所匹配的流量信息，可以给相关的ACL条目配置`log`或`log-input`参数。
 
@@ -663,12 +663,12 @@ access-class VTY_ACCESS in
 
 可使用命令`show ip access-list` 或 `show access-list`命令， 查看ACL全局统计信息，这两个命令又可以仅查看某个特定编号ACL或命名ACL的全局统计信息。
 
-<pre>
+```
 Router#show ip access-lists
 Extended IP access list test
-	10 deny tcp any any eq 80 <b>(10 matches)</b>
-	20 permit ip any any <b>(56 matches)</b>
-</pre>
+	10 deny tcp any any eq 80 (10 matches)
+	20 permit ip any any (56 matches)
+```
 
 在将某同一ACL重用到不同接口上时，这种方式并不会提供到十分特定的信息，因为它给出的是整体统计信息。
 
@@ -825,16 +825,16 @@ RouterA#
 
 3. 现在，从路由器B上做一个Telnet测试。首先往路由器A的串行接口上Telnet，将会被阻止。接着测试环回接口。
 
-<pre>
+```
 RouterB#telnet 10.0.0.1
 Trying 10.0.0.1 ...
 % Connection timed out; remote host not responding
 RouterB#telnet 172.20.1.1
 Trying 172.20.1.1 ...Open
-User Access Verification <b>←password won’t show when you type it</b>
+User Access Verification ←password won’t show when you type it
 Password:
-RouterA> <b>←Hit Control+Shift+6 together and then let go and press the X key to quit.</b>
-</pre>
+RouterA> ←Hit Control+Shift+6 together and then let go and press the X key to quit.
+```
 
 >**注意：**我们会在其它实验中涉及ACLs，但你真的需要完全地掌握这些内容。为此，要尝试其它的TCP端口，比如80、25等等。另外，要试试那些UDP端口，比如53。如没有将一台PC接上路由器，则是无法对这些其它端口进行测试的。
 
