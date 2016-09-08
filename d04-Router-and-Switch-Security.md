@@ -129,20 +129,20 @@ Trying 192.168.1.2 ...Open
 
 使能口令是未加密的，所以在路由器配置中可以看到。而使能秘密有 5 级加密(level 5 encryption, MD5)，难于破解。自 15.0(1）S 后的较新 IOS 版本中，还可以使用比 MD5 加密高级的 4 级加密（level 4 encryption, SHA256）, 5 级加密最终会不赞成使用。你可以给使能口令加上命令 `service password-encryption`, 但因为此方式使用 7 级加密(level 7 encryption, 比如，低安全性；思科称其为“背后安全性，over the shoulder security”, 因其仅需某人从你背后偷看并记住一个稍难的词组，便可以用网上的 7 级口令解密工具予以破解)，而很容易被破解。下面的输出中可以看到 7 级与 5 级加密文本。
 
-<pre>
+```
 Router(config)#enable password cisco
 Router(config)#exit
 Router#show run
-<b>enable password cisco</b>
+enable password cisco
 Router(config)#enable password cisco
 Router(config)#service password-encryption
 Router#show run
-<b>enable password 7 0822455D0A16</b>
+enable password 7 0822455D0A16
 Router(config)#enable secret cisco
 Router(config)#exit
 Router#show run
-<b>enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0</b>
-</pre>
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+```
 
 记住如你忘记了使能口令，你将不得不对路由器或交换机进行一下**口令恢复操作**。请用 Google 搜索你所使用的型号，因为型号不同其口令恢复过程也不一样。对于路由器来说，涉及
 
@@ -175,7 +175,7 @@ RouterA(config)#exit
 
 思科路由器有可供配置的 16 种（0 到 15）不同特权级别，其中 15 级是完全的访问权限，如下所示。
 
-<pre>
+```
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#username support privilege 4 password soccer
@@ -185,22 +185,22 @@ RouterA(config)#privilege exec level 4 traceroute
 RouterA(config)#privilege exec level 4 show ip interface brief
 RouterA(config)#line console 0
 RouterA(config-line)#password basketball
-RouterA(config-line)#login local <b>←  password is needed</b>
+RouterA(config-line)#login local ←  password is needed
 RouterA(config-line)#^z
-</pre>
+```
 
 支持那人在登入到路由器并尝试进入配置模式时，此命令及其它命令将不可用且无效，也不能看到。
 
-<pre>
+```
 RouterA con0 is now available
 Press RETURN to get started.
 User Access Verification
 Username: support
 Password:
-RouterA#config t <b>←  not allowed to use this</b>
+RouterA#config t ←  not allowed to use this
             ^
 % Invalid input detected at ‘^’ marker.
-</pre>
+```
 
 你可在路由器提示符下查看默认的不同特权级别(the default privilege levels)。
 
@@ -226,18 +226,18 @@ Router#
 
 路由器提供事件记录的能力。它们可将日志消息照你的意愿，发送到屏幕或某台服务器。你应该记录路由器消息，而又**有 8 个可用的日志记录严重程度级别**（考试要求你知道这些不同的级别），如下面输出中的粗体字所示。
 
-<pre>
+```
 logging buffered ?
 `<0-7>`Logging severity level
-<b>alerts</b>—Immediate action needed (severity=1)
-<b>critical</b>—Critical conditions (severity=2)
-<b>debugging</b>—Debugging messages (severity=7)
-<b>emergencies</b>—System is unusable (severity=0)
-<b>errors</b>—Error conditions (severity=3)
-<b>informational</b>—Informational messages (severity=6)
-<b>notifications</b>—Normal but significant conditions (severity=5)
-<b>warnings</b>—Warning conditions (severity=4)
-</pre>
+alerts—Immediate action needed (severity=1)
+critical—Critical conditions (severity=2)
+debugging—Debugging messages (severity=7)
+emergencies—System is unusable (severity=0)
+errors—Error conditions (severity=3)
+informational—Informational messages (severity=6)
+notifications—Normal but significant conditions (severity=5)
+warnings—Warning conditions (severity=4)
+```
 
 而你有可以将这些日志消息发往几个不同的地方。
 
@@ -305,7 +305,7 @@ Router(config)#exit
 
 要开启 SSH， 你需要有一个支持加密的 IOS 版本。一种快速找出 IOS 镜像是否支持加密的方法是执 `show version` 命令。查找镜像文件名中有无 `k9` 字样，或者在思科系统公司的安全性声明中查找有关字句。
 
-<pre>
+```
 Switch#sh version
 Cisco IOS Software, C3560 Software (C3560-ADVIPSERVICES K9-M), Version
 12.2(35)SE1, RELEASE SOFTWARE (fc1)
@@ -318,9 +318,9 @@ SOFTWARE (fc4)
 Switch uptime is 1 hour, 8 minutes
 System returned to ROM by power-on
 
-System image file is “flash:/c3560-advipservices<b>k9</b>-mz.122-35.SE1.bin”
+System image file is “flash:/c3560-advipservicesk9-mz.122-35.SE1.bin”
 
-<b>This product contains cryptographic features</b> and is subject to United States and local
+This product contains cryptographic features and is subject to United States and local
 country laws governing import, export, transfer and use. Delivery of Cisco cryptographic
 products does not imply third-party authority to import, export, distribute or use
 encryption. Importers, exporters, distributors and users are responsible for compliance
@@ -331,7 +331,7 @@ products may be found at:
 http://www.cisco.com/wwl/export/crypto/tool/stqrg.html
 If you require further assistance please contact us by sending email to export@cisco.com.
 --More-
-</pre>
+```
 
 > **注意:** 如你没有带有安全特性版本的 IOS，你就必须为此付费购买。
 
@@ -380,9 +380,9 @@ Switch#
 
 查看交换机上 HTTP 服务器的状态。
 
-<pre>
+```
 Switch#show ip http server status
-HTTP server status: <b>Disabled</b>
+HTTP server status: Disabled
 HTTP server port: 80
 HTTP server authentication method: enable
 HTTP server access class: 0
@@ -398,7 +398,7 @@ HTTP secure server ciphersuite: 3des-ede-cbc-sha des-cbc-sha rc4-128-md5 rc4-12
 HTTP secure server client authentication: Disabled
 HTTP secure server trustpoint:
 HTTP secure server active session modules: ALL
-</pre>
+```
 
 还可以在 VTY 线路上应用控制列表（an access control list, ACL）。在第 9 天的课程将会讲到。
 
@@ -408,28 +408,28 @@ HTTP secure server active session modules: ALL
 
 上面已经提到，你实际上可以在交换机或路由器上同时设置使能口令（a password）和使能秘密口令（enable secret password）,但这会带来混乱。所以**请只设置使能秘密口令**就好。下面的配置文件演示了**通过在命令前键入 `do` 关键字，而无需回到特权模式，就可执行该命令**的情形。
 
-<pre>
+```
 Switch1(config)#enable password cisco
 Switch1(config)#do show run
 Building configuration...
 Current configuration: 1144 bytes
 hostname Switch1
-<b>enable password cisco</b>
-</pre>
+enable password cisco
+```
 
 > Farai 补充道 -- “你可以使用 `service password-encryption` 命令，对使能口令 `enable password` 进行 7 级加密。”
 
 通过在命令前加上 `no` 关键字后再次执行该命令，可以擦除配置文件中的大多数行。上面 Farai 提到的使用 `service password-encryption` 命令是毫无作用的，因为这个方法仅提供了弱加密（7 级）， 而下面的秘密口令（the secret password）则有着强加密（MD5）。
 
-<pre>
+```
 Switch1(config)#no enable password
 Switch1(config)#enable secret cisco
 Switch1(config)#do show run
 Building configuration...
 Current configuration: 1169 bytes
 hostname Switch1
-<b>enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0</b> [strong level 5 password]
-</pre>
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0 [strong level 5 password]
+```
 
 
 ### 服务，Services
@@ -490,7 +490,7 @@ udp-small-servers       Enable small UDP servers (e.g., ECHO)
 
 你可以使用下面输出中演示的命令（在每个接口下执行的），来查看原生 VLAN。
 
-<pre>
+```
 Switch#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -500,9 +500,9 @@ Administrative Trunking Encapsulation: dot1q
 Operational Trunking Encapsulation: dot1q
 Negotiation of Trunking: On
 Access Mode VLAN: 1 (default)
-<b>Trunking Native Mode VLAN: 1 (default)</b>
+Trunking Native Mode VLAN: 1 (default)
 Voice VLAN: none
-</pre>
+```
 
 **将端口放入 VLAN 1 被认为是一种安全漏洞（a security vulnerability）**, 允许黑客取得网络资源的访问。为减轻此问题，避免任何主机放入 VLAN 1 是一种明智可取的做法。同时也可将所有中继接口上的原生 VLAN 修改为某个未使用的 VLAN。
 
@@ -617,7 +617,7 @@ Switch1(config)#
 
 默认下的交换机允许所有 VLANs 通过中继链路。你将其修改为指定 VLANs 才能通过中继链路。如下面的输出所示。
 
-<pre>
+```
 Switch1(config)#int FastEthernet0/4
 Switch1(config-if)#switchport mode trunk
 Switch1(config-if)#switchport trunk allowed vlan ?
@@ -632,8 +632,8 @@ Switch1#show interface trunk
 Port        Mode    Encapsulation   Status      Native vlan
 Fa0/4       on      802.1q          trunking    1
 Port        Vlans allowed on trunk
-<b>Fa0/4       7-12</b>
-</pre>
+Fa0/4       7-12
+```
 
 ### 端口因出错关闭后的恢复功能，Error Disable Recovery
 
@@ -641,11 +641,11 @@ Port        Vlans allowed on trunk
 
 出错关闭端口(an err-disabled port）看起来会是这样的。
 
-<pre>
+```
 Switch# show interface f0/1
-FastEthernet0/1 is down, line protocol is down <b>[err-disabled]</b>
+FastEthernet0/1 is down, line protocol is down [err-disabled]
 .....
-</pre>
+```
 
 
 而为了重新使用（re-activate）某个出错关闭接口，以在该接口上执行 `shutdown` 及 `no shutdown` 命令的人工干预是必要的, 网络工程师们俗称此操作为端口弹跳(a bouncing the port)。但是，某些情形要求从原端口状态自动恢复过来，而不是等到管理员手动开启该端口。此出错关闭回复模式，通过将交换机配置为在依引发通信失败事件的不同，而不同的一段时间后，自动重新打开出错关闭端口的方式，来发挥作用。区分通信失败事件，提供了出错关闭恢复功能所监测事件上的粒度（granularity）控制。
@@ -685,7 +685,7 @@ Switch(config)#errdisable recovery interval ?
 
 而命令 `show errdisable recovery` 命令则会提供有关出错关闭恢复功能（the err-disable recovery function）激活了的那些特性的细节信息，以及受到监测的接口，并包含了接口重新开启剩余时间。
 
-<pre>
+```
 Switch#show errdisable recovery
 ErrDisable Reason           Timer Status
 -----------------           --------------
@@ -704,7 +704,7 @@ loopback                    Disabled
 oam-remote-failure          Disabled
 pagp-flap                   Disabled
 port-mode-failure           Disabled
-psecure-violation           <b>Enabled</b>
+psecure-violation           Enabled
 security-violation          Disabled
 sfp-config-mismatch         Disabled
 storm-control               Disabled
@@ -715,8 +715,8 @@ Timer interval: 300 seconds
 Interfaces that will be enabled at the next timeout:
 Interface           Errdisable reason           Time left(sec)
 ---------           -----------------           --------------
-Fa0/0               psecure-violation           <b>193</b>
-</pre>
+Fa0/0               psecure-violation           193
+```
 
 ### 外部认证方式，External Authentication Methods
 
@@ -794,22 +794,22 @@ Switch(config-if)#shutdown
 
 验证某端口处于关闭状态有多种方法，其一就是使用 `show ip interface brief` 命令。
 
-<pre>
+```
 Router(config-if)#do show ip interface brief
 Interface           IP-Address  OK? Method  Status                  Protocol
-FastEthernet0/0     unassigned  YES unset   <b>administratively down</b>   down
+FastEthernet0/0     unassigned  YES unset   administratively down   down
 FastEthernet0/1     unassigned  YES unset   administratively down   down
-</pre>
+```
 
 请注意，**管理性关闭**状态就是说该端口是手工关闭的。验证关闭状态的另一方法是使用 `show interface` 命令。
 
-<pre>
+```
 Router#show interface fa0/0
-FastEthernet0/0 is <b>administratively down</b>, line protocol is down
+FastEthernet0/0 is administratively down, line protocol is down
     Hardware is Gt96k FE, address is c200.27c8.0000 (bia c200.27c8.0000)
     MTU 1500 bytes, BW 10000 Kbit/sec, DLY 1000 usec,
 ......
-</pre>
+```
 
 ## 思科发现协议， Cisco Discovery Protocol, CDP
 
@@ -1045,40 +1045,40 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan
 
 同过执行 `show port-security` 命令，可以验证全局端口安全配置参数（global port security configuration parameters）。下面展示了默认值下的此命令的打印输出。
 
-<pre>
+```
 VTP-Server-1#show port-security
-Secure Port	MaxSecureAddr	<b>CurrentAddr</b>	SecurityViolation	Security Action
+Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
 			(Count)			(Count)				(Count)
 -------------------------------------------------------
 Gi0/2		1				1					0					Shutdown
 ------------------------------------------------------------------
-<b>Total Addresses in System : 1</b>
+Total Addresses in System : 1
 Max Addresses limit in System : 1024
-</pre>
+```
 
 如同上面的输出中所见到的那样，默认情况下，每个端口上仅允许一个安全 MAC 地址。此外，在出现冲突事件时的默认动作就是关闭端口。粗体文本表明，已知仅有一个安全地址，就是配置在接口上的静态地址。经由执行 `show port-security interface [name]` 亦可确认同样的参数，如下面的输出所示。
 
-<pre>
+```
 VTP-Server-1#show port-security interface gi0/2
 Port Security : Enabled
 Port status : SecureUp
 Violation mode : Shutdown
 Maximum MAC Addresses : 1
 Total MAC Addresses : 1
-<b>Configured MAC Addresses : 1</b>
+Configured MAC Addresses : 1
 Sticky MAC Addresses : 0
 Aging time : 0 mins
 Aging type : Absolute
 SecureStatic address aging : Disabled
 Security Violation count : 0
-</pre>
+```
 
 >**注意：** 在我们进一步学习本章内容的过程中，将会详细介绍对上面的输出中其它默认参数的修改。
 
 而要查看该端口上具体配置的静态安全 MAC 地址，就要用到 `show port-security address` 或者 `show running-config interface [name]` 命令了。以下输出演示了 `show port-security address`。
 
-<pre>
-VTP-Server-1#<b>show port-security address</b>
+```
+VTP-Server-1#show port-security address
 			Secure Mac Address Table
 ------------------------------------------------------------------
 Vlan	Mac Address		Type				Ports	Remaining Age
@@ -1088,7 +1088,7 @@ Vlan	Mac Address		Type				Ports	Remaining Age
 -------------------------------------------------------------------
 Total Addresses in System : 1
 Max Addresses limit in System : 1024
-</pre>
+```
 
 ### 动态安全 MAC 地址的配置，Configuring Dynamic Secure MAC Address
 
@@ -1116,8 +1116,8 @@ VTP-Server-1(config-if)#switchport port-security maximum 2
 
 可用除了 `show running-config` 命令外的，在静态地址保全配置示例中用到的同样命令，来验证动态 MAC 地址保全的配置。这是因为，与静态或粘滞的 MAC 地址保全不同，所有动态学习到的地址是不保存在交换机配置文件中的，且在端口关闭后会被移除。那些同样的地址也要在端口再度开启后重新学习。下面的输出演示了 `show port-security address` 命令的输出，现实了一个配置为动态 MAC 地址保全学习的接口。
 
-<pre>
-VTP-Server-1#<b>show port-security address</b>
+```
+VTP-Server-1#show port-security address
 			Secure Mac Address Table
 ------------------------------------------------------------------
 Vlan	Mac Address			Type				Ports	Remaining Age
@@ -1128,7 +1128,7 @@ Vlan	Mac Address			Type				Ports	Remaining Age
 ------------------------------------------------------------------
 Total Addresses in System : 2
 Max Addresses limit in System : 1024
-</pre>
+```
 
 ### 配置保全 MAC 地址粘滞，Configuring Sticky Secure MAC Addresses
 
@@ -1145,7 +1145,7 @@ VTP-Server-1(config-if)#switchport port-security maximum 10
 
 默认情况下，基于上述配置，在接口 GigabitEthernet0/2 将会动态学到至多 10 个地址，并添加进交换机当前配置中去。在开启粘滞地址学习后， 各个端口上学到的 MAC 地址被自动保存到当前配置文件，同时加入到地址表中。下面的输出显示了接口 GigabitEthernet0/2 上所自动学到的 MAC 地址（以粗体显示）。
 
-<pre>
+```
 VTP-Server-1#show running-config interface GigabitEthernet0/2
 Building configuration...
 Current configuration : 550 bytes
@@ -1156,32 +1156,32 @@ switchport mode access
 switchport port-security
 switchport port-security maximum 10
 switchport port-security mac-address sticky
-<b>switchport port-security mac-address sticky 0004.c16f.8741</b>
-<b>switchport port-security mac-address sticky 000c.cea7.f3a0</b>
-<b>switchport port-security mac-address sticky 0013.1986.0a20</b>
-<b>switchport port-security mac-address sticky 001d.09d4.0238</b>
-<b>switchport port-security mac-address sticky 0030.803f.ea81</b>
+switchport port-security mac-address sticky 0004.c16f.8741
+switchport port-security mac-address sticky 000c.cea7.f3a0
+switchport port-security mac-address sticky 0013.1986.0a20
+switchport port-security mac-address sticky 001d.09d4.0238
+switchport port-security mac-address sticky 0030.803f.ea81
 ...
-</pre>
+```
 
 上面输出中粗体的 MAC 地址都是动态学到的，且被加入到当前配置文件中了。而无需管理员手动配置来将这些地址加入到配置文件。默认情况下，粘滞 MAC 地址保全并不是自动加入到启动配置文件（the startup configuration, NVRAM）中去的。而为确认此信息已被保存到 NVRAM 中，也就是这些地址不要在交换机重启后重新学习，就要记住执行 `copy running-config startup-config` 命令， 或者命令 `copy system:running-config nvram:startup-config`, 执行二者中的哪一条，取决于部署该特性的那台交换机的 IOS 版本。下面的输出演示了在配置了粘滞地址学习的端口上的 `show port-security address` 命令。
 
-<pre>
+```
 VTP-Server-1#show port-security address
 		Secure Mac Address Table
 ------------------------------------------------------------------
 Vlan	Mac Address			Type			Ports	Remaining Age
 														(mins)
 ----	-----------			----			-----	------------
-   1	0004.c16f.8741		<b>SecureSticky</b>	Gi0/2		-
-   1	000c.cea7.f3a0		<b>SecureSticky</b>	Gi0/2		-
-   1	0013.1986.0a20		<b>SecureSticky</b>	Gi0/2		-
-   1	001d.09d4.0238		<b>SecureSticky</b>	Gi0/2		-
-   1	0030.803f.ea81		<b>SecureSticky</b>	Gi0/2		-
+   1	0004.c16f.8741		SecureSticky	Gi0/2		-
+   1	000c.cea7.f3a0		SecureSticky	Gi0/2		-
+   1	0013.1986.0a20		SecureSticky	Gi0/2		-
+   1	001d.09d4.0238		SecureSticky	Gi0/2		-
+   1	0030.803f.ea81		SecureSticky	Gi0/2		-
 -------------------------------------------------------------------
 Total Addresses in System : 5
 Max Addresses limit in System : 1024
-</pre>
+```
 
 你还可以在交换机上设置一个老化时间和类型（an aging time and type）, 不过这是超出 CCNA 要求的。（如你愿意可以自己试试。）
 
@@ -1226,29 +1226,29 @@ VTP-Server-1(config-if)#switchport port-security violation restrict
 
 是通过命令 `show port-security` 命令，来对所配置的端口安全冲突动作进行验证的，如下面的输出所示。
 
-<pre>
-VTP-Server-1#<b>show port-security</b>
+```
+VTP-Server-1#show port-security
 Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
 				(Count)			(Count)		(Count)
 Gi0/2			10				5			0				Restrict
 Total Addresses in System : 5
 Max Addresses limit in System : 1024
-</pre>
+```
 
 如交换机上开启了日志记录，同时配置了限制模式（Restrict mode）或关闭模式（Shutdown mode），类似于下面输出的这些消息将会在控制台打印出来，并记录到本地缓存或者发往某台日志服务器。
 
-<pre>
-VTP-Server-1#<b>show logging</b>
+```
+VTP-Server-1#show logging
 ...
 [Truncated Output]
 ...
-<b>04:23:21: %PORT_SECURITY-2-PSECURE_VIOLATION:</b> Security violation occurred, caused by MAC
+04:23:21: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC
 address 0013.1986.0a20 on port Gi0/2.
-<b>04:23:31: %PORT_SECURITY-2-PSECURE_VIOLATION:</b> Security violation occurred, caused by MAC
+04:23:31: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC
 address 000c.cea7.f3a0 on port Gi0/2.
-<b>04:23:46: %PORT_SECURITY-2-PSECURE_VIOLATION:</b> Security violation occurred, caused by MAC
+04:23:46: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC
 address 0004.c16f.8741 on port Gi0/2.
-</pre>
+```
 
 最后要说明的一点是**在 Packet Tracer 上可以配置交换机安全，但许多命令及 `show` 命令不会工作。**
 
@@ -1445,21 +1445,21 @@ Switch(config)#
 
 3. 为交换机上的 VLAN 1 添加一个 IP 地址（所有端口都自动在 VLAN 1 中）。此外， 将 192.168.1.1 加到 PC 的 FastEthernet 接口上。
 
-<pre>
+```
 Switch(config)#interface vlan1
 Switch(config-if)#ip address 192.168.1.2 255.255.255.0
 Switch(config-if)#no shut
 %LINK-5-CHANGED: Interface Vlan1, changed state to up
 %LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan2, changed state to up
-Switch(config-if)#^Z <b>← press Ctrl+Z keys</b>
+Switch(config-if)#^Z ← press Ctrl+Z keys
 Switch#
-Switch#ping 192.168.1.1 <b>← test connection from switch to PC</b>
+Switch#ping 192.168.1.1 ← test connection from switch to PC
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
 .!!!!
 Success rate is 80 percent (4/5), round-trip min/avg/max = 31/31/32 ms
 Switch#
-</pre>
+```
 
 4. 通过从 PC 远程登陆到交换机来测试远程登陆。
 
@@ -1489,12 +1489,12 @@ Switch(config-if)#
 
 8. 硬性设置 PC 的 MAC 地址为该端口的允许地址。在 PC 的命令行上使用命令 `ipconfig/all` 来查看其 MAC 地址。再就要检查端口安全的状态和设置了。
 
-<pre>
+```
 Switch(config-if)#switchport port-security mac-address 0001.C7DD.CB18
 Switch(config-if)#^Z
 Switch#show port-security int FastEthernet0/1
 Port Security				: Enabled
-Port Status					: <b>Secure-up</b>
+Port Status					: Secure-up
 Violation Mode				: Shutdown
 Aging Time					: 0 mins
 Aging Type					: Absolute
@@ -1503,9 +1503,9 @@ Maximum MAC Addresses		: 1
 Total MAC Addresses			: 1
 Configured MAC Addresses	: 0
 Sticky MAC Addresses		: 0
-Last Source Address:Vlan	: <b>0001.C7DD.CB18:1</b>
+Last Source Address:Vlan	: 0001.C7DD.CB18:1
 Security Violation Count	: 0
-</pre>
+```
 
 9. 修改 PC 的 MAC 地址，如你无法修改，可以将另一台设备插入该交换机端口。这将会令到该端口关闭，因为破坏了安全设置。下面的屏幕截图展示了 Packet Tracer 中修改 MAC 地址的地方。
 
@@ -1513,7 +1513,7 @@ Security Violation Count	: 0
 
 10. 你将看到 FastEthernet 端口立即宕掉。
 
-<pre>
+```
 Switch#
 %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
@@ -1522,7 +1522,7 @@ Switch#
 %SYS-5-CONFIG_I: Configured from console by console
 Switch#show port-security interface FastEthernet0/1
 Port Security				: Enabled
-Port Status					: <b>Secure-shutdown</b>
+Port Status					: Secure-shutdown
 Violation Mode				: Shutdown
 Aging Time					: 0 mins
 Aging Type					: Absolute
@@ -1531,9 +1531,9 @@ Maximum MAC Addresses		: 1
 Total MAC Addresses			: 0
 Configured MAC Addresses	: 0
 Sticky MAC Addresses		: 0
-Last Source Address:Vlan	: <b>0001.C7DD.CB19:1</b>
+Last Source Address:Vlan	: 0001.C7DD.CB19:1
 Security Violation Count	: 1
-</pre>
+```
 
 >**注意：** 请重复本实验，直到理解这些命令，并在不看上述实验步骤的情况下输入这些命令为止（本书的其它实验也要这样做）。
 
