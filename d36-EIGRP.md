@@ -646,4 +646,14 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 | Q Cnt | 等待发送中的EIGRP数据包（Update, Query and Reply）数量 |
 | Sequence Number | 从该邻居所接收到的上一个EIGRP可靠数据包的顺序编号，用以确保自该邻居接收到的数据包是有序的 |
 
+尽管`show ip eigrp neighbours`命令打印出有关EIGRP邻居的那些信息，其在动态发现的邻居和手动配置的邻居上是没有区别的。比如，在路由器R2上的该`show ip eigrp neighbours`命令的输出表明该路由器有着两个EIGRP邻居关系。在此配置下，其中一个是静态配置的邻居，而另一个则是动态发现的。可以看出，从下面的输出是没法判断出哪个是哪个的：
+
+```
+R2#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
+                            (sec)             (ms)           Cnt   Num
+1   150.2.2.2    Se0/0      13     00:00:48    153    918    0     4
+0   192.168.1.3  Fa0/0      10     08:33:23    1      200    0     20
+```
 
