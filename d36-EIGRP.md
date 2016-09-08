@@ -671,5 +671,12 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
    Version 12.4/1.2, Retrans: 0, Retries: 0, Prefixes: 1
 ```
 
+参考上面的输出，邻居`192.168.1.3`就是手动配置的邻居，而邻居`150.2.2.2`则是动态发现的邻居了。还可以通过使用`show ip eigrp neighbours static <interface>`，来查看到那些静态邻居，如下所示：
 
+```
+R2#show ip eigrp neighbors static FastEthernet0/0
+IP-EIGRP neighbors for process 150
+Static Address           Interface
+192.168.1.3              FastEthernet0/0
+```
 
