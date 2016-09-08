@@ -73,9 +73,7 @@
 
 ```
 R1#show ip protocols
-```
-**`Routing Protocol is “eigrp 150”`**
-```
+Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
     Incoming update filter list for all interfaces is not set
     Default networks flagged in outgoing updates
@@ -138,10 +136,8 @@ Routing Protocol is “eigrp 150”
     EIGRP NSF-aware route hold timer is 240s
     Automatic network summarization is in effect
     Maximum path: 4
-```
-    **`Routing for Networks:`**
-        **`10.0.0.0`**
-```
+    Routing for Networks:
+        10.0.0.0
     Routing Information Sources:
         Gateway         Distance    Last Update
     Distance: internal 90 external 170
@@ -191,8 +187,8 @@ Routing Protocol is “eigrp 150”
     EIGRP NSF-aware route hold timer is 240s
     Automatic network summarization is in effect
     Maximum path: 4
-    <b>Routing for Networks:
-        10.0.0.0</b>
+    Routing for Networks:
+        10.0.0.0
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
@@ -222,10 +218,10 @@ Routing Protocol is “eigrp 150”
     EIGRP maximum metric variance 1
     Redistributing: eigrp 150
     EIGRP NSF-aware route hold timer is 240s
-    <b>Automatic network summarization is not in effect</b>
+    Automatic network summarization is not in effect
     Maximum path: 4
-    <b>Routing for Networks:
-        10.0.0.0</b>
+    Routing for Networks:
+        10.0.0.0
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
@@ -258,9 +254,9 @@ Routing Protocol is “eigrp 150”
     EIGRP NSF-aware route hold timer is 240s
     Automatic network summarization is in effect
     Maximum path: 4
-    <b>Routing for Networks:
+    Routing for Networks:
         10.1.1.0/24
-        10.3.3.0/24</b>
+        10.3.3.0/24
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
@@ -353,10 +349,8 @@ Routing Protocol is “eigrp 150”
     Automatic network summarization is in effect
     Maximum path: 4
     Routing for Networks:
-```
-        **`10.0.0.1/32`**
-        **`10.1.1.1/32`**
-```
+        10.0.0.1/32
+        10.1.1.1/32
     Routing Information Sources:
         Gateway     Distance        Last Update
 Distance: internal 90 external 170
