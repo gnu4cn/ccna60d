@@ -748,5 +748,33 @@ Routing Protocol is “eigrp 150”
 在对这些EIGRP的K值进行调整时，重要的是记住在EIGRP域中的所有路由器上，都要配置上同样的这些数值。如这些K值不匹配，那么EIGRP的邻居关系就不会建立。
 
 > **注意**：不建议对这些默认的K值进行调整。对这些K值的调整，只应在那些对网络中这类行为造成的后果有扎实了解老练的高级工程师的指导下，或在思科公司技术支持中心的建议下完成。
->
->
+
+###使用接口带宽来影响EIGRP的度量值
+
+可通过使用`bandwidth`命令对指定到单个接口的默认带宽进行调整，来直接对增强的IGRP度量值计算施加影响。通过此命令指定的带宽，是以千位（Kilobits）计的。在EIGRP的度量值计算中，带宽也是以千位计的。下图36.8演示了一个由两台路由器通过两条带宽为1544Kbps, 的串行（T1）链路连接所组成的网络。
+
+![EIGRP度量值的带宽修改](images/3608.png)
+*图 36.8 -- EIGRP度量值的带宽修改*
+
+参考图36.8中的图示，因为路由器R1与R2之间两条链路的带宽（及延迟）是相等的，所以从路由器R2到子网`172.16.100.0/24`将同时继承到这两条路径的相同EIGRP度量值（because of the equal bandwidth (and delay) values of the links between R1 and R2, the same EIGRP metric will be derived for both paths from R2 to the `172.16.100.0/24` subnet）。EIGRP将在这两条链路之间进行流量负载均衡，如下面路由器R2上的输出所示：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 2172416, type internal
+  Redistributing via eigrp 150
+  Last update from 150.2.2.1 on Serial0/1, 00:48:09 ago
+  Routing Descriptor Blocks:
+    150.2.2.1, from 150.2.2.1, 00:48:09 ago, via Serial0/1
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+  * 150.1.1.1, from 150.1.1.1, 00:48:09 ago, via Serial0/0
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 
+```
+
+
