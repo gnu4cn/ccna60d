@@ -863,3 +863,72 @@ FastEthernet0/0 is up, line protocol is up
   MTU 1500 bytes, BW 1544 Kbit/sec, DLY 100 usec,
      reliability 255/255, txload 1/255, rxload 1/255
 ```
+
+而EIGRP所使用的累积延迟，则是在源网络与目的网络之间所有接口延迟的和。对路径中任何一个延迟数值的修改，都会影响到EIGRP度量值的计算。接口延迟数值，是通过使用接口配置命令`delay`进行调整的。该数值在用于EIGRP度量值计算时，会除以10。下图36.9演示了一个由两台通过两条有着1544Kbps的带宽，及默认20000微秒的延迟串行（T1）链路，连接的路由器所组成的网络。此外，网络`172.16.100.0/24`是直接连接到一个快速以太网接口的，该以太网接口有着默认100000Kbps的带宽，以及默认100微秒的延迟数值：
+
+![EIGRP度量值中延迟的修改](images/3609.png)
+*图 36.9 -- EIGRP度量值中延迟的修改*
+
+那么从路由器R2到网络`172.16.100.0/24`的EIGRP度量值的计算如下：
+
+度量值 = [(10^7/路径上的最小带宽) + (延迟综合)] x 256
+
+度量值 = [(10000000/1544) + (2000+10)] x 256
+
+> **注意**：记住在EIGRP度量值计算中，要将接口延迟数值除以10。
+
+> **注意**：这里计算出的数值应总是要向下取到最接近的整数。
+
+度量值 = [(10000000/1544) + (2000+10)] x 256
+度量值 = [6476 + 2010] x 256
+度量值 = 8486 x 256
+度量值 = 2172416
+
+可使用`show ip route`命令对此计算进行验证，如下所示：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 2172416, type internal
+  Redistributing via eigrp 150
+  Last update from 150.2.2.1 on Serial0/1, 00:03:28 ago
+  Routing Descriptor Blocks:
+    150.2.2.1, from 150.2.2.1, 00:03:28 ago, via Serial0/1
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+  * 150.1.1.1, from 150.1.1.1, 00:03:28 ago, via Serial0/0
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+与使用`bandwidth`命令一样，为了对EIGRP的度量值计算施加影响，我们既可以使用`delay`命令对接口延迟数值进行提升，也可以对其进行降低。比如，为了将路由器R2配置为使用链路`Serial0/0`到达`172.16.100.0/24`网络，而将`Serial0/1`仅用作一条备份链路，那么就可以如下将`Serial0/0`上的延迟数值进行降低：
+
+```
+R2(config)#int s0/0
+R2(config-if)#delay 100
+R2(config-if)#exit
+```
+
+此配置就对经由`Serial0/0`的路径的EIGRP度量值进行了调整，如下所示：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 1686016, type internal
+  Redistributing via eigrp 150
+  Last update from 150.1.1.1 on Serial0/0, 00:01:09 ago
+  Routing Descriptor Blocks:
+  * 150.1.1.1, from 150.1.1.1, 00:01:09 ago, via Serial0/0
+      Route metric is 1686016, traffic share count is 1
+      Total delay is 1100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+而经由`Serial0/1`的路径，则被保留在拓扑表中，作为到该网络的一条替代路径。
+
+
