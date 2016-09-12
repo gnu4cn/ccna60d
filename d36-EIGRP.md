@@ -815,4 +815,32 @@ Routing entry for 172.16.100.0/24
 
 ###运用接口的延迟来对EIGRP的度量值计算进行影响
 
+**Using Interface Delay to Influence EIGRP Metric Calculation**
 
+接口延迟数值，是用微秒来表示的。但在EIGRP度量值计算中用到的延迟数值，是以10微妙计的（in tens of microseconds）。因此，为了计算出EIGRP的度量值，接口上的延迟数值，就必须除以10。下面的表36.3对思科IOS软件中使用到的默认接口带宽及延迟数值，进行了演示：
+
+*表 36.3 -- 默认的接口带宽与延迟数值*
+
+| 接口类型 | 带宽（Kilobits） | 延迟（Microseconds, us） |
+| -- | -- | -- |
+| 以太网（Ethernet） | 10000 | 1000 |
+| 快速以太网（FastEthernet） | 100000 | 100 |
+| 千兆以太网（GigabitEthernet） | 1000000 | 10 |
+| 万兆以太网（Ten-GigabitEthernet） | 10000000 | 10 |
+| 串行线路（T1） | 1544 | 20000 |
+| 串行线路（E1） | 2048 | 20000 |
+| 串行线路（T3） | 44736 | 200 |
+| 串行线路（E3） | 34010 | 200 |
+
+在对接口的带宽及延迟数值进行计算时，重要的是记住对接口带宽的调整并不会自动地调整到接口的延迟，相反也是这样。这两个数值是相互独立的。比如，下面的输出展示了一个快速以太网接口的默认带宽及延迟数值：
+
+```
+R2#show interfaces FastEthernet0/0
+FastEthernet0/0 is up, line protocol is up
+  Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
+  Internet address is 192.168.1.2/24
+  MTU 1500 bytes, BW 100000 Kbit/sec, DLY 100 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
+...
+[Truncated Output]
+```
