@@ -777,4 +777,34 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 
 ```
 
+对两条链路中的任何一条的带宽进行调整，都会直接影响到EIGRP对到目的网络路径的度量值计算。**这样的操作，可用于更为大型网络中路径的控制（也就是基于管理员定义的数值与配置，对流量所要采行的路径进行控制）**（Such actions can be used for path control within larger networks(i.e., controlling the path that traffic takes based on administrator-defined values and configurations)）。比如这里要令到EIGRP优先使用`Serial0/0`作为前往目的网络的主要路径，而将`Serial0/1`作为到目的网络的备份路径，就要采取两种操作之一。
+
+第一种操作，就是可以增加`Serial0/0`上的带宽值，造成该路径的一个更好（更低）的度量值。那么第二种方法，就是可以降低`Serial0/1`上的带宽值，造成该路径的一个更差（更高）的度量值。两种选项都是可接受的，同时都将达成所需的结果。下面的输出演示了如何将`Serial0/0`上的默认带宽进行降低，从而有效地确保`Serial0/0`作为路由器R2及`172.16.100.0/24`网络之间的主要路径。
+
+```
+R2(config)#interface Serial0/1
+R2(config-if)#bandwidth 1024
+R2(config-if)#exit
+```
+
+> **注意**：如同在第1天指出的，该配置并不意味着接口`Serial0/1`上仅容许1024Kbps速率的流量通过该接口（As stated in Day 1, this configuration does not mean that `Serial0/1` is now capable of only 1024Kbps of throughput through this interface）。
+
+该配置的结果就是接口`Serial0/0`成为路由器R2到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 2172416, type internal
+  Redistributing via eigrp 150
+  Last update from 150.1.1.1 on Serial0/0, 00:01:55 ago
+  Routing Descriptor Blocks:
+  * 150.1.1.1, from 150.1.1.1, 00:01:55 ago, via Serial0/0
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+> **注意**：这里星号（the asterisk, `*`）指向的接口，就是下一数据包要发送出去的接口。而在路由表中有着多个开销相等的路由时，星号的位置就会在这些开销相等的路径之间轮转。
+
 
