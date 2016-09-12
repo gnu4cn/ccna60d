@@ -832,7 +832,7 @@ Routing entry for 172.16.100.0/24
 | 串行线路（T3） | 44736 | 200 |
 | 串行线路（E3） | 34010 | 200 |
 
-在对接口的带宽及延迟数值进行计算时，重要的是记住对接口带宽的调整并不会自动地调整到接口的延迟，相反也是这样。这两个数值是相互独立的。比如，下面的输出展示了一个快速以太网接口的默认带宽及延迟数值：
+在对接口的带宽及延迟数值进行计算时，重要的是记住**对接口带宽的调整并不会自动地调整到接口的延迟，相反也是这样。这两个数值是相互独立的**。比如，下面的输出展示了一个快速以太网接口的默认带宽及延迟数值：
 
 ```
 R2#show interfaces FastEthernet0/0
@@ -843,4 +843,23 @@ FastEthernet0/0 is up, line protocol is up
      reliability 255/255, txload 1/255, rxload 1/255
 ...
 [Truncated Output]
+```
+
+为对此概念进行强化，下面使用接口配置命令`bandwidth`，将该快速以太网接口的带宽调整为1544Kbps：
+
+```
+R2(config)#interface FastEthernet0/0
+R2(config-if)#bandwidth 1544
+R2(config-if)#exit
+```
+
+此时显示在`show interfaces`命令的输出中的带宽数值，反应了该已应用下去的配置，但默认的接口延迟数值却仍然保持原来的大小，如下面的输出所示：
+
+```
+R2#show interfaces FastEthernet0/0
+FastEthernet0/0 is up, line protocol is up
+  Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
+  Internet address is 192.168.1.2/24
+  MTU 1500 bytes, BW 1544 Kbit/sec, DLY 100 usec,
+     reliability 255/255, txload 1/255, rxload 1/255
 ```
