@@ -1012,4 +1012,30 @@ P 172.16.100.0/24, 1 successors, FD is 1686016
         via 150.1.1.1 (1686016/28160), Serial0/0
 ```
 
+而`show ip eigrp topology [network]/[prefix]`及`show ip eigrp topology [network] [mask]`两个命令，将打印出其各自所指定的路由的后继路由、可行后继路由以及未能满足可行条件的那些其它路由（The `show ip eigrp topology [network]/[prefix]` and `show ip eigrp topology [network] [mask]` commands print Successor routes, FS routes, and routes that have not met the FC for the route specified in either command）。下面的输出演示了`show ip eigrp topology [network]/[prefix]`命令的用法：
+
+```
+R2#show ip eigrp topology 172.16.100.0/24
+IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 1686016
+  Routing Descriptor Blocks:
+  150.1.1.1 (Serial0/0), from 150.1.1.1, Send flag is 0x0
+      Composite metric is (1686016/28160), Route is Internal
+      Vector metric:
+        Minimum bandwidth is 1544 Kbit
+        Total delay is 1100 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+  150.2.2.1 (Serial0/1), from 150.2.2.1, Send flag is 0x0
+      Composite metric is (2167998207/2147511807), Route is Internal
+      Vector metric:
+        Minimum bandwidth is 128 Kbit
+        Total delay is 83906179 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+```
 
