@@ -964,4 +964,17 @@ Routing entry for 172.16.100.0/24
 
 **The EIGRP Topology Table**
 
+EIGRP的拓扑表，是由EIGRP的各种协议相关模块（Protocol-Dependent Modules, PDMs）, 在弥散更新算法的有限状态机之上（the DUAL Finite State Machine），运算得到的（The EIGRP topology table is populated by EIGRP PDMs acted upon by the DUAL Finite State Machine）。由已形成邻居关系的EIGRP路由器（neighbouring EIGRP routers）通告的所有目的网络与子网，都被存储在EIGRP拓扑表中。该表包含了后继路由器路由、可行后继路由器路由，甚至那些并不满足可行条件的路由（This includes Successor routes, FS routes, and even routes that have not met the FC）。
 
+正是拓扑表，才令到所有EIGRP路由器对整个网络，有着一致的视图。其还实现了EIGRP网络中的快速收敛。在拓扑表中的每个单独条目，都包含了某个目的网络及那些通告了该目的网络的**那些**路由器。可行距离及通告距离，都被存储在拓扑表中。EIGRP的拓扑表，包含了构建一个到所有可达网络的距离与矢量集合的所需信息，这些信息包括以下内容：
+
+- 到目的网络的最低带宽
+- 到目的网络的延迟综合
+- 到目的网络路径的可靠性
+- 到目的网络路径的负载
+- 到目的网络的最大传输单元的最小值, The minimum Maximum Transmission Unit(MTU) to the destination network
+- 到目的网络的可行距离
+- 由邻居路由器所报告的到目的网络的报告距离（RD）
+- 目的网络的路由源（仅针对那些外部路由），The route source(only external routes) of the destination network
+
+> **注意**：尽管在拓扑表中包含了
