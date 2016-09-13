@@ -1039,3 +1039,20 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
         Hop count is 1
 ```
 
+在上面的输出中，可以看出经由`Serial0/1`的路径并没有满足可行条件（FC），因为其报告的距离（RD）超过了可行距离（FD）。这就是该路径没有在`show ip eigrp topology`命令的输出中打印出来的原因。而为了判断出那些后继路由、可行后继路由，以及未能满足可行条件的那些路由，就可以使用`show ip eigrp topology all-links`命令，而不是对单个前缀进行查看，从而查看到在EIGRP拓扑表中所有前缀的所有可能的路由。下面对此命令的输出进行了演示：
+
+```
+R2#show ip eigrp topology all-links
+IP-EIGRP Topology Table for AS(150)/ID(2.2.2.2)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 150.2.2.0/24, 1 successors, FD is 20512000, serno 42
+        via Connected, Serial0/1
+        via 150.1.1.1 (2195456/2169856), Serial0/0
+P 150.1.1.0/24, 1 successors, FD is 1683456, serno 32
+        via Connected, Serial0/0
+        via 150.2.2.1 (21024000/2169856), Serial0/1
+P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
+        via 150.1.1.1 (1686016/28160), Serial0/0
+        via 150.2.2.1 (2167998207/2147511807), Serial0/1
+```
