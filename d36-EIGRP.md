@@ -977,4 +977,21 @@ EIGRP的拓扑表，是由EIGRP的各种协议相关模块（Protocol-Dependent 
 - 由邻居路由器所报告的到目的网络的报告距离（RD）
 - 目的网络的路由源（仅针对那些外部路由），The route source(only external routes) of the destination network
 
-> **注意**：尽管在拓扑表中包含了
+> **注意**：尽管在拓扑表中包含了最大传输单元（MTU），但EIGRP并不会在实际的度量值计算中使用到该数值。而是该MTU仅简单地作为判断到目的网络数据包大小最小值而被追踪。接口的最大传输单元指定了经某条链路，在无需将数据报或数据包拆分到更小片的情况下，所能传输的数据报最大大小（The interface MTU specifies the largest size of datagram that can be transferred across a certain link without the need of fragmentation, or breaking the datagram or packet into smaller pieces）。
+
+使用`show ip eigrp topology`命令，就可查看到EIGRP拓扑表的内容。该命令下可用的选项如下所示：
+
+```
+R2#show ip eigrp topology ?
+  <1-65535>       AS Number
+  A.B.C.D         IP prefix <network>/<length>, e.g., 192.168.0.0/16
+  A.B.C.D         Network to display information about
+  active          Show only active entries
+  all-links       Show all links in topology table
+  detail-links    Show all links in topology table
+  pending         Show only entries pending transmission
+  summary         Show a summary of the topology table
+  zero-successors Show only zero successor entries
+  |               Output modifiers
+  <cr>
+```
