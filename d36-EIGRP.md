@@ -995,3 +995,21 @@ R2#show ip eigrp topology ?
   |               Output modifiers
   <cr>
 ```
+
+不带选项的`show ip eigrp topology`命令，将仅打印出那些拓扑表中的、所有该路由器上开启的EIGRP实例的后继路由器及可行后继路由器的路由（The `show ip eigrp topology` command with no options prints only the Successor and Feasible Successor information for routes in the topology table and for all of the EIGRP instances enabled on the router）。下面演示了该命令的打印输出：
+
+```
+R2#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(2.2.2.2)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 150.2.2.0/24, 1 successors, FD is 20512000
+        via Connected, Serial0/1
+        via 150.1.1.1 (2195456/2169856), Serial0/0
+P 150.1.1.0/24, 1 successors, FD is 1683456
+        via Connected, Serial0/0
+P 172.16.100.0/24, 1 successors, FD is 1686016
+        via 150.1.1.1 (1686016/28160), Serial0/0
+```
+
+
