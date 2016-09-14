@@ -1142,4 +1142,32 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
-除了相等开销下的负载均衡能力，EIGRP还能完成不相等开销下的负载均衡。这种特别的能力令到EIGRP能够使用那些不相等开销的路径，基于不同的流量分享权重数值，从而将传输中的数据包发送到目的网络（This unique ability allows EIGRP to use unequal cost paths to send outgoing packets to the destination network based on weighted traffic share values）。
+除了相等开销下的负载均衡能力，EIGRP还能完成不相等开销下的负载均衡。这种特别的能力令到EIGRP能够使用那些不相等开销的路径，基于不同的流量分享权重数值，从而将传输中的数据包发送到目的网络（This unique ability allows EIGRP to use unequal cost paths to send outgoing packets to the destination network based on weighted traffic share values）。通过使用路由器配置命令`variance <multiplier>`，就可以开启不相等开销下的负载均衡特性。
+
+关键字`<multiplier>`是一个介于1到128之间的整数。默认的倍数（multiplier）1，就意味着没有进行不相等开销下的负载均衡。此默认设置在下面的`show ip protocols`命令的输出中进行了演示：
+
+```
+R2#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    150.1.1.2/32
+    150.2.2.2/32
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    150.2.2.1             90      00:00:52
+    150.1.1.1             90      00:00:52
+  Distance: internal 90 external 170
+```
+
+
