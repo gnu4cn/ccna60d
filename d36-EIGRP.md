@@ -1078,3 +1078,14 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
     Route 172.16.100.0/24 stuck-in-active state in IP-EIGRP 150.
 Cleaning up
 ```
+
+造成（这些）EIGRP邻居路由器未能对查询进行响应的原因有几种，包括下面这些：
+
+- 该邻居路由器的CPU过载了，因此而无法及时响应
+- 该邻居路由器本身就没有关于那条丢失路由的信息
+- 电路质量问题，造成数据包丢失
+- 某些低带宽链路壅塞，从而造成数据包的延迟
+
+而为了防止因为延迟响应造成的来自其它EIGRP邻居的活动粘滞方面的故障，可使用路由器配置模式中的`timers active-time`命令，将本地路由器配置为等待多于默认的三分钟，以接收到返回给其查询数据包的响应。
+
+> **注意**：重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
