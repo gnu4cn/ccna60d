@@ -1141,3 +1141,5 @@ Routing entry for 172.16.100.0/24
       Reliability 255/255, minimum MTU 1500 bytes
       Loading 1/255, Hops 1
 ```
+
+除了相等开销下的负载均衡能力，EIGRP还能完成不相等开销下的负载均衡。这种特别的能力令到EIGRP能够使用那些不相等开销的路径，基于不同的流量分享权重数值，从而将传输中的数据包发送到目的网络（This unique ability allows EIGRP to use unequal cost paths to send outgoing packets to the destination network based on weighted traffic share values）。
