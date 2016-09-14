@@ -1193,4 +1193,49 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
+下面的EIGRP拓扑表，同时显示了后继与可行后继路由：
+
+```
+R2#show ip eigrp topology 172.16.100.0 255.255.255.0
+IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 3014400
+  Routing Descriptor Blocks:
+  150.1.1.1 (Serial0/0), from 150.1.1.1, Send flag is 0x0
+      Composite metric is (3014400/28160), Route is Internal
+      Vector metric:
+        Minimum bandwidth is 1024 Kbit
+        Total delay is 20100 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+  150.2.2.1 (Serial0/1), from 150.2.2.1, Send flag is 0x0
+      Composite metric is (3847680/28160), Route is Internal
+      Vector metric:
+        Minimum bandwidth is 768 Kbit
+        Total delay is 20100 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+```
+
+这里为了确定要配置到路由器上的非等价负载均衡数值（the variance value to configure on the router）, 就可使用下面的公式：
+
+非等价负载均衡数值（Variance） = 考虑要用到路径的度量值中最高的/最优路径的度量值（最小的度量值）
+
+使用此公式，就可以像下面这样，计算出在路由器R2上，所要配置的非等价负载均衡数值：
+
+非等价负载均衡数值（Variance） = 考虑要用到路径的度量值中最高的/最优路径的度量值（最小的度量值）
+非等价负载均衡数值（Variance） = 3847680/3014400
+非等价负载均衡数值（Variance） = 1.28
+
+随后必须对此数值进行向上取整，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器R2配置为进行非等价的负载均衡了：
+
+```
+R2(config)#router eigrp 150
+R2(config-router)#variance 2
+R2(config-router)#exit
+```
+
 
