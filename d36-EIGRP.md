@@ -1069,4 +1069,12 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
 
 最后，如某个非目的网络的后继的邻居收到了此次查询，且随后该邻居路由器以其自己的后继信息予以了应答。而加入这些邻居路由器仍然没有该已丢失的路由信息，那么这些邻居路由器就会向它们自己的邻居路由器发出查询，直到抵达查询边界。所谓查询边界，既可以是网络的末端、分发清单的边界，或者汇总的边界（Finally, if the Query was received from a neighbour that is not the Successor for this destination, then the router replies with its own Successor information. If the neighbouring routers do not have the lost route information, then Queries are sent from those neighbouring routers to their neighbouring routers until the Query boundary is reached. The Query boundary is either the end of the network, the distribute list boundary, or the summarization boundary）。
 
+查询一旦发出，那么发出查询的EIGRP路由器就必须在计算后继路由前，等待完成所有应答的接收。如有任何邻居在三分钟之内没有应答，那么该路由就被称作处于活动粘滞状态（If any neighbour has not replied within three minutes, the route is said to be Stuck-In-Active(SIA)）。而当某条路由成为活动粘滞路由时，该（这些）未对查询进行响应的路由器的邻居关系，就将被重置。在此情况下，可以观察到路由器记录下了如下类似的一条消息：
 
+```
+%DUAL-5-NBRCHANGE: IP-EIGRP 150:
+    Neighbor 150.1.1.1(Serial0/0) is down: stuck in active
+%DUAL-3-SIA:
+    Route 172.16.100.0/24 stuck-in-active state in IP-EIGRP 150.
+Cleaning up
+```
