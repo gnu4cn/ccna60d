@@ -634,6 +634,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 对此命令所打印出的信息的掌握，是相当重要的，既是对一项核心EIGRP组件能力进行演示的基础，同时在对EIGRP故障进行排除时会用到（It is important to understand the information printed by this command, both as a basis for demonstrating competency on a core EIGRP component and for troubleshooting EIGRP issues）。下表36.2对此命令输出中所包含的那些字段，进行了列出和说明：
 
 *表 36.2 -- EIGRP邻居表的各个字段*
+
 | 字段 | 说明 |
 | -- | -- |
 | H | 邻居清单（编号），以所学习到的先后顺序，以“0”开始 |
@@ -822,7 +823,7 @@ Routing entry for 172.16.100.0/24
 *表 36.3 -- 默认的接口带宽与延迟数值*
 
 | 接口类型 | 带宽（Kilobits） | 延迟（Microseconds, us） |
-| -- | -- | -- |
+| -- | -- |非等价负载均衡数值（Variance）非等价负载均衡数值（Variance） -- |
 | 以太网（Ethernet） | 10000 | 1000 |
 | 快速以太网（FastEthernet） | 100000 | 100 |
 | 千兆以太网（GigabitEthernet） | 1000000 | 10 |
