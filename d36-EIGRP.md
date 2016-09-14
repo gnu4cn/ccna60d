@@ -1089,3 +1089,35 @@ Cleaning up
 而为了防止因为延迟响应造成的来自其它EIGRP邻居的活动粘滞方面的故障，可使用路由器配置模式中的`timers active-time`命令，将本地路由器配置为等待多于默认的三分钟，以接收到返回给其查询数据包的响应。
 
 > **注意**：重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
+
+##相等开销及不相等开销下的负载均衡
+
+**Equal Cost and Unequal Cost Load Sharing**
+
+思科IOS软件支持默认对所有路由协议高达4条路径下的相等开销的负载均衡（Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols）。下面的`show ip protocols`命令的输出，对此进行了演示：
+
+```
+R2#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    150.1.1.2/32
+    150.2.2.2/32
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    Gateway         Distance      Last Update
+    150.2.2.1       90            00:00:52
+    150.1.1.1       90            00:00:52
+  Distance: internal 90 external 170
+```
+
