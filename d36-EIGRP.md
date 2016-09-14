@@ -1170,4 +1170,11 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
+该倍数是一个可变的整数, 告诉路由器在那些有着低于最小度量值乘以该倍数的那些路由上，进行负载均衡（The multiplier is a variable integer that tells the router to load share across routes that have a metric that is less than the minimum metric multiplied by the multiplier）。比如，在指定了5的变化时（specifying a variance of 5），就指示路由器在那些度量值低于最小度量值5倍的路由上，进行负载均衡。在使用了`variance`命令，同时指定了除开1之外的倍数时，该路由器就将在这些满足条件的路由上，按照各条路由的度量值，成比例的分配流量。也就是说，对那些有着较低度量值的路由，比起那些有着较高度量值的路由，要经由其发送更多的流量。
 
+下图36.11演示了一个基本的运行EIGRP的网络。其中的路由器R1和R2，是通过背靠背的串行链路连接起来的（R1 and R2 are connected via back-to-back Serial links）。两台路由器间的链路`150.1.1.0/24`，有着1024Kbps的带宽。两台路由器之间的`150.2.2.0/24`链路，有着768Kpbs的带宽。路由器R1是通过EIGRP将`172.16.100.0/24`前缀，通告给R2的。
+
+![掌握EIGRP的非等价负载均衡](images/3611.png)
+*图 36.11 -- 掌握EIGRP的非等价负载均衡，Understanding EIGRP Variance*
+
+基于
