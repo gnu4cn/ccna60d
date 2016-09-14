@@ -1177,4 +1177,20 @@ Routing Protocol is “eigrp 150”
 ![掌握EIGRP的非等价负载均衡](images/3611.png)
 *图 36.11 -- 掌握EIGRP的非等价负载均衡，Understanding EIGRP Variance*
 
-基于
+基于图36.11中所演示的拓扑，下面的输出演示在路由器R2上`172.16.100.0/24`前缀的路由表：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 3014400, type internal
+  Redistributing via eigrp 150
+  Last update from 150.1.1.1 on Serial0/0, 00:00:11 ago
+  Routing Descriptor Blocks:
+  * 150.1.1.1, from 150.1.1.1, 00:00:11 ago, via Serial0/0
+      Route metric is 3014400, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1024 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+
