@@ -1121,3 +1121,23 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
+而又可以使用路由器配置命令`maximum-paths <1-6>`，对默认的最多4条路径，修改为最多6条相等开销的路径。在进行相等开销的负载均衡时，路由器将负载在所有路径直接进行均匀地分配。有着一个流量分享计数，对每条路径上传输的数据包进行识别（The traffic share count identifies the number of outgoing packets on each path）。在进行相等开销的负载均衡时，单个的完整数据包在某条单独路径上发出的，如下面的输出所示：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 2172416, type internal
+  Redistributing via eigrp 150
+  Last update from 150.2.2.1 on Serial0/1, 00:04:00 ago
+  Routing Descriptor Blocks:
+    150.2.2.1, from 150.2.2.1, 00:04:00 ago, via Serial0/1
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+  * 150.1.1.1, from 150.1.1.1, 00:04:00 ago, via Serial0/0
+      Route metric is 2172416, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
