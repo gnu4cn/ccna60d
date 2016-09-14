@@ -1259,3 +1259,19 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
+其中的流量分配计数（The traffic share count）表明，每从`Serial0/0`转发60个数据包，路由器就将从`Serial0/1`转发47个数据包。数据包的转发，是依两条路径的路由度量值的比例完成的。这是在应用了`variance`命令后的默认行为。而通过路由器配置命令`traffic-share balanced`（the `traffic-share balanced` router configuration command），就可以开启此只能流量分配功能（this intelligent traffic sharing functionality），该命令无需显式配置（默认是开启的）。
+
+> **注意**：该`traffic-share balanced`命令默认是开启的，且就算对其进行了显式配置，其也不会在运行配置中出现。这一点在下面进行了演示：
+
+```
+R2(config)#router eigrp 150
+R2(config-router)#vari 2
+R2(config-router)#traffic-share balanced
+R2(config-router)#exit
+R2(config)#do show run | begin router
+router eigrp 150
+variance 2
+network 150.1.1.2 0.0.0.0
+network 150.2.2.2 0.0.0.0
+no auto-summary
+```
