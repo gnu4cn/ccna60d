@@ -823,7 +823,7 @@ Routing entry for 172.16.100.0/24
 *表 36.3 -- 默认的接口带宽与延迟数值*
 
 | 接口类型 | 带宽（Kilobits） | 延迟（Microseconds, us） |
-| -- | -- |非等价负载均衡数值（Variance）非等价负载均衡数值（Variance） -- |
+| -- | -- | -- |
 | 以太网（Ethernet） | 10000 | 1000 |
 | 快速以太网（FastEthernet） | 100000 | 100 |
 | 千兆以太网（GigabitEthernet） | 1000000 | 10 |
