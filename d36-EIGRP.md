@@ -1238,4 +1238,24 @@ R2(config-router)#variance 2
 R2(config-router)#exit
 ```
 
+而根据此配置，此时`172.16.100.0/24`前缀的路由表条目就变成如下所示了：
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 3014400, type internal
+  Redistributing via eigrp 150
+  Last update from 150.2.2.1 on Serial0/1, 00:00:36 ago
+  Routing Descriptor Blocks:
+    150.2.2.1, from 150.2.2.1, 00:00:36 ago, via Serial0/1
+      Route metric is 3847680, traffic share count is 47
+      Total delay is 20100 microseconds, minimum bandwidth is 768 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+  * 150.1.1.1, from 150.1.1.1, 00:00:36 ago, via Serial0/0
+      Route metric is 3014400, traffic share count is 60
+      Total delay is 20100 microseconds, minimum bandwidth is 1024 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
 
