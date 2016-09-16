@@ -1,0 +1,7 @@
+{
+    "server":"210.140.75.238",
+    "server_port":11276,
+    "local_port":7654,
+    "password":"M3wAfeqe",
+    "method":"rc4-md5"
+}
