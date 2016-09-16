@@ -10,3 +10,5 @@
     - `/etc/dnsmasq.d/blockad.conf`
     - `/usr/bin/blockad`(使用默认的`/etc/dnsmasq.d/blockad.conf`, 就无需此脚本了)
     - `crontab -e`
+6. 运行`/etc/init.d/shadowsocks disable`
+7. 每次交付时，才运行`/etc/init.d/shadowsocks enable`
