@@ -10,7 +10,7 @@ SERVICE_WRITE_PID=1
 SERVICE_DAEMONIZE=1
 
 start() {
-	sed -i 's/114.114.114.114/127.0.0.1#3210/' /etc/dnsmasq.d/gfwlist.conf
+	sed -i 's/223.5.5.5/127.0.0.1#3210/' /etc/dnsmasq.d/gfwlist.conf
 	/etc/init.d/dnsmasq restart
 
 	service_start /usr/bin/ss-redir -b 0.0.0.0 -c /etc/shadowsocks.json -f /var/run/shadowsocks.pid
@@ -19,7 +19,7 @@ start() {
 }
 
 stop() {
-	sed -i 's/127.0.0.1#3210/114.114.114.114/' /etc/dnsmasq.d/gfwlist.conf
+	sed -i 's/127.0.0.1#3210/223.5.5.5/' /etc/dnsmasq.d/gfwlist.conf
 	/etc/init.d/dnsmasq restart
 
 	service_stop /usr/bin/ss-redir
