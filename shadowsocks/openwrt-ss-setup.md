@@ -8,5 +8,5 @@
     - `/usr/bin/shadowsocks-firewall`
     - `/usr/bin/chinalist`
     - `/etc/dnsmasq.d/blockad.conf`
-    - `/usr/bin/blockad`
+    - `/usr/bin/blockad`(使用默认的`/etc/dnsmasq.d/blockad.conf`, 就无需此脚本了)
     - `crontab -e`
