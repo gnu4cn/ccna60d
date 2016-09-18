@@ -1318,4 +1318,32 @@ Routing entry for 172.16.100.0/24
 
 如上面的输出所示，基于该种不同开销下的负载均衡配置，两条不同度量值的路由，已被安装到路由表中。但注意到经由`Serial0/1`的流量分享计数（the traffic share count）是0，而经由`Serial0/0`的计数为1。这就意味着，尽管该路由条目已被安装到路由表中, 该路由器不会通过`Serial0/1`，向`172.16.100.0/24`网络发送任何数据包，除非经由`Serial0/0`的路径不再可用。
 
+##使用EIGRP作默认路由
+
+**Default Routing Using EIGRP**
+
+在将最后的网关或网络动态通告给路由域中的其它路由器方面，增强的IGRP支持多种不同方式。最终网关，或默认路由，是在目的网络未在路由表中特别列出时，路由器用于引导流量的一种方式（Enhanced IGRP supports numerous ways to advertise dynamically the gateway or network of last resort to other routers within the routing domain. A gateway of last resort, or default route, is a method for the router to direct traffic when the destination network is not specifically listed in the routing table）。而在此种情形下，路由器引导流量的方式有：
+
+- 使用`ip default-network`命令
+- 使用`network`命令来对网络`0.0.0.0/0`进行通过
+- 对默认静态路由进行重分发, Redistributing the default static route
+- 使用`ip summary-address eigrp [asn] [network] [mask]`
+
+而第一种，使用`ip default-network`命令，被认为是一种EIGRP下对默认路由进行动态通告的过时方式。但因为在当前的IOS软件中仍然支持这种方式，所以这里有必要提到。
+
+`ip default-network`配置命令通过把一个星号，插入到路由表中某个网络旁边，而将该网络标记为默认网络。那些目的地没有明确路由表条目的流量，就会被路由器转发到这个网络（Traffic for destinations to which there is no specific routing table entry is then forwarded by the router to this network）。下面参考图36.12中的EIGRP拓扑，对此种部署进行了演示：
+
+![EIGRP的默认路由](images/3612.png)
+*图 36.12 -- EIGRP的默认路由*
+
+参考图36.12, 假设子网`200.10.10.0/24`是连接到互联网的。该子网位于路由器R1的`Fastethernet0/0`侧。路由器R1与R2相应地通过一条背靠背的串行连接相连。两台路由器都是处于EIGRP AS 150中。为了将`200.10.10.0/24`标记为最终网络，就要在路由器R1上进行如下配置：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 200.10.10.0 0.0.0.255
+R1(config-router)#exit
+R1(config)#ip default-network 200.10.10.0
+R1(config)#exit
+```
+
 
