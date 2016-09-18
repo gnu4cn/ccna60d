@@ -1545,9 +1545,31 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
 ```
 HQ#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
-H   Address        Interface     Hold  Uptime    SRTT  RTO  Q   Seq
-                                (sec)            (ms)       Cnt Num
-1   172.16.1.1     Se0/0        165    00:01:07  24    200  0   2
-0   172.16.1.2     Se0/0        153    00:01:25  124   744  0   2
+H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
+                                (sec)            (ms)        Cnt Num
+1   172.16.1.1     Se0/0        165    00:01:07  24    200   0   2
+0   172.16.1.2     Se0/0        153    00:01:25  124   744   0   2
 ```
+
+下面的输出对第一台分支路由器S1与中心路由器之间的EIGRP邻居关系：
+
+```
+S1#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
+                                (sec)            (ms)        Cnt Num
+0   172.16.1.3     Se0/0        128    00:00:53  911   5000  0   4
+```
+
+下面的输出对第二台分支路由器S2与中心路由器之间的EIGRP邻居关系：
+
+```
+S2#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
+                                (sec)            (ms)        Cnt Num
+0   172.16.1.3     Se0/0        156    00:02:20  8     200   0   4
+```
+
+
 
