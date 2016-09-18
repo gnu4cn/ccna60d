@@ -1346,4 +1346,19 @@ R1(config)#ip default-network 200.10.10.0
 R1(config)#exit
 ```
 
+基于此配置，路由器R2就会将`200.10.10.0/24`作为最终网络接收下来，如下所示：
 
+```
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is 150.2.2.1 to network 200.10.10.0
+D*   200.10.10.0/24 [90/2172416] via 150.2.2.1, 00:01:03, Serial0/0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+```
