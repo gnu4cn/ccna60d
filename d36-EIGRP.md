@@ -1325,7 +1325,7 @@ Routing entry for 172.16.100.0/24
 在将最后的网关或网络动态通告给路由域中的其它路由器方面，增强的IGRP支持多种不同方式。最终网关，或默认路由，是在目的网络未在路由表中特别列出时，路由器用于引导流量的一种方式（Enhanced IGRP supports numerous ways to advertise dynamically the gateway or network of last resort to other routers within the routing domain. A gateway of last resort, or default route, is a method for the router to direct traffic when the destination network is not specifically listed in the routing table）。而在此种情形下，路由器引导流量的方式有：
 
 - 使用`ip default-network`命令
-- 使用`network`命令来对网络`0.0.0.0/0`进行通过
+- 使用`network`命令来对网络`0.0.0.0/0`通告
 - 对默认静态路由进行重分发, Redistributing the default static route
 - 使用`ip summary-address eigrp [asn] [network] [mask]`
 
@@ -1393,3 +1393,10 @@ D    200.10.10.0/24 [90/2172416] via 150.1.1.1, 00:01:11, Serial0/0
 C       150.1.1.0 is directly connected, Serial0/0
 D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
 ```
+
+尽管路由重分发（route redistribution）不是CCNA考试部分，这里仍将对其进行一个概述。路由重分发正是通过EIGRP对一条默认路由进行通过的第三种方式。为将现有的静态默认路由重分发到EIGRP中，就要使用路由器配置命令`redistribute static metric [bandwidth] [delay] [reliability] [load] [MTU]`。用于本小节中前面那些输出的同一网络拓扑，将用于对这种方式的部署进行演示，如下图36.13所示：
+
+![EIGRP的默认路由（续）](images/3613.png)
+*图 36.13 -- EIGRP的默认路由（续）*
+
+
