@@ -1539,3 +1539,15 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
               broadcast,
               CISCO, status defined, active
 ```
+
+在后面的广域网章节，将涉及到帧中继。这里在所有三台路由器上都开启了EIGRP，使用了自治系统编号150。下面的输出演示了中心路由器与分支路由器之间的EIGRP邻居关系：
+
+```
+HQ#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address        Interface     Hold  Uptime    SRTT  RTO  Q   Seq
+                                (sec)            (ms)       Cnt Num
+1   172.16.1.1     Se0/0        165    00:01:07  24    200  0   2
+0   172.16.1.2     Se0/0        153    00:01:25  124   744  0   2
+```
+
