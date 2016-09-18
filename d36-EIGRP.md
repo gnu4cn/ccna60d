@@ -1503,4 +1503,39 @@ D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 
 **Split Horizon in EIGRP Networks**
 
+前面已获悉水平分割是一项距离矢量协议的特性，该特性强制路由信息无法从接收到的接口再发送回去，这样做就阻止了路由信息重新通告到接收其的源处（Previously, you learned that split horizon is a Distance Vector protocol feature mandating that routing information cannot be sent back out of the same interface through which it was received. This prevents the re-advertising of information back to the source from which it was learned）。虽然这个特征是一种很好的阻止环回机制（a great loop prevention mechanism），但其也是一项明显的缺陷，特别是在星形网络中（especially in hub-and-spoke networks）。为更好地理解此特性的劣势，就要参考下面图36.14中的EIGRP星形网络：
 
+![EIGRP的水平分割](images/3614.png)
+*图 36.14 -- EIGRP的水平分割*
+
+图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器S1与S2则是分支路由器(the spoke router)。在帧中继广域网中，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中的分支路由器与中心路由器之间，所提供的数据链路层连接标识（Data Link Connection Identifier 数据链接连接标识，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
+
+```
+HQ#show frame-relay map
+Serial0/0 (up): ip 172.16.1.2 dlci 102(0x66,0x1860), static,
+              broadcast,
+              CISCO, status defined, active
+Serial0/0 (up): ip 172.16.1.1 dlci 103(0x67,0x1870), static,
+              broadcast,
+              CISCO, status defined, active
+```
+
+```
+S1#show frame-relay map
+Serial0/0 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), static,
+              broadcast,
+              CISCO, status defined, active
+Serial0/0 (up): ip 172.16.1.3 dlci 301(0x12D,0x48D0), static,
+              broadcast,
+              CISCO, status defined, active
+```
+
+```
+S2#show frame-relay map
+Serial0/0 (up): ip 172.16.1.1 dlci 201(0xC9,0x3090), static,
+              broadcast,
+              CISCO, status defined, active
+Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
+              broadcast,
+              CISCO, status defined, active
+```
