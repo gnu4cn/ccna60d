@@ -1426,3 +1426,28 @@ Gateway of last resort is 150.1.1.1 to network 0.0.0.0
 C       150.1.1.0 is directly connected, Serial0/0
 D*EX 0.0.0.0/0 [170/2195456] via 150.1.1.1, 00:01:16, Serial0/0
 ```
+
+
+因为该路由是在路由器R1上被重分发到EIGRP中的，所以如同上面所反应出的，其就是一条外部EIGRP路由了。对于那些外部路由，EIGRP拓扑表中就包含了诸如该路由所起源的路由器、该路由是为何种协议接收的，以及该外部路由的度量值等信息。下面的输出对此进行了演示：
+
+```
+R2#show ip eigrp topology 0.0.0.0/0
+IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 2195456
+  Routing Descriptor Blocks:
+  150.1.1.1 (Serial0/0), from 150.1.1.1, Send flag is 0x0
+      Composite metric is (2195456/51200), Route is External
+      Vector metric:
+        Minimum bandwidth is 1544 Kbit
+        Total delay is 21000 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+      External data:
+        Originating router is 1.1.1.1
+        AS number of route is 0
+        External protocol is Static, external metric is 0
+        Administrator tag is 0 (0x00000000)
+        Exterior flag is set
+```
