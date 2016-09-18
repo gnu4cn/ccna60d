@@ -1278,3 +1278,44 @@ network 150.1.1.2 0.0.0.0
 network 150.2.2.2 0.0.0.0
 no auto-summary
 ```
+
+如同本小节前面指出的那样，在使用了`variance`命令时，所有那些满足了可行条件、且有着低于最小度量值乘以那个倍数的路径，都将被安装到路由表中。路由器随后将使用到所有路径，并依据其各自的路由度量值来按比例地进行负载均衡。
+
+在某些情况下，可能打算令到那些替代路由，比如可行后继路，要放入到路由表中，却只在后继路由被移除是才使用到它们。执行这类操作的典型目的，是为在开启EIGRP的网络中降低收敛时间。要弄明白此概念，就要回忆一下，路由器默认是只将后继路由放入到路由表中的。在后继路由已不可用时，可行后继路由就被提升为后继路由。随后该路由才被装入到路由表中，作为到目的网络的主要路径。
+
+可将路由器配置命令`traffic-share min across-interfaces`，与`variance`命令结合使用，来将那些有着少于最小度量值乘以所指定倍数所有路由，都安装到路由表中，却仅使用最小（最优）度量值的那条路由（后继路由），来转发数据包，知道该路由变为不可用。此配置的主要目的，就是在主路由丢失时，保证替代路由已经处于路由表中，且立即可用（减少了收敛时间）。
+
+下面的配置示例，使用了以上图36.11中展示的拓扑，用于对如何将路由器配置为把那些度量值少于最小度量值两倍的路由，放入到路由表中，而仅使用有着最低度量值的那条路由（后继路由）来转发数据包：
+
+```
+R2(config)#router eigrp 150
+R2(config-router)#vari 2
+R2(config-router)#traffic-share min across-interfaces
+R2(config-router)#exit
+```
+
+此配置造成路由表中`172.16.100.0/24`前缀的一下输出：
+
+
+```
+R2#show ip route 172.16.100.0 255.255.255.0
+Routing entry for 172.16.100.0/24
+  Known via “eigrp 150”, distance 90, metric 3014400, type internal
+  Redistributing via eigrp 150
+  Last update from 150.2.2.1 on Serial0/1, 00:09:01 ago
+  Routing Descriptor Blocks:
+    150.2.2.1, from 150.2.2.1, 00:09:01 ago, via Serial0/1
+      Route metric is 3847680, traffic share count is 0
+      Total delay is 20100 microseconds, minimum bandwidth is 768 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+  * 150.1.1.1, from 150.1.1.1, 00:09:01 ago, via Serial0/0
+      Route metric is 3014400, traffic share count is 1
+      Total delay is 20100 microseconds, minimum bandwidth is 1024 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+如上面的输出所示，基于该种不同开销下的负载均衡配置，两条不同度量值的路由，已被安装到路由表中。但注意到经由`Serial0/1`的流量分享计数（the traffic share count）是0，而经由`Serial0/0`的计数为1。这就意味着，尽管该路由条目已被安装到路由表中, 该路由器不会通过`Serial0/1`，向`172.16.100.0/24`网络发送任何数据包，除非经由`Serial0/0`的路径不再可用。
+
+
