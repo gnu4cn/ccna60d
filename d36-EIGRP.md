@@ -1482,3 +1482,25 @@ C       150.1.1.0 is directly connected, Serial0/0
 D*   0.0.0.0/0 is a summary, 00:02:26, Null0
 ```
 
+于是在路由器R2上就作为一条内部EIGRP路由（an internal EIGRP route），接收到该汇总路由，如下所示：
+
+```
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is 150.1.1.1 to network 0.0.0.0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
+```
+
+##EIGRP网络中的水平分割
+
+**Split Horizon in EIGRP Networks**
+
+
