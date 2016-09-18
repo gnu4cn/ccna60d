@@ -1451,3 +1451,34 @@ IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
         Administrator tag is 0 (0x00000000)
         Exterior flag is set
 ```
+
+可以看出该默认路由是一条在路由器R1上重分发到EIGRP中的静态路由。该路由有着度量值0。此外还可以看出路由器R1的EIGRP路由器ID（the EIGRP router ID, RID）为`1.1.1.1`。
+
+对默认路由进行通告的最后一种方法，就是使用接口配置命令`ip summary-address eigrp [asn] [network] [mask]`了。在本课程模块的后面，将对EIGRP的路由汇总（EIGRP route summarization）进行详细讲解。这里要着重于在应用EIGRP时，使用此命令来对默认路由进行通告的用途。
+
+参考上面图36.13中所演示的网络拓扑图示，这里使用了接口配置命令`ip summary-address eigrp [asn] [network] [mask]`, 将路由器R1配置为把默认路由通告给R2，如下所示：
+
+```
+R1(config)#interface Serial0/0
+R1(config-if)#description ‘Back-to-Back Serial Connection To R2 Serial0/0’
+R1(config-if)#ip summary-address eigrp 150 0.0.0.0 0.0.0.0
+R1(config-if)#exit
+```
+
+使用这个命令的主要优势在于，无需为了让EIGRP将网络`0.0.0.0/0`通告给邻居路由器，而将某条默认路由或某个默认网络放入到路由表中（The primary advantage to using this command is that a default route or network does not need to exist in the routing table in order for EIGRP to advertise network `0.0.0.0/0` to its neighbour routers）。在执行了此命令后，本地路由器将生成一条到`Null0`接口的汇总路由，并将该条目标记为备选默认路由（the candidate default route）。如下所示：
+
+```
+R1#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is 0.0.0.0 to network 0.0.0.0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+D*   0.0.0.0/0 is a summary, 00:02:26, Null0
+```
+
