@@ -1362,3 +1362,34 @@ D*   200.10.10.0/24 [90/2172416] via 150.2.2.1, 00:01:03, Serial0/0
      150.1.0.0/24 is subnetted, 1 subnets
 C       150.1.1.0 is directly connected, Serial0/0
 ```
+
+`network`命令可用于对某条既有的指向某个物理或逻辑接口，通常是空接口的静态默认路由，进行通告（The `network` command can be used to advertise an existing static default route point to either a physical or a logical interface, typically the Null0 interface）。
+
+> **注意**：`Null0`接口是路由器上的一个虚拟接口，会将路由至该接口的所有流量进行抛弃处理。如有着一条指向`Null0`的静态路由，那么所有以该静态路由中所指定网络为目的的流量，都将被简单地做丢弃处理。可将`Null0`接口看着是一个黑洞：数据包进入了，但不会有任何东西离开那里。其基本上就是路由器上的一个数位垃圾桶（It is essentially a bit-bucket on the router）。
+
+参考上面的图36.12, `network`命令与一条既有默认静态路由的结合使用，在以下路由器R1的配置中进行了演示：
+
+```
+R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
+R1(config)#router eigrp 150
+R1(config-router)#network 0.0.0.0
+R1(config-router)#exit
+```
+
+基于此种配置，下面的输出，演示了路由器R2上的IP路由表：
+
+```
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is 150.1.1.1 to network 0.0.0.0
+D    200.10.10.0/24 [90/2172416] via 150.1.1.1, 00:01:11, Serial0/0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
+```
