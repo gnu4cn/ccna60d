@@ -1399,4 +1399,30 @@ D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
 ![EIGRP的默认路由（续）](images/3613.png)
 *图 36.13 -- EIGRP的默认路由（续）*
 
+参考图36.13, 该图与图36.12是一样的，在路由器R1上完成以下配置：
 
+```
+R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
+R1(config)#router eigrp 150
+R1(config-router)#redistribute static metric 100000 100 255 1 1500
+R1(config-router)#exit
+```
+
+> **注意**：这里度量值中所用到的那些数值，可从接口上进行继承到，或可以在使用此命令时指定想要的任意数值。
+
+基于此种配置，路由器R2上的路由表就如下所示了：
+
+```
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is 150.1.1.1 to network 0.0.0.0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+D*EX 0.0.0.0/0 [170/2195456] via 150.1.1.1, 00:01:16, Serial0/0
+```
