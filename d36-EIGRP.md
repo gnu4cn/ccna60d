@@ -1651,4 +1651,40 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 ![EIGRP的自动路由汇总](images/3615.png)
 *图 36.15 -- EIGRP的自动路由汇总*
 
-参考图36.15中的EIGRP网络，路由器R1与R2运行着EIGRP，使用着自治系统编号150。`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网都是直接连接到路由器R1上的。路由器R1正将这些路由通告给R2。路由器R1与R2是使用了一条在`150.1.1.0/24`子网（该子网是一个与`10.1.1.0/24`、`10.2.2.0/24`及`10.3.3.3.0/24`子网都不相同的主要网络<major network>）, 上的背靠背的串行链接，连接起来的。
+参考图36.15中的EIGRP网络，路由器R1与R2运行着EIGRP，使用着自治系统编号150。`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网都是直接连接到路由器R1上的。路由器R1正将这些路由通告给R2。路由器R1与R2是使用了一条在`150.1.1.0/24`子网（该子网是一个与`10.1.1.0/24`、`10.2.2.0/24`及`10.3.3.3.0/24`子网都不相同的主要网络<major network>）, 上的背靠背的串行链接，连接起来的。根据连接在这些路由器上的网络，默认EIGRP将执行自动汇总，如下所示：
+
+- `10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网将被汇总到`10.0.0.0/8`
+- `150.1.1.0/24`子网将被汇总到`150.1.0.0/16`
+
+可以查看`show ip protocols`命令的输出，来对此默认行为进行验证。路由器R1上该命令的输出如下所示：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is in effect
+  Automatic address summarization:
+    150.1.0.0/16 for Loopback1, Loopback2, Loopback3
+      Summarizing with metric 2169856
+    10.0.0.0/8 for Serial0/0
+      Summarizing with metric 128256
+  Maximum path: 4
+  Routing for Networks:
+    10.1.1.0/24
+    10.2.2.0/24
+    10.3.3.0/24
+    150.1.1.0/24
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    (this router)         90      00:03:12
+    150.1.1.2             90      00:03:12
+  Distance: internal 90 external 170
+```
