@@ -1604,4 +1604,31 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
 - 从中心路由器往分支路由器通告一条默认路由
 - 在路由器上手动配置EIGRP邻居
 
+通过在中心路由器的接口级别使用接口配置命令`no ip split-horizon eigrp [AS]`，就可以完成关闭水平分割。命令`show ip split-horizon interface_name`不会显示EIGRP的水平分割状态，因为该命令是作用于RIP的。所以要查看到EIGRP的水平分割状态，就必须对接口配置部分进行检查（也就是执行`show run interface_name`命令）。参考上面图36.14中所演示的网络拓扑，此接口配置命令就应在中心路由器上的`Serial0/0`接口上应用。应像下面这样完成：
 
+```
+HQ(config)#interface Serial0/0
+HQ(config-if)#no ip split-horizon eigrp 150
+```
+
+在水平分割关闭后，中心路由器就可以把在某个接口上接收到的路由信息，再在该接口上发送出去了。比如，分支路由器S2上的路由表现在就显示了一个由分支S1通告给中心路由器的`10.1.1.0/24`前缀了：
+
+```
+S2#show ip route eigrp
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.1.1.0/24 [90/2707456] via 172.16.1.3, 00:00:47, Serial0/0
+     192.168.1.0/26 is subnetted, 1 subnets
+D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:00:47, Serial0/0
+```
+
+可使用一个简单的从分支路由器S2到`10.1.1.0/24`的`ping`操作，对连通性进行检查，如下所示：
+
+```
+S2#ping 10.1.1.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.1.1.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
+```
+
+关闭水平分割的第二种方法，就是简单地从中心路由器往分支路由器通告一条默认路由。在这种情况下，可以将接口配置命令`ip summary-address eigrp 150 0.0.0.0 0.0.0.0`，应用到中心路由器的`Serial0/0`接口。
