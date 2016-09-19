@@ -1688,3 +1688,50 @@ Routing Protocol is “eigrp 150”
     150.1.1.2             90      00:03:12
   Distance: internal 90 external 170
 ```
+
+在上面的输出中，`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网已被自动汇总到`10.0.0.0/8`。该汇总地址就被通告出`Serial0/0`接口。而`150.1.1.0/24`子网已被汇总到`150.1.0.0/16`。该汇总地址就被通告出`Loopback1`、`Loopback2`与`Loopback3`这三个环回接口。这里要记住，默认EIGRP将在所有EIGRP路由开启的接口上，发出路由更新。
+
+参考上面的打印输出，可以看到环回接口上所发出的更新，就是一种资源的浪费，因为设备是无法物理连接到路由器环回接口上去监听此类更新的（Referencing the output printed above, you can see that sending updates on a Loopback interface is a waste of resource because a device cannot be connected physically to a router Loopback interface listening for such updates）。那么就可以通告使用路由器配置命令`passive-interface`，来关闭此默认行为，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#passive-interface Loopback1
+R1(config-router)#passive-interface Loopback2
+R1(config-router)#passive-interface Loopback3
+R1(config-router)#exit
+```
+
+这样的配置的结果，就是不再往这些环回发出EIGRP数据包了。因此，如下所示，汇总地址就不会在这些接口上通告出去了：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is in effect
+  Automatic address summarization:
+    10.0.0.0/8 for Serial0/0
+      Summarizing with metric 128256
+  Maximum path: 4
+  Routing for Networks:
+    10.0.0.0
+    150.1.0.0
+  Passive Interface(s):
+    Loopback0
+    Loopback1
+    Loopback2
+    Loopback3
+  Routing Information Sources:
+    Gateway         Distance     Last Update
+    (this router)         90     00:03:07
+    150.1.1.2             90     00:01:12
+  Distance: internal 90 external 170
+```
+
