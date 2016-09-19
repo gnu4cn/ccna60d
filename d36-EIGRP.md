@@ -1631,4 +1631,24 @@ Sending 5, 100-byte ICMP Echos to 10.1.1.2, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 ```
 
-关闭水平分割的第二种方法，就是简单地从中心路由器往分支路由器通告一条默认路由。在这种情况下，可以将接口配置命令`ip summary-address eigrp 150 0.0.0.0 0.0.0.0`，应用到中心路由器的`Serial0/0`接口。
+关闭水平分割的第二种方法，就是简单地从中心路由器往分支路由器通告一条默认路由。在这种情况下，可以将接口配置命令`ip summary-address eigrp 150 0.0.0.0 0.0.0.0`，应用到中心路由器的`Serial0/0`接口。这样做就令到分支路由器能够经由中心路由器，到达对方的网络，中心路由器包含了完整的路由表，从而消除了对关闭水平分割的需求。
+
+而关闭水平分割的第三种替代方式，就是在所有路由器上，使用路由器配置命令`neighbor`来手动配置一些EIGRP的邻居语句。因为在使用了此种配置后，邻居间的更新就是单播的了，所以水平分割的限制条件就得以消除。此选项在小型网络中用起来是不错的；但随着网络的增大，以及分支路由器数量的增加，工作量也会增加。
+
+因为EIGRP默认路由与静态邻居方面的配置在本课程模块的前面小节都已详细介绍过了，所以这里为了简洁期间，这些特性的配置就做了省略处理。
+
+##EIGRP的路由汇总
+
+**EIGRP Route Summarisation**
+
+路由汇总特性减少了路由器必须处理的信息量，这样就实现了网络更快的收敛。通过将网络中具体区域的详细拓扑信息的隐藏，汇总还对由网络变动而造成的影响范围有所限制。最后，如同本课程模块前面所指出的那样，汇总还用于EIGRP查询边界的定义，而EIGRP查询边界又支持两种类型的路由汇总（Route summarisation reduces the amount of information that routers must process, which allows for faster convergence within the network. Summarisation also restricts the size of the area that is affected by network changes by hiding detailed topology information from certain areas within the network. Finally, as was stated earlier in this module, summarisation is used to define a Query boundary for EIGRP, which supports two types of route summarisation），如下所示：
+
+- 自动的路由汇总
+- 手动的路由汇总
+
+默认情况下，当在路由器上开启了EIGRP时，自动路由汇总就生效了。这是通过使用`auto-summary`命令应用的。该命令允许EIGRP在有类边界（at classful boundaries）进行自动路由汇总。参考下图36.15中的网络拓扑，对此默认特性的运作进行了演示：
+
+![EIGRP的自动路由汇总](images/3615.png)
+*图 36.15 -- EIGRP的自动路由汇总*
+
+参考图36.15中的EIGRP网络，路由器R1与R2运行着EIGRP，使用着自治系统编号150。`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网都是直接连接到路由器R1上的。路由器R1正将这些路由通告给R2。路由器R1与R2是使用了一条在`150.1.1.0/24`子网（该子网是一个与`10.1.1.0/24`、`10.2.2.0/24`及`10.3.3.3.0/24`子网都不相同的主要网络<major network>）上的背靠背的串行链接，连接起来的。
