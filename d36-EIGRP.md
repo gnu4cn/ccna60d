@@ -1909,4 +1909,40 @@ Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds:
 Success rate is 0 percent (0/5)
 ```
 
+而要解决这个问题，则有两种方案，如下：
+
+- 在两台路由器上手动配置`10.x.x.x/24`的静态路由
+- 关闭EIGRP的自动有类网络汇总，Disable EIGRP automatic classful network summarisation
+
+第一个选项是相当简单粗暴基础的（very basic）。因此，静态路由配置不具备可伸缩性，且在大型网络中需要大量费时费力的配置。而第二选项，也就是**推荐做法**，除了具备伸缩性，比起第一选项只需较少的时间精力。**通过执行`no auto-summary`命令**，就可将自动汇总予以关闭（**较新版本的IOS中，该特性已被默认关闭了**）, 如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#no auto-summary
+R1(config-router)#exit
+
+R2(config)#router eigrp 150
+R2(config-router)#no auto-summary
+R2(config-router)#exit
+```
+
+此配置的结果，就是主要网络上的那些具体子网，在两台路由器上都有通告。不会生成汇总路由，如下所示：
+
+```
+R2#show ip route eigrp
+     10.0.0.0/24 is subnetted, 2 subnets
+D       10.1.1.0 [90/2172416] via 150.1.1.1, 00:01:17, Serial0/0
+```
+
+这些`10.x.x.x/24`子网之间的连通性，可使用一个简单的`ping`操作，加以验证，如下所示：
+
+```
+R2#ping 10.1.1.1 source 10.2.2.2 repeat 10
+Type escape sequence to abort.
+Sending 10, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds:
+Packet sent with a source address of 10.2.2.2
+!!!!!!!!!!
+Success rate is 100 percent (10/10), round-trip min/avg/max = 1/3/4 ms
+```
+
 
