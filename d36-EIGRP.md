@@ -2237,3 +2237,13 @@ C       10.1.1.0/24 is directly connected, Loopback1
 C       10.0.0.0/24 is directly connected, Loopback0
 D       10.0.0.0/14 is a summary, 00:04:03, Null0
 ```
+
+而在路由器R2上，则接收到汇总地址`10.0.0.0/14`的一条单一的路由条目，如下所示：
+
+```
+R2#show ip route eigrp
+     10.0.0.0/14 is subnetted, 1 subnets
+D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
+```
+
+
