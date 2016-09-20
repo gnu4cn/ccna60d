@@ -1783,6 +1783,30 @@ D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 ![不连续网络](images/3616.png)
 *图 36.16 -- 不连续网络*
 
-参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器R1与R2将把`10.1.1.0/24`
+参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器R1与R2将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
 
 > **译者注**：本小节及前面小节中所提到的主要网络（the major network），是指按网络大类分的网络，也就是A、B、C、D及E类网络。
+
+因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面将一次性过一下这些步骤，从在路由器R1及R2上的配置开始，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.1.0 0.0.0.255
+R1(config-router)#network 150.1.1.0 0.0.0.255
+R1(config-router)#exit
+
+R2(config)#router eigrp 150
+R2(config-router)#network 10.2.2.0 0.0.0.255
+R2(config-router)#network 150.1.1.0 0.0.0.255
+R2(config-router)#exit
+```
+
+因为两台路由器上有类边界处的自动汇总都是默认开启的，所以这两台路由器都将生成两个汇总地址：一个是`10.0.0.0/8`的，另一个是`150.1.0.0/16`的（Because automatic summarisation at the classful boundary is enabled by default on both of the routers, they will both generate two summary addresses: one for `10.0.0.0/8` and another for `150.1.0.0/16`）。这两个汇总地址都将指向到`Null0`接口，同时路由器R1上的路由表将显示下面这些条目：
+
+```
+R1#show ip route eigrp
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 is a summary, 00:04:51, Null0
+     150.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
+D       150.1.0.0/16 is a summary, 00:06:22, Null0
+```
