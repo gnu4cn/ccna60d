@@ -1754,3 +1754,34 @@ P 10.1.1.0/24, 1 successors, FD is 128256
         via Connected, Loopback1
 ...
 [Truncated Output]
+
+在路由表中，汇总路由是直接连接到`Null0`接口上的。该路由有着一个默认为5的管理距离数值（a default administrative distance value of 5）。下面的输出对此进行了演示：
+
+```
+R1#show ip route 10.0.0.0 255.0.0.0
+Routing entry for 10.0.0.0/8
+  Known via “eigrp 150”, distance 5, metric 128256, type internal
+  Redistributing via eigrp 150
+  Routing Descriptor Blocks:
+  * directly connected, via Null0
+      Route metric is 128256, traffic share count is 1
+      Total delay is 5000 microseconds, minimum bandwidth is 10000000 Kbit
+      Reliability 255/255, minimum MTU 1514 bytes
+      Loading 1/255, Hops 0
+```
+
+在EIGRP完成自动汇总时，路由器将对汇总路由进行通过，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器R2上的路由表，加以验证，如下所示：
+
+```
+R2#show ip route eigrp
+D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
+```
+
+这种默认行为在一些基本的网络，比如上图36.15中演示的网络中，运作不错。但其可能在不连续网络，那种由两个分离的主要网络所组成的网络中，如下图36.16中所演示的，有着不利影响（However, it can have an adverse impact in a discontiguous network, which comprises a major network that separates another major network）：
+
+![不连续网络](images/3616.png)
+*图 36.16 -- 不连续网络*
+
+参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器R1与R2将把`10.1.1.0/24`
+
+> **译者注**：本小节及前面小节中所提到的主要网络（the major network），是指按网络大类分的网络，也就是A、B、C、D及E类网络。
