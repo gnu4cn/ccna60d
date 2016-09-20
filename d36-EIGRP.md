@@ -1735,3 +1735,22 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
+> **注意**：本课程模块稍后会对`passive-interface`命令进行详细讲解。
+
+继续有关自动汇总方面的内容，在对有类边界进行自动汇总后，EIGRP就将针对汇总地址的一条路由，安装到EIGRP的拓扑表与IP路由表中（Continuing with automatic summarisation, following automatic summarisation at the classful boundary, EIGRP installs a route to the summary address into the EIGRP topology table and the IP routing table）。下面的EIGRP拓扑表中就包含了此汇总地址的路由，以及更具体的路由条目以及这些路由条目各自所直接连接的接口：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.0.0.0/8, 1 successors, FD is 128256
+        via Summary (128256/0), Null0
+P 10.3.3.0/24, 1 successors, FD is 128256
+        via Connected, Loopback3
+P 10.2.2.0/24, 1 successors, FD is 128256
+        via Connected, Loopback2
+P 10.1.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback1
+...
+[Truncated Output]
