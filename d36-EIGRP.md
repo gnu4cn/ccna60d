@@ -1848,4 +1848,65 @@ Sending 5, 100-byte ICMP Echos to 150.1.1.2, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 ```
 
+但是，那些到这个大的`150.1.0.0/16`网络的所有其它子网的数据包，都将发送到`Null0`接口，因为没有其它具体路由条目存在（于路由表中）。
+
+那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为主要`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器R1与R2之间是能`ping`通的。不过问题在于路由器R1与R2上主要网络`10.0.0.0/8`的那些子网。路由器R1（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
+
+```
+R1#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C       10.1.1.0/24 is directly connected, FastEthernet0/0
+D       10.0.0.0/8 is a summary, 00:14:23, Null0
+```
+
+于此类似，路由器R2（的路由表）显示出其生成的`10.0.0.0/8`汇总地址的以下具体路由条目：
+
+```
+R2#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+C       10.2.2.0/24 is directly connected, FastEthernet0/0
+D       10.0.0.0/8 is a summary, 00:14:23, Null0
+```
+
+可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在比如路由器R1尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
+
+```
+R1#show ip route 10.2.2.0
+Routing entry for 10.0.0.0/8
+  Known via “eigrp 150”, distance 5, metric 28160, type internal
+  Redistributing via eigrp 150
+  Routing Descriptor Blocks:
+  * directly connected, via Null0
+      Route metric is 28160, traffic share count is 1
+      Total delay is 100 microseconds, minimum bandwidth is 100000 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 0
+```
+
+路由器R1将无法`ping`通R2上的`10.x.x.x/24`子网，反之亦然，如下所示：
+
+```
+R1#ping 10.2.2.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+```
+
 
