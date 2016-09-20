@@ -1983,4 +1983,22 @@ Gateway             Distance        Last Update
   Distance: internal 90 external 170
 ```
 
+因为这些`10.x.x.x/24`前缀都是外部路由，所以EIGRP不会对这些前缀进行自动汇总，就像前面输出示例所演示的那样。又因此EIGRP不会往拓扑表，也不会往IP路由表中添加一条这些前缀的汇总路由。下面的输出对此进行了演示：
 
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.0.0.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+P 10.1.1.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+P 10.2.2.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+P 10.3.3.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+...
+
+[Truncated Output]
+```
