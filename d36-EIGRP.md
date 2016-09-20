@@ -2217,3 +2217,23 @@ C       150.1.1.0 is directly connected, Serial0/0
      150.2.0.0/24 is subnetted, 1 subnets
 C       150.2.2.0 is directly connected, Serial0/1
 ```
+
+可再次使用`show ip route [address] [mask] longer-prefixes`命令，来查看组成该聚合或者说汇总路由的那些具体路由条目，如下面路由器R1上的输出所示：
+
+```
+R1#show ip route 10.0.0.0 255.252.0.0 longer-prefixes
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 5 subnets, 2 masks
+C       10.3.3.0/24 is directly connected, Loopback3
+C       10.2.2.0/24 is directly connected, Loopback2
+C       10.1.1.0/24 is directly connected, Loopback1
+C       10.0.0.0/24 is directly connected, Loopback0
+D       10.0.0.0/14 is a summary, 00:04:03, Null0
+```
