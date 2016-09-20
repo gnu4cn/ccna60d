@@ -2110,4 +2110,27 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 默认在配置了手动路由汇总时，EIGRP就不会对包含在汇总网络条目中的那些更具体路由条目进行通告了。可将关键字`[leak-map <name>]`配置为允许EIGRP路由的泄露，有了此特性，EIGRP就允许那些指定的具体路由条目，与汇总地址一起得以通告。而那些未在泄露图谱中指定的条目，则仍然会被压减（By default, when manual route summarisation is configured, EIGRP will not advertise the more specific route entries that fall within the summarised network entry. The `[leak-map <name>]` keyword can be configured to allow EIGRP route leaking, wherein EIGRP allows specified specific route entries to be advertised in conjunction with the summary address. Those entries that are not specified in the leak map are still suppressed）。
 
+在对路由进行手动汇总时，重要的是要足够具体（When mannually summarising routes, it is important to be as specific as possible）。否则，所作出的配置就会导致与先前所讲到的不连续网络示例中类似的流量黑洞问题。下图36.18中对此概念进行了演示：
+
+![不良路由汇总下的流量黑洞问题](images/3618.png)
+*图 36.18 -- 不良路由汇总下的流量黑洞问题，Black-Holing traffic with Poor Route Summarisation*
+
+参考图36.18, 假如在两台路由器上都手动配置了一个`10.0.0.0/8`的汇总地址，那么更为具体的那些前缀就被压减掉了。因为这里EIGRP也将该汇总地址，以`Null0`的下一跳接口，安装到EIGRP的拓扑表及IP路由表，那么在此网络中将经历与不连续网络中自动汇总同样的问题，两台路由器上相应子网将无法与对方联系上。
+
+此外，同样重要的是需要明白，如网络中有着不良部署，手动汇总还将导致网络的次优路由问题（suboptimal routing）。下图36.19对此进行了演示：
+
+![路由汇总中的次优路由问题](images/3619.png)
+*图 36.19 -- 路由汇总中的次优路由问题，Suboptimal Routing with Route Summarisation*
+
+默认情况下，在EIGRP的一条汇总路由创建出来后，路由器就将该汇总地址以其所有具体路由度量值中最小的度量值进行通告。也就是说，汇总地址将有着最低的、包含在汇总地址建立中最具体的路由度量值（By default, when a summary route is created for EIGRP, the router advertises the summary address with a metric equal to the minimum of all the more specific routes. In other words, the summary address will have the same metric as the lowest, most specific route included in the creation of the summary address）。
+
+参考图36.19中所演示的网络拓扑，路由器R2与R3都正将汇总地址`10.0.0.0/8`通告给R1。此汇总是有更具体的`10.4.4.0/24`与`10.6.6.0/24`前缀构成的。该汇总地址所使用的度量值，在两台路由器上分别如下表36.5那样计算出来：
+
+*表 36.5 -- 汇总路由的度量值计算*
+
+| 起始点（路由器） | 到`10.4.4.0/24`的度量值 | 到`10.6.6.0/24`的度量值 |
+| -- | -- | -- |
+| R2 | 5+5 = 10 | 5+45+5+5 = 60 |
+| R3 | 5+45+5 = 55 | 5+5+5 = 15 |
+
 
