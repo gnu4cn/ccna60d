@@ -1945,4 +1945,42 @@ Packet sent with a source address of 10.2.2.2
 Success rate is 100 percent (10/10), round-trip min/avg/max = 1/3/4 ms
 ```
 
+在深入讨论手动路由汇总前，重要的是要知道EIGRP是不会自动汇总外部的那些网络的, 除非某个内部网络将包含在那个汇总中（Before we go into the details pertaining to manual summarisation, it is important to know that EIGRP will not automaticlly summarise external networks unless there is an internal network that will be included in the summary）。为更好地掌握此概念，就要参考下图36.17, 该图片演示了一个基本的EIGRP网络：
+
+![对外部网络的汇总](images/3617.png)
+*图 36.17 -- 对外部网络的汇总，Summrising External Networks*
+
+参考图36.17, 路由器R1正在进行重分发（redistributing, 这令到这些网络成为外部的网络），并在随后将外部网络`10.0.0.0/24`、`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`这些外部网络经由EIGRP进行通告。路由器R1上开启了自动路由汇总。路由器R1上的初始配置是下面这样的：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#redistribute connected metric 8000000 5000 255 1 1514
+R1(config-router)#network 150.1.1.1 0.0.0.0
+R1(config-router)#exit
+```
+
+那么`show ip protocols`命令就显示出路由器R1的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: connected, eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is in effect
+  Maximum path: 4
+  Routing for Networks:
+    150.1.1.1/32
+Routing Information Sources:
+Gateway             Distance        Last Update
+150.1.1.2                 90        00:00:07
+  Distance: internal 90 external 170
+```
+
 
