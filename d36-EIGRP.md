@@ -820,7 +820,7 @@ Routing entry for 172.16.100.0/24
 
 **Using Interface Delay to Influence EIGRP Metric Calculation**
 
-接口延迟数值，是用微秒来表示的。但在EIGRP度量值计算中用到的延迟数值，是以10微妙计的（in tens of microseconds）。因此，为了计算出EIGRP的度量值，接口上的延迟数值，就必须除以10。下面的表36.3对思科IOS软件中使用到的默认接口带宽及延迟数值，进行了演示：
+接口延迟数值，是用微秒来表示的。但在EIGRP度量值计算中用到的延迟数值，是以10微秒计的（in tens of microseconds）。因此，为了计算出EIGRP的度量值，接口上的延迟数值，就必须除以10。下面的表36.3对思科IOS软件中使用到的默认接口带宽及延迟数值，进行了演示：
 
 *表 36.3 -- 默认的接口带宽与延迟数值*
 
