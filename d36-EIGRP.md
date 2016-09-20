@@ -2044,3 +2044,25 @@ Routing Protocol is “eigrp 150”
     150.1.1.2             90        00:00:02
   Distance: internal 90 external 170
 ```
+
+在上面的输出中，EIGRP的自动汇总，已经生成一个`10.0.0.0/8`的汇总地址，因为`10.0.0.0/24`这个内部子网是该聚合地址（the aggregate address）的一部分。而EIGRP的拓扑表，将显示出这些外部与内部条目，以及生成的汇总地址，如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.0.0.0/8, 1 successors, FD is 128256
+        via Summary (128256/0), Null0
+P 10.0.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 10.1.1.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+P 10.2.2.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+P 10.3.3.0/24, 1 successors, FD is 1280256
+        via Rconnected (1280256/0)
+...
+
+[Truncated Output]
+```
