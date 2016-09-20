@@ -2013,3 +2013,34 @@ D EX    10.2.2.0 [170/3449856] via 150.1.1.1, 00:07:02, Serial0/0
 D EX    10.1.1.0 [170/3449856] via 150.1.1.1, 00:07:02, Serial0/0
 D EX    10.0.0.0 [170/3449856] via 150.1.1.1, 00:07:02, Serial0/0
 ```
+
+现在，假设`10.0.0.0/24`是一个内部网络，而`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`三个子网却是外部网络。因为这些将构成有类汇总地址`10.0.0.0/8`的路由中有一条是内部路由，所以EIGRP将创建出一个汇总地址，并将其包含在EIGRP拓扑表与IP路由表中。命令`show ip protocols`显示出`10.0.0.0/24`网络此时就是一个内部EIGRP网络了，如下所示：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: connected, eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is in effect
+  Automatic address summarization:
+    150.1.0.0/16 for Loopback0
+      Summarizing with metric 2169856
+    10.0.0.0/8 for Serial0/0
+      Summarizing with metric 128256
+  Maximum path: 4
+  Routing for Networks:
+    10.0.0.1/32
+    150.1.1.1/32
+  Routing Information Sources:
+    Gateway         Distance        Last Update
+    (this router)         90        00:00:05
+    150.1.1.2             90        00:00:02
+  Distance: internal 90 external 170
+```
