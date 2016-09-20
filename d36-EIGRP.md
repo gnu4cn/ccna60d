@@ -1821,3 +1821,31 @@ D       10.0.0.0/8 is a summary, 00:01:58, Null0
 D       150.1.0.0/16 is a summary, 00:01:58, Null0
 ```
 
+虽然汇总地址`150.1.0.0/16`被安装到了IP路由表中，路由器R1与R2是仍可`ping`通对方的，因为这里的更为具体路由条目（the more route-specific entry, `150.1.1.0/24`）是位处于直连接口之上的。可通过执行`show ip route [address] [mask] longer-prefixes`命令，来查看到这些某个汇总路由中的详细条目。下面演示了对于`150.1.0.0/16`汇总，该命令的输出：
+
+```
+R1#show ip route 150.1.0.0 255.255.0.0 longer-prefixes
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     150.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
+C       150.1.1.0/24 is directly connected, Serial0/0
+D       150.1.0.0/16 is a summary, 00:10:29, Null0
+```
+
+因为那条更详细的`150.1.1.0/24`路由条目是存在的，所以发送到`150.1.1.2`地址的数据包将经由`Serial0/0`接口加以转发。这就令到路由器R1与R2的连通性没有问题，如下所示：
+
+```
+R1#ping 150.1.1.2
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 150.1.1.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
+```
+
+
