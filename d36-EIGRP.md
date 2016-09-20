@@ -2246,4 +2246,22 @@ R2#show ip route eigrp
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
 ```
 
+为对汇总路由度量值方面进行巩固，这里假设路由器R1上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由已被重分发到EIGRP中）。那么R1上的EIGRP拓扑表，将显示以下条目：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.0.0.0/24, 1 successors, FD is 10127872
+        via Rconnected (10127872/0)
+P 10.1.1.0/24, 1 successors, FD is 3461120
+        via Rconnected (3461120/0)
+P 10.2.2.0/24, 1 successors, FD is 2627840
+        via Rconnected (2627840/0)
+P 10.3.3.0/24, 1 successors, FD is 1377792
+        via Rconnected (1377792/0)
+...
+[Truncated Output]
+```
 
