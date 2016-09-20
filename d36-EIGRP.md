@@ -708,7 +708,9 @@ Static Address           Interface
 
 在那之后，将学习到弥散更新算法（the Diffusing Update Algorithm, DUAL）与EIGRP的拓扑表。此小节包括了一个有关如何在一台运行着EIGRP的路由器上，将所有这些信息进行配合，以最终产生出IP路由表的讨论。
 
-###
+###EIGRP综合度量值的计算
+
+**EIGRP Composite Metric Calculation**
 
 增强的EIGRP使用了一种综合度量值（a composite metric）, 该度量值包含了以不同的K值所表示的不同变量（Enhanced IGRP uses a composite metric, which includes different variables referred to as the K values）。这些K值是一些常量，用于赋予路径的不同方面以不同的权重，这些路径的不同方面，都可能包含在该综合EIGRP度量值中。这些K值的默认值为 `K1=K3=1`, `K2=K4=K5=0`。也就是说，K1与K3被默认被设置为1, 同时K2、K4和K5默认被设置为0。
 
