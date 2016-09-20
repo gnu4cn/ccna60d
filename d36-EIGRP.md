@@ -2172,3 +2172,48 @@ R1(config)#interface Serial0/0
 R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
 R1(config-if)#exit
 ```
+
+在此配置下，该汇总条目`10.0.0.0/14`就将被安装到路由器R1的EIGRP拓扑表与IP路由表中。该EIGRP拓扑表条目如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.0.0.0/14, 1 successors, FD is 128256
+        via Summary (128256/0), Null0
+P 10.3.3.0/24, 1 successors, FD is 128256
+        via Connected, Loopback3
+P 10.2.2.0/24, 1 successors, FD is 128256
+        via Connected, Loopback2
+P 10.0.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 10.1.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback1
+...
+[Truncated Output]
+```
+
+而该路由表条目，也同样反应出来此汇总路由的下一跳接口为`Null0`, 如下所示：
+
+```
+R1#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 5 subnets, 2 masks
+C       10.3.3.0/24 is directly connected, Loopback3
+C       10.2.2.0/24 is directly connected, Loopback2
+C       10.1.1.0/24 is directly connected, Loopback1
+C       10.0.0.0/24 is directly connected, Loopback0
+D*      10.0.0.0/14 is a summary, 00:02:37, Null0
+     150.1.0.0/24 is subnetted, 1 subnets
+C       150.1.1.0 is directly connected, Serial0/0
+     150.2.0.0/24 is subnetted, 1 subnets
+C       150.2.2.0 is directly connected, Serial0/1
+```
