@@ -1810,3 +1810,14 @@ D       10.0.0.0/8 is a summary, 00:04:51, Null0
      150.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
 D       150.1.0.0/16 is a summary, 00:06:22, Null0
 ```
+
+与此类似，路由器R2上反应了同样的情况，如下所示：
+
+```
+R2#show ip route eigrp
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 is a summary, 00:01:58, Null0
+     150.1.0.0/16 is variably subnetted, 2 subnets, 2 masks
+D       150.1.0.0/16 is a summary, 00:01:58, Null0
+```
+
