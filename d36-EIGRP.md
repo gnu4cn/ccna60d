@@ -2066,3 +2066,48 @@ P 10.3.3.0/24, 1 successors, FD is 1280256
 
 [Truncated Output]
 ```
+
+此时，就仅有一条路由通告给路由器R2了，如下面的输出所示：
+
+```
+R2#show ip route eigrp
+D    10.0.0.0/8 [90/2297856] via 150.1.1.1, 00:04:05, Serial0/0
+```
+
+从路由器R2的角度看，该路由就是一条简单的内部EIGRP路由。也就是说，路由器R2并不知道这个汇总地址还有着一些外部路由，如下所示：
+
+```
+R2#show ip route 10.0.0.0 255.0.0.0
+Routing entry for 10.0.0.0/8
+  Known via “eigrp 150”, distance 90, metric 2297856, type internal
+  Redistributing via eigrp 150
+  Last update from 150.1.1.1 on Serial0/0, 00:05:34 ago
+  Routing Descriptor Blocks:
+  * 150.1.1.1, from 150.1.1.1, 00:05:34 ago, via Serial0/0
+      Route metric is 2297856, traffic share count is 1
+      Total delay is 25000 microseconds, minimum bandwidth is 1544 Kbit
+      Reliability 255/255, minimum MTU 1500 bytes
+      Loading 1/255, Hops 1
+```
+
+经由所接收到的这条汇总路由，路由器R2是可以同时到达这个内部的`10.0.0.0/24`与那些其它的外部`10.x.x.x/24`网络，如下所示：
+
+```
+R2#ping 10.0.0.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+
+R2#ping 10.3.3.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.3.3.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
+```
+
+与EIGRP的自动汇总不同，EIGRP的手动路由汇总，是在接口级别使用接口配置命令`ip summary-address eigrp [ASN] [network] [mask] [distance] [leak-map <name>]`，进行配置和部署的。默认情况下，分配给EIGRP汇总地址的默认管理距离值为5（By default, an EIGRP summary address is assigned a default administrative distance value of 5）。可通过由`[distance]`关键字所指定的数值，从而指定所需的管理距离值，来改变此默认分配的值。
+
+默认在配置了手动路由汇总时，EIGRP就不会对包含在汇总网络条目中的那些更具体路由条目进行通告了。可将关键字`[leak-map <name>]`配置为允许EIGRP路由的泄露，有了此特性，EIGRP就允许那些指定的具体路由条目，与汇总地址一起得以通告。而那些未在泄露图谱中指定的条目，则仍然会被压减（By default, when manual route summarisation is configured, EIGRP will not advertise the more specific route entries that fall within the summarised network entry. The `[leak-map <name>]` keyword can be configured to allow EIGRP route leaking, wherein EIGRP allows specified specific route entries to be advertised in conjunction with the summary address. Those entries that are not specified in the leak map are still suppressed）。
+
+
