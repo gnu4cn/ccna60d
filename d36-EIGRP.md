@@ -1754,6 +1754,7 @@ P 10.1.1.0/24, 1 successors, FD is 128256
         via Connected, Loopback1
 ...
 [Truncated Output]
+```
 
 在路由表中，汇总路由是直接连接到`Null0`接口上的。该路由有着一个默认为5的管理距离数值（a default administrative distance value of 5）。下面的输出对此进行了演示：
 
