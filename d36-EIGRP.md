@@ -2265,4 +2265,31 @@ P 10.3.3.0/24, 1 successors, FD is 1377792
 [Truncated Output]
 ```
 
+此时再度在路由器R1上做先前示例中的相同汇总地址配置，如下所示：
 
+```
+R1(config)#int s0/0
+R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
+R1(config-if)#exit
+```
+
+那么此时基于此配置，该汇总路由就以它所包含的所有路由中的最小度量值，而放入到EIGRP拓扑表和IP路由表中（Based on this configuration, the summary route is placed into the EIGRP topology table and the IP routing table with a metric equal to the lowest metric of all routes that it encompasses）。而根据前面所展示的`show ip eigrp topology`命令的输出，该汇总地址将获得到与`10.3.3.0/24`前缀相同的度量值，如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+    r - reply Status, s - sia Status
+P 10.0.0.0/14, 1 successors, FD is 1377792
+        via Summary (1377792/0), Null0
+P 10.0.0.0/24, 1 successors, FD is 10127872
+        via Rconnected (10127872/0)
+P 10.1.1.0/24, 1 successors, FD is 3461120
+        via Rconnected (3461120/0)
+P 10.2.2.0/24, 1 successors, FD is 2627840
+        via Rconnected (2627840/0)
+P 10.3.3.0/24, 1 successors, FD is 1377792
+        via Rconnected (1377792/0)
+P 150.1.1.0/24, 1 successors, FD is 2169856
+        via Connected, Serial0/0
+```
