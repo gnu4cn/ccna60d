@@ -2374,3 +2374,64 @@ Routing Protocol is “eigrp 150”
     Gateway         Distance      Last Update
   Distance: internal 90 external 170
 ```
+
+路由器配置命令`passive-interface [name|default]`中的`[default]`关键字令到所有接口，都成为被动模式。先假设路由器上配置了50个的环回接口。如打算将每个环回接口都配置为被动模式，那么就需要50行的代码。而这时就可以使用`passive-interface default`命令，来令到所有接口都成为被动接口了。对于那些确实想要发出EIGRP数据包的接口，就可使用`no passive-interface [name]`命令进行配置。下面对`passive-interface default`命令的用法进行了演示：
+
+```
+R1(config)#interface Loopback0
+R1(config-if)#ip address 10.0.0.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Loopback1
+R1(config-if)#ip address 10.1.1.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Loopback3
+R1(config-if)#ip address 10.3.3.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Loopback2
+R1(config-if)#ip address 10.2.2.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Serial0/0
+R1(config-if)#ip address 150.1.1.1 255.255.255.0
+R1(config-if)#exit
+R1(config-router)#network 10.0.0.1 255.255.255.0
+R1(config-router)#network 10.1.1.1 255.255.255.0
+R1(config-router)#network 10.3.3.1 255.255.255.0
+R1(config-router)#network 10.2.2.1 255.255.255.0
+R1(config-router)#network 150.1.1.1 255.255.255.0
+R1(config-router)#passive-interface default
+R1(config-router)#no passive-interface Serial0/0
+R1(config-router)#exit
+```
+
+这里可以又使用`show ip protocols`命令，来查看哪些接口是处于EIGRP下的被动模式的，如下所示：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    10.0.0.0/24
+    10.1.1.0/24
+    10.2.2.0/24
+    10.3.3.0/24
+    150.1.1.0/24
+  Passive Interface(s):
+    Loopback1
+    Loopback2
+    Loopback3
+    Loopback4
+  Routing Information Sources:
+    Gateway         Distance       Last Update
+    (this router)         90       00:02:52
+  Distance: internal 90 external 170
+```
