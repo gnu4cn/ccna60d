@@ -2293,3 +2293,46 @@ P 10.3.3.0/24, 1 successors, FD is 1377792
 P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
+
+##什么是被动接口
+
+**Understanding Passive Interface**
+
+如同本课程模块前面所指出的，在对某个网络开启了EIGRP后，路由器就开始在其位于某个特定网络范围内的所有接口上，发出Hello数据包。这样做可令到EIGRP能够动态地发现邻居，并建立各种网络关系。这对于那些切实有着到物理介质连接，比如以太网及串行接口等，的接口是需要的。但这种默认行为在那些绝不会有其它设备连接的逻辑接口（logical interfaces），比如环回接口上，因为路由器绝不会经由这些逻辑接口建立EIGRP的邻居关系，而也会造成不必要的路由器资源的浪费。
+
+思科IOS软件允许管理员使用**路由器配置命令`passive-interface [name|default]`**, 将命名的接口（the named interface）或把所有接口，指定为被动模式。从而不会在这些被动接口上发出EIGRP数据包; 那么在这些被动接口之间，就绝对不会建立邻居关系了。下面的输出演示了在路由器上如何将两个开启了EIGRP的接口，配置为被动模式：
+
+```
+R1(config)#interface Loopback0
+R1(config-if)#ip address 10.0.0.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Loopback1
+R1(config-if)#ip address 10.1.1.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#interface Serial0/0
+R1(config-if)#ip address 150.1.1.1 255.255.255.0
+R1(config-if)#exit
+R1(config)#router eigrp 150
+R1(config-router)#no auto-summary
+R1(config-router)#network 150.1.1.0 0.0.0.255
+R1(config-router)#network 10.0.0.0 0.0.0.255
+R1(config-router)#network 10.1.1.0 0.0.0.255
+R1(config-router)#passive-interface Loopback0
+R1(config-router)#passive-interface Loopback1
+R1(config-router)#exit
+```
+
+基于此种配置，逻辑接口`Loopback0`与`Loopback1`是开启了EIGRP路由的，它们上面的直连网络将被通告给EIGRP邻居。但路由器R1是不会将EIGRP数据包从这两个接口发出去的。另一方面，接口`Serial0/0`上也配置上了EIGRP路由，不过这里是允许EIGRP在此接口上发出数据包的，因为它不是一个被动接口。所有三个网络都是安装到EIGRP路由表中的，如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.1.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback1
+P 10.0.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 150.1.1.0/24, 1 successors, FD is 2169856
+        via Connected, Serial0/0
+```
