@@ -2435,3 +2435,13 @@ Routing Protocol is “eigrp 150”
     (this router)         90       00:02:52
   Distance: internal 90 external 170
 ```
+
+这里通过使用`passive-interface default`命令，多个被动接口的配置就得以简化，并减少了代码。而当其与`no passive-interface Serial0/0`一起使用时，EIGRP数据包仍旧在接口`Serial0/0`上发出，从而允许EIGRP邻居关系通过此接口建立起来，如下所示：
+
+```
+R1#show ip eigrp neighbors
+IP-EIGRP neighbors for process 150
+H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
+                            (sec)           (ms)         Cnt    Num
+0   150.1.1.2    Se0/0      12    00:02:47  1     3000   0      69
+```
