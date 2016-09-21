@@ -2445,3 +2445,28 @@ H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
                             (sec)           (ms)         Cnt    Num
 0   150.1.1.2    Se0/0      12    00:02:47  1     3000   0      69
 ```
+
+##掌握EIGRP路由器ID的用法
+
+**Understanding the Use of the EIGRP Router ID**
+
+与OSPF使用路由器ID（the router ID, RID）来识别OSPF邻居不同，EIGRP的RID主要用途是阻止路由环回的形成。RID被用于识别那些外部路由的起源路由器（the primary use of the EIGRP RID is to prevent routing loops. The RID is used to identify the originating router for external routes）。假如接收到一条有着与本地路由器一致的RID的外部路由，那么就会将其丢弃。设计此特性的目的，就是降低那些其中有着多台自治系统边界路由器（AS Boundary Router, ASBR）正进行路由重分发，的网络中出现路由环回的可能性。
+
+在确定RID时，EIGRP将选取路由器上所配置的IP地址中最高的。但如果在路由器上配置了环回接口，那么将优先选取这些接口，因为环回接口是路由器上存在的最稳定接口。除非将EIGRP进程移除，那么RID随后将绝不会变化了（也就是，假如RID是手动配置的情况）。RID将始终会在EIGRP拓扑表中列出，如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+P 10.2.2.0/24, 1 successors, FD is 128256
+        via Connected, Loopback2
+P 10.3.3.0/24, 1 successors, FD is 128256
+        via Connected, Loopback3
+P 10.1.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback1
+P 10.0.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 150.1.1.0/24, 1 successors, FD is 2169856
+        via Connected, Serial0/0
+```
