@@ -2336,3 +2336,14 @@ P 10.0.0.0/24, 1 successors, FD is 128256
 P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
+
+但`show ip eigrp interfaces`显示EIGRP路由只是对`Serial0/0`接口是开启的，如下所示：
+
+```
+R1#show ip eigrp interfaces
+IP-EIGRP interfaces for process 150
+                      Xmit Queue   Mean    Pacing Time     Multicast     Pending
+Interface      Peers  Un/Reliable  SRTT    Un/Reliable     Flow Timer    Routes
+Se0/0            1        0/0        0        0/15             0            0
+```
+
