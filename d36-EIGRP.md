@@ -2347,3 +2347,30 @@ Interface      Peers  Un/Reliable  SRTT    Un/Reliable     Flow Timer    Routes
 Se0/0            1        0/0        0        0/15             0            0
 ```
 
+也可在`show ip protocols`命令的输出中查看到那些配置为被动模式的接口，如下所示：
+
+```
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+  Redistributing: eigrp 150
+  EIGRP NSF-aware route hold timer is 240s
+  Automatic network summarization is not in effect
+  Maximum path: 4
+  Routing for Networks:
+    10.0.0.0/24
+    10.1.1.0/24
+    150.1.1.0/24
+  Passive Interface(s):
+    Loopback0
+    Loopback1
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+  Distance: internal 90 external 170
+```
