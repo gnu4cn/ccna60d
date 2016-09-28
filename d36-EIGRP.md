@@ -2473,4 +2473,25 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
 
 > **注意**：虽然对于那些只有一个接口的路由器来说，路由器ID与邻居ID是一样哦，但明白这里的路由器ID与邻居ID会有所不同，是重要的（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
 
+EIGRP的路由器ID（RID）是通过路由器配置命令`eigrp router-id [address]`进行配置的。在输入了此命令后，RID就以EIGRP拓扑表中的这个新地址，得以更新了。为对此进行演示，这里就以查看路由器上的当前RID开始，如下面的拓扑表中所指出的：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+...
+[Truncated Output]
+```
+
+现在路由器上配置一个`1.1.1.1`的RID，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#eigrp router-id 1.1.1.1
+R1(config-router)#
+*Mar 1 05:50:13.642: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 150.1.1.2 (Serial0/0) is down: route configuration changed
+*Mar 1 05:50:16.014: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 150.1.1.2 (Serial0/0) is up: new adjacency
+```
+
 
