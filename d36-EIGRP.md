@@ -2470,3 +2470,7 @@ P 10.0.0.0/24, 1 successors, FD is 128256
 P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
+
+> **注意**：虽然对于那些只有一个接口的路由器来说，路由器ID与邻居ID是一样哦，但明白这里的路由器ID与邻居ID会有所不同，是重要的（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
+
+
