@@ -2563,3 +2563,16 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 8. The `_______` `_______` includes both the metric of a network as advertised by the connected neighbour, plus the cost of reaching that particular neighbour.
 9. Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols. True or false?
 10. What EIGRP command can be used to enable unequal cost load sharing?
+
+##第36天问题答案
+
+1. `protocols`.
+2. False.
+3. The topology table allows all EIGRP routers to have a consistent view of the entire network. All known destination networks and subnets that are advertised by neighbouring EIGRP routers are stored there.
+4. Minimum, delay.
+5. `224.0.0.10`.
+6. 88.
+7. DUAL.
+8. Feasible Distance.
+9. True.
+10. The `variance` command.
