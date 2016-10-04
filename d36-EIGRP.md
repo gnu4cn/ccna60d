@@ -2576,3 +2576,57 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 8. Feasible Distance.
 9. True.
 10. The `variance` command.
+
+##第36天实验
+
+**EIGRP的实验**
+
+###拓扑图
+
+![EIGRP实验拓扑图](images/3622.png)
+
+###实验目的
+
+学习如何配置基本的EIGRP。
+
+###实验步骤
+
+1. 基于上面的拓扑，配置上所有IP地址。确保可以经由串行链路`ping`通。
+2. 在两台路由器上以自治系统编号30, 配置EIGRP。
+
+```
+RouterA(config)#router eigrp 30
+RouterA(config-router)#net 172.20.0.0
+RouterA(config-router)#net 10.0.0.0
+RouterA(config-router)#^Z
+RouterA#
+RouterB#conf t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+RouterB(config)#router eigrp 30
+RouterB(config-router)#net 10.0.0.0
+%DUAL-5-NBRCHANGE: IP-EIGRP 30: Neighbor 10.0.0.1 (Serial0/1/0) is up: new adjacency
+RouterB(config-router)#net 192.168.1.0
+```
+
+3. 对两台路由器上的路由表分别进行检查。
+
+```
+RouterA#sh ip route
+Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 is a summary, 00:01:43, Null0
+C       10.0.0.0/30 is directly connected, Serial0/1/0
+     172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+D       172.20.0.0/16 is a summary, 00:01:43, Null0
+C       172.20.1.0/24 is directly connected, Loopback0
+D    192.168.1.0/24 [90/20640000] via 10.0.0.2, 00:00:49, Serial0/1/0
+RouterA#
+```
