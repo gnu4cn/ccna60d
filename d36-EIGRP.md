@@ -2630,3 +2630,49 @@ C       172.20.1.0/24 is directly connected, Loopback0
 D    192.168.1.0/24 [90/20640000] via 10.0.0.2, 00:00:49, Serial0/1/0
 RouterA#
 ```
+
+```
+RouterB#show ip route
+...
+[Truncated Output]
+...
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 is a summary, 00:01:21, Null0
+C       10.0.0.0/30 is directly connected, Serial0/1/0
+D    172.20.0.0/16 [90/20640000] via 10.0.0.1, 00:01:27, Serial0/1/0
+     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+D       192.168.1.0/24 is a summary, 00:01:21, Null0
+C       192.168.1.0/26 is directly connected, Loopback0
+RouterB#
+```
+
+4. 查明两台路由器都对各个网络进行着自动汇总。并于随后在路由器B上关闭自动汇总。
+
+```
+RouterB#show ip protocols
+Routing Protocol is “eigrp 30”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Default networks flagged in outgoing updates
+  Default networks accepted from incoming updates
+  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+  EIGRP maximum hopcount 100
+  EIGRP maximum metric variance 1
+Redistributing: eigrp 30
+  Automatic network summarization is in effect
+  Automatic address summarization:
+    192.168.1.0/24 for Serial0/1/0
+      Summarizing with metric 128256
+    10.0.0.0/8 for Loopback0
+      Summarizing with metric 20512000
+  Maximum path: 4
+  Routing for Networks:
+     10.0.0.0
+     192.168.1.0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    10.0.0.1        90            496078
+  Distance: internal 90 external 170
+RouterB(config)#router eigrp 30
+RouterB(config-router)#no auto-summary
+```
