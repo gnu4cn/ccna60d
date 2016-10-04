@@ -2505,3 +2505,31 @@ Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
 [Truncated Output]
 ```
 
+在对EIGRP的路由器ID（RID）进行配置时，应记住下面两点：
+
+- 不能（无法）将RID配置为`0.0.0.0`
+- 不能（无法）将RID配置为`255.255.255.255`
+
+现在，源自该路由器的所有外部路由，都包含了这个EIGRP路由器ID了。在下面的邻居路由器R2输出中，就可对此进行验证：
+
+```
+R2#show ip eigrp topology 192.168.254.0/24
+IP-EIGRP (AS 150): Topology entry for 192.168.254.0/24
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 7289856
+  Routing Descriptor Blocks:
+  150.1.1.1 (Serial0/0), from 150.1.1.1, Send flag is 0x0
+      Composite metric is (7289856/6777856), Route is External
+      Vector metric:
+        Minimum bandwidth is 1544 Kbit
+        Total delay is 220000 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+      External data:
+        Originating router is 1.1.1.1
+        AS number of route is 0
+        External protocol is Connected, external metric is 0
+        Administrator tag is 0 (0x00000000)
+```
+
