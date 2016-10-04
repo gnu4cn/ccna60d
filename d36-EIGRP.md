@@ -2533,3 +2533,20 @@ IP-EIGRP (AS 150): Topology entry for 192.168.254.0/24
         Administrator tag is 0 (0x00000000)
 ```
 
+而对于内部EIGRP路由，则是不包含RID的，如下面的输出所示：
+
+```
+R2#show ip eigrp topology 10.3.3.0/24
+IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 2297856
+  Routing Descriptor Blocks:
+  150.1.1.1 (Serial0/0), from 150.1.1.1, Send flag is 0x0
+      Composite metric is (2297856/128256), Route is Internal
+      Vector metric:
+      Minimum bandwidth is 1544 Kbit
+      Total delay is 25000 microseconds
+      Reliability is 255/255
+      Load is 1/255
+      Minimum MTU is 1500
+      Hop count is 1
+```
