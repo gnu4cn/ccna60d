@@ -2494,4 +2494,14 @@ R1(config-router)#
 *Mar 1 05:50:16.014: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 150.1.1.2 (Serial0/0) is up: new adjacency
 ```
 
+伴随这个改变，EIGRP邻居关系就被重置了，同时在EIGRP拓扑表中立即反映出了这个新的RID，如下所示：
+
+```
+R1#show ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(1.1.1.1)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+...
+[Truncated Output]
+```
 
