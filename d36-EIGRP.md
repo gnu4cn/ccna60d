@@ -2676,3 +2676,24 @@ Redistributing: eigrp 30
 RouterB(config)#router eigrp 30
 RouterB(config-router)#no auto-summary
 ```
+
+5. 对路由器A上的路由表进行检查。
+
+```
+RouterA#show ip route
+...
+[Truncated Output]
+...
+Gateway of last resort is not set
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 is a summary, 00:00:04, Null0
+C       10.0.0.0/30 is directly connected, Serial0/1/0
+     172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+D       172.20.0.0/16 is a summary, 00:00:04, Null0
+C       172.20.1.0/24 is directly connected, Loopback0
+     192.168.1.0/26 is subnetted, 1 subnets
+D       192.168.1.0 [90/20640000] via 10.0.0.2, 00:00:04, Serial0/1/0
+RouterA#
+```
+
+请访问[www.in60days.com](http://www.in60days.com)，免费观看作者完成此试验。
