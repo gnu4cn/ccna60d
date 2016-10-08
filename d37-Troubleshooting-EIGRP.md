@@ -120,4 +120,15 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
+在某台路由器上的K值被重置后，那么该本地路由器的所有邻居关系都将被重置。而如果在重置后所有路由器上的这些K值出现不一致，那么控制台上将打印出下面的错误消息，同时EIGRP邻居关系将不会建立：
+
+```
+*Oct 20 03:19:14.140 CST: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 1: Neighbor 150.2.2.1 (FastEthernet0/0) is down: Interface Goodbye received
+*Oct 20 03:19:18.732 CST: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 1: Neighbor 150.2.2.1 (FastEthernet0/0) is down: K-value mismatched
+```
+
+> **注意**：尽管可使用`metric-weights`命令对EIGRP的那些K值进行调整，但在没有老练网络工程师或思科技术支持中心的协助下，是不推荐的。
+
+与OSPF使用到本地意义上的进程ID（a locally significant process ID）不同, 在与其它路由器建立邻居关系时，EIGRP要求同样的自治系统编号（除开其它变量之外）。对此方面故障的排除，是通过对设备配置进行比较，并确保那些将要建立邻居关系的路由器之间的自治系统编号（除开其它变量）一致即可。作为邻居处于不同自治系统的一个良好指标，就是即使路由器之间有着基本的IP连通性的情况下，仍然缺少双向Hello数据包。这一点可通过使用`show ip eigrp traffic`命令予以验证，该命令的输出在接下来的小节中有演示。
+
 
