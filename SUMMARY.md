@@ -22,3 +22,4 @@
 * [第34天, 第一跳冗余协议](d34-First-Hop-Redundancy-Protocols.md)
 * [第35天, 启动与IOS](d35-booting-and-IOS.md)
 * [第36天, EIGRP](d36-EIGRP.md)
+* [第37天，EIGRP故障排除](d37-Troubleshooting-EIGRP.md)
