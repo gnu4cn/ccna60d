@@ -235,4 +235,25 @@ R2#
 
 在上面的调试输出中，本地路由器从邻居`150.1.1.1`处接收到了有着路由度量值`156160/128256`的`10.0.0.0/8`路由。但由于汇总操作，弥散更新算法本地也有着该相同路由，且该本地路由有着`128256/0`的路由度量值。因此安装到路由表中的是本地路由，而不是接收到的，因为本地路由有着更好的度量值。此情形在路由器R1上同样适用，R1将会把它本地的`10.0.0.0/8`路由安装到RIB（Route Information Base, 路由信息库）中。结果就是两台路由器都无法`ping`到对方的`10.x.x.x`子网。为解决此问题，就应在两台路由器上都使用`no auto-summary`命令，关闭自动汇总，从而允许这些具体路由条目得以通告出去。
 
+EIGRP路由器ID（RID）的主要用途，就是阻止路由环回的形成。RID用于识别外部路由的始发路由器（The RID is used to identify the originating router for external routes）。加入接收到一条有着与本地路由器相同RID的外部路由，该路由将被丢弃。不过重复的路由器ID，却并不会影响到任何内部EIGRP路由。设计此特性的目的，就是降低那些在多于一台的自治系统边界路由器（AS Boundary Router, ASBR）上进行着路由重分发的网络中，出现路由环回的可能性。在`show ip eigrp topology`命令的输出中，便可查看到始发路由器ID，如下所示：
 
+```
+R1#show ip eigrp topology 2.2.2.2 255.255.255.255
+IP-EIGRP (AS 1): Topology entry for 2.2.2.2/32
+  State is Passive, Query origin flag is 1, 1 Successor(s), FD is 156160
+  Routing Descriptor Blocks:
+  150.1.1.2 (FastEthernet0/0), from 150.1.1.2, Send flag is 0x0
+      Composite metric is (156160/128256), Route is External
+      Vector metric:
+        Minimum bandwidth is 100000 Kbit
+        Total delay is 5100 microseconds
+        Reliability is 255/255
+        Load is 1/255
+        Minimum MTU is 1500
+        Hop count is 1
+      External data:
+        Originating router is 2.2.2.2
+        AS number of route is 0
+        External protocol is Connected, external metric is 0
+        Administrator tag is 0 (0x00000000)
+```
