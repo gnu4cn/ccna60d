@@ -195,3 +195,11 @@ Se0/0              0        0/0        0        0/1             0           0
   Authentication mode is md5,  key-chain is “EIGRP-1”
   Use unicast
 ```
+
+通常在进行故障排除时，都是建议在思科IOS软件中使用`show`命令（`show` commands），而不是`debug`命令（`debug` commands）。虽然调试提供到实时信息，但调试是非常耗费处理器资源的，从而造成设备的高CPU使用率，同时在某些情况下，甚至造成设备设备崩溃。除了这些`show`命令之外，还应对软件所打印出的错误消息加以留意，因为这些消息提供了可用于故障排除及隔离出问题根源的有用信息。
+
+##路由安装的故障排除
+
+**Troubleshooting Route Installation**
+
+
