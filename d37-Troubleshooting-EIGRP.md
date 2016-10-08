@@ -161,4 +161,37 @@ Extended IP access list 100
 
 物理及数据链路层的故障，以及这些故障对路由协议及其它流量造成影响的方式，已在早先的课程模块中有所说明。对这些故障的排除，可以使用`show interfaces`、`show interfaces counters`、`show vlan`及`show spanning-tree`等命令，以及其它一些在前面课程模块（[物理及数据链路层故障排除](d15-Layer_1-and-Layer_2-Troubleshooting.html)）中讲到的命令。这里为了避免重复，就不再重申那些物理及数据链路层故障排除步骤了。
 
+最后，常见的认证配置错误，包含了在配置密钥链时不同的密钥ID，以及指定了不同或不匹配的口令等（Finally, common authentication configuration mistakes include using different key IDs when configuring key chains and specifying different or mismatched password）。当在某个接口下开启了认证时，EIGRP邻居关系将被重置并被重新初始化。假如在部署认证之后，原先已建立的邻居关系未能再度建立，那么就要通过在路由器上观察运行配置，或使用`show key chain`及`show ip eigrp interfaces detail [name]`命令，来对各项认证参数进行检查。下面是由`show key chain`命令所打印出来的示例输出：
 
+```
+R2#show key chain
+Key-chain EIGRP-1:
+    key 1 -- text “eigrp-1”
+      accept lifetime (always valid) - (always valid) [valid now]
+      send lifetime (always valid) - (always valid) [valid now]
+Key-chain EIGRP-2:
+    key 1 -- text “eigrp-2”
+      accept lifetime (00:00:01 UTC Nov 1 2010) - (infinite)
+      send lifetime (00:00:01 UTC Nov 1 2010) - (infinite)
+Key-chain EIGRP-3:
+    key 1 -- text “eigrp-3”
+      accept lifetime (00:00:01 UTC Dec 1 2010) - (00:00:01 UTC Dec 31 2010)
+      send lifetime (00:00:01 UTC Dec 1 2010) - (00:00:01 UTC Dec 31 2010)
+```
+
+以下是由`show ip eigrp interfaces detail [name]`命令所打印出的示例信息输出：
+
+```
+R2#show ip eigrp interfaces detail Serial0/0
+IP-EIGRP interfaces for process 1
+                        Xmit Queue   Mean   Pacing Time    Multicast    Pending
+Interface        Peers  Un/Reliable  SRTT   Un/Reliable    Flow Timer   Routes
+Se0/0              0        0/0        0        0/1             0           0
+  Hello interval is 5 sec
+  Next xmit serial <none>
+  Un/reliable mcasts: 0/0  Un/reliable ucasts: 0/0
+  Mcast exceptions: 0  CR packets: 0  ACKs suppressed: 0
+  Retransmissions sent: 0  Out-of-sequence rcvd: 0
+  Authentication mode is md5,  key-chain is “EIGRP-1”
+  Use unicast
+```
