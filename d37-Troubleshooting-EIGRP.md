@@ -159,4 +159,6 @@ Extended IP access list 100
     30 permit ip any any (27 matches)
 ```
 
-物理及数据链路层的故障，
+物理及数据链路层的故障，以及这些故障对路由协议及其它流量造成影响的方式，已在早先的课程模块中有所说明。对这些故障的排除，可以使用`show interfaces`、`show interfaces counters`、`show vlan`及`show spanning-tree`等命令，以及其它一些在前面课程模块（[物理及数据链路层故障排除](d15-Layer_1-and-Layer_2-Troubleshooting.html)）中讲到的命令。这里为了避免重复，就不再重申那些物理及数据链路层故障排除步骤了。
+
+
