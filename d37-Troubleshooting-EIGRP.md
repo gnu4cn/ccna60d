@@ -131,4 +131,32 @@ Routing Protocol is “eigrp 150”
 
 与OSPF使用到本地意义上的进程ID（a locally significant process ID）不同, 在与其它路由器建立邻居关系时，EIGRP要求同样的自治系统编号（除开其它变量之外）。对此方面故障的排除，是通过对设备配置进行比较，并确保那些将要建立邻居关系的路由器之间的自治系统编号（除开其它变量）一致即可。作为邻居处于不同自治系统的一个良好指标，就是即使路由器之间有着基本的IP连通性的情况下，仍然缺少双向Hello数据包。这一点可通过使用`show ip eigrp traffic`命令予以验证，该命令的输出在接下来的小节中有演示。
 
+配置不当的访问控制清单（ACLs）与其它过滤器（filters）同样也是造成路由器建立EIGRP邻居关系失败的常见原因。这时对路由器配置和其它中间设备进行检查，以确保EIGRP或多播数据包未被过滤掉。要用到的一个非常有用的故障排除命令，就是`show ip eigrp traffic`了。此命令提供了有关所有EIGRP数据包的统计信息。比如这里假设已经对基本的连通性（能`ping`通）及两台设备之间的配置进行了验证，但EIGRP邻居关系仍然没有建立。那么在此情况下，就可以在本地设备上开启调试（enabling debugging on the local device）之前，使用该命令检查看看路由器是否有Hello数据包的交换，如下所示：
 
+```
+R2#show ip eigrp traffic
+IP-EIGRP Traffic Statistics for AS 2
+  Hellos sent/received: 144/0
+  Updates sent/received: 0/0
+  Queries sent/received: 0/0
+  Replies sent/received: 0/0
+  Acks sent/received: 0/0
+  SIA-Queries sent/received: 0/0
+  SIA-Replies sent/received: 0/0
+  Hello Process ID: 149
+  PDM Process ID: 120
+  IP Socket queue:   0/2000/0/0 (current/max/highest/drops)
+  Eigrp input queue: 0/2000/0/0 (current/max/highest/drops)
+```
+
+在上面的输出中，注意该本地路由器尚未收到任何的Hello数据包，虽然其已发出144个Hello数据包。假设已经验证了两台设备之间有着连通性，以及各自配置，那么就应对本地路由器与中间设备（在适用时）上的访问控制清单配置进行检查，以确保EIGRP或多播数据包未被过滤掉。比如，可能发现有着一条ACL配置为拒绝所有D类与E类流量，而放行所有其它流量，譬如下面的ACL：
+
+```
+R2#show ip access-lists
+Extended IP access list 100
+    10 deny ip 224.0.0.0 15.255.255.255 any
+    20 deny ip any 224.0.0.0 15.255.255.255 (47 matches)
+    30 permit ip any any (27 matches)
+```
+
+物理及数据链路层的故障，
