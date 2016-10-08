@@ -211,4 +211,9 @@ Se0/0              0        0/0        0        0/1             0           0
 
 管理距离这一概念，被用于判定路由源的可靠性（The administrative distance(AD) concept is used to determine how reliable the route source is）。较低的管理距离，就意味着路由源更为可靠。假如从三种不同协议接收到同一条路由，那么有着最低管理距离的那条路由，将被安装到路由表中。在使用EIGRP时，要记住对于汇总、内部与外部路由（summary, internal, and external routes），EIGRP分别使用了不同的管理距离值。而假如同时运行着多种路由协议，这时就要确保对那些管理距离数值，以及它们对路由表的生成有何种影响有所掌握。这在进行多种路由协议之间路由重分发时，尤其要加以关注。
 
+默认情况下，EIGRP在有类边界上进行自动汇总，并创建出一条指向`Null0`接口的汇总路由（By default, EIGRP automatically summarises at classful boundaries and creates a summary route pointing to the Null0 interface）。由于该汇总是以默认的管理距离数值5安装到路由表中的，那么所有其它类似的动态接收到的路由，都不会被安装到路由表中了。比如考虑下图37.1中所演示的拓扑：
+
+![EIGRP的自动汇总](images/3701.png)
+*图 37.1 -- EIGRP的自动汇总*
+
 
