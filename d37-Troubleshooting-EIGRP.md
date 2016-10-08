@@ -202,4 +202,13 @@ Se0/0              0        0/0        0        0/1             0           0
 
 **Troubleshooting Route Installation**
 
+在一些故障实例中，可能会注意到EIGRP未有将某些路由安装到路由表中。造成此类问题的主要原因，就是某些与协议失败相对的错误配置（For the most part, this is typically due to some misconfigurations versus a protocol failure）。路由安装失败的一些常见原因，有以下这些：
+
+- 经由另一协议收到了有着更低管理距离的相同路由，The same route is received via another protocol with a lower administrative distance
+- EIGRP汇总，EIGRP summarisation
+- EIGRP域中出现了重复的路由器ID，Duplicate router IDs are present within the EIGRP domain
+- 这些路由未能满足可行条件，The routes do not meet the Feasibility Condition
+
+管理距离这一概念，被用于判定路由源的可靠性（The administrative distance(AD) concept is used to determine how reliable the route source is）。较低的管理距离，就意味着路由源更为可靠。假如从三种不同协议接收到同一条路由，那么有着最低管理距离的那条路由，将被安装到路由表中。在使用EIGRP时，要记住对于汇总、内部与外部路由（summary, internal, and external routes），EIGRP分别使用了不同的管理距离值。而假如同时运行着多种路由协议，这时就要确保对那些管理距离数值，以及它们对路由表的生成有何种影响有所掌握。这在进行多种路由协议之间路由重分发时，尤其要加以关注。
+
 
