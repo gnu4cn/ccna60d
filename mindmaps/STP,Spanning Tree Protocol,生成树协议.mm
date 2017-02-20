@@ -77,6 +77,7 @@
 <edge COLOR="#00ff00"/>
 <node TEXT="&#x95f4;&#x9694;&#xff1a;2s" ID="ID_1833352132" CREATED="1487582937985" MODIFIED="1487582951229"/>
 <node TEXT="&#x5185;&#x5bb9;&#xff1a;&#x7aef;&#x53e3;&#x3001;&#x5730;&#x5740;&#x3001;&#x4f18;&#x5148;&#x7ea7;&#x53ca;&#x5f00;&#x9500;&#x7b49;&#x4fe1;&#x606f;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487582996090"/>
+<node TEXT="&#x5176;&#x5b83;&#xff1a;BPDUs&#x4f1a;&#x88ab;&#x6253;&#x4e0a;VLAN ID&#x6807;&#x8bb0;" ID="ID_1909260872" CREATED="1487583330497" MODIFIED="1487583355535"/>
 </node>
 </node>
 </map>
