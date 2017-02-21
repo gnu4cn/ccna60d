@@ -197,7 +197,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 丢弃转发自另一端口的帧, discards frames switched from another port
 
-- 将工作站地址加入到其地址数据库，incorporates(installs) station location into its address database
+- 将工作站地址包含（安装）到其地址数据库，incorporates(installs) station location into its address database
 
 - 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
 

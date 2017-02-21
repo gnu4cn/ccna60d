@@ -394,7 +394,7 @@
 
 </richcontent>
 </node>
-<node TEXT="&#x4fa6;&#x542c;&#x4e2d; -- &#x6709;BPDUs&#x53d1;&#x51fa;&#x548c;&#x63a5;&#x6536;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;listening -- BPDUs sent and received (15 seconds)" ID="ID_1054326285" CREATED="1487644676409" MODIFIED="1487645122168"><richcontent TYPE="NOTE">
+<node TEXT="&#x4fa6;&#x542c;&#x4e2d; -- &#x6709;BPDUs&#x53d1;&#x51fa;&#x548c;&#x63a5;&#x6536;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;listening -- BPDUs sent and received (15 seconds)" ID="ID_1054326285" CREATED="1487644676409" MODIFIED="1487645353586"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -424,7 +424,7 @@
       </li>
       <li style="margin-top: 0">
         <p style="margin-top: 16px; margin-bottom: 16px">
-          &#25509;&#25910;&#12289;&#22788;&#29702;&#24182;&#20256;&#36865;&#25509;&#25910;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs, receives, processes, and transmits BPDUs received from the system module&#65288;&#36825;&#19968;&#28857;&#19982;&#38459;&#22622;&#29366;&#24577;&#26377;&#25152;&#19981;&#21516;&#65289;
+          &#25509;&#25910;&#12289;&#22788;&#29702;&#24182;&#20256;&#36865;&#25509;&#25910;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs&#65288;&#22312;&#36825;&#19968;&#28857;&#19978;&#65292;&#19982;&#38459;&#22622;&#29366;&#24577;&#26377;&#25152;&#19981;&#21516;&#65289;, receives, processes, and transmits BPDUs received from the system module
         </p>
       </li>
       <li style="margin-top: 0">
@@ -433,15 +433,6 @@
         </p>
       </li>
     </ul>
-    <h3 style="margin-top: 24px; margin-bottom: 16px; font-size: 1.25em; font-weight: 600; line-height: 1.25; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-style: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
-      <a id="user-content-&#x751f;&#x6210;&#x6811;&#x5b66;&#x4e60;&#x72b6;&#x6001;" class="anchor" href="https://github.com/gnu4cn/ccna60d/blob/master/d31-Spanning-Tree-Protocol.md#&#x751f;&#x6210;&#x6811;&#x5b66;&#x4e60;&#x72b6;&#x6001;" aria-hidden="true" style="color: rgb(64, 120, 192); text-decoration: none; float: left; padding-right: 4px; margin-left: -20px; line-height: 1"><font color="rgb(64, 120, 192)"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16" style="float: left; padding-right: 4px; margin-left: -20px; line-height: 1">
-      <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" style="float: left; padding-right: 4px; margin-left: -20px; line-height: 1">
-      </path>
-      </svg>
-      </font></a>
-    </h3>
-    <br class="Apple-interchange-newline"/>
-    
   </body>
 </html>
 
