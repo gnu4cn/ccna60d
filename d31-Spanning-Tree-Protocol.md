@@ -274,7 +274,7 @@ Interface   Port ID                 Designated                  Port ID
 Name        Prior.Nbr   Cost    Sts Cost        Bridge ID       Prior.Nbr
 ----------  ---------   ----    --- ----------- --------------  ---------
 Fa0/1       128.1       19      FWD 0  32768    0009.7c87.9081  128.13
-Fa0/2       128.2       19      FWD 19  32770   0008.21a9.4f80  128.2
+Fa0/2       128.2       19      FWD 19 32770    0008.21a9.4f80  128.2
 ```
 
 上面输出中的MAC地址是得自交换机背板或管理引擎的硬件地址（the hardware address derived from the switch backplane or supervisor engine， 又名为基底MAC地址，the base MAC address）。**在802.1D标准中，每个VLAN都需要一个唯一BID。**
