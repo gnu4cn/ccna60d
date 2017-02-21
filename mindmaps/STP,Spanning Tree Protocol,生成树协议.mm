@@ -1,7 +1,7 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="STP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487636213426" TEXT_SHORTENED="true"><hook NAME="MapStyle">
-    <properties show_note_icons="true"/>
+    <properties show_note_icons="true" show_icon_for_attributes="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -65,7 +65,7 @@
 </html>
 
 </richcontent>
-<node TEXT="BPDU" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487639681771">
+<node TEXT="BPDU" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487640755043">
 <edge COLOR="#00ff00"/>
 <richcontent TYPE="NOTE">
 
@@ -75,7 +75,7 @@
   </head>
   <body>
     <p>
-      Bridge Protocol DU, &#26725;&#21327;&#35758;&#25968;&#25454;&#21333;&#20803;
+      Bridge Protocol DU, &#26725;&#21327;&#35758;&#25968;&#25454;&#21333;&#20803;&#12290;BPDUs&#20250;&#34987;&#25171;&#19978;VLAN ID&#26631;&#35760;
     </p>
   </body>
 </html>
@@ -83,8 +83,32 @@
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_161614335" MIDDLE_LABEL="&#x5229;&#x7528;BPDUs&#x7684;&#x4ea4;&#x6362;&#xff0c;&#x6765;&#x786e;&#x5b9a;&#x7f51;&#x7edc;&#x62d3;&#x6251;" STARTINCLINATION="61;0;" ENDINCLINATION="61;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="&#x95f4;&#x9694;&#xff1a;2s" ID="ID_1833352132" CREATED="1487582937985" MODIFIED="1487582951229"/>
-<node TEXT="&#x5185;&#x5bb9;&#xff1a;&#x7aef;&#x53e3;&#x3001;&#x5730;&#x5740;&#x3001;&#x4f18;&#x5148;&#x7ea7;&#x53ca;&#x5f00;&#x9500;&#x7b49;&#x4fe1;&#x606f;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487582996090"/>
-<node TEXT="&#x5176;&#x5b83;&#xff1a;BPDUs&#x4f1a;&#x88ab;&#x6253;&#x4e0a;VLAN ID&#x6807;&#x8bb0;" ID="ID_1909260872" CREATED="1487583330497" MODIFIED="1487583355535"/>
+<node TEXT="&#x6570;&#x636e;&#x5e27;&#x6784;&#x6210;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487640584455">
+<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x6807;&#x8bc6;&#x7b26;" ID="ID_1575397629" CREATED="1487640590246" MODIFIED="1487640912255">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1360788201" STARTINCLINATION="139;0;" ENDINCLINATION="139;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &#20132;&#25442;&#26426;&#21807;&#19968;MAC&#22320;&#22336;,<span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(51, 51, 51)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#24471;&#33258;&#20132;&#25442;&#26426;&#32972;&#26495;&#25110;&#31649;&#29702;&#24341;&#25806;&#30340;&#30828;&#20214;&#22320;&#22336;&#65288;the hardware address derived from the switch backplane or supervisor engine&#65292; &#21448;&#21517;&#20026;&#22522;&#24213;MAC&#22320;&#22336;&#65292;the base MAC address&#65289;&#12290;</font></span> <strong http-equiv="content-type" content="text/html; charset=utf-8" style="font-weight: 600; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255)"><b><font color="rgb(51, 51, 51)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#22312;802.1D&#26631;&#20934;&#20013;&#65292;&#27599;&#20010;VLAN&#37117;&#38656;&#35201;&#19968;&#20010;&#21807;&#19968;BID&#12290;</font></b></strong>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x7aef;&#x53e3;&#x5730;&#x5740;" ID="ID_1290775397" CREATED="1487640637356" MODIFIED="1487640649432">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_330467769" STARTINCLINATION="261;0;" ENDINCLINATION="261;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+</node>
+<node TEXT="&#x7aef;&#x53e3;&#x5230;&#x6839;&#x8282;&#x70b9;&#x7684;&#x5f00;&#x9500;" ID="ID_972535079" CREATED="1487640676612" MODIFIED="1487640714885">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_219407617" STARTINCLINATION="225;0;" ENDINCLINATION="225;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+</node>
+<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x4f18;&#x5148;&#x7ea7;&#xff0c;Priority" ID="ID_405799390" CREATED="1487640701504" MODIFIED="1487640782973"/>
+</node>
 <node TEXT="&#x7c7b;&#x578b;" ID="ID_938846571" CREATED="1487639792052" MODIFIED="1487639925835">
 <node TEXT="&#x914d;&#x7f6e;BPDUs" ID="ID_1186452463" CREATED="1487639820753" MODIFIED="1487639925835"><richcontent TYPE="NOTE">
 
