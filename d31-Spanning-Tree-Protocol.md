@@ -261,7 +261,7 @@ Switch2#show spanning-tree vlan 2
 VLAN0002
     Spanning tree enabled protocol ieee
     Root ID Priority    32768
-                Address     0009.7c87.9081
+            Address     0009.7c87.9081
             Cost        19
             Port        1 (FastEthernet0/1)
             Hello Time  2 sec Max Age 20 sec Forward Delay 15 sec
