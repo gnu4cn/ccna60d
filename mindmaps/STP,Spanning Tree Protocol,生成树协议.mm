@@ -438,9 +438,141 @@
 
 </richcontent>
 </node>
-<node TEXT="&#x5b66;&#x4e60;&#x4e2d; -- &#x6865;&#x63a5;&#x8868;&#x88ab;&#x5efa;&#x7acb;&#x8d77;&#x6765;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;learning -- bridging table is built (15 seconds)" ID="ID_1176713406" CREATED="1487644689344" MODIFIED="1487644696624"/>
-<node TEXT="&#x8f6c;&#x53d1;&#x4e2d; -- &#x53d1;&#x9001;/&#x63a5;&#x6536;&#x6570;&#x636e;&#xff0c;forwarding -- sending/receiving data" ID="ID_1300430620" CREATED="1487644702242" MODIFIED="1487644710830"/>
-<node TEXT="&#x5173;&#x95ed; -- &#x7ba1;&#x7406;&#x6027;&#x5173;&#x95ed;&#xff0c;disabled -- administratively down" ID="ID_1689751614" CREATED="1487644714860" MODIFIED="1487644721278"/>
+<node TEXT="&#x5b66;&#x4e60;&#x4e2d; -- &#x6865;&#x63a5;&#x8868;&#x88ab;&#x5efa;&#x7acb;&#x8d77;&#x6765;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;learning -- bridging table is built (15 seconds)" ID="ID_1176713406" CREATED="1487644689344" MODIFIED="1487645712524"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <ul http-equiv="content-type" content="text/html; charset=utf-8" style="padding-left: 0; margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <li>
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#25509;&#25910;&#33258;&#25152;&#36830;&#25509;&#32593;&#27573;&#30340;&#24103;, discards frames received from the attached segment
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#36716;&#21457;&#33258;&#21478;&#19968;&#31471;&#21475;&#30340;&#24103;, discards frames switched from another port
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#23558;&#24037;&#20316;&#31449;&#22320;&#22336;&#21253;&#21547;&#65288;&#23433;&#35013;&#65289;&#21040;&#20854;&#22320;&#22336;&#25968;&#25454;&#24211;&#65288;&#36825;&#19968;&#28857;&#19982;&#20390;&#21548;&#29366;&#24577;&#26377;&#25152;&#19981;&#21516;&#65289;&#65292;incorporates(installs) station location into its address database
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;BPDUs&#24182;&#23558;&#36825;&#20123;BPDUs&#24341;&#23548;&#32473;&#31995;&#32479;&#27169;&#22359;&#65292;receives BPDUs and directs them to the system module
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;&#12289;&#22788;&#29702;&#24182;&#20256;&#36865;&#25509;&#25910;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs, receives, processes, and transmits BPDUs received from the system module
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#23545;&#32593;&#32476;&#31649;&#29702;&#25253;&#25991;&#36827;&#34892;&#25509;&#25910;&#21644;&#21709;&#24212;&#65292;receives and responds to network management messages
+        </p>
+      </li>
+    </ul>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x8f6c;&#x53d1;&#x4e2d; -- &#x53d1;&#x9001;/&#x63a5;&#x6536;&#x6570;&#x636e;&#xff0c;forwarding -- sending/receiving data" ID="ID_1300430620" CREATED="1487644702242" MODIFIED="1487645828835"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <ul http-equiv="content-type" content="text/html; charset=utf-8" style="padding-left: 0; margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <li>
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#36716;&#21457;&#25509;&#25910;&#33258;&#25152;&#36830;&#25509;&#32593;&#27573;&#30340;&#25968;&#25454;&#24103;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#36716;&#21457;&#20132;&#25442;&#33258;&#21478;&#19968;&#31471;&#21475;&#30340;&#25968;&#25454;&#24103;&#65288;&#20197;&#19978;&#20004;&#28857;&#19982;&#23398;&#20064;&#29366;&#24577;&#19981;&#21516;&#65292;&#26631;&#24535;&#30528;&#24320;&#22987;&#36716;&#21457;&#25968;&#25454;&#65289;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#23558;&#31449;&#28857;&#22320;&#22336;&#20449;&#24687;&#21152;&#20837;&#65288;&#23433;&#35013;&#65289;&#21040;&#20854;&#22320;&#22336;&#25968;&#25454;&#24211;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;BPDUs&#24182;&#23558;&#36825;&#20123;BPDUs&#23548;&#21521;&#32473;&#31995;&#32479;&#27169;&#22359;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#22788;&#29702;&#25509;&#25910;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;&#32593;&#32476;&#31649;&#29702;&#25253;&#25991;&#24182;&#23545;&#20854;&#36827;&#34892;&#21709;&#24212;
+        </p>
+      </li>
+    </ul>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x5173;&#x95ed; -- &#x7ba1;&#x7406;&#x6027;&#x5173;&#x95ed;&#xff0c;disabled -- administratively down" ID="ID_1689751614" CREATED="1487644714860" MODIFIED="1487645847115"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p http-equiv="content-type" content="text/html; charset=utf-8" style="margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      &#20851;&#38381;&#29366;&#24577;&#19981;&#26159;&#31471;&#21475;&#27491;&#24120;STP&#36827;&#23637;&#30340;&#37096;&#20998;&#12290;&#32780;&#26159;&#31471;&#21475;&#34987;&#32593;&#32476;&#31649;&#29702;&#21592;&#36827;&#34892;&#31649;&#29702;&#24615;&#20851;&#38381;&#65292;&#25110;&#22240;&#20026;&#26576;&#31181;&#38169;&#35823;&#26465;&#20214;&#32780;&#34987;&#31995;&#32479;&#25152;&#20851;&#38381;&#26102;&#65292;&#23601;&#34987;&#35748;&#20026;&#22788;&#20110;&#20851;&#38381;&#29366;&#24577;&#12290;&#20851;&#38381;&#30340;&#31471;&#21475;&#23436;&#25104;&#20197;&#19979;&#21160;&#20316;&#12290;
+    </p>
+    <ul style="padding-left: 0; margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <li>
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#25509;&#25910;&#33258;&#25152;&#36830;&#25509;&#32593;&#27573;&#30340;&#25968;&#25454;&#24103;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#36716;&#21457;&#33258;&#21478;&#19968;&#31471;&#21475;&#30340;&#25968;&#25454;&#24103;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#19981;&#23558;&#24037;&#20316;&#31449;&#22320;&#22336;&#21152;&#20837;&#20854;&#22320;&#22336;&#25968;&#25454;&#24211;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;BPDUs&#20294;&#19981;&#23558;&#36825;&#20123;BPDUs&#23548;&#21521;&#32473;&#31995;&#32479;&#27169;&#22359;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#19981;&#25509;&#25910;&#26469;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#23545;&#32593;&#32476;&#31649;&#29702;&#25253;&#25991;&#36827;&#34892;&#25509;&#25910;&#21644;&#21709;&#24212;
+        </p>
+      </li>
+    </ul>
+  </body>
+</html>
+
+</richcontent>
+</node>
 </node>
 <node TEXT="&#x76f8;&#x5173;&#x8ba1;&#x65f6;&#x5668;&#xff08;timers&#xff09;" POSITION="left" ID="ID_505904374" CREATED="1487644750597" MODIFIED="1487644883661">
 <edge COLOR="#007c00"/>
