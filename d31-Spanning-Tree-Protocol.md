@@ -183,7 +183,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 接收BPDUs并将这些BPDUs引导给系统模块，receives BPDUs and directs them to the system module
 
-- 接收、处理并传送接收自系统模块的BPDUs, receives, processes, and transmits BPDUs received from the system module
+- 接收、处理并传送接收自系统模块的BPDUs（在这一点上，与阻塞状态有所不同）, receives, processes, and transmits BPDUs received from the system module
 
 - 对网络管理报文进行接收和响应，receives and responds to network management messages
 

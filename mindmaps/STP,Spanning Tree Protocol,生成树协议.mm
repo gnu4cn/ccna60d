@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="STP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487636213426" TEXT_SHORTENED="true"><hook NAME="MapStyle">
+<node TEXT="STP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487644896195" TEXT_SHORTENED="true"><hook NAME="MapStyle">
     <properties show_note_icons="true" show_icon_for_attributes="true"/>
 
 <map_styles>
@@ -50,7 +50,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="6"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="11"/>
 <richcontent TYPE="NOTE">
 
 <html>
@@ -65,7 +65,7 @@
 </html>
 
 </richcontent>
-<node TEXT="BPDU" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487640755043">
+<node TEXT="BPDU" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487642446011">
 <edge COLOR="#00ff00"/>
 <richcontent TYPE="NOTE">
 
@@ -83,8 +83,23 @@
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_161614335" MIDDLE_LABEL="&#x5229;&#x7528;BPDUs&#x7684;&#x4ea4;&#x6362;&#xff0c;&#x6765;&#x786e;&#x5b9a;&#x7f51;&#x7edc;&#x62d3;&#x6251;" STARTINCLINATION="61;0;" ENDINCLINATION="61;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="&#x95f4;&#x9694;&#xff1a;2s" ID="ID_1833352132" CREATED="1487582937985" MODIFIED="1487582951229"/>
-<node TEXT="&#x6570;&#x636e;&#x5e27;&#x6784;&#x6210;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487640584455">
-<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x6807;&#x8bc6;&#x7b26;" ID="ID_1575397629" CREATED="1487640590246" MODIFIED="1487640912255">
+<node TEXT="&#x7c7b;&#x578b;" ID="ID_938846571" CREATED="1487639792052" MODIFIED="1487639925835">
+<node TEXT="&#x914d;&#x7f6e;BPDUs" ID="ID_1186452463" CREATED="1487639820753" MODIFIED="1487639925835"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      STP Configuration BPDUs
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="&#x6570;&#x636e;&#x5e27;&#x6784;&#x6210;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487642446010">
+<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x6807;&#x8bc6;&#x7b26;" ID="ID_1575397629" CREATED="1487640590246" MODIFIED="1487644499994">
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1360788201" STARTINCLINATION="139;0;" ENDINCLINATION="139;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <richcontent TYPE="NOTE">
 
@@ -109,21 +124,18 @@
 </node>
 <node TEXT="&#x4ea4;&#x6362;&#x673a;&#x4f18;&#x5148;&#x7ea7;&#xff0c;Priority" ID="ID_405799390" CREATED="1487640701504" MODIFIED="1487640782973"/>
 </node>
-<node TEXT="&#x7c7b;&#x578b;" ID="ID_938846571" CREATED="1487639792052" MODIFIED="1487639925835">
-<node TEXT="&#x914d;&#x7f6e;BPDUs" ID="ID_1186452463" CREATED="1487639820753" MODIFIED="1487639925835"><richcontent TYPE="NOTE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      STP Configuration BPDUs
-    </p>
-  </body>
-</html>
-
-</richcontent>
+<node TEXT="&#x786e;&#x5b9a;&#x6700;&#x4f73;&#x914d;&#x7f6e;BPDUs&#x7684;&#x56e0;&#x7d20;&#xff08;&#x4f9d;&#x5148;&#x540e;&#x987a;&#x5e8f;&#xff09;" ID="ID_1998995701" CREATED="1487642461986" MODIFIED="1487642505884">
+<node TEXT="&#x6709;&#x7740;&#x6700;&#x4f4e;&#x7684;&#x6839;&#x6865;ID&#x7684;, lowest Root Bridge ID" ID="ID_1969907022" CREATED="1487642513093" MODIFIED="1487642522898"/>
+<node TEXT="&#x6709;&#x7740;&#x5230;&#x6839;&#x6865;&#x6700;&#x4f4e;&#x6839;&#x8def;&#x5f84;&#x5f00;&#x9500;&#x7684;&#xff0c;lowest Root path cost to Root Bridge" ID="ID_1328064099" CREATED="1487642527495" MODIFIED="1487642533749"/>
+<node TEXT="&#x6709;&#x7740;&#x6700;&#x4f4e;&#x53d1;&#x9001;&#x8005;&#x6865;ID&#x7684;&#xff0c;lowest sender Bridge ID" ID="ID_532707811" CREATED="1487642538130" MODIFIED="1487642545351"/>
+<node TEXT="&#x6709;&#x7740;&#x6700;&#x4f4e;&#x53d1;&#x9001;&#x8005;&#x7aef;&#x53e3;ID&#x7684;&#xff0c;lowest sender Port ID" ID="ID_999341556" CREATED="1487642549583" MODIFIED="1487642555914"/>
+</node>
+<node TEXT="&#x7279;&#x5f81;" ID="ID_1906618282" CREATED="1487644443122" MODIFIED="1487644475558">
+<node TEXT="&#x914d;&#x7f6e;BPDUs&#x662f;&#x4ece;&#x6839;&#x6865;&#x53d1;&#x51fa;&#x4e14;&#x901a;&#x8fc7;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#x53d1;&#x9001;&#x7684;, a Configuration BPDU originates on the Root Bridge and is sent via the Designated Port" ID="ID_1211110842" CREATED="1487644455512" MODIFIED="1487644465938"/>
+<node TEXT="&#x914d;&#x7f6e;BPDUs&#x662f;&#x7531;&#x975e;&#x6839;&#x6865;&#x7684;&#x6839;&#x7aef;&#x53e3;&#x4e0a;&#x63a5;&#x6536;&#x7684;&#xff0c;a Configuration BPDU is received by a Non-Root Bridge on a Root Port" ID="ID_611603836" CREATED="1487644470114" MODIFIED="1487644477899"/>
+<node TEXT="&#x914d;&#x7f6e;BPDU&#x662f;&#x7531;&#x975e;&#x6839;&#x6865;&#x7684;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#x4e0a;&#x4f20;&#x9001;&#x7684;&#xff0c;a Configuration BPDU is transmitted by a Non-Root Bridge on a Designated Port" ID="ID_117826523" CREATED="1487644481107" MODIFIED="1487644486542"/>
+<node TEXT="&#x5728;&#x6240;&#x6709;&#x5355;&#x4e2a;LAN&#x533a;&#x6bb5;&#x4e0a;&#xff0c;&#x90fd;&#x53ea;&#x6709;&#x4e00;&#x4e2a;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#xff08;&#x5728;&#x67d0;&#x53f0;&#x6307;&#x5b9a;&#x4ea4;&#x6362;&#x673a;&#x4e0a;&#xff09;&#xff0c;there is only one Designated Port (on a Designated Switch) on any single LAN segment" ID="ID_1699044216" CREATED="1487644491679" MODIFIED="1487644500035"/>
+</node>
 </node>
 <node TEXT="&#x62d3;&#x6251;&#x53d8;&#x5316;&#x901a;&#x77e5;BPDUs" ID="ID_785070455" CREATED="1487639851933" MODIFIED="1487639917210"><richcontent TYPE="NOTE">
 
@@ -307,7 +319,7 @@
 </node>
 </node>
 </node>
-<node TEXT="&#x89d2;&#x8272;" POSITION="right" ID="ID_1259001063" CREATED="1487582630594" MODIFIED="1487636290029" HGAP="0" VSHIFT="-130">
+<node TEXT="&#x4f5c;&#x7528;" POSITION="right" ID="ID_1259001063" CREATED="1487582630594" MODIFIED="1487641683693" HGAP="0" VSHIFT="-130">
 <edge COLOR="#ff0000"/>
 <richcontent TYPE="NOTE">
 
@@ -323,6 +335,131 @@
 </html>
 
 </richcontent>
+</node>
+<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x89d2;&#x8272;" POSITION="left" ID="ID_152612304" CREATED="1487642618368" MODIFIED="1487642627679">
+<edge COLOR="#7c0000"/>
+<node TEXT="&#x6839;&#x4ea4;&#x6362;&#x673a;&#xff08;&#x6839;&#x6865;&#xff0c;Root Switch/Bridge&#xff09;" ID="ID_945607110" CREATED="1487642634817" MODIFIED="1487642772694">
+<node TEXT="&#x6240;&#x6709;&#x6d3b;&#x52a8;&#x7aef;&#x53e3;&#xff0c;&#x90fd;&#x662f;&#x6307;&#x5b9a;&#x7aef;&#x53e3;" ID="ID_1484271539" CREATED="1487642699322" MODIFIED="1487642711138"/>
+</node>
+<node TEXT="&#x6307;&#x5b9a;&#x4ea4;&#x6362;&#x673a;(Designated Switch)" ID="ID_1261551971" CREATED="1487642651009" MODIFIED="1487644098177">
+<node TEXT="&#x6839;&#x7aef;&#x53e3;" ID="ID_1529806686" CREATED="1487642715920" MODIFIED="1487644132585">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_945607110" STARTINCLINATION="40;0;" ENDINCLINATION="40;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+</node>
+<node TEXT="&#x6307;&#x5b9a;&#x7aef;&#x53e3;(Designated Port)" ID="ID_617399584" CREATED="1487642725273" MODIFIED="1487644118491"/>
+</node>
+</node>
+<node TEXT="&#x4ea4;&#x6362;&#x673a;&#x7aef;&#x53e3;&#x72b6;&#x6001;&#xff08;&#x4f9d;&#x5e8f;&#xff09;" POSITION="right" ID="ID_621355622" CREATED="1487644625225" MODIFIED="1487644657056">
+<edge COLOR="#00007c"/>
+<node TEXT="&#x963b;&#x585e;&#x4e2d; -- &#x4ec5;&#x63a5;&#x6536;BPDUs&#xff08;&#x4e3a;&#x671f;20s&#xff09;&#xff0c; blocking -- BPDUs received only (20 seconds)" ID="ID_107170606" CREATED="1487644662370" MODIFIED="1487645012943"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <ul http-equiv="content-type" content="text/html; charset=utf-8" style="padding-left: 0; margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <li>
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#22312;&#35813;&#31471;&#21475;&#19978;&#25509;&#25910;&#21040;&#30340;&#26469;&#33258;&#25152;&#36830;&#25509;&#32593;&#27573;&#30340;&#25968;&#25454;&#24103;&#65292;discards frames received on the port from the attached segment
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#20132;&#25442;&#33258;&#21478;&#19968;&#31471;&#21475;&#30340;&#25968;&#25454;&#24103;&#65292;discards frames switched from another port
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#19981;&#23558;&#24037;&#20316;&#31449;&#22320;&#22336;&#25918;&#20837;&#21040;&#20854;&#22320;&#22336;&#25968;&#25454;&#24211;&#20013;&#65292;does not incorporate station location into its address database
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;BPDUs&#24182;&#23558;&#36825;&#20123;BPDUs&#24341;&#23548;&#32473;&#31995;&#32479;&#27169;&#22359;&#65292;receives BPDUs and directs them to the system module
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#19981;&#20256;&#36865;&#33258;&#31995;&#32479;&#27169;&#22359;&#25509;&#25910;&#21040;&#30340;BPDUs&#65292;does not transmit BPDUs received from the system module
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;&#32593;&#32476;&#31649;&#29702;&#25253;&#25991;&#65292;&#24182;&#23545;&#36825;&#20123;&#25253;&#25991;&#36827;&#34892;&#21709;&#24212;&#65292;receives and responds to network management messages
+        </p>
+      </li>
+    </ul>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x4fa6;&#x542c;&#x4e2d; -- &#x6709;BPDUs&#x53d1;&#x51fa;&#x548c;&#x63a5;&#x6536;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;listening -- BPDUs sent and received (15 seconds)" ID="ID_1054326285" CREATED="1487644676409" MODIFIED="1487645122168"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <ul http-equiv="content-type" content="text/html; charset=utf-8" style="padding-left: 0; margin-top: 0px; margin-bottom: 16px; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <li>
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#25509;&#25910;&#33258;&#25152;&#36830;&#25509;&#32593;&#27573;&#30340;&#24103;, discards frames received from the attached segment
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#20002;&#24323;&#36716;&#21457;&#33258;&#21478;&#19968;&#31471;&#21475;&#30340;&#24103;, discards frames switched from another port
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#19981;&#23558;&#24037;&#20316;&#31449;&#22320;&#22336;&#21152;&#20837;&#21040;&#20854;&#22320;&#22336;&#25968;&#25454;&#24211;&#65292;does not incorporate station location into its address database
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;BPDUs&#24182;&#23558;&#36825;&#20123;BPDUs&#24341;&#23548;&#32473;&#31995;&#32479;&#27169;&#22359;&#65292;receives BPDUs and directs them to the system module
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#25509;&#25910;&#12289;&#22788;&#29702;&#24182;&#20256;&#36865;&#25509;&#25910;&#33258;&#31995;&#32479;&#27169;&#22359;&#30340;BPDUs, receives, processes, and transmits BPDUs received from the system module&#65288;&#36825;&#19968;&#28857;&#19982;&#38459;&#22622;&#29366;&#24577;&#26377;&#25152;&#19981;&#21516;&#65289;
+        </p>
+      </li>
+      <li style="margin-top: 0">
+        <p style="margin-top: 16px; margin-bottom: 16px">
+          &#23545;&#32593;&#32476;&#31649;&#29702;&#25253;&#25991;&#36827;&#34892;&#25509;&#25910;&#21644;&#21709;&#24212;&#65292;receives and responds to network management messages
+        </p>
+      </li>
+    </ul>
+    <h3 style="margin-top: 24px; margin-bottom: 16px; font-size: 1.25em; font-weight: 600; line-height: 1.25; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-style: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      <a id="user-content-&#x751f;&#x6210;&#x6811;&#x5b66;&#x4e60;&#x72b6;&#x6001;" class="anchor" href="https://github.com/gnu4cn/ccna60d/blob/master/d31-Spanning-Tree-Protocol.md#&#x751f;&#x6210;&#x6811;&#x5b66;&#x4e60;&#x72b6;&#x6001;" aria-hidden="true" style="color: rgb(64, 120, 192); text-decoration: none; float: left; padding-right: 4px; margin-left: -20px; line-height: 1"><font color="rgb(64, 120, 192)"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16" style="float: left; padding-right: 4px; margin-left: -20px; line-height: 1">
+      <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" style="float: left; padding-right: 4px; margin-left: -20px; line-height: 1">
+      </path>
+      </svg>
+      </font></a>
+    </h3>
+    <br class="Apple-interchange-newline"/>
+    
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x5b66;&#x4e60;&#x4e2d; -- &#x6865;&#x63a5;&#x8868;&#x88ab;&#x5efa;&#x7acb;&#x8d77;&#x6765;&#xff08;&#x4e3a;&#x671f;15s&#xff09;&#xff0c;learning -- bridging table is built (15 seconds)" ID="ID_1176713406" CREATED="1487644689344" MODIFIED="1487644696624"/>
+<node TEXT="&#x8f6c;&#x53d1;&#x4e2d; -- &#x53d1;&#x9001;/&#x63a5;&#x6536;&#x6570;&#x636e;&#xff0c;forwarding -- sending/receiving data" ID="ID_1300430620" CREATED="1487644702242" MODIFIED="1487644710830"/>
+<node TEXT="&#x5173;&#x95ed; -- &#x7ba1;&#x7406;&#x6027;&#x5173;&#x95ed;&#xff0c;disabled -- administratively down" ID="ID_1689751614" CREATED="1487644714860" MODIFIED="1487644721278"/>
+</node>
+<node TEXT="&#x76f8;&#x5173;&#x8ba1;&#x65f6;&#x5668;&#xff08;timers&#xff09;" POSITION="left" ID="ID_505904374" CREATED="1487644750597" MODIFIED="1487644883661">
+<edge COLOR="#007c00"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1069253556" STARTINCLINATION="40;0;" ENDINCLINATION="40;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<node TEXT="Hello&#x8ba1;&#x65f6;&#x5668; -- 2s&#xff08;&#x6bcf;&#x4e2a;&#x914d;&#x7f6e;BPDU&#x76f4;&#x63a5;&#x7684;&#x65f6;&#x95f4;&#xff09;" ID="ID_973136282" CREATED="1487644776345" MODIFIED="1487644782933"/>
+<node TEXT="&#x8f6c;&#x53d1;&#x5ef6;&#x8fdf;&#x8ba1;&#x6570;&#x5668; -- 15s&#xff08;&#x4fa6;&#x542c;/&#x63a7;&#x5236;&#x5b66;&#x4e60;&#x72b6;&#x6001;&#x7684;&#x4e3a;&#x671f;&#xff09;&#xff0c;Forward Delay -- 15 seconds (controls durations of Listening/Learning states)" ID="ID_1695623469" CREATED="1487644786779" MODIFIED="1487644793637"/>
+<node TEXT="&#x6700;&#x5927;&#x5b58;&#x6d3b;&#x65f6;&#x95f4; -- 20s&#xff08;&#x63a7;&#x5236;&#x963b;&#x585e;&#x72b6;&#x6001;&#x7684;&#x4e3a;&#x671f;&#xff09;&#xff0c;Max Age -- 20 seconds (controls the duration of the Blocking state)" ID="ID_1150703014" CREATED="1487644800713" MODIFIED="1487644808930"/>
+</node>
+<node TEXT="&#x9ed8;&#x8ba4;&#x6536;&#x655b;&#x65f6;&#x95f4;&#x4e3a;30&#x5230;50s" POSITION="left" ID="ID_1069253556" CREATED="1487644856668" MODIFIED="1487644879706">
+<edge COLOR="#007c7c"/>
 </node>
 </node>
 </map>
