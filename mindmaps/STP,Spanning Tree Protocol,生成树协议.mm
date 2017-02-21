@@ -1,6 +1,7 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="STP,Spanning Tree Protocol,&#x751f;&#x6210;&#x6811;&#x534f;&#x8bae;" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487582854229" TEXT_SHORTENED="true"><hook NAME="MapStyle">
+<node TEXT="STP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487636213426" TEXT_SHORTENED="true"><hook NAME="MapStyle">
+    <properties show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -50,9 +51,7 @@
 </map_styles>
 </hook>
 <hook NAME="AutomaticEdgeColor" COUNTER="3"/>
-<node TEXT="&#x89d2;&#x8272;" POSITION="right" ID="ID_1259001063" CREATED="1487582630594" MODIFIED="1487583170790" HGAP="0" VSHIFT="-130">
-<edge COLOR="#ff0000"/>
-<richcontent TYPE="DETAILS" HIDDEN="true">
+<richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -60,8 +59,21 @@
   </head>
   <body>
     <p>
-      
+      Spanning Tree Protocol,&#29983;&#25104;&#26641;&#21327;&#35758;
     </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="&#x89d2;&#x8272;" POSITION="right" ID="ID_1259001063" CREATED="1487582630594" MODIFIED="1487636290029" HGAP="0" VSHIFT="-130">
+<edge COLOR="#ff0000"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
     <p>
       &#22312;&#20855;&#22791;&#20887;&#20313;&#30340;&#20132;&#25442;&#32593;&#32476;&#25299;&#25169;&#20013;&#65292;&#20801;&#35768;&#23384;&#22312;&#22810;&#26465;&#29289;&#29702;&#38142;&#36335;&#30340;&#21516;&#26102;, &#36890;&#36807;&#24314;&#31435;&#19968;&#20010;&#26080;&#24490;&#29615;&#36923;&#36753;&#25299;&#25169;&#65292;&#38459;&#27490;&#32593;&#32476;&#19978;&#24490;&#29615;&#30340;&#21457;&#29983;
     </p>
@@ -70,11 +82,39 @@
 
 </richcontent>
 </node>
-<node TEXT="IEEE&#x89c4;&#x683c;&#xff1a; 802.1D" POSITION="left" ID="ID_756013575" CREATED="1487582758796" MODIFIED="1487583485918">
+<node TEXT="IEEE&#x89c4;&#x683c;" POSITION="left" ID="ID_756013575" CREATED="1487582758796" MODIFIED="1487636320588">
 <edge COLOR="#0000ff"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      802.1D
+    </p>
+  </body>
+</html>
+
+</richcontent>
 </node>
-<node TEXT="BPDU,Bridge Protocol DU, &#x6865;&#x534f;&#x8bae;&#x6570;&#x636e;&#x5355;&#x5143;" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487582930474">
+<node TEXT="BPDU" POSITION="right" ID="ID_1398715153" CREATED="1487582872175" MODIFIED="1487636262734">
 <edge COLOR="#00ff00"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Bridge Protocol DU, &#26725;&#21327;&#35758;&#25968;&#25454;&#21333;&#20803;
+    </p>
+  </body>
+</html>
+
+</richcontent>
 <node TEXT="&#x95f4;&#x9694;&#xff1a;2s" ID="ID_1833352132" CREATED="1487582937985" MODIFIED="1487582951229"/>
 <node TEXT="&#x5185;&#x5bb9;&#xff1a;&#x7aef;&#x53e3;&#x3001;&#x5730;&#x5740;&#x3001;&#x4f18;&#x5148;&#x7ea7;&#x53ca;&#x5f00;&#x9500;&#x7b49;&#x4fe1;&#x606f;" ID="ID_730597063" CREATED="1487582962344" MODIFIED="1487582996090"/>
 <node TEXT="&#x5176;&#x5b83;&#xff1a;BPDUs&#x4f1a;&#x88ab;&#x6253;&#x4e0a;VLAN ID&#x6807;&#x8bb0;" ID="ID_1909260872" CREATED="1487583330497" MODIFIED="1487583355535"/>
