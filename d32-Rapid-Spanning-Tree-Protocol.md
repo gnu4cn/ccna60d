@@ -50,7 +50,7 @@ RSTP的各种端口状态可如下这样与STP端口状态对应起来。
 RSTP包含了以下的端口角色。
 
 - 根端口（转发状态）, Root(Forwarding state)
-- 候选端口（转发状态），Designated(Forwarding state)
+- 指定端口（转发状态），Designated(Forwarding state)
 - 可变端口（阻塞状态），Alternate(Blocking state)
 - 备份端口（阻塞状态），Bakup(Blocking state)
 
@@ -150,5 +150,5 @@ Root bridge for: VLAN0002 VLAN0003
 
 3. 用RSTP模式来重复第31天的实验。
 
-4. 你可以预先预测出那些端口将是根/候选/阻塞端口吗（can you predict which ports will be Root/Designated/Blocking beforehand）？
+4. 你可以预先预测出那些端口将是根/指定/阻塞端口吗（can you predict which ports will be Root/Designated/Blocking beforehand）？
 

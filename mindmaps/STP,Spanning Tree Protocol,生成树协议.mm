@@ -50,7 +50,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="7"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="8"/>
 <richcontent TYPE="NOTE">
 
 <html>
@@ -476,7 +476,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="Loop Guard" ID="ID_734598049" CREATED="1487672722620" MODIFIED="1487672728646"/>
@@ -511,9 +510,6 @@
   </body>
 </html>
 </richcontent>
-</node>
-<node TEXT="&#x6839;&#x7aef;&#x53e3;&#x7684;&#x9009;&#x4e3e;&#xff0c;&#x4e0e;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#x7684;&#x9009;&#x4e3e;&#x662f;&#x5206;&#x5f00;&#x7684;&#xff0c;&#x5148;&#x540e;&#x8fdb;&#x884c;" POSITION="left" ID="ID_1323311732" CREATED="1487672154796" MODIFIED="1487672192713">
-<edge COLOR="#ff00ff"/>
 </node>
 <node TEXT="&#x76f8;&#x5173;&#x8ba1;&#x65f6;&#x5668;&#xff08;timers&#xff09;" POSITION="left" ID="ID_505904374" CREATED="1487644750597" MODIFIED="1487644883661">
 <edge COLOR="#007c00"/>
@@ -726,6 +722,12 @@
 <node TEXT="TC(Topology Change, &#x62d3;&#x6251;&#x53d8;&#x5316;)&#x4fdd;&#x62a4;&#x529f;&#x80fd;" ID="ID_1335513425" CREATED="1487674680496" MODIFIED="1487674707899"/>
 <node TEXT="Root&#x4fdd;&#x62a4;&#x529f;&#x80fd;" ID="ID_1751947780" CREATED="1487674714657" MODIFIED="1487674724293"/>
 <node TEXT="&#x73af;&#x8def;&#x4fdd;&#x62a4;&#x529f;&#x80fd;" ID="ID_1375486240" CREATED="1487674728559" MODIFIED="1487674736704"/>
+</node>
+<node TEXT="&#x7aef;&#x53e3;&#x9009;&#x4e3e;" POSITION="right" ID="ID_153450653" CREATED="1487726275913" MODIFIED="1487726286480">
+<edge COLOR="#00007c"/>
+<node TEXT="&#x6839;&#x7aef;&#x53e3;&#x7684;&#x9009;&#x4e3e;&#xff0c;&#x4e0e;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#x7684;&#x9009;&#x4e3e;&#x662f;&#x5206;&#x5f00;&#x7684;&#xff0c;&#x5148;&#x540e;&#x8fdb;&#x884c;" ID="ID_1323311732" CREATED="1487672154796" MODIFIED="1487726289744"/>
+<node TEXT="&#x6839;&#x7aef;&#x53e3;&#x9009;&#x4e3e;&#xff0c;&#x57fa;&#x4e8e;&#x4ea4;&#x6362;&#x673a;&#x4e0a;&#x7aef;&#x53e3;&#x6bd4;&#x8f83;&#xff08;&#x5230;&#x6839;&#x6865;&#x5f00;&#x9500;&#xff09;" ID="ID_1448386483" CREATED="1487726294341" MODIFIED="1487726357289"/>
+<node TEXT="&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#x9009;&#x4e3e;&#xff0c;&#x57fa;&#x4e8e;&#x7f51;&#x6bb5;&#x4e0a;&#x7aef;&#x53e3;&#x6bd4;&#x8f83;&#xff08;&#x5230;&#x6839;&#x6865;&#x7684;&#x5f00;&#x9500;&#xff09;" ID="ID_1923606824" CREATED="1487726316065" MODIFIED="1487726343717"/>
 </node>
 </node>
 </map>
