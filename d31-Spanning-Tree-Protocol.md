@@ -730,7 +730,7 @@ SwitchB(config-if)#switchport mode trunk
 SwitchB(config-if)#^Z
 SwitchB#sh int trunk
 Port    Mode        Encapsulation   Status      Native vlan
-Fa0/1   on   802.1q          trunking    1
+Fa0/1   on          802.1q          trunking    1
 Port    Vlans allowed on trunk
 Fa0/1   1-1005
 Port    Vlans allowed and active in management domain
@@ -742,7 +742,7 @@ Fa0/1   1
 ```
 SwitchA#show int trunk
 Port    Mode        Encapsulation   Status      Native vlan
-Fa0/1   auto n-802.1q        trunking    1
+Fa0/1   auto        n-802.1q        trunking    1
 Port    Vlans allowed on trunk
 Fa0/1   1-1005
 Port    Vlans allowed and active in management domain
