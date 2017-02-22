@@ -554,21 +554,6 @@
 <node TEXT="&#x4e24;&#x79cd;&#x7528;&#x4e8e;&#x8f6c;&#x53d1;BPDUs&#x7684;&#x7aef;&#x53e3;" ID="ID_214327509" CREATED="1487648737854" MODIFIED="1487648763951">
 <hook NAME="SummaryNode"/>
 </node>
-<node TEXT="&#x5907;&#x4efd;&#x7aef;&#x53e3;&#xff08;Backup Port, &#x5728;&#x5df2;&#x6709;&#x7aef;&#x53e3;&#x8fde;&#x63a5;&#x5230;&#x5230;&#x67d0;&#x7f51;&#x6bb5;&#x65f6;&#x7684;&#x5907;&#x4efd;/&#x5197;&#x4f59;&#x7aef;&#x53e3;&#xff09;" ID="ID_1075034612" CREATED="1487647177313" MODIFIED="1487648417043"><richcontent TYPE="NOTE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(51, 51, 51); font-family: Verdana, BitStream vera Sans, Tahoma, Helvetica, sans-serif; font-size: 12px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(51, 51, 51)" face="Verdana, BitStream vera Sans, Tahoma, Helvetica, sans-serif" size="12px">The backup port applies only when a single switch has two links to the same segment (collision domain). To have two links to the same collision domain, the switch must be attached to a hub.</font></span>
-    </p>
-  </body>
-</html>
-</richcontent>
-</node>
-<node TEXT="&#x66ff;&#x4ee3;&#x7aef;&#x53e3;&#xff08;Alternate Port&#xff09;, &#x5230;&#x6839;&#x6865;&#x7684;&#x6b21;&#x4f18;&#x7aef;&#x53e3;" ID="ID_423784009" CREATED="1487647130504" MODIFIED="1487647167769"/>
 <node TEXT="&#x5173;&#x95ed;&#x7684;&#x7aef;&#x53e3;&#xff08;Disabled Port, &#x7ba1;&#x7406;&#x5458;&#x624b;&#x52a8;&#x5173;&#x95ed;&#x7684;&#x7aef;&#x53e3;&#xff09;" ID="ID_1835877793" CREATED="1487647348423" MODIFIED="1487647388643"/>
 <node TEXT="&#x975e;&#x6307;&#x5b9a;&#x7aef;&#x53e3;&#xff08;the Non-Designated Port&#xff09;" ID="ID_500435338" CREATED="1487649156658" MODIFIED="1487671879495"><richcontent TYPE="NOTE">
 
