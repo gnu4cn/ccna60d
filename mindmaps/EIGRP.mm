@@ -1,6 +1,7 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="EIGRP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1488422523845"><hook NAME="MapStyle">
+<node TEXT="EIGRP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1488422661317"><hook NAME="MapStyle">
+    <properties show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node">
@@ -50,5 +51,19 @@
 </map_styles>
 </hook>
 <hook NAME="AutomaticEdgeColor" COUNTER="0"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &#22686;&#24378;&#30340;&#20869;&#37096;&#32593;&#20851;&#36335;&#30001;&#21327;&#35758;&#65292;Enhanced Interior Gateway Routing Protocol
+    </p>
+  </body>
+</html>
+
+</richcontent>
 </node>
 </map>
