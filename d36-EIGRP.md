@@ -105,7 +105,7 @@ R1#show ip eigrp 150 ?
 - 以这些直连子网，生成EIGRP的拓扑表，the topology table is populated with these directly connected subnets.
 - 从这些与子网关联的接口，发出EIGRP Hello 数据包，EIGRP Hello packets are sent out of the interfaces associated with these subnets.
 - EIGRP将这些网络，经由更新报文，通告给EIGRP邻居，EIGRP advertises the network(s) to EIGRP neighbours in Update messages.
-- 在报文交换的基础上，那些EIGRP路由，此时就被加入到IP路由表中，Based on the exchange of messages, EIGRP routes are then added to the IP routing table.
+- 在报文交换的基础上，那些EIGRP路由，此时就被加入到路由器的IP路由表中，Based on the exchange of messages, EIGRP routes are then added to the IP routing table.
 
 如EIGRP已开启使用，且将路由器配置命令`network`与大的有类`10.0.0.0/8`网络一道进行了使用，同时**所有4个环回接口**（all four Loopback interfaces）又都开启了EIGRP路由的话，那么下面就给出了此种情况下`show ip eigrp interfaces`的输出演示：
 
