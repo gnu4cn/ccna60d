@@ -107,6 +107,13 @@ R1#show ip eigrp 150 ?
 - EIGRP将这些网络，经由更新报文，通告给EIGRP邻居，EIGRP advertises the network(s) to EIGRP neighbours in Update messages.
 - 在报文交换的基础上，那些EIGRP路由，此时就被加入到路由器的IP路由表中，Based on the exchange of messages, EIGRP routes are then added to the IP routing table.
 
+比如假设某台路由器上配置了以下这些环回接口：
+
+- `Loopback0` -- IP地址 `10.0.0.0/24`
+- `Loopback1` -- IP地址 `10.0.0.1/24`   
+- `Loopback2` -- IP地址 `10.0.0.2/24`    
+- `Loopback3` -- IP地址 `10.0.0.3/24`    
+
 如EIGRP已开启使用，且将路由器配置命令`network`与大的有类`10.0.0.0/8`网络一道进行了使用，同时**所有4个环回接口**（all four Loopback interfaces）又都开启了EIGRP路由的话，那么下面就给出了此种情况下`show ip eigrp interfaces`的输出演示：
 
 ```
