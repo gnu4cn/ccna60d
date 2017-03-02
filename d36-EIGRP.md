@@ -383,7 +383,7 @@ Distance: internal 90 external 170
 
 后面的32为顺序字段（the 32-bit Sequence field）指定了EIGRP可靠传输协议所用到的顺序编号（the sequence number），用以可靠数据包的顺序投送。而32位的确认字段（the 32-bit Acknowledgment field），则被用于EIGRP可靠数据包的接收确认。
 
-后面的32位自治系统编号字段（the 32-bit Autonomous System Number field）, 指定了该EIGRP域（the EIGRP domain）的自治系统编号（ASN）。最后的32位类型/长度/值三联体字段（the 32-bit Type/Length/Value(TLV) triplet field），就被用于路由条目的加载及EIGRP弥散更新算法信息的提供了。EIGRP支持几种不同类型的TLVs，最常用的是下面几种：
+后面的32位自治系统编号字段（the 32-bit Autonomous System Number field）, 指定了该EIGRP域（the EIGRP domain）的自治系统编号（ASN）。最后的32位类型/长度/值三联体字段，就被用于路由条目运送及EIGRP弥散更新算法信息的提供了（Finally, the 32-bit Type/Length/Value(TLV) triplet field is used to carry route entries and provides EIGRP DUAL information）。EIGRP支持几种不同类型的TLVs，最常用的是下面几种：
 
 - 参数TLV, 有着建立邻居关系的那些参数，the Parameters TLV, which has the parameters to establish neighbour relationships
 - 顺号TLV，RTP使用的TLV，the Sequence TLV, which is used by RTP
