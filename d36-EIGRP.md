@@ -47,7 +47,7 @@
 
 ##思科EIGRP概述与基础知识
 
-为解决其先前专有的距离矢量路由协议，内部网关路由协议（Interior Gateway Routing Protocol, IGRP）的某些缺陷，思科公司就开发了EIGRP。IGRP相比路由信息协议（Routing Information Protocol, RIP），确实有着一些改进，比如对更多跳数的支持；但IGRP仍有着那些传统距离矢量路由协议的局限，这些局限如下所示：
+为解决其先前的专有距离矢量路由协议 -- 内部网关路由协议（Interior Gateway Routing Protocol, IGRP）的某些缺陷，思科公司开发了EIGRP。IGRP相比路由信息协议（Routing Information Protocol, RIP），确实有着一些改进，比如对更多跳数的支持；但IGRP仍有着那些传统距离矢量路由协议的局限，这些局限如下所示：
 
 - 发送完整的周期性路由更新，sending full periodic routing updates
 - 跳数限制，a hop limitation
