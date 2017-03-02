@@ -377,7 +377,7 @@ Distance: internal 90 external 170
 ![EIGRP数据包头部的各种字段](images/3601.png)
 *图 36.1 -- EIGRP数据包头部的各种字段*
 
-在EIGRP数据包头部，其中的4位版本字段（the 4-bit Version field）用于表面该协议的版本。当前的思科IOS镜像都支持EIGRP版本`1.x`。后面的4为OPcode字段（the 4-bit OPCode field），则指定了EIGRP数据包或报文的类型。不同EIGRP数据包类型都被分配了一个唯一的OPcode数值，以将其与其它数据包类型进行区分。本课程模块后面会对这些报文类型进行说明。
+在EIGRP数据包头部，其中的4位版本字段（the 4-bit Version field）用于表明该协议的版本。当前的思科IOS镜像都支持EIGRP版本`1.x`。后面的4为OPcode字段（the 4-bit OPCode field），则指定了EIGRP数据包或报文的类型。不同EIGRP数据包类型都被分配了一个唯一的OPcode数值，以将其与其它数据包类型进行区分。本课程模块后面会对这些报文类型进行说明。
 
 而那个24位的校验和字段（the 24-bit Checksum field）, 是用于对该EIGRP数据包做完整性检查的（a sanity check）。该字段是给予完整的EIGRP数据包的, 而不包括IP头部。32位的标志字段（the 32-bit Flags field），用于表明该EIGRP数据包或报文是一个新的EIGRP邻居的`INIT`, 还是EIGRP的可靠传输协议（Reliable Transport Protocol, RTP）的有条件接受（the Conditional Receive, CR）的`INIT`。这里的RTP及CR都将在本课程模块稍后讲到。
 
