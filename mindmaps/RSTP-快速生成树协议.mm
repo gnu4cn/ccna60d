@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="RSTP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487726837302"><hook NAME="MapStyle">
+<node TEXT="RSTP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1487727094558"><hook NAME="MapStyle">
     <properties show_note_icons="true"/>
 
 <map_styles>
@@ -50,7 +50,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="1"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="2"/>
 <richcontent TYPE="NOTE">
 
 <html>
@@ -76,6 +76,23 @@
   <body>
     <p>
       802.1&#65335;&#65292;&#26159;802.1&#65316;&#30340;&#19968;&#20010;&#25193;&#23637;&#12290;
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="RTSP with PVST+&#xff0c;RPVST+" POSITION="left" ID="ID_146033598" CREATED="1487727093064" MODIFIED="1487727360572">
+<edge COLOR="#0000ff"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(51, 51, 51)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#20801;&#35768;&#19982;PVST+ &#19968;&#36215;&#20351;&#29992;802.1W&#65288;Rapid Per VLAN Spanning Tree Plus(RPVST+) allows for the use of 802.1W with PVST+&#65289;&#12290;</font></span> <strong http-equiv="content-type" content="text/html; charset=utf-8" style="font-weight: 600; color: rgb(51, 51, 51); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255)"><b><font color="rgb(51, 51, 51)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#40664;&#35748;&#24773;&#20917;&#19979;&#65292;&#22312;&#26576;&#21488;&#24605;&#31185;&#20132;&#25442;&#26426;&#19978;&#24320;&#21551;RSTP&#26102;&#65292;&#20063;&#23601;&#22312;&#35813;&#20132;&#25442;&#26426;&#19978;&#24320;&#21551;&#20102;R-PVST+&#12290;</font></b></strong>
     </p>
   </body>
 </html>
