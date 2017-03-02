@@ -103,7 +103,7 @@ R1#show ip eigrp 150 ?
 
 - 对位处该指明的有类网络范围里的网络，开启EIGRP，EIGRP is enabled for networks that fall within the specified classful network range.
 - 以这些直连子网，生成EIGRP的拓扑表，the topology table is populated with these directly connected subnets.
-- 从这些子网相关的接口，发出EIGRP Hello 数据包，EIGRP Hello packets are sent out of the interfaces associated with these subnets.
+- 从这些与子网关联的接口，发出EIGRP Hello 数据包，EIGRP Hello packets are sent out of the interfaces associated with these subnets.
 - EIGRP将这些网络，经由更新报文，通告给EIGRP邻居，EIGRP advertises the network(s) to EIGRP neighbours in Update messages.
 - 在报文交换的基础上，那些EIGRP路由，此时就被加入到IP路由表中，Based on the exchange of messages, EIGRP routes are then added to the IP routing table.
 
