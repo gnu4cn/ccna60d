@@ -254,7 +254,136 @@ R1(config-router)#exit</font></code></pre>
 </node>
 <node TEXT="&#x5404;&#x79cd;&#x62a5;&#x6587;" POSITION="right" ID="ID_1374905063" CREATED="1488447063835" MODIFIED="1488447077987">
 <edge COLOR="#00007c"/>
-<node TEXT="&#x6570;&#x636e;&#x5305;" ID="ID_28274295" CREATED="1488447086690" MODIFIED="1488447093314"/>
+<node TEXT="&#x6570;&#x636e;&#x5305;" ID="ID_28274295" CREATED="1488447086690" MODIFIED="1488447093314">
+<node TEXT="&#x5934;&#x90e8;" ID="ID_1213934538" CREATED="1488447125705" MODIFIED="1488447139126">
+<node TEXT="&#x7b2c;&#x4e00;&#x4e2a;32&#x4f4d;" ID="ID_729289884" CREATED="1488447144543" MODIFIED="1488447159456">
+<node TEXT="4&#x4f4d;&#x7684;&#x7248;&#x672c;&#x5b57;&#x6bb5;" ID="ID_1508371739" CREATED="1488447165487" MODIFIED="1488447429144"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#29992;&#20110;&#34920;&#26126;&#35813;&#21327;&#35758;&#30340;&#29256;&#26412;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="4&#x4f4d;OPCode&#x5b57;&#x6bb5;" ID="ID_1665709371" CREATED="1488447178747" MODIFIED="1488447502112"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#25351;&#23450;&#20102;EIGRP&#25968;&#25454;&#21253;&#25110;&#25253;&#25991;&#30340;&#31867;&#22411;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Hello - 5" ID="ID_1499895068" CREATED="1488447497564" MODIFIED="1488447510618"/>
+</node>
+<node TEXT="24&#x4f4d;&#x7684;&#x6821;&#x9a8c;&#x548c;&#x5b57;&#x6bb5;" ID="ID_579786768" CREATED="1488447211857" MODIFIED="1488447528172"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#23545;&#35813;EIGRP&#25968;&#25454;&#21253;&#20570;&#23436;&#25972;&#24615;&#26816;&#26597;&#30340;&#65288;a sanity check&#65289;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="&#x6807;&#x5fd7;&#x5b57;&#x6bb5;&#xff08;Flags field,32&#x4f4d;&#xff09;" ID="ID_1971077671" CREATED="1488447677010" MODIFIED="1488447760796"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#34920;&#26126;&#35813;EIGRP&#25968;&#25454;&#21253;&#25110;&#25253;&#25991;&#26159;&#19968;&#20010;&#26032;&#30340;EIGRP&#37051;&#23621;&#30340;</font></span><code style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 13.6px; padding-top: 0; padding-bottom: 0; padding-right: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px"><font face="SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace" size="13.6px" color="rgb(36, 41, 46)">INIT</font></code><span style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">, &#36824;&#26159;EIGRP&#30340;&#21487;&#38752;&#20256;&#36755;&#21327;&#35758;&#65288;Reliable Transport Protocol, RTP&#65289;&#30340;&#26377;&#26465;&#20214;&#25509;&#21463;&#65288;the Conditional Receive, CR&#65289;&#30340;</font></span><code style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 13.6px; padding-top: 0; padding-bottom: 0; padding-right: 0px; padding-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px"><font face="SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace" size="13.6px" color="rgb(36, 41, 46)">INIT</font></code><span style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x5e8f;&#x5217;&#x5b57;&#x6bb5;&#xff08;the Sequence field, 32&#x4f4d;&#xff09;" ID="ID_67631088" CREATED="1488447770894" MODIFIED="1488447818692"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#25351;&#23450;&#20102;EIGRP&#21487;&#38752;&#20256;&#36755;&#21327;&#35758;&#25152;&#29992;&#21040;&#30340;&#39034;&#24207;&#32534;&#21495;&#65288;the sequence number&#65289;&#65292;&#29992;&#20197;&#21487;&#38752;&#25968;&#25454;&#21253;&#30340;&#39034;&#24207;&#25237;&#36865;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x786e;&#x8ba4;&#x5b57;&#x6bb5;&#xff08;the Acknowledgement field, 32&#x4f4d;&#xff09;" ID="ID_1761019976" CREATED="1488447823270" MODIFIED="1488447868840"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#29992;&#20110;EIGRP&#21487;&#38752;&#25968;&#25454;&#21253;&#30340;&#25509;&#25910;&#30830;&#35748;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x81ea;&#x6cbb;&#x7cfb;&#x7edf;&#x7f16;&#x53f7;&#x5b57;&#x6bb5;&#xff08;the Autonomous System Number field, 32&#x4f4d;&#xff09;" ID="ID_725584311" CREATED="1488447875909" MODIFIED="1488447921457"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#25351;&#23450;&#20102;&#35813;EIGRP&#22495;&#65288;the EIGRP domain&#65289;&#30340;&#33258;&#27835;&#31995;&#32479;&#32534;&#21495;&#65288;ASN&#65289;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x7c7b;&#x578b;/&#x957f;&#x5ea6;/&#x503c;&#x4e09;&#x8054;&#x4f53;&#x5b57;&#x6bb5;(the Type/Length/Value(TLV) triplet field, 32&#x4f4d;)" ID="ID_1094281196" CREATED="1488448394970" MODIFIED="1488448436904"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#29992;&#20110;&#36335;&#30001;&#26465;&#30446;&#36816;&#36865;&#21450;EIGRP&#24357;&#25955;&#26356;&#26032;&#31639;&#27861;&#20449;&#24687;&#30340;&#25552;&#20379;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="&#x53c2;&#x6570;TLV, the Parameters TLV" ID="ID_1478916501" CREATED="1488448452056" MODIFIED="1488448483938"/>
+<node TEXT="&#x5e8f;&#x5217;TLV,the Sequence TLV,&#x7531;&#x53ef;&#x9760;&#x4f20;&#x8f93;&#x534f;&#x8bae;&#x6240;&#x4f7f;&#x7528;" ID="ID_176401302" CREATED="1488448490199" MODIFIED="1488448531675"/>
+<node TEXT="&#x4e0b;&#x4e00;&#x6b21;&#x591a;&#x64ad;&#x5e8f;&#x53f7;TLV&#xff0c;The Next Multicast Sequence TLV&#xff0c;&#x7531;&#x53ef;&#x9760;&#x4f20;&#x8f93;&#x534f;&#x8bae;&#x6240;&#x4f7f;&#x7528;" ID="ID_853283874" CREATED="1488448537225" MODIFIED="1488448590539"/>
+</node>
+</node>
+</node>
 </node>
 </node>
 </map>
