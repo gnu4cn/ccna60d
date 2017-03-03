@@ -69,7 +69,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="&#x4f5c;&#x4e3a;IGRP&#x7684;&#x6539;&#x8fdb;" POSITION="right" ID="ID_1946291867" CREATED="1488439912252" MODIFIED="1488440435876">
 <edge COLOR="#ff0000"/>
@@ -102,7 +101,6 @@
     </ul>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x7279;&#x6027;" POSITION="left" ID="ID_742464032" CREATED="1488440827539" MODIFIED="1488440833210">
@@ -113,7 +111,7 @@
 <node TEXT="&#x66f4;&#x5feb;&#x7684;&#x6536;&#x655b;&#x901f;&#x5ea6;" ID="ID_867517146" CREATED="1488441068482" MODIFIED="1488441080021"/>
 <node TEXT="&#x91c7;&#x7528;&#x5f25;&#x6563;&#x66f4;&#x65b0;&#x7b97;&#x6cd5;&#xff08;DUAL&#xff09;&#xff0c;&#x5bf9;&#x90bb;&#x5c45;&#x901a;&#x544a;&#x7684;&#x6240;&#x6709;&#x8def;&#x7531;&#x8fdb;&#x884c;&#x8ddf;&#x8e2a;&#xff0c;&#x5e76;&#x9009;&#x51fa;&#x5230;&#x76ee;&#x7684;&#x7f51;&#x7edc;&#x7684;&#x6700;&#x4f18;&#x65e0;&#x73af;&#x56de;&#x8def;&#x5f84;&#x3002;&#x786e;&#x4fdd;&#x6574;&#x4e2a;&#x7f51;&#x7edc;&#x4e2d;&#x65e0;&#x73af;&#x56de;&#x3002;" ID="ID_1696941246" CREATED="1488441381243" MODIFIED="1488441481293"/>
 </node>
-<node TEXT="&#x81ea;&#x6cbb;&#x7cfb;&#x7edf;&#x7f16;&#x53f7;" POSITION="right" ID="ID_998083735" CREATED="1488441591009" MODIFIED="1488442168821">
+<node TEXT="&#x81ea;&#x6cbb;&#x7cfb;&#x7edf;&#x7f16;&#x53f7;" POSITION="right" ID="ID_998083735" CREATED="1488441591009" MODIFIED="1488507368722">
 <edge COLOR="#ff00ff"/>
 <richcontent TYPE="NOTE">
 
@@ -127,9 +125,8 @@
     </p>
   </body>
 </html>
-
 </richcontent>
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_969326485" STARTINCLINATION="326;285;" ENDINCLINATION="122;334;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_969326485" STARTINCLINATION="230;307;" ENDINCLINATION="122;334;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="&#x4e00;&#x4e2a;32&#x4f4d;&#x6574;&#x6570;&#xff0c;&#x5927;&#x5c0f;&#x4ecb;&#x4e8e;1-65535&#x4e4b;&#x95f4;&#x3002;" ID="ID_738965589" CREATED="1488441925659" MODIFIED="1488441929221"/>
 <node TEXT="&#x8fd0;&#x884c;EIGRP&#x7684;&#x90a3;&#x4e9b;&#x8def;&#x7531;&#x5668;&#x90fd;&#x5fc5;&#x987b;&#x4f4d;&#x5904;&#x540c;&#x4e00;&#x81ea;&#x6cbb;&#x7cfb;&#x7edf;&#x4e2d;&#xff0c;&#x4ee5;&#x6210;&#x529f;&#x5f62;&#x6210;&#x90bb;&#x5c45;&#x5173;&#x7cfb;" ID="ID_1099714175" CREATED="1488441933969" MODIFIED="1488441945387"/>
 </node>
@@ -147,7 +144,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_381229241" STARTINCLINATION="91;-125;" ENDINCLINATION="-38;-472;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
@@ -164,7 +160,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x2018;show ip eigrp [ASN]&#x2019;" ID="ID_1305606530" CREATED="1488441862798" MODIFIED="1488442077143"><richcontent TYPE="NOTE">
@@ -185,7 +180,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -209,7 +203,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x2018;metric maximum-hops &lt;1-255&gt;&#x2019;" ID="ID_940152151" CREATED="1488446483152" MODIFIED="1488446530574"/>
@@ -229,7 +222,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5b50;&#x7f51;&#x63a9;&#x7801;" ID="ID_1948052782" CREATED="1488446774431" MODIFIED="1488446807423"><richcontent TYPE="NOTE">
@@ -248,7 +240,6 @@ R1(config-router)#network 10.3.3.0 255.255.255.0
 R1(config-router)#exit</font></code></pre>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -269,10 +260,9 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
-<node TEXT="4&#x4f4d;OPCode&#x5b57;&#x6bb5;" ID="ID_1665709371" CREATED="1488447178747" MODIFIED="1488447502112"><richcontent TYPE="NOTE">
+<node TEXT="4&#x4f4d;OPCode&#x5b57;&#x6bb5;" ID="ID_688618366" CREATED="1488447178747" MODIFIED="1488507363516"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -284,9 +274,8 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
-<node TEXT="Hello - 5" ID="ID_1499895068" CREATED="1488447497564" MODIFIED="1488447510618"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_316190448" STARTINCLINATION="-203;0;" ENDINCLINATION="-132;-90;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
 <node TEXT="24&#x4f4d;&#x7684;&#x6821;&#x9a8c;&#x548c;&#x5b57;&#x6bb5;" ID="ID_579786768" CREATED="1488447211857" MODIFIED="1488447528172"><richcontent TYPE="NOTE">
 
@@ -300,7 +289,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -316,7 +304,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5e8f;&#x5217;&#x5b57;&#x6bb5;&#xff08;the Sequence field, 32&#x4f4d;&#xff09;" ID="ID_67631088" CREATED="1488447770894" MODIFIED="1488447818692"><richcontent TYPE="NOTE">
@@ -331,7 +318,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x786e;&#x8ba4;&#x5b57;&#x6bb5;&#xff08;the Acknowledgement field, 32&#x4f4d;&#xff09;" ID="ID_1761019976" CREATED="1488447823270" MODIFIED="1488447868840"><richcontent TYPE="NOTE">
@@ -346,7 +332,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x81ea;&#x6cbb;&#x7cfb;&#x7edf;&#x7f16;&#x53f7;&#x5b57;&#x6bb5;&#xff08;the Autonomous System Number field, 32&#x4f4d;&#xff09;" ID="ID_725584311" CREATED="1488447875909" MODIFIED="1488447921457"><richcontent TYPE="NOTE">
@@ -361,7 +346,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x7c7b;&#x578b;/&#x957f;&#x5ea6;/&#x503c;&#x4e09;&#x8054;&#x4f53;&#x5b57;&#x6bb5;(the Type/Length/Value(TLV) triplet field, 32&#x4f4d;)" ID="ID_1094281196" CREATED="1488448394970" MODIFIED="1488448436904"><richcontent TYPE="NOTE">
@@ -376,14 +360,23 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="&#x53c2;&#x6570;TLV, the Parameters TLV" ID="ID_1478916501" CREATED="1488448452056" MODIFIED="1488448483938"/>
 <node TEXT="&#x5e8f;&#x5217;TLV,the Sequence TLV,&#x7531;&#x53ef;&#x9760;&#x4f20;&#x8f93;&#x534f;&#x8bae;&#x6240;&#x4f7f;&#x7528;" ID="ID_176401302" CREATED="1488448490199" MODIFIED="1488448531675"/>
 <node TEXT="&#x4e0b;&#x4e00;&#x6b21;&#x591a;&#x64ad;&#x5e8f;&#x53f7;TLV&#xff0c;The Next Multicast Sequence TLV&#xff0c;&#x7531;&#x53ef;&#x9760;&#x4f20;&#x8f93;&#x534f;&#x8bae;&#x6240;&#x4f7f;&#x7528;" ID="ID_853283874" CREATED="1488448537225" MODIFIED="1488448590539"/>
 </node>
 </node>
+<node TEXT="&#x7c7b;&#x578b;&#xff08;&#x7531;OPCode&#x786e;&#x5b9a;&#xff09;" ID="ID_316190448" CREATED="1488502353701" MODIFIED="1488502372890">
+<node TEXT="&#x4fdd;&#x5b58;&#x6d3b;&#x52a8;&#x6570;&#x636e;&#x5305;&#xff08;Hello packets&#xff09; - 5" ID="ID_1499895068" CREATED="1488447497564" MODIFIED="1488502248259"/>
+<node TEXT="&#x786e;&#x8ba4;&#x6570;&#x636e;&#x5305;&#xff08;Acknowledgement packets&#xff09; - 1" ID="ID_323938954" CREATED="1488502197153" MODIFIED="1488502226727"/>
+<node TEXT="&#x66f4;&#x65b0;&#x6570;&#x636e;&#x5305;&#xff08;Update packets&#xff09; - 1" ID="ID_1118454370" CREATED="1488502307817" MODIFIED="1488502324224"/>
+<node TEXT="&#x67e5;&#x8be2;&#x6570;&#x636e;&#x5305;&#xff08;Query packets&#xff09;" ID="ID_3516227" CREATED="1488502339419" MODIFIED="1488502833525"/>
+<node TEXT="&#x5e94;&#x7b54;&#x6570;&#x636e;&#x5305;&#xff08;Reply packets&#xff09;" ID="ID_1937846358" CREATED="1488502390418" MODIFIED="1488502858172"/>
+<node TEXT="&#x8bf7;&#x6c42;&#x6570;&#x636e;&#x5305;&#xff08;Request packets&#xff09;" ID="ID_1449478717" CREATED="1488502391971" MODIFIED="1488502874581"/>
 </node>
+</node>
+<node TEXT="&#x94fe;&#x8def;&#x672c;&#x5730;&#x591a;&#x64ad;&#x7ec4;&#x5730;&#x5740;&#x2018;224.0.0.10&#x2019;" ID="ID_110212508" CREATED="1488507486172" MODIFIED="1488507529020"/>
+<node TEXT="&#x4ee5;IP&#x534f;&#x8bae;&#x5c01;&#x88c5;&#xff0c;&#x534f;&#x8bae;&#x7f16;&#x53f7;&#x2018;88&#x2019;" ID="ID_844221658" CREATED="1488507537921" MODIFIED="1488507563874"/>
 </node>
 </node>
 </map>
