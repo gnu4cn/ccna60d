@@ -596,7 +596,7 @@ Fa0/0            1        0/0        2        0/1            50             0
 ![EIGRP Hello 数据包中的EIGRP保持时间](images/3606.png)
 *图 36.6 -- EIGRP Hello 数据包中的EIGRP保持时间*
 
-参考图36.6, 除开其它方面，该EIGRP Hello数据包（OPCode 5）包含了所配置的保持时间数值。图36.6中所显示的值15, 是一个使用接口配置命令`ip hold-time eigrp <ASN> <secs>`所配置的非默认数值。重要的是记住，在Hello数据包中，是**没有包含Hello时间间隔的**。但可使用`show ip eigrp interfaces detail <name>`命令，查看道所配置的Hello时间。下面演示了此命令所打印出的信息：
+参考图36.6, 除开其它方面，该EIGRP Hello数据包（OPCode 5）包含了所配置的保持时间数值。图36.6中所显示的值15, 是一个使用接口配置命令`ip hold-time eigrp <ASN> <secs>`所配置的非默认数值。重要的是记住，在Hello数据包中，是**不包含Hello时间间隔的**。但可使用`show ip eigrp interfaces detail <name>`命令，查看到所配置的Hello时间。下面演示了此命令所打印出的信息：
 
 ```
 R2#show ip eigrp interfaces detail FastEthernet0/0
