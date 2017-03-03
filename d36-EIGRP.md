@@ -643,7 +643,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 *表 36.2 -- EIGRP邻居表的各个字段*
 
 | 字段 | 说明 |
-| -- | -- |
+| :------ | :------ |
 | H | 邻居清单（编号），以所学习到的先后顺序，以“0”开始 |
 | Address | 邻居的IP地址 |
 | Interface | 通过其学习到邻居的那个接口（本地路由器上的？） |
