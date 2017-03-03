@@ -963,7 +963,7 @@ R1(config-router)#exit</font></code></pre>
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_500020364" STARTINCLINATION="-14;258;" ENDINCLINATION="1194;469;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
-<node TEXT="&#x53ef;&#x884c;&#x6761;&#x4ef6;&#xff08;the Feasible Condition, FC&#xff09;" ID="ID_13871399" CREATED="1488534639158" MODIFIED="1488534694573"><richcontent TYPE="NOTE">
+<node TEXT="&#x53ef;&#x884c;&#x6761;&#x4ef6;&#xff08;the Feasible Condition, FC&#xff09;" ID="ID_13871399" CREATED="1488534639158" MODIFIED="1488534753424"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -977,6 +977,7 @@ R1(config-router)#exit</font></code></pre>
 </html>
 
 </richcontent>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1227884102" STARTINCLINATION="89;0;" ENDINCLINATION="89;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
 </node>
 </node>
