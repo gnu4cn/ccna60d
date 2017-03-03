@@ -487,7 +487,7 @@ IP-EIGRP Traffic Statistics for AS 150
 
 ##EIGRP的邻居发现与邻居维护
 
-可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关的话题，进行讨论。
+可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically(default)），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关的话题，进行讨论。
 
 ###动态的邻居发现
 
