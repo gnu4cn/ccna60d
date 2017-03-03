@@ -367,12 +367,108 @@ R1(config-router)#exit</font></code></pre>
 </node>
 </node>
 <node TEXT="&#x7c7b;&#x578b;&#xff08;&#x7531;OPCode&#x786e;&#x5b9a;&#xff09;" ID="ID_316190448" CREATED="1488502353701" MODIFIED="1488502372890">
-<node TEXT="&#x4fdd;&#x5b58;&#x6d3b;&#x52a8;&#x6570;&#x636e;&#x5305;&#xff08;Hello packets&#xff09; - 5" ID="ID_1499895068" CREATED="1488447497564" MODIFIED="1488502248259"/>
-<node TEXT="&#x786e;&#x8ba4;&#x6570;&#x636e;&#x5305;&#xff08;Acknowledgement packets&#xff09; - 1" ID="ID_323938954" CREATED="1488502197153" MODIFIED="1488502226727"/>
-<node TEXT="&#x66f4;&#x65b0;&#x6570;&#x636e;&#x5305;&#xff08;Update packets&#xff09; - 1" ID="ID_1118454370" CREATED="1488502307817" MODIFIED="1488502324224"/>
-<node TEXT="&#x67e5;&#x8be2;&#x6570;&#x636e;&#x5305;&#xff08;Query packets&#xff09;" ID="ID_3516227" CREATED="1488502339419" MODIFIED="1488502833525"/>
-<node TEXT="&#x5e94;&#x7b54;&#x6570;&#x636e;&#x5305;&#xff08;Reply packets&#xff09;" ID="ID_1937846358" CREATED="1488502390418" MODIFIED="1488502858172"/>
-<node TEXT="&#x8bf7;&#x6c42;&#x6570;&#x636e;&#x5305;&#xff08;Request packets&#xff09;" ID="ID_1449478717" CREATED="1488502391971" MODIFIED="1488502874581"/>
+<node TEXT="Hello&#x6570;&#x636e;&#x5305;&#xff08;Hello packets&#xff09; - 5" ID="ID_1499895068" CREATED="1488447497564" MODIFIED="1488507680110"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#34987;&#29992;&#20110;&#37051;&#23621;&#30340;&#35782;&#21035;&#65292;&#21516;&#26102;&#37051;&#23621;&#19968;&#32463;&#35782;&#21035;&#65292;Hello&#25253;&#25991;&#23601;&#29992;&#20110;&#22312;&#37051;&#23621;&#30452;&#25509;&#20316;&#20026;&#19968;&#31181;&#20445;&#25345;&#27963;&#21160;&#26426;&#21046;&#65292;&#21457;&#25381;&#20316;&#29992;&#65288;these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours&#65289;&#12290; </font>
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#19981;&#38656;&#35201;&#21457;&#20986;&#30830;&#35748;&#25968;&#25454;&#21253;&#26469;&#30830;&#35748;&#20854;&#24050;&#25910;&#21040;&#30340;&#65288;Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received&#65289;&#12290;&#22240;&#20026;Hello&#25968;&#25454;&#21253;&#19981;&#38656;&#35201;&#26174;&#24335;&#30340;&#30830;&#35748;&#65292;&#25152;&#20197;&#23427;&#20204;&#34987;&#20998;&#31867;&#20026;&#19981;&#21487;&#38752;&#30340;EIGRP&#25968;&#25454;&#21253;&#65288;Hello packets are classified as unreliable EIGRP packets&#65289;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x786e;&#x8ba4;&#x6570;&#x636e;&#x5305;&#xff08;Acknowledgement packets&#xff09; - 5" ID="ID_323938954" CREATED="1488502197153" MODIFIED="1488508763105"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#31616;&#21333;&#22320;&#23601;&#26159;&#19968;&#20010;&#19981;&#21253;&#21547;&#25968;&#25454;&#30340;EIGRP Hello&#25968;&#25454;&#21253;&#12290;EIGRP&#20351;&#29992;&#30830;&#35748;&#25968;&#25454;&#21253;&#26469;&#23545;EIGRP&#25968;&#25454;&#21253;&#30340;&#21487;&#38752;&#36865;&#36798;&#36827;&#34892;&#30830;&#35748;&#12290;&#36825;&#20123;&#30830;&#35748;&#25968;&#25454;&#21253;&#65288;the ACK packets&#65289;&#24635;&#26159;&#21457;&#36865;&#21040;&#19968;&#20010;&#21333;&#25773;&#22320;&#22336;&#65288;a Unicast address&#65289;, &#35813;&#22320;&#22336;&#23601;&#26159;&#21487;&#38752;&#25968;&#25454;&#21253;&#21457;&#36865;&#26041;&#30340;&#28304;&#22320;&#22336;&#65288;the source address of the sender of the reliable packet&#65289;&#65292;&#32780;&#24182;&#19981;&#26159;EIGRP&#30340;&#22810;&#25773;&#32452;&#22320;&#22336;&#20102;&#12290;&#27492;&#22806;&#65292;&#30830;&#35748;&#25968;&#25454;&#21253;&#23558;&#24635;&#26159;&#20250;&#21253;&#21547;&#19968;&#20010;&#38750;&#38646;&#30340;&#30830;&#35748;&#32534;&#21495;&#65288;a non-zero acknowledgment number&#65289;&#12290;&#30830;&#35748;&#25968;&#25454;&#21253;&#20351;&#29992;&#20102;Hello&#25968;&#25454;&#21253;&#30456;&#21516;&#30340;OPCode, &#22240;&#20026;&#20854;&#26412;&#26469;&#23601;&#26159;&#19968;&#20010;&#19981;&#21253;&#21547;&#20219;&#20309;&#20449;&#24687;&#30340;Hello&#25968;&#25454;&#21253;&#12290;&#20854;OPCode&#20026;5&#12290;</font></span>
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      &#65288;&#26412;&#36136;&#19978;&#26159;Hello&#25968;&#25454;&#21253;&#65292;&#39069;&#22806;&#24102;&#26377;&#19968;&#20010;&#38750;&#38646;&#30340;&#30830;&#35748;&#23383;&#27573;&#65289;
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x66f4;&#x65b0;&#x6570;&#x636e;&#x5305;&#xff08;Update packets&#xff09; - 1" ID="ID_1118454370" CREATED="1488502307817" MODIFIED="1488508899824"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#22686;&#24378;IGRP&#30340;&#26356;&#26032;&#25968;&#25454;&#21253;&#34987;&#29992;&#20110;&#20256;&#36865;&#30446;&#26631;&#30340;&#21487;&#36798;&#24615;&#65288;used to convey reachability of destinations&#65289;&#12290;&#20063;&#23601;&#26159;&#35828;&#65292;&#26356;&#26032;&#25968;&#25454;&#21253;&#21253;&#21547;&#20102;EIGRP&#30340;&#36335;&#30001;&#26356;&#26032;&#12290;&#22312;&#21457;&#29616;&#20102;&#19968;&#20010;&#26032;&#30340;&#37051;&#23621;&#26102;&#65292;&#23601;&#20250;&#36890;&#36807;&#21333;&#25773;&#21457;&#20986;&#26356;&#26032;&#25968;&#25454;&#21253;&#65288;&#24448;&#35813;&#26032;&#30340;&#37051;&#23621;&#65289;&#65292;&#22914;&#27492;&#26032;&#30340;&#37051;&#23621;&#23601;&#33021;&#22815;&#24314;&#31435;&#36215;&#33258;&#24049;&#30340;EIGRP&#25299;&#25169;&#34920;&#20102;&#12290;&#22312;&#20854;&#23427;&#27604;&#22914;&#26576;&#26465;&#38142;&#36335;&#30340;&#24320;&#38144;&#25913;&#21464;&#26102;&#65292;&#23601;&#20250;&#32463;&#30001;&#22810;&#25773;&#21457;&#20986;&#26356;&#26032;&#25968;&#25454;&#21253;&#12290;&#37325;&#35201;&#30340;&#26159;&#35760;&#20303;&#26356;&#26032;&#25968;&#25454;&#21253;&#37117;&#26159;&#21487;&#38752;&#22320;&#20256;&#36755;&#30340;&#65292;&#19988;&#24635;&#26159;&#35201;&#27714;&#26174;&#24335;&#30340;&#30830;&#35748;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x67e5;&#x8be2;&#x6570;&#x636e;&#x5305;&#xff08;Query packets&#xff09; - 3" ID="ID_3516227" CREATED="1488502339419" MODIFIED="1488509011451"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#26159;&#22810;&#25773;&#30340;&#65292;&#24182;&#34987;&#29992;&#20110;&#35831;&#27714;&#21487;&#38752;&#30340;&#36335;&#30001;&#20449;&#24687;&#12290;EIGRP&#30340;&#26597;&#35810;&#25968;&#25454;&#21253;&#26159;&#22312;&#26576;&#26465;&#36335;&#30001;&#19981;&#21487;&#29992;&#65292;&#20294;&#35813;&#36335;&#30001;&#22120;&#21364;&#38656;&#35201;&#20026;&#24555;&#36895;&#25910;&#25947;&#32780;&#23545;&#35813;&#36335;&#30001;&#30340;&#29366;&#24577;&#36827;&#34892;&#24212;&#31572;&#26102;&#65292;&#21457;&#36865;&#32473;&#20854;&#37051;&#23621;&#30340;&#25968;&#25454;&#21253;&#12290;&#22914;&#21457;&#20986;&#26597;&#35810;&#25968;&#25454;&#21253;&#30340;&#36335;&#30001;&#22120;&#26410;&#33021;&#20174;&#20854;&#25152;&#26377;&#37051;&#23621;&#25910;&#21040;&#21709;&#24212;&#65292;&#20854;&#23601;&#20250;&#20877;&#24230;&#21521;&#37027;&#20123;&#26410;&#21709;&#24212;&#30340;&#37051;&#23621;&#21457;&#20986;&#19968;&#27425;&#26597;&#35810;&#12290;&#22914;&#22312;16&#27492;&#23581;&#35797;&#21518;&#37117;&#27809;&#26377;&#21709;&#24212;&#65292;&#37027;&#20040;EIGRP&#30340;&#37051;&#23621;&#23601;&#34987;&#37325;&#32622;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x5e94;&#x7b54;&#x6570;&#x636e;&#x5305;&#xff08;Reply packets&#xff09; - 4" ID="ID_1937846358" CREATED="1488502390418" MODIFIED="1488509033800"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#22686;&#24378;IGRP&#30340;&#24212;&#31572;&#25968;&#25454;&#21253;&#26159;&#20316;&#20026;&#23545;&#26597;&#35810;&#25968;&#25454;&#21253;&#30340;&#21709;&#24212;&#21457;&#36865;&#30340;&#12290;&#24212;&#31572;&#25968;&#25454;&#21253;&#29992;&#20110;&#21709;&#24212;&#19968;&#20010;&#26597;&#35810;&#25968;&#25454;&#21253;&#12290;&#24212;&#31572;&#25968;&#25454;&#21253;&#26159;&#21040;&#26597;&#35810;&#21457;&#36215;&#26041;&#30340;&#21333;&#25773;&#25968;&#25454;&#21253;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="&#x8bf7;&#x6c42;&#x6570;&#x636e;&#x5305;&#xff08;Request packets&#xff09;" ID="ID_1449478717" CREATED="1488502391971" MODIFIED="1488509070833"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <span http-equiv="content-type" content="text/html; charset=utf-8" style="color: rgb(36, 41, 46); font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; font-size: 16px; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none"><font color="rgb(36, 41, 46)" face="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol" size="16px">&#29992;&#20110;&#20174;&#19968;&#20010;&#25110;&#22810;&#20010;&#37051;&#23621;&#22788;&#33719;&#21462;&#29305;&#23450;&#20449;&#24687;&#30340;&#65292;&#19988;&#26159;&#22312;&#19968;&#20123;&#36335;&#30001;&#26381;&#21153;&#22120;&#24212;&#29992;&#20013;&#29992;&#21040;&#30340;&#65288;used in roue server applications&#65289;&#12290;&#36825;&#20123;&#25968;&#25454;&#21253;&#26082;&#21487;&#36890;&#36807;&#21333;&#25773;&#12289;&#20063;&#21487;&#36890;&#36807;&#22810;&#25773;&#36827;&#34892;&#21457;&#36865;&#65292;&#20294;&#23427;&#20204;&#24635;&#26159;&#20197;&#19981;&#21487;&#38752;&#26041;&#24335;&#20256;&#36755;&#30340;&#12290;&#20063;&#23601;&#26159;&#35828;&#65292;&#23427;&#20204;&#26080;&#38656;&#26174;&#24335;&#30340;&#30830;&#35748;&#12290;</font></span>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 </node>
 </node>
 <node TEXT="&#x94fe;&#x8def;&#x672c;&#x5730;&#x591a;&#x64ad;&#x7ec4;&#x5730;&#x5740;&#x2018;224.0.0.10&#x2019;" ID="ID_110212508" CREATED="1488507486172" MODIFIED="1488507529020"/>
