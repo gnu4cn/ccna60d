@@ -948,7 +948,7 @@ Routing entry for 172.16.100.0/24
 
 **The Diffusing Update Algorithm(DUAL)**
 
-弥散更新算法是EIGRP路由协议的关键所在。弥散更新算法会对从邻居路由器出接收到的所有路由进行观察与比较，然后选出有着到目的网络最低度量值（最优）的、无环回路径的路径，该度量值就是可行距离（the Feasible Distance, FD）, 得到后续路由（the Successor route）。可行距离既包含了由相连的路由所通告的某个网络的度量值，再加上到那台特定邻居路由器的开销。
+弥散更新算法是EIGRP路由协议的关键所在。弥散更新算法会对从邻居路由器处接收到的所有路由进行观察与比较，然后选出有着到目的网络最低度量值（最优）的、无环回路径的路径，该度量值就是可行距离（the Feasible Distance, FD）, 得到后续路由（the Successor route）。可行距离既包含了由相连的路由所通告的某个网络的度量值，再加上到那台特定邻居路由器的开销。
 
 由邻居路由器所通告的度量值，就被叫做到目的网路报告的距离（the Reported Distance, RD）, 又被叫做到目的网络通告的距离（the Advertised Distance, AD）。因此，可行距离就包含了报告的距离，加上到达那台特定邻居路由器的开销。那么该后续路由的下一跳路由器，就被叫做是后续路由器（the Successor）。后续路由器就被放入到IP路由表（the IP routing table）及EIGRP拓扑表（the EIGRP topology table）中, 并指向到后继路由器。
 

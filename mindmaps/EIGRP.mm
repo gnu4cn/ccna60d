@@ -1,6 +1,6 @@
 <map version="freeplane 1.3.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="EIGRP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1488447072280"><hook NAME="MapStyle" zoom="0.91">
+<node TEXT="EIGRP" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1488764431016"><hook NAME="MapStyle" zoom="0.91">
     <properties show_note_icons="true"/>
 
 <map_styles>
@@ -387,7 +387,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x786e;&#x8ba4;&#x6570;&#x636e;&#x5305;&#xff08;Acknowledgement packets&#xff09; - 5" ID="ID_323938954" CREATED="1488502197153" MODIFIED="1488508763105"><richcontent TYPE="NOTE">
@@ -408,7 +407,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x66f4;&#x65b0;&#x6570;&#x636e;&#x5305;&#xff08;Update packets&#xff09; - 1" ID="ID_1118454370" CREATED="1488502307817" MODIFIED="1488523704670"><richcontent TYPE="NOTE">
@@ -423,7 +421,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <hook NAME="FirstGroupNode"/>
 </node>
@@ -439,7 +436,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5e94;&#x7b54;&#x6570;&#x636e;&#x5305;&#xff08;Reply packets&#xff09; - 4" ID="ID_1937846358" CREATED="1488502390418" MODIFIED="1488509033800"><richcontent TYPE="NOTE">
@@ -454,7 +450,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4f7f;&#x7528;&#x53ef;&#x9760;&#x4f20;&#x8f93;&#x534f;&#x8bae;" ID="ID_1456907576" CREATED="1488523704668" MODIFIED="1488523735085">
@@ -473,7 +468,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -520,7 +514,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_991569361" STARTINCLINATION="107;0;" ENDINCLINATION="107;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="&#x52a8;&#x6001;&#x7684;&#x90bb;&#x5c45;&#x53d1;&#x73b0;" ID="ID_1163430471" CREATED="1488509954484" MODIFIED="1488511156357"><richcontent TYPE="NOTE">
@@ -535,7 +528,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="EIGRP&#x7684;&#x2018;network&#x2019;&#x547d;&#x4ee4;" ID="ID_846909943" CREATED="1488511610878" MODIFIED="1488511625671"/>
 </node>
@@ -570,7 +562,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="EIGRP&#x7684;&#x2018;neighbour&#x2019;&#x547d;&#x4ee4;" ID="ID_1778060423" CREATED="1488511631744" MODIFIED="1488511647395"/>
 </node>
@@ -590,7 +581,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Hello&#x8ba1;&#x65f6;&#x5668;&#xff08;Hello timers&#xff09;" ID="ID_1842675197" CREATED="1488511864356" MODIFIED="1488511940133"><richcontent TYPE="NOTE">
 
@@ -604,7 +594,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4fdd;&#x6301;&#x8ba1;&#x65f6;&#x5668;&#xff08;Hold timers&#xff09;" ID="ID_1889470482" CREATED="1488511877221" MODIFIED="1488512395846"><richcontent TYPE="NOTE">
@@ -625,7 +614,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x591a;&#x64ad;&#x6d41;&#x8ba1;&#x65f6;&#x5668;&#xff08;the Multicast Flow Timer, MFT&#xff09;" ID="ID_1717486668" CREATED="1488531657867" MODIFIED="1488532088042"><richcontent TYPE="NOTE">
@@ -640,7 +628,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_176401302" STARTINCLINATION="794;0;" ENDINCLINATION="794;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
@@ -671,7 +658,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1858219459" STARTINCLINATION="231;232;" ENDINCLINATION="35;51;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="&#x8bb0;&#x5f55;&#x90bb;&#x5c45;&#x7684;&#x5730;&#x5740;&#x548c;&#x63a5;&#x53e3;" ID="ID_1433357842" CREATED="1488522571841" MODIFIED="1488522581413"/>
@@ -688,7 +674,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4f20;&#x8f93;&#x6e05;&#x5355;" ID="ID_351910443" CREATED="1488522837933" MODIFIED="1488522860132"><richcontent TYPE="NOTE">
@@ -703,7 +688,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5f80;&#x8fd4;&#x8ba1;&#x65f6;&#x5668;" ID="ID_198542419" CREATED="1488522867698" MODIFIED="1488522903563"><richcontent TYPE="NOTE">
@@ -718,7 +702,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -738,7 +721,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -770,7 +752,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5b8c;&#x6574;&#x8ba1;&#x7b97;&#x516c;&#x5f0f;&#xff1a;[K1*&#x5e26;&#x5bbd; + (K2*&#x5e26;&#x5bbd;)/(256-&#x8d1f;&#x8f7d;) + K3*&#x5ef6;&#x8fdf;] * [K5/(&#x53ef;&#x9760;&#x6027;+K4)]" ID="ID_1379196868" CREATED="1488532522978" MODIFIED="1488532624314"/>
@@ -786,7 +767,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="metric weights [tos] k1 k2 k3 k4 k5" ID="ID_426943112" CREATED="1488532746107" MODIFIED="1488533074549"><richcontent TYPE="NOTE">
@@ -807,7 +787,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4f7f;&#x7528;&#x63a5;&#x53e3;&#x5e26;&#x5bbd;&#x6765;&#x5f71;&#x54cd;EIGRP&#x7684;&#x5ea6;&#x91cf;&#x503c;" ID="ID_138361599" CREATED="1488533091139" MODIFIED="1488533629252"><richcontent TYPE="NOTE">
@@ -828,7 +807,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <hook NAME="FirstGroupNode"/>
 </node>
@@ -850,7 +828,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4f7f;&#x7528;&#x63a5;&#x53e3;&#x914d;&#x7f6e;&#x547d;&#x4ee4;&#x2018;bandwidth&#x2019;&#x53ca;&#x2018;delay&#x2019;&#xff0c;&#x5e76;&#x4e0d;&#x4f1a;&#x5bfc;&#x81f4;&#x63a5;&#x53e3;&#x7269;&#x7406;&#x53c2;&#x6570;&#x7684;&#x53d8;&#x5316;&#xff0c;&#x4fee;&#x6539;&#x7684;&#x53ea;&#x662f;&#x6570;&#x503c;&#xff1b;&#x5728;&#x5bf9;&#x63a5;&#x53e3;&#x7684;&#x5e26;&#x5bbd;&#x53ca;&#x5ef6;&#x8fdf;&#x6570;&#x503c;&#x8fdb;&#x884c;&#x8ba1;&#x7b97;&#x65f6;&#xff0c;&#x91cd;&#x8981;&#x7684;&#x662f;&#x8bb0;&#x4f4f;&#x5bf9;&#x63a5;&#x53e3;&#x5e26;&#x5bbd;&#x7684;&#x8c03;&#x6574;&#x5e76;&#x4e0d;&#x4f1a;&#x81ea;&#x52a8;&#x5730;&#x8c03;&#x6574;&#x5230;&#x63a5;&#x53e3;&#x7684;&#x5ef6;&#x8fdf;&#xff0c;&#x76f8;&#x53cd;&#x4e5f;&#x662f;&#x8fd9;&#x6837;&#x3002;" ID="ID_178056546" CREATED="1488533629250" MODIFIED="1488533792794">
@@ -871,7 +848,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="&#x53ef;&#x884c;&#x8ddd;&#x79bb;&#xff08;the Feasible Distance, FD&#xff09;" ID="ID_982817744" CREATED="1488533893093" MODIFIED="1488533967311"><richcontent TYPE="NOTE">
 
@@ -891,7 +867,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x62a5;&#x544a;&#x7684;&#x8ddd;&#x79bb;&#xff08;the Reported Distance, RD&#xff09;" ID="ID_882301989" CREATED="1488533971778" MODIFIED="1488534424222"><richcontent TYPE="NOTE">
@@ -906,7 +881,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <hook NAME="FirstGroupNode"/>
 </node>
@@ -927,12 +901,9 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
-<node TEXT="&#x540e;&#x7ee7;&#x8def;&#x7531;&#x5668;&#xff08;the Successor&#xff09;" ID="ID_328012800" CREATED="1488534208087" MODIFIED="1488534606297">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_500020364" STARTINCLINATION="49;186;" ENDINCLINATION="1517;107;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
-<richcontent TYPE="NOTE">
+<node TEXT="&#x540e;&#x7ee7;&#x8def;&#x7531;&#x5668;&#xff08;the Successor&#xff09;" ID="ID_328012800" CREATED="1488534208087" MODIFIED="1488534606297"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -944,8 +915,8 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_500020364" STARTINCLINATION="49;186;" ENDINCLINATION="1517;107;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
 <node TEXT="&#x53ef;&#x884c;&#x540e;&#x7ee7;&#x8def;&#x7531;&#x5668;&#x8def;&#x7531;&#xff08;Feasible Successor(FS) routes&#xff09;" ID="ID_1227884102" CREATED="1488534461612" MODIFIED="1488534557333"><richcontent TYPE="NOTE">
 
@@ -959,7 +930,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_500020364" STARTINCLINATION="-14;258;" ENDINCLINATION="1194;469;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
@@ -975,7 +945,6 @@ R1(config-router)#exit</font></code></pre>
     </p>
   </body>
 </html>
-
 </richcontent>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1227884102" STARTINCLINATION="89;0;" ENDINCLINATION="89;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 </node>
