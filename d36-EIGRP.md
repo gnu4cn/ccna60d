@@ -1785,7 +1785,7 @@ Routing entry for 10.0.0.0/8
       Loading 1/255, Hops 0
 ```
 
-在EIGRP完成自动汇总时，路由器将对汇总路由进行通过，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器R2上的路由表，加以验证，如下所示：
+在EIGRP完成自动汇总时，路由器将对汇总路由进行通告，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器R2上的路由表，加以验证，如下所示：
 
 ```
 R2#show ip route eigrp
