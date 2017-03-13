@@ -1585,7 +1585,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        156    00:02:20  8     200   0   4
 ```
 
-默认EIGRP的水平分割是开启的，在局部网状网络的非广播多路访问网络上，EIGRP的水平分割是比较烦人的（By default, EIGRP split horizon is enabled, which is undesirable in partial-mesh NBMA networks）。这就意味着对于那些在`Serial0/0`上学习到的路由信息，中心路由器不会再从相同接口（`Serial0/0`）进行通告。而这种默认行为的效果，就是中心路由器不会将接收自路由器S1的`10.1.1.0/24`前缀，通告给S2，因为该路由是经由`Serial0/0`接口接收到的，而水平分割特性阻止了该路由器对从该接口学习到的信息，在通告出同一接口。这一点对于中心路由器接收自路由器S2的`10.2.2.0/24`前缀同样适用。
+默认EIGRP的水平分割是开启的，但在局部网状网络的非广播多路访问网络上，EIGRP的水平分割是不合需要的（By default, EIGRP split horizon is enabled, which is undesirable in partial-mesh NBMA networks）。这就意味着对于那些在`Serial0/0`上学习到的路由信息，中心路由器不会再从相同接口（`Serial0/0`）进行通告。而这种默认行为的效果，就是中心路由器不会将接收自路由器S1的`10.1.1.0/24`前缀，通告给S2，因为该路由是经由`Serial0/0`接口接收到的，而水平分割特性阻止了该路由器对从该接口学习到的信息，在通告出同一接口。这一点对于中心路由器接收自路由器S2的`10.2.2.0/24`前缀同样适用。
 
 这种默认行为意味着尽管中心路由器注意到了这两条前缀，但分支路由器却只有局部的路由表。中心路由器上的路由表如下：
 
