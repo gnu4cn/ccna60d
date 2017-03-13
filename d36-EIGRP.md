@@ -1136,7 +1136,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-而又可以使用路由器配置命令`maximum-paths <1-6>`，对默认的最多4条路径，修改为最多6条相等开销的路径。在进行相等开销的负载均衡时，路由器将负载在所有路径直接进行均匀地分配。有着一个流量分享计数，对每条路径上传输的数据包进行识别（The traffic share count identifies the number of outgoing packets on each path）。在进行相等开销的负载均衡时，单个的完整数据包在某条单独路径上发出的，如下面的输出所示：
+而又可以使用路由器配置命令`maximum-paths <1-6>`，对默认的最多4条路径，修改为最多6条相等开销的路径。在进行相等开销的负载均衡时，路由器将负载在所有路径直接进行均匀地分配。有着一个流量分享计数，对每条路径上传输的数据包进行识别（The traffic share count identifies the number of outgoing packets on each path）。在进行相等开销的负载均衡时，单个的完整数据包是在某条单独路径上发出的，如下面的输出所示：
 
 ```
 R2#show ip route 172.16.100.0 255.255.255.0
