@@ -1109,7 +1109,7 @@ Cleaning up
 
 **Equal Cost and Unequal Cost Load Sharing**
 
-思科IOS软件支持默认对所有路由协议高达4条路径下的相等开销的负载均衡（Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols）。下面的`show ip protocols`命令的输出，对此进行了演示：
+思科IOS软件对所有路由协议支持默认下至多4条路径的相等开销负载均衡（Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols）。下面的`show ip protocols`命令的输出，对此进行了演示：
 
 ```
 R2#show ip protocols
