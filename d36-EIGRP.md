@@ -110,9 +110,9 @@ R1#show ip eigrp 150 ?
 比如假设某台路由器上配置了以下这些环回接口：
 
 - `Loopback0` -- IP地址 `10.0.0.0/24`
-- `Loopback1` -- IP地址 `10.0.0.1/24`   
-- `Loopback2` -- IP地址 `10.0.0.2/24`    
-- `Loopback3` -- IP地址 `10.0.0.3/24`    
+- `Loopback1` -- IP地址 `10.0.0.1/24`
+- `Loopback2` -- IP地址 `10.0.0.2/24` 
+- `Loopback3` -- IP地址 `10.0.0.3/24` 
 
 如EIGRP已开启使用，且将路由器配置命令`network`与大的有类`10.0.0.0/8`网络一道进行了使用，同时**所有4个环回接口**（all four Loopback interfaces）又都开启了EIGRP路由的话，那么下面就给出了此种情况下`show ip eigrp interfaces`的输出演示：
 
@@ -234,7 +234,7 @@ Routing Protocol is “eigrp 150”
 Distance: internal 90 external 170
 ```
 
-为了提供到对那些开启EIGRP路由的网络进行更细粒度的控制，思科IOS软件支持在对EIGRP进行配置时，将通配符掩码与`network`语句一起配合使用（in order to provide more granular control of the networks that are enabled for EIGRP routing, Cisco IOS software supports the use of wildcard masks in conjunction with the `network` statement when configuring EIGRP）。这里的通配符掩码，以与ACLs中用到的通配符掩码类似的方式运作，而与网络的子网掩码是不相干的。
+为了提供到**对那些开启EIGRP路由的网络进行更细粒度的控制**，思科IOS软件支持在对EIGRP进行配置时，将**通配符掩码**与`network`语句一起配合使用（in order to provide more granular control of the networks that are enabled for EIGRP routing, Cisco IOS software supports the use of wildcard masks in conjunction with the `network` statement when configuring EIGRP）。这里的通配符掩码，以与ACLs中用到的通配符掩码类似的方式运作，而与网络的子网掩码是不相干的。
 
 作为一个示例，命令`network 10.1.1.0 0.0.0.255`将匹配到网络`10.1.1.0/24`、`10.1.1.0/26`及`10.1.1.0/30`网络。参考上一输出中所配置的那些环回借口（the Loopback interfaces），为将R1配置为对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，且不对`10.0.0.0/24`子网或`10.2.2.0`子网开启，就应将其如下面那样进行配置：
 
