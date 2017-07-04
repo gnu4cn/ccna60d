@@ -383,15 +383,17 @@ Distance: internal 90 external 170
 
 在EIGRP数据包头部，其中的4位版本字段（the 4-bit Version field）用于表明该协议的版本。当前的思科IOS镜像都支持EIGRP版本`1.x`。后面的4为OPcode字段（the 4-bit OPCode field），则指定了EIGRP数据包或报文的类型。不同EIGRP数据包类型都被分配了一个唯一的OPcode数值，以将其与其它数据包类型进行区分。本课程模块后面会对这些报文类型进行说明。
 
-而那个24位的校验和字段（the 24-bit Checksum field）, 是用于对该EIGRP数据包做完整性检查的（a sanity check）。该字段基于完整的EIGRP数据包, 而不包括IP头部。32位的标志字段（the 32-bit Flags field），用于表明该EIGRP数据包或报文是一个新的EIGRP邻居的`INIT`, 还是EIGRP的可靠传输协议（Reliable Transport Protocol, RTP）的有条件接受（the Conditional Receive, CR）的`INIT`。这里的RTP及CR都将在本课程模块稍后讲到。
+而那个24位的校验和字段（the 24-bit Checksum field）, 是用于对该EIGRP数据包做完整性检查的（a sanity check）。该字段基于完整的EIGRP数据包的, 是排除了IP头部的。32位的标志字段（the 32-bit Flags field），用于表明该EIGRP数据包或报文是一个新EIGRP邻居的`INIT`, 还是EIGRP的可靠传输协议（Reliable Transport Protocol, RTP）条件接收下（the Conditional Receive, CR）的`INIT`。这里的RTP及CR都将在本课程模块稍后讲到。
 
-后面的32为顺序字段（the 32-bit Sequence field）指定了EIGRP可靠传输协议所用到的顺序编号（the sequence number），用以可靠数据包的顺序投送。而32位的确认字段（the 32-bit Acknowledgment field），则被用于EIGRP可靠数据包的接收确认。
+接着便是32位的序列字段（the 32-bit Sequence field），其指明了被EIGRP可靠传输协议所用到的顺序编号（the sequence number），用于可靠数据包的顺序投送。而32位的确认字段（the 32-bit Acknowledgment field），则被用于EIGRP可靠数据包的接收确认。
 
 后面的32位自治系统编号字段（the 32-bit Autonomous System Number field）, 指定了该EIGRP域（the EIGRP domain）的自治系统编号（ASN）。最后的32位类型/长度/值三联体字段，就被用于路由条目运送及EIGRP弥散更新算法信息的提供了（Finally, the 32-bit Type/Length/Value(TLV) triplet field is used to carry route entries and provides EIGRP DUAL information）。EIGRP支持几种不同类型的TLVs，最常用的是下面几种：
 
 - 参数TLV, 有着建立邻居关系的那些参数，the Parameters TLV, which has the parameters to establish neighbour relationships
-- 顺号TLV，RTP使用的TLV，the Sequence TLV, which is used by RTP
-- 下一次多播序号TLV，RTP使用的TLV
+- 序号TLV，为RTP所用到的TLV，the Sequence TLV, which is used by RTP
+- 下一次多播序号TLV，RTP使用的TLV，the Next Multicast Sequence TLV, which is used by RTP
+- EIGRP内部路由TLV，用于内部EIGRP路由，the EIGRP Internal Route TLV, Which is used for internal EIGRP routes
+- EIGRP外部路由TLV，用于外部的EIGRP路由，the EIGRP External Route TLV, which is used for external EIGRP routes
 
 > **注意**：并不要求对EIGRP的各种TLVs有详细了解。
 
