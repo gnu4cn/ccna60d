@@ -518,9 +518,9 @@ IP-EIGRP Traffic Statistics for AS 150
 
 参考图36.4, 在初始化时，这些EIGRP邻居便发出Hello数据包，以发现其它邻居（Referencing Figure 36.4, upon initialisation, the EIGRP neighbours send Hello packets to discover other neighbours）。随后邻居们就通过完整更新，就其整个路由表进行交换。这些更新包含了所有已知路由信息。因为更新包是可靠发送的，接收方就必须对其进行显式确认。
 
-在邻居们完成它们的路由信息交换后，还将持续交换Hello数据包，以维护起邻居关系。此外，这些EIGRP邻居路由器以后就将仅发送增量更新了，通过增量更新来将其状态或路由变化，通告给它们的邻居们。它们再也不会发送完整的更新给邻居们了。
+在邻居们完成它们的路由信息交换后，还**将持续交换Hello数据包，以维护邻居关系**。此外，这些EIGRP邻居路由器以后就将仅发送增量更新了，通过增量更新来将其状态或路由变化，通告给它们的邻居们。它们再也不会发送完整的更新给邻居们了。
 
-这里重要的是要明白仅简单地在两台或多台路由器上开启EIGRP，并不能确保邻居关系的建立。而是还需一些参数必须要匹配，这样这些路由器才能成为邻居。在下面几种情况下，就不能建立EIGRP邻居关系：
+这里重要的是要明白仅简单地在两台或多台路由器上开启EIGRP，并不能确保邻居关系的建立。而是还需一些参数必须要匹配，这样这些路由器才能成为邻居。**在以下几种情况下，就不能建立EIGRP邻居关系**：
 
 - EIGRP认证参数不匹配（在有配置时），Mismatched EIGRP authentication parameters(if configured)
 - EIGRP的那些K值不一致，Mismatched EIGRP K values
