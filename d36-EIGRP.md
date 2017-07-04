@@ -511,16 +511,16 @@ IP-EIGRP Traffic Statistics for AS 150
 
 **Dynamic Neighbour Discovery**
 
-动态邻居发现，是通过往目的多播组地址（the destination Multicast group address）`224.0.0.10`, 发送EIGRP的Hello数据包完成的。动态邻居发现，又是紧跟着在路由器配置EIGRP时`network`命令的执行，而完成的。此外，如早先指出的那样，EIGRP数据包是直接透过IP、使用协议编号88发送的。下图36.4对此基本的EIGRP邻居发现与路由交换过程，进行了演示：
+动态邻居发现，是通过往目的多播组地址（the destination Multicast group address）`224.0.0.10`, 发送EIGRP的Hello数据包完成的。动态邻居发现，又是紧跟着在路由器配置EIGRP时`network`命令的执行，而完成的。此外，如早先指出的那样，EIGRP数据包直接透过IP、使用协议编号88发送。下图36.4对此基本的EIGRP邻居发现与路由交换过程，进行了演示：
 
 ![EIGRP的邻居发现与路由交换](images/3604.png)
 *图 36.4 -- EIGRP的邻居发现与路由交换，EIGRP Neighbour Discovery and Route Exchange*
 
-参考图36.4, 在初始化时，这些EIGRP邻居便发出Hello数据包，以发现其它邻居（Referencing Figure 36.4, upon initialisation, the EIGRP neighbours send Hello packets to discover other neighbours）。随后这些邻居就通过完整更新，就其完整路由表进行交换。这些更新包含了所有已知路由的信息。因为更新包是可靠发送的，接收方就必须对其进行显式确认。
+参考图36.4, 在初始化时，这些EIGRP邻居便发出Hello数据包，以发现其它邻居（Referencing Figure 36.4, upon initialisation, the EIGRP neighbours send Hello packets to discover other neighbours）。随后邻居们就通过完整更新，就其整个路由表进行交换。这些更新包含了所有已知路由信息。因为更新包是可靠发送的，接收方就必须对其进行显式确认。
 
-在这些邻居完成了它们的信息交换后，它们还将持续交换Hello数据包，以维护起邻居关系。除此之外，这些EIGRP邻居路由器此后就将仅发送增量更新了，通过增量更新来将其状态或路由变化，通告给它的邻居们。它们再也不会发送完整的更新给邻居们了。
+在邻居们完成它们的路由信息交换后，还将持续交换Hello数据包，以维护起邻居关系。此外，这些EIGRP邻居路由器以后就将仅发送增量更新了，通过增量更新来将其状态或路由变化，通告给它们的邻居们。它们再也不会发送完整的更新给邻居们了。
 
-明白仅简单地在两台或多台路由器上开启EIGRP，并不能确保邻居关系的建立，是重要的。而是还需一些参数要匹配，这样这些路由器才能成为邻居。在下面几种情况下，就不能建立EIGRP邻居关系：
+这里重要的是要明白仅简单地在两台或多台路由器上开启EIGRP，并不能确保邻居关系的建立。而是还需一些参数必须要匹配，这样这些路由器才能成为邻居。在下面几种情况下，就不能建立EIGRP邻居关系：
 
 - EIGRP认证参数不匹配（在有配置时），Mismatched EIGRP authentication parameters(if configured)
 - EIGRP的那些K值不一致，Mismatched EIGRP K values
