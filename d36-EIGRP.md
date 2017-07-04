@@ -406,7 +406,7 @@ Distance: internal 90 external 170
 
 ###Hello数据包
 
-**Hello packets**
+**Hello Packets**
 
 在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别后，Hello报文就用于在邻居间作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。**EIGRP的邻居发现与维护机制**，将在本课程模块的后面进行说明。
 
@@ -414,11 +414,15 @@ EIGRP的Hello数据包，是发送到**链路本地多播组地址（the Link Lo
 
 ###确认数据包
 
-一个EIGRP确认数据包，简单地就是一个不包含数据的EIGRP Hello数据包。EIGRP使用确认数据包来对EIGRP数据包的可靠送达进行确认。这些确认数据包（the ACK packets）总是发送到一个单播地址（a Unicast address）, 该地址就是可靠数据包发送方的源地址（the source address of the sender of the reliable packet），而并不是EIGRP的多播组地址了。此外，确认数据包将总是会包含一个非零的确认编号（a non-zero acknowledgment number）。确认数据包使用了Hello数据包相同的OPCode, 因为其本来就是一个不包含任何信息的Hello数据包。其OPCode为5。
+**Acknowledgment Packets**
+
+EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。EIGRP使用确认数据包来对EIGRP数据包的可靠送达进行确认。这些确认数据包（the ACK packets）总是发送到一个单播地址（a Unicast address）, 该地址就是可靠数据包发送方的源地址（the source address of the sender of the reliable packet），而并不是EIGRP的多播组地址了。此外，确认数据包将总是会包含一个非零的确认编号（a non-zero acknowledgment number）。确认数据包使用了Hello数据包相同的OPCode, 因为其本来就是一个不包含任何信息的Hello数据包。其OPCode为5。
 
 ###更新数据包
 
-增强IGRP的更新数据包被用于传送目标的可达性（used to convey reachability of destinations）。也就是说，更新数据包包含了EIGRP的路由更新。在发现了一个新的邻居时，就会通过单播发出更新数据包（往该新的邻居），如此新的邻居就能够建立起自己的EIGRP拓扑表了。在其它比如某条链路的开销改变时，就会经由多播发出更新数据包。重要的是记住更新数据包都是可靠地传输的，且总是要求显式的确认。**分配给更新数据包的OPCode是1**。下图36.3演示了一个EIGRP的更新数据包：
+**Update Packets**
+
+增强IGRP的更新数据包被用于传送目标的可达性（used to convey reachability of destinations）。也就是说，更新数据包包含了EIGRP的路由更新。在发现了一个新的邻居时，就会通过单播发出更新数据包（往该新的邻居），如此新的邻居就能够建立起自己的EIGRP拓扑表了。在其它情况，比如某链路的开销改变时，就会经由多播发出更新数据包。重要的是记住**更新数据包都是可靠地传输的，且总是要求显式的确认**。分配给**更新数据包的OPCode是1**。下图36.3演示了一个EIGRP的更新数据包：
 
 ![EIGRP的更新数据包](images/3603.png)
 *图 36.3 -- EIGRP的更新数据包*
