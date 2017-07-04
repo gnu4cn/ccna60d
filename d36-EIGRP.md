@@ -609,9 +609,9 @@ Fa0/0            1        0/0        2        0/1            50             0
 
 增强的IGRP对不同传输介质，使用不同的Hello及保持计数器。Hello计时器被用于确定发送EIGRP Hello数据包的时间间隔。保持计数器则用于确定下路由器在认为其某个邻居宕机前，要经历的时间（the Hold timer is used to determine the time that will elapse before a router consider an EIGRP neighbour as down）。默认保持时间是Hello间隔的3倍。
 
-增强的IGRP在广播网络、点对点串行网络、点对点子接口网络及高于T1线路速率的多点电路网络上，每5秒发送一次Hello数据包（Enhanced IGRP sends Hello packets every 5 seconds on Broadcast, Point-to-Point Serial, Point-to-Point subinterfaces, and Multipoint circuits greater than T1 speed）。而默认的保持时间就是15秒。在其它链路类型网络上，包括速率低于T1线路的低带宽的WAN链路，EIGRP每60秒发送Hello数据包。在这些链路上的邻居关系保持时间也是Hello间隔的三倍，也就是180秒。
+在广播网络、点对点串行网络、点对点子接口网络及高于T1线路速率的多点电路网络上，增强的IGRP每5秒发送一次Hello数据包（Enhanced IGRP sends Hello packets every 5 seconds on Broadcast, Point-to-Point Serial, Point-to-Point subinterfaces, and Multipoint circuits greater than T1 speed）。而默认的保持时间就是15秒。在其它链路类型网络上，包括速率低于T1线路的低带宽的WAN链路，EIGRP每60秒发送Hello数据包。在这些链路上的邻居关系保持时间也是Hello间隔的3倍，也就是180秒。
 
-增强的IGRP计时器数值在那些相邻路由器上，不必为了形成邻居关系而要求保持一致（Enhanced IGRP timer value do not have to be the same on neighbouring routers in order for a neighbour relationship to be established）。此外，对保持时间是Hello间隔的三倍，也没有强制要求。这只是一种建议的做法（a recommended guideline），因此可在思科IOS软件中进行手动修改。可使用接口配置命令`ip hello-interval eigrp <ASN> <secs>`，对EIGRP的Hello时间进行调整，使用借口配置命令`ip hold-time eigrp <ASN> <secs>`，对EIGRP的保持时间进行调整。
+在那些相邻路由器上，不必为了形成邻居关系而要求EIGRP计时器数值保持一致（Enhanced IGRP timer value do not have to be the same on neighbouring routers in order for a neighbour relationship to be established）。此外，对于保持时间是Hello间隔的3倍这一点，也没有强制性要求。这只是一种建议的做法（a recommended guideline），因此可在思科IOS软件中进行手动修改。可使用接口配置命令`ip hello-interval eigrp <ASN> <secs>`，对EIGRP的Hello时间进行调整，使用借口配置命令`ip hold-time eigrp <ASN> <secs>`，对EIGRP的保持时间进行调整。
 
 掌握EIGRP中Hello计时器及保持计时器的用法，是重要的。保持时间是在EIGRP的Hello数据包中通告的，同时Hello时间值告诉本地路由器往其邻居发送Hello数据包的频率。而保持时间，则告诉其邻居路由器，在等待多长时间后，就可以宣布其已“死亡”（the hold time, on the other hand, tells the neighbour router(s) of the local router how long to wait before declaring the local router "dead"）。下图36.6演示了EIGRP的Hello数据包，以及保持时间字段（the Hold Time field）:
 
