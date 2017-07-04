@@ -402,11 +402,13 @@ Distance: internal 90 external 170
 ![EIGRP数据包头部的抓包](images/3602.png)
 *图 36.2 -- 对EIGRP数据包头部的抓包*
 
-在该EIGRP数据包头部，4位的OPCode字段被用于指定该EIGRP数据包或报文的类型。EIGRP使用到不同的报文或数据包类型，包括Hello数据包、确认数据包（Acknowledgment packets）、更新数据包（Update packets）、查询数据包（Query packets）、应答数据包（Reply packets）以及请求数据包（Request packets）。将在随后的小节对这些类型的数据包进行说明。
+在该EIGRP数据包头部，4位的OPCode字段被用于指明该EIGRP数据包类型或报文。EIGRP使用到不同的报文或数据包类型，它们是**Hello数据包**（Hello packets）、**确认数据包**（Acknowledgment packets）、**更新数据包**（Update packets）、**查询数据包**（Query packets）、**应答数据包**（Reply packets）以及**请求数据包**（Request packets），共计6种报文或数据包类型。将在随后的小节对这些类型的数据包进行说明。
 
 ###Hello数据包
 
-在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别，Hello报文就用于在邻居直接作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。EIGRP的邻居发现与维护机制，将在本课程模块的后面进行说明。
+**Hello packets**
+
+在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别后，Hello报文就用于在邻居间作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。**EIGRP的邻居发现与维护机制**，将在本课程模块的后面进行说明。
 
 EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`上。由EIGRP发出的Hello数据包，是不需要发出确认数据包来确认其已收到的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为不可靠的EIGRP数据包（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的OPCode为5。
 
