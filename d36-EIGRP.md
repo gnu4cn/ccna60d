@@ -410,7 +410,7 @@ Distance: internal 90 external 170
 
 在某台路由器上对某个特定网络开启了增强的IGRP后，其就会发送Hello数据包（Enhanced IGRP sends Hello packets once it has been enabled on a router for a particular network）。这些报文被用于邻居的识别，同时邻居一经识别后，Hello报文就用于在邻居间作为一种保持活动机制，发挥作用（these messages are used to identify neighbours and, once identified, serve or function as a keepalive mechanism between neighbours）。**EIGRP的邻居发现与维护机制**，将在本课程模块的后面进行说明。
 
-EIGRP的Hello数据包，是发送到链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`上。由EIGRP发出的Hello数据包，是不需要发出确认数据包来确认其已收到的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为不可靠的EIGRP数据包（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的OPCode为5。
+EIGRP的Hello数据包，是发送到**链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`**上的。由EIGRP发出的Hello数据包，是**不需要发出确认数据包来确认其已收到**的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为**不可靠的EIGRP数据包**（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的**OPCode为5**。
 
 ###确认数据包
 
