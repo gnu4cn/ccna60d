@@ -670,7 +670,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 | :------ | :------ |
 | H | 邻居清单（编号），以所学习到的先后顺序，以“0”开始 |
 | Address | 邻居的IP地址 |
-| Interface | 通过其学习到邻居的那个接口（本地路由器上的？） |
+| Interface | 经由其学习到邻居的那个接口（the interface via which the neighbour is learned） |
 | Hold | 邻居的保持计数器；在其到0时，邻居就已宕机 |
 | Uptime | 邻居关系已建立了多长时间 |
 | SRTT | 平滑往返时间（Smooth Round-Trip Time）, 发送并接收到一个可靠EIGRP数据包所花费的时间 |
