@@ -368,11 +368,15 @@ Distance: internal 90 external 170
 
 ## EIGRP的各种报文
 
+**EIGRP Messages**
+
 本小节将对EIGRP所用到的各种类型的报文进行说明。但是，在深入到各种不同报文类型前，首要的是对EIGRP数据包头部有扎实的掌握，这正是包含这些报文的地方。
 
-###EIGRP数据包的头部
+###EIGRP数据包头部
 
-尽管对EIGRP数据包格式的具体了解，是超出CCNA考试要求的，但对EIGRP数据包头部的基本掌握，对于完整理解EIGRP这种路由协议的完整运作的，是很重要的。下图36.1对EIGRP数据包头部进行了演示：
+**EIGRP Packet Header**
+
+尽管对EIGRP数据包格式的具体了解，是超出CCNA考试要求的，但对EIGRP数据包头部的扎实掌握，对于完整理解EIGRP这种路由协议的整体运作原理，是很重要的。下图36.1对EIGRP数据包头部进行了演示：
 
 ![EIGRP数据包头部的各种字段](images/3601.png)
 *图 36.1 -- EIGRP数据包头部的各种字段*
