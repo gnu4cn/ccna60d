@@ -488,7 +488,7 @@ IP-EIGRP Traffic Statistics for AS 150
     Eigrp input queue: 0/2000/2/0 (current/max/highest/drops)
 ```
 
-下表36.1对本小节中讲到的这些EIGRP的数据包进行了总结，以及各自是否以可靠或不可靠方式进行发送的：
+下表36.1对本小节中讲到的这些EIGRP的数据包进行了总结，以及各自是否以可靠或不可靠方式进行发送：
 
 *表 36.1 -- EIGRP数据包总结*
 
@@ -503,11 +503,15 @@ IP-EIGRP Traffic Statistics for AS 150
 
 ##EIGRP的邻居发现与邻居维护
 
-可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically(default)），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关的话题，进行讨论。
+**EIGRP Neighbour Discovery and Maintenance**
+
+可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically(default)），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关话题，进行讨论。
 
 ###动态的邻居发现
 
-动态的邻居发现，是通过往目的多播组地址（the destination Multicast group address）`224.0.0.10`, 发送EIGRP的Hello数据包完成的。动态邻居发现，又是紧跟着在路由器配置EIGRP时`network`命令的执行，而完成的。此外，如早先指出的那样，EIGRP数据包是直接透过IP、使用协议编号88发送的。下图36.4对此基本的EIGRP邻居发现与路由交换过程，进行了演示：
+**Dynamic Neighbour Discovery**
+
+动态邻居发现，是通过往目的多播组地址（the destination Multicast group address）`224.0.0.10`, 发送EIGRP的Hello数据包完成的。动态邻居发现，又是紧跟着在路由器配置EIGRP时`network`命令的执行，而完成的。此外，如早先指出的那样，EIGRP数据包是直接透过IP、使用协议编号88发送的。下图36.4对此基本的EIGRP邻居发现与路由交换过程，进行了演示：
 
 ![EIGRP的邻居发现与路由交换](images/3604.png)
 *图 36.4 -- EIGRP的邻居发现与路由交换，EIGRP Neighbour Discovery and Route Exchange*
