@@ -554,9 +554,9 @@ Fa0/0            1        0/0        1        0/1            50             0
 
 与动态EIGRP邻居发现过程不同，静态EIGRP邻居关系需要在路由器上手动配置邻居。在配置好静态EIGRP邻居后，本地路由器就使用单播邻居地址，往这些路由器发送数据包。
 
-在EIGRP网络中，静态邻居关系的使用是十分罕见的。这主要是因为手动邻居配置在大型网络中无法适应其规模。但重要的是弄明白**为何思科IOS软件中还是有此选项，以及在什么情况下可以运用到此特性**。使用静态邻居配置的一个主要实例，就是在那些没有广播或多播数据原生支持的传输介质，比如帧中继上，部署EIGRP的情况下（A prime example of when static neighbour configuration could be used would be in a situation where EIGRP is being deployed across media that does not natively support Broadcast or Multicast packets, such as Frame Relay）。
+在EIGRP网络中，静态邻居关系的使用是十分罕见的。这主要是因为手动邻居配置在大型网络中无法适应其规模。但重要的是弄明白**为何思科IOS软件中还是有此选项，以及在什么情况下可以运用到此特性**。使用静态邻居配置的一个主要，就是在那些没有广播或多播数据包原生支持的传输介质，比如帧中继上，部署EIGRP的情况下（A prime example of when static neighbour configuration could be used would be in a situation where EIGRP is being deployed across media that does not natively support Broadcast or Multicast packets, such as Frame Relay）。
 
-另一实例就是，为了在多路访问网络，比如以太网上，仅有少数几台开启了EIGRP的路由器时，为了防止发送不必要的EIGRP数据包的情形。在此情况下，除开基本的EIGRP配置，还必须在本地路由器上对**所有**静态EIGRP邻居配置`neighbour`命令。如果一台路由器被配置为使用单播（静态），而其它路由器又被配置为使用多播（动态），那么这些开启了EIGRP的路由器是不会建立邻接关系的（EIGRP-enabled routers will not establish an adjacency if one router is configured to use Unicast(static) while another uses Multicast(dynamic)）。
+另一实例就是在譬如以太网这样的多路访问网络上，仅有少数几台开启了EIGRP的路由器时，为了防止发送不必要的EIGRP数据包的情形。在此情况下，除开基本的EIGRP配置，还必须在本地路由器上对**所有**静态EIGRP邻居配置`neighbour`命令。**如果一台路由器被配置为使用单播（静态），而其它路由器又被配置为使用多播（动态），那么这些开启了EIGRP的路由器是不会建立邻接关系的**（EIGRP-enabled routers will not establish an adjacency if one router is configured to use Unicast(static) while another uses Multicast(dynamic)）。
 
 在思科IOS软件中，静态EIGRP的邻居，是通过使用路由器配置命令（router configuration command）`neighbour <address> <interface>`进行配置的。记住**这只是简单的对基础EIGRP配置的补充**（this is simply in addition to the basic EIGRP configuration）。下图36.5中给出的简单网络拓扑，将用于静态EIGRP邻居的演示和验证。
 
