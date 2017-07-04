@@ -652,7 +652,7 @@ EIGRP邻居表条目还包含了可靠传输协议（the Reliable Transport Prot
 
 > **注意**：本课程模块后面详细讲到了RTP。
 
-邻居表包含了每个邻居的一个用于在可能需要重传时，对数据包进行排队的传输清单。此外，在邻居数据结构中还有着一些往返计时器，使用这些计时器来估算出最优重传间隔（the neighbour table includes a transmission list that is used to queue packets for possible retransmission on a per-neighbour basis. Additionally, round-trip timers are kept in the neighbour data structure to estimate an optimal retransmission interval）。所有这些信息都在`show ip eigrp neighbours`命令的输出中有打印出来。如下面所示：
+邻居表包含了每个邻居的一个在可能需要重传时，用于对数据包进行排队的传输清单。此外，在邻居数据结构中还有着一些往返计时器，使用这些计时器来估算出最优重传间隔（the neighbour table includes a transmission list that is used to queue packets for possible retransmission on a per-neighbour basis. Additionally, round-trip timers are kept in the neighbour data structure to estimate an optimal retransmission interval）。所有这些信息都在`show ip eigrp neighbours`命令的输出中有打印出来。如下面所示：
 
 ```
 R2#show ip eigrp neighbors
@@ -662,7 +662,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 0   192.168.1.3  Fa0/0      14     00:43:08    2      200    0     12
 ```
 
-对此命令所打印出的信息的掌握，是相当重要的，既是对一项核心EIGRP组件能力进行演示的基础，同时在对EIGRP故障进行排除时会用到（It is important to understand the information printed by this command, both as a basis for demonstrating competency on a core EIGRP component and for troubleshooting EIGRP issues）。下表36.2对此命令输出中所包含的那些字段，进行了列出和说明：
+对此命令所打印出的信息的掌握，是相当重要的，既是作为对一项核心EIGRP组件能力进行演示的基础，同时也是对EIGRP故障进行排除的基础（It is important to understand the information printed by this command, both as a basis for demonstrating competency on a core EIGRP component and for troubleshooting EIGRP issues）。下表36.2对此命令输出中所包含的那些字段，进行了列出和说明：
 
 *表 36.2 -- EIGRP邻居表的各个字段*
 
