@@ -449,7 +449,7 @@ EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。
 
 > **注意**：尽管这里的Hello数据包和确认数据包是作为两种独立的数据包类型的，但重要的是记住在某些课本中，EIGRP的Hello数据包与确认数据包被认为是同一中类型的数据包。这是因为，正如在本小节中指出的那样，确认数据包就是不包含数据的Hello数据包。
 
-命令`debug eigrp packets`可用于本小节中所讲到的各种不同EIGRP数据包的实时调试信息。要知道此命令还包括了一些这里并没有说到的其它数据包，因为这些其它类型数据包超出了当前CCNA考试要求。下面的输出对此命令的用法进行了演示：
+命令`debug eigrp packets`，可用于打印出本小节中所讲到的各种不同EIGRP数据包的实时调试信息。要知道此命令还包括了一些这里并没有说到的其它数据包，因为这些其它类型数据包超出了当前CCNA考试要求。下面的输出对此命令的用法进行了演示：
 
 ```
 R1#debug eigrp packets ?
@@ -470,7 +470,7 @@ R1#debug eigrp packets ?
   <cr>
 ```
 
-而`show ip eigrp traffic`命令，是用于对本地路由器所发送及接收到的EIGRP数据包的数量进行查看的命令。该命令同时还是一个强大的故障排除工具。比如，假设某路由器在发出Hello数据包，却并未收到任何回复，这就表明其尚未配置好预期的邻居，或者甚至有可能某个确认数据包阻塞了EIGRP数据包（For example, if the router is sending out Hello packets but is not receiving any back, this could indicate that the intended neighbour is not configured, or even that an ACK may be blocking EIGRP packets）。下面的输出对此命令进行了演示：
+而`show ip eigrp traffic`命令，则是**用于对本地路由器所发送及接收到的EIGRP数据包的数量进行查看的命令**。该命令同时**还是一个强大的故障排除工具**。比如假设某路由器在发出Hello数据包，却并未收到任何回复，这可能表明其尚未配置好预期的邻居，或者甚至有可能某个确认数据包阻塞了EIGRP数据包（For example, if the router is sending out Hello packets but is not receiving any back, this could indicate that the intended neighbour is not configured, or even that an ACK may be blocking EIGRP packets）。下面的输出对此命令进行了演示：
 
 ```
 R2#show ip eigrp traffic
