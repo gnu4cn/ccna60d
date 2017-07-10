@@ -787,6 +787,8 @@ Routing Protocol is “eigrp 150”
 
 ###使用接口带宽来影响EIGRP的度量值
 
+**Using Interface Bandwidth to Influence EIGRP Metric Calculation**
+
 可通过使用`bandwidth`命令对指定到单个接口的默认带宽进行调整，来直接对增强的IGRP度量值计算施加影响。通过此命令指定的带宽，是以千位（Kilobits）计的。在EIGRP的度量值计算中，带宽也是以千位计的。下图36.8演示了一个由两台路由器通过两条带宽为1544Kbps, 的串行（T1）链路连接所组成的网络。
 
 ![EIGRP度量值的带宽修改](images/3608.png)
