@@ -727,7 +727,7 @@ Static Address           Interface
 
 在图36.7中，路由器R1、R2与R3位于多路访问网段上的同一子网中。在给定的传输介质下，EIGRP将使用多播，在这些路由器直接发送可靠数据包。这里假定，比如路由器R1发出了一个需要确认的数据包给路由器R2和R3。随后R1就等待来自R2和R3收到此数据包的确认。
 
-假设路由器R3响应了，R2却无法对此数据包进行响应。在EIGRP维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器R1将无法在收到来自R2的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器R3就间接受到R2上故障的影响了（Given that EIGRP maintains a transport window of one unacknowledged packet, which means that every individual reliable packet that is sent out must be acknowledged explicitly by the neighbour router(s) before the next reliable packet can be sent, this presents a possible issue on the Multi-access segment because R1 will not be able to send out packets until it has received the acknowledgment from R2. R3 is therefore indirectly affected by the issues on R2）。
+假设路由器R3响应了，R2却无法对此数据包进行响应。在EIGRP维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器R1将无法在收到来自R2的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器R3就间接受到R2上故障的影响了。
 
 为了避免这种坑，路由器R1将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, R1 will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器R1将以多播方式，发出一个特殊的名为顺序TLV的EIGRP数据包（when the timer expires, R1 will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器R2（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists R2(the offender) and indicates an out-of-order Multicast packet）。而因为路由器R3未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器R1此时就使用单播，将该数据包重传给R2。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共16次尝试后，仍没有来自路由器R2的响应，EIGRP将重置该邻居。
 
@@ -737,9 +737,9 @@ Static Address           Interface
 
 **Metrics, DUAL, and the Topology Table**
 
-在部署EIGRP时，对在路由被真正放入到IP路由表中之前，在EIGRP中，以及为其所用到的那些方面的概念、方法及数据结构等的掌握，是重要的（when implementing EIGRP, it is important to understand the various aspects used within and by the protocol before routes are actually placed into the IP routing table）。在本小节中，将学到有关EIGRP的综合度量值及其计算方式（the EIGRP composite metric and how it is calculated）。还将学习影响度量值计算，及对计算出的度量值进行调整的不同方式（You will also learn about the different ways to influence metric calculation, as well as to adjust the calculated metric）。
+在部署EIGRP时，对于路由被真正放入到IP路由表中之前，所用到的EIGRP本身及为其所用到的方方面面的概念、方法及数据结构等的掌握，是重要的。在本小节中，将学到有关EIGRP的综合度量值及其计算方式。还将学习影响度量值计算，及对计算出的度量值进行调整的不同方式（when implementing EIGRP, it is important to understand **the various aspects used within and by the protocol before routes are actually placed into the IP routing table**. In this section, you will learn about **the EIGRP composite metric and how it is calculated**. You will also learn about **the different ways to influence metric calculation, as well as to adjust the calculated metric**）。
 
-在那之后，将学习到弥散更新算法（the Diffusing Update Algorithm, DUAL）与EIGRP的拓扑表。此小节包括了一个有关如何在一台运行着EIGRP的路由器上，将所有这些信息进行配合，以最终产生出IP路由表的讨论。
+在那之后，将学习到**弥散更新算法**（the Diffusing Update Algorithm, DUAL）与**EIGRP的拓扑表**。此小节包括了一个有关如何在一台运行着EIGRP的路由器上，将所有这些信息进行配合，以最终产生出IP路由表的讨论。
 
 ###EIGRP综合度量值的计算
 
