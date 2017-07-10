@@ -982,7 +982,7 @@ Routing entry for 172.16.100.0/24
 
 到相同目的网络的其它那些有着比起后继路由器路径的可行距离高一些的报告距离，却仍然是无环回的那些路由，就被叫做是可行后继路由器路由了（Any other routes to the same destination network that have a lower RD than the FD of the Successor path are guaranteed to be loop-free and are referred to as Feasible Successor(FS) routes, 这里疑似原作者笔误，“lower”应该是"higher"）。这些路由不会被放入到IP路由表中；但它们仍然会与其它后继路由器路由，一起被放入到EIGRP的拓扑表。
 
-而为了将某条路由变为可行后继路由器路由，该路由必须满足可行性条件（the Feasible Condition, FC）, 该可行性条件仅会在到目的网络的报告距离比起可行距离要低时，才会发生。在报告距离高于可行距离时，该路由不会被选为一条可行后继路由器路由。EIGRP这么做是为了防止可能出现的环回。下图36.10中所演示的网络拓扑，将会用于对本小节中出现的术语进行解释。
+为了某条路由成为可行后继路由，则其必须满足可行性条件（the Feasible Condition, FC）, 该可行性条件仅会在到目的网络的报告距离少于可行距离时，才会发生。在报告距离高于可行距离时，该路由不会被选作可行后继（FS）。EIGRP这么做是为了防止可能出现的环回。下图36.10中所演示的网络拓扑，将会用于对本小节中出现的术语进行解释。
 
 ![掌握弥散更新算法](images/3610.png)
 *图 36.10 -- 掌握弥散更新算法*
@@ -997,7 +997,7 @@ Routing entry for 172.16.100.0/24
 | R1-R3-R5 | R3 | 10 | 30 |
 | R1-R4-R5 | R4 | 15 | 25 |
 
-基于表36.4中的信息，路由器R1将选择经由R4的路径，作为后继路由，这是根据该路由的可行距离得出的。此路由将被放入到IP路由表以及EIGRP拓扑表中。路由器R1随后将对那些到`192.168.100.0/24`网络的替代路径进行查看。这里邻居路由器R3到`192.168.100.0/24`网络的度量值，又被叫做是报告的距离或通告距离，就是10。该距离小于（当前的）可行距离，所以该路由满足到可行条件（FC），那么就被放入到EIGRP的拓扑表中。而邻居路由器R2到`192.168.100.0/24`的度量值为30。该值高于了当前的可行距离25。此路由则不能满足可行条件，就不被看作是一个可行后继（FC）。但该路由仍然会被放入到EIGRP的拓扑表中。这将在后面的EIGRP拓扑表小节，进行演示。
+基于表36.4中的信息，路由器R1将选择经由R4的路径，作为后继路由，这是根据该路由的可行距离得出的。此路由将被放入到IP路由表以及EIGRP拓扑表中。路由器R1随后将对那些到`192.168.100.0/24`网络的替代路径进行查看。这里邻居路由器R3到`192.168.100.0/24`网络的度量值，又被叫做是报告的距离或通告距离，就是10。该距离小于（当前的）可行距离，所以该路由满足到可行条件（FC），那么就被放入到EIGRP的拓扑表中。而邻居路由器R2到`192.168.100.0/24`的度量值为30。该值高于了当前的可行距离25。此路由则不能满足可行条件，就不被看作是一个可行后继（FS）。但该路由仍然会被放入到EIGRP的拓扑表中。这将在后面的EIGRP拓扑表小节，进行演示。
 
 当某个邻居路由器改变了度量值，或拓扑发生了改变，以及后继路由被移除或改变时，弥散更新算法会检查那些可行后继路由器的路由，在发现了一台可行后继路由器时，弥散更新算法就使用该可行后继路由器，以避免不必要的重新计算路由。执行一次本地运算，节省了CPU处理能力，因为在当前后继或主路由失效时，可行后继路由本身就已选出且已经存在了（When a neighbor changes a metric, or when a topology change occurs, and the Successor route is removed or changes, DUAL checks for FSs for the route and if one is found, then DUAL uses it to avoid re-computing the route unnecessarily）。此过程就叫做本地运算（local computation. This is referred to as local computation. Performing a local computation saves CPU power because the FS has been chosen and already exists before the Successor or primary route fails）。
 
