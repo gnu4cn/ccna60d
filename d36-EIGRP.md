@@ -1197,7 +1197,7 @@ Routing entry for 172.16.100.0/24
 
 除了相等开销下的负载均衡能力，EIGRP还能完成不相等开销下的负载均衡。这种特别的能力令到EIGRP能够使用那些不相等开销的路径，基于不同的流量分享权重数值，从而将传输中的数据包发送到目的网络（This unique ability allows EIGRP to use unequal cost paths to send outgoing packets to the destination network based on weighted traffic share values）。通过使用路由器配置命令`variance <multiplier>`，就可以开启不相等开销下的负载均衡特性。
 
-关键字`<multiplier>`是一个介于1到128之间的整数。默认的倍数（multiplier）1，就意味着没有进行不相等开销下的负载均衡。此默认设置在下面的`show ip protocols`命令的输出中进行了演示：
+关键字`<multiplier>`是一个介于1到128之间的整数。默认的倍数（multiplier）1，就是说不进行不相等开销下的负载均衡。此默认设置在下面的`show ip protocols`命令的输出中进行了演示：
 
 ```
 R2#show ip protocols
@@ -1223,7 +1223,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-该倍数是一个可变的整数, 告诉路由器在那些有着低于最小度量值乘以该倍数的那些路由上，进行负载均衡（The multiplier is a variable integer that tells the router to load share across routes that have a metric that is less than the minimum metric multiplied by the multiplier）。比如，在指定了5的变化时（specifying a variance of 5），就指示路由器在那些度量值低于最小度量值5倍的路由上，进行负载均衡。在使用了`variance`命令，同时指定了除开1之外的倍数时，该路由器就将在这些满足条件的路由上，按照各条路由的度量值，成比例的分配流量。也就是说，对那些有着较低度量值的路由，比起那些有着较高度量值的路由，要经由其发送更多的流量。
+该倍数是一个可变的整数, 告诉路由器在那些有着低于最小度量值乘以该倍数的那些路由上，进行负载均衡（The multiplier is a variable integer that tells the router to load share across routes that have a metric that is less than the minimum metric multiplied by the multiplier）。比如，在指定了5的变化时（specifying a variance of 5），就指示路由器在那些度量值低于最小度量值5倍的路由上，进行负载均衡。在使用了`variance`命令，同时指定了除开1之外的倍数时，该路由器就将在这些满足条件的路由上，按照各条路由的度量值，成比例的分配流量。也就是说，对于那些有着较低度量值的路由，比起那些有着较高度量值的路由，要经由其发送更多的流量。
 
 下图36.11演示了一个基本的运行EIGRP的网络。其中的路由器R1和R2，是通过背靠背的串行链路连接起来的（R1 and R2 are connected via back-to-back Serial links）。两台路由器间的链路`150.1.1.0/24`，有着1024Kbps的带宽。两台路由器之间的`150.2.2.0/24`链路，有着768Kpbs的带宽。路由器R1是通过EIGRP将`172.16.100.0/24`前缀，通告给R2的。
 
@@ -1285,7 +1285,7 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
 
 非等价负载均衡数值（Variance） = 1.28
 
-随后必须对此数值进行向上取整，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器R2配置为进行非等价的负载均衡了：
+随后**必须对此数值进行向上取整**，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器R2配置为进行非等价的负载均衡了：
 
 ```
 R2(config)#router eigrp 150
@@ -1314,7 +1314,7 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
-其中的流量分配计数（The traffic share count）表明，每从`Serial0/0`转发60个数据包，路由器就将从`Serial0/1`转发47个数据包。数据包的转发，是依两条路径的路由度量值的比例完成的。这是在应用了`variance`命令后的默认行为。而通过路由器配置命令`traffic-share balanced`（the `traffic-share balanced` router configuration command），就可以开启此智能流量分配功能（this intelligent traffic sharing functionality），该命令无需显式配置（默认是开启的）。
+其中的流量分配计数（The traffic share count）表明，每从`Serial0/0`转发60个数据包，路由器就将从`Serial0/1`转发47个数据包。数据包的转发，是依两条路径的路由度量值的比例完成的。这是在应用了`variance`命令后的默认行为。而**通过路由器配置命令`traffic-share balanced`（the `traffic-share balanced` router configuration command），就可以开启此智能流量分配功能（this intelligent traffic sharing functionality），该命令无需显式配置（默认是开启的）**。
 
 > **注意**：该`traffic-share balanced`命令默认是开启的，且就算对其进行了显式配置，其也不会在运行配置中出现。这一点在下面进行了演示：
 
@@ -1333,9 +1333,9 @@ no auto-summary
 
 如同本小节前面指出的那样，在使用了`variance`命令时，所有那些满足了可行条件、且有着低于最小度量值乘以那个倍数的路径，都将被安装到路由表中。路由器随后将使用到所有路径，并依据其各自的路由度量值来按比例地进行负载均衡。
 
-在某些情况下，可能打算令到那些替代路由，比如可行后继路，要放入到路由表中，却只在后继路由被移除是才使用到它们。执行这类操作的典型目的，是为在开启EIGRP的网络中降低收敛时间。要弄明白此概念，就要回忆一下，路由器默认是只将后继路由放入到路由表中的。在后继路由已不可用时，可行后继路由就被提升为后继路由。随后该路由才被装入到路由表中，作为到目的网络的主要路径。
+在某些情况下，可能打算将那些替代路由，比如可行后继路，预先放入到路由表中，却只在后继路由被移除时，才使用它们。执行这类操作的典型目的，是为在开启EIGRP的网络中降低收敛时间。要弄明白此概念，就要回忆一下，路由器默认是只将后继路由放入到路由表中的。而在后继路由已不可用时，可行后继路由就被提升为后继路由。随后该路由才被装入到路由表中，作为到目的网络的主要路径。
 
-可将路由器配置命令`traffic-share min across-interfaces`，与`variance`命令结合使用，来将那些有着少于最小度量值乘以所指定倍数所有路由，都安装到路由表中，却仅使用最小（最优）度量值的那条路由（后继路由），来转发数据包，知道该路由变为不可用。此配置的主要目的，就是在主路由丢失时，保证替代路由已经处于路由表中，且立即可用（减少了收敛时间）。
+可将路由器配置命令`traffic-share min across-interfaces`，与`variance`命令结合使用，从而将那些有着少于最小度量值乘以所指定倍数所有路由，都安装到路由表中，却仅使用最小（最优）度量值的那条路由（后继路由），来转发数据包，直到该路由变为不可用。此配置的主要目的，就是在主路由丢失时，保证替代路由已经处于路由表中，且立即可用（从而达到减少收敛时间的目的）。
 
 下面的配置示例，使用了以上图36.11中展示的拓扑，用于对如何将路由器配置为把那些度量值少于最小度量值两倍的路由，放入到路由表中，而仅使用有着最低度量值的那条路由（后继路由）来转发数据包：
 
@@ -1374,12 +1374,12 @@ Routing entry for 172.16.100.0/24
 
 **Default Routing Using EIGRP**
 
-在将最后的网关或网络动态通告给路由域中的其它路由器方面，增强的IGRP支持多种不同方式。最终网关，或默认路由，是在目的网络未在路由表中特别列出时，路由器用于引导流量的一种方式（Enhanced IGRP supports numerous ways to advertise dynamically the gateway or network of last resort to other routers within the routing domain. A gateway of last resort, or default route, is a method for the router to direct traffic when the destination network is not specifically listed in the routing table）。而在此种情形下，路由器引导流量的方式有：
+在将**最终网关**或网络动态地通告给路由域中的其它路由器方面，EIGRP支持多种不同方式。最终网关，或默认路由，是在目的网络未在路由表中特别列出时，路由器用于引导流量的一种方式（Enhanced IGRP supports numerous ways to advertise dynamically the gateway or network of last resort to other routers within the routing domain. **A gateway of last resort**, or default route, is a method for the router to direct traffic when the destination network is not specifically listed in the routing table）。而在此种情形下，路由器引导流量的方式有：
 
-- 使用`ip default-network`命令
-- 使用`network`命令来对网络`0.0.0.0/0`通告
+- 使用`ip default-network`命令, using the `ip default-network` command
+- 使用`network`命令来对网络`0.0.0.0/0`通告, using the `network` command to advertise network `0.0.0.0/0`
 - 对默认静态路由进行重分发, Redistributing the default static route
-- 使用`ip summary-address eigrp [asn] [network] [mask]`
+- 使用命令`ip summary-address eigrp [asn] [network] [mask]`, using the `ip summary-address eigrp [asn] [network] [mask]` command
 
 而第一种，使用`ip default-network`命令，被认为是一种EIGRP下对默认路由进行动态通告的过时方式。但因为在当前的IOS软件中仍然支持这种方式，所以这里有必要提到。
 
