@@ -1737,7 +1737,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-在上面的输出中，`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网已被自动汇总到`10.0.0.0/8`。该汇总地址就被通告出`Serial0/0`接口。而`150.1.1.0/24`子网已被汇总到`150.1.0.0/16`。该汇总地址就被通告出`Loopback1`、`Loopback2`与`Loopback3`这三个环回接口。这里要记住，默认EIGRP将在所有EIGRP路由开启的接口上，发出路由更新。
+在上面的输出中，`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网已被自动汇总到`10.0.0.0/8`。该汇总地址就被通告出`Serial0/0`接口。而`150.1.1.0/24`子网已被汇总到`150.1.0.0/16`。该汇总地址就被通告出`Loopback1`、`Loopback2`与`Loopback3`这三个环回接口。这里要记住，默认EIGRP将在所有EIGRP路由开启的接口上，发出路由更新（Remember, by default, EIGRP will send out updates on all interfaces for which EIGRP routing is enabled）。
 
 参考上面的打印输出，可以看到环回接口上所发出的更新，就是一种资源的浪费，因为设备是无法物理连接到路由器环回接口上去监听此类更新的（Referencing the output printed above, you can see that sending updates on a Loopback interface is a waste of resource because a device cannot be connected physically to a router Loopback interface listening for such updates）。那么就可以通告使用路由器配置命令`passive-interface`，来关闭此默认行为，如下所示：
 
@@ -1785,7 +1785,7 @@ Routing Protocol is “eigrp 150”
 
 > **注意**：本课程模块稍后会对`passive-interface`命令进行详细讲解。
 
-继续有关自动汇总方面的内容，在对有类边界进行自动汇总后，EIGRP就将针对汇总地址的一条路由，安装到EIGRP的拓扑表与IP路由表中（Continuing with automatic summarisation, following automatic summarisation at the classful boundary, EIGRP installs a route to the summary address into the EIGRP topology table and the IP routing table）。下面的EIGRP拓扑表中就包含了此汇总地址的路由，以及更具体的路由条目以及这些路由条目各自所直接连接的接口：
+继续有关自动汇总方面的内容，在对有类边界进行自动汇总后，EIGRP就将一条到汇总地址的路由，安装到EIGRP的拓扑表与IP路由表中（Continuing with automatic summarisation, following automatic summarisation at the classful boundary, EIGRP installs a route to the summary address into the EIGRP topology table and the IP routing table）。下面的EIGRP拓扑表中就包含了此汇总地址的路由，以及更具体的路由条目以及这些路由条目各自所直接连接的接口：
 
 ```
 R1#show ip eigrp topology
@@ -1804,7 +1804,7 @@ P 10.1.1.0/24, 1 successors, FD is 128256
 [Truncated Output]
 ```
 
-在路由表中，汇总路由是直接连接到`Null0`接口上的。该路由有着一个默认为5的管理距离数值（a default administrative distance value of 5）。下面的输出对此进行了演示：
+在路由表中，汇总路由是直接连接到`Null0`接口上的。该路由有着一个默认为`5`的管理距离数值（a default administrative distance value of `5`）。下面的输出对此进行了演示：
 
 ```
 R1#show ip route 10.0.0.0 255.0.0.0
@@ -1826,23 +1826,25 @@ R2#show ip route eigrp
 D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 ```
 
-这种默认行为在一些基本的网络，比如上图36.15中演示的网络中，运作不错。但其可能在不连续网络，那种由两个分离的主要网络所组成的网络中，如下图36.16中所演示的，有着不利影响（However, it can have an adverse impact in a discontiguous network, which comprises a major network that separates another major network）：
+这种默认行为在一些基本的网络，比如上图36.15中演示的网络中，运作不错。但其可能在不连续网络--那种由两个分离的主要网络所组成的网络中，如下图36.16中所演示的，有着不利影响（However, it can have an adverse impact in a discontiguous network, which comprises a major network that separates another major network）：
 
 ![不连续网络](images/3616.png)
 *图 36.16 -- 不连续网络*
 
-参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器`R1`与`R2`将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
+参考图36.16中所演示的图例，一个大的`150.1.0.0/16`网络将这里的两个大的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器`R1`与`R2`将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
 
-> **译者注**：本小节及前面小节中所提到的主要网络（the major network），是指按网络大类分的网络，也就是A、B、C、D及E类网络。
+> **译者注**：本小节及前面小节中所提到的大网络（the major network），是指按网络大类分的网络，也就是A、B、C、D及E类网络。
 
-因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面将一次性过一下这些步骤，从在路由器`R1`及`R2`上的配置开始，如下所示：
+因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面从在路由器`R1`及`R2`上的配置开始，一次一步的走一下这些步骤，如下所示：
 
 ```
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.0 0.0.0.255
 R1(config-router)#network 150.1.1.0 0.0.0.255
 R1(config-router)#exit
+```
 
+```
 R2(config)#router eigrp 150
 R2(config-router)#network 10.2.2.0 0.0.0.255
 R2(config-router)#network 150.1.1.0 0.0.0.255
