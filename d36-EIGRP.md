@@ -1415,7 +1415,7 @@ D*   200.10.10.0/24 [90/2172416] via 150.2.2.1, 00:01:03, Serial0/0
 C       150.1.1.0 is directly connected, Serial0/0
 ```
 
-`network`命令可用于对某条既有的指向某个物理或逻辑接口，通常是空接口的静态默认路由，进行通告（The `network` command can be used to advertise an existing static default route point to either a physical or a logical interface, typically the Null0 interface）。
+`network`命令可用于对某条既有的指向某个物理或逻辑接口，通常是`Null0`接口的静态默认路由，进行通告（The `network` command can be used to advertise an existing static default route point to either a physical or a logical interface, typically the `Null0` interface）。
 
 > **注意**：`Null0`接口是路由器上的一个虚拟接口，会将路由至该接口的所有流量进行抛弃处理。如有着一条指向`Null0`的静态路由，那么所有以该静态路由中所指定网络为目的的流量，都将被简单地做丢弃处理。可将`Null0`接口看着是一个黑洞：数据包进入了，但不会有任何东西离开那里。其基本上就是路由器上的一个数位垃圾桶（It is essentially a bit-bucket on the router）。
 
@@ -1446,7 +1446,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
 ```
 
-尽管路由重分发（route redistribution）不是CCNA考试部分，这里仍将对其进行一个概述。路由重分发正是通过EIGRP对一条默认路由进行通过的第三种方式。为将现有的静态默认路由重分发到EIGRP中，就要使用路由器配置命令`redistribute static metric [bandwidth] [delay] [reliability] [load] [MTU]`。用于本小节中前面那些输出的同一网络拓扑，将用于对这种方式的部署进行演示，如下图36.13所示：
+尽管路由重分发（route redistribution）不是CCNA考试部分，这里仍将对其进行一个概述。路由重分发正是通过EIGRP对一条默认路由进行通告的第三种方式。为将现有的静态默认路由重分发到EIGRP中，就要使用路由器配置命令`redistribute static metric [bandwidth] [delay] [reliability] [load] [MTU]`。用于本小节中前面那些输出的同一网络拓扑，将用于对这种方式的部署进行演示，如下图36.13所示：
 
 ![EIGRP的默认路由（续）](images/3613.png)
 *图 36.13 -- EIGRP的默认路由（续）*
@@ -1555,7 +1555,7 @@ D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 
 **Split Horizon in EIGRP Networks**
 
-前面已获悉水平分割是一项距离矢量协议的特性，该特性强制路由信息无法从接收到的接口再发送回去，这样做就阻止了路由信息重新通告到接收其的源处（Previously, you learned that split horizon is a Distance Vector protocol feature mandating that routing information cannot be sent back out of the same interface through which it was received. This prevents the re-advertising of information back to the source from which it was learned）。虽然这个特征是一种很好的环回防止机制（a great loop prevention mechanism），但其也是一项明显的缺陷，特别是在星形网络中（especially in hub-and-spoke networks）。为更好地理解此特性的劣势，就要参考下面图36.14中的EIGRP星形网络：
+前面已获悉水平分割是一项距离矢量协议的特性，该特性强制路由信息无法从接收到的接口再发送回去，这样做就阻止了路由信息重新通告到学习到其的同一接口（Previously, you learned that split horizon is a Distance Vector protocol feature mandating that routing information cannot be sent back out of the same interface through which it was received. This prevents the re-advertising of information back to the source from which it was learned）。虽然这个特征是一种很好的环回防止机制（a great loop prevention mechanism），但其也是一项明显的缺陷，特别是在星形网络中（especially in hub-and-spoke networks）。为更好地理解此特性的劣势，就要参考下面图36.14中的EIGRP星形网络：
 
 ![EIGRP的水平分割](images/3614.png)
 *图 36.14 -- EIGRP的水平分割*
