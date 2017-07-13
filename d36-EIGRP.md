@@ -1018,15 +1018,15 @@ Routing entry for 172.16.100.0/24
 
 EIGRP的拓扑表，是由EIGRP的各种**协议相关模块**, 在**弥散更新算法的有限状态机**之上，运算得到的（The EIGRP topology table is populated by **EIGRP PDMs** acted upon by **the DUAL Finite State Machine**）。由已形成邻居关系的EIGRP路由器（neighbouring EIGRP routers）通告的所有目的网络与子网，都被存储在EIGRP拓扑表中。该表包含了后继路由器路由、可行后继路由器路由，甚至那些并不满足可行条件的路由（This includes Successor routes, FS routes, and even routes that have not met the FC）。
 
-正是拓扑表，才令到所有EIGRP路由器对整个网络，有着一致的视图。其还实现了EIGRP网络中的快速收敛。在拓扑表中的每个单独条目，都包含了某个目的网络及那些通告了该目的网络的**那些**路由器。可行距离及通告距离，都被存储在拓扑表中。EIGRP的拓扑表，包含了构建一个到所有可达网络的距离与矢量集合的所需信息，这些信息包括以下内容：
+正是拓扑表，才令到所有EIGRP路由器对整个网络，有着一致的视图。其还实现了EIGRP网络中的快速收敛。在拓扑表中的每个条目，都包含了某个目的网络及那些通告该目的网络的**那些邻居**。可行距离及通告距离，都被存储在拓扑表中。EIGRP的拓扑表，包含了构建出一个到所有可达网络的距离与矢量集合的所需信息（The topology table allows all EIGRP routers to have a consistent view of the entire network. It also allows for rapid convergence in EIGRP networks. Each individual entry in the topology table contains the destination network and the neighbour(s) that have advertised the destination network. Both the FD and the RD are stored in the topology table. The EIGRP topology table contains the information needed to build a set of distances and vectors to each reachable network），这些信息包括以下内容：
 
-- 到目的网络的最低带宽
-- 到目的网络的总/累积延迟
-- 到目的网络路径的可靠性
-- 到目的网络路径的负载
+- 到目的网络的最低带宽, the lowest bandwidth on the path to the destination network
+- 到目的网络的总/累积延迟, the total or cumulative delay to the destination network
+- 到目的网络路径的可靠性, the reliability of the path to the destination network
+- 到目的网络路径的负载，the loading of the path to the destination network
 - 到目的网络的最大传输单元的最小值, The minimum Maximum Transmission Unit(MTU) to the destination network
-- 到目的网络的可行距离
-- 由邻居路由器所报告的到目的网络的报告距离（RD）
+- 到目的网络的可行距离, the Feasible Distance to the destination network
+- 由邻居路由器所报告的到目的网络的报告距离, the Reported Distance by the neighbour router to the destination network
 - 目的网络的路由源（仅针对那些外部路由），The route source(only external routes) of the destination network
 
 > **注意**：尽管在拓扑表中包含了最大传输单元（MTU），但EIGRP并不会在实际的度量值计算中使用到该数值。而是该MTU仅简单地作为判断到目的网络数据包大小最小值而被追踪。接口的最大传输单元指定了经某条链路，在无需将数据报或数据包拆分到更小片的情况下，所能传输的数据报最大大小（The interface MTU specifies the largest size of datagram that can be transferred across a certain link without the need of fragmentation, or breaking the datagram or packet into smaller pieces）。
