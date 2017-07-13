@@ -1346,7 +1346,7 @@ R2(config-router)#traffic-share min across-interfaces
 R2(config-router)#exit
 ```
 
-此配置造成路由表中`172.16.100.0/24`前缀的一下输出：
+此配置造成路由表中`172.16.100.0/24`前缀的以下输出：
 
 
 ```
