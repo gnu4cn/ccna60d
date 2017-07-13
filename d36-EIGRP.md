@@ -1900,7 +1900,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 但是，那些到这个大的`150.1.0.0/16`网络的所有其它子网的数据包，都将发送到`Null0`接口，因为没有其它具体路由条目存在（于路由表中）。
 
-那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为主要`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器`R1`与`R2`之间是能`ping`通的。不过问题在于路由器`R1`与`R2`上主要网络`10.0.0.0/8`的那些子网。路由器`R1`（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
+那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为大的`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器`R1`与`R2`之间是能`ping`通的。不过问题在于路由器`R1`与`R2`上大的网络`10.0.0.0/8`的那些子网。路由器`R1`（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
 
 ```
 R1#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
@@ -1934,7 +1934,7 @@ C       10.2.2.0/24 is directly connected, FastEthernet0/0
 D       10.0.0.0/8 is a summary, 00:14:23, Null0
 ```
 
-可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在比如路由器`R1`尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
+可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在路由器`R1`尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
 
 ```
 R1#show ip route 10.2.2.0
@@ -1961,22 +1961,24 @@ Success rate is 0 percent (0/5)
 
 而要解决这个问题，则有两种方案，如下：
 
-- 在两台路由器上手动配置`10.x.x.x/24`的静态路由
+- 在两台路由器上手动配置`10.x.x.x/24`的静态路由, Mannually configure static routes for the `10.x.x.x/24` subnets on both routers
 - 关闭EIGRP的自动有类网络汇总，Disable EIGRP automatic classful network summarisation
 
-第一个选项是相当简单粗暴基础的（very basic）。因此，静态路由配置不具备可伸缩性，且在大型网络中需要大量费时费力的配置。而第二选项，也就是**推荐做法**，除了具备伸缩性，比起第一选项只需较少的时间精力。**通过执行`no auto-summary`命令**，就可将自动汇总予以关闭（**较新版本的IOS中，该特性已被默认关闭了**）, 如下所示：
+第一个选项是相当简单粗暴基础的（very basic）。但是，静态路由配置不具备可伸缩性，且在大型网络中需要大量费时费力的配置。而第二选项，也就是**推荐做法**，除了具备伸缩性，比起第一选项只需较少的时间精力。**通过执行`no auto-summary`命令**，就可将自动汇总予以关闭（**较新版本的IOS中，该特性已被默认关闭了**）, 如下所示：
 
 ```
 R1(config)#router eigrp 150
 R1(config-router)#no auto-summary
 R1(config-router)#exit
+```
 
+```
 R2(config)#router eigrp 150
 R2(config-router)#no auto-summary
 R2(config-router)#exit
 ```
 
-此配置的结果，就是主要网络上的那些具体子网，在两台路由器上都有通告。不会生成汇总路由，如下所示：
+此配置的结果，就是大的网络上的那些具体子网，在两台路由器上都有通告。不会生成汇总路由，如下所示：
 
 ```
 R2#show ip route eigrp
@@ -1995,7 +1997,7 @@ Packet sent with a source address of 10.2.2.2
 Success rate is 100 percent (10/10), round-trip min/avg/max = 1/3/4 ms
 ```
 
-在深入讨论手动路由汇总前，重要的是要知道EIGRP是不会自动汇总外部的那些网络的, 除非某个内部网络将包含在那个汇总中（Before we go into the details pertaining to manual summarisation, it is important to know that EIGRP will not automaticlly summarise external networks unless there is an internal network that will be included in the summary）。为更好地掌握此概念，就要参考下图36.17, 该图片演示了一个基本的EIGRP网络：
+在深入讨论手动路由汇总前，重要的是先要知道EIGRP是不会自动对外部网络进行汇总的, 除非某个内部网络将包含在那个汇总中（Before we go into the details pertaining to manual summarisation, it is important to know that EIGRP will not automaticlly summarise external networks unless there is an internal network that will be included in the summary）。为更好地掌握此概念，就要参考下图36.17, 该图片演示了一个基本的EIGRP网络：
 
 ![对外部网络的汇总](images/3617.png)
 *图 36.17 -- 对外部网络的汇总，Summrising External Networks*
@@ -2009,7 +2011,7 @@ R1(config-router)#network 150.1.1.1 0.0.0.0
 R1(config-router)#exit
 ```
 
-那么`show ip protocols`命令就显示出路由器`R1`的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
+`show ip protocols`命令显示出路由器`R1`的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
 
 ```
 R1#show ip protocols
@@ -2033,7 +2035,7 @@ Gateway             Distance        Last Update
   Distance: internal 90 external 170
 ```
 
-因为这些`10.x.x.x/24`前缀都是外部路由，所以EIGRP不会对这些前缀进行自动汇总，就像前面输出示例所演示的那样。又因此EIGRP不会往拓扑表，也不会往IP路由表中添加一条这些前缀的汇总路由。下面的输出对此进行了演示：
+就像前面输出示例所演示的那样, 因为这些`10.x.x.x/24`前缀都是外部路由，所以EIGRP不会对这些前缀进行自动汇总。又因此EIGRP不会往拓扑表，也不会往IP路由表中添加一条这些前缀的汇总路由。下面的输出对此进行了演示：
 
 ```
 R1#show ip eigrp topology
@@ -2156,7 +2158,7 @@ Sending 5, 100-byte ICMP Echos to 10.3.3.1, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 ```
 
-与EIGRP的自动汇总不同，EIGRP的手动路由汇总，是在接口级别使用接口配置命令`ip summary-address eigrp [ASN] [network] [mask] [distance] [leak-map <name>]`，进行配置和部署的。默认情况下，分配给EIGRP汇总地址的默认管理距离值为5（By default, an EIGRP summary address is assigned a default administrative distance value of 5）。可通过由`[distance]`关键字所指定的数值，从而指定所需的管理距离值，来改变此默认分配的值。
+与EIGRP的自动汇总不同，EIGRP的手动路由汇总，是在接口级别使用接口配置命令`ip summary-address eigrp [ASN] [network] [mask] [distance] [leak-map <name>]`，进行配置和部署的。默认情况下，分配给EIGRP汇总地址的默认**管理距离**值为`5`（By default, an EIGRP summary address is assigned a default **administrative distance** value of `5`）。可通过由`[distance]`关键字所指定的数值，从而指定所需的管理距离值，来改变此默认分配的值。
 
 默认在配置了手动路由汇总时，EIGRP就不会对包含在汇总网络条目中的那些更具体路由条目进行通告了。可将关键字`[leak-map <name>]`配置为允许EIGRP路由的泄露，有了此特性，EIGRP就允许那些指定的具体路由条目，与汇总地址一起得以通告。而那些未在泄露图谱中指定的条目，则仍然会被压减（By default, when manual route summarisation is configured, EIGRP will not advertise the more specific route entries that fall within the summarised network entry. The `[leak-map <name>]` keyword can be configured to allow EIGRP route leaking, wherein EIGRP allows specified specific route entries to be advertised in conjunction with the summary address. Those entries that are not specified in the leak map are still suppressed）。
 
