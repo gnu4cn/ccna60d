@@ -169,7 +169,7 @@ P 10.0.0.0/24, 1 successors, FD is 128256
 
 > **注意**：本课程模块稍后会对拓扑表、EIGRP的Hello数据包及更新数据包进行详细讲解。本小节仅着重于EIGRP的配置实施（EIGRP configuration implementation）。
 
-使用`network`命令来指明一个大的有类网络（a major classful network），就令到位于该有类网络中的多个子网，得以在最小配置下同时被通告出去。但可能存在管理员不想对某个有类网络中的所有子网，都开启EIGRP路由的情形。比如，参考前一示例中R1上所配置的环回接口，假设只打算对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，而不愿在`10.0.0.0/24`及`10.2.2.0/24`开启EIGRP路由。那么很明显这在使用`network`命令时，对这些网络（也就是`10.1.1.0`及`10.3.3.0`）予以指明就可以做到，思科IOS软件仍会将这些语句，转换成大的有类`10.0.0.0/8`网络，如下所示：
+使用`network`命令来指明一个大的有类网络（a major classful network），就令到位于该有类网络中的多个子网，得以在最小配置下同时被通告出去。但可能存在管理员不想对某个有类网络中的所有子网，都开启EIGRP路由的情形。比如，参考前一示例中`R1`上所配置的环回接口，假设只打算对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，而不愿在`10.0.0.0/24`及`10.2.2.0/24`开启EIGRP路由。那么很明显这在使用`network`命令时，对这些网络（也就是`10.1.1.0`及`10.3.3.0`）予以指明就可以做到，思科IOS软件仍会将这些语句，转换成大的有类`10.0.0.0/8`网络，如下所示：
 
 ```
 R1(config)#router eigrp 150
@@ -236,7 +236,7 @@ Distance: internal 90 external 170
 
 为了提供到**对那些开启EIGRP路由的网络进行更细粒度的控制**，思科IOS软件支持在对EIGRP进行配置时，将**通配符掩码**与`network`语句一起配合使用（in order to provide more granular control of the networks that are enabled for EIGRP routing, Cisco IOS software supports the use of wildcard masks in conjunction with the `network` statement when configuring EIGRP）。这里的通配符掩码，以与ACLs中用到的通配符掩码类似的方式运作，而与网络的子网掩码是不相干的。
 
-作为一个示例，命令`network 10.1.1.0 0.0.0.255`将匹配到网络`10.1.1.0/24`、`10.1.1.0/26`及`10.1.1.0/30`网络。参考上一输出中所配置的那些环回借口（the Loopback interfaces），为将R1配置为对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，且不对`10.0.0.0/24`子网或`10.2.2.0`子网开启，就应将其如下面那样进行配置：
+作为一个示例，命令`network 10.1.1.0 0.0.0.255`将匹配到网络`10.1.1.0/24`、`10.1.1.0/26`及`10.1.1.0/30`网络。参考上一输出中所配置的那些环回借口（the Loopback interfaces），为将`R1`配置为对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，且不对`10.0.0.0/24`子网或`10.2.2.0`子网开启，就应将其如下面那样进行配置：
 
 ```
 R1(config)#router eigrp 150
@@ -282,7 +282,7 @@ Lo3            0         0/0         0        0/10            0             0
 
 如上面所示，因为这里的通配符掩码配置，而仅在`Loopback1`和`Loopback3`上启用了EIGRP路由。
 
-这里重要的是记住除了使用通配符掩码，**也可以使用子网掩码来配置`network`命令**。在此情况下，思科IOS软件将翻转子网掩码，而使用通配符掩码来保存该命令。比如，参照路由器上同样的环回借口，路由器R1也可被如下这样进行配置：
+这里重要的是记住除了使用通配符掩码，**也可以使用子网掩码来配置`network`命令**。在此情况下，思科IOS软件将翻转子网掩码，而使用通配符掩码来保存该命令。比如，参照路由器上同样的环回借口，路由器`R1`也可被如下这样进行配置：
 
 ```
 R1(config-router)#router eigrp 150
@@ -563,7 +563,7 @@ Fa0/0            1        0/0        1        0/1            50             0
 ![配置静态的EIGRP邻居](images/3605.png)
 *图 36.5 -- 配置静态的EIGRP邻居*
 
-参考图36.5中所给出的拓扑，路由器R2将作如下配置：
+参考图36.5中所给出的拓扑，路由器`R2`将作如下配置：
 
 ```
 R2(config)#router eigrp 150
@@ -573,7 +573,7 @@ R2(config-router)#no auto-summary
 R2(config-router)#exit
 ```
 
-而应用于路由器R3上的配置则如下：
+而应用于路由器`R3`上的配置则如下：
 
 ```
 R3(config)#router eigrp 150
@@ -678,7 +678,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 | Q Cnt | 等待发送中的EIGRP数据包（Update, Query and Reply）数量 |
 | Sequence Number | 从该邻居所接收到的上一个EIGRP可靠数据包的顺序编号，用以确保自该邻居接收到的数据包是有序的 |
 
-尽管`show ip eigrp neighbours`命令打印出有关已知EIGRP邻居信息，其在动态发现的邻居和手动配置的邻居上是没有区别的。比如，在路由器R2上的该`show ip eigrp neighbours`命令的输出表明该路由器有着两个EIGRP邻居关系。在此配置下，其中一个是静态配置的邻居，而另一个则是动态发现的。可以看出，从下面的输出是没法判断出哪个是哪个的：
+尽管`show ip eigrp neighbours`命令打印出有关已知EIGRP邻居信息，其在动态发现的邻居和手动配置的邻居上是没有区别的。比如，在路由器`R2`上的该`show ip eigrp neighbours`命令的输出表明该路由器有着两个EIGRP邻居关系。在此配置下，其中一个是静态配置的邻居，而另一个则是动态发现的。可以看出，从下面的输出是没法判断出哪个是哪个的：
 
 ```
 R2#show ip eigrp neighbors
@@ -725,11 +725,11 @@ Static Address           Interface
 ![EIGRP的可靠传输协议的运作](images/3607.png)
 *图 36.7 -- EIGRP可靠传输协议的运作*
 
-在图36.7中，路由器R1、R2与R3位于多路访问网段上的同一子网中。在给定的传输介质下，EIGRP将使用多播，在这些路由器直接发送可靠数据包。这里假定，比如路由器R1发出了一个需要确认的数据包给路由器R2和R3。随后R1就等待来自R2和R3收到此数据包的确认。
+在图36.7中，路由器`R1`、`R2`与`R3`位于多路访问网段上的同一子网中。在给定的传输介质下，EIGRP将使用多播，在这些路由器直接发送可靠数据包。这里假定，比如路由器`R1`发出了一个需要确认的数据包给路由器`R2`和`R3`。随后`R1`就等待来自`R2`和`R3`收到此数据包的确认。
 
-假设路由器R3响应了，R2却无法对此数据包进行响应。在EIGRP维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器R1将无法在收到来自R2的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器R3就间接受到R2上故障的影响了。
+假设路由器`R3`响应了，`R2`却无法对此数据包进行响应。在EIGRP维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器`R1`将无法在收到来自`R2`的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器`R3`就间接受到`R2`上故障的影响了。
 
-为了避免这种坑，路由器R1将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, R1 will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器R1将以多播方式，发出一个特殊的名为顺序TLV的EIGRP数据包（when the timer expires, R1 will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器R2（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists R2(the offender) and indicates an out-of-order Multicast packet）。而因为路由器R3未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器R1此时就使用单播，将该数据包重传给R2。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共16次尝试后，仍没有来自路由器R2的响应，EIGRP将重置该邻居。
+为了避免这种坑，路由器`R1`将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, `R1` will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器`R1`将以多播方式，发出一个特殊的名为顺序TLV的EIGRP数据包（when the timer expires, `R1` will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器`R2`（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists `R2`(the offender) and indicates an out-of-order Multicast packet）。而因为路由器`R3`未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器`R1`此时就使用单播，将该数据包重传给`R2`。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共16次尝试后，仍没有来自路由器`R2`的响应，EIGRP将重置该邻居。
 
 > **注意**：当前的CCNA考试不要求对MFT及RTO有深入了解。
 
@@ -794,7 +794,7 @@ Routing Protocol is “eigrp 150”
 ![EIGRP度量值的带宽修改](images/3608.png)
 *图 36.8 -- EIGRP度量值的带宽修改*
 
-参考图36.8中的图示，因为路由器R1与R2之间两条链路的带宽（及延迟）是相等的，所以从路由器R2到子网`172.16.100.0/24`将同时继承到这两条路径的相同EIGRP度量值（because of the equal bandwidth (and delay) values of the links between R1 and R2, the same EIGRP metric will be derived for both paths from R2 to the `172.16.100.0/24` subnet）。EIGRP将在这两条链路之间进行流量负载均衡，如下面路由器R2上的输出所示：
+参考图36.8中的图示，因为路由器`R1`与`R2`之间两条链路的带宽（及延迟）是相等的，所以从路由器`R2`到子网`172.16.100.0/24`将同时继承到这两条路径的相同EIGRP度量值（because of the equal bandwidth (and delay) values of the links between `R1` and `R2`, the same EIGRP metric will be derived for both paths from `R2` to the `172.16.100.0/24` subnet）。EIGRP将在这两条链路之间进行流量负载均衡，如下面路由器`R2`上的输出所示：
 
 ```
 R2#show ip route 172.16.100.0 255.255.255.0
@@ -817,7 +817,7 @@ Routing entry for 172.16.100.0/24
 
 对两条链路中的任何一条的带宽进行调整，都会直接影响到EIGRP对到目的网络路径的度量值计算。**这样的操作，可用于更为大型网络中路径的控制（也就是基于管理员定义的数值与配置，对流量所要采行的路径进行控制）**（Such actions can be used for path control within larger networks(i.e., controlling the path that traffic takes based on administrator-defined values and configurations)）。比如这里要令到EIGRP优先使用`Serial0/0`作为前往目的网络的主要路径，而将`Serial0/1`作为到目的网络的备份路径，就要采取两种操作之一。
 
-第一种操作，就是可以增加`Serial0/0`上的带宽值，造成该路径的一个更好（更低）的度量值。那么第二种方法，就是可以降低`Serial0/1`上的带宽值，造成该路径的一个更差（更高）的度量值。两种选项都是可接受的，同时都将达成所需的结果。下面的输出演示了如何将`Serial0/0`上的默认带宽进行降低，从而有效地确保`Serial0/0`作为路由器R2及`172.16.100.0/24`网络之间的主要路径。
+第一种操作，就是可以增加`Serial0/0`上的带宽值，造成该路径的一个更好（更低）的度量值。那么第二种方法，就是可以降低`Serial0/1`上的带宽值，造成该路径的一个更差（更高）的度量值。两种选项都是可接受的，同时都将达成所需的结果。下面的输出演示了如何将`Serial0/0`上的默认带宽进行降低，从而有效地确保`Serial0/0`作为路由器`R2`及`172.16.100.0/24`网络之间的主要路径。
 
 ```
 R2(config)#interface Serial0/1
@@ -827,7 +827,7 @@ R2(config-if)#exit
 
 > **注意**：如同在第1天指出的，该配置并不意味着接口`Serial0/1`上仅容许1024Kbps速率的流量通过该接口（As stated in Day 1, this configuration does not mean that `Serial0/1` is now capable of only 1024Kbps of throughput through this interface）。
 
-该配置的结果就是接口`Serial0/0`成为路由器R2到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
+该配置的结果就是接口`Serial0/0`成为路由器`R2`到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
 
 ```
 R2#show ip route 172.16.100.0 255.255.255.0
@@ -907,7 +907,7 @@ FastEthernet0/0 is up, line protocol is up
 ![EIGRP度量值中延迟的修改](images/3609.png)
 *图 36.9 -- EIGRP度量值中延迟的修改*
 
-那么从路由器R2到网络`172.16.100.0/24`的EIGRP度量值的计算如下：
+那么从路由器`R2`到网络`172.16.100.0/24`的EIGRP度量值的计算如下：
 
 度量值 = [(10^7/路径上的最小带宽) + (延迟综合)] x 256
 
@@ -946,7 +946,7 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
-与使用`bandwidth`命令一样，为了对EIGRP的度量值计算施加影响，我们既可以使用`delay`命令对接口延迟数值进行提升，也可以对其进行降低。比如，为了将路由器R2配置为使用链路`Serial0/0`到达`172.16.100.0/24`网络，而将`Serial0/1`仅用作一条备份链路，那么就可以如下将`Serial0/0`上的延迟数值进行降低：
+与使用`bandwidth`命令一样，为了对EIGRP的度量值计算施加影响，我们既可以使用`delay`命令对接口延迟数值进行提升，也可以对其进行降低。比如，为了将路由器`R2`配置为使用链路`Serial0/0`到达`172.16.100.0/24`网络，而将`Serial0/1`仅用作一条备份链路，那么就可以如下将`Serial0/0`上的延迟数值进行降低：
 
 ```
 R2(config)#int s0/0
@@ -996,17 +996,17 @@ Routing entry for 172.16.100.0/24
 ![掌握弥散更新算法](images/3610.png)
 *图 36.10 -- 掌握弥散更新算法*
 
-参考图36.10, 下表36.4给出了在路由器R1上观察到的到`192.168.100.0/24`网络的可行距离及报告距离数值：
+参考图36.10, 下表36.4给出了在路由器`R1`上观察到的到`192.168.100.0/24`网络的可行距离及报告距离数值：
 
-*表 36.4 -- R1的那些路径及距离, R1 Paths and Distances*
+*表 36.4 -- `R1`的那些路径及距离, `R1` Paths and Distances*
 
-| 网络路径 | R1 的邻居 | 邻居度量值（报告距离） | R1的可行距离 |
+| 网络路径 | `R1` 的邻居 | 邻居度量值（报告距离） | `R1`的可行距离 |
 | :------- | :------- | -------: | -------: |
-| R1-R2-R5 | R2 | 30 | 35 |
-| R1-R3-R5 | R3 | 10 | 30 |
-| R1-R4-R5 | R4 | 15 | 25 |
+| `R1`-`R2`-`R5` | `R2` | 30 | 35 |
+| `R1`-`R3`-`R5` | `R3` | 10 | 30 |
+| `R1`-`R4`-`R5` | `R4` | 15 | 25 |
 
-基于表36.4中的信息，路由器R1将选择经由R4的路径，作为后继路由，这是根据该路由的可行距离得出的。此路由将被放入到IP路由表以及EIGRP拓扑表中。路由器R1随后将对那些到`192.168.100.0/24`网络的替代路径进行查看。这里邻居路由器R3到`192.168.100.0/24`网络的度量值，又被叫做是报告的距离或通告距离，就是10。该距离小于（当前的）可行距离，所以该路由满足到可行条件（FC），那么就被放入到EIGRP的拓扑表中。而邻居路由器R2到`192.168.100.0/24`的度量值为30。该值高于了当前的可行距离25。此路由则不能满足可行条件，就不被看作是一个可行后继（FS）。但该路由仍然会被放入到EIGRP的拓扑表中。这将在后面的EIGRP拓扑表小节，进行演示。
+基于表36.4中的信息，路由器`R1`将选择经由`R4`的路径，作为后继路由，这是根据该路由的可行距离得出的。此路由将被放入到IP路由表以及EIGRP拓扑表中。路由器`R1`随后将对那些到`192.168.100.0/24`网络的替代路径进行查看。这里邻居路由器`R3`到`192.168.100.0/24`网络的度量值，又被叫做是报告的距离或通告距离，就是10。该距离小于（当前的）可行距离，所以该路由满足到可行条件（FC），那么就被放入到EIGRP的拓扑表中。而邻居路由器`R2`到`192.168.100.0/24`的度量值为30。该值高于了当前的可行距离25。此路由则不能满足可行条件，就不被看作是一个可行后继（FS）。但该路由仍然会被放入到EIGRP的拓扑表中。这将在后面的EIGRP拓扑表小节，进行演示。
 
 当某个邻居路由器改变了度量值，或拓扑发生了改变，以及后继路由被移除或改变时，弥散更新算法会检查那些可行后继路由器的路由，在发现了一台可行后继路由器时，弥散更新算法就使用该可行后继路由器，以避免不必要的重新计算路由。执行一次本地运算，节省了CPU处理能力，因为在当前后继或主路由失效时，可行后继路由本身就已选出且已经存在了。此过程就叫做**本地运算**（When a neighbor changes a metric, or when a topology change occurs, and the Successor route is removed or changes, DUAL checks for FSs for the route and if one is found, then DUAL uses it to avoid re-computing the route unnecessarily. This is referred to as local computation. Performing **a local computation** saves CPU power because the FS has been chosen and already exists before the Successor or primary route fails）。
 
@@ -1225,12 +1225,12 @@ Routing Protocol is “eigrp 150”
 
 该倍数是一个可变的整数, 告诉路由器在那些有着低于最小度量值乘以该倍数的那些路由上，进行负载均衡（The multiplier is a variable integer that tells the router to load share across routes that have a metric that is less than the minimum metric multiplied by the multiplier）。比如，在指定了5的变化时（specifying a variance of 5），就指示路由器在那些度量值低于最小度量值5倍的路由上，进行负载均衡。在使用了`variance`命令，同时指定了除开1之外的倍数时，该路由器就将在这些满足条件的路由上，按照各条路由的度量值，成比例的分配流量。也就是说，对于那些有着较低度量值的路由，比起那些有着较高度量值的路由，要经由其发送更多的流量。
 
-下图36.11演示了一个基本的运行EIGRP的网络。其中的路由器R1和R2，是通过背靠背的串行链路连接起来的（R1 and R2 are connected via back-to-back Serial links）。两台路由器间的链路`150.1.1.0/24`，有着1024Kbps的带宽。两台路由器之间的`150.2.2.0/24`链路，有着768Kpbs的带宽。路由器R1是通过EIGRP将`172.16.100.0/24`前缀，通告给R2的。
+下图36.11演示了一个基本的运行EIGRP的网络。其中的路由器`R1`和`R2`，是通过背靠背的串行链路连接起来的（`R1` and `R2` are connected via back-to-back Serial links）。两台路由器间的链路`150.1.1.0/24`，有着1024Kbps的带宽。两台路由器之间的`150.2.2.0/24`链路，有着768Kpbs的带宽。路由器`R1`是通过EIGRP将`172.16.100.0/24`前缀，通告给`R2`的。
 
 ![掌握EIGRP的非等价负载均衡](images/3611.png)
 *图 36.11 -- 掌握EIGRP的非等价负载均衡，Understanding EIGRP Variance*
 
-基于图36.11中所演示的拓扑，下面的输出演示在路由器R2上`172.16.100.0/24`前缀的路由表：
+基于图36.11中所演示的拓扑，下面的输出演示在路由器`R2`上`172.16.100.0/24`前缀的路由表：
 
 ```
 R2#show ip route 172.16.100.0 255.255.255.0
@@ -1277,7 +1277,7 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
 
 非等价负载均衡数值（Variance） = 考虑要用到路径的度量值中最高的/最优路径的度量值（最小的度量值）
 
-使用此公式，就可以像下面这样，计算出在路由器R2上，所要配置的非等价负载均衡数值：
+使用此公式，就可以像下面这样，计算出在路由器`R2`上，所要配置的非等价负载均衡数值：
 
 非等价负载均衡数值（Variance） = 考虑要用到路径的度量值中最高的/最优路径的度量值（最小的度量值）
 
@@ -1285,7 +1285,7 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
 
 非等价负载均衡数值（Variance） = 1.28
 
-随后**必须对此数值进行向上取整**，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器R2配置为进行非等价的负载均衡了：
+随后**必须对此数值进行向上取整**，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器`R2`配置为进行非等价的负载均衡了：
 
 ```
 R2(config)#router eigrp 150
@@ -1388,7 +1388,7 @@ Routing entry for 172.16.100.0/24
 ![EIGRP的默认路由](images/3612.png)
 *图 36.12 -- EIGRP的默认路由*
 
-参考图36.12, 假设子网`200.10.10.0/24`是连接到互联网的。该子网位于路由器R1的`Fastethernet0/0`侧。路由器R1与R2相应地通过一条背靠背的串行连接相连。两台路由器都是处于EIGRP AS 150中。为了将`200.10.10.0/24`标记为最终网络，就要在路由器R1上进行如下配置：
+参考图36.12, 假设子网`200.10.10.0/24`是连接到互联网的。该子网位于路由器`R1`的`Fastethernet0/0`侧。路由器`R1`与`R2`相应地通过一条背靠背的串行连接相连。两台路由器都是处于EIGRP AS 150中。为了将`200.10.10.0/24`标记为最终网络，就要在路由器`R1`上进行如下配置：
 
 ```
 R1(config)#router eigrp 150
@@ -1398,7 +1398,7 @@ R1(config)#ip default-network 200.10.10.0
 R1(config)#exit
 ```
 
-基于此配置，路由器R2就会将`200.10.10.0/24`作为最终网络接收下来，如下所示：
+基于此配置，路由器`R2`就会将`200.10.10.0/24`作为最终网络接收下来，如下所示：
 
 ```
 R2#show ip route
@@ -1419,7 +1419,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 
 > **注意**：`Null0`接口是路由器上的一个虚拟接口，会将路由至该接口的所有流量进行抛弃处理。如有着一条指向`Null0`的静态路由，那么所有以该静态路由中所指定网络为目的的流量，都将被简单地做丢弃处理。可将`Null0`接口看着是一个黑洞：数据包进入了，但不会有任何东西离开那里。其基本上就是路由器上的一个数位垃圾桶（It is essentially a bit-bucket on the router）。
 
-参考上面的图36.12, `network`命令与一条既有默认静态路由的结合使用，在以下路由器R1的配置中进行了演示：
+参考上面的图36.12, `network`命令与一条既有默认静态路由的结合使用，在以下路由器`R1`的配置中进行了演示：
 
 ```
 R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
@@ -1428,7 +1428,7 @@ R1(config-router)#network 0.0.0.0
 R1(config-router)#exit
 ```
 
-基于此种配置，下面的输出，演示了路由器R2上的IP路由表：
+基于此种配置，下面的输出，演示了路由器`R2`上的IP路由表：
 
 ```
 R2#show ip route
@@ -1451,7 +1451,7 @@ D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
 ![EIGRP的默认路由（续）](images/3613.png)
 *图 36.13 -- EIGRP的默认路由（续）*
 
-参考图36.13, 该图与图36.12是一样的，在路由器R1上完成以下配置：
+参考图36.13, 该图与图36.12是一样的，在路由器`R1`上完成以下配置：
 
 ```
 R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
@@ -1462,7 +1462,7 @@ R1(config-router)#exit
 
 > **注意**：这里度量值中所用到的那些数值，可从接口上进行继承到，或可以在使用此命令时指定想要的任意数值。
 
-基于此种配置，路由器R2上的路由表就如下所示了：
+基于此种配置，路由器`R2`上的路由表就如下所示了：
 
 ```
 R2#show ip route
@@ -1480,7 +1480,7 @@ D*EX 0.0.0.0/0 [170/2195456] via 150.1.1.1, 00:01:16, Serial0/0
 ```
 
 
-因为该路由是在路由器R1上被重分发到EIGRP中的，所以如同上面所反应出的，其就是一条外部EIGRP路由了。对于那些外部路由，EIGRP拓扑表中就包含了诸如该路由所起源的路由器、该路由是为何种协议接收的，以及该外部路由的度量值等信息。下面的输出对此进行了演示：
+因为该路由是在路由器`R1`上被重分发到EIGRP中的，所以如同上面所反应出的，其就是一条外部EIGRP路由了。对于那些外部路由，EIGRP拓扑表中就包含了诸如该路由所起源的路由器、该路由是为何种协议接收的，以及该外部路由的度量值等信息。下面的输出对此进行了演示：
 
 ```
 R2#show ip eigrp topology 0.0.0.0/0
@@ -1504,11 +1504,11 @@ IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
         Exterior flag is set
 ```
 
-可以看出该默认路由是一条在路由器R1上重分发到EIGRP中的静态路由。该路由有着度量值0。此外还可以看出路由器R1的EIGRP路由器ID（the EIGRP router ID, RID）为`1.1.1.1`。
+可以看出该默认路由是一条在路由器`R1`上重分发到EIGRP中的静态路由。该路由有着度量值0。此外还可以看出路由器`R1`的EIGRP路由器ID（the EIGRP router ID, RID）为`1.1.1.1`。
 
 对默认路由进行通告的最后一种方法，就是使用接口配置命令`ip summary-address eigrp [asn] [network] [mask]`了。在本课程模块的后面，将对EIGRP的路由汇总（EIGRP route summarization）进行详细讲解。这里要着重于在应用EIGRP时，使用此命令来对默认路由进行通告的用途。
 
-参考上面图36.13中所演示的网络拓扑图示，这里使用了接口配置命令`ip summary-address eigrp [asn] [network] [mask]`, 将路由器R1配置为把默认路由通告给R2，如下所示：
+参考上面图36.13中所演示的网络拓扑图示，这里使用了接口配置命令`ip summary-address eigrp [asn] [network] [mask]`, 将路由器`R1`配置为把默认路由通告给`R2`，如下所示：
 
 ```
 R1(config)#interface Serial0/0
@@ -1534,7 +1534,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 D*   0.0.0.0/0 is a summary, 00:02:26, Null0
 ```
 
-于是在路由器R2上就作为一条内部EIGRP路由（an internal EIGRP route），接收到该汇总路由，如下所示：
+于是在路由器`R2`上就作为一条内部EIGRP路由（an internal EIGRP route），接收到该汇总路由，如下所示：
 
 ```
 R2#show ip route
@@ -1699,12 +1699,12 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 ![EIGRP的自动路由汇总](images/3615.png)
 *图 36.15 -- EIGRP的自动路由汇总*
 
-参考图36.15中的EIGRP网络，路由器R1与R2运行着EIGRP，使用着自治系统编号150。`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网都是直接连接到路由器R1上的。路由器R1正将这些路由通告给R2。路由器R1与R2是使用了一条在`150.1.1.0/24`子网（该子网是一个与`10.1.1.0/24`、`10.2.2.0/24`及`10.3.3.3.0/24`子网都不相同的主要网络(major network)）, 上的背靠背的串行链接，连接起来的。根据连接在这些路由器上的网络，默认EIGRP将执行自动汇总，如下所示：
+参考图36.15中的EIGRP网络，路由器`R1`与`R2`运行着EIGRP，使用着自治系统编号150。`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网都是直接连接到路由器`R1`上的。路由器`R1`正将这些路由通告给`R2`。路由器`R1`与`R2`是使用了一条在`150.1.1.0/24`子网（该子网是一个与`10.1.1.0/24`、`10.2.2.0/24`及`10.3.3.3.0/24`子网都不相同的主要网络(major network)）, 上的背靠背的串行链路连接起来的。根据连接在这些路由器上的网络，默认EIGRP将执行自动汇总，如下所示：
 
 - `10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.3.0/24`子网将被汇总到`10.0.0.0/8`
 - `150.1.1.0/24`子网将被汇总到`150.1.0.0/16`
 
-可以查看`show ip protocols`命令的输出，来对此默认行为进行验证。路由器R1上该命令的输出如下所示：
+可以查看`show ip protocols`命令的输出，来对此默认行为进行验证。路由器`R1`上该命令的输出如下所示：
 
 ```
 R1#show ip protocols
@@ -1819,7 +1819,7 @@ Routing entry for 10.0.0.0/8
       Loading 1/255, Hops 0
 ```
 
-在EIGRP完成自动汇总时，路由器将对汇总路由进行通告，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器R2上的路由表，加以验证，如下所示：
+在EIGRP完成自动汇总时，路由器将对汇总路由进行通告，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器`R2`上的路由表，加以验证，如下所示：
 
 ```
 R2#show ip route eigrp
@@ -1831,11 +1831,11 @@ D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 ![不连续网络](images/3616.png)
 *图 36.16 -- 不连续网络*
 
-参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器R1与R2将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
+参考图36.16中所演示的图例，一个主要的`150.1.0.0/16`网络将这里的两个主要的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器`R1`与`R2`将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
 
 > **译者注**：本小节及前面小节中所提到的主要网络（the major network），是指按网络大类分的网络，也就是A、B、C、D及E类网络。
 
-因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面将一次性过一下这些步骤，从在路由器R1及R2上的配置开始，如下所示：
+因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面将一次性过一下这些步骤，从在路由器`R1`及`R2`上的配置开始，如下所示：
 
 ```
 R1(config)#router eigrp 150
@@ -1849,7 +1849,7 @@ R2(config-router)#network 150.1.1.0 0.0.0.255
 R2(config-router)#exit
 ```
 
-因为两台路由器上有类边界处的自动汇总都是默认开启的，所以这两台路由器都将生成两个汇总地址：一个是`10.0.0.0/8`的，另一个是`150.1.0.0/16`的（Because automatic summarisation at the classful boundary is enabled by default on both of the routers, they will both generate two summary addresses: one for `10.0.0.0/8` and another for `150.1.0.0/16`）。这两个汇总地址都将指向到`Null0`接口，同时路由器R1上的路由表将显示下面这些条目：
+因为两台路由器上有类边界处的自动汇总都是默认开启的，所以这两台路由器都将生成两个汇总地址：一个是`10.0.0.0/8`的，另一个是`150.1.0.0/16`的（Because automatic summarisation at the classful boundary is enabled by default on both of the routers, they will both generate two summary addresses: one for `10.0.0.0/8` and another for `150.1.0.0/16`）。这两个汇总地址都将指向到`Null0`接口，同时路由器`R1`上的路由表将显示下面这些条目：
 
 ```
 R1#show ip route eigrp
@@ -1859,7 +1859,7 @@ D       10.0.0.0/8 is a summary, 00:04:51, Null0
 D       150.1.0.0/16 is a summary, 00:06:22, Null0
 ```
 
-与此类似，路由器R2上反应了同样的情况，如下所示：
+与此类似，路由器`R2`上反应了同样的情况，如下所示：
 
 ```
 R2#show ip route eigrp
@@ -1869,7 +1869,7 @@ D       10.0.0.0/8 is a summary, 00:01:58, Null0
 D       150.1.0.0/16 is a summary, 00:01:58, Null0
 ```
 
-虽然汇总地址`150.1.0.0/16`被安装到了IP路由表中，路由器R1与R2是仍可`ping`通对方的，因为这里的更为具体路由条目（the more route-specific entry, `150.1.1.0/24`）是位处于直连接口之上的。可通过执行`show ip route [address] [mask] longer-prefixes`命令，来查看到这些某个汇总路由中的详细条目。下面演示了对于`150.1.0.0/16`汇总，该命令的输出：
+虽然汇总地址`150.1.0.0/16`被安装到了IP路由表中，路由器`R1`与`R2`是仍可`ping`通对方的，因为这里的更为具体路由条目（the more route-specific entry, `150.1.1.0/24`）是位处于直连接口之上的。可通过执行`show ip route [address] [mask] longer-prefixes`命令，来查看到这些某个汇总路由中的详细条目。下面演示了对于`150.1.0.0/16`汇总，该命令的输出：
 
 ```
 R1#show ip route 150.1.0.0 255.255.0.0 longer-prefixes
@@ -1886,7 +1886,7 @@ C       150.1.1.0/24 is directly connected, Serial0/0
 D       150.1.0.0/16 is a summary, 00:10:29, Null0
 ```
 
-因为那条更详细的`150.1.1.0/24`路由条目是存在的，所以发送到`150.1.1.2`地址的数据包将经由`Serial0/0`接口加以转发。这就令到路由器R1与R2的连通性没有问题，如下所示：
+因为那条更详细的`150.1.1.0/24`路由条目是存在的，所以发送到`150.1.1.2`地址的数据包将经由`Serial0/0`接口加以转发。这就令到路由器`R1`与`R2`的连通性没有问题，如下所示：
 
 ```
 R1#ping 150.1.1.2
@@ -1898,7 +1898,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 但是，那些到这个大的`150.1.0.0/16`网络的所有其它子网的数据包，都将发送到`Null0`接口，因为没有其它具体路由条目存在（于路由表中）。
 
-那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为主要`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器R1与R2之间是能`ping`通的。不过问题在于路由器R1与R2上主要网络`10.0.0.0/8`的那些子网。路由器R1（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
+那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为主要`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器`R1`与`R2`之间是能`ping`通的。不过问题在于路由器`R1`与`R2`上主要网络`10.0.0.0/8`的那些子网。路由器`R1`（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
 
 ```
 R1#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
@@ -1915,7 +1915,7 @@ C       10.1.1.0/24 is directly connected, FastEthernet0/0
 D       10.0.0.0/8 is a summary, 00:14:23, Null0
 ```
 
-于此类似，路由器R2（的路由表）显示出其生成的`10.0.0.0/8`汇总地址的以下具体路由条目：
+于此类似，路由器`R2`（的路由表）显示出其生成的`10.0.0.0/8`汇总地址的以下具体路由条目：
 
 ```
 R2#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
@@ -1932,7 +1932,7 @@ C       10.2.2.0/24 is directly connected, FastEthernet0/0
 D       10.0.0.0/8 is a summary, 00:14:23, Null0
 ```
 
-可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在比如路由器R1尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
+可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在比如路由器`R1`尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
 
 ```
 R1#show ip route 10.2.2.0
@@ -1947,7 +1947,7 @@ Routing entry for 10.0.0.0/8
       Loading 1/255, Hops 0
 ```
 
-路由器R1将无法`ping`通R2上的`10.x.x.x/24`子网，反之亦然，如下所示：
+路由器`R1`将无法`ping`通`R2`上的`10.x.x.x/24`子网，反之亦然，如下所示：
 
 ```
 R1#ping 10.2.2.2
@@ -1998,7 +1998,7 @@ Success rate is 100 percent (10/10), round-trip min/avg/max = 1/3/4 ms
 ![对外部网络的汇总](images/3617.png)
 *图 36.17 -- 对外部网络的汇总，Summrising External Networks*
 
-参考图36.17, 路由器R1正在进行重分发（redistributing, 这令到这些网络成为外部的网络），并在随后将外部网络`10.0.0.0/24`、`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`这些外部网络经由EIGRP进行通告。路由器R1上开启了自动路由汇总。路由器R1上的初始配置是下面这样的：
+参考图36.17, 路由器`R1`正在进行重分发（redistributing, 这令到这些网络成为外部的网络），并在随后将外部网络`10.0.0.0/24`、`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`这些外部网络经由EIGRP进行通告。路由器`R1`上开启了自动路由汇总。路由器`R1`上的初始配置是下面这样的：
 
 ```
 R1(config)#router eigrp 150
@@ -2007,7 +2007,7 @@ R1(config-router)#network 150.1.1.1 0.0.0.0
 R1(config-router)#exit
 ```
 
-那么`show ip protocols`命令就显示出路由器R1的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
+那么`show ip protocols`命令就显示出路由器`R1`的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
 
 ```
 R1#show ip protocols
@@ -2051,7 +2051,7 @@ P 10.3.3.0/24, 1 successors, FD is 1280256
 [Truncated Output]
 ```
 
-这些具体路由条目，是作为外部EIGRP路由，通告给路由器R2的，如下所示：
+这些具体路由条目，是作为外部EIGRP路由，通告给路由器`R2`的，如下所示：
 
 ```
 R2#show ip route eigrp
@@ -2115,14 +2115,14 @@ P 10.3.3.0/24, 1 successors, FD is 1280256
 [Truncated Output]
 ```
 
-此时，就仅有一条路由通告给路由器R2了，如下面的输出所示：
+此时，就仅有一条路由通告给路由器`R2`了，如下面的输出所示：
 
 ```
 R2#show ip route eigrp
 D    10.0.0.0/8 [90/2297856] via 150.1.1.1, 00:04:05, Serial0/0
 ```
 
-从路由器R2的角度看，该路由就是一条简单的内部EIGRP路由。也就是说，路由器R2并不知道这个汇总地址还有着一些外部路由，如下所示：
+从路由器`R2`的角度看，该路由就是一条简单的内部EIGRP路由。也就是说，路由器`R2`并不知道这个汇总地址还有着一些外部路由，如下所示：
 
 ```
 R2#show ip route 10.0.0.0 255.0.0.0
@@ -2138,7 +2138,7 @@ Routing entry for 10.0.0.0/8
       Loading 1/255, Hops 1
 ```
 
-经由所接收到的这条汇总路由，路由器R2是可以同时到达这个内部的`10.0.0.0/24`与那些其它的外部`10.x.x.x/24`网络，如下所示：
+经由所接收到的这条汇总路由，路由器`R2`是可以同时到达这个内部的`10.0.0.0/24`与那些其它的外部`10.x.x.x/24`网络，如下所示：
 
 ```
 R2#ping 10.0.0.1
@@ -2172,18 +2172,18 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 默认情况下，在EIGRP的一条汇总路由创建出来后，路由器就将该汇总地址以其所有具体路由度量值中最小的度量值进行通告。也就是说，汇总地址将有着最低的、包含在汇总地址建立中最具体的路由度量值（By default, when a summary route is created for EIGRP, the router advertises the summary address with a metric equal to the minimum of all the more specific routes. In other words, the summary address will have the same metric as the lowest, most specific route included in the creation of the summary address）。
 
-参考图36.19中所演示的网络拓扑，路由器R2与R3都正将汇总地址`10.0.0.0/8`通告给R1。此汇总是有更具体的`10.4.4.0/24`与`10.6.6.0/24`前缀构成的。该汇总地址所使用的度量值，在两台路由器上分别如下表36.5那样计算出来：
+参考图36.19中所演示的网络拓扑，路由器`R2`与`R3`都正将汇总地址`10.0.0.0/8`通告给`R1`。此汇总是有更具体的`10.4.4.0/24`与`10.6.6.0/24`前缀构成的。该汇总地址所使用的度量值，在两台路由器上分别如下表36.5那样计算出来：
 
 *表 36.5 -- 汇总路由的度量值计算*
 
 | 起始点（路由器） | 到`10.4.4.0/24`的度量值 | 到`10.6.6.0/24`的度量值 |
 | ----- | -----: | -----: |
-| R2 | `5+5=10` | `5+45+5+5=60` |
-| R3 | `5+45+5=55` | `5+5+5=15` |
+| `R2` | `5+5=10` | `5+45+5+5=60` |
+| `R3` | `5+45+5=55` | `5+5+5=15` |
 
-基于表36.5中的度量值计算, 对于从路由器R1起始的流量，R2明确地有着到`10.4.4.0`的最低度量值路径，同时R3有着对于起始自R1、到`10.6.6.0/24`网络流量的最低度量值路径。但在汇总地址`10.0.0.0/8`被通告到路由器R1时，该汇总地址使用了构成该汇总路由的所有路由中最低最小度量值。在这个示例中，路由器R2以度量值10, 将该汇总地址通告给R1。R3以同样逻辑，以15的度量值将该汇总路由通告给R1。
+基于表36.5中的度量值计算, 对于从路由器`R1`起始的流量，`R2`明确地有着到`10.4.4.0`的最低度量值路径，同时`R3`有着对于起始自`R1`、到`10.6.6.0/24`网络流量的最低度量值路径。但在汇总地址`10.0.0.0/8`被通告到路由器`R1`时，该汇总地址使用了构成该汇总路由的所有路由中最低最小度量值。在这个示例中，路由器`R2`以度量值10, 将该汇总地址通告给`R1`。`R3`以同样逻辑，以15的度量值将该汇总路由通告给`R1`。
 
-在路由器R1从R2及R3处接收到两条汇总路由后，它将使用最低的度量值来转发那些以包含在大的（主要）有类网络`10.0.0.0/8`中的那些子网为目的的流量。下图36.20对此进行了演示：
+在路由器`R1`从`R2`及`R3`处接收到两条汇总路由后，它将使用最低的度量值来转发那些以包含在大的（主要）有类网络`10.0.0.0/8`中的那些子网为目的的流量。下图36.20对此进行了演示：
 
 ![路由汇总下的次优路由](images/3620.png)
 *图 36.20 -- 路由汇总下的次优路由，Suboptimal Routing with Route Summarisation*
@@ -2195,7 +2195,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 ![EIGRP手动路由汇总的配置](images/3621.png)
 *图 36.21 -- EIGRP手动路由汇总的配置，Configuring EIGRP Manual Route Summarisation*
 
-基于路由器R1上所配置的接口，R2上的路由表将显示出以下条目：
+基于路由器`R1`上所配置的接口，`R2`上的路由表将显示出以下条目：
 
 ```
 R2#show ip route eigrp
@@ -2206,7 +2206,7 @@ D       10.1.1.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
 ```
 
-为将路由器R1上的这些路由条目进行汇总并通告出一条单一的具体（译者注，这里可能是“汇总”，而不是具体(specific)）路由，就要在R1的`Serial0/0`接口是上应用如下配置：
+为将路由器`R1`上的这些路由条目进行汇总并通告出一条单一的具体（译者注，这里可能是“汇总”，而不是具体(specific)）路由，就要在`R1`的`Serial0/0`接口是上应用如下配置：
 
 ```
 R1(config)#interface Serial0/0
@@ -2214,7 +2214,7 @@ R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
 R1(config-if)#exit
 ```
 
-在此配置下，该汇总条目`10.0.0.0/14`就将被安装到路由器R1的EIGRP拓扑表与IP路由表中。该EIGRP拓扑表条目如下所示：
+在此配置下，该汇总条目`10.0.0.0/14`就将被安装到路由器`R1`的EIGRP拓扑表与IP路由表中。该EIGRP拓扑表条目如下所示：
 
 ```
 R1#show ip eigrp topology
@@ -2259,7 +2259,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 C       150.2.2.0 is directly connected, Serial0/1
 ```
 
-可再次使用`show ip route [address] [mask] longer-prefixes`命令，来查看组成该聚合或者说汇总路由的那些具体路由条目，如下面路由器R1上的输出所示：
+可再次使用`show ip route [address] [mask] longer-prefixes`命令，来查看组成该聚合或者说汇总路由的那些具体路由条目，如下面路由器`R1`上的输出所示：
 
 ```
 R1#show ip route 10.0.0.0 255.252.0.0 longer-prefixes
@@ -2279,7 +2279,7 @@ C       10.0.0.0/24 is directly connected, Loopback0
 D       10.0.0.0/14 is a summary, 00:04:03, Null0
 ```
 
-而在路由器R2上，则接收到汇总地址`10.0.0.0/14`的一条单一的路由条目，如下所示：
+而在路由器`R2`上，则接收到汇总地址`10.0.0.0/14`的一条单一的路由条目，如下所示：
 
 ```
 R2#show ip route eigrp
@@ -2287,7 +2287,7 @@ R2#show ip route eigrp
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
 ```
 
-为对汇总路由度量值方面进行巩固，这里假设路由器R1上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由已被重分发到EIGRP中）。那么R1上的EIGRP拓扑表，将显示以下条目：
+为对汇总路由度量值方面进行巩固，这里假设路由器`R1`上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由已被重分发到EIGRP中）。那么`R1`上的EIGRP拓扑表，将显示以下条目：
 
 ```
 R1#show ip eigrp topology
@@ -2306,7 +2306,7 @@ P 10.3.3.0/24, 1 successors, FD is 1377792
 [Truncated Output]
 ```
 
-此时再度在路由器R1上做先前示例中的相同汇总地址配置，如下所示：
+此时再度在路由器`R1`上做先前示例中的相同汇总地址配置，如下所示：
 
 ```
 R1(config)#int s0/0
@@ -2363,7 +2363,7 @@ R1(config-router)#passive-interface Loopback1
 R1(config-router)#exit
 ```
 
-基于此种配置，逻辑接口`Loopback0`与`Loopback1`是开启了EIGRP路由的，它们上面的直连网络将被通告给EIGRP邻居。但路由器R1是不会将EIGRP数据包从这两个接口发出去的。另一方面，接口`Serial0/0`上也配置上了EIGRP路由，不过这里是允许EIGRP在此接口上发出数据包的，因为它不是一个被动接口。所有三个网络都是安装到EIGRP路由表中的，如下所示：
+基于此种配置，逻辑接口`Loopback0`与`Loopback1`是开启了EIGRP路由的，它们上面的直连网络将被通告给EIGRP邻居。但路由器`R1`是不会将EIGRP数据包从这两个接口发出去的。另一方面，接口`Serial0/0`上也配置上了EIGRP路由，不过这里是允许EIGRP在此接口上发出数据包的，因为它不是一个被动接口。所有三个网络都是安装到EIGRP路由表中的，如下所示：
 
 ```
 R1#show ip eigrp topology
@@ -2551,7 +2551,7 @@ Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
 - 不能（无法）将RID配置为`0.0.0.0`
 - 不能（无法）将RID配置为`255.255.255.255`
 
-现在，源自该路由器的所有外部路由，都包含了这个EIGRP路由器ID了。在下面的邻居路由器R2输出中，就可对此进行验证：
+现在，源自该路由器的所有外部路由，都包含了这个EIGRP路由器ID了。在下面的邻居路由器`R2`输出中，就可对此进行验证：
 
 ```
 R2#show ip eigrp topology 192.168.254.0/24
