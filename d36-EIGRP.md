@@ -1048,7 +1048,7 @@ R2#show ip eigrp topology ?
   <cr>
 ```
 
-不带选项的`show ip eigrp topology`命令，将仅打印出那些拓扑表中的、所有该路由器上开启的EIGRP实例的后继路由器及可行后继路由器的路由（The `show ip eigrp topology` command with no options prints only the Successor and Feasible Successor information for routes in the topology table and for all of the EIGRP instances enabled on the router）。下面演示了该命令的打印输出：
+不带选项的`show ip eigrp topology`命令，将仅打印出那些拓扑表中路由的、且是该路由器上所有开启的EIGRP实例的后继路由器及可行后继的信息（The `show ip eigrp topology` command with no options prints only the Successor and Feasible Successor information for routes in the topology table and for all of the EIGRP instances enabled on the router）。下面演示了该命令的打印输出：
 
 ```
 R2#show ip eigrp topology
@@ -1064,7 +1064,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016
         via 150.1.1.1 (1686016/28160), Serial0/0
 ```
 
-而`show ip eigrp topology [network]/[prefix]`及`show ip eigrp topology [network] [mask]`两个命令，将打印出其各自所指定的路由的后继路由、可行后继路由以及未能满足可行条件的那些其它路由（The `show ip eigrp topology [network]/[prefix]` and `show ip eigrp topology [network] [mask]` commands print Successor routes, FS routes, and routes that have not met the FC for the route specified in either command）。下面的输出演示了`show ip eigrp topology [network]/[prefix]`命令的用法：
+而`show ip eigrp topology [network]/[prefix]`及`show ip eigrp topology [network] [mask]`两个命令，则将打印出其各自所指定路由的后继路由、可行后继路由以及未能满足可行条件的那些其它路由（The `show ip eigrp topology [network]/[prefix]` and `show ip eigrp topology [network] [mask]` commands print Successor routes, FS routes, and routes that have not met the FC for the route specified in either command）。下面的输出演示了`show ip eigrp topology [network]/[prefix]`命令的用法：
 
 ```
 R2#show ip eigrp topology 172.16.100.0/24
@@ -1111,7 +1111,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
 
 在该EIGRP拓扑表中的路由条目，可能被标记为被动的（Passive, P）或主动的（Active, A）状态。处于被动状态的某条路由，表明EIGRP已经完成了该路由度量值的主动计算，同时可以使用该后继路由将流量转发到目的网络。此状态是拓扑表中所有路由的首选状态。
 
-当后继路由丢失，且路由器为确定一个可行后继而发出了一个查询数据包时，那些增强IGRP的路由就处于主动状态了。通常情况下，是会存在这么一个可行后继的，且EIGRP会将那个可行后继提升为后继路由。那么在此情况下，路由器就无需涉及到网络中其它路由器，而完成收敛。此过程就叫做一次本地运算。
+当后继路由丢失，且路由器为确定出可行后继而发出了一个查询数据包时，那些EIGRP的路由就处于主动状态了。通常情况下，是存在着可行后继的，且EIGRP会将那个可行后继提升为后继路由。那么在此情况下，就无需涉及到网络中其它路由器，该路由器就可以完成收敛。此过程就叫做一次本地运算（Enhanced IGRP routes are in Active state when the Successor route has been lost and the router sends out a Query packet to determine an FS. Usually, an FS is present and EIGRP promotes that to the Successor route. This way, the router converges without involving other routers in the network. This process is referred to as **a local computation**）。
 
 不过，如后继路由已丢失或被移除，而又没有可行后继时，那么路由器就将开始弥散运算（diffused computation）。在弥散运算中，EIGRP将往所有邻居路由器、从除开连接到后继路由的接口外的所有接口发出一次查询。当某台EIGRP邻居路由器收到某条路由的查询时，如那个邻居的EIGRP拓扑表中没有包含该被查询路由的条目，那么这个邻居就立即对该查询应答一条不可达报文，指出经过此邻居处并无这条路由的路径。
 
@@ -1119,7 +1119,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
 
 但如果该EIGRP拓扑表虽然将发出查询的路由器列为了该路由的后继路由器，却没有可行后继时，收到查询的路由器就会查询其所有的EIGRP邻居，除开那些作为其先前后继路由器而发出的同样接口。在尚未收到对此路由的所有查询的一条应答时，该路由器不会对先前的查询进行响应（However, if the EIGRP topology table lists the router sending the Query as the Successor for this route and there is no FS, then the router queries all of its EIGRP neighbors, except those that were sent out of the same interface as its former Successor. The router will not reply to the Query until it has received a Reply to all Queries that it originated for this route）。
 
-最后，如某个非目的网络的后继的邻居收到了此次查询，且随后该邻居路由器以其自己的后继信息予以了应答。而加入这些邻居路由器仍然没有该已丢失的路由信息，那么这些邻居路由器就会向它们自己的邻居路由器发出查询，直到抵达查询边界。所谓查询边界，既可以是网络的末端、分发清单的边界，或者汇总的边界（Finally, if the Query was received from a neighbour that is not the Successor for this destination, then the router replies with its own Successor information. If the neighbouring routers do not have the lost route information, then Queries are sent from those neighbouring routers to their neighbouring routers until the Query boundary is reached. The Query boundary is either the end of the network, the distribute list boundary, or the summarization boundary）。
+最后，如某个非此目的网络后继的邻居收到了此次查询，随后该路由器以其自己的后继信息予以了应答。而假如这些邻居路由器仍然没有该已丢失的路由信息，那么这些邻居路由器就会向它们自己的邻居路由器发出查询，直到抵达查询边界。所谓查询边界，既可以是网络的末端、分发清单的边界，或者汇总的边界（Finally, if the Query was received from a neighbour that is not the Successor for this destination, then the router replies with its own Successor information. If the neighbouring routers do not have the lost route information, then Queries are sent from those neighbouring routers to their neighbouring routers until the Query boundary is reached. The Query boundary is either the end of the network, the distribute list boundary, or the summarization boundary）。
 
 查询一旦发出，那么发出查询的EIGRP路由器就必须在计算后继路由前，等待完成所有应答的接收。如有任何邻居在三分钟之内没有应答，那么该路由就被称作处于活动粘滞状态（If any neighbour has not replied within three minutes, the route is said to be Stuck-In-Active(SIA)）。而当某条路由成为活动粘滞路由时，该（这些）未对查询进行响应的路由器的邻居关系，就将被重置。在此情况下，可以观察到路由器记录下了如下类似的一条消息：
 
@@ -1136,11 +1136,12 @@ Cleaning up
 - 该邻居路由器的CPU过载了，因此而无法及时响应
 - 该邻居路由器本身就没有关于那条丢失路由的信息
 - 电路质量问题，造成数据包丢失
-- 某些低带宽链路壅塞，从而造成数据包的延迟
+- 某些低带宽链路拥塞，从而造成数据包的延迟
 
 而为了防止因为延迟响应造成的来自其它EIGRP邻居的活动粘滞方面的故障，可使用路由器配置模式中的`timers active-time`命令，将本地路由器配置为等待多于默认的三分钟，以接收到返回给其查询数据包的响应。
 
 > **注意**：重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
+
 
 ##相等开销及不相等开销下的负载均衡
 
