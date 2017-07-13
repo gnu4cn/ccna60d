@@ -1560,7 +1560,7 @@ D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 ![EIGRP的水平分割](images/3614.png)
 *图 36.14 -- EIGRP的水平分割*
 
-图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器S1与S2则是分支路由器(the spoke router)。在该帧中继广域网上，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中，各自与中心路由器之间的，所提供的数据链路层连接标识（Data Link Connection Identifier，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
+图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器`S1`与`S2`则是分支路由器(the spoke router)。在该帧中继广域网上，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中，各自与中心路由器之间的，所提供的数据链路层连接标识（Data Link Connection Identifier，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
 
 ```
 HQ#show frame-relay map
@@ -1599,7 +1599,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.2     Se0/0        153    00:01:25  124   744   0   2
 ```
 
-下面的输出对第一台分支路由器S1与中心路由器之间的EIGRP邻居关系：
+下面的输出对第一台分支路由器`S1`与中心路由器之间的EIGRP邻居关系：
 
 ```
 S1#show ip eigrp neighbors
@@ -1609,7 +1609,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        128    00:00:53  911   5000  0   4
 ```
 
-下面的输出对第二台分支路由器S2与中心路由器之间的EIGRP邻居关系：
+下面的输出对第二台分支路由器`S2`与中心路由器之间的EIGRP邻居关系：
 
 ```
 S2#show ip eigrp neighbors
@@ -1619,7 +1619,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        156    00:02:20  8     200   0   4
 ```
 
-默认EIGRP的水平分割是开启的，但在局部网状网络的非广播多路访问网络上，EIGRP的水平分割是不合需要的（By default, EIGRP split horizon is enabled, which is undesirable in partial-mesh NBMA networks）。这就意味着对于那些在`Serial0/0`上学习到的路由信息，中心路由器不会再从相同接口（`Serial0/0`）进行通告。而这种默认行为的效果，就是中心路由器不会将接收自路由器S1的`10.1.1.0/24`前缀，通告给S2，因为该路由是经由`Serial0/0`接口接收到的，而水平分割特性阻止了该路由器对从该接口学习到的信息，在通告出同一接口。这一点对于中心路由器接收自路由器S2的`10.2.2.0/24`前缀同样适用。
+默认EIGRP的水平分割是开启的，但在**局部网状网络的非广播多路访问网络**上，EIGRP的水平分割是不合需要的（By default, EIGRP split horizon is enabled, which is undesirable in **partial-mesh NBMA networks**）。这就意味着对于那些在`Serial0/0`上学习到的路由信息，中心路由器不会再从相同接口（`Serial0/0`）进行通告。而这种默认行为的效果，就是中心路由器不会将接收自路由器`S1`的`10.1.1.0/24`前缀，通告给`S2`，因为该路由是经由`Serial0/0`接口接收到的，而水平分割特性阻止了该路由器对从该接口学习到的信息，在通告出同一接口。这一点对于中心路由器接收自路由器`S2`的`10.2.2.0/24`前缀同样适用。
 
 这种默认行为意味着尽管中心路由器注意到了这两条前缀，但分支路由器却只有局部的路由表。中心路由器上的路由表如下：
 
@@ -1630,7 +1630,7 @@ D       10.1.1.0/24 [90/2195456] via 172.16.1.1, 00:12:04, Serial0/0
 D       10.2.2.0/24 [90/2195456] via 172.16.1.2, 00:12:06, Serial0/0
 ```
 
-分支路由器S1上的路由表如下：
+分支路由器`S1`上的路由表如下：
 
 ```
 S1#show ip route eigrp
@@ -1638,7 +1638,7 @@ S1#show ip route eigrp
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:53, Serial0/0
 ```
 
-分支路由器S2上的路由表如下：
+分支路由器`S2`上的路由表如下：
 
 ```
 S2#show ip route eigrp
@@ -1648,18 +1648,18 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
 
 这种默认行为的结果，就是尽管中心（总部）路由器能够到达两个分支路由器的网络，但两台分支路由器却都无法到达对方的网络。解决此种情况的方法有几种，如下所示：
 
-- 在中心路由器上关闭水平分割
-- 从中心路由器往分支路由器通告一条默认路由
-- 在路由器上手动配置EIGRP邻居
+- 在中心路由器上关闭水平分割, Disabling split horizon on the HQ(hub) router
+- 从中心路由器往分支路由器通告一条默认路由, Advertising a default route from the HQ router to the spoke routers
+- 在路由器上手动配置EIGRP邻居, Mannually configuring EIGRP neighbours on the routers
 
-通过在中心路由器的接口级别使用接口配置命令`no ip split-horizon eigrp [AS]`，就可以完成关闭水平分割。命令`show ip split-horizon interface_name`不会显示EIGRP的水平分割状态，因为该命令是作用于RIP的。所以要查看到EIGRP的水平分割状态，就必须对接口配置部分进行检查（也就是执行`show run interface_name`命令）。参考上面图36.14中所演示的网络拓扑，此接口配置命令就应在中心路由器上的`Serial0/0`接口上应用。应像下面这样完成：
+通过在中心路由器的接口级别使用接口配置命令`no ip split-horizon eigrp [AS]`，就可以完成关闭水平分割。**命令`show ip split-horizon interface_name`不会显示EIGRP的水平分割状态，因为该命令是作用于RIP的**。所以要查看到EIGRP的水平分割状态，就必须对接口配置部分进行检查（也就是执行`show run interface_name`命令）。参考上面图36.14中所演示的网络拓扑，此接口配置命令就应在中心路由器上的`Serial0/0`接口上应用。应像下面这样完成：
 
 ```
 HQ(config)#interface Serial0/0
 HQ(config-if)#no ip split-horizon eigrp 150
 ```
 
-在水平分割关闭后，中心路由器就可以把在某个接口上接收到的路由信息，再在该接口上发送出去了。比如，分支路由器S2上的路由表现在就显示了一个由分支S1通告给中心路由器的`10.1.1.0/24`前缀了：
+在水平分割关闭后，中心路由器就可以把在某个接口上接收到的路由信息，再在该接口上发送出去了。比如，分支路由器`S2`上的路由表现在就显示了一个由分支`S1`通告给中心路由器的`10.1.1.0/24`前缀了：
 
 ```
 S2#show ip route eigrp
@@ -1669,7 +1669,7 @@ D       10.1.1.0/24 [90/2707456] via 172.16.1.3, 00:00:47, Serial0/0
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:00:47, Serial0/0
 ```
 
-可使用一个简单的从分支路由器S2到`10.1.1.0/24`的`ping`操作，对连通性进行检查，如下所示：
+可使用一个简单的从分支路由器`S2`到`10.1.1.0/24`的`ping`操作，对连通性进行检查，如下所示：
 
 ```
 S2#ping 10.1.1.2
