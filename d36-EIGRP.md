@@ -1689,10 +1689,10 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 
 **EIGRP Route Summarisation**
 
-路由汇总特性减少了路由器必须处理的信息量，这样就实现了网络更快的收敛。通过将网络中具体区域的详细拓扑信息的隐藏，汇总还对由网络变动而造成的影响范围有所限制。最后，如同本课程模块前面所指出的那样，汇总还用于EIGRP查询边界的定义，而EIGRP查询边界又支持两种类型的路由汇总（Route summarisation reduces the amount of information that routers must process, which allows for faster convergence within the network. Summarisation also restricts the size of the area that is affected by network changes by hiding detailed topology information from certain areas within the network. Finally, as was stated earlier in this module, summarisation is used to define a Query boundary for EIGRP, which supports two types of route summarisation），如下所示：
+路由汇总特性减少了路由器必须处理的信息量，这样就实现了网络更快的收敛。通过将网络中具体区域的详细拓扑信息的隐藏，汇总还对由网络变动而造成的影响范围有所限制。最后，如同本课程模块前面所指出的那样，汇总还用于**EIGRP查询边界**的定义，而**EIGRP查询边界又支持两种类型的路由汇总**（Route summarisation reduces the amount of information that routers must process, which allows for faster convergence within the network. Summarisation also restricts the size of the area that is affected by network changes by hiding detailed topology information from certain areas within the network. Finally, as was stated earlier in this module, summarisation is used to define **a Query boundary for EIGRP, which supports two types of route summarisation**），如下所示：
 
-- 自动的路由汇总
-- 手动的路由汇总
+- 自动的路由汇总, Automatic route summarisation
+- 手动的路由汇总, Manual route summarisation
 
 默认情况下，当在路由器上开启了EIGRP时，自动路由汇总就生效了。这是通过使用`auto-summary`命令应用的。该命令允许EIGRP在有类边界（at classful boundaries）进行自动路由汇总。参考下图36.15中的网络拓扑，对此默认特性的运作进行了演示：
 
