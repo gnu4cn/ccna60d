@@ -1560,7 +1560,7 @@ D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 ![EIGRP的水平分割](images/3614.png)
 *图 36.14 -- EIGRP的水平分割*
 
-图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器S1与S2则是分支路由器(the spoke router)。在帧中继广域网中，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中的分支路由器与中心路由器之间，所提供的数据链路层连接标识（Data Link Connection Identifier 数据链接连接标识，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
+图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器S1与S2则是分支路由器(the spoke router)。在该帧中继广域网上，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中，各自与中心路由器之间的，所提供的数据链路层连接标识（Data Link Connection Identifier，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
 
 ```
 HQ#show frame-relay map
@@ -1570,9 +1570,7 @@ Serial0/0 (up): ip 172.16.1.2 dlci 102(0x66,0x1860), static,
 Serial0/0 (up): ip 172.16.1.1 dlci 103(0x67,0x1870), static,
               broadcast,
               CISCO, status defined, active
-```
 
-```
 S1#show frame-relay map
 Serial0/0 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), static,
               broadcast,
@@ -1580,9 +1578,7 @@ Serial0/0 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), static,
 Serial0/0 (up): ip 172.16.1.3 dlci 301(0x12D,0x48D0), static,
               broadcast,
               CISCO, status defined, active
-```
 
-```
 S2#show frame-relay map
 Serial0/0 (up): ip 172.16.1.1 dlci 201(0xC9,0x3090), static,
               broadcast,
@@ -1592,7 +1588,7 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
               CISCO, status defined, active
 ```
 
-在后面的广域网章节，将涉及到帧中继。这里在所有三台路由器上都开启了EIGRP，使用了自治系统编号150。下面的输出演示了中心路由器与分支路由器之间的EIGRP邻居关系：
+在后面的广域网章节，将涉及到帧中继。这里在所有三台路由器上都开启了EIGRP，使用了自治系统编号`150`。下面的输出演示了中心路由器与分支路由器之间的EIGRP邻居关系：
 
 ```
 HQ#show ip eigrp neighbors
