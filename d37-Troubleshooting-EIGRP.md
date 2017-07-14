@@ -306,4 +306,10 @@ Event information for AS 1:
 
 **Troubleshooting Route Advertisement**
 
+总是会出现看起来EIGRP要么没有对其配置的那些进行通告的网络加以通告，要么通告出其未配置为进行通告的那些网络的情形。对于这些大部分情况来说，此类故障都是由于路由器或交换机的不当配置造成的。而至于EIGRP没有对其已配置为加以通告的某个网络进行通告的原因，有好几种。一些原因如下所示（There are times when it may seem that EIGRP is either not advertising the networks that is has been configured to advertise or is advertising networks that it has not been configured to advertise. For the most part, such issues are typically due to router and switch misconfigurations. Thare are several reasons why EIGRP might not advertise a network that it has been configured to advertise. Some of these reasons include the following）：
+
+- 投送清单（Distribute lists, 这是超出CCNA大纲要求的）
+- 水平分割（Split horizon）
+- 汇总（Summarisation）
+
 
