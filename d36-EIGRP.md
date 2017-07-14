@@ -2291,7 +2291,7 @@ R2#show ip route eigrp
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
 ```
 
-为对汇总路由度量值方面进行巩固，这里假设路由器`R1`上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由已被重分发到EIGRP中）。那么`R1`上的EIGRP拓扑表，将显示以下条目：
+为加强该汇总路由度量值概念，这里假设路由器`R1`上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由是已被重分发到EIGRP中的）。那么`R1`上的EIGRP拓扑表，将显示以下条目：
 
 ```
 R1#show ip eigrp topology
@@ -2318,7 +2318,7 @@ R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
 R1(config-if)#exit
 ```
 
-那么此时基于此配置，该汇总路由就以它所包含的所有路由中的最小度量值，而放入到EIGRP拓扑表和IP路由表中（Based on this configuration, the summary route is placed into the EIGRP topology table and the IP routing table with a metric equal to the lowest metric of all routes that it encompasses）。而根据前面所展示的`show ip eigrp topology`命令的输出，该汇总地址将获得到与`10.3.3.0/24`前缀相同的度量值，如下所示：
+那么基于此配置，该汇总路由就以它所包含的所有路由中的最小度量值，而放入到EIGRP拓扑表和IP路由表中（Based on this configuration, the summary route is placed into the EIGRP topology table and the IP routing table with a metric equal to the lowest metric of all routes that it encompasses）。而根据前面所展示的`show ip eigrp topology`命令的输出，该汇总地址将获得到与`10.3.3.0/24`前缀相同的度量值，如下所示：
 
 ```
 R1#show ip eigrp topology
@@ -2343,9 +2343,9 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
 
 **Understanding Passive Interface**
 
-如同本课程模块前面所指出的，在对某个网络开启了EIGRP后，路由器就开始在其位于某个特定网络范围内的所有接口上，发出Hello数据包。这样做可令到EIGRP能够动态地发现邻居，并建立各种网络关系。这对于那些切实有着到物理介质连接，比如以太网及串行接口等，的接口是需要的。但这种默认行为在那些绝不会有其它设备连接的逻辑接口（logical interfaces），比如环回接口上，因为路由器绝不会经由这些逻辑接口建立EIGRP的邻居关系，而也会造成不必要的路由器资源的浪费。
+如同本课程模块前面所指出的，在对某个网络开启了EIGRP后，路由器就开始在其位于某个特定网络范围内的所有接口上，发出Hello数据包。这样做可令到EIGRP能够动态地发现邻居，并建立各种网络关系。这对于那些切实有着到物理介质连接的接口上，比如以太网及串行接口等，是需要的。但这种默认行为在那些绝不会有其它设备连接的逻辑接口上（logical interfaces），比如环回接口，却是不必要的，因为路由器绝不会经由这些逻辑接口建立EIGRP的邻居关系，相反还会造成不必要的路由器资源浪费。
 
-思科IOS软件允许管理员使用**路由器配置命令`passive-interface [name|default]`**, 将命名的接口（the named interface）或把所有接口，指定为被动模式。从而不会在这些被动接口上发出EIGRP数据包; 那么在这些被动接口之间，就绝对不会建立邻居关系了。下面的输出演示了在路由器上如何将两个开启了EIGRP的接口，配置为被动模式：
+思科IOS软件允许管理员使用**路由器配置命令`passive-interface [name|default]`**, 将命名的接口（the named interface）或把所有接口，指定为被动模式。从而不会在这些被动接口上发出EIGRP数据包; 在这些被动接口之间，就绝对不会建立邻居关系了。下面的输出演示了在路由器上如何将两个开启了EIGRP的接口，配置为被动模式：
 
 ```
 R1(config)#interface Loopback0
@@ -2448,7 +2448,7 @@ R1(config-router)#no passive-interface Serial0/0
 R1(config-router)#exit
 ```
 
-这里可以又使用`show ip protocols`命令，来查看哪些接口是处于EIGRP下的被动模式的，如下所示：
+这里可以再度使用`show ip protocols`命令，来查看哪些接口是处于EIGRP下的被动模式的，如下所示：
 
 ```
 R1#show ip protocols
@@ -2481,7 +2481,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-这里通过使用`passive-interface default`命令，多个被动接口的配置就得以简化，并减少了代码。而当其与`no passive-interface Serial0/0`一起使用时，EIGRP数据包仍旧在接口`Serial0/0`上发出，从而允许EIGRP邻居关系通过此接口建立起来，如下所示：
+这里通过使用`passive-interface default`命令，令到多个被动接口的配置就得以简化，并减少了代码。而当其与`no passive-interface Serial0/0`一起使用时，EIGRP数据包仍旧在接口`Serial0/0`上发出，从而允许EIGRP邻居关系通过此接口建立起来，如下所示：
 
 ```
 R1#show ip eigrp neighbors
@@ -2495,9 +2495,9 @@ H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
 
 **Understanding the Use of the EIGRP Router ID**
 
-与OSPF使用路由器ID（the router ID, RID）来识别OSPF邻居不同，EIGRP的RID主要用途是阻止路由环回的形成。RID被用于识别那些外部路由的起源路由器（the primary use of the EIGRP RID is to prevent routing loops. The RID is used to identify the originating router for external routes）。假如接收到一条有着与本地路由器一致的RID的外部路由，那么就会将其丢弃。设计此特性的目的，就是降低那些其中有着多台自治系统边界路由器（AS Boundary Router, ASBR）正进行路由重分发，的网络中出现路由环回的可能性。
+与OSPF使用路由器ID（the router ID, RID）来识别OSPF邻居不同，**EIGRP的RID主要用途是阻止路由环回的形成**。RID被**用于识别那些外部路由的起源路由器**（the primary use of the EIGRP RID is to prevent routing loops. The RID is used to identify the originating router for external routes）。假如接收到一条有着与本地路由器一致的RID外部路由，那么就会将其丢弃。设计此特性的目的，就是降低那些其中有着多台**自治系统边界路由器**（AS Boundary Router, ASBR）正进行路由重分发的网络中，出现路由环回的可能性。
 
-在确定RID时，EIGRP将选取路由器上所配置的IP地址中最高的。但如果在路由器上配置了环回接口，那么将优先选取这些接口，因为环回接口是路由器上存在的最稳定接口。除非将EIGRP进程移除，那么RID随后将绝不会变化了（也就是，假如RID是手动配置的情况）。RID将始终会在EIGRP拓扑表中列出，如下所示：
+在确定RID时，**EIGRP将选取路由器上所配置的IP地址中最高的作为RID**。**但如果在路由器上配置了环回接口，那么将优先选取这些接口，因为环回接口是路由器上存在的最稳定接口**。除非将EIGRP进程移除，那么RID随后就绝不会变化了（也就是，假如RID是手动配置的情况）。RID始终会在EIGRP拓扑表中列出，如下所示：
 
 ```
 R1#show ip eigrp topology
@@ -2516,9 +2516,9 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
 
-> **注意**：虽然对于那些只有一个接口的路由器来说，路由器ID与邻居ID是一样哦，但明白这里的路由器ID与邻居ID会有所不同，是重要的（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
+> **注意**：这里重要的是掌握到RID与邻居ID通常是不同的，然而这对于那些比如只有一个接口的路由器可能不适用。（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
 
-EIGRP的路由器ID（RID）是通过路由器配置命令`eigrp router-id [address]`进行配置的。在输入了此命令后，RID就以EIGRP拓扑表中的这个新地址，得以更新了。为对此进行演示，这里就以查看路由器上的当前RID开始，如下面的拓扑表中所指出的：
+EIGRP的路由器ID（RID）是通过路由器配置命令`eigrp router-id [address]`进行配置的。在输入了此命令后，RID就以这个新地址，在EIGRP的拓扑表中得以更新。为对此进行演示，这里就以查看路由器上的当前RID开始，如下面的拓扑表中所指出的：
 
 ```
 R1#show ip eigrp topology
@@ -2555,7 +2555,7 @@ Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
 - 不能（无法）将RID配置为`0.0.0.0`
 - 不能（无法）将RID配置为`255.255.255.255`
 
-现在，源自该路由器的所有外部路由，都包含了这个EIGRP路由器ID了。在下面的邻居路由器`R2`输出中，就可对此进行验证：
+现在，源自该路由器的所有外部路由，就都包含了这个EIGRP路由器ID了。在下面的邻居路由器`R2`输出中，就可对此进行验证：
 
 ```
 R2#show ip eigrp topology 192.168.254.0/24
