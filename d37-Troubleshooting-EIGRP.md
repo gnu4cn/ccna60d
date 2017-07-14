@@ -218,7 +218,7 @@ Se0/0              0        0/0        0        0/1             0           0
 ![EIGRP的自动汇总](images/3701.png)
 *图 37.1 -- EIGRP的自动汇总*
 
-参考图37.1中所演示的图示，子网`150.1.1.0/30`将`10.1.1.0/24`与`10.2.2.0/24`分离开来。在开启了自动汇总时，路由器R1与R2都将相应地将`10.1.1.0/24`与`10.2.2.0/24`汇总到`10.0.0.0/8`。该汇总路由将以5的管理距离及下一跳接口`Null0`，安装到路由表中。此较低的管理距离值，将阻止两台路由器对来自其它路由器的该`10.0.0.0/8`汇总的接收与安装，如下面的输出所示：
+参考图37.1中所演示的图示，子网`150.1.1.0/30`将`10.1.1.0/24`与`10.2.2.0/24`分离开来。在开启了自动汇总时，路由器`R1`与`R2`都将相应地把`10.1.1.0/24`与`10.2.2.0/24`汇总到`10.0.0.0/8`。该汇总路由将以`5`的管理距离及下一跳接口`Null0`，被安装到路由表中。此较低的管理距离值，将阻止两台路由器对来自其它路由器的该`10.0.0.0/8`汇总的接收与安装，如下面的输出所示：
 
 ```
 R2#debug eigrp fsm
@@ -237,7 +237,7 @@ R2#
 
 在上面的调试输出中，本地路由器从邻居`150.1.1.1`处接收到了有着路由度量值`156160/128256`的`10.0.0.0/8`路由。但由于汇总操作，弥散更新算法本地也有着该相同路由，且该本地路由有着`128256/0`的路由度量值。因此安装到路由表中的是本地路由，而不是接收到的，因为本地路由有着更好的度量值。此情形在路由器R1上同样适用，R1将会把它本地的`10.0.0.0/8`路由安装到RIB（Route Information Base, 路由信息库）中。结果就是两台路由器都无法`ping`到对方的`10.x.x.x`子网。为解决此问题，就应在两台路由器上都使用`no auto-summary`命令，关闭自动汇总，从而允许这些具体路由条目得以通告出去。
 
-EIGRP路由器ID（RID）的主要用途，就是阻止路由环回的形成。RID用于识别外部路由的始发路由器（The RID is used to identify the originating router for external routes）。加入接收到一条有着与本地路由器相同RID的外部路由，该路由将被丢弃。不过重复的路由器ID，却并不会影响到任何内部EIGRP路由。设计此特性的目的，就是降低那些在多于一台的自治系统边界路由器（AS Boundary Router, ASBR）上进行着路由重分发的网络中，出现路由环回的可能性。在`show ip eigrp topology`命令的输出中，便可查看到始发路由器ID，如下所示：
+EIGRP路由器ID（RID）的主要用途，就是阻止路由环回的形成。RID用于识别外部路由的始发路由器（The RID is used to identify the originating router for external routes）。假如接收到一条有着与本地路由器相同RID的外部路由，该路由将被丢弃。不过重复的路由器ID，却并不会影响到任何内部EIGRP路由。设计此特性的目的，就是降低那些有着多台自治系统边界路由器（AS Boundary Router, ASBR）进行路由重分发的网络出现路由环回的可能性。在`show ip eigrp topology`命令的输出中，便可查看到始发路由器ID（The primary use of the EIGRP router ID(RID) is to prevent routing loops. The RID is used to identify the originating router for external routes. If an external route is received with the same RID as the local router, the route will be discarded. However, duplicate RIDs do not affect any internal EIGRP routes. This feature is designed to reduce the possibility of routing loops in networks where route redistribution is being performed on more than on ASBR. The originating RID can be viewed in the output of the `show ip eigrp topology` command），如下所示：
 
 ```
 R1#show ip eigrp topology 2.2.2.2 255.255.255.255
@@ -259,3 +259,28 @@ IP-EIGRP (AS 1): Topology entry for 2.2.2.2/32
         External protocol is Connected, external metric is 0
         Administrator tag is 0 (0x00000000)
 ```
+
+如怀疑存在潜在的RID重复故障，就可以对EIGRP事件日志中的事件进行检查，看看是否有任何路由因为RID重复而被拒绝。下面的示例演示了该EIGRP事件日志的输出样例，显示出一些因为从某台与本地路由器有着相同RID的路由器接收，而被弹回的路由（If you suspect a potential duplicate RID issue, you can check the events in the EIGRP event log to see if any routes have been rejected because of a duplicate RID. The following illustrates a sample output of the EIGRP event log, showing routes that have been rejected because they were received from a router with the same RID as the local router）:
+
+```
+R2#show ip eigrp events
+Event information for AS 1:
+...
+[Truncated Output]
+21   03:05:39.747 Ignored route, neighbor info: 10.0.0.1 Serial0/0
+22   03:05:39.747 Ignored route, dup router: 150.1.1.254
+23   03:05:06.659 Ignored route, metric: 192.168.2.0 284160
+24   03:05:06.659 Ignored route, neighbor info: 10.0.0.1 Serial0/0
+25   03:05:06.659 Ignored route, dup router: 150.1.1.254
+26   03:04:33.311 Ignored route, metric: 192.168.1.0 284160
+27   03:04:33.311 Ignored route, neighbor info: 10.0.0.1 Serial0/0
+28   03:04:33.311 Ignored route, dup router: 150.1.1.254
+...
+[Truncated Output]
+```
+
+上述问题的可能解决办法，就是修改邻居路由器`10.0.0.1`上的RID，或本地路由器的RID，取决于到底哪一个是被不正确配置的（The resolution for the solution above would be to change the RID on neighbour router `10.0.0.1` or on the local router, depending upon which one of the two has been incorrectly configured）。
+
+
+
+
