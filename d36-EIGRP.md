@@ -2174,7 +2174,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 ![路由汇总中的次优路由问题](images/3619.png)
 *图 36.19 -- 路由汇总带来的次优路由问题，Suboptimal Routing with Route Summarisation*
 
-默认情况下，在EIGRP的一条汇总路由创建出来后，路由器就将该汇总地址以其所有具体路由度量值中最小的度量值进行通告。也就是说，汇总地址将有着最低的、包含在汇总地址建立中最具体的路由度量值（By default, when a summary route is created for EIGRP, the router advertises the summary address with a metric equal to the minimum of all the more specific routes. In other words, the summary address will have the same metric as the lowest, most specific route included in the creation of the summary address）。
+默认情况下，在EIGRP的一条汇总路由创建出来后，路由器就将该汇总地址以其中所有更具体路由度量值中最小的度量值进行通告。也就是说，汇总地址将有着包含在汇总地址建立中最低的、最具体路由的度量值（By default, when a summary route is created for EIGRP, the router advertises the summary address with a metric equal to the minimum of all the more specific routes. In other words, the summary address will have the same metric as the lowest, most specific route included in the creation of the summary address）。
 
 参考图36.19中所演示的网络拓扑，路由器`R2`与`R3`都正将汇总地址`10.0.0.0/8`通告给`R1`。此汇总是有更具体的`10.4.4.0/24`与`10.6.6.0/24`前缀构成的。该汇总地址所使用的度量值，在两台路由器上分别如下表36.5那样计算出来：
 
@@ -2185,7 +2185,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 | `R2` | `5+5=10` | `5+45+5+5=60` |
 | `R3` | `5+45+5=55` | `5+5+5=15` |
 
-基于表36.5中的度量值计算, 对于从路由器`R1`起始的流量，`R2`明确地有着到`10.4.4.0`的最低度量值路径，同时`R3`有着对于起始自`R1`、到`10.6.6.0/24`网络流量的最低度量值路径。但在汇总地址`10.0.0.0/8`被通告到路由器`R1`时，该汇总地址使用了构成该汇总路由的所有路由中最低最小度量值。在这个示例中，路由器`R2`以度量值10, 将该汇总地址通告给`R1`。`R3`以同样逻辑，以15的度量值将该汇总路由通告给`R1`。
+基于表36.5中的度量值计算, 对于从路由器`R1`起始的流量，`R2`显然有着到`10.4.4.0`的最低度量值路径，同时`R3`有着对于起始自`R1`、到`10.6.6.0/24`网络流量的最低度量值路径。但在汇总地址`10.0.0.0/8`被通告到路由器`R1`时，该汇总地址使用了构成该汇总路由的所有路由中最低最小度量值。在这个示例中，路由器`R2`以度量值`10`, 将该汇总地址通告给`R1`。`R3`以同样逻辑，以`15`的度量值将该汇总路由通告给`R1`。
 
 在路由器`R1`从`R2`及`R3`处接收到两条汇总路由后，它将使用最低的度量值来转发那些以包含在大的（主要）有类网络`10.0.0.0/8`中的那些子网为目的的流量。下图36.20对此进行了演示：
 
@@ -2194,7 +2194,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 参考图36.20, 可清楚地发现，尽管这对于`10.4.4.0/24`子网来说，是一条最优路径，而对于`10.6.6.0/24`子网却是一条次优路径。因此，**在网络中部署路由汇总时，先弄清楚网络拓扑是非常重要的**。
 
-回到采用EIGRP时的手动路由汇总的配置上，下图36.21所演示的网络拓扑，将用于对手动路由汇总及路由泄露特性的演示：
+回到采用EIGRP时的手动路由汇总的配置上，下图36.21所演示的网络拓扑，将用于对手动路由汇总及**路由泄露特性**（route leaking）的演示：
 
 ![EIGRP手动路由汇总的配置](images/3621.png)
 *图 36.21 -- EIGRP手动路由汇总的配置，Configuring EIGRP Manual Route Summarisation*
@@ -2210,7 +2210,7 @@ D       10.1.1.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
 ```
 
-为将路由器`R1`上的这些路由条目进行汇总并通告出一条单一的具体（译者注，这里可能是“汇总”，而不是具体(specific)）路由，就要在`R1`的`Serial0/0`接口是上应用如下配置：
+为将路由器`R1`上的这些路由条目进行汇总并通告出一条单一的特定（译者注，这里可能是“汇总”，而不是具体(specific)）路由，就要在`R1`的`Serial0/0`接口上应用如下配置：
 
 ```
 R1(config)#interface Serial0/0
