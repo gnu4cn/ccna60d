@@ -296,4 +296,14 @@ Event information for AS 1:
 | `R1`-`R3`-`R5` | `R3` | 10 | 30 |
 | `R1`-`R4`-`R5` | `R4` | 15 | 25 |
 
+`R1`已被配置为在所有路径上进行负载均衡，同时命令`variance 2`被加入到路由器配置。这就令到EIGRP在至多两倍于后继路由度量值的路径上进行负载均衡，给予默认的度量值计算，这将包含到所有三条的路径。但尽管有着此配置，仍只有两条路径将被安装及使用（`R1` has been configured to load share across all paths and the `variance 2` command is added to the router configuration. This allow EIGRP to load share across paths with up to twice the metric of the Successor route, which would include all three paths based on the default metric calculation. However, despite this configuration, only two paths will be installed and used）。
+
+首先，基于经由`R4`的路径的可行距离，也就是`25`, `R1`将选择该路由作为后继路由。该路由将被放入到IP路由表以及EIGRP的拓扑表中。而邻居`R3`到`192.168.100.0/24`网络的度量值，也被称作报告的距离或通告的距离，是`10`。该度量值低于可行距离，因此该路由是满足可行条件的，而被放入到EIGRP的拓扑表。
+
+但邻居`R2`到`192.168.100.0/24`网络的度量值却是`30`。该值要比可行距离`25`要高。那么该路由就不满足可行条件，而不被当作是一条可行后继。但该路由仍将被放入到EIGRP的拓扑表。不过就算该路径的度量值是处于由EIGRP路由器配置命令`variance 2`所指定的范围中，其也不会被用于负载分配。在这类情形中，可考虑使用**EIGRP的偏移清单**，来确保所有路由都被加以考虑（In such situations, consider using **EIGRP offset lists** to ensure that all routes are considered）。
+
+##路由通告的故障排除
+
+**Troubleshooting Route Advertisement**
+
 
