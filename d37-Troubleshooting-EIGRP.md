@@ -279,7 +279,7 @@ Event information for AS 1:
 [Truncated Output]
 ```
 
-上述问题的可能解决办法，就是修改邻居路由器`10.0.0.1`上的RID，或本地路由器的RID，这取决于到底哪一个是被不正确配置的（The resolution for the solution above would be to change the RID on neighbour router `10.0.0.1` or on the local router, depending upon which one of the two has been incorrectly configured）。
+上述问题的可能解决办法，就是修改邻居路由器`10.0.0.1`上的RID，或本地路由器的RID，这取决于到底哪一个是不被正确配置的（The resolution for the solution above would be to change the RID on neighbour router `10.0.0.1` or on the local router, depending upon which one of the two has been incorrectly configured）。
 
 最后，重要的是记住EIGRP不会将那些未能满足可行条件的路由，安装到路由表中。就算在本地路由器上配置了`variance`命令，这一点也是适用的。作为一个常见误解，就是执行`variance`命令，就会令到EIGRP在那些路由度量值为后继路由度量值`x`倍的路径上进行负载分配了（Finally, it is important to remember that EIGRP will not install routes into the routing table if they do not meet the Feasibility Condition. This is true even if the `variance` command has been configured on the local router. It is a common misconception that issuing the `variance` command will allow EIGRP to load share over any paths whose route metric is `x` times that of the successor metric）。比如请考虑下图37.2中所演示的拓扑:
 
