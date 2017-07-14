@@ -1826,10 +1826,10 @@ R2#show ip route eigrp
 D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 ```
 
-这种默认行为在一些基本的网络，比如上图36.15中演示的网络中，运作不错。但其可能在不连续网络--那种由两个分离的主要网络所组成的网络中，如下图36.16中所演示的，有着不利影响（However, it can have an adverse impact in a discontiguous network, which comprises a major network that separates another major network）：
+这种默认行为在一些基本的网络，比如上图36.15中演示的网络中，运作不错。但其可能在**不连续网络**--那种由两个分离的主要网络所组成的网络中，如下图36.16中所演示的，有着不利影响（However, it can have an adverse impact in **a discontiguous network**, which comprises a major network that separates another major network）：
 
 ![不连续网络](images/3616.png)
-*图 36.16 -- 不连续网络*
+*图 36.16 -- 不连续网络, Discontiguous Network*
 
 参考图36.16中所演示的图例，一个大的`150.1.0.0/16`网络将这里的两个大的`10.0.0.0/8`网络分开了。在开启自动汇总时，路由器`R1`与`R2`将把`10.1.1.0/24`及`10.2.2.0/24`子网，相应地都汇总到`10.0.0.0/8`地址。该汇总路由将以下一跳接口`Null0`，被安装（到路由表中）。而`Null0`接口又是一个“数位垃圾桶(bit-bucket)”。所有发送到此接口的数据包，就将实实在在地被丢弃。
 
@@ -2158,21 +2158,21 @@ Sending 5, 100-byte ICMP Echos to 10.3.3.1, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 ```
 
-与EIGRP的自动汇总不同，EIGRP的手动路由汇总，是在接口级别使用接口配置命令`ip summary-address eigrp [ASN] [network] [mask] [distance] [leak-map <name>]`，进行配置和部署的。默认情况下，分配给EIGRP汇总地址的默认**管理距离**值为`5`（By default, an EIGRP summary address is assigned a default **administrative distance** value of `5`）。可通过由`[distance]`关键字所指定的数值，从而指定所需的管理距离值，来改变此默认分配的值。
+与EIGRP的自动汇总不同，**EIGRP的手动路由汇总，是在接口级别使用接口配置命令`ip summary-address eigrp [ASN] [network] [mask] [distance] [leak-map <name>]`，进行配置和部署的**。默认情况下，分配给EIGRP汇总地址的默认**管理距离**值为`5`（By default, an EIGRP summary address is assigned a default **administrative distance** value of `5`）。可通过由`[distance]`关键字所指定的数值，从而指定所需的管理距离值，来改变此默认分配的值。
 
-默认在配置了手动路由汇总时，EIGRP就不会对包含在汇总网络条目中的那些更具体路由条目进行通告了。可将关键字`[leak-map <name>]`配置为允许EIGRP路由的泄露，有了此特性，EIGRP就允许那些指定的具体路由条目，与汇总地址一起得以通告。而那些未在泄露图谱中指定的条目，则仍然会被压减（By default, when manual route summarisation is configured, EIGRP will not advertise the more specific route entries that fall within the summarised network entry. The `[leak-map <name>]` keyword can be configured to allow EIGRP route leaking, wherein EIGRP allows specified specific route entries to be advertised in conjunction with the summary address. Those entries that are not specified in the leak map are still suppressed）。
+默认在配置了手动路由汇总时，EIGRP将不会就包含在已汇总网络条目中的那些更具体路由条目，进行通告了。可将关键字`[leak-map <name>]`配置为允许EIGRP路由泄漏，有了此特性，EIGRP就允许那些指定的具体路由条目，与汇总地址一起得以通告。而那些未在泄露图谱中指定的条目，则仍然会被压减（By default, when manual route summarisation is configured, EIGRP will not advertise the more specific route entries that fall within the summarised network entry. The `[leak-map <name>]` keyword can be configured to allow EIGRP route leaking, wherein EIGRP allows specified specific route entries to be advertised in conjunction with the summary address. Those entries that are not specified in the leak map are still suppressed）。
 
-在对路由进行手动汇总时，重要的是要足够具体（When mannually summarising routes, it is important to be as specific as possible）。否则，所作出的配置就会导致与先前所讲到的不连续网络示例中类似的流量黑洞问题。下图36.18中对此概念进行了演示：
+在对路由进行手动汇总时，重要的是要足够具体（When mannually summarising routes, it is important to be as specific as possible）。否则，所作出的配置将导致与先前所讲到的不连续网络示例中类似的流量黑洞问题。下图36.18中对此概念进行了演示：
 
 ![不良路由汇总下的流量黑洞问题](images/3618.png)
 *图 36.18 -- 不良路由汇总下的流量黑洞问题，Black-Holing traffic with Poor Route Summarisation*
 
-参考图36.18, 假如在两台路由器上都手动配置了一个`10.0.0.0/8`的汇总地址，那么更为具体的那些前缀就被压减掉了。因为这里EIGRP也将该汇总地址，以`Null0`的下一跳接口，安装到EIGRP的拓扑表及IP路由表，那么在此网络中将经历与不连续网络中自动汇总同样的问题，两台路由器上相应子网将无法与对方联系上。
+参考图36.18, 假如在两台路由器上都手动配置了一个`10.0.0.0/8`的汇总地址，那么更为具体的那些前缀就被压减掉了。因为同时EIGRP将一条到该汇总地址的路由，与下一跳接口`Null0`，安装到EIGRP的拓扑表及IP路由表，那么在此网络中将经历与不连续网络中自动汇总同样的问题，两台路由器上相应子网将无法与对方联系上。
 
 此外，同样重要的是需要明白，如网络中有着不良部署，手动汇总还将导致网络的次优路由问题（suboptimal routing）。下图36.19对此进行了演示：
 
 ![路由汇总中的次优路由问题](images/3619.png)
-*图 36.19 -- 路由汇总中的次优路由问题，Suboptimal Routing with Route Summarisation*
+*图 36.19 -- 路由汇总带来的次优路由问题，Suboptimal Routing with Route Summarisation*
 
 默认情况下，在EIGRP的一条汇总路由创建出来后，路由器就将该汇总地址以其所有具体路由度量值中最小的度量值进行通告。也就是说，汇总地址将有着最低的、包含在汇总地址建立中最具体的路由度量值（By default, when a summary route is created for EIGRP, the router advertises the summary address with a metric equal to the minimum of all the more specific routes. In other words, the summary address will have the same metric as the lowest, most specific route included in the creation of the summary address）。
 
