@@ -133,7 +133,7 @@ Routing Protocol is “eigrp 150”
 
 与OSPF使用到**本地意义上的进程ID**不同, 在与其它路由器建立邻居关系时，EIGRP要求同样的自治系统编号（除开其它变量之外）。对此方面故障的排除，是通过对设备配置进行比较，并确保那些将要建立邻居关系的路由器之间的自治系统编号（除开其它变量）一致即可。作为邻居处于不同自治系统的一个良好指标，就是即使路由器之间有着基本的IP连通性的情况下，仍然缺少双向Hello数据包。这一点可通过使用`show ip eigrp traffic`命令予以验证，该命令的输出在接下来的小节中有演示（unlike OSPF, which uses **a locally significant process ID**, EIGRP requires the same ASN(among other variables) when establishing neighbour relationships with other routers. Troubleshoot such issues by comparing configurations of devices and ensuring that the ASN(among other variables) is consistent between routers that should establish neighbour relationships. A good indicator that neighbours are in a different AS would be a lack of bidirectional Hellos, even in the presence of basic IP connectivity between the routers. This can be validated using the `show ip eigrp traffic` command, the output of which is illustrated in the section that follows）。
 
-配置不当的访问控制清单（ACLs）与其它过滤器（filters）同样也是造成路由器建立EIGRP邻居关系失败的常见原因。这时对路由器配置和其它中间设备进行检查，以确保EIGRP或多播数据包未被过滤掉。要用到的一个非常有用的故障排除命令，就是`show ip eigrp traffic`了。此命令提供了有关所有EIGRP数据包的统计信息。比如这里假设已经对基本的连通性（能`ping`通）及两台设备之间的配置进行了验证，但EIGRP邻居关系仍然没有建立。那么在此情况下，就可以在本地设备上开启调试（enabling debugging on the local device）之前，使用该命令检查看看路由器是否有Hello数据包的交换，如下所示：
+**配置不当的访问控制清单（ACLs）与其它过滤器（filters）同样也是造成路由器建立EIGRP邻居关系失败的常见原因**。这时就要对路由器配置和其它中间设备进行检查，以确保EIGRP或多播数据包未被过滤掉。要用到的一个非常有用的故障排除命令，就是`show ip eigrp traffic`了。此命令提供了所有EIGRP数据包的统计信息。比如假设这里已经对基本的连通性（能`ping`通）及两台设备之间的配置进行了验证，但EIGRP邻居关系仍然没有建立。那么在此情况下，就可以在本地设备上开启调试（enabling debugging on the local device）之前，使用该命令检查看看路由器是否有Hello数据包的交换，如下所示：
 
 ```
 R2#show ip eigrp traffic
@@ -151,7 +151,7 @@ IP-EIGRP Traffic Statistics for AS 2
   Eigrp input queue: 0/2000/0/0 (current/max/highest/drops)
 ```
 
-在上面的输出中，注意该本地路由器尚未收到任何的Hello数据包，虽然其已发出144个Hello数据包。假设已经验证了两台设备之间有着连通性，以及各自配置，那么就应对本地路由器与中间设备（在适用时）上的访问控制清单配置进行检查，以确保EIGRP或多播数据包未被过滤掉。比如，可能发现有着一条ACL配置为拒绝所有D类与E类流量，而放行所有其它流量，譬如下面的ACL：
+在上面的输出中，注意虽然该本地路由器已发出144个Hello数据包, 但其尚未收到任何的Hello数据包。假设已验证了两台设备之间有着连通性及各自配置，那么就应对本地路由器与中间设备（在适用时）上的访问控制清单配置进行检查，以确保EIGRP或多播数据包未被过滤掉。比如，可能发现有着一条ACL配置为拒绝所有D类与E类流量，而放行所有其它流量，譬如下面的ACL：
 
 ```
 R2#show ip access-lists
@@ -163,7 +163,7 @@ Extended IP access list 100
 
 物理及数据链路层的故障，以及这些故障对路由协议及其它流量造成影响的方式，已在早先的课程模块中有所说明。对这些故障的排除，可以使用`show interfaces`、`show interfaces counters`、`show vlan`及`show spanning-tree`等命令，以及其它一些在前面课程模块（[物理及数据链路层故障排除](d15-Layer_1-and-Layer_2-Troubleshooting.html)）中讲到的命令。这里为了避免重复，就不再重申那些物理及数据链路层故障排除步骤了。
 
-最后，常见的认证配置错误，包含了在配置密钥链时不同的密钥ID，以及指定了不同或不匹配的口令等（Finally, common authentication configuration mistakes include using different key IDs when configuring key chains and specifying different or mismatched password）。当在某个接口下开启了认证时，EIGRP邻居关系将被重置并被重新初始化。假如在部署认证之后，原先已建立的邻居关系未能再度建立，那么就要通过在路由器上观察运行配置，或使用`show key chain`及`show ip eigrp interfaces detail [name]`命令，来对各项认证参数进行检查。下面是由`show key chain`命令所打印出来的示例输出：
+最后，一些常见的认证配置错误，包括在配置密钥链时使用了不同密钥ID，以及指定了不同或不匹配的口令等（Finally, common authentication configuration mistakes include using different key IDs when configuring key chains and specifying different or mismatched password）。在某个接口下开启了认证时，EIGRP邻居关系将被重置并被重新初始化。如在部署认证之后，原本已建立的邻居关系未能再度建立，那么就要通过在路由器上观察运行配置，或使用`show key chain`及`show ip eigrp interfaces detail [name]`命令，来对各项认证参数进行检查。下面是由`show key chain`命令所打印出来的示例输出：
 
 ```
 R2#show key chain
@@ -204,16 +204,16 @@ Se0/0              0        0/0        0        0/1             0           0
 
 **Troubleshooting Route Installation**
 
-在一些故障实例中，可能会注意到EIGRP未有将某些路由安装到路由表中。造成此类问题的主要原因，就是某些与协议失败相对的错误配置（For the most part, this is typically due to some misconfigurations versus a protocol failure）。路由安装失败的一些常见原因，有以下这些：
+在一些故障实例中，可能会注意到EIGRP未有将某些路由安装到路由表中。造成此类问题的主要原因，就是某些与协议失败相对应的错误配置（For the most part, this is typically due to some misconfigurations versus a protocol failure）。路由安装失败的一些常见原因如下：
 
 - 经由另一协议收到了有着更低管理距离的相同路由，The same route is received via another protocol with a lower administrative distance
 - EIGRP汇总，EIGRP summarisation
 - EIGRP域中出现了重复的路由器ID，Duplicate router IDs are present within the EIGRP domain
 - 这些路由未能满足可行条件，The routes do not meet the Feasibility Condition
 
-管理距离这一概念，被用于判定路由源的可靠性（The administrative distance(AD) concept is used to determine how reliable the route source is）。较低的管理距离，就意味着路由源更为可靠。假如从三种不同协议接收到同一条路由，那么有着最低管理距离的那条路由，将被安装到路由表中。在使用EIGRP时，要记住对于汇总、内部与外部路由（summary, internal, and external routes），EIGRP分别使用了不同的管理距离值。而假如同时运行着多种路由协议，这时就要确保对那些管理距离数值，以及它们对路由表的生成有何种影响有所掌握。这在进行多种路由协议之间路由重分发时，尤其要加以关注。
+管理距离这一概念，被用于确定出路由源的可靠性（The administrative distance(AD) concept is used to determine how reliable the route source is）。较低的管理距离，就意味着路由源更为可靠。假如从三种不同协议接收到同一条路由，那么有着最低管理距离的那条路由，将被安装到路由表中。在使用EIGRP时，要记住对于汇总、内部及外部三种路由（summary, internal, and external routes），EIGRP分别使用了不同的管理距离值。而假如同时运行着多种路由协议，这时就要确保对各种路由协议的管理距离数值，以及它们对路由表的生成有何种影响有所掌握。这在进行多种路由协议之间路由重分发时，尤其要加以关注（If you are running multiple routing protocols, it is important to ensure that you understand AD values and how they impact routing table population. This is especially of concern when you are Redistributing routes between multiple routing protocols）。
 
-默认情况下，EIGRP在有类边界上进行自动汇总，并创建出一条指向`Null0`接口的汇总路由（By default, EIGRP automatically summarises at classful boundaries and creates a summary route pointing to the Null0 interface）。由于该汇总是以默认的管理距离数值5安装到路由表中的，那么所有其它类似的动态接收到的路由，都不会被安装到路由表中了。比如考虑下图37.1中所演示的拓扑：
+默认情况下，EIGRP在有类边界上进行自动汇总，并创建出一条指向`Null0`接口的汇总路由。由于该汇总是以默认的管理距离数值`5`安装到路由表中的，因此所有其它类似的动态接收到的路由，就都不会被安装到路由表中了（By default, EIGRP automatically summarises at classful boundaries and creates a summary route pointing to the `Null0` interface. Because the summary is installed with a default AD value of `5`, any other similar dynamically received routes will not be installed into the routing table）。比如考虑下图37.1中所演示的拓扑：
 
 ![EIGRP的自动汇总](images/3701.png)
 *图 37.1 -- EIGRP的自动汇总*
