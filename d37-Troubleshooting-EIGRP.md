@@ -279,8 +279,21 @@ Event information for AS 1:
 [Truncated Output]
 ```
 
-上述问题的可能解决办法，就是修改邻居路由器`10.0.0.1`上的RID，或本地路由器的RID，取决于到底哪一个是被不正确配置的（The resolution for the solution above would be to change the RID on neighbour router `10.0.0.1` or on the local router, depending upon which one of the two has been incorrectly configured）。
+上述问题的可能解决办法，就是修改邻居路由器`10.0.0.1`上的RID，或本地路由器的RID，这取决于到底哪一个是被不正确配置的（The resolution for the solution above would be to change the RID on neighbour router `10.0.0.1` or on the local router, depending upon which one of the two has been incorrectly configured）。
 
+最后，重要的是记住EIGRP不会将那些未能满足可行条件的路由，安装到路由表中。就算在本地路由器上配置了`variance`命令，这一点也是适用的。作为一个常见误解，就是执行`variance`命令，就会令到EIGRP在那些路由度量值为后继路由度量值`x`倍的路径上进行负载分配了（Finally, it is important to remember that EIGRP will not install routes into the routing table if they do not meet the Feasibility Condition. This is true even if the `variance` command has been configured on the local router. It is a common misconception that issuing the `variance` command will allow EIGRP to load share over any paths whose route metric is `x` times that of the successor metric）。比如请考虑下图37.2中所演示的拓扑:
 
+![掌握可行条件](images/3702.png)
+*图 37.2 -- 掌握可行条件*
+
+图37.2展示了一个包含了多个从`R1`到子网`192.168.100.0/24`度量值的基本网络。参考图37.2, 下表37.1给出了在`R1`上看到的网络`192.168.100.0/24`的那些报告的距离与可行距离：
+
+*表37.1 -- `R1` 的路径与距离*
+
+| 网络路径（Network Path） | `R1`的邻居（`R1` Neighbour） | 邻居度量值（Neighbour Metric, RD） | `R1`的可行距离（`R1` Feasible Distance） |
+| ------ | ------ | ------: | ------: |
+| `R1`-`R2`-`R5` | `R2` | 30 | 35 |
+| `R1`-`R3`-`R5` | `R3` | 10 | 30 |
+| `R1`-`R4`-`R5` | `R4` | 15 | 25 |
 
 
