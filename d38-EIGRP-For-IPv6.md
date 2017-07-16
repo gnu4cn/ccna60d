@@ -41,4 +41,6 @@ EIGRPv6保留了EIGRPv4中的大部分相同基础的核心功能（For the most
 
 **Cisco IOS Software EIGRPv4 and EIGRPv6 Configuration Differences**
 
+思科IOS软件中对EIGRPv4与EIGRPv4的配置上，有着一些显著的差异。那么第一个显著差异就在于开启受路由的协议方式的不同。对于EIGRPv4来说，需要使用全局配置命令`router eigrp [ASN]`来开启EIGRPv4的路由，并指定该EIGRPv4自治系统编号。而在配置EIGRPv6时，则是使用`ipv6 router eigrp [ASN]`来开启EIGRPv6并指定出**本地路由器ASN**了（There are some notable differences in the configuration of EIGRPv4 and EIGRPv6 in Cisco IOS software. The first notable difference is the way in which the routing protocol is enabled. For EIGRPv4, the `router eigrp [ASN]` global configuration command is required to enable EIGRPv4 routing and to specify the EIGRPv4 autonomous system number(ASN). When configuring EIGRPv6, the `ipv6 router eigrp [ASN]` global configuration command is used instead to enable EIGRPv6 and to specify **the local router ASN**）。
+
 
