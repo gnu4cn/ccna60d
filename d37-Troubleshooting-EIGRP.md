@@ -328,4 +328,107 @@ Event information for AS 1:
 ![EIGRP的汇总](images/3704.png)
 *图37.4 -- EIGRP的汇总*
 
-参考图37.4, 所有路由器都位于EIGRP自治系统`150`中。`R2`正经由EIGRP对`10.1.1.0/24`、`10.1.2.0/24`与`10.1.3.0/24`子网进行通告。而`R1`也有着一个分配给子网`10.1.0.0/24`的接口，其就应相应地将这些子网通告给`R3`（`R1`, which also has an interface assigned to the `10.1.0.0/24` subnet, should in turn advertise these subnets to `R3`）。
+参考图37.4, 所有路由器都位于EIGRP自治系统`150`中。`R2`正经由EIGRP对`10.1.1.0/24`、`10.1.2.0/24`与`10.1.3.0/24`子网进行通告。而`R1`也有着一个分配给子网`10.1.0.0/24`的接口，其就应相应地将这些子网通告给`R3`（`R1`, which also has an interface assigned to the `10.1.0.0/24` subnet, should in turn advertise these subnets to `R3`）。路由器`R2`上的EIGRP配置已作如下部署：
+
+```
+R2(config)#router eigrp 150
+R2(config-router)#network 10.1.1.0 0.0.0.255
+R2(config-router)#network 10.1.2.0 0.0.0.255
+R2(config-router)#network 10.1.3.0 0.0.0.255
+R2(config-router)#network 172.16.1.0 0.0.0.3
+R2(config-router)#no auto-summary
+R2(config-router)#exit
+```
+
+而`R1`上的EIGRP则是部署如下：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#network 10.1.0.0 0.0.0.255
+R1(config-router)#network 172.16.0.0 0.0.0.3
+R1(config-router)#network 172.16.1.0 0.0.0.3
+R1(config-router)#exit
+```
+
+最后，`R3`上的EIGRP配置部署如下：
+
+```
+R3(config)#router eigrp 150
+R3(config-router)#network 172.16.0.0 0.0.0.3
+R3(config-router)#no auto-summary
+R3(config-router)#exit
+```
+
+在此种配置之后，`R2`上的路由表显示出以下条目：
+
+```
+R2#show ip route eigrp
+     172.16.0.0/30 is subnetted, 2 subnets
+D       172.16.0.0 [90/2172416] via 172.16.1.1, 00:02:38, FastEthernet0/0
+     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
+D       10.0.0.0/8 [90/156160] via 172.16.1.1, 00:00:36, FastEthernet0/0
+```
+
+`R1`上的路由表显示以下条目：
+
+```
+R1#show ip route eigrp
+     172.16.0.0/16 is variably subnetted, 3 subnets, 2 masks
+D       172.16.0.0/16 is a summary, 00:01:01, Null0
+     10.0.0.0/8 is variably subnetted, 6 subnets, 2 masks
+D       10.1.3.0/24 [90/156160] via 172.16.1.2, 00:21:01, FastEthernet0/0
+D       10.3.0.0/24 [90/2297856] via 172.16.0.2, 00:00:39, Serial0/0
+D       10.1.2.0/24 [90/156160] via 172.16.1.2, 00:21:01, FastEthernet0/0
+D       10.1.1.0/24 [90/156160] via 172.16.1.2, 00:21:01, FastEthernet0/0
+D       10.0.0.0/8 is a summary, 00:01:01, Null0
+```
+
+最后，`R3`上的路由表显示以下条目：
+
+```
+R3#show ip route eigrp
+     172.16.0.0/30 is subnetted, 2 subnets
+D       172.16.1.0 [90/2172416] via 172.16.0.1, 00:21:21, Serial0/0
+     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+D       10.0.0.0/8 [90/2297856] via 172.16.0.1, 00:01:15, Serial0/0
+```
+
+因为在`R1`上汇总是开启的，就出现了EIGRP不再通告由**汇总路由**`10.0.0.0/8`所包含的那些具体子网的情况了（Because summarisation is enabled on `R1`, it appears that the EIGRP is no longer advertising the specific subnets encompassed by the `10.0.0.0/8` **summary**）。而要允许这些具体子网通过EIGRP得以通告，就应在`R1`上将汇总关闭，如下所示：
+
+```
+R1(config)#router eigrp 150
+R1(config-router)#no auto-summary
+R1(config-router)#exit
+```
+
+这么做之后，`R3`上的路由表将显示如下的路由条目：
+
+```
+R3#show ip route eigrp
+     172.16.0.0/30 is subnetted, 2 subnets
+D       172.16.1.0 [90/2172416] via 172.16.0.1, 00:00:09, Serial0/0
+     10.0.0.0/24 is subnetted, 5 subnets
+D       10.1.3.0 [90/2300416] via 172.16.0.1, 00:00:09, Serial0/0
+D       10.1.2.0 [90/2300416] via 172.16.0.1, 00:00:09, Serial0/0
+D       10.1.1.0 [90/2300416] via 172.16.0.1, 00:00:09, Serial0/0
+D       10.1.0.0 [90/2297856] via 172.16.0.1, 00:00:09, Serial0/0
+```
+
+同样的情况对于`R2`也将适用，`R2`上的路由表现在将显示出子网`10.1.0.0/24`与`10.3.0.0/24`的具体条目，如下所示：
+
+```
+R2#show ip route eigrp
+     172.16.0.0/30 is subnetted, 2 subnets
+D       172.16.0.0 [90/2172416] via 172.16.1.1, 00:00:10, FastEthernet0/0
+     10.0.0.0/24 is subnetted, 5 subnets
+D       10.3.0.0 [90/2300416] via 172.16.1.1, 00:00:10, FastEthernet0/0
+D       10.1.0.0 [90/156160] via 172.16.1.1, 00:00:10, FastEthernet0/0
+```
+
+##EIGRP路由故障的调试
+
+**Debugging EIGRP Routing Issues**
+
+在前面这些小节中我们把主要强调的方面放在那些`show`命令上的同时，此最后的小节将介绍一些还可以用于EIGRP故障排除的调试命令。不过还是要始终记住，调试是甚为处理器密集，而应作为随后手段加以应用的（也就是在应用并尝试了所有`show`命令及其它故障排除方法和工具之后。While primary emphasis has been placed on the use of `show` commands in the previous sections, this final section descibes some of the debugging commands that can also be used to troubleshoot EIGRP. Keep in mind, however, that debugging is very processor intensive and should be used only as a last resort(i.e., after all `show` commands and other troubleshooting methods and tools have been applied or attempted)）。
+
+
