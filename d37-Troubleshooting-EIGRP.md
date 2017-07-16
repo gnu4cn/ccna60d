@@ -559,3 +559,33 @@ packet
 [Truncated Output]
 ```
 
+##第37天问题
+
+**Day 37 Questions**
+
+1. Name at least three reasons for EIGRP neighbour relationships not forming.
+2. Which command can you use to verify EIGRP K values?
+3. Which command can you use to verify EIGRP packets statistics?
+4. Name at least two common reasons for EIGRP route installation failures.
+5. The administrative distance concept is used to determine how reliable the route source is. True or false?
+6. By default, EIGRP automatically summarises at classful boundaries and creates a summary route pointing to the Null0 interface. True or false?
+7. Which command can you can use to debug FSM events?
+8. Which command can you use to see the originating router ID of a specific prefix?
+9. Which command can you use to show the EIGRP event log?
+10. What is the best command to use when debugging various routing issues?
+
+
+## 第37天答案
+
+**Day 37 Answers**
+
+1. The neighbour routers are not on a common subnet; mismatched primary and secondary subnets; mismatched K values; mismatched ASN; ACLs are filtering EIGRP packets; Physical Layer issues; Data Link Layer issues; and mismatched authentication parameters.
+2. The `show ip protocols` command.
+3. The `show ip eigrp traffic` command.
+4. The same route is received via another protocol with a lower administrative distance;EIGRP summarisation; duplicate router IDs are present within the EIGRP domain; and the routes do not meet the Feasibility Condition.
+5. True.
+6. True.
+7. The `debug eigrp fsm` command.
+8. The `show ip eigrp topology x.x.x.x y.y.y.y` command.
+9. The `show ip eigrp events` command.
+10. The `debug ip routing` command.
