@@ -49,4 +49,22 @@ EIGRPv6保留了EIGRPv4中的大部分相同基础的核心功能（For the most
 
 > **注意：** 如在本地路由器上有任何配置了IPv4地址的接口，那么该路由器将从这些接口选取路由器ID -- 优先选取环回接口，在路由器上没有配置环回接口或环回接口不可运作时，就使用物理接口。在有环回接口运行时，将选取环回接口IP地址中最高的作为RID。在没有环回接口运行，而有物理接口运行时，就选择物理接口IP地址中最高的作为RID。在路由器上环回接口与物理接口都没有配置时，就必须使用`eigrp router-id [IPv4 Addresses]`命令，指定出一个RID（If there are any interfaces with IPv4 address configured on the local router, then the router will select the router ID from these interfaces -- preferring Loopback interfaces, and then using physical interfaces if no Loopback interfaces are configured or operational on the router. The highest IP address of the Loopback interface(s), if up, will be selected. If not, the RID will be selected from the highest IP address of the physical interfaces, if up. If neither is configured on the router, the `eigrp router-id [IPv4 Address]` command must be used）。
 
+## 思科IOS软件中IPv6的配置与验证
+
+**Configuring and Verifying EIGRPv6 in Cisco IOS Software**
+
+继续上一小节，其中突出了EIGRPv4与EIGRPv6之间的配置差异, 本节对在思科IOS软件中开启并验证EIGRPv6功能与路由所需的步骤序列，加以贯穿，这些步骤如下：
+
+1. 使用全局配置命令`ipv6 unicast-routing`，来全局性地开启IPv6路由。在思科IOS软件中IPv6路由默认是关闭的。
+2. 使用全局配置命令`ipv6 router eigrp [ASN]`来配置一或多个的EIGRPv6进程。
+3. 如路由器上没有配置了IPv4地址的运行接口，就要使用路由器配置命令`eigrp router-id [IPv4 Address]`来手动配置EIGRPv6的RID。
+4. 使用路由器配置命令`no shutdown`来开启EIGRPv6进程。
+5. 在需要的接口上，使用接口配置命令`ipv6 address`与`ipv6 enable`，开启其IPv6功能。
+6. 使用接口配置命令`ipv6 eigrp [ASN]`, 来开启该接口下的一或多个EIGRPv6进程。
+
+因为对于EIGRPv6来说自动汇总是不适用的，因此就没有关闭此行为的需要。为对EIGRPv6配置的掌握进行加强，请考虑下图38.1中所演示的拓扑，该图演示了一个由两台路由器所构成的网络。两台路由器都使用`AS 1`运行着EIGRPv6。路由器`R3`将通过EIGRPv6通告两个额外的前缀：
+
+![思科IOS软件中EIGRPv6的配置](images/3801.png)
+*图38.1 -- 思科IOS软件中EIGRPv6的配置*
+
 
