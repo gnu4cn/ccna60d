@@ -328,4 +328,4 @@ Event information for AS 1:
 ![EIGRP的汇总](images/3704.png)
 *图37.4 -- EIGRP的汇总*
 
-
+参考图37.4, 所有路由器都位于EIGRP自治系统`150`中。`R2`正经由EIGRP对`10.1.1.0/24`、`10.1.2.0/24`与`10.1.3.0/24`子网进行通告。而`R1`也有着一个分配给子网`10.1.0.0/24`的接口，其就应相应地将这些子网通告给`R3`（`R1`, which also has an interface assigned to the `10.1.0.0/24` subnet, should in turn advertise these subnets to `R3`）。
