@@ -223,3 +223,20 @@ EIGRP-IPv6 Protocol for AS(1)
 3. The `ipv6 router eigrp [ASN]` command.
 4. The shutdown state.
 5. Issue the `ipv6 eigrp [ASN]` command.
+
+##第38天实验
+
+请重复第36天的EIGRP实验，不过这次要使用IPv6地址并激活IPv6下的EIGRP-IPV6：
+
+- 在两台路由器上开启IPv6的单播路由
+- 在接口上配置IPv6地址
+- 使用`ipv6 router eigrp 100`命令配置EIGRP进程
+- 使用命令`eigrp router-id 10.10.10.10`配置一个RID
+- 使用`no shutdown`命令激活进程
+- 使用`ipv6 eigrp 10`命令在IPv6接口上开启EIGRP
+- 使用`show ipv6 eigrp neighbors [detail]`命令对邻居关系进行检查
+- 使用命令`show ipv6 route eigrp`对所通告的路由进行检查
+- 使用`show ipv6 eigrp topology`命令对EIGRP的拓扑进行检查
+
+请访问[www.in60days.com](http://www.in60days.com/)并免费观看作者如何完成的此实验。
+
