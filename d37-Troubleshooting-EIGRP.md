@@ -431,4 +431,46 @@ D       10.1.0.0 [90/156160] via 172.16.1.1, 00:00:10, FastEthernet0/0
 
 在前面这些小节中我们把主要强调的方面放在那些`show`命令上的同时，此最后的小节将介绍一些还可以用于EIGRP故障排除的调试命令。不过还是要始终记住，调试是甚为处理器密集，而应作为随后手段加以应用的（也就是在应用并尝试了所有`show`命令及其它故障排除方法和工具之后。While primary emphasis has been placed on the use of `show` commands in the previous sections, this final section descibes some of the debugging commands that can also be used to troubleshoot EIGRP. Keep in mind, however, that debugging is very processor intensive and should be used only as a last resort(i.e., after all `show` commands and other troubleshooting methods and tools have been applied or attempted)）。
 
+命令`debug ip routing [acl|static]`是一个强大的故障排除工具及命令（a powerful troubleshooting tool and command）。但需要注意到，尽管此命令并非特定于EIGRP，其提供到有关路由表的有用与详细信息。下面是由该命令所打印出的信息示例：
+
+```
+R1#debug ip routing
+IP routing debugging is on
+R1#
+*Mar  3 23:03:35.673: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0,
+changed state to down
+*Mar  3 23:03:35.673: RT: is_up: FastEthernet0/0 0 state: 4 sub state: 1 line: 0
+has_route: True
+*Mar  3 23:03:35.677: RT: interface FastEthernet0/0 removed from routing table
+*Mar  3 23:03:35.677: RT: del 172.16.1.0/30 via 0.0.0.0, connected metric [0/0]
+*Mar  3 23:03:35.677: RT: delete subnet route to 172.16.1.0/30
+*Mar  3 23:03:35.677: RT: NET-RED 172.16.1.0/30
+*Mar  3 23:03:35.677: RT: Pruning routes for FastEthernet0/0 (3)
+*Mar  3 23:03:35.689: RT: delete route to 10.1.3.0 via 172.16.1.2, FastEthernet0/0
+*Mar  3 23:03:35.689: RT: no routes to 10.1.3.0, flushing
+*Mar  3 23:03:35.689: RT: NET-RED 10.1.3.0/24
+*Mar  3 23:03:35.689: RT: delete route to 10.1.2.0 via 172.16.1.2, FastEthernet0/0
+*Mar  3 23:03:35.689: RT: no routes to 10.1.2.0, flushing
+*Mar  3 23:03:35.689: RT: NET-RED 10.1.2.0/24
+*Mar  3 23:03:35.689: RT: delete route to 10.1.1.0 via 172.16.1.2, FastEthernet0/0
+*Mar  3 23:03:35.689: RT: no routes to 10.1.1.0, flushing
+*Mar  3 23:03:35.693: RT: NET-RED 10.1.1.0/24
+*Mar  3 23:03:35.693: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 172.16.1.2
+(FastEthernet0/0) is down: interface down
+*Mar  3 23:03:39.599: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 172.16.1.2
+(FastEthernet0/0) is up: new adjacency
+*Mar  3 23:03:40.601: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0,
+changed state to up
+*Mar  3 23:03:40.601: RT: is_up: FastEthernet0/0 1 state: 4 sub state: 1 line: 1
+has_route: False
+*Mar  3 23:03:40.605: RT: SET_LAST_RDB for 172.16.1.0/30
+  NEW rdb: is directly connected
+*Mar  3 23:03:40.605: RT: add 172.16.1.0/30 via 0.0.0.0, connected metric [0/0]
+*Mar  3 23:03:40.605: RT: NET-RED 172.16.1.0/30
+*Mar  3 23:03:40.605: RT: interface FastEthernet0/0 added to routing table
+*Mar  3 23:03:49.119: RT: SET_LAST_RDB for 10.1.1.0/24
+  NEW rdb: via 172.16.1.2
+*Mar  3 23:03:49.119: RT: add 10.1.1.0/24 via 172.16.1.2, eigrp metric [90/156160]
+```
+
 
