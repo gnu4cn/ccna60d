@@ -504,4 +504,58 @@ Event information for AS 150:
 [Truncated Output]
 ```
 
+除开`debug ip routing`命令，思科IOS软件里还有额外可用的两个EIGRP专用调试命令。命令`debug eigrp`可用于提供到有关弥散更新算法的有限状态机、EIGRP邻居关系、非停止转发事件、数据包及传输事件等的相关实时信息（In addition to the `debug ip routing` command, two additional EIGRP-specific debugging commands are also available in Cisco IOS software. The `debug eigrp` command can be used to provide real-time information on the DUAL Finite State Machine, EIGRP neighbour relationships, Non-Stop Forwarding events, packets, and transimission events）。下面演示了此命令可用的参数：
+
+```
+R1#debug eigrp ?
+  fsm        EIGRP Dual Finite State Machine events/actions
+  neighbors  EIGRP neighbors
+  nsf        EIGRP Non-Stop Forwarding events/actions
+  packets    EIGRP packets
+  transmit   EIGRP transmission events
+```
+
+在`debug eigrp`命令之外，命令`debug ip eigrp`打印出有关EIGRP路由事件的详细信息，诸如EIGRP如何处理到来的更新等。下面演示了可与该命令结合使用的那些额外关键字：
+
+```
+R1#debug ip eigrp ?
+  <1-65535>      Autonomous System
+  neighbor       IP-EIGRP neighbor debugging
+  notifications  IP-EIGRP event notifications
+  summary        IP-EIGRP summary route processing
+  vrf            Select a VPN Routing/Forwarding instance
+  <cr>
+```
+
+最后，下面是命令`debug ip eigrp`的一个输出示例：
+
+```
+R1#debug ip eigrp
+IP-EIGRP Route Events debugging is on
+R1#
+*Mar  3 23:49:47.028: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 150: Neighbor 172.16.1.2
+(FastEthernet0/0) is up: new adjacency
+*Mar  3 23:49:47.044: IP-EIGRP(Default-IP-Routing-Table:150): 10.1.0.0/24 - do advertise
+out FastEthernet0/0
+*Mar  3 23:49:47.044: IP-EIGRP(Default-IP-Routing-Table:150): Int 10.1.0.0/24 metric
+128256 - 256 128000
+*Mar  3 23:49:48.030: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0,
+changed state to up
+*Mar  3 23:49:56.179: IP-EIGRP(Default-IP-Routing-Table:150): Processing incoming UPDATE
+packet
+*Mar  3 23:49:56.544: IP-EIGRP(Default-IP-Routing-Table:150): Processing incoming UPDATE
+packet
+*Mar  3 23:49:56.544: IP-EIGRP(Default-IP-Routing-Table:150): Int 10.1.1.0/24 M 156160 -
+25600 130560 SM 128256 - 256 128000
+*Mar  3 23:49:56.544: IP-EIGRP(Default-IP-Routing-Table:150): route installed for
+10.1.1.0  ()
+*Mar  3 23:49:56.544: IP-EIGRP(Default-IP-Routing-Table:150): Int 10.1.2.0/24 M 156160 -
+25600 130560 SM 128256 - 256 128000
+*Mar  3 23:49:56.548: IP-EIGRP(Default-IP-Routing-Table:150): route installed for
+10.1.2.0  ()
+*Mar  3 23:49:56.548: IP-EIGRP(Default-IP-Routing-Table:150): Int 10.1.3.0/24 M 156160 -
+25600 130560 SM 128256 - 256 128000
+...
+[Truncated Output]
+```
 
