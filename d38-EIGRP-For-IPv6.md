@@ -35,4 +35,10 @@ EIGRPv6保留了EIGRPv4中的大部分相同基础的核心功能（For the most
 | 通告内容（Advertisement Contents）| 子网/掩码（Subnet/Mask） | 前缀/长度（Prefix/Length） |
 | 数据包的封装（Packet Encapsulation） | IPv4封装（IPv4） | IPv6封装（IPv6） |
 
+> **注意：** 因为EIGRPv6使用邻居的链路本地地址作为下一跳地址，因此在位于同一自治系统及同一网段的两台路由器建立邻居关系时，就不需要其全局的IPv6单播子网一致了。这一点是要求邻居在同一子网的EIGRPv4，与使用链路本地地址建立邻居关系而消除了此要求的EIGRPv6之间，最为显著的不同之一（Because EIGRPv6 uses the Link-Local address of the neighbour as the next-hop address, the global IPv6 Unicast subnets do not need to be the same for a neighbour relationship to be established between two routers that reside within the same autonomous system and are on a common network segment. This is one of the most significant differences between EIGRPv4, which requires neighbours to be on a common subnet, and EIGRPv6, which negates this need by using the Link-Local addresses for neighbour relationships instead）。
+
+## 思科IOS软件在EIGRPv4与EIGRPv6配置上的差异
+
+**Cisco IOS Software EIGRPv4 and EIGRPv6 Configuration Differences**
+
 
