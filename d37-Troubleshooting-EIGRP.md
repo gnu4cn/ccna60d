@@ -473,4 +473,35 @@ has_route: False
 *Mar  3 23:03:49.119: RT: add 10.1.1.0/24 via 172.16.1.2, eigrp metric [90/156160]
 ```
 
+可与某条访问控制清单结合使用此命令，来查看有关在那个访问控制清单中所引用到某条路由或某几条路由的信息。此外，同样的命令也可以用于本地设备上静态路由事件的调试。作为附注，在运行EIGRP时，作为使用此命令的替代，请考虑使用`show ip eigrp events`命令而不是此命令，因为`show ip eigrp events`提供到EIGRP内部事件的历史记录，且可用于对活动粘滞故障，以及路由抖动及其它事件进行排除（You can use this command in conjunction with an ACL to view information about the route or routes referenced in the ACL. Additionally, the same command can also be used for troubleshooting static route events on the local device. As a side note, instead of using this command, if you are running EIGRP, consider using the `show ip eigrp events` command instead, as it provides a history of EIGRP internal events and can be used to troubleshoot SIA issues, as well as route flaps and other events）。下面是`show ip eigrp events`命令所打印信息的一个示例：
+
+```
+R1#show ip eigrp events
+Event information for AS 150:
+1    23:03:49.135 Ignored route, metric: 192.168.3.0 28160
+2    23:03:49.135 Ignored route, metric: 192.168.2.0 28160
+3    23:03:49.135 Ignored route, metric: 192.168.1.0 28160
+4    23:03:49.131 Rcv EOT update src/seq: 172.16.1.2 85
+5    23:03:49.127 Change queue emptied, entries: 3
+6    23:03:49.127 Ignored route, metric: 192.168.3.0 28160
+7    23:03:49.127 Ignored route, metric: 192.168.2.0 28160
+8    23:03:49.127 Ignored route, metric: 192.168.1.0 28160
+9    23:03:49.127 Metric set: 10.1.3.0/24 156160
+10   23:03:49.127 Update reason, delay: new if 4294967295
+11   23:03:49.127 Update sent, RD: 10.1.3.0/24 4294967295
+12   23:03:49.127 Update reason, delay: metric chg 4294967295
+13   23:03:49.127 Update sent, RD: 10.1.3.0/24 4294967295
+14   23:03:49.123 Route install: 10.1.3.0/24 172.16.1.2
+15   23:03:49.123 Find FS: 10.1.3.0/24 4294967295
+16   23:03:49.123 Rcv update met/succmet: 156160 128256
+17   23:03:49.123 Rcv update dest/nh: 10.1.3.0/24 172.16.1.2
+18   23:03:49.123 Metric set: 10.1.3.0/24 4294967295
+19   23:03:49.123 Metric set: 10.1.2.0/24 156160
+20   23:03:49.123 Update reason, delay: new if 4294967295
+21   23:03:49.123 Update sent, RD: 10.1.2.0/24 4294967295
+22   23:03:49.123 Update reason, delay: metric chg 4294967295
+...
+[Truncated Output]
+```
+
 
