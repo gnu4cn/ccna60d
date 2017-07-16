@@ -320,3 +320,12 @@ Event information for AS 1:
 *图37.3 -- EIGRP的水平分割*
 
 图37.3中的拓扑演示了**一个经典的中心与分支网络**，其中路由器`HQ`作为**中心路由器**，而路由器`S1`与`S2`作为两台**分支路由器**。在该帧中继的WAN上，每台分支路由器都有着**局部网状网络**中、单独的在各自自身与中心路由器之间所提供的DLCI。默认情况下，对于连接到**包交换网络**，比如这里的帧中继的WAN接口，EIGRP的水平分割是开启的。这就意味着该中心路由器将不会对接口`Serial0/0`上学习到的路由信息，再在该相同接口上通告出去（The topology in Figure 37.3 illustrates **a classic hub-and-spoke network**, with router `HQ` as **the hub router** and routers `S1` and `S2` as **the two spoke routers**. On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the `HQ` router in **a partial-mesh topology**. By default, EIGRP split horizon is enabled for WAN interfaces connected to **packet-switched networks**, such as Frame Relay. This means that the `HQ` router will not advertise routing information learned on `Serial0/0` out of the same interface）。
+
+该默认行为的影响，就是中心路由器不会将自`S1`接收到的`10.1.1.0/24`前缀通告给`S2`, 因为该路由是通过`Serial0/0`接口接收到，而水平分割特性阻止了该路由器对在那个接口上所学习到的信息从该相同接口通告出去。同样的情形对于中心路由器从`S2`上所接收到的`10.2.2.0/24`前缀也是适用的。此问题的推荐解决办法，就是在中心路由器的该WAN接口上，使用接口配置命令`no ip split-horizon eigrp [asn]`关闭水平分割特性了。
+
+而对于EIGRP来说，自动汇总则是在**有类边界**（the classful boundary）上默认是开启的。这一点可使用`show ip protocols`命令予以验证到。除开自动汇总，EIGRP还支持接口级别的手动汇总。不管采用何种方式，汇总都将阻止由汇总路由所涵盖到的那些更具体路由条目，被通告给邻居路由器（Regardless of the method implemented, summarisation prevents the more specific route entries that are encompassed by the summary from being advertised to neighbour routers）。如果汇总是被不当配置的，那就可能出现EIGRP没有通告出某些网络的情况。比如请考虑下图37.4中所演示的基本网络拓扑：
+
+![EIGRP的汇总](images/3704.png)
+*图37.4 -- EIGRP的汇总*
+
+
