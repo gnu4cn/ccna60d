@@ -11,6 +11,10 @@ Bitcoin: **1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa**
 
 谢谢你的支持和鼓励！
 
+2017-7-16
+
+完成第37天--EIGRP故障排除章节。
+
 2017-7-14
 
 - 完成第36天--EIGRP 章节的修订，EIGRP已无问题

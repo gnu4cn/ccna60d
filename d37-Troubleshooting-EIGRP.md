@@ -589,3 +589,21 @@ packet
 8. The `show ip eigrp topology x.x.x.x y.y.y.y` command.
 9. The `show ip eigrp events` command.
 10. The `debug ip routing` command.
+
+
+## 第37天实验
+
+**Day 37 Lab**
+
+请重复前一天的EIGRP实验。此外，对本节课中给出的那些EIGRP故障排除命令进行测试：
+
+- 使用`show ip protocol`命令，来查看那些EIGRP的参数（See the EIGRP parameters using the `show ip protocol` command）
+- 对两台路由器上的K值进行修改，并再次执行该命令（Modify K values on both routers and issue the command again）
+- 注意各异的所配置K值，导致了EIGRP邻居关系丢失（Notice that different configured K values lead to EIGRP neighbour relationships being lost）
+- 通过执行`show ip eigrp traffic`命令，验证所传输的Hello数据包（Verify the Hello packets being transmitted by issuing the `show ip eigrp traffic` command）
+- 对`debug eigrp fsm`命令进行测试
+- 针对已通告的路由测试`show ip eigrp topology`命令，并留意起源RID；在远端路由器上修改RID，并再次执行该命令（Test the `show ip eigrp topology` command for the advertised route and notice the originating RID; change the RID on the remote router and issue the command again）
+- 对`show ip eigrp events`命令加以验证（Verify the `show ip eigrp events` command）
+- 在将网络通告进EIGRP之前，启动IP路由调试；留意所生成的调试更新消息（Start the debug IP routing before advertising the network into EIGRP; notice the generated debug updates）
+
+请访问[www.in60days.com](http://www.in60days.com)网站，免费观看作者完成此实验。
