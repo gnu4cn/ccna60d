@@ -22,3 +22,17 @@
 本课程对应了以下CCNA大纲要求：
 
 - 配置并验证EIGRP（单一自治系统，Configure and verify EIGRP(Single AS)）
+
+EIGRPv6保留了EIGRPv4中的大部分相同基础的核心功能（For the most part, EIGRPv6 retains the same basic core functions as EIGRPv4）。比如两个版本仍使用弥散更新算法来确保无环回的路径，同时两个版本都使用多播数据包来发送更新--尽管EIGRPv6使用的是IPv6的多播地址`FF02::A`，而EIGRPv4使用的是组地址`224.0.0.10`。在保留了一些相同核心基础的同时，版本之间有着一些不同之处。下表38.1列出了EIGRPv4与EIGRPv6之间，或简单且更通常地说是IPv4下的EIGRP与IPv6下的EIGRP之间的不同之处：
+
+*表 38.1 -- EIGRPv4与EIGRPv6的差异*
+
+| 协议特性（Protocol Characteristic） | IPv4下的EIGRP | IPv6下的EIGRP |
+| ------ | ------ | ------ |
+| 自动汇总特性 | 支持（Yes） | 不适用（Not Applicable） |
+| 认证或安全特性 | MD5 | 内建于IPv6中（Built into IPv6） |
+| 要求对等点处于同一子网（Common Subnet for Peers） | 要求（Yes） | 不要求（No） |
+| 通告内容（Advertisement Contents）| 子网/掩码（Subnet/Mask） | 前缀/长度（Prefix/Length） |
+| 数据包的封装（Packet Encapsulation） | IPv4封装（IPv4） | IPv6封装（IPv6） |
+
+
