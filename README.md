@@ -14,6 +14,7 @@ Bitcoin: **1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa**
 2017-7-16
 
 - 完成第37天--EIGRP故障排除章节。
+- 完成第38天--IPv6下的EIGRP章节。
 
 2017-7-14
 
