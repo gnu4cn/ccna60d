@@ -312,4 +312,11 @@ Event information for AS 1:
 - 水平分割（Split horizon）
 - 汇总（Summarisation）
 
+未正确配置的投送清单，是EIGRP没有对某个已被配置为加以通告的网络进行通告的一个原因。在配置同送清单时，要确保所有应被通告的网络，都是为所引用的**IP访问控制清单**或**IP前缀清单放行**的（Incorrectly configured distribute lists are one reason why EIGRP might not advertise a network that it has been configured to advertise. When configuring distribute lists, ensure that all networks that should be advertised are permitted by the referenced **IP ACL** or **IP Prefix List**）。
 
+另一个采用EIGRP时与网络通告有关的常见故障，就是水平分割的默认行为了。水平分割是一项强制路由信息无法从其被接收到的接口，再发送出去的一项距离矢量协议特性。此特性阻止了路由信息再度通告到学习到该信息的来源，从而有效地阻止了路由环回（Another common issue pertaining to network advertisement when using EIGRP is the default behaviour of split horizon. Split horizon is a Distance Vector protocol feature that mandates that routing information cannot be sent back out of the same interface through which it was received. This prevents the re-advertising of information back to the source from which it was learned, effectively preventing routing loops）。此概念在下图37.3中进行了演示：
+
+![EIGRP的水平分割](images/3703.png)
+*图37.3 -- EIGRP的水平分割*
+
+图37.3中的拓扑演示了**一个经典的中心与分支网络**，其中路由器`HQ`作为**中心路由器**，而路由器`S1`与`S2`作为两台**分支路由器**。在该帧中继的WAN上，每台分支路由器都有着**局部网状网络**中、单独的在各自自身与中心路由器之间所提供的DLCI。默认情况下，对于连接到**包交换网络**，比如这里的帧中继的WAN接口，EIGRP的水平分割是开启的。这就意味着该中心路由器将不会对接口`Serial0/0`上学习到的路由信息，再在该相同接口上通告出去（The topology in Figure 37.3 illustrates **a classic hub-and-spoke network**, with router `HQ` as **the hub router** and routers `S1` and `S2` as **the two spoke routers**. On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the `HQ` router in **a partial-mesh topology**. By default, EIGRP split horizon is enabled for WAN interfaces connected to **packet-switched networks**, such as Frame Relay. This means that the `HQ` router will not advertise routing information learned on `Serial0/0` out of the same interface）。
