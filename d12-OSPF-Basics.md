@@ -13,11 +13,11 @@
 
 今天将会学到下面这些内容。
 
-- 链路状态要点，Link State fundamentals
+- 链路状态基础，Link State fundamentals
 - OSPF组网类型，OSPF network types
 - OSPF的配置，Configuring OSPF
 
-本模块对应了以下CCNA大纲要求。
+本模块对应了以下CCNA大纲要求：
 
 + OSPF（单区域）的配置和验证
 	- 单区域的好处, benefit of single area
@@ -29,13 +29,13 @@
 
 **Open Shortest Path First**
 
-开放最短路径优先，是**一个开放标准的链路状态路由协议**（an open-standard Link State routing protocol）。链路状态路由协议对链路状态进行通告。在一台链路状态路由器开始在某条网络链路上运行时，与那个逻辑网络有关的信息就被添加到路由器的**本地**链路状态数据库(Link State Database, LSDB)中。该本地路由器此时在其运作链路上，发出Hello数据包，以确定是否有其它链路状态路由器也在其各自接口上运行着链路状态路由协议。**OSPF直接运行在IP协议上，使用IP的89号协议**。
+开放最短路径优先，是**一个开放标准的链路状态路由协议**（an open-standard Link State routing protocol）。所有链路状态路由协议都是对链路状态进行通告。当链路状态路由器开始在某条网络链路上运作时，逻辑网络的相关信息就被添加到路由器的**本地**链路状态数据库(Link State Database, LSDB)中。该本地路由器此时在其运作链路上，发出Hello数据包，以确定出是否有其它链路状态路由器也在其各自接口上运行着链路状态路由协议。**OSPF直接运行在IP协议上，使用IP下编号为89号的协议**。
 
 ## OSPF概述及基础知识
 
 **OSPF Overview and Fundamentals**
 
-人们为OSPF撰写了多个RFCs。在本小节，将通过一些有关OSPF最常见的几个RFCs，来了解一下OSPF的历史。OSPF工作组成立于1987年，自成立以后，该工作组发布了为数众多的RFCs。下面列出了OSPF有关的一些最常见的RFCs。
+人们为OSPF撰写了多个请求评议（Requests for Comments, RFCs)。在本小节，将通过一些OSPF有关的最常见的几个RFCs，来了解一下OSPF的历史。OSPF工作组成立于1987年，自成立以后，该工作组发布了为数众多的RFCs。下面列出了OSPF有关的一些最常见的RFCs。
 
 - RFC 1131 -- OSPF规格，OSPF Specification
 - RFC 1584 -- OSPF的多播扩展, Multicast Extensions to OSPF
@@ -46,39 +46,39 @@
 
 RFC 1131对OSPF的第一次迭代（the first iteration of OSPF）进行了说明, 而应用在明确该协议是否工作的早期测试中。
 
-RFC 1584为OSPF提供了对IP多播流量的支持扩展。这通常被称为多播OSPF（Multicast OSPF, MOSPF）。但该标准不常用到，且最重要的是思科不支持该标准。
+RFC 1584为OSPF提供了对IP多播流量的支持扩展。这通常被称为多播OSPF（Multicast OSPF, MOSPF）。但该标准不常用到，而最重要的是思科不支持该标准。
 
-RFC 1587 对一种OSPF次末梢区域（Not-So-Stubby Area, NSSA）的运作方式进行了说明。NSSA允许通过一台自治系统边界路由器（an Autonomous System Boundary Router, ASBR）, 采用一条NSSA的外部LSA, 实现外部路由知识的注入（the injection of external routing knowledge）。在本模块的稍后会对不同的NSSAs进行说明。
+RFC 1587 对一种OSPF的次末梢区域（Not-So-Stubby Area, NSSA）的运作方式进行了说明。NSSA允许通过一台自治系统边界路由器（an Autonomous System Boundary Router, ASBR）, 采用一条NSSA的外部LSA, 实现外部路由知识的注入（the injection of external routing knowledge）。在本模块的稍后会对不同的NSSAs进行说明。
 
 RFC 1850实现了使用简单网络管理协议（Simple Network Management Protocol, SNMP）对OSPF的网络管理。在网络管理系统中，SNMP用于监测接入网络设备中需要留心的一些情况。本标准的应用超出了CCNA考试要求范围，不会在本书中进行说明。
 
-RFC 2328详述了OSPF版本2的最新更新，而OSPF版本2正是现今在用的默认版本。OSPF版本2最初是在RFC 1247中进行说明的，该RFC解决了OSPF版本1初次发布中发现的一系列问题，并对该协议进行了修正，实现了未来修改不致产生出向后兼容问题。正因为如此，OSPF版本2与版本1是不兼容的。
+RFC 2328详细陈述了OSPF版本2的最新更新，而OSPF版本2正是现今在用的默认版本。OSPF版本2最初是在RFC 1247中进行说明的，该RFC解决了OSPF版本1初次发布中发现的一系列问题，并对该协议进行了修正，实现了未来修改不致产生出向后兼容问题。正因为如此，OSPF版本2与版本1是不兼容的。
 
-最后，RFC 2740说明了为支持IPv6而对OSPF做出的修改（也就是版本3）。可以假定本模块中所有对OSPF一词的使用，都是指的OSPF版本2。
+最后，RFC 2740说明了为支持IPv6而对OSPF做出的修改（也就是版本3）。应假定本模块中所有对OSPF一词的使用，都是指的OSPF版本2。
 
 ###链路状态基础
 
 **Link State Fundamentals**
 
-当对某条特定链路(也就是接口）开启链路状态路由协议时，与那个网络有关的信息就被加入到本地LSDB中。该本地路由器此时就往其运作的各链路上发送Hello数据包，以确定有否其它**链路状态路由器**也在接口上运行着。**Hello数据包用于邻居发现并在邻居路由器之间维护邻接关系**。本模块稍后部分会详细说明这些消息。
+当对某条特定链路(也就是接口）开启链路状态路由协议时，与那个网络有关的信息就被加入到本地LSDB中。该本地路由器此时就往其运作的各链路上发送Hello数据包，以确定有否其它**链路状态路由器**也在接口上运行着。**Hello数据包用于邻居发现，并在邻居路由器之间维护邻接关系**。本模块稍后部分会详细说明这些消息。
 
-在找到一台邻居路由器后， 假定两台路由器在同一子网且位于同一区域，同时诸如认证方法及计时器等其它参数都是一致的（identical），那么本地路由器就尝试建立一个邻接关系（adjacency）。此邻接关系令到两台路由器将**摘要的LSDB信息**通告给对方。这种信息交换，交换的不是实在的详细数据库信息，而是数据的摘要。
+在找到一台邻居路由器后， 假定两台路由器在同一子网且位于同一区域，同时诸如认证方法及计时器等其它参数都是一致的（identical），那么本地路由器就尝试建立一个邻接关系（adjacency）。此邻接关系令到两台路由器将**摘要的LSDB信息**通告给对方。这种信息交换，交换的并非真实的详细数据库信息，而是数据的摘要。
 
-各台路由器参照其本地LSDB，对收到的摘要信息做出评估，以确定其有着最新信息。如邻接关系的一侧认识到它需要一个更新，路由器就从邻接路由器请求新信息。而来自邻居路由器的更新包含了LSDB中的具体数据。此交换过程持续下去，直到两台路由器拥有同样的LSDB。OSPF用到不同类型的消息，来交换数据库信息，以确保所有路由器都有着网络的统一视图。这些不同的数据包类型将在本模块稍后进行详细说明。
+各台路由器参照其本地LSDB，对收到的摘要信息做出评估，以确保其有着最新信息。如邻接关系的一侧认识到它需要一个更新，路由器就从邻接路由器请求新信息。而来自邻居路由器的更新就包含了LSDB中的具体数据。此交换过程持续到两台路由器都拥有同样的LSDB。OSPF用到不同类型的报文，以交换数据库信息，从而确保所有路由器都有着网络的统一视图。这些不同的数据包类型将在本模块稍后进行详细说明。
 
-跟着数据库交换，SPF算法运行起来，创建出到某区域中, 或在网络主干中所有主机的最短路径树（a shotest path tree to all hosts in an area or in the network backbone）, SPF算法将执行运算的路由器，作为该树的根。在第10天中，对SPF算法进行了简要介绍。
+跟着数据库交换，SPF算法就运行起来，创建出到某个区域或网络主干中所有主机的最短路径树, SPF算法将执行运算的路由器，作为该树的根（Following the database exchange, the SPF algorithm runs and creates a shotest path tree to all hosts in an area or in the network backbone, with the router that is performing the calculation at the root of that tree）。在第10天中，对SPF算法进行了简要介绍。
 
 ###OSPF基础
 
 **OSPF Fundamentals**
 
-与EIGRP能够支持多个网络层协议不同，OSPF只能支持IP，也就是IPv4和IPv6。和EIGRP相同的是，OSPF支持VLSM、认证及在诸如以太网这样的多路访问（Multi-Access）网络上，于发送和接收更新时，利用IP多播技术（IP Multicast）。
+与EIGRP能够支持多个网络层协议不同，OSPF只能支持IP，也就是IPv4和IPv6。和EIGRP相同的是，OSPF支持VLSM、认证及在诸如以太网这样的多路访问（Multi-Access networks）网络上，于发送和接收更新时，利用IP多播技术（IP Multicast）。
 
-OSPF是一种层次化的路由协议，将网络以逻辑方式，分为称作区域的众多子域。这种逻辑分段用于限制链路状态通告在某个OSPF域中扩散的范围（OSPF is a hierarchical routing protocol that logically divides the network into subdomains referred to as areas. This logical segmentation is used to limit the scope of Link State Advertisements(LSAs)）。LSAs是由运行着OSPF的路由器发出的特殊类型数据包。在区域内和区域间用到不同类型的LSAs。通过限制一些类型的LSAs在区域间传播，OSPF的层次化实现有效地减少了OSPF网络中路由协议流量的数量。
+OSPF是一种层次化的路由协议，将网络以逻辑方式，分为称作区域的众多子域。这种逻辑分段方法，用于限制链路状态通告在OSPF域中扩散的范围（OSPF is a hierarchical routing protocol that logically divides the network into subdomains referred to as areas. This logical segmentation is used to limit the scope of Link State Advertisements(LSAs) flooding throughout the OSPF domain）。LSAs是由运行OSPF的路由器发出的特殊类型数据包。在区域内和区域间用到不同类型的LSAs。通过限制一些类型的LSAs在区域间传播，OSPF的层次化实现有效地减少了OSPF网络中路由协议流量的数量。
 
 > **注意：** OSPF的这些LSAs会在第39天详细说明。
 
-在多区域OSPF网络中，必须指定一个区域作为**骨干区域, 或者叫0号区域**（the backbone area, or Area 0）。该OSPF骨干就是此OSPF网络的逻辑中心。**其它非骨干区域都必须物理连接到这个骨干区域**。但是，在非骨干区域和骨干区域之间有着一条物理连接，并非总是可能或可行的，所以OSPF标准允许使用到骨干区域的虚拟连接。这些虚拟连接也就是常说的虚拟链路，但此概念是不包括在当前的CCNA大纲中的。
+在多区域OSPF网络中，必须指定一个区域作为**骨干区域, 或者叫0号区域**（the backbone area, or Area 0）。该OSPF骨干就是此OSPF网络的逻辑中心。**其它非骨干区域都必须物理连接到这个骨干区域**。但因为在非骨干区域和骨干区域之间有着一条物理连接，并非总是可能或可行的，所以OSPF标准允许使用到骨干区域的虚拟连接。这些虚拟连接也就是常说的虚拟链路，但此概念是不包括在当前的CCNA大纲中的。
 
 位处区域中的路由器，都存储着其所在区域的详细拓扑信息。而在各区域中，一台或多台的路由器，又被作为**区域边界路由器**（Area Border Routers, ABRs），区域边界路由器通过在不同区域之间通告汇总路由信息，而促进区域间路由（facilitate inter-area routing）。本功能实现OSPF网络中的以下几个目标。
 
