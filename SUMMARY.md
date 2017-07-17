@@ -24,3 +24,4 @@
 * [第36天, EIGRP](d36-EIGRP.md)
 * [第37天，EIGRP故障排除](d37-Troubleshooting-EIGRP.md)
 * [第38天，IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
+# [第39天，开放最短路径优先协议](d39-OSPF.md)
