@@ -78,28 +78,28 @@ OSPF是一种层次化的路由协议，将网络以逻辑方式，分为称作�
 
 > **注意：** OSPF的这些LSAs会在第39天详细说明。
 
-在多区域OSPF网络中，必须指定一个区域作为**骨干区域, 或者叫0号区域**（the backbone area, or Area 0）。该OSPF骨干就是此OSPF网络的逻辑中心。**其它非骨干区域都必须物理连接到这个骨干区域**。但因为在非骨干区域和骨干区域之间有着一条物理连接，并非总是可能或可行的，所以OSPF标准允许使用到骨干区域的虚拟连接。这些虚拟连接也就是常说的虚拟链路，但此概念是不包括在当前的CCNA大纲中的。
+在多区域OSPF网络中，必须指定一个区域作为**骨干区域**, 或者叫`Area 0`。**OSPF骨干**就是此OSPF网络的**逻辑中心**。**其它非骨干区域都必须物理连接到骨干**。但因为在非骨干区域和骨干区域之间有着一条物理连接，并非总是可能或可行的，所以OSPF标准允许使用到骨干的虚拟连接。这些虚拟连接也就是常说的虚拟链路，但此概念是不包括在当前的CCNA大纲中的（In a multi-area OSPF network, one area must be designated as **the backbone area**, or `Area 0`. The OSPF backbone is **the logical centre** of the OSPF network. All other non-backbone areas must be connected physically to the backbone. However, because it is not always possible or feasible to have a physical connection between a non-backbone area and the backbone, the OSPF standart allows the use of virtual connections to the backbone. These virtual connections are known as virtual links, but this concept is not included in the current CCNA syllabus）。
 
-位处区域中的路由器，都存储着其所在区域的详细拓扑信息。而在各区域中，一台或多台的路由器，又被作为**区域边界路由器**（Area Border Routers, ABRs），区域边界路由器通过在不同区域之间通告汇总路由信息，而促进区域间路由（facilitate inter-area routing）。本功能实现OSPF网络中的以下几个目标。
+位处各区域中的路由器，都存储着其所在区域的详细拓扑信息。而在各区域中，一台或多台的路由器，又被作为**区域边界路由器**（Area Border Routers, ABRs），区域边界路由器通过在不同区域之间通告汇总路由信息，而促进区域间的路由（facilitate inter-area routing by advertising summarised routing informaiton between the differenct areas）。本功能实现OSPF网络中的以下几个目标。
 
-- 在OSPF域层面减小LSAs的扩散范围
-- 在区域之间隐藏详细拓扑信息
-- OSPF域中端到端连通性（end-to-end connectivity）的实现
-- 在OSPF域内部创建逻辑边界
+- 在OSPF域层面减小LSAs的扩散范围, Reduces the scope of LSAs flooding throughout the OSPF domain
+- 在区域之间隐藏详细拓扑信息, Hides detailed topology informaiton between areas
+- OSPF域中端到端连通性的实现, Allows for end-to-end connectivity within the OSPF domain
+- 在OSPF域内部创建逻辑边界, Creates logical boundaries within the OSPF domain
 
 > **注意：** 尽管ICND1大纲仅涉及到单区域OSPF（single-area OSPF）, 但为把大部分理论纳入讨论背景，有必要说一下多区域OSPF（multi-area OSPF）。
 
-OSPF骨干网络自ABRs接收到汇总路由信息。该路由信息被散布到OSPF网络中所有其它非骨干区域中去。在网络拓扑发生变化时，变化信息散布到整个的OSPF域中去，令到所有区域中的所有路由器都有着网络的统一视图。下图12.1演示的网络拓扑，就是一个多区域OSPF部署的示例。
+OSPF骨干区域从ABRs接收到汇总路由信息。该路由信息被散布到OSPF网络中的所有其它非骨干区域。在网络拓扑发生变化时，变化信息就被散布到整个的OSPF域，令到所有区域中的所有路由器都有着网络的统一视图（The OSPF backbone area receives summarised routing informaiton from the ABRs. The routing informaiton is disseminated to all other non-backbone areas within the OSPF network. When a change to the network topology occurs, this informaiton is disseminated throughout the entire OSPF domain, allowing all routers in all areas to have a consistent view of the network）。下图12.1演示的网络拓扑，就是一个多区域OSPF部署的示例。
 
 ![一个多区域OSPF网络](images/1201.png)
 
 *图12.1 -- 一个多区域OSPF网络*
 
-图12.1演示了一个基本的多区域OSPF网络。1、2号区域连接到0号区域的OSPF骨干上。1号区域中，路由器R1、R2和R3交换着区域内（intra-area）路由信息，并维护着那个区域的详细拓扑。R3作为ABR，生成一条区域间汇总路由（an inter-area summary route）, 并将该路由通告给OSPF骨干。
+图12.1演示了一个基本的多区域OSPF网络。1、2号区域连接到0号区域，也就是OSPF骨干上。1号区域中，路由器`R1`、`R2`和`R3`交换着区域内（intra-area）路由信息，并维护着那个区域的详细拓扑。`R3`作为ABR，生成一条区域间汇总路由（an inter-area summary route）, 并将该路由通告给OSPF骨干。
 
-R4是2号区域的ABR，从0号区域接收到R3通告出的汇总信息，并将其扩散到其邻接区域。这样做就令到R5和R6知悉本地区域外、在该OSPF域内的那些路由了。同样概念也适用于2号区域内的路由信息。
+`R4`，也就是2号区域的ABR，从0号区域接收到`R3`通告出的汇总信息，并将其扩散到其**邻接区域**。这样做就令到R5和R6知悉位处其本地区域外、但仍在OSPF域内的那些路由了。同样概念也适用于2号区域内的路由信息（`R4`, the ABR for Area 2, receives the summary informaiton from Area 0 and floods it into its **adjacent area**. This allows routers `R5` and `R6` to know of the routes that reside outside of their local area but within the OSPF domain. The same concept would also be applicable to the routing informaiton within Area 2）。
 
-总的来讲，众多ABRs都维护着所有其各自连接区域的LSDB信息。而各个区域中的所有路由器，都有着属于其特定区域的详细拓扑信息。这些区域内路由器交换着区域内的路由信息。由ABRs将所连接区域的汇总信息通告给其它OSPF区域，以实现域内各子域（区域）间路由。
+总的来讲，ABRs都维护着所有其各自连接区域的LSDB信息。而各个区域中的所有路由器，都有着属于其特定区域的详细拓扑信息。这些路由器交换着区域内的路由信息。ABRs则将所连接区域的汇总信息通告给其它OSPF区域，以实现域内各子域（区域）间的路由（In summation, the ABRs maintain LSDB informaiton for all the areas in which they are connected. All routers within each area have detailed topology informaiton pertaining to that specific area. These routers exchange intra-area routing informaiton. The ABRs advertise summary informaiton from each of their connected areas to other OSPF areas, allowing inter-area routing within the domain）。
 
 > **注意：** 本书后面会详细说明OSPF ABRs及其它OSPF路由器类型。
 
@@ -107,15 +107,15 @@ R4是2号区域的ABR，从0号区域接收到R3通告出的汇总信息，并�
 
 **Network Types**
 
-OSPF对不同传输介质，采用不同默认组网类型，有下面这些组网类型。
+对不同传输介质，OSPF采用不同默认组网类型，有下面这些:
 
-- 非广播组网（在多点非广播多路复用传输介质上，也就是FR和ATM，默认采用此种组网类型）， Non-Broadcast(default on Multipoint Non-Broadcast Multi-Access(FR and ATM))
-- 点对点组网（在HDLC、PPP、FR及ATM的P2P子接口，以及ISDN上，默认采用此种组网类型）， Point-to-Point(default on HDLC, PPP, P2P subinterface on FR and ATM, and ISDN)
-- 广播组网（在以太网和令牌环上，默认采用此种组网类型）， Broadcast(default on Ethernet and Token Ring)
-- 点对多点组网，Point-to-Multipoint
-- 环回组网（默认在环回接口上采用此种组网类型）， Loopback(default on Loopback interfaces)
+- 非广播组网（在多点非广播多路复用传输介质上，也就是FR和ATM, 默认采用此种组网类型， Non-Broadcast，default on Multipoint Non-Broadcast Multi-Access(FR and ATM)）
+- 点对点组网（在HDLC、PPP、FR及ATM的P2P子接口，以及ISDN介质上，默认采用此种组网类型， Point-to-Point，default on HDLC, PPP, P2P subinterface on FR and ATM, and ISDN）
+- 广播组网（在以太网和令牌环介质上，默认采用此种组网类型， Broadcast，default on Ethernet and Token Ring）
+- 点对多点组网（Point-to-Multipoint）
+- 环回组网（默认在环回接口上采用此种组网类型， Loopback，default on Loopback interfaces）
 
-**非广播网络是指那些没有原生的广播或多播流量支持的网络类型**。非广播类型网络的最常见实例就是帧中继网络。非广播类型网络**需要额外配置，以实现广播和多播支持**。在这种网络上，OSPF选举出一台指定路由器(a Designate Router, DR), 及/或一台备用指定路由器（a Backup Designated Router, BDR）。在本书后面会对这两台路由器进行说明。
+**非广播网络**是指那些没有原生的广播或多播流量支持的网络类型。非广播类型网络的最常见实例就是帧中继网络。非广播类型网络**需要额外配置，以实现广播和多播支持**。在这种网络上，OSPF选举出一台指定路由器(a Designate Router, DR), 及/或一台备用指定路由器（a Backup Designated Router, BDR）。在本书后面会对这两台路由器进行说明。
 
 在思科IOS软件中，非广播类型网络上开启OSPF的路由器，默认每30秒发出Hello数据包。若4个Hello间隔，也就是120秒中都没有收到Hello数据包，那么该邻居路由器就被认为”死了“。下面的输出演示了在一个帧中继串行接口上`show ip ospf interface`命令的输出。
 
@@ -186,7 +186,7 @@ FastEthernet0/0 is up, line protocol is up
 
 点对多点是一种非默认OSPF组网（a non-default OSPF network type）。也就是说，此种组网类型必须使用接口配置命令`ip ospf network point-to-point-multicast [non-broadcast]`手动进行配置。默认情况下，该命令默认应用于一个广播型点对多点类型网络（this command defaults to a Broadcast Point-to-Point Multipoint network type）。该默认组网类型允许OSPF采用多播数据包来动态地发现其邻居路由器。此外在多播型点对多点网络类型上，不进行DR/BDR选举。
 
-关键字`[non-broadcast]`将该点对多点网络配置为非广播点对多点网络。这样做就要求静态的OSPF邻居配置，因为这样做后OSPF不会使用多播来动态地发现其邻居路由器。此外，这种网络类型不需要为指定网段进行DR及/或BDR选举。此种组网的主要用途，即允许将接收自所有邻居路由器的路由的邻居路由器开销，分配到邻居路由器，而不是使用使用分配给接口的开销作为邻居开销（the primary use of this network type is to allow neighbor costs to be assigned to neighbors instead of using the interface-assigned cost for routes recieived from all neighbors）。
+关键字`[non-broadcast]`将该点对多点网络配置为非广播点对多点网络。这样做就要求静态的OSPF邻居配置，因为这样做后OSPF不会使用多播来动态地发现其邻居路由器。此外，这种网络类型不需要为指定网段进行DR及/或BDR选举。此种组网的主要用途，即允许将接收自所有邻居路由器的路由的邻居路由器开销，分配到邻居路由器，而不是使用使用分配给接口的开销作为邻居开销（the primary use of this network type is to allow neighbor costs to be assigned to neighbors instead of using the interface-assigned cost for routes received from all neighbors）。
 
 点对多点组网类型，典型地用于部分全通辐射状非广播多路访问（partial-mesh hub-and-spoke Non-Broadcast Multi-Access(NBMA)）网络。尽管如此，此种组网类型也可指定给诸如广播多路访问网络（比如以太网）等的其它类型网络。默认情况下，在点对多点网络上，OSPF每30秒发出一个Hello数据包。默认死亡间隔是Hello间隔的4倍，也就是120秒。
 
@@ -221,7 +221,7 @@ R2(config-if)#ip ospf hello-interval 1
 R2(config-if)#exit
 ```
 
-通过在上面的R2上将Hello数据包间隔设置为1, 思科IOS软件就会自动的将默认死亡计时器调整为Hello间隔的4倍，就是4秒。下面的输出对此进行了演示。
+通过在上面的`R2`上将Hello数据包间隔设置为1, 思科IOS软件就会自动的将默认死亡计时器调整为Hello间隔的4倍，就是4秒。下面的输出对此进行了演示。
 
 ```
 R2#show ip ospf interface Serial0/0
@@ -479,7 +479,7 @@ FastEthernet0/0 is up, line protocol is up
 - 分别在两台路由器上配置一个环回接口，并自两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
 - 配置上标准OSPF 1号进程，并在0号区域中通告所有本地网络。同时为两台设备配置一个路由器ID。
 
-**R1:**
+**`R1`:**
 
 ```
 router ospf 1
@@ -488,7 +488,7 @@ network 10.10.10.0 0.0.0.255 area 0
 network 11.11.11.1 0.0.0.0 area 0
 ```
 
-**R2:**
+**`R2`:**
 
 ```
 router ospf 1
@@ -497,7 +497,7 @@ network 10.10.10.0 0.0.0.255 area 0
 network 12.12.12.2 0.0.0.0 area 0
 ```
 
-- 自R1向R2的环回接口执行ping操作，以测试连通性
+- 自`R1`向`R2`的环回接口执行ping操作，以测试连通性
 - 执行一条`show ip route`命令，来验证有通过OSPF接收到路由
 - 执行一条`show ip protocols`命令，来验证有配置OSPF且在设备上是活动的
 - 坚持特定于OSPF的接口参数：`show ip ospf interface`及`show ip ospf interface brief`
