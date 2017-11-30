@@ -11,7 +11,9 @@
     ![laxers@gmail.com](images/a6x09981lks9yco3b8xcqf0.png "laxers@gmail.com")
     （请以留言的方式，告诉译者你想说的话）
 
-- Bitcoin: `1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa`
+- Bitcoin: 
+
+    ![1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa](images/btc-qrcode.png "1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa")
 
 谢谢你的支持和鼓励！
 
