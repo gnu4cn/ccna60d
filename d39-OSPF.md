@@ -102,4 +102,6 @@ Neighbor ID     Pri     State           Dead Time   Address         Interface
 3.3.3.3           1     FULL/BDR        00:00:30    192.168.1.3     FastEthernet0/0
 ```
 
+>  **注意：** 那些`DROther`路由器之所以处于`2WAY/DROTHER`状态，是因为它们仅与指定及后备指定路由器交换它们的数据库。那么就因为`DROther`路由器之间没有完整的数据库交换，所以它们绝不会达到OSPF完整临接状态（The DROther routers remain in the `2WAY/DROTHER` state because they exchange their databases only with the DR and BDR routers. Therefore, because there is no full database exchange between the DROther routers, they will never reach the OSPF FULL adjacency state）。
+
 
