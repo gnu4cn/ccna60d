@@ -29,7 +29,7 @@
 - 对多区的讨论（discuss multi-area）
 - OSPFv2的配置
 - 路由器ID
-- LSA（链路状态算法）的类型
+- LSA（链路状态通告）的类型
 
 
 ## 指定与后备指定路由器（Designated and Backup Designated Routers）
@@ -103,5 +103,31 @@ Neighbor ID     Pri     State           Dead Time   Address         Interface
 ```
 
 >  **注意：** 那些`DROther`路由器之所以处于`2WAY/DROTHER`状态，是因为它们仅与指定及后备指定路由器交换它们的数据库。那么就因为`DROther`路由器之间没有完整的数据库交换，所以它们绝不会达到OSPF完整临接状态（The DROther routers remain in the `2WAY/DROTHER` state because they exchange their databases only with the DR and BDR routers. Therefore, because there is no full database exchange between the DROther routers, they will never reach the OSPF FULL adjacency state）。
+
+因为`R4`已被选为指定路由器，它就生成网络链路状态通告（the Network LSA），这类链路状态通告，是就该多路访问网段上的其它路由器进行通告的。可在网段上的任意路由器上，使用`show ip ospf database network [link state ID]`命令，或在指定路由器上使用`show ip ospf database network self-originate`命令，对此加以验证。下面演示了在指定路由器（`R4`）上命令`show ip ospf database network self-originate`命名的输出：
+
+```sh
+R4#show ip ospf database network self-originate
+            OSPF Router with ID (4.4.4.4) (Process ID 4)
+                Net Link States (Area 0)
+  Routing Bit Set on this LSA
+  LS age: 429
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 192.168.1.4 (address of Designated Router)
+  Advertising Router: 4.4.4.4
+  LS Seq Number: 80000006
+  Checksum: 0x7E08
+  Length: 40
+  Network Mask: /24
+        Attached Router: 4.4.4.4
+        Attached Router: 1.1.1.1
+        Attached Router: 2.2.2.2
+        Attached Router: 3.3.3.3
+```
+
+参考上面的输出，指定路由器（`R4`）发起了表示`192.168.1.0/24`子网的类型2（网络）链路状态通告（the Type 2(Network) LSA）。因为该子网上存在多台路由器，所以该`192.168.1.0/24`子网被称作OSPF命名法中的一条传输链路（a transit link in OSPF terminology）。输出中的通告路由器字段（the Advertising Router field）显示了生成此链路状态通告的那台路由器（`4.4.4.4`, `R4`）。网络掩码字段（the Network Mask field）则显示了该传输网络的子网掩码，也就是24位，或`255.255.255.0`。
+
+> 注：OSPF中链路类型（link type）有4种：P2P、Stub、Transit与Virtual link; 网络类型（network type）有两种：传输网络（Transit network）与末梢网络（Stub network）；链路状态通告有六种：Router LSA、Network LSA、Network summary LSA、ASBR summary LSA、AS external LSA 与 NSSA LSA。[参考链接](http://blog.51cto.com/xiaojiejt/1941362)。
 
 
