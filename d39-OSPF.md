@@ -128,6 +128,114 @@ R4#show ip ospf database network self-originate
 
 参考上面的输出，指定路由器（`R4`）发起了表示`192.168.1.0/24`子网的类型2（网络）链路状态通告（the Type 2(Network) LSA）。因为该子网上存在多台路由器，所以该`192.168.1.0/24`子网被称作OSPF命名法中的一条传输链路（a transit link in OSPF terminology）。输出中的通告路由器字段（the Advertising Router field）显示了生成此链路状态通告的那台路由器（`4.4.4.4`, `R4`）。网络掩码字段（the Network Mask field）则显示了该传输网络的子网掩码，也就是24位，或`255.255.255.0`。
 
-> 注：OSPF中链路类型（link type）有4种：P2P、Stub、Transit与Virtual link; 网络类型（network type）有两种：传输网络（Transit network）与末梢网络（Stub network）；链路状态通告有六种：Router LSA、Network LSA、Network summary LSA、ASBR summary LSA、AS external LSA 与 NSSA LSA。[参考链接](http://blog.51cto.com/xiaojiejt/1941362)。
+> 注：OSPF中链路类型（link type）有4种：P2P、Stub、Transit与Virtual link; 网络类型（network type）有两种：传输网络（Transit network）与末梢网络（Stub network）；链路状态通告有六种：Router LSA（一类）、Network LSA（二类）、Network summary LSA（三类）、ASBR summary LSA（四类）、AS external LSA（五类） 与 NSSA LSA（七类）。[参考链接](http://blog.51cto.com/xiaojiejt/1941362)。
+
+所连接路由器字段（the Attached Router field）列出了在该网络网段上所有路由器的路由器ID。这样就令到该网段上的所有路由器，知悉有哪些其它路由器也同样位处该网段上。下面的输出，演示了在`R1`、`R2`与`R3`上的`show ip ospf database network [link state ID]`命令的输出，反映出同样的信息：
+
+```sh
+R2#show ip ospf database network
+            OSPF Router with ID (2.2.2.2) (Process ID 2)
+                Net Link States (Area 0)
+  Routing Bit Set on this LSA
+  LS age: 923
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 192.168.1.4 (address of Designated Router)
+  Advertising Router: 4.4.4.4
+  LS Seq Number: 80000006
+  Checksum: 0x7E08
+  Length: 40
+  Network Mask: /24
+        Attached Router: 4.4.4.4
+        Attached Router: 1.1.1.1
+        Attached Router: 2.2.2.2
+        Attached Router: 3.3.3.3
+
+
+R1#show ip ospf database network
+            OSPF Router with ID (1.1.1.1) (Process ID 1)
+                Net Link States (Area 0)
+  Routing Bit Set on this LSA
+  LS age: 951
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 192.168.1.4 (address of Designated Router)
+  Advertising Router: 4.4.4.4
+  LS Seq Number: 80000006
+  Checksum: 0x7E08
+  Length: 40
+  Network Mask: /24
+        Attached Router: 4.4.4.4
+        Attached Router: 1.1.1.1
+        Attached Router: 2.2.2.2
+        Attached Router: 3.3.3.3
+            OSPF Router with ID (4.4.4.4) (Process ID 4)
+
+
+R3#show ip ospf database network
+            OSPF Router with ID (3.3.3.3) (Process ID 3)
+                Net Link States (Area 0)
+  Routing Bit Set on this LSA
+  LS age: 988
+  Options: (No TOS-capability, DC)
+  LS Type: Network Links
+  Link State ID: 192.168.1.4 (address of Designated Router)
+  Advertising Router: 4.4.4.4
+  LS Seq Number: 80000006
+  Checksum: 0x7E08
+  Length: 40
+  Network Mask: /24
+        Attached Router: 4.4.4.4
+        Attached Router: 1.1.1.1
+        Attached Router: 2.2.2.2
+        Attached Router: 3.3.3.3
+```
+
+网络链路状态通告的功能及其与其它类型的链路状态通告，特别是与路由器链路通告（类型一，the Router LSA(Type 1)）的关系，将在本模块稍后进行详细介绍。本小节的重点，应放在对指定路由器就多路访问网段上的网络链路状态通告的生成与通告，从而完成对位处该同一网段上的其它路由器的通告，这一过程的理解上。这是因为网段上的路由器仅与指定及后备指定路由器建立临接关系，而相互之间并不建立临接关系。在没有相互之间的临接关系下，路由器就绝不会知道该多路访问网段上的其它非指定/后备指定路由器。
+
+最后，有关指定/后备指定路由器上的第三点，指定/后备指定路由器确保了网段上的所有路由器都有着完整的数据库。非指定/后备指定路由器将更新发送到多播组地址`224.0.0.6`（`AllDRRouter`）。那么指定路由器就通过将该更新发送到多播组地址`224.0.0.5`（`AllSPFRouters`），将这些更新通告给其它非指定/后备指定路由器。下图39.3演示了从`R1`（一台`DROther`）发往指定路由器组地址，涉及图39.2中的那些路由器的一个更新：
+
+![发到指定/后备指定路由器组地址的一个`DROther`更新](images/3903.png)
+
+*图 39.3 -- 发到指定/后备指定路由器组地址的一个`DROther`更新*
+
+`R4`（指定路由器）收到该更新，并接着将相同更新发送到多播组地址`224.0.0.5`（`AllSPFRouters`）。该组地址是由所有OSPF路由器使用的，以确保网段上的所有其它路由器都收到此更新。下图39.4对发自`R4`（指定路由器）的该更新进行了演示：
+
+![到OSPF组地址的指定路由器更新](images/3904.png)
+
+*图 39.4 -- 到OSPF组地址的指定路由器更新*
+
+> **注意**：可以看出这就是来自`R1`的更新，因为图39.3与图39.4中的通告路由器字段（the Advertising Router field）都包含了`R1`的路由器ID（the router ID, RID）, 也就是`1.1.1.1`。
+
+
+> **注意**：OSPF使用到的其它LSA类型，将在本模块的后面详细介绍。
+
+## 额外的路由器类型（Additional Router Types）
+
+除了多路访问网段上的指定与后备指定路由器外，对OSPF路由器的描述方式，还包括根据它们的位置与在OSPF网络中的作用。在OSPF网络中，通常会发现以下额外的路由器类型：
+
+- 区域边界路由器（Area Border Routers）
+- 自治系统边界路由器（Autonomous System Boundary Routers）
+- 内部路由器（Internal Routers）
+- 骨干路由器（Backbone Routers）
+
+
+下图39.5演示了一个后两个区域--一个OSPF骨干区域（the OSPF backbone area(`Area 0`)）与一个额外的一般OSPF区域（a additional normal OSPF area(`Area 2`)）, 构成的基本OSPF网络。`R2`有着一个与`R1`的外部边界网关协议邻居关系（an external BGP neighbour relationship）。该图例将用于描述此网络中不同的OSPF路由器类型。
+
+![额外的OSPF路由器类型](images/3905.png)
+
+*图 39.5 -- 额外的OSPF路由器类型*
+
+区域边界路由器（An Area Border Router, ABR），是一台将一个或多个OSPF区域，连接到OSPF骨干的OSPF路由器。这就意味着其必须有一个接口在`Area 0`中，同时有其它接口在某个不同的OSPF区域中。区域边界路由器是所有其归属区域的成员，且它们保有着每个其所归属区域的一个单独链路状态数据库（ABRs are members of all areas to which they belong, and they keep a seperate Link State Database for every area to which they belong）。参考图39.5, `R3`就应被认为是一台区域边界路由器，因为它将`Area 2`连接到了OSPF骨干`Area 0`。
+
+而传统意义上的自治系统边界路由器，则是位处路由域的边沿，且定义了内部与外部网络的边界（An Autonomous System Boundary Router(ASBR), in the traditional sense, resides at the edge of the routing domain and defines the boundary between the internal and the external networks）。参考图39.5, `R2`将被认为是一台自治系统边界路由器。除了注入来自其它协议（比如BGP）的路由信息外，在某台路由器将静态路由或是所连接的子网，注入到OSPF网络时，也可将其划分为自治系统边界路由器。
+
+内部路由器的所有运作接口，都保持在单个的OSPF区域中。基于图39.5中演示的网络拓扑，`R4`将被视为一台内部路由器，因为其仅有的接口，出于单个的OSPF区域中。
+
+骨干路由器是那些有一个接口在OSPF骨干中的路由器。骨干路由器可以包括那些有着仅在OSPF骨干区域的接口的路由器，或者有一个接口在OSPF骨干区域，也有接口在其它区域的路由器（也就是区域边界路由器）。基于图39.5中演示的拓扑，路由器`R2`与`R3`都可被视为骨干路由器。
+
+> **注意**：OSPF的路由器可有多个角色。比如上面的`R2`就同时是一台自治系统边界路由器及骨干路由器，`R3`又同时是一台骨干路由器与区域边界路由器。贯穿本模块，将详细审视这些类型的路由器与其在OSPF域中的角色与功能。
+
+## OSPF数据包类型
 
 
