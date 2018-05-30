@@ -238,4 +238,48 @@ R3#show ip ospf database network
 
 ## OSPF数据包类型
 
+OSPF路由器发出的不同类型数据包，包含在这些数据包共有的、24字节的OSPF头部（The different types of packets sent by OSPF routers are contained in the common 24-byte OSPF header）。尽管对该OSPF头部细节的深入，超出了CCNA考试要求的范围，但对该头部中所包含的各个字段，以及它们各自用途的基本掌握，仍然重要。下图39.6对此各种数据包共有的24个八位OSPF头部，进行了演示：
 
+![OSPF协议数据包头部](images/3906.png)
+
+*图 39.6 - OSPF协议数据包头部*
+
+其中的8位版本字段，指出了OSPF的版本。该字段的默认值是`2`。但在开启了OSPFv3时，该字段就被设置为`3`。在第13天时，对OSPFv3进行了详细介绍。
+
+接着的8位类型字段，用于指明该OSPF数据包的类型。五种主要的OSPF数据包类型，将在本课程模块接下来进行介绍，它们是：
+
+- 类型1 = `Hello`数据包
+- 类型2 = 数据库描述数据包（Database Description packet）
+- 类型3 = 链路状态请求数据包（Link State Request packet）
+- 类型4 = 链路状态更新数据包（Link State Update packet）
+- 类型5 = 链路状态确认数据包（Link State Acknowledgement packet）
+
+随后的16位数据包长度字段，是用于指明该协议数据包的长度。此长度包括了标准的OSPF头部。
+
+下面的32位路由器ID自动，用于指明发出数据包的路由器的IP地址。在思科IOS设备上，该字段将包含运行OSPF的设备上配置的所有物理接口的最高的IP地址。如在设备上配置了环回接口（Loopback interfaces），那么该字段将包含所有配置的环回接口的最高IP地址。或者在显式地有管理员配置或指定了路由器ID时，该字段也可包含那个手动配置的路由器ID。
+
+>  **注意**: 除非重启了路由器，或者获取IP地址的那个接口被关闭或移除，抑或在路由器上使用了提权的`EXEC`命令`clear ip ospf process`命令重置了OSPF进程，否则在路由器ID被选出后，该路由器ID都不会发生改变。
+
+接下来的32位区域ID（Area ID），用于区分该数据包的OSPF区域（the OSPF area）。数据包只能属于单个OSPF区域。在数据包是通过虚拟链路（a virtual link）接收到的时，那么区域ID就会是OSPF的骨干区域，也就是`Area 0`。本课程模块后面后对虚拟链路进行介绍。
+
+校验和字段是16位长的，它指出了该数据包完整内容，从OSPF头部开始，但排除了64位的认证数据字段的标准IP校验和。如该数据包的长度不是正数个的16位字（16-bit words）长时，则会在进行检验和检查钱，以全`0`字节加以补充。
+
+其后的16位认证类型字段（The 16-bit Authentication(Auth) Type field）指出所使用的认证的类型。该字段仅对OSPFv2有效，且可能包含以下3个代码之一：
+
+- `Code 0` - 意思是空（`0`）认证，也就是没有认证；这是默认选项
+- `Code 1` - 表明认证类型是普通文本（the authentication type is plain text）
+- `Code 2` - 意思是认证类型为消息摘要算法（MD5, Message Digest Algorithm）
+
+OSPF头部最后的64位认证数据字段，则是在开启了认证时，用于具体的认证信息或数据。重要的是记住 **该字段仅对OSPFv2有效**。在使用的是普通文本认证时，该自动包含了认证密钥（the authentication key）。但在使用的是MD5认证时，该自动就被重新定义为几个其它字段，不过这超出了CCNA考试要求范围。下图39.7显示了线路上捕获到的OSPF数据包的不同字段：
+
+![OSPF数据包头部的线上捕获](images/3907.png)
+
+*图 39.7 - OSPF数据包头部的线上捕获*
+
+在OSPF数据包头部里头，8位的类型字段用于指明OSPF数据包的类型。这里再度说明一下，如下所示的5种OSPF数据包类型：
+
+- 类型1 = `Hello`数据包
+- 类型2 = 数据库描述数据包（Database Description packet）
+- 类型3 = 链路状态请求数据包（Link State Request packet）
+- 类型4 = 链路状态更新数据包（Link State Update packet）
+- 类型5 = 链路状态确认数据包（Link State Acknowledgement packet）
