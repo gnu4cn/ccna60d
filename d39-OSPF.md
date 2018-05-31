@@ -283,3 +283,12 @@ OSPF头部最后的64位认证数据字段，则是在开启了认证时，用�
 - 类型3 = 链路状态请求数据包（Link State Request packet）
 - 类型4 = 链路状态更新数据包（Link State Update packet）
 - 类型5 = 链路状态确认数据包（Link State Acknowledgement packet）
+
+
+### OSPF `Hello` 数据包
+
+`Hello`数据包用于发现其它直接相连的OSPF路由器，以及在OSPF路由器之间建立OSPF临接关系（OSPF adjacencies between OSPF routers）。对于广播及点对点网络，OSPF使用多播来发送`Hello`数据包。这些数据包被投送到`AllSPFRouters`多播组地址`224.0.0.5`。对于非广播链路（比如帧中继），OSPF使用单播（Unicast）来将`Hello`数据包直接发送给那些静态配置的邻居。
+
+> **注意**：默认情况下，所有OSPF数据包（也就是包括多播与单播），都是以IP存活时间`1`发送的。这就将这些数据包限制到本地链路。也就是说，无法与距离远于一挑的另一台路由器建立OSPF临接关系。这一点也适用于EIGRP。
+
+
