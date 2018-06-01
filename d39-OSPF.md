@@ -313,4 +313,24 @@ OSPF的`Hello`数据包，还在广播链路上用于指定路由器与后备指
 
 ### 数据库描述数据包（Database Description Packets）
 
+在各台OSPF路由器对其本地数据库信息进行通告时，于数据库交换期间，就要用到数据库描述数据包。这些数据包通常被称作DBD数据包或DD数据包。第一个DBD数据包用于数据库交换过程的主从选举。DBD数据包还包含了由主路由器选定的初始序列编号（The first DBD packet is used for the Master and Slave election for database exchange. The DBD packet also contains the initial sequence number selected by the Master）。有着较高路由器ID的路由器，成为主路由器并发起数据库同步过程。只有主路由器才能增加DBD数据包中的序列编号。主路由器开启数据库交换，并对从路由器进行信息轮询。数据库交换中的主从选举，是在邻居对的基础上进行的。
+
+明白主从选举过程不同于指定与后备指定路由器的选举过程，尤为重要。通常后错误地假定它们一致（This is commonly incorrectly assumed）。主从选举过程只基于有着最高IP地址的路由器（两台邻居路由器之间）一条原则；但指定与后备指定路由器选举过程，则由IP地址或优先级值两个因素决定。
+
+比如这里假设，两台名为`R1`与`R2`的路由器开始了临接关系建立过程。`R1`有着路由器ID`1.1.1.1`，同时`R2`有着路由器ID`2.2.2.2`。网络管理员将`R1`的OSPF优先级值配置为`255`以确保该路由器被选举为指定路由器。在主从关系确定过程中，`R2`因为有着较高的路由器ID优势，而将被选举为主路由器。但在`R1`上配置的优先级值，导致`R1`被选举为指定路由器。而实际上，在主从选举过程中，作为指定路由器的`R1`就可作为从路由器。
+
+在选出了主从路由器后，本地路由器就通过往对方路由器发送LSA头部，而使用DBD数据包对本地数据库进行概括（After the Master and Slave have been elected, DBD packets are used to summarise the local database by sending LSA headers to the remote router. LSA，Link-State Advertisement, 链路状态通告）。远端路由器分析这些头部，以判断在其自己的LSDB拷贝中是否缺少什么信息。下图39.9中对数据库描述数据包进行了演示：
+
+![OSPF的数据库描述数据包](images/3909.png)
+
+*图 39.9 - OSPF的数据库描述数据包*
+
+在DBD数据包中，两字节的接口MTU字段包含了发出接口的8位二进制的MTU值（the 2-byte Interface MTU field contains the MTU value, in octets, of the outgoing interface）。也就是说，该字段包含了通过相关接口所能发送的最大数据大小（以字节计）。当在虚拟链路上使用接口时，该字段就被设置为值`0x0000`。有了成功建立OSPF的邻居临接关系，所有路由器上的MTU必须一致。如在一台路由器上修改了这个值，就必须在相同子网的所有其它路由器上配置同样的值（或使用`ip ospf mtu-ignore`命令）。
+
+> **注意**：对于EIGRP来说，不必为了成功建立EIGRP的邻居关系，而要求接口MTU一致。
+
+随后的1字节选项字段，包含的是与OSPF`Hello`数据包相同的选项。为简明起见，不再对这些选项进行描述。
+
+其后的数据库描述或标志字段，是一个1字节的、在临接关系形成过程中，提供某台OSPF路由器可否就多个DBD数据包，与邻居进行交换的能力的字段（The Database Description or Flags field is a 1-byte field that provides an OSPF router with the capability to exchange multiple DBD packets with a neighbour during an adjacency formation）。
+
 
