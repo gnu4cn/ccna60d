@@ -366,4 +366,101 @@ OSPF的`Hello`数据包，还在广播链路上用于指定路由器与后备指
 
 ### 链路状态更新数据包（Link State Update Packets）
 
+链路状态更新（LSU）数据包是由路由器用于对链路状态通告进行通告的数据包（advertise Link State Advertisements）。链路状态更新数据包可以是到OSPF邻居的单播，作为从邻居处接收到链路状态请求的回应。然而最为常见的是，它们被可靠地在整个网络中泛洪到`AllSPFRouters`多播组地址`224.0.0.5`，直到所有路由器都有一份数据库的拷贝位置。所泛洪的更新，于随后在链路状态通告的确认数据包中加以确认。如链路状态通告未被确认，就会默认每隔5秒加以重传。下图39.11展示了一个发送给某个邻居的、作为LSR响应的链路状态更新数据包：
 
+![单播的LSU数据包](images/3911.png)
+
+*图 39.11 - 单播的LSU数据包*
+
+下图 39.12 演示了一个可靠地泛洪到多播组地址`224.0.0.5`的LSU：
+
+![多播LSU数据包](images/3912.png)
+
+*图 39.12 - 多播LSU数据包*
+
+链路状态更新数据包由两部分构成。第一部分是4字节的链路状态通告数目字段（the 4-byte Number of LSAs field）。该字段显式了LSU数据包中所运送的LSA条数。第二部分则是一条或多条的链路状态通告。此可变长度字段包含了完整的LSA。每种类型的LSA都有共同的头部格式，与其各自特定的用来描述各自信息的数据字段。一个LSU数据包可包含单一的LSA或多条的LSA。
+
+### 链路状态确认数据包（Link State Acknowledgement Packets）
+
+链路状态确认数据包（LSAck）用于对各条LSA进行确认及作为对LSU数据包的响应。通过显式地使用链路状态确认数据包来对泛洪的数据包加以确认，OSPF所使用的泛洪机制被认为是可靠的。
+
+链路状态确认数据包包含了一般的OSPF头部，以及随后的一个LSA头部清单。此可变长度字段允许本地路由器以单个数据包对多条LSA进行确认。链路状态确认数据包是以多播发送的。在多路访问网络上，如果发送LSAck的是指定或后备指定路由器，那么这些LSAck就被发送到多播组地址`224.0.0.5`（`AllSPFRouters`）。而如果发送LSAck的不是指定或后备指定路由器，那么这些LSAck数据包就被发送到多播组地址`224.0.0.6`（`AllDRRouters`）。下图39.13对LSAck的格式进行了演示：
+
+![链路状态确认数据包](images/3913.png)
+
+*图 39.13 - 链路状态确认数据包*
+
+总之，重要的是记住不同的OSPF数据包类型及它们所包含的信息。这将不仅有助于考试，也可在将OSPF作为一个协议的整个运作进行掌握的过程中有所裨益。
+
+在思科IOS软件中，可使用`show ip ospf traffic`命令来查看OSPF数据包的统计信息。该命令展示了发送及接收道德OSPF数据包的总数，并将这些OSPF数据包细分到单独的OSPF进程，最终又细分到具体进程下开启了OSPF进程的各个接口上。该命令也可用于对OSPF临接关系建立的故障排除，其作为调试用途时，不是处理器占用密集的方式。下面的输出中演示了该命令所打印的信息：
+
+```sh
+R4#show ip ospf traffic
+OSPF statistics:
+  Rcvd: 702 total, 0 checksum errors
+        682 hello, 3 database desc, 0 link state req
+        12 link state updates, 5 link state acks
+  Sent: 1378 total
+        1364 hello, 2 database desc, 1 link state req
+        5 link state updates, 6 link state acks
+
+            OSPF Router with ID (4.4.4.4) (Process ID 4)
+OSPF queue statistics for process ID 4:
+                   InputQ     UpdateQ    OutputQ
+  Limit            0          200        0
+  Drops            0          0          0
+  Max delay [msec] 4          0          0
+  Max size         2          2          2
+    Invalid        0          0          0
+    Hello          0          0          1
+    DB des         2          2          1
+    LS req         0          0          0
+    LS upd         0          0          0
+    LS ack         0          0          0
+  Current size     0          0          0
+    Invalid        0          0          0
+    Hello          0          0          0
+    DB des         0          0          0
+    LS req         0          0          0
+    LS upd         0          0          0
+    LS ack         0          0          0
+
+Interface statistics:
+    Interface Serial0/0
+OSPF packets received/sent
+    Invalid  Hellos   DB-des    LS-req  LS-upd   LS-ack   Total
+Rx: 0        683      3         0       12       5        703
+Tx: 0        684      2         1       5        6        698
+OSPF header errors
+  Length 0, Auth Type 0, Checksum 0, Version 0,
+  Bad Source 0, No Virtual Link 0, Area Mismatch 0,
+  No Sham Link 0, Self Originated 0, Duplicate ID 0,
+  Hello 0, MTU Mismatch 0, Nbr Ignored 0,
+  LLS 0, Unknown Neighbor 0, Authentication 0,
+  TTL Check Fail 0,
+OSPF LSA errors
+  Type 0, Length 0, Data 0, Checksum 0,
+
+  Interface FastEthernet0/0
+OSPF packets received/sent
+    Invalid  Hellos   DB-des    LS-req  LS-upd   LS-ack   Total
+Rx: 0        0        0         0       0        0        0
+Tx: 0        682      0         0       0        0        682
+OSPF header errors
+  Length 0, Auth Type 0, Checksum 0, Version 0,
+  Bad Source 0, No Virtual Link 0, Area Mismatch 0,
+  No Sham Link 0, Self Originated 0, Duplicate ID 0,
+  Hello 0, MTU Mismatch 0, Nbr Ignored 0,
+  LLS 0, Unknown Neighbor 0, Authentication 0,
+  TTL Check Fail 0,
+OSPF LSA errors
+  Type 0, Length 0, Data 0, Checksum 0,
+
+Summary traffic statistics for process ID 4:
+  Rcvd: 703 total, 0 errors
+        683 hello, 3 database desc, 0 link state req
+        12 link state upds, 5 link state acks, 0 invalid
+  Sent: 1380 total
+        1366 hello, 2 database desc, 1 link state req
+        5 link state upds, 6 link state acks, 0 invalid
+```
