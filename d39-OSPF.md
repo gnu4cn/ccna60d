@@ -464,3 +464,31 @@ Summary traffic statistics for process ID 4:
         1366 hello, 2 database desc, 1 link state req
         5 link state upds, 6 link state acks, 0 invalid
 ```
+
+## 临接关系的建立（Establishing Adjacencies）
+
+运行OSPF的路由器在建立临接关系之前，会经历几种状态。在这些状态期间，路由器要交换不同类型的数据包。这些报文交换令到所有路由器建立起临接关系，以具备网络的持久视图。随后对当前网络的变更，就增量更新发送出去。这些状态分别是：`Down`、`Attempt`、`Init`、`2-way`、`Exstart`、`Exchange`、`Loading`以及`Full states`，如下所示：
+
+- `Down`状态就是所有OSPF路由器的开始状态。然而，即便在所指定的路由器死亡间隔，那个接口尚未接收到`Hello`数据包，本地路由器仍可在此状态中显示出一个邻居（However, the local router may also show a neighbour in this state when no Hello packets have been recieved within the specified router dead interval for that interface）。
+- `Attempt`状态仅对那些非广播多路访问网络上的OSPF邻居有效。在该状态中，已发出了一个`Hello`数据包，但尚未在死亡间隔中接收到来自静态配置的邻居的信息；但会尽力与该邻居建立临接关系。
+- 在OSPF路由器接收到来自邻居的`Hello`数据包，而本地路由器ID并未在接收到的邻居字段（the received Neighbor field）中列出时，就到了`Init`状态。如OSPF`Hello`数据包的参数不匹配，比如各种计时器值等，那么OSPF路由器就再也不会进到此状态之后的状态了。
+- `2-way`状态表明OSPF邻居之间的双向通信（各台路由器已看到其它路由器的`Hello`数据包）。在该状态中，本地路由器已接收到一个在邻居字段中有着其自己的路由器ID的`Hello`数据包，同时两台路由器上的`Hello`数据包参数也是一致的。在此状态时，路由器就确定是否与这个邻居成为临接。在多路访问网络上，指定与后备指定路由器在此阶段得以选举出来。
+- `Exstart`状态用于数据库同步过程的初始化。本地路由器与其邻居在这个阶段确立何者负责数据库同步过程。在该状态中主从路由器被选举出来，同时在该阶段DBD交换的首个顺序编号有主路由器确定下来。
+- `Exchange`状态就是路由器使用DBD数据包对它们的数据库内容进行描述的地方。各个DBD序列被显式的确认，同时一次只允许一个突出的DBD。在此期间，LSR数据包已被发出，以请求LSA的一个新的实例（Each DBD sequence is explicitly acknowledged, and only one outstanding DBD is allowed at a time. During this phase, LSR packets are also sent to request a new instance of the LSA）。在此阶段，`M`（更多）位被用于请求缺失的信息（The `M`(More) bit is used to request missing information during this stage）。在两台路由器都完成了其完整数据库的交换后，它们将把该`M`位设置为`0`。
+- 在`Loading`状态，OSPF构造出一个LSR与链路状态重传清单。LSR数据包被发出，以请求某个LSA的较近期的、尚未在`Exchange`过程中接收到的实例。在此阶段，发出的更新被置于链路状态重传清单之上，直到本地路由器接收到确认为止。如本地路由器在阶段又接收到LSR，那么它将以包含了所请求信息的链路状态更新予以响应。
+- `Full`状态表明OSPF的邻居们已经完成了它们整个数据库的交换，且都达成一致（也就是它们有着网络的同样视图）。处于该状态的两台路由器就将该临接关系加入到它们的本地数据库，并就此关系在链路状态更新数据包中加以通告。到这里，路由表被计算出来，或在临接关系被重置后被重新计算出来。`Full`正是一台OSPF路由器的正常状态。如果某台路由器被卡在了另一状态，那么就表明临接关系的形成中存在故障。对此的唯一例外就是`2-way`状态，该状态对于其中路由器仅到达指定或后备指定的`Full`状态的广播与非广播多路访问网络，就是所谓的正常状态。其它邻居总是将各自视为`2-way`的。
+
+为了成功建立临接关系，两台路由器上的一些参数必须匹配。包括以下这些参数：
+
+- 接口的MTU值（可被配置为忽略）
+- `Hello`与死亡计时器
+- 区域ID
+- 认证类型与口令
+- 末梢区域标志（The Stub Area flag）
+- 兼容的网络类型（Compatible network types）
+
+本课程模块将陆续对这些参数进行介绍。如这些参数不匹配，那么OSPF的临接关系将绝不会完整建立。
+
+> **注意**：处理不匹配的参数，还要记住在多路访问网络上，如两台路由器都配置了优先级值`0`，那么临接关系也不会建立。在这类网络上，必须要有指定路由器（The DR must be present on such network types）。
+
+
