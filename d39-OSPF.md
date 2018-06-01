@@ -333,4 +333,33 @@ OSPF的`Hello`数据包，还在广播链路上用于指定路由器与后备指
 
 其后的数据库描述或标志字段，是一个1字节的、在临接关系形成过程中，提供某台OSPF路由器可否就多个DBD数据包，与邻居进行交换的能力的字段（The Database Description or Flags field is a 1-byte field that provides an OSPF router with the capability to exchange multiple DBD packets with a neighbour during an adjacency formation）。
 
+接着的4字节DBD序列号字段（The 4-byte Sequence Number field），通过使用一个序列号，而用于确保所有DBD数据包在同步过程中，得以接收与处理。主路由器在第一个DBD数据包中，将该字段初始化为一个独特值，其后的每个数据包的序列号都增加`1`。序列号的增加，仅由主路由器进行。
+
+最后的可变长度LSA头部字段（the variable length LSA Header），运送的是描述本地路由器信息的多个LSA头部。每个头部长度为20个8位二进制数，并对数据库中的各个LSA进行唯一地区别。每个DBD数据包可包含多个LSA头部。
+
+
+### 链路状态请求数据包（Link State Request Packets）
+
+链路状态请求数据包，是由OSPF路由器发送的，用以请求缺失的或过期的数据库信息。这些数据包包含了对所请求的链路状态通告进行独特描述的标识符。单个的链路状态请求数据包可能包含了请求多条链路状态通告的单个的标识符集或多个的标识符集。链路状态请求数据包还用于在数据库交换之后的，对数据库交换期间本地路由器不曾有的那些链路状态通告的请求。下图39.10对OSPF的链路状态请求数据包格式的演示：
+
+![OSPF链路状态请求数据包](images/3910.png)
+
+*图 39.10 - OSPF链路状态请求数据包*
+
+其中的4字节链路状态通告类型字段（The 4-byte Link State Advertisement Type field）包含了所请求的链路状态通告类型。其可包含下列字段之一：
+
+- 类型1 = 路由器链路状态通告
+- 类型2 = 网络链路状态通告
+- 类型3 = 网络汇总链路状态通告
+- 类型4 = 自治系统边界路由器链路状态通告
+- 类型5 = 自治系统外部链路状态通告
+- 类型6 = 多播链路状态通告
+- 类型7 = 次末梢区域外部链路状态通告（Not-So-Stubby Area, NSSA）
+- 类型8 = 外部属性链路状态通告（External Attributes Link State Advertisement）
+- 类型9 = 本地链路的不透明链路状态通告（Opaque LSA - Link Local, *目前主要用于MPLS多协议标签交换协议）
+- 类型10 = 区域的不透明链路状态通告（Opaque LSA - Area, *目前主要用于MPLS多协议标签交换协议）
+- 类型11 = 自治系统的不透明链路状态通过（Opaque LSA - Autonomous System, *目前主要用于MPLS多协议标签交换协议）
+
+> **注意**：一些上面列出的链路状态通告将在后面的小节进行讲解。
+
 
