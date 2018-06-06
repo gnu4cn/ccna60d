@@ -592,3 +592,25 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 | 链路状态ID字段（The Link State ID field）包含了真实的网络编号。 | 链路状态ID字段包含了自治系统边界路由器的路由器ID。 |
 
 
+### 自治系统外部链路状态通告（类型5）
+
+**AS External Link State Advertisements(Type 5)**
+
+外部链路状态通过用于对那些该自治系统的外部目的网络进行描述（The External Link State Advertisement is used to describe destinations that are external to the autonomous system）。也就是说，类型5的LSAs提供了要抵达外部网络的必要信息。除了外部路由外，某个OSPF路由域（an OSPF routing domain）的默认路由，也可作为类型5的链路状态通告，而加以注入。
+
+## 关于OSPF的各种区域（OSPF Areas）
+
+除了在本课程模块之前的小节中描述并用到的骨干区域（`Area 0`）及其它非骨干区域外，OSPF规格还定义了记住“特殊”类型的区域。这些区域的配置，主要是为了通过阻止不同类型的LSAs（主要是类型5的LSAs）诸如到确切区域，而减小出于这些区域中的路由器上的链路状态数据库的大小，这些其它区域包括：
+
+- 次末梢区域（Not-So-Stubby Areas, NSSAs）
+- 完全的次末梢区域（Totally Not-So-Stubby Areas, TNSSAs）
+- 末梢区域（Stub Areas, SAs）
+- 完全末梢区域（Totally Stubby Areas, TSAs）
+
+### 关于次末梢区域（Not-So-Stubby Areas, NSSAs）
+
+次末梢区域是OSPF末梢区域的一种，其允许自治系统边界路由器使用NSSA外部LSA（类型7），注入外部路由信息。如同在前面的小节中所指出的，类型4、类型5与类型7的LSAs是用于外部路由的计算。这里不会就类型7的LSAs的细节，或它们在NSSAs中的使用方式，进行检视。
+
+### 关于完全次末梢区域（Totally Not-So-Stubby Areas, TNSSAs）
+
+
