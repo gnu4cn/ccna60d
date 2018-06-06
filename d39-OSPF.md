@@ -678,3 +678,40 @@ Reference bandwidth unit is 100 mbps
 
 而在OSPF中使用的默认参考带宽，则可使用路由器配置命令`auto-cost reference-bandwidth <1-4294967>`，并指定出以`Mbps`计的参考带宽值，而进行调整。这样做在那些有着具有超过`100Mbps`带宽值的链路，比如`GigabitEthernet`链路的网络中尤为重要。在这些网络中，赋予给`GigabitEthernet`的默认开销值将与`FastEthernet`链路的开销值一样。大多数情况下，这样的结果当然是不可取的，尤其是在OSPF尝试在这些链路上进行负载均衡时。
 
+要阻止这种开销值计算偏差，就应在路由器上执行该路由器配置命令`auto-cost reference-bandwidth 1000`命令。这会引发使用新的参考带宽值，对路由器上的个开销值的重新计算。比如，依据该配置，某条`T1`链路的开具将如下进行重新计算：
+
+- 开销 = `10^9 / 带宽（bps）`
+- 开销 = `1 000 000 000 / 1 544 000`
+- 开销 = `647.7`
+
+> **注意**：再次，因为OSPF度量值不支持小数，该值将被向下取整到简单的`647`的度量值，如下面的输出所示：
+
+
+```sh
+R4#show ip ospf interface Serial0/0
+Serial0/0 is up, line protocol is up
+  Internet Address 10.0.2.4/24, Area 2
+  Process ID 4, Router ID 4.4.4.4, Network Type POINT_TO_POINT, Cost: 647
+  Transmit Delay is 1 sec, State POINT_TO_POINT
+  Timer intervals configured, Hello 10, Dead 60, Wait 60, Retransmit 5
+    oob-resync timeout 60
+    Hello due in 00:00:01
+  Supports Link-local Signaling (LLS)
+  Index 2/2, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 1, maximum is 1
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 0, Adjacent neighbor count is 0
+  Suppress Hello for 0 neighbor(s)
+```
+
+在执行了路由器配置命令`auto-cost reference-bandwidth 1000`后，思科IOS软件就打印出下面的消息，表明应将此同样的值，应用该OSPF域中的所有路由器上。这在下面的输出中进行了演示：
+
+```sh
+R4(config)#router ospf 4
+R4(config-router)#auto-cost reference-bandwidth 1000
+% OSPF: Reference bandwidth is changed.
+        Please ensure reference bandwidth is consistent across all routers.
+```
+
+尽管这一点可能看起来像一条重要的警告消息，但请记住该命令的使用，仅影响到本地路由器。在所有路由器上配置这条命令并不是强制性的；但为考试目的，确保一个一致
