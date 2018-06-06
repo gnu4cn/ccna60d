@@ -491,4 +491,94 @@ Summary traffic statistics for process ID 4:
 
 > **注意**：处理不匹配的参数，还要记住在多路访问网络上，如两台路由器都配置了优先级值`0`，那么临接关系也不会建立。在这类网络上，必须要有指定路由器（The DR must be present on such network types）。
 
+## OSPF的链路状态通告与链路状态数据库
+
+**OSPF LSAs and the Link State Database(LSDB)**
+
+如同前面的小节中指出的，OSPF用到好几种类型的链路状态通告。每种链路状态通告都以标准的20字节链路状态通告头部开始。该标准LSA头部包括下面这些字段：
+
+- 链路状态的老化时间（Link State Age）
+- 选项（Options）
+- 链路状态的类型
+- 链路状态的ID
+- 通告的路由器
+- 链路状态的顺序编号
+- 链路状态的校验和
+- 长度
+
+两字节的链路状态老化时间字段，指出自该LSA生成开始所历经的时间（以秒计）。LSA的最大老化时间是3600秒（1小时），这就意味着LSA的老化时间达到3600秒时，其就被移除数据库。为避免被移除，每隔1800秒对LSA进行更新。
+
+一字节的选项字段包含了与OSPF`Hello`数据包同样的选项。
+
+一字节的链路状态类型字段，表示LSA的类型。LSA数据包不同的类型，在后面的小节中介绍。
+
+四字节的链路状态ID字段，标识出由该LSA所描述的网络的一部分。该字段的内容，取决于通告的链路状态类型。
+
+四字节的通告路由器字段，表示了产生该LSA的路由器的路由器ID。
+
+四字节的链路状态顺序编号字段，对旧的或重复的链路状态通告进行探测。第一个顺序编号`0x80000000`是保留的；因此实际的第一个顺序编号总是`0x80000001`。该值随着数据包的不断发出而增加。最大的顺序编号为`0x7FFFFFFF`。
+
+> **注意**：这里使用了补码表示有正负的整数，因此`0x80000000`就是整数`0`，`0x80000001`就是整数`1`。
+
+两字节的链路状态校验和字段，对LSA的包括LSA头部的全部内容，执行弗莱彻校验和运算（the Fletcher checksum, 参见[wikipedia:Fletcher's checksum](https://en.wikipedia.org/wiki/Fletcher%27s_checksum)）。链路状态老化时间字段未包含在校验和中。进行校验和计算的原因，是因为在LSA存储于内存中期间，可能由于路由器软件或硬件问题，或在LSA泛洪期间，由于物理层错误等原因，而造成LSA的失准。
+
+> **注意**： 在LSA被生成或接收到时，就会进行校验和的计算。此外，每个`CheckAge`间隔，也就是10分钟，也会进行校验和计算。如该字段的值为`0`，那就是说没有进行校验和计算。
+
+两字节的长度字段，是头部最后的字段，包含了该LSA的长度值（以字节计）。长度值包含了20字节的LSA头部。下图39.13对LSA头部进行了演示：
+
+![链路状态通告的头部](images/3913.png)
+
+*图 39.13 - 链路状态通告的头部*
+
+尽管OSPF支持11中不同类型的链路状态通告，但仅有LSA类型`1`、`2`与`3`用于计算内部路由，而LSA类型`4`、`5`及`7`，则是用于计算外部路由，从而超出了CCNA考试要求范围。因为出于CCNA考试目的没有必要深入其它类型LSA的细节，所以这些LSA不会在本手册中进行介绍。但可在[in60days.com](http://www.in60days.com)上找到有关它们的一个简要提纲与可打印手册。
+
+在思科IOS软件中，要查看链路状态数据库的内容，就使用`show ip ospf database`命令。在不带关键字使用此命令时，将打印出路由器连接的所有区域的LSA汇总。该命令支持几个有着更高的粒度的关键字，从而允许管理员将输出限制到仅特定类型LSA、仅由本地路由器通告的LSA，甚至OSPF中其它路由器通告的LSA。
+
+尽管对每个关键字用法的输出进行演示是不现实的，但下面的小节仍对不同类型的LSA，以及与`show ip ospf database`命令结合使用从而查看到这些LSA的详细信息的一些常见关键字，进行了介绍。该命令所支持的关键字，在下面的输出中进行了演示：
+
+```sh
+R3#show ip ospf database ?
+  adv-router        Advertising Router link states
+  asbr-summary      ASBR Summary link states
+  database-summary  Summary of database
+  external          External link states
+  network           Network link states
+  nssa-external     NSSA External link states
+  opaque-area       Opaque Area link states
+  opaque-as         Opaque AS link states
+  opaque-link       Opaque Link-Local link states
+  router            Router link states
+  self-originate    Self-originated link states
+  summary           Network Summary link states
+  |                 Output modifiers
+<cr>
+```
+
+### 路由器链路状态通告（类型1）
+
+**Router Links State Advertisements(Type 1)**
+
+类型1的LSA，是由各台路由器为其所属的各个区域所生成的。路由器LSA列出了始发路由器的路由器ID（The router LSA lists the originating router's router ID）。每台单个的路由器都将为其所处的区域，生成一条类型1的LSA。路由器LSA是`show ip ospf database`命令输出中最先打印出的LSA类型。
+
+### 网络链路状态通告（类型2）
+
+**Network Link State Advertisements(Type 2)**
+
+OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段上对路由器进行通告（OSPF uses the Network Link State Advertisement(Type 2 LSA) to advertise the routers on the Multi-Access segment）。此类LSA是由指定路由器生成的，且仅在区域中传播（flooded）。因为其它非指定/后备指定路由器并不在相互之间建立临接关系，所以网络LSA就令到这些路由器对该多路访问网络上的其它路由器有所知悉。
+
+### 网络汇总链路状态通告（类型3）
+
+**Network Summary Link State Advertisement(Type 3)**
+
+网络汇总LSA是一条本地区域之外，但仍出于OSPF域中的目的（网络）的汇总。也就是说，此类LSA同时对区域间及区域内的路由信息进行通告（The Network Summary(Type 3) LSA is a summary of destinations outside of the local area but within the OSPF domain. In other words, this LSA advetises both inter-area and intra-area routing information）。网络汇总LSA没有携带任何的拓扑信息。而是在该类型的LSA中唯一包含的信息，就是一个IP前缀（an IP prefix）。类型3的LSA是由区域边界路由器生成的，并被泛洪到所有临接区域（adjacent areas）。默认情况下，每条类型3的LSA都与一条单独的路由器或网络LSA，以一一对应的形式相匹配（By default, each Type 3 LSA matches a single Router or Network LSA on a one-for-one basis）。也就是说，对于每条单独的类型1及类型2的LSA，都存在着一条类型3的LSA。特别要留意这些LSA是如何在与OSPF骨干（区域）的联系下被传播的。此种传播或泛洪，按照下面这样进行（Special attention must be paid to how these LSAs are propagated in relation to the OSPF backbone. This propagation or flooding is performed as follows）：
+
+- 对于区域内的路由（也就是对于类型1及类型2的LSAs），网络汇总（类型3）的LSA自非骨干区域被通告至OSPF骨干（区域，Network Summary(Type 3) LSAs are advertised from a non-backbone area to the OSPF backbone for intra-area routes(i.e., for Type 1 and Type 2 LSAs)）
+- 对于区域内（也就是区域`0`的类型1与类型2 LSAs）及区域间路由（也就是由其它区域边界路由器泛洪到骨干区域的类型3 LSAs）的网络汇总（类型3）LSAs，被同时从OSPF骨干区域，通告到其它非骨干区域。
+
+后面的三种链路状态通告，类型4、类型5与类型7, 用于外部路由器计算。类型4与类型5将在接着的小节介绍，类型7将在本课程模块后面，于对不同的OSPF区域进行讨论时介绍。
+
+### 自治系统边界汇总链路状态通告（类型4）
+
+**ASBR Summary Link State Advertisements(Type 4)**
+
 
