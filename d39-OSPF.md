@@ -714,4 +714,43 @@ R4(config-router)#auto-cost reference-bandwidth 1000
         Please ensure reference bandwidth is consistent across all routers.
 ```
 
-尽管这一点可能看起来像一条重要的警告消息，但请记住该命令的使用，仅影响到本地路由器。在所有路由器上配置这条命令并不是强制性的；但为考试目的，确保一个一致
+尽管这一点可能看起来像一条重要的警告消息，但请记住该命令的使用，仅影响到本地路由器。在所有路由器上配置这条命令并不是强制性的；但为考试目的，应确保在所有路由器上应用了一个一致的配置。
+
+### 对OSPF的度量值计算施加影响（Influencing OSPF Metric Calculation）
+
+可通过执行下面的操作，来对OSPF度量值的计算，施加直接的影响：
+
+- 使用`bandwidth`命令，对接口带宽进行调整
+- 使用`ip ospf cost`命令，手动指定开销
+
+在对EIGRP的度量值计算进行讨论时的先前课程模块中，对`bandwidth`命令的使用进行了介绍。如先前指出的那样，默认OSPF的开销，是通过以参考带宽`10^8`，也就是`100Mbps`除以链路带宽计算出来的。那么不论是提升还是降低链路带宽，都直接影响到该特定链路的OSPF开销。这是一种典型的用于确保某条路径优先于另一路径而被选用的 **路径控制机制**（a path control mechanism）。
+
+但是，如同在先前的课程模块中所描述的那样，`bandwidth`命令的影响，不仅限于路由协议。正是由于这个原因，作为第二种办法的手动指定开销值，就是推荐的对OSPF度量值计算施加影响的做法。
+
+接口配置命令`ip ospf cost <1-65535>`，被用于手动指定某条链路的开销。链路的开销值越低，其就比到相同目的网络的、有着更高开销值的其它链路，越有可能被优先选用。下面的示例演示了如何为某条串行（`T1`）链路配置上一个OSPF开销`5`：
+
+```sh
+R1(config)#interface Serial0/0
+R1(config-if)#ip ospf cost 5
+R1(config-if)#exit
+```
+
+可使用`show ip ospf interface [name]`命令对此配置进行验证，如下面的输出所示：
+
+```sh
+R1#show ip ospf interface Serial0/0
+Serial0/0 is up, line protocol is up
+  Internet Address 10.0.0.1/24, Area 0
+  Process ID 1, Router ID 1.1.1.1, Network Type POINT_TO_POINT, Cost: 5
+  Transmit Delay is 1 sec, State POINT_TO_POINT,
+  Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+    oob-resync timeout 40
+    Hello due in 00:00:04
+  Index 2/2, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 1, maximum is 4
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 1, Adjacent neighbor count is 1
+    Adjacent with neighbor 2.2.2.2
+  Suppress Hello for 0 neighbor(s)
+```
