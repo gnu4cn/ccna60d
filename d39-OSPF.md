@@ -754,3 +754,27 @@ Serial0/0 is up, line protocol is up
     Adjacent with neighbor 2.2.2.2
   Suppress Hello for 0 neighbor(s)
 ```
+
+## 关于OSPF的默认路由（OSPF Default Routing）
+
+与EIGRP支持好几种生成与通告默认路由的方式不同，OSPF仅使用路由器配置命令`default-information originate [always] [metric <value>] [metric-type <1|2>] [route-map <name>]`，来动态地通告默认路由。
+
+其所使用的`default-information originate`命令，将把该路由器配置为仅在路由表中已出现一条默认路由的情况下，通告一条默认路由（The `default-information originate` command used by itself will configure the router to advertise a default route only if a default route is already present in the routing table）。但可将`[always]`关键字追加到该命令，从而强制该路由器在路由表中尚不存在默认路由的情况下，生成一条默认路由。应小心使用这个关键字，因为它可能导致OSPF域中的流量黑洞，或者导致将所有位置目的地的数据包，转发到所配置的路由器。
+
+关键字`[metric <value>]`用于指定所生成的默认路由的路由度量值。而关键字`[metric-type <1|2>]`可用于修改默认路由的度量值类型（the metric type for the default route）。最后，`[route-map <name>]`关键字将路由器配置为仅在该命名的路由器地图中所指定的条件满足时，生成一条默认路由。
+
+下面的配置示例，演示了如何将一台开启OSPF的路由器，配置为在路由表中存在一条默认路由时，生成一条默认路由并对其进行通告。既有的默认路由可以是一条静态路由，甚至为在该路由器上配置了多种路由协议时，从另一种路由协议产生的一条默认路由。下面的输出演示的是基于一条配置的静态默认路由的此种配置：
+
+```sh
+R4(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0 172.16.4.254
+R4(config)#router ospf 4
+R4(config-router)#network 172.16.4.0 0.0.0.255 Area 2
+R4(config-router)#default-information originate
+R4(config-router)#exit
+```
+
+默认情况下，默认路由是作为类型5的LSA进行通告的。
+
+## OSPF的配置（Configuring OSPF）
+
+
