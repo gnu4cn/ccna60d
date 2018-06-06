@@ -779,7 +779,54 @@ R4(config-router)#exit
 
 以一行配置，就可以在路由器上开启基本的OSPF，并于随后通过添加 **网络语句**，来指明希望在哪些接口上运行OSPF，对于那些不打算通告的网络，则不予添加（Basic OSPF can be enabled on the router with one line of configuration, and then by adding the network statement that specifies on which interfaces you want to run OSPF, not necessarily networks you wish to advertise）:
 
-1. `router ospf 9` <- `9` 是本地有意义的编号
+1. `router ospf 9`，其中 `9` 是本地有意义的编号
 2. `network 10.0.0.0 0.255.255.255 area 0`
 
-在至少一个接口处于`up/up`状态之前，
+在至少一个接口处于`up/up`状态之前，OSPF都不会成为活动状态，并请记住要至少有一个区域必须为`Area 0`。下图39.14演示了一个示例性的OSPF网络：
+
+![一个示例性OSPF网络](images/3914.png)
+
+*图 39.14 - 一个示例性OSPF网络*
+
+其中路由器A的配置为：
+
+```sh
+router ospf 20
+network 4.4.4.4 0.0.0.0 area 0
+network 192.168.1.0 0.0.0.255 area 0
+router-id 4.4.4.4
+```
+
+路由器B的配置为：
+
+```sh
+router ospf 22
+network 172.16.1.0 0.0.0.255 area 0
+network 192.168.1.0 0.0.0.255 area 0
+router-id 192.168.1.2
+```
+
+路由器C的配置为：
+
+```sh
+router ospf 44
+network 1.1.1.1 0.0.0.0 area 1
+network 172.16.1.0 0.0.0.255 area 0
+router-id 1.1.1.1
+router-id 1.1.1.1
+RouterC#show ip route
+Gateway of last resort is not set
+     1.0.0.0/32 is subnetted, 1 subnets
+C       1.1.1.1 is directly connected, Loopback0
+     4.0.0.0/32 is subnetted, 1 subnets
+O       4.4.4.4 [110/129] via 172.16.1.1, 00:10:39, Serial0/0/0
+     172.16.0.0/24 is subnetted, 1 subnets
+C       172.16.1.0 is directly connected, Serial0/0/0
+O     192.168.1.0/24 [110/128] via 172.16.1.1, 00:10:39, Serial0/0/0
+```
+
+## OSPF的故障排除（Troubleshooting OSPF）
+
+这里再度说明一下，开放路径优先协议，是一种就其链路状态进行通告的，开放标准的链路状态路由协议。在一台链路状态路由器于某条网络链路上开始运作时，那个逻辑网络的相关信息，就被添加到该路由器的本地的链路状态数据库中。随后该本地路由器就在其可用的那些链路上，发送`Hello`报文，来判断是否其它链路状态路由器也在接口上运行。OSPF使用IP编号`89`，直接允许在互联网协议上。
+
+
