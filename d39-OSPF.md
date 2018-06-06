@@ -581,4 +581,14 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 
 **ASBR Summary Link State Advertisements(Type 4)**
 
+类型4的LSA对有关自治系统边界路由器的信息进行描述（The Type 4 LSA describes information regarding the Autonomous System Boundry Router(ASBR)）。此类LSA包含了与类型3 LSA的相同数据包格式，并以一些显著的差异，完成同样的基本功能。与类型3的LSA类似，类型4的LSA是由区域边界路由器生成的。两种LSAs的通告路由器字段（the Advertising Router field）都包含着生成该汇总LSA的区域边界路由器的路由器ID。但是，类型4的LSA使用区域边界路由器，为仅有某条路由器LSA可达的各台自治系统边界路由器所创建的。随后该区域边界路由器将该类型4的LSA注入到相应区域。此类LSA提供到有关该自治系统边界路由器本身的可靠性信息。你应熟知的类型3与类型4 LSAs的关键不同，在下表39.2中有列出：
+
+*表 39.2 - 关于类型3与类型4汇总LSAs*
+
+| 类型3的汇总LSA | 类型4的汇总LSA |
+| --- | --- |
+| 提供有关网络链路的信息。 | 提供有关自治系统边界路由器的信息。 |
+| 网络掩码字段（The Network Mask field）包含了该网络的子网掩码。 | 网络掩码字段将总是包含值`0.0.0.0`或简单的就是`0`。 |
+| 链路状态ID字段（The Link State ID field）包含了真实的网络编号。 | 链路状态ID字段包含了自治系统边界路由器的路由器ID。 |
+
 
