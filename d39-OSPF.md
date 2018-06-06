@@ -630,4 +630,21 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 
 ### 关于完全末梢区域（Totally Stubby Areas）
 
+完全末梢区域是末梢区域的一个扩展。但与末梢区域不同的是，完全末梢区域通过限制外部LSAs外，还限制了类型3的LSAs，从而进一步地减小了完全末梢区域中路由器上的链路状态数据库（Link State Database, LSDB）的大小。通常将TSAs配置在那些有着到网络，比如在传统的分支网络，的单个入口及出口点的路由器上（TSAs are typically configured on routers that have a single ingress and egress point into the network, for example in a traditional hub-and-spoke network）。该区域的路由器将所有外部流量转发到区域边界路由器。同时该区域边界路由器也是所有骨干区域及区域间流量到完全末梢区域的出口点（The ABR is also the exit point for all backbone and inter-area traffice to the TSA），其有着以下特性：
 
+- 默认路由是作为类型3的网络汇总LSA注入到末梢区域的
+- 自其它区域的类型3、类型4及类型5 LSAs不被允许进入到这些区域
+
+## 路由度量值与最优路由选取
+
+**Route Metrics and Best Route Selection**
+
+在以下小节中，将学到有关OSPF度量值及其运算的知识。
+
+### OSPF度量值的计算（Calculating the OSPF Metric）
+
+OSPF度量值通常被成为开销（The OSPF metric is commonly referred to as the cost）。开销是从链路的带宽，使用公式`10^8 / 带宽`（其中“带宽”以`bps`计）得到的。这就意味着依据不同链路的带宽，而赋予了它们不同的开销值。使用此公式，一个`10Mbps`的以太网接口的OSPF开销，将像下面这样计算出来：
+
+- 开销 = `10^8 / 带宽（bps）`
+- 开销 = `100 000 000 / 10 000 000`
+- 开销 = `10`
