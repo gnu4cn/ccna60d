@@ -846,4 +846,28 @@ O     192.168.1.0/24 [110/128] via 172.16.1.1, 00:10:39, Serial0/0/0
 - 访问控制清单过滤掉了（ACL filtering）
 - 接口的错误配置
 
+基本的OSPF错误配置，涵盖了很多东西。其可以包括比如不匹配的计时器、区域IDs、认证参数及末梢配置等。思科IOS中有大量的工具，可用于对基本的OSPF错误配置进行故障排除。比如，可使用`show ip protocols`命令来判断信息（比如有关那些开启了OSPF的网络）；可使用`show ip ospf`命令，来判断区域配置及各区域的接口；以及使用`show ip ospf interface brief`命令来判断哪些接口位处哪些区域中，以及在假定接口已开启了OSPF时，判断出这些接口已对哪些OSPF进程开启了。
+
+另一个常见的错误配置就是将接口指定为了被动接口（Another common misconfiguration is specifying the interface as passive）。如果真这样做了，那么该接口就不会发出`Hello`数据包，同时使用那个接口就不会建立邻居关系。既可使用`show ip protocols`，也可使用`show ip ospf interface`命令，来检查哪些接口被配置或指定为了被动接口。下面是在某个被动接口上的后一个命令的示例输出：
+
+```sh
+R1#show ip ospf interface Serial0/0
+Serial0/0 is up, line protocol is up
+  Internet Address 172.16.0.1/30, Area 0
+  Process ID 1, Router ID 10.1.0.1, Network Type POINT_TO_POINT, Cost: 64
+  Transmit Delay is 1 sec, State POINT_TO_POINT
+  Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
+    oob-resync timeout 40
+    No Hellos (Passive interface)
+  Supports Link-Local Signaling (LLS)
+  Index 1/1, flood queue length 0
+  Next 0x0(0)/0x0(0)
+  Last flood scan length is 0, maximum is 0
+  Last flood scan time is 0 msec, maximum is 0 msec
+  Neighbor Count is 0, Adjacent neighbor count is 0
+  Suppress hello for 0 neighbor(s)
+```
+
+最后，当在帧中继这样的非广播多路访问技术上开启OSPF时，请记住必须静态地定义出邻居，因为对于默认的非广播网络类型的邻居发现，OSPF不使用多播传输。在部署OSPF，这是一种常见的邻居表为空的原因。
+
 
