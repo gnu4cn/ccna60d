@@ -648,3 +648,32 @@ OSPF度量值通常被成为开销（The OSPF metric is commonly referred to as 
 - 开销 = `10^8 / 带宽（bps）`
 - 开销 = `100 000 000 / 10 000 000`
 - 开销 = `10`
+
+使用同样的公式，一条`T1`链路的OSPF开销，将像下面这样计算出来：
+
+- 开销 = `10^8 / 带宽（bps）`
+- 开销 = `100 000 000 / 1 544 000`
+- 开销 = `64.77`
+
+> **注意**：在计算OSPF的度量值时，不会用到小数。因此这样的小数总是会向下取整到最接近的整数。那么对于上一示例，一条`T1`链路的实际开销将向下取整到`64`。
+
+如先前所演示的那样，可使用`show ip ospf interface [name]`来查看到某个接口的OSPF开销。在度量值计算中用到的默认参考带宽，可在`show ip protocols`命令的输出中查看到，如下面的输出中所演示的那样：
+
+```sh
+R4#show ip protocols
+Routing Protocol is “ospf 4”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 4.4.4.4
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    0.0.0.0 255.255.255.255 Area 2
+Reference bandwidth unit is 100 mbps
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    3.3.3.3         110           00:00:03
+  Distance: (default is 110)
+```
+
+
