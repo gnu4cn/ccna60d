@@ -676,4 +676,5 @@ Reference bandwidth unit is 100 mbps
   Distance: (default is 110)
 ```
 
+而在OSPF中使用的默认参考带宽，则可使用路由器配置命令`auto-cost reference-bandwidth <1-4294967>`，并指定出以`Mbps`计的参考带宽值，而进行调整。这样做在那些有着具有超过`100Mbps`带宽值的链路，比如`GigabitEthernet`链路的网络中尤为重要。在这些网络中，赋予给`GigabitEthernet`的默认开销值将与`FastEthernet`链路的开销值一样。大多数情况下，这样的结果当然是不可取的，尤其是在OSPF尝试在这些链路上进行负载均衡时。
 
