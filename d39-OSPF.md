@@ -613,4 +613,21 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 
 ### 关于完全次末梢区域（Totally Not-So-Stubby Areas, TNSSAs）
 
+完全次末梢区域是次末梢区域的一个扩展。与次末梢区域类似，类型5的LSAs不被允许进入TNSSAs；与NSSAs不同的是，汇总LSAs也不允许进入到TNSSAs中。此外，在配置了某个TNSSA时，默认路由就作为类型7的LSA注入到该区域。TNSSAs有着以下特性：
+
+- 类型7的LSAs在该NSSA的区域边界路由器处被转换为类型5的LSAs
+- 它们不允许网络汇总LSAs（They do not allow Network Summary LSAs）
+- 它们不允许外部LSAs
+- 默认路由是以一条汇总LSA被注入的
+
+### 关于末梢区域（Stub Areas）
+
+末梢区域与NSSAs有些类似，主要的例外就是不允许外部路由（类型5或类型7）进入到末梢区域（Stub areas are somewhat similar to NSSAs, with the major exception being that external routes(Type 5 or Type 7) are not allowed into Stub Areas）。重要的是对末梢在OSPF何EIGRP中的功能是完全不同的。在OSPF中，某个区域作为末梢区域的配置，通过阻止外部LSAs被通告到这些区域，在无需额外配置下，就可减小这些区域中路由器的路由表及OSPF数据库的大小。末梢区域有着以下特性：
+
+- 默认路由是通过区域边界路由器，以一条类型3的LSA注入到末梢区域的
+- 来自其它区域的类型3的LSAs允许进入到这些区域
+- 外部路由的LSAs（也就是类型4及类型5的LSAs）不被允许
+
+### 关于完全末梢区域（Totally Stubby Areas）
+
 
