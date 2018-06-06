@@ -777,4 +777,9 @@ R4(config-router)#exit
 
 ## OSPF的配置（Configuring OSPF）
 
+以一行配置，就可以在路由器上开启基本的OSPF，并于随后通过添加 **网络语句**，来指明希望在哪些接口上运行OSPF，对于那些不打算通告的网络，则不予添加（Basic OSPF can be enabled on the router with one line of configuration, and then by adding the network statement that specifies on which interfaces you want to run OSPF, not necessarily networks you wish to advertise）:
 
+1. `router ospf 9` <- `9` 是本地有意义的编号
+2. `network 10.0.0.0 0.255.255.255 area 0`
+
+在至少一个接口处于`up/up`状态之前，
