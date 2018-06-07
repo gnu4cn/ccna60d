@@ -1058,4 +1058,52 @@ C       10.0.0.0 is directly connected, FastEthernet0/0
 O       10.0.1.0 [110/2] via 10.0.0.1, 00:01:08, FastEthernet0/0
 ```
 
+除了上书三种常见原因，不良的设计、实现，以及错误配置，也是导致OSPF不如预期的那样对网络进行通告的一个原因。导致此类故障常见的设计问题，包括一个不连续或分区的骨干区域（a discontiguous or partitioned backbone）以及区域类型的错误配置，比如将区域配置为完全末梢的区域。对于这种原因，就要对OSPF的工作原理及其在自己的环境中如何部署有扎实掌握。这样的掌握将极大地简化故障排除过程，因为在故障排除之前，就已经赢得了战斗的一半了。
+
+### OSPF路由故障的调试（Debugging OSPF Routing Issues）
+
+在本课程模块的最后一节，将看看一些较为常用的OSPF调试命令。OSPF的调试，是通过使用`debug ip ospf`命令来开启的。该命令可结合下面这些额外关键字一起使用：
+
+```sh
+R1#debug ip ospf ?
+  adj             OSPF adjacency events
+  database-timer  OSPF database timer
+  events          OSPF events
+  flood           OSPF flooding
+  hello           OSPF hello events
+  lsa-generation  OSPF lsa generation
+  mpls            OSPF MPLS
+  nsf             OSPF non-stop forwarding events
+  packet          OSPF packets
+  retransmission  OSPF retransmission events
+  spf             OSPF spf
+  tree            OSPF database tree
+```
+
+命令`debug ip osfp adj`将打印有关临接事件的实时信息。在对OSPF的邻居临接故障进行故障排除时，这是一个有用的故障排除工具。下面是一个由该命令打印的信息示例。下面的示例演示了如何使用该命令，来判断MTU不匹配而导致的无法到达`Full`状态，从而阻止了邻居临接的建立：
+
+```sh
+R1#debug ip ospf adj
+OSPF adjacency events debugging is on
+R1#
+*Mar 18 23:13:21.279: OSPF: DR/BDR election on FastEthernet0/0
+*Mar 18 23:13:21.279: OSPF: Elect BDR 2.2.2.2
+*Mar 18 23:13:21.279: OSPF: Elect DR 1.1.1.1
+*Mar 18 23:13:21.279:        DR: 1.1.1.1 (Id)   BDR: 2.2.2.2 (Id)
+*Mar 18 23:13:21.283: OSPF: Neighbor change Event on interface FastEthernet0/0
+*Mar 18 23:13:21.283: OSPF: DR/BDR election on FastEthernet0/0
+*Mar 18 23:13:21.283: OSPF: Elect BDR 2.2.2.2
+*Mar 18 23:13:21.283: OSPF: Elect DR 1.1.1.1
+*Mar 18 23:13:21.283:        DR: 1.1.1.1 (Id)   BDR: 2.2.2.2 (Id)
+*Mar 18 23:13:21.283: OSPF: Rcv DBD from 2.2.2.2 on FastEthernet0/0 seq 0xA65 opt 0x52 flag 0x7 len 32 mtu 1480 state EXSTART
+*Mar 18 23:13:21.283: OSPF: Nbr 2.2.2.2 has smaller interface MTU
+*Mar 18 23:13:21.283: OSPF: NBR Negotiation Done. We are the SLAVE
+*Mar 18 23:13:21.287: OSPF: Send DBD to 2.2.2.2 on FastEthernet0/0 seq 0xA65 opt 0x52 flag 0x2 len 192
+*Mar 18 23:13:26.275: OSPF: Rcv DBD from 2.2.2.2 on FastEthernet0/0 seq 0xA65 opt 0x52 flag 0x7 len 32 mtu 1480 state EXCHANGE
+*Mar 18 23:13:26.279: OSPF: Nbr 2.2.2.2 has smaller interface MTU
+*Mar 18 23:13:26.279: OSPF: Send DBD to 2.2.2.2 on FastEthernet0/0 seq 0xA65 opt 0x52 flag 0x2 len 192
+...
+[Truncated Output]
+```
+
 
