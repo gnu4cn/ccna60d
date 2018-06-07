@@ -1141,4 +1141,149 @@ R1#debug ip ospf spf ?
 <cr>
 ```
 
+与所有`debug`命令一样，在对SPF事件进行调试之前，都应对诸如网络大小及路由器上资源占用等因素加以考虑。下面是自`debug ip ospf spf statistic`命令的输出示例：
+
+```sh
+R1#debug ip ospf spf statistic
+OSPF spf statistic debugging is on
+R1#clear ip ospf process
+Reset ALL OSPF processes? [no]: y
+R1#
+*Mar 18 23:37:27.795: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from FULL to DOWN, Neighbor Down: Interface down or detached
+*Mar 18 23:37:27.859: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from LOADING to FULL, Loading Done
+*Mar 18 23:37:32.859: OSPF: Begin SPF at 28081.328ms, process time 608ms
+*Mar 18 23:37:32.859:       spf_time 07:47:56.328, wait_interval 5000ms
+*Mar 18 23:37:32.859: OSPF: End SPF at 28081.328ms, Total elapsed time 0ms
+*Mar 18 23:37:32.859: Schedule time 07:48:01.328, Next wait_interval 10000ms
+*Mar 18 23:37:32.859: Intra: 0ms, Inter: 0ms, External: 0ms
+*Mar 18 23:37:32.859: R: 2, N: 1, Stubs: 2
+*Mar 18 23:37:32.859: SN: 0, SA: 0, X5: 0, X7: 0
+*Mar 18 23:37:32.863: SPF suspends: 0 intra, 0 total
+```
+
+> **注意**：在开始故障排除流程时，在开启SPF的`debug`命令之前，请优先考虑使用`show`命令，比如`show ip ospf statistics`与`show ip ospf`命令。
+
+## 第39天问题
+
+1. OSPF operates over IP number `_______`.
+2. OSPF does NOT support VLSM. True or false?
+3. Any router which connects to Area 0 and another area is referred to as an `_______` `_______` `_______` or `_______`.
+4. If you have a DR, you must always have a BDR. True or false?
+5. The DR/BDR election is based on which two factors?
+6. By default, all routers have a default priority value of `_______`. This value can be adjusted using the `_______` `_______` `_______` `<0-255>` interface configuration command.
+7. When determining the OSPF router ID, Cisco IOS selects the highest IP address of configured Loopback interfaces. True or false?
+8. What roles do the DR and the BDR carry out?
+9. Which command would put network `10.0.0.0/8` into `Area 0` on a router?
+10. Which command would set the router ID to `1.1.1.1`?
+11. Name the common troubleshooting issues for OSPF.
+
+## 第39天答案
+
+1. `89`.
+2. False.
+3. Area Border Router or ABR.
+4. False.
+5. The highest router priority and the highest router ID.
+6. 1, `ip ospf priority` .
+7. True.
+8. To reduce the number of adjacencies required on the segment; to advertise the routers on the Multi-Access segment; and to ensure that updates are sent to all routers on the segment.
+9. The `network 10.0.0.0 0.255.255.255 area 0` command.
+10. The `router-id 1.1.1.1` command.
+11. Neighbour relationships and route advertisement.
+
+
+## 第39天实验
+
+### OSPF实验
+
+__拓扑__
+
+![第39天实验的拓扑](images/39_lab.png)
+
+__实验目的__
+
+学习如何配置基本的OSPF。
+
+__实验步骤__
+
+1. 基于上面的拓扑，配置上所有的IP地址。确保可经由那个串行链路进行Ping操作。
+
+2. 将OSPF添加到路由器`A`。将`Loopback0`上的网络放入到`Area 1`，将那个`10`网络放入到`Area 0`。
+
+```sh
+RouterA(config)#router ospf 4
+RouterA(config-router)#network 172.20.1.0 0.0.0.255 area 1
+RouterA(config-router)#network 10.0.0.0 0.0.0.3 area 0
+RouterA(config-router)#^Z
+RouterA#
+%SYS-5-CONFIG_I: Configured from console by console
+RouterA#show ip protocols
+Routing Protocol is “ospf 4”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 172.20.1.1
+  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    172.20.1.0 0.0.0.255 area 1
+    10.0.0.0 0.0.0.3 area 0
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    172.20.1.1      110           00:00:09
+Distance: (default is 110)
+```
+
+3. 将OSPF添加到路由器`B`。将该环回网络放入到OSPF的`Area 40`。
+
+```sh
+RouterB(config)#router ospf 2
+RouterB(config-router)#net 10.0.0.0 0.0.0.3 area 0
+RouterB(config-router)#
+00:22:35: %OSPF-5-ADJCHG: Process 2, Nbr 172.20.1.1 on Serial0/1/0 from LOADING to FULL, Loading Done
+RouterB(config-router)#net 192.168.1.0 0.0.0.63 area 40
+RouterB(config-router)# ^Z
+RouterB#show ip protocols
+Routing Protocol is “ospf 2”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 192.168.1.1
+  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    10.0.0.0 0.0.0.3 area 0
+    192.168.1.0 0.0.0.63 area 40
+  Routing Information Sources:
+    Gateway         Distance      Last Update
+    172.20.1.1      110           00:01:18
+    192.168.1.1     110           00:00:44
+Distance: (default is 110)
+```
+
+4. 对两台路由器上的路由表进行检查。查找那些OSPF通告的网络。将见到一个`IA`，也就是OSPF的区域间（inter-area）。还将见到OSPF的`AD`，也就是管理距离（Administrative Distance）`110`。
+
+```sh
+RouterA#sh ip route
+...
+[Truncated Output]
+     10.0.0.0/30 is subnetted, 1 subnets
+C       10.0.0.0 is directly connected, Serial0/1/0
+     172.20.0.0/24 is subnetted, 1 subnets
+C       172.20.1.0 is directly connected, Loopback0
+     192.168.1.0/32 is subnetted, 1 subnets
+O IA    192.168.1.1 [110/65] via 10.0.0.2, 00:01:36, Serial0/1/0
+RouterA#
+```
+
+5. 在两台路由器上分别执行一些可用的OSPF命令。
+
+```sh
+RouterA#sh ip ospf ?
+  <1-65535>       Process ID numberborder-routers Border and Boundary Router Information
+  database        Database summary
+  interface       Interface information
+  neighbor        Neighbor list
+```
+
+请访问[www.in60days.com](http://www.in60days.com)并观看作者是如何完成该实验的。
+
 
