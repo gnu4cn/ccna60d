@@ -929,4 +929,105 @@ Routing Protocol is “ospf 1”
 Distance: (default is 110)
 ```
 
+此外，请记住还可以使用`show ip ospf interfaces`命令来找出那些接口开启了OSPF，及其它一些信息。除了网络配置，若接口宕掉，OSPF也不会对路由器进行通告。可使用`show ip ospf interfaces`命令，来确定接口状态，如下所示：
+
+```sh
+R1#show ip ospf interface brief
+Interface    PID   Area     IP Address/Mask    Cost   State   Nbrs F/C
+Lo100        1     0        100.1.1.1/24       1      DOWN    0/0
+Fa0/0        1     0        10.0.0.1/24        1      BDR     1/1
+```
+
+参考上面的输出，可看到`Loopback100`出于`DOWN`状态。细看就可以发现该故障是由于该接口已被管理性关闭，如下面的输出所示：
+
+```sh
+R1#show ip ospf interface Loopback100
+Loopback100 is administratively down, line protocol is down
+  Internet Address 100.1.1.1/24, Area 0
+  Process ID 1, Router ID 1.1.1.1, Network Type LOOPBACK, Cost: 1
+  Enabled by interface config, including secondary ip addresses
+  Loopback interface is treated as a stub Host
+```
+
+如使用`debug ip routing`命令对IP路由事件（IP routing events）进行调试，并于随后在`Loopback100`接口下执行`no shutdown`命令，那么就可以看到下面的输出：
+
+```sh
+R1#debug ip routing
+IP routing debugging is on
+R1#conf t
+Enter configuration commands, one per line.
+R1(config)#interface Loopback100
+R1(config-if)#no shutdown
+R1(config-if)#end
+R1#
+*Mar 18 20:03:34.687: RT: is_up: Loopback100 1 state: 4 sub state: 1 line: 0 has_route: False
+*Mar 18 20:03:34.687: RT: SET_LAST_RDB for 100.1.1.0/24
+  NEW rdb: is directly connected
+*Mar 18 20:03:34.687: RT: add 100.1.1.0/24 via 0.0.0.0, connected metric [0/0]
+*Mar 18 20:03:34.687: RT: NET-RED 100.1.1.0/24
+*Mar 18 20:03:34.687: RT: interface Loopback100 added to routing table
+...
+[Truncated Output]
+```
+
+当有多个地址配置在某个接口下时，所有次要地址都必须位处与主要地址相同的区域中；否则OSPF不会对这些网络进行通告。比如，考虑下图39.15中所演示的网络拓扑：
+
+![OSPF的次要子网通告](images/3915.png)
+
+*图 39.15 - OSPF的次要子网通告*
+
+参考图39.15， 路由器`R1`与`R2`通过一条背靠背的连接（a back-to-back connection）相连。这两台路由器共享了`10.0.0.0/24`子网。不过`R1`还配置了一些在其`FastEthernet0/0`接口下的额外（次要）子网，因此`R1`上该接口的配置就如下打印出来：
+
+```sh
+R1#show running-config interface FastEthernet0/0
+Building configuration...
+Current configuration : 183 bytes
+!
+interface FastEthernet0/0
+ip address 10.0.1.1 255.255.255.0 secondary
+ip address 10.0.2.1 255.255.255.0 secondary
+ip address 10.0.0.1 255.255.255.0
+duplex auto
+speed auto
+end
+```
+
+在`R1`与`R2`上都开启了OSPF。`R1`上部署的配置如下所示：
+
+```sh
+R1#show running-config | section ospf
+router ospf 1
+router-id 1.1.1.1
+log-adjacency-changes
+network 10.0.0.1 0.0.0.0 Area 0
+network 10.0.1.1 0.0.0.0 Area 1
+network 10.0.2.1 0.0.0.0 Area 1
+```
+
+`R2`上部署的配置如下所示：
+
+```sh
+R2#show running-config | section ospf
+router ospf 2
+router-id 2.2.2.2
+log-adjacency-changes
+network 10.0.0.2 0.0.0.0 Area 0
+```
+
+默认情况下，因为`R1`上的次要子网已被放入到一个不同的OSPF区域，所以它们不会被该路由器通告。这一点在`R2`上可以看到，在执行了`show ip route`命令时，就显示下面的输出：
+
+```sh
+R2#show ip route
+Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route
+Gateway of last resort is not set
+     10.0.0.0/24 is subnetted, 1 subnets
+C       10.0.0.0 is directly connected, FastEthernet0/0
+```
+
 
