@@ -1106,4 +1106,39 @@ R1#
 [Truncated Output]
 ```
 
+从上面的输出，可以推断出本地路由器上的MTU高于`1480`字节，因为该调试输出显示邻居有着较低的MTU值。推荐的解决方案将是调整该较低的MTU值，以令到两个邻居有着同样的接口MTU值。这就可以允许该临接达到`Full`状态。
+
+命令`debug ip ospf lsa-generation`将打印出有关OSPF链路状态通告的信息。该命令可用于在使用OSPF时对路由通告的故障排除。下面是由该命令所打印的输出信息的一个示例：
+
+```sh
+R1#debug ip ospf lsa-generation
+OSPF summary lsa generation debugging is on
+R1#
+R1#
+*Mar 18 23:25:59.447: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from FULL to DOWN, Neighbor Down: Interface down or detached
+*Mar 18 23:25:59.511: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from LOADING to FULL, Loading Done
+*Mar 18 23:26:00.491: OSPF: Start redist-scanning
+*Mar 18 23:26:00.491: OSPF: Scan the RIB for both redistribution and translation
+*Mar 18 23:26:00.499: OSPF: max-aged external LSA for summary 150.0.0.0 255.255.0.0, scope: Translation
+*Mar 18 23:26:00.499: OSPF: End scanning, Elapsed time 8ms
+*Mar 18 23:26:00.499: OSPF: Generate external LSA 192.168.4.0, mask 255.255.255.0, type5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000001
+*Mar 18 23:26:00.503: OSPF: Generate external LSA 192.168.5.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000001
+*Mar 18 23:26:00.503: OSPF: Generate external LSA 192.168.1.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000001
+*Mar 18 23:26:00.503: OSPF: Generate external LSA 192.168.2.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000001
+*Mar 18 23:26:00.507: OSPF: Generate external LSA 192.168.3.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000001
+*Mar 18 23:26:05.507: OSPF: Generate external LSA 192.168.4.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000006
+*Mar 18 23:26:05.535: OSPF: Generate external LSA 192.168.5.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000006
+```
+
+命令`debug ip ospf spf`提供有有关最短路径优先算法事件的实时信息。该命令可以下面的关键字结合使用：
+
+```sh
+R1#debug ip ospf spf ?
+  external   OSPF spf external-route
+  inter      OSPF spf inter-route
+  intra      OSPF spf intra-route
+  statistic  OSPF spf statistics
+<cr>
+```
+
 
