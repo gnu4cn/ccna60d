@@ -125,4 +125,89 @@ No active filter modules.
 R2#clock set 12:15:00 20 october 2010
 ```
 
+也可以向下面这样在路由器上应用同样的配置：
 
+```sh
+R2#clock set 12:15:00 october 20 2010
+```
+
+在此配置下，可使用`show clock`命令来查看到系统时间：
+
+```sh
+r2#show clock
+12:15:19.419 utc wed oct 20 2010
+```
+
+观察到一个有趣现象，就是在使用`clock set`命令手动配置或设置了系统时间是，其默认到GMT（UTC）时区，如上面所看到的。为了确保系统始终反映对于不在GMT时区的那些正确时区，就必须使用全局配置命令`clock timezone [time zone name] [GMT offset]`。比如，美国有六个不同的时区，每个时区都有不同的GMT偏移量。这些时区分别是东部时间（Eastern Time），中部时间（Central Time），山区时间（Mountain Time），太平洋时间（Pacific Time）、夏威夷时间（Hawaii Time）以及阿拉斯加时间（Alaska Time）。
+
+此外，一些地方使用标准时间（Standard Time）与夏令时间（Dayligh Saving Time）。考虑这个因素，那么在手动配置系统时钟时，确保于所有设备上正确设置系统时间（标准还是夏令时）就很重要了。下面的配置实例，演示了如何将系统时钟，设置为比GMT晚6个小时的中部标准时间（Central Standard Time, CST）时区的2010年10月20日上午12点40分：
+
+```sh
+R2#config t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+R2(config)#clock timezone CST -6
+R2(config)#end
+R2#clock set 12:40:00 october 20 2010
+```
+
+依据此配置，本地路由器上的系统时钟现在显示为下面这样：
+
+```sh
+R2#show clock
+12:40:17.921 CST Wed Oct 20 2010
+```
+
+> **注意**：如在`clock timezone`命令之前使用`clock set`命令，那么使用`clock set`命令所指定的时间，将被`clock timezone`命令的使用进行偏移。比如假定上面示例中使用的配置命令是像下面这样输入的时：
+
+```sh
+R2#clock set 12:40:00 october 20 2010
+R2#config t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+R2(config)#clock timezone CST -6
+R2(config)#end
+```
+
+因为这里`clock set`命令先使用，所以路由器上的`show clock`命令将显示偏移了6小时的系统时钟，就如使用`clock timezone`命令所指定的那样。在同样的路由器的以下输出对此行为进行了演示：
+
+```sh
+R2#show clock
+06:40:52.181 CST Wed Oct 20 2010
+```
+
+> **注意**：使用全局配置命令`clock summer-time zone recurring [week day month hh:mm week day month hh:mm [offset]]`，可将思科IOS的路由器与交换机可配置为自动切换到夏令时间（summertime, Daylight Saving Time）。这样做可消除标准时间与夏令时期间，在所有手动配置的设备上，手动调整系统时钟的需要。
+
+第二种设置或同步系统时钟的方法，就是使用网络时间协议服务器作为参考时间源了。在那些有着多余几台设备的较大网络中，这是首选方法。NTP是一个设一用于机器网络时间同步的协议。在[RFC 1305](https://tools.ietf.org/html/rfc1305)中对NTP进行了文档说明，其运行在UDP上。
+
+NTP网络通常是从权威的时间源处，比如无线电时钟或连接某台时间服务器的原子钟，获取它的时间。NTP随后经由网络对此时间进行分发。NTP是相当高效的；每分钟不多于一个数据包，就可以将两台机器同步到一毫秒之内。
+
+NTP使用层的概念（a concept of a stratum），来描述某台机器距离权威时间源有多少跳。请记住这不是路由或交换的条数，而是NTP跳数，这是一个完全不同的概念。一台层`1`的时间服务器（A stratum 1 time server），通常具有一个直接安装的无线电或原子钟，同时一台层`2`的时间服务器（a stratum 2 time server），则是通过NTP从层`1`的时间服务器接收其时间，如此等等。在某台设备被配置了多台NTP参考服务器时，它将自动选择有着配置为通过NTP进行通信的最低层编号的机器，作为其时间源（When a device is configured with multiple NTP reference servers, it will automatically choose as its time source the machine with the lowest stratum number that it is configured to communicate with via NTP）。
+
+在思科IOS软件中，使用全局配置命令`ntp server [address]`，来将某台设备配置带有一台或多台NTP服务器的IP地址。如先前指出的那样，可通过重复使用同样的命令，指定多个NTP参考地址。此外，该命令还可用于配置服务器与客户端之间的安全及其它特性。下面的配置实例，演示了如何将某台设备配置为将其时间与一台有着IP地址`10.0.0.1`的NTP进行同步：
+
+```sh
+R1(config)#ntp server 10.0.0.1
+```
+
+根据此配置，可使用`show ntp accociations`命令来对NTP设备之间的通信进行检查，如下面的输出所示：
+
+```sh
+R2#show ntp associations
+address     ref clock    st  when  poll  reach  delay  offset  disp
+*~10.0.0.1  127.127.7.1  5   44    64    377    3.2    2.39    1.2
+* master (synced), # master (unsynced), + selected, - candidate, ~ configured
+```
+
+`address`字段表示NTP服务器的IP地址，如同该字段下所指出的值`10.0.0.1`所确认的那样。而`ref clock`字段则表示了那台NTP服务器所使用的参考时钟。在此实例中，IP地址`127.127.7.1`表示该设备使用的是一个内部时钟（`127.0.0.0/8`子网）作为其参考时间源。如该字段包含了另一个值，比如`192.168.1.254`，那么那将是该服务器用作其参考的IP地址。
+
+接着的`st`字段表示该参考的层（the stratum of the reference）。从上面的打印输出，可以看到`10.0.0.1`的NTP设备有着`5`的层数。本地设备的层数，将增加`1`到值`6`，如下所示，因为其是从有着层`5`的服务器出接收到的时间源。如有另一台设备被同步到该本地路由器，那么它将反应出一个`7`的层数，如此等等。用于检查NTP配置的第二个命令，就是`show ntp status`命令了，其输出如下面所示：
+
+```sh
+R2#show ntp status
+Clock is synchronized, stratum 6, reference is 10.0.0.1
+nominal freq is 249.5901 Hz, actual freq is 249.5900 Hz, precision is 2**18
+reference time is C02C38D2.950DA968 (05:53:22.582 UTC Sun Mar 3 2002)
+clock offset is 4.6267 msec, root delay is 3.16 msec
+root dispersion is 4.88 msec, peer dispersion is 0.23 msec
+```
