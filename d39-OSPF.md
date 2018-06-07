@@ -872,4 +872,61 @@ Serial0/0 is up, line protocol is up
 
 1层与2层故障，也能导致OSPF临接关系的不形成。在先前的课程模块中，就曾详细介绍了1层与2层的故障排除。使用诸如`show interfaces`这样的命令来对接口状态（即线路协议），以及接口上接收到的任何错误进行检查。在开启OSPF的路由器处于跨越多台交换机的VLAN中时，比如应就该VLAN中有着端到端的连通性（end-to-end connectivity），以及所有端口或接口都处于正确的生成树状态进行检查。
 
-访问控制清单过滤，是另一种常见的造成临接关系建立失败的原因。为排除此类故障，重要的是熟悉网络拓扑。比如，在建立某个临接关系失败的路由器是通过不同物理交换机进行连接的时，就可能为ACL过滤是以
+访问控制清单过滤，是另一种常见的造成临接关系建立失败的原因。为排除此类故障，重要的是熟悉网络拓扑。比如，在建立某个临接关系失败的路由器是通过不同物理交换机进行连接的时，就可能为ACL过滤是以先前为安全目的，而已配置在交换机上的VACL（VLAN ACL）的形式部署的。`show ip ospf traffic`命令，就是一个可找出OSPF数据包是被阻塞了还是被丢弃了的有用工具，其会打印出如下输出所演示的，有关发出的OSPF数据包的信息：
+
+```sh
+R1#show ip ospf traffic Serial0/0
+    Interface Serial0/0
+OSPF packets received/sent
+    Invalid  Hellos   DB-des   LS-req    LS-upd    LS-ack    Total
+Rx: 0        0        0        0         0         0         0
+Tx: 0        6        0        0         0         0         6
+OSPF header errors
+  Length 0, Auth Type 0, Checksum 0, Version 0,
+  Bad Source 0, No Virtual Link 0, Area Mismatch 0,
+  No Sham Link 0, Self Originated 0, Duplicate ID 0,
+  Hello 0, MTU Mismatch 0, Nbr Ignored 0,
+  LLS 0, Unknown Neighbor 0, Authentication 0,
+  TTL Check Fail 0,
+OSPF LSA errors
+  Type 0, Length 0, Data 0, Checksum 0,
+```
+
+在上面的输出中，留意到本地路由器在发送OSPF`Hello`数据包但没有接收到任何东西。在路由器上的配置正确的情况下，就要对路由器或中间设备进行检查，以确保OSPF数据包未被过滤或丢弃。
+
+空白邻居表的另一个常见原因，就是接口的不当配置。与EIGRP类似，OSPF不会使用从接口地址建立邻居关系。但与EIGRP不同，在接口子网掩码不一致时，OSPF也不会建立邻居关系。
+
+就是接口子网掩码不同，开启了EIGRP的路由器也会建立邻居关系。比如有这样的两台路由器，其一有着使用地址`10.1.1.1/24`的一个接口，而另一台有着一个使用地址`10.1.1.2/30`的接口，它们被配置为背靠背的EIGRP实现（back-to-back EIGRP implementation），那么它们将成功地建立邻居关系。但应注意此类实现可能导致路由器之间的路由环回。处理不匹配的子网掩码，开启EIGRP的路由器也忽略最大传输单元（MTU）配置，而甚至在接口最大传输单元不同的情况下，建立邻居关系。使用`show ip interfaces`与`show interfaces`命令，就可对IP地址与掩码配置进行检查。
+
+### 路由通告的故障排除（Troubleshooting Route Advertisement）
+
+就像EIGRP的情况一样，有的时候可能会注意到OSPF没有对某些路由进行通告。大多数情况下，这都是由于一些错误配置，而非协议故障造成的（For the most part, this is typically due to some misconfigurations versus a protocol failure）。此类故障的一些常见原因包括下面这些：
+
+- 接口上没有开启OSPF
+- 接口宕掉了
+- 接口地址出于不同的区域
+- OSPF的错误配置
+
+OSPF之所以不对路由器进行通告的一个常见原因，就是该网络未通过OSPF进行通告。在当前的思科IOS软件中，使用路由器配置命令`network`或接口配置命令`ip ospf`，就可使网络得以通告。不管使用哪种方式，都可以使用`show ip protocols`命令，来查看将OSPF配置为对哪些网络进行通告，就如同下面的输出中所看到的：
+
+```sh
+R2#show ip protocols
+Routing Protocol is “ospf 1”
+  Outgoing update filter list for all interfaces is not set
+  Incoming update filter list for all interfaces is not set
+  Router ID 2.2.2.2
+  Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+  Maximum path: 4
+  Routing for Networks:
+    10.2.2.0 0.0.0.128 Area 1
+    20.2.2.0 0.0.0.255 Area 1
+  Routing on Interfaces Configured Explicitly (Area 1):
+    Loopback0
+  Reference bandwidth unit is 100 mbps
+  Routing Information Sources:
+    Gateway         Distance        Last Update
+    1.1.1.1         110             00:00:17
+Distance: (default is 110)
+```
+
+
