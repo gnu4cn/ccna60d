@@ -279,4 +279,33 @@ SNMP陷阱简单地就是就网络上的某个状况，通知SNMP管理器的消
 
 *图 40.3 - 由网络管理站与SNMP管理的元素所使用的UDP端口*
 
+SNMP的三个版本分别是版本`1`、`2`与`3`。版本`1`，或`SNMPv1`，是SNMP协议的最初实现。`SNMPv1`运行在诸如用户数据报协议（UDP）、互联网协议（IP），以及开放系统互联的无连接网络服务（OSI Connectionless Network Service, CLNS）之上。
+
+`SNMPv1`是广泛使用的，且是互联网社区中使用的事实上的网络管理协议。
+
+`SNMPv2`对`SNMPv1`进行了修订，包含了在性能、安全性、保密性及管理器到管理器通信等方面的提升。`SNMPv2`还定义了两种新的操作（命令、operations）：`GetBulk`与`Inform`。`GetBulk`用于有效地获取大块的数据（large blocks of data）。`Inform`操作允许一个网络管理站发送陷阱信息到另一网络管理站，并于随后接收一个响应。在`SNMPv2`中，如某个对`GetBulk`操作进行响应的代理程序无法在一个清单中提供所有变量的值，那么它就提供部分结果。
+
+`SNMPv3`提供了先前版本的SNMP所不具备的以下三项额外安全服务：消息完整性、认证及加密。`SNMPv3`使用消息完整性来确保数据包在传输过程中不被篡改。`SNMPv3`还使用了用于判断消息是否是来自有效的源。最后`SNMPv3`提供了用于打乱（scramble）数据包内容，以防止其被未授权的源看到的加密机制。
+
+在思科IOS软件中，使用`snmp-server host [hostname | address]`命令，来指定本地设备将发送陷阱或通知的目的主机名或IP地址。为实现网络管理站对本地设备的轮询，`SNMPv1`与`SNMPv2`要求使用全局配置命令`snmp-server community <name> [ro | rw]`，为只读或读写访问，指定一个共有字符串（a community string）。
+
+`SNMPv3`蜜柑有使用这种同样的基于共有的安全形式（the same community-based form of security），而是使用了用户与组的安全（user and group security）。下面的配置实例，演示了如何配置带有两个共有字符串的本地设备，其一用于只读访问，另一个用于读写访问。此外，该本地设备还配置了为思科IOS的SLA（Service Level Agreement, 服务级别协议）操作/命令与`syslog`，而使用只读共有字符串，将SNMP陷阱发送到`1.1.1.1`：
+
+```sh
+R2#config t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+R2(config)#snmp-server community unsafe RO
+R2(config)#snmp-server community safe RW
+R2(config)#snmp-server host 1.1.1.1 traps readonlypassword rtr syslog
+```
+
+下图40.4演示了一个基于SNMP轮询（SNMP polling）的、使用ManageEngine OpManager网络监控软件的，设备资源使用情况与可用性的示例报告：
+
+![有关设备资源使用情况的示例SNMP报告](images/4004.png)
+
+*图 40.4 - 有关设备资源使用情况的示例SNMP报告*
+
+## 思科IOS的NetFlow（Cisco IOS NetFlow）
+
 
