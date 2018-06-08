@@ -334,4 +334,29 @@ IP（数据）流基于五个，上至七个的一套IP数据包属性，它们�
 
 *图 40.5 - 基本的NetFlow操作与数据流缓存的生成*
 
+参考图40.5，在本地路由器上入口流量被接收到。该流量被路由器加以探测，且IP属性信息被用于创建一个数据流。随后该数据流信息被存储在流缓存中。该信息可使用命令行界面进行查看，或被导出到某个称为NetFlow收集器的外部目的地，随后在NetFlow收集器出，该同样的信息可使用某种应用报告工具（an application reporting tool）进行查看。要实现将NetFlow数据报告给NetFlow收集器，需要使用以下步骤：
+
+1. 在设备上要配置思科IOS的NetFlow特性，以将数据流捕获到NetFlow缓存。
+
+2. 要配置好NetFlow导出功能，以将数据流发送到收集器。
+
+3. 就那些已经有一段时间不活动的、以被终止的，或者仍活动但超出了活动计时器的数据流，对NetFlow进行搜索（The NetFlow cache is searched for flows that have been inactive for a certain period of time, have been terminated, or, for active flows, that last greater than the active timer）。
+
+4. 将这些已标识出的数据流导出至NetFlow收集器服务器（Those identified flows are exported to the NetFlow Collector server）。
+
+5. 将接近30到50个数据流打包在一起，并通常经由UPD进行传送。
+
+6. NetFlow收集器软件从数据创建出实时或历史性的报告。
+
+在配置思科IOS的NetFlow特性时，需要三个主要步骤，如下所示：
+
+1. 在那些希望对信息进行捕获并在流缓存中存储的所有接口上，使用接口配置命令`ip flow ingress`，把接口配置为将数据流捕获进入NetFlow缓存。重要的是记住NetFlow仅在每个接口的基础上配置的（Configure the interface to capture flows into the NetFlow cache using the `ip flow ingress` interface configuration command on all interfaces for which you want information to be captured and stored in the flow cache. It is important to remember that NetFlow is configured on a per-interface basis only）。
+
+> **Dario先生的提醒**：命令`ip route-cache flow`可在物理接口及其下的所有子接口上，开启（NetFlow）数据流（the `ip route-cache flow` command will enable flows on the physical interface and all subinterfaces associated with it）。
+> 而`ip flow ingress`命令则将开同一接口上的单个子接口、而非所有子接口上，开启（NetFlow）数据流。这在对观看某个接口的子接口`X`、`Y`及`Z`上的数据流不感兴趣，而真正想要观看同一接口上的子接口`A`、`B`与`C`子接口上的数据流时，此命令就很好用。
+> 此外，在NetFlow版本5下，唯一选项是使用`ip flow ingress`命令来监视上传统计数据（with NetFlow v5, the only option was to monitor inbound statistics using the `ip flow ingress` command）。不过随着NetFlow版本9的发布，现在就了使用`ip flow egress`命令，来对离开各个接口的流量进行监控的选择了。
+
+
+> **注意**：从思科IOS版本`12.4(2)T`及`12.2(18)SXD`起，已将命令`ip flow ingress`替换为`ip route-cache flow`命令。而从思科IOS版本`12.2(25)S`起，命令`show running configuration` 的输出已被修改，因此命令`ip route-cache flow`命令，以及`ip flow ingress`命令，将在二者之一被配置后，出现在`show running-configuration`的输出中。
+
 
