@@ -359,4 +359,62 @@ IP（数据）流基于五个，上至七个的一套IP数据包属性，它们�
 
 > **注意**：从思科IOS版本`12.4(2)T`及`12.2(18)SXD`起，已将命令`ip flow ingress`替换为`ip route-cache flow`命令。而从思科IOS版本`12.2(25)S`起，命令`show running configuration` 的输出已被修改，因此命令`ip route-cache flow`命令，以及`ip flow ingress`命令，将在二者之一被配置后，出现在`show running-configuration`的输出中。
 
+随后NetFlow信息就存储在本地路由器上，同时可在本地设备上，使用`show ip cache flow`查看到。
+
+在打算将数据导出到NetFlow收集器的情况下，将需要两个额外任务，如下：
+
+2. 使用全局配置命令`ip flow-export version [1 | 5 | 9]`，配置思科IOS NetFlow的版本或格式。NetFlow版本`1`（`v1`）是在首个NetFlow发布中所支持的最初格式。在用于分析导出的NetFlow数据的应用仅支持该版本时，才应使用此版本。相比版本`1`，版本`5`导出更多的字段，同时也是应用最广泛的版本。而版本`9`则是最新的思科IOS NetFlow版本，也是一个新的IETF标准的基础。版本`9`是一个灵活的导出格式版本。
+
+3. 使用全局配置命令`ip flow-export destination [hostname | address] <port> [udp]`，配置并指定NetFlow收集器的IP地址，并于随后指定NetFlow收集器用于接收来自思科设备的UDP输出的UDP端口。其中的`[udp]`关键字是可选的，且在使用该命令是不需要指定，因为在将数据发送到NetFlow收集器时，用户数据报协议是默认使用的传输协议。
+
+以下实例演示了如何为某个指定的路由器接口开启NetFlow：
+
+```sh
+R1#config t
+Enter configuration commands, one per line.
+End with CNTL/Z.
+R1(config)#interface Serial0/0
+R1(config-if)#ip flow ingress
+R1(config-if)#end
+```
+
+根据此配置，可使用`show ip cache flow`命令来查看在数据流缓存中所收集的统计数据，如下面的输出所示：
+
+```sh
+R1#show ip cache flow
+IP packet size distribution (721 total packets):
+   1-32   64   96  128  160  192  224  256  288  320  352  384  416  448  480
+   .000 .980 .016 .000 .000 .000 .000 .000 .000 .000 .000 .000 .000 .000 .000
+   512   544  576 1024 1536 2048 2560 3072 3584 4096 4608
+  .002  .000 .000 .000 .000 .000 .000 .000 .000 .000 .000
+
+IP Flow Switching Cache, 278544 bytes
+  4 active, 4092 inactive, 56 added
+  1195 ager polls, 0 flow alloc failures
+  Active flows timeout in 30 minutes
+  Inactive flows timeout in 15 seconds
+
+IP Sub Flow Cache, 21640 bytes
+  4 active, 1020 inactive, 56 added, 56 added to flow
+  0 alloc failures, 0 force free
+  1 chunk, 1 chunk added
+  last clearing of statistics never
+
+Protocol         Total    Flows   Packets Bytes  Packets Active(Sec)  Idle(Sec)
+--------         Flows     /Sec     /Flow  /Pkt     /Sec     /Flow      /Flow
+TCP-Telnet           2      0.0        34    40      0.0      10.5       15.7
+TCP-WWW              2      0.0         9    93      0.0       0.1        1.5
+UDP-NTP              1      0.0         1    76      0.0       0.0       15.4
+UDP-other           42      0.0         5    59      0.0       0.0       15.7
+ICMP                 5      0.0        10    64      0.0       0.0       15.1
+Total:              52      0.0         7    58      0.0       0.4       15.1
+
+SrcIf      SrcIPaddress   DstIf   DstIPaddress   Pr SrcP DstP  Pkts
+Se0/0      150.1.1.254    Local   10.0.0.1       01 0000 0800   339
+Se0/0      10.0.0.2       Local   1.1.1.1        06 C0B3 0017     7
+Se0/0      10.0.0.2       Local   10.0.0.1       11 07AF D0F1     1
+Se0/0      10.0.0.2       Local   10.0.0.1       11 8000 D0F1    10
+Se0/0      150.1.1.254    Local   10.0.0.1       01 0000 0800   271
+Se0/0      10.0.0.2       Local   1.1.1.1        06 C0B3 0017    59
+```
 
