@@ -418,3 +418,34 @@ Se0/0      150.1.1.254    Local   10.0.0.1       01 0000 0800   271
 Se0/0      10.0.0.2       Local   1.1.1.1        06 C0B3 0017    59
 ```
 
+下面的示例演示了如何配置并开启指定路由器接口的NetFlow数据收集，并于随后使用NetFlow版本`5`的数据格式，将数据导出到某台有着IP地址`150.1.1.254`的NetFlow收集器：
+
+```sh
+R1(config)#interface Serial0/0
+R1(config-if)#ip flow ingress
+R1(config-if)#exit
+R1(config)#interface FastEthernet0/0
+R1(config-if)#ip flow ingress
+R1(config-if)#exit
+R1(config)#interface Serial0/1
+R1(config-if)#exit
+R1(config)#ip flow-export version 5
+R1(config)#ip flow-export destination 150.1.1.254 5000
+R1(config)#exit
+```
+
+根据此配置，就可在那台NetFlow Collector上，使用某种应用报告工具，查看到收集的信息。而尽管有数据的导出，仍然可以在本地设备上，使用`show ip cache flow`命令来查看统计数据，在对网络故障进行排除或报告问题时，此命令可作为一个有用的工具。
+
+### 使用NetFlow的数据进行故障排除（Troubleshooting Utilising NetFlow Data）
+
+典型的企业网络，有着成千上万的、仅在很短时间内就生成海量NetFlow数据的连接。NetFlow数据可转换为帮助管理员弄清楚网络中正在发生什么的，有用图形与表格。NetFlow数据可辅助于以下方面：
+
+- 提升整体网络性能
+- 对一些诸如网络电话（VoIP）的应用提供支持
+- 更好地对峰值流量进行管理（Better manage traffic spikes）
+- 加强网络规定的执行（Enforce network policies）
+- 揭示出那些指向恶意行为的流量模式（Expose trffic patterns that point to malicious activities）
+
+NetFlow信息还可帮助管理员掌握到任何时候，各种数据类型所消耗的网络资源百分比。一眼就可以发现由电邮、计费与ERP系统及其它应用等使用了多少带宽，以及工作日期间有多少用户在观看YouTube视频，或在打互联网电话。
+
+
