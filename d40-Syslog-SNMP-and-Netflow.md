@@ -448,4 +448,69 @@ R1(config)#exit
 
 NetFlow信息还可帮助管理员掌握到任何时候，各种数据类型所消耗的网络资源百分比。一眼就可以发现由电邮、计费与ERP系统及其它应用等使用了多少带宽，以及工作日期间有多少用户在观看YouTube视频，或在打互联网电话。
 
+NetFlow数据可以易于理解的形式进行呈现，这就使得管理员能够轻易地对更多细节信息进行研究。他们可以就用户、应用、部门、对话、接口与协议等所产生的流量进行检查。使用NetFlow数据可以解决的一些情况示例，包括：
 
+- 网络容量问题（Capacity issues）：NetFlow可清楚地显示什么应用使用了最多的带宽，及它们在何时使用了最多的带宽。此信息有助于改变应用流量模式，从而提升网络性能。通用的做法对用户进行应用。
+- 安全问题（Security issues）：NetFlow数据可对网络上的未授权流量模式进行探测，并可在对网络造成任何危害之前阻止威胁。
+- 网络语言故障（比如低质量，VoIP problems(poor quality, for example)）：在使用NetFlow分析识别出原因后，这方面的问题可被矫正。NetFlow报告可给出对网络语音通话造成影响的带宽不足（insufficient bandwidth）、延迟或网络抖动等因素。
+
+## 第40天问题
+
+1. What underlying protocol does syslog use?
+2. The syslog client sends syslog messages to the syslog sever using UDP as the Transport Layer protocol, specifying a destination port of `_______`.
+3. The priority of a syslog message represents both the facility and the severity of the message. This number is an `________` -bit number.
+4. Name the eight Cisco IOS syslog priority levels.
+5. In Cisco IOS software, the `_______` `_______` `_______` global configuration command can be used to specify the syslog facility.
+6. Which command do you use to globally enable logging on a router?
+7. Name the command used to specify the syslog server destination.
+8. Name the command used to set the clock on a Cisco IOS router.
+9. On which ports does SNMP operate?
+10. Name the command you can use to change the NetFlow version.
+
+## 第40天答案
+
+1. UDP.
+2. `514`.
+3. `8`.
+4. Emergencies, alerts, critical, errors, warnings, notifications, informational, and debugging.
+5. The `logging facility [facility]` command.
+6. The `logging on` command.
+7. The `logging [address]` or `logging host [address]` command.
+8. The `clock set` command.
+9. UDP `161` and `162`.
+10. The `ip flow-export version x` global configuration command.
+
+## 第40天实验
+
+### 日志记录实验
+
+在思科路由器上配置日志记录：
+
+- 选择日志记录设施`local3`：`logging facility local2`
+- 执行全局的`logging on`命令
+- 选择日志记录的严重程度`informational`
+- 在一台PC机上配置一个自由的`syslog`服务器并将其连接到路由器
+- 执行`logging [address]`命令来指定该`syslog`服务器
+- 指定`logging source-interface`命令
+- 验证命令`show logging`
+- 配置`service timestamp log datetime localtime msec show-timezone`命令
+- 在PC机上检查`syslog`消息
+
+### SNMP实验
+
+在思科路由器上配置SNMP：
+
+- 使用`snmp-server host`命令配置SNMP服务器
+- 使用`snmp-server community`命令，配置SNMP的只读（RO）与读写（RW）共有字符串（Configure SNMP RO and RW communities using the `snmp-server community` command）
+
+
+### NetFlow实验
+
+在思科路由器上配置NetFlow：
+
+- 在某个路由器接口上开启IP数据流的入口与出口（Enable IP flow ingress and egress on a router interface）
+- 在有流量通过路由器后，对`show ip cache flow`命令进行检查
+- 使用`ip flow-export`命令对NetFlow的版本进行配置
+- 使用`ip flow-export`命令配置一台外部NetFlow服务器
+
+请访问[www.in60days.com](http://www.in60days.com)网站，免费观看作者完成此实验。
