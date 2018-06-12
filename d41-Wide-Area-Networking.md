@@ -155,4 +155,36 @@ WAN技术的另一种流行分类，涉及包交换网络（packet-switched netw
 - 聚合层 - 通常由微波、数字订户线路（DSL）技术或点对点以太网链路等构成（Aggregation Layer -- usually comprises microwave, DSL technologies, or Point-to-Point Ethernet links）。
 - 核心层 - 可能使用多协议标签交换技术来对不同城域网进行互联（Core Layer -- may use MPLS to interconnect different MANs）。
 
+在城域网中，以使用实现数据包区分的以太网VLAN标签的方式，客户流量隔离通常得以确保（Customer traffic separation is usually ensured in a MAN by using Ethernet VLAN tags that allow the differentiation of packets）。
+
+## 甚小口径终端（VSAT）
+
+甚小口径终端（Very Small Aperture Terminal, VSAT）技术，是一种基于无线卫星技术的电讯系统。甚小口径终端是由小型卫星地球站与一个典型的天线构成，如下图41.4所示：
+
+![卫星通信](images/4104.png)
+
+*图 41.4 - 卫星通信*
+
+典型的甚小口径终端，其组件包括下面这些：
+
+- 主地球站（Master earth station）
+- 远端地球站（Remote earth station）
+- 卫星
+
+主地球站是整个VSAT网络的网络控制中心。于主地球控制站于完成整个网络的配置、管理与监测。
+
+远端地球站则是安装在客户驻地的硬件设备，包含以下这些：
+
+- 室外单元（outdoor unit, ODU）
+- 室内单元（indoor unite, IDU）
+- 连接电缆（interfacility link, IFL）
+
+VSAT卫星环绕全球，从地球站接收信号并将信号发送给地球站（The VSAT satellite orbits round the globe and receives and transmits signals from and to the earth stations）。
+
+VSAT网络可以下面的拓扑之一进行配置：
+
+- 星形拓扑（Star topology）
+- 网状网络（Mesh topology）
+- 星形网状拓扑（Star-mesh topology）
+
 
