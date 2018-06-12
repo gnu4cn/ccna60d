@@ -211,6 +211,34 @@ VSAT网络可以下面的拓扑之一进行配置：
 
 `E3`除了等价于`16`条的`E1`电路，也就是`512`个`E1`信道，及总计`33.368Mbps`的线路速率外，`E3`连接与那些`T3`类似。
 
-因为`T3`/`E3`提供了在需要是增加吞吐总量的能力，因此`T3`/`E3`连接通常用在大型数据中心里。
+因为`T3`/`E3`提供了在需要时增加吞吐总量的能力，因此`T3`/`E3`连接通常用在大型数据中心里。
 
+## 数字综合业务网（ISDN）
 
+数字综合业务网（Integrated Services Digital Network, ISDN），是一种在传统模拟电话线路上，实现数字通信的技术，从而语音与数据都可在公众交换电话网（Public Switched Telephone Network, PSTN）上进行数字传输。因为其生不逢时，诞生之时恰逢其它替代技术也在开发，所以ISDN从来也没有如预期的那样得到广泛应用。
+
+数字综合业务网有两种流派（There are two flavours of ISDN）：
+
+- 数字综合业务网的基本速率接口（ISDN Basic Rate Interface）
+- 主速率接口（ISDN Primary Rate Interface）
+
+采用ISDN协议设备被成为 **终端仿真设备**，而这类设备又可分类为原生ISDN与非原生ISDN设备（The ISDN-speaking devices are called terminal enulation equipment and the devices can be categorised into native ISDN and non-native ISDN equipment）。原生ISDN设备又制作为ISDN就绪的装置构成，且这些设备被称为`TE1`（终端设备一，Terminal Equipment 1）装置。非原生ISDN设备，则是由`TE2`装置构成。非原生ISDN设备，可使用特别的终端适配器（Terminal Adapters, `TAs`）与原生ISDN设备进行集成，也就是说只有`TE2`的装置，才需要终端适配器模块。
+
+异步到ISDN服务提供商处，将找到网络端接二（Network Termination 2, `NT2`）设备，及网络端接一（Network Termination 1, `NT1`）设备。这些设备是传输介质的转换设备，将五线连接，转换成两线连接（本地环回）。本地环回就是用户连接线路，且它是一条两条线的链路。
+
+网络端接装置（the network termination devices）的一个有趣的地方在于，在北美，是由客户负责`NT1`设备，而在世界上的其它地方，则是由服务提供商负责`NT1`设备的。因为这个问题，一些思科路由器提供了内建的`NT1`功能，而这些路由器将在端口编号下标注一个可见的`U`字符，这样用户就可以很快注意到路由器的此项能力。`U`这个记号，是来自于ISDN的参考点命名法（the ISDN reference points terminology），该命名法对ISDN设施中的何处可能有故障进行了描述，如下图41.5中所示：
+
+![ISDN的参考点](images/4105.png)
+
+*图 41.5 - ISDN的参考点*
+
+在某个ISDN网络的故障排除或维护过程中，这些参考点尤为重要。ISDN交换机通常位于服务提供商处。这些不同的ISDN参考点就是下面这些：
+
+- `U`参考点 - 位于ISDN交换机与`NT1`装置之间
+- `T`参考点 - 位于`NT2`与`NT1`装置之间
+- `S`参考点 - 位于终端（`TE1`或`TA`）与`NT2`之间
+- `R`参考点 - 位于非ISDN原生设备（`TE2`）与`TAs`之间
+
+> **注**： `TE2` + `TA` === `TE1`
+
+ISDN的基本速率接口（Basic Rate Interface, BRI）连通性，包含两个用于传递数据的`B`（ _Bearer_, 承载？）信道，与一个用于信号与控制（也能用于数据）的`D`（ _Delta_ ）信道。基本速率接口被缩写为`2B+D`，以对每个接口所提供的信道数目进行提示。ISDN中的每个承载信道都将以`64Kbps`进行运作。可在这些接口上配置多链路的点对点协议（Multilink Point-to-Point Protocol），以允许用户达到`128Kbps`的带宽。
