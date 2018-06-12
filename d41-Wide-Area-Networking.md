@@ -187,4 +187,30 @@ VSAT网络可以下面的拓扑之一进行配置：
 - 网状网络（Mesh topology）
 - 星形网状拓扑（Star-mesh topology）
 
+使用卫星技术来确保WAN的连通性，一般要比使用传统的地面网络连接要昂贵（Using satellite technology to ensure WAN connectivity is generally more expensive than using a traditional terrestrial network connection）。此类连接所提供到的速度可达`5Mbps`的下载与`1Mbps`的上传，对于远端站点这通常是足够的。
+
+使用卫星连通性的一个显著不足，就是流量延迟的增加，延迟可达单向（天线到卫星或卫星到天线）`250ms`，这是由于在极远距离上无线电信号的使用造成的。在规划安装卫星广域网连接时，延迟就应予以仔细分析，因为延迟增加可能导致那些对延迟敏感的应用停摆，当然对其它应用并没有什么影响。
+
+使用卫星连通性的另一挑战，就是卫星碟形天线必须要有到卫星的视线（Another challenge of using satellite connectivity is that the satellite has to have line of sight to the satellite）。这就意味着必须使用高频范围（`2GHz`），同时任何的干扰（如像是下雨或暴风云等自然现象），都将对连接的吞吐能力与可用性造成影响。
+
+## `T1`/`E1`
+
+`T1`与`E1`的广域组网标准已存在相当长时间了。`T1`代表T-载波级别1（T-carrier Level 1，`T1`），其为一条使用了基于时间的、与不同信道相关的数字信号的市分复用的线路（a line that uses Time Division Multiplexing with digital signals associated with different channels based on time）。`T1`使用`24`个分立信道、运行在`1.544Mbps`的线路传输速率，那么每个单独信道分配的就是`64Kbps`（`T1` operates using `24` separate channels at a `1.544Mbps` line rate, thus allocating `64Kbps` per individual channel）。这`24`个信道可以想怎么用就怎么用，设置可根据需要从服务提供商那里只购买其中的几个信道。笼而统之，可将一条`T1`连接，看作是一个有着`24`条分立线路的中继/捆绑（In general terms, consider a `T1` connection as a trunk/bundle carrying `24` separate lines）。在以下地区，`T1`作为一项经常使用的标准：
+
+- 北美
+- 日本
+- 韩国
+
+`E1`（E-载波级别1）是一种与`T1`类似的标准，不过仅在欧洲使用。`E1`与`T1`的主要区别在于，`E1`使用了`32`个信道，而不是`24`个，这些信道仍然运行在`64Kbps`，因此提供到共计`2.048Mbps`的线路速率。与`T1`一样，`E1`也是基于时分复用的，因此二者之间的所有其它功能都一样。
+
+## `T3`/`E3`
+
+`T3`/`E3`标准提供到相较它们的`T1`与`E1`前辈更高的带宽。`T3`表示T-载波级别3（T-carrier Level 3），且是一种通常基于同轴电缆与BNC连接器（英语：Bayonet Neill-Concelman，直译为“尼尔-康塞曼卡口”）的连接类型。这一点与通过双绞线介质进行提供的`T1`有所不同。
+
+`T3`连接通常被称为`DS3`连接，而`DS3`连接则与在`T3`线路上所传递的数据有关。因为`T3`使用相当于`28`条的`T1`电路，也就是`672`个`T1`信道，从而提供到额外的吞吐量。这就提供了总共`44.736Mbps`的线路速率。
+
+`E3`除了等价于`16`条的`E1`电路，也就是`512`个`E1`信道，及总计`33.368Mbps`的线路速率外，`E3`连接与那些`T3`类似。
+
+因为`T3`/`E3`提供了在需要是增加吞吐总量的能力，因此`T3`/`E3`连接通常用在大型数据中心里。
+
 
