@@ -104,4 +104,55 @@ WAN技术的另一种流行分类，涉及包交换网络（packet-switched netw
 - 反向ARP（Inverse ARP）
 - 静态映射（Statically map）
 
+`Layer 3`到`Layer 2`的解析，并不总是NBMA接口上的问题，因为可创建出点对点广域网接口（Point-to-Point WAN interfaces）。点对点接口仅能端接单个的`Layer 2`电路，因此在接口仅与单个设备通信时，`Layer 3`到`Layer 2`的解析就无必要。在只有一条电路上，进行通信的就只有一个`Layer 2`地址。在比如运行一个帧中继的点对点子接口，或一个ATM的点对点子接口时，`Layer 3`到`Layer 2`的解析问题会消失。
+
+## 广域网组件（WAN Components）
+
+广域网需要一些物理组件，来建立连接（WAN requires a number of physical components to enable a connection）。依据所使用的连接类型（比如ISDN、ADSL、帧中继、长租线路等）与其它因素，诸如后备连接与传入网络数目等，这些组件会有所不同。
+
+![基本的广域网组件](images/4103.png)
+
+*图 41.3 - 基本的广域网组件*
+
+上图41.3展示了一个基本的接到ISP的串行连接（Figure 41.3 above shows a basic serial connection going out to an ISP）。作为用户，要负责数据终端设备（Data Terminal Equipment, DTE），也就是接受传入链路的用户路由器接口。用户还将负责连接到用户的信道服务单元/数据业务单元（Channel Service Unit(CSU)/Data Service Unit(DSU)）的电线，CSU/DSU将用户数据转换成ISP可传输的格式。CSU/DSU通常已被内建到用户路由器的WAN接口卡（WAN interface card, WIC）中。上图中的CPE为客户驻地设备（Customer Premise Equipment, CPE），由用户负责。
+
+从这一点开始，通常就是ISP或电信公司来负责连接了。它们铺设电缆并提供将数据在其网络上传输的交换站（From this point on, your ISP or Telco is usually responsible for the connection. They lay the cables and provide switching stations, which transport the data across their network）。ISP保有作为（连接）末端、提供时钟的数据通信设备（Data Communication Equipment, DCE），所谓时钟，指的是在线路上数据可以何种速率进行传递。
+
+常见的广域网连接类型包含下面这些：
+
+- 长租线路 - 7x24小时可用的专用连接（Leased-line - a dedicated connection available 24/7）
+- 电路交换 - 在需要时建立连接（Circuit-switching - set up when required）
+- 包交换 - 共享链路/虚拟电路（Packet-switching - shared link/virtual circuit）
+
+用户所购买的连接类型，取决于其需求与预算。在可承担专线费用时，就将有着带宽的独占性使用，同时安全问题也较少。而共享连接则意味着高峰时段连接速度较慢（A shared connection can mean a slower connection during peak times）。
+
+## 广域网的协议（WAN Protocols）
+
+常见的广域网协议包括点对点协议（Point-to-Point Protocol, PPP）、高级别数据链路控制协议（High-level Data Link Control，HDLC）与帧中继协议（Frame Relay）。当然也有许多其它协议，只是这里需要重点关注CCNA大纲中所包含的这三个协议。
+
+点对点协议（PPP）可用于思科设备连接到一台非思科设备时。PPP同样具备包含认证的优势。其可在多种连接类型，包括数字订户线路（DSL）连接、电路交换连接以及异步/同步连接等上使用。
+
+思科的高级数据链路控制（High-level Data Link Control, HDLC）是思科对开放标准HDLC的实现。HDLC需要数据终端设备（DTE）与数据通信设备（DCE），并是思科路由器（串行接口）上默认的封装类型。为对链路状态进行检查，会从DCE发出保持活动报文（注：保持活动报文是由一台设备往另一台设备发送的，用于检查二者之间运作，或阻止链路破坏的报文）。
+
+如同早前所讨论的，帧中继是一种近年来以日渐式微的包交换技术，因为数字订户链路接入已成为相较帧中继更为经济及更可行的WAN连接方式。帧中继工作在从`56Kbps`到`2Mbps`的速度上，并在每次连接需要时，建立起虚拟电路。没有将安全考量构建到帧中继中（不过请参阅下面Farai的补充内容）。后面将详细介绍到帧中继。
+
+> Farai先生谈到 -- “虽然帧中继可以使用按需创建的交换虚拟电路（Switched Virtual Circuits, SVCs），但其一般使用总是存在的永久虚拟电路（Permanent Virtual Circuits, PVCs）。永久虚拟电路是虚拟专用网络的一种（a type of Virtual Private Network(VPN)）。不过有人在帧中继上运行PPP，从而实现帧中继连接的PPP安全性。”
+
+## 城域以太网（Metro Ethernet）
+
+城域以太网（Metro Ethernet）技术涉及在城域网上运营商以太网的运用（Metro Ethernet technologies involve the use of carrier Ethernet in Metropolitan Area Networks(MANs)）。城域以太网可将公司局域网或个人终端用户连接到广域网或互联网。公司通常使用城域以太网将其分支机构连接到内部网（Companies often use Metro Ethernet to connect branch offices to an intranet）。
+
+典型的城域以太网部署，通常采用铜缆或光缆，使用以互联的网络节点的星形或网状拓扑（A typical Metro Ethernet deployment uses a star or a mesh topology with interconnected network nodes using copper or fibre optic cables）。在城域以太网部署中采用标准及广泛应用的以太网技术，与同步光网络（Synchronous Optical Networking, SONET）/同步数字体系（Synchronous Digital Hierarchy，SDH），或多协议标签交换（Multi-Protocol Label Switching, MPLS）相比，可提供到诸多优势：
+
+- 较少的成本（Less expensive）
+- 更容易部署（Easier to implement）
+- 更易于管理（Easier to manage）
+- 因为其使用了标准的以太网方法，故易于连接客户设备（Easy to connect customer equipment because it uses the standard Ethernet approach）
+
+典型的城域网，可在接入/聚合/核心标准设计（一种思科的设计模式，the access/aggregation/core standard design,）下进行结构化，如下所示：
+
+- 接入层 - 通常位于客户驻地处。这一层可能包含一台办公室路由器或家用网关（Access Layer -- usually at the customer's premises. This may include an office router or residential gateway）。
+- 聚合层 - 通常由微波、数字订户线路（DSL）技术或点对点以太网链路等构成（Aggregation Layer -- usually comprises microwave, DSL technologies, or Point-to-Point Ethernet links）。
+- 核心层 - 可能使用多协议标签交换技术来对不同城域网进行互联（Core Layer -- may use MPLS to interconnect different MANs）。
+
 
