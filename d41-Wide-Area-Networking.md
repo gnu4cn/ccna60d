@@ -224,7 +224,7 @@ VSAT网络可以下面的拓扑之一进行配置：
 
 采用ISDN协议设备被成为 **终端仿真设备**，而这类设备又可分类为原生ISDN与非原生ISDN设备（The ISDN-speaking devices are called terminal enulation equipment and the devices can be categorised into native ISDN and non-native ISDN equipment）。原生ISDN设备又制作为ISDN就绪的装置构成，且这些设备被称为`TE1`（终端设备一，Terminal Equipment 1）装置。非原生ISDN设备，则是由`TE2`装置构成。非原生ISDN设备，可使用特别的终端适配器（Terminal Adapters, `TAs`）与原生ISDN设备进行集成，也就是说只有`TE2`的装置，才需要终端适配器模块。
 
-异步到ISDN服务提供商处，将找到网络端接二（Network Termination 2, `NT2`）设备，及网络端接一（Network Termination 1, `NT1`）设备。这些设备是传输介质的转换设备，将五线连接，转换成两线连接（本地环回）。本地环回就是用户连接线路，且它是一条两条线的链路。
+移步到ISDN服务提供商处，将找到网络端接二（Network Termination 2, `NT2`）设备，及网络端接一（Network Termination 1, `NT1`）设备。这些设备是传输介质的转换设备，将五线连接，转换成两线连接（本地环回）。本地环回就是用户连接线路，且它是一条两条线的链路。
 
 网络端接装置（the network termination devices）的一个有趣的地方在于，在北美，是由客户负责`NT1`设备，而在世界上的其它地方，则是由服务提供商负责`NT1`设备的。因为这个问题，一些思科路由器提供了内建的`NT1`功能，而这些路由器将在端口编号下标注一个可见的`U`字符，这样用户就可以很快注意到路由器的此项能力。`U`这个记号，是来自于ISDN的参考点命名法（the ISDN reference points terminology），该命名法对ISDN设施中的何处可能有故障进行了描述，如下图41.5中所示：
 
@@ -239,6 +239,12 @@ VSAT网络可以下面的拓扑之一进行配置：
 - `S`参考点 - 位于终端（`TE1`或`TA`）与`NT2`之间
 - `R`参考点 - 位于非ISDN原生设备（`TE2`）与`TAs`之间
 
-> **注**： `TE2` + `TA` === `TE1`
+> **注**： 1、TE2` + `TA` === `TE1`；2、大多数`NT1`设备都包含了`NT2`设备的功能，因此`S`与`T`一般合并为`S/T`；3、在北美，`NT1`设备属于用户自备设备，用户必须自己来维护，因此电话公司提供给用户`U`接口。在其他国家，`NT1`设备由电信公司维护，他们提供给客户`S/T`接口。
 
-ISDN的基本速率接口（Basic Rate Interface, BRI）连通性，包含两个用于传递数据的`B`（ _Bearer_, 承载？）信道，与一个用于信号与控制（也能用于数据）的`D`（ _Delta_ ）信道。基本速率接口被缩写为`2B+D`，以对每个接口所提供的信道数目进行提示。ISDN中的每个承载信道都将以`64Kbps`进行运作。可在这些接口上配置多链路的点对点协议（Multilink Point-to-Point Protocol），以允许用户达到`128Kbps`的带宽。
+ISDN的基本速率接口（Basic Rate Interface, BRI）连通性，包含两个用于传递数据的`B`（ _Bearer_, 承载？）信道，与一个用于信号与控制（也能用于数据）的`D`（ _Delta_ ）信道。基本速率接口被缩写为`2B+D`，以对每个接口所提供的信道数目进行提示。ISDN中的每个承载信道都将以`64Kbps`进行运作。可在这些接口上配置多链路的点对点协议（Multilink Point-to-Point Protocol），以允许用户达到`128Kbps`的带宽。与当今网络需求相比，此带宽被认为是相当低的。
+
+BRI ISDN中的`D`信道，专用于`16Kbps`的控制流量。在ISDN环境中还有全部用于组帧控制及其它额外开销的`48Kbps`（带宽），那么BRI的总ISDN带宽就是`192Kbps`（来自`B`信道的`128Kbps` + `D`信道的`16Kbps` + 额外开销`48Kbps`，the _delta_ channel in BRI ISDN is dedicated to 16Kbps for control traffic. There are also `48Kbps` overall for framing control and other overhead in the ISDN environment, meaning the total ISDN bandwidth for BRI is `192Kbps`(`128Kbps` from the `B` channels + `16Kbps` from the `D` channel + `48Kbps` overhead)）。
+
+在美国和日本，ISDN主速率接口（Primary Rate Interface, PRI）有着`23`个`B`承载信道及一个`D`控制（ _delta_ ）信道。所有承载与控制信道都支持`64Kbps`。在包含了额外开销后，总的PRI带宽为`1.544Mbps`。在世界上的其它地方（即欧洲与澳大利亚），PRI包含`30`个承载信道与一个控制信道。
+
+ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电话>专用交换分机，专用电话总机，private branch (telephone) exchange, PBX）的连通性。
