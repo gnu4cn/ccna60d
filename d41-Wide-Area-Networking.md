@@ -339,4 +339,9 @@ VPNs带来的主要好处如下：
 - 灵活性（可使用如MPLS这样的非常灵活的技术，Flexibility(you can use very flexible technologies like MPLS)）
 - 成本低（可以较低代价，经由互联网实现流量的隧道化传送，Cost(You can tunnel traffic through the Internet without much expense)）
 
+## 多协议标签交换技术（Multiple Protocol Label Switching, MPLS）
+
+多协议标签交换，是通过将一个标签追加到任意类型的数据包上，而运作的（Multiprotocol Label Switching(MPLS) functions by appending a label to any type of packet）。随后数据包就根据该标签的值，而非任何`Layer 3`信息，经由网络设施得以转发。给数据包打上标签，提供了非常高效的转发，且令到MPLS可工作在极大范围的现有技术上。通过简单地将一个标签添加到数据包头部中，MPLS就可在许多物理与数据链路层的广域网实现中使用（The labeling of the packet provides very efficient forwarding and allows MPLS to work with a wide range of undelying technologies. By simply adding a label in the packet header, MPLS can be used in many Physical and Data Link Layer WAN implementations）。
+
+
 
