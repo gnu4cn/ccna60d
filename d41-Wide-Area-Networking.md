@@ -207,7 +207,7 @@ VSAT网络可以下面的拓扑之一进行配置：
 
 `T3`/`E3`标准提供到相较它们的`T1`与`E1`前辈更高的带宽。`T3`表示T-载波级别3（T-carrier Level 3），且是一种通常基于同轴电缆与BNC连接器（英语：Bayonet Neill-Concelman，直译为“尼尔-康塞曼卡口”）的连接类型。这一点与通过双绞线介质进行提供的`T1`有所不同。
 
-`T3`连接通常被称为`DS3`连接，而`DS3`连接则与在`T3`线路上所传递的数据有关。因为`T3`使用相当于`28`条的`T1`电路，也就是`672`个`T1`信道，从而提供到额外的吞吐量。这就提供了总共`44.736Mbps`的线路速率。
+`T3`连接通常被称为数字信号3（Digital Signal 3, `DS3`，有贝尔实验室所涉及的T载波信号发送方案）连接，而`DS3`连接则与在`T3`线路上所传递的数据有关。因为`T3`使用相当于`28`条的`T1`电路，也就是`672`个`T1`信道，从而提供到额外的吞吐量。这就提供了总共`44.736Mbps`的线路速率。
 
 `E3`除了等价于`16`条的`E1`电路，也就是`512`个`E1`信道，及总计`33.368Mbps`的线路速率外，`E3`连接与那些`T3`类似。
 
@@ -247,4 +247,62 @@ BRI ISDN中的`D`信道，专用于`16Kbps`的控制流量。在ISDN环境中还
 
 在美国和日本，ISDN主速率接口（Primary Rate Interface, PRI）有着`23`个`B`承载信道及一个`D`控制（ _delta_ ）信道。所有承载与控制信道都支持`64Kbps`。在包含了额外开销后，总的PRI带宽为`1.544Mbps`。在世界上的其它地方（即欧洲与澳大利亚），PRI包含`30`个承载信道与一个控制信道。
 
-ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电话>专用交换分机，专用电话总机，private branch (telephone) exchange, PBX）的连通性。
+ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电话>专用交换分机，专用电话总机，private branch (telephone) exchange, PBX）的连通性。`23`或`32`个`B`信道中的每个，都可用作单独电话线路，因此可将整个的PRI连接，看作是传递多条线路的中继线路（a trunk that carries multiple lines）。使用PRI连接而不是多条独立线路的优势在于，其更易于管理且提供了伸缩性。
+
+上面所介绍的技术，叫做时分复用技术。时分复用市值可将多个信道，经由单一完整的传输介质进行结合，并将这些不同信道分别用于语音、视频及数据。时分指的是将连接分切为不同通信信道的、小的时间窗口（TDM refers to being able to combine multiple channels over a single overall transimission medium and using these differenct channels for voice, video, and data. Time Division refers to splitting the connection into small windows of time for the various communication channels）。
+
+在某个公众交换电话网中，就需要沿同一传输介质，传输多个通话，因此就使用时分复用来达到此目标。实际上在电报时期，时分复用就开始了，并于随后在传真机及其它使用到时分复用的设备上广泛使用。
+
+在拥有长租线路（购买的专用带宽）时，所售卖的电路是以带宽的名义进行计量的。北美的一条数字信号1（Digital Signal 1, `DS1`）或T载波级别1（T-carrier Level 1, `T1`）电路提供了`24`个、每个`64Kbps`的时间槽（`24` time slots of `64Kbps` each）。以及一个`9Kbps`的控制时间槽（a `9Kbps` control time slot，如先前所提到的，总共`1.544Mbps`）。时分复用的术语，与长租线路采购流程紧密的联系在一起（TDM terminology is tightly connected with the leased-line pruchasing process）。
+
+## 数字订户线路（Digital Subscriber Line, DSL）
+
+数字订户线路用作家庭用户的ISDN的替代方案（DSL is used as an alternative to ISDN for home users）。DSL连接的类型有数种，但最重要的几种包括下面这些：
+
+- ADSL(Asymmetric DSL，非对称DSL)
+- HDSL（High-bit-rate DSL，高速DSL）
+- VDSL（Very-high-bit-rate DSL, 甚高速DSL）
+- SDSL（Symmetric DSL，对称DSL）
+
+非对称DSL是经由标准电话线路运作的DSL连接的最常见形式。其被成为非对称的原因，就是其提供了不相等的下载和上传吞吐量，其中下载速率要高于上传速率。一条标准的非对称DSL连接，通常提供到在最远3公里的，最大`24Mbps`的下载吞吐量与最大`3.5Mbps`的上传吞吐量。
+
+在非对称DSL下，客户是连接到位处服务提供商处的DSL访问服用器（DSL Access Multiplexer, DSLAM）上的。DSL访问服用器是一台对来自多个用户的连接，进行聚合的DSL汇聚设备（DSLAM is a DSL concentrator device that aggregates connections from multiple users）。
+
+> **注意**：ADSL的一个问题在于订户与DSLAM的距离受限。
+
+高速DSL（High Bitrate DSL, HDSL）与甚高速DSL（Very High Bitrate DSL, VDSL），是其它大规模使用的DSL技术，提供了与ADSL相比增加了的吞吐量。甚高速率DSL可运行在最高`100Mbps`的速率。
+
+对称DSL提供同样的下载与上传吞吐量，但其从未被标准化，抑或得到大规模使用。
+
+
+## 同轴线（Cable）
+
+家庭用户也可经由标准电视同轴线连接，接收到数字信号。通过使用有线电视数据服务接口规范（the Data Over Cable Service Interface Specification, DOCSIS）标准，可经由同轴线提供互联网访问。此方式通常是一种廉价的服务，因为服务提供商不需要为数据服务安装新的设施。对既有网络的唯一升级，就是在客户驻地安装一台廉价的同轴线调制解调器，该调制解调器通常为用户设备提供了`RJ45`的数据连通性。
+
+经由同轴线的数据流量传输速率可高达`100Mbps`，这对于家庭用户甚至小型公司来说，都是绰绰有余的。
+
+> **注意**：除开电视和数据信号，同轴线连接还可传递语音流量。
+
+可与同轴线结合使用的另一种技术，就是以太网上的点对点协议（Point-to-Point Protocol over Ethernet, PPPoE）。这种连接方式可在同轴线调制解调器与端点设备（the endpoint devices）之间使用，以为同轴线调制解调器设施添加安全性。这种连接方式允许用户登录，并提供为了获取要使用的同轴线业务，而必须加以认证的用户名与口令。（登录）凭据是通过到同轴线调制解调器的以太网连接，并晚于对运行在以太网上的PPP的使用之前，进行传递（The credentials are carried across the Ethernet connection to the cable modem and beyond by using the PPP running over the Ethernet）。后面后简短地对PPPoE进行介绍。
+
+## 蜂窝网络（Celluar Networks）
+
+蜂窝网络是与移动设备（比如手机、平板电脑、个人数字助理<Personal Digital Assistants, PDAs>等）结合，用于与经典语音业务一起的数据的发送与接收。这些网络通过划分为不同单元，而覆盖到极大的地理范围（These networks cover large geographical areas by splitting them into cells）。天线的布设经过详细考虑，从而确保对蜂窝单元的优化覆盖，及在用户从一个地方走到另一个地方时的单元间的无缝漫游。传统连通性类型也叫做`2G`，`2G`包括下面两种：
+
+- 全球移动通信系统（Global System for Mobile Communications, `GSM`）
+- 码分复用（Code Division Multiple Access, `CDMA`）
+
+虽然从功能上，它们都被称作`2G`网络，但依据所使用的运营商及所居住的国家，可能用到`GSM`或`CDMA`类型的通信。这些网络被设计为使用电路交换的模拟连接，且最初并不是设计用于发送数据的。因为数据连接使用包交换技术，所以`2G`类型的连接，提供的是有限数据传输支持。
+
+经由蜂窝网络、实现了全功能包交换与专属数据传输的新近连接类型，包括以下这些：
+
+- 高速包访问（High Speed Packet Access, `HSPA+`）
+- 长期演进（方案）（Long Term Evolution, `LTE`）
+
+`LTE`与`HSPA+`是由第三代合作伙伴计划（3rd Generation Partnership Project, 3GPP）所创建的标准，该计划是数个判断它们需要某种在蜂窝网络上发送数据的标准化方式的电讯公司，之间的协作。
+
+`HSPA+`是一个基于`CDMA`的、提供高达`84Mbps`下载速率与`22Mbps`上传速率的标准。`LTE`则是基于`GSM/EDGE`的，提供高达`300Mbps`的下载与`75Mbps`上传速率的标准。
+
+> **注意**：这些标准都在持续开发中，因此它们的吞吐速率可能在将来会有所提升。
+
+`GSM 3G`
