@@ -305,4 +305,38 @@ ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电�
 
 > **注意**：这些标准都在持续开发中，因此它们的吞吐速率可能在将来会有所提升。
 
-`GSM 3G`
+`GSM 3G`(第三代，third generation)，是一个对具备提供可达数兆（several `Mbps`）传输速率的网络的泛称。可通过提升信道的分配带宽（the channels' allocated bandwidth, 请参考[这里](https://en.wikipedia.org/wiki/Channel_allocation_schemes)，及[这里](https://en.wikipedia.org/wiki/Bandwidth_allocation)），并同时使用包交换技术，来达到这种传输速率。
+
+`GSM 4G`(第四代，fourth generation)，则是GSM相关标准的最新补充（the latest addition to the GSM portfolio），同时在大多数国家，其仍处于部署阶段。`4G`提供到超过`100Mbps`的、适合高速宽带互联网访问的传输速率。`GSM 4G`完全基于IP通信，且原先`3G`中所使用的扩频视频技术（the spread spectrum radio technology），在`4G`中被正交频分多路复用多载波技术（Orthogonal Frequency Division Multiplex Access multi-carrier, OFDMA）所取代，从而可确保更高的传输速率。
+
+## 虚拟专用网技术（VPN Technologies）
+
+虚拟专用网是一种覆盖于通信网络之上，给予到这些通信网络业务所需的安全性与可管理性的技术。在VPN技术下，在享受到低成本与互联网可用的同时，还可建立起安全关系、自动连接、认证及加密等特性（VPN is a technology that overlays communications networks and gives them the security and manageability required by businesses. With VPN technology, you can set up secure relationships, automated connections, authorizations, and encryption, while still enjoying the low cost and availability of the Internet）。
+
+虚拟专用网对跨越互联网传输的，或公司内部范围的数据进行保护（VPNs protect data while in transit across the Internet, or within a company's enclave）。虚拟专用网有着多种能力，但其主要功能包括这些：
+
+- 保持数据机密（经由加密实现，Keep data confidential(encryption)）
+- 确保通信双方身份可靠（经由认证实现，Ensure the identities of two parties communicating(authentication)）
+- 保护通信各方的身份信息（经由隧道化实现，Safeguard the identities of communicating parties(tunnelling)）
+- 确保数据是准确的，且以其最初形式呈现（具有不可抵赖性，Ensure data is accurate and in its original form(non-reudiation)）
+- 防止数据包被反复发送（可防止回放，Guard against packets being sent over and over(replay prevention)）
+
+虽然虚拟专用网概念大多数时间默认就带有了安全性，但仍存在不安全的虚拟专用网（Even though the VPN concept implies security most of the time, unsecured VPNs still exists）。帧中继就是不安全虚拟专用网的一个实例，因为它提供了两个地点之间的专用通信，但却可能在其上没有任何的安全特性。是否应将安全性添加到VPN连接，取决于该连接的特定需求。
+
+而因为在服务提供商设施中缺乏可见性，VPN的故障排除难于进行（VPN troubleshooting is difficult to manage because of the lack of visibility in the service provider infrastructure）。通常将服务提供商视为聚合了全部网络地点的连接的云。在执行VPN的故障排除时，应首先确定故障不在自己的设备上，随后才联系服务提供商。
+
+虚拟专业网的类型有很多，包括下面这些：
+
+- 站点到站点的VPNs，或内部网VPNs（Site-to-Site VPNs, or Intranet VPNs ），比如覆盖式VPN（如帧中继，`Overlay VPN`(like Frame Relay)）或对等点到对等点VPN（如同多协议标签交换，Peer-to-Peer VPNs(like MPLS)）。在将不同地点经由公共设施进行连接时，必须使用这些类型。在使用对等点到对等点设施时，可在站点之间无缝通信，而不必担心IP地址分配的重复。
+- 远程访问VPNs（Remote Access VPNs），比如虚拟专用的拨号网络（Virtual Private Dial-up Network, VPDN），是一种通常考虑到安全性的VPN的拨号方式（which is a dial-up approach for the VPN that is usually done with security in mind）。
+- 外部网VPNs（Extranet VPNs），在要连接到业务伙伴或客户的网络时，需要使用此种VPN。
+
+在使用VPNs时，就通常是将流量进行隧道化处理，以将其经由某项设施加以发送（When you use VPNs, you are often tunnelling traffic in order to send it over an infrastructure）。一种`Layer 3`的隧道化方法，被叫做通用路由封装（Generic Routing Encapsulation, GRE）。通用路由封装实现了流量的隧道传输，但其并不提供安全性。为了在对流量进行隧道化传输的同时提供到安全性，可使用一种名为IP安全（IP Security, `IPSec`）的技术。`IPSec`是`IPv6`的一项强制实现的组件，但对`IPv4`来说却不是。`IPSec`同时与认证、授权与计费（Authentication, Authorisation and Accounting, AAA）服务一同使用，实现对用户行为的追踪。
+
+VPNs带来的主要好处如下：
+
+- 可伸缩性（可将更多站点持续加入到VPN，Scalability(you can contiously add more sites to the VPN)）
+- 灵活性（可使用如MPLS这样的非常灵活的技术，Flexibility(you can use very flexible technologies like MPLS)）
+- 成本低（可以较低代价，经由互联网实现流量的隧道化传送，Cost(You can tunnel traffic through the Internet without much expense)）
+
+
