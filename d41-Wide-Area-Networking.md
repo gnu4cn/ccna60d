@@ -381,4 +381,153 @@ Router(config-if)#^Z
 Router#
 ```
 
+## 以太网上的点对点协议（Point-to-Point over Ethernet, PPPoE）
+
+以太网上的点对点协议，是一个用于在以太网帧内部，封装点对点协议帧的网络协议（Point-to-Point Protocol over Ethernet(PPPoE) is a network protocol used to encapsulate PPP frames inside Ethernet frames）。
+
+要实现客户部署非对称数字订户线路，他们就必须支持在极大安装基数的老旧桥接的客户处设备上的点对点样式的认证与授权。`PPPoE`技术提供了将主机网络经由简单的桥接访问设备，连接到远端访问集中器，或聚合集中器的能力（As customers deploy ADSL, they must support PPP-style authentication and authorisation over a large installed base of legacy bridging customer premises equipment(CPE). PPPoE provides the ability to connect a network of hosts over a simple bridging access device to a remote access concentrator or aggregation concentrator）。在此模型下，每台主机都使用其自身的点对点协议栈，因此呈现给用户的是一个熟悉的用户界面。访问控制、计费与服务类型（type of service），可基于每名用户，而不是基于每个地点完成。
+
+如同在[RFC 2516](http://man.chinaunix.net/develop/rfc/RFC2516.txt)中所指明的那样，PPPoE有两个不同阶段：发现阶段与会话阶段（As specified in RFC 2516, PPPoE has two distinct stages: a discovery stage and a session stage）。在主机发起一个PPPoE会话时，其必须首先进行发现，以找到可满足客户端请求的服务器，并找到对等点的以太网MAC地址而建立一个PPPoE会话ID。在PPP定义一个对等点到对等点的关系时，发现本质上就是一个客户端服务器的关系（While PPP defines a peer-to-peer relationship, discovery is inherently a client-server relationship）。
+
+### PPPoE的配置
+
+下面的小节涵盖了服务器（互联网服务提供商处）与客户端PPPoE的配置。之所以包含此内容，是因为现在CCNA大纲强制要求考生知道如何配置PPPoE。
+
+#### 服务器的配置
+
+创建PPPoE服务器配置的第一步，是定义一个将对传入连接进行管理的宽带聚合组（broadband aggregation group, BBA group）。该宽带聚合组必须关联到某个虚拟模板：
+
+```console
+Router(config)#bba-group pppoe GROUP
+Router(config-bba-group)#virtual-template 1
+```
+
+下一步为面向客户端的接口，创建出一个虚拟模板。在虚拟模板上，需要配置一个IP地址以及一个可从中为客户端分配到协商地址的地址池（The next step is to create a virtual template for the customer-facing interface. On the virtual template you need to configure an IP address and a pool of address from which clients are assigned a negotiated address）：
+
+```console
+Router(config)#interface virtual-template 1
+Router(config-if)#ip address 10.10.10.1 255.255.255.0
+Router(config-if)#peer default ip address pool POOL
+```
+
+该IP地址池是在全局配置模式中定义的。这与DHCP地址池的配置类似：
+
+```console
+Router(config)#ip local pool POOL 10.10.10.2 10.10.10.254
+```
+
+最后一步就是在面向客户端的接口上开启该PPPoE分组：
+
+```console
+Router(config)#interface FastEthernet0/0
+Router(config-if)#no ip address
+Router(config-if)#pppoe enable group GROUP
+Router(config-if)#no shutdown
+```
+
+#### 客户端的配置（Client Configuration）
+
+在客户端侧上，必须创建出一个拨号器接口（On the client side a dialer interface has to be created）。拨号器接口将对PPPoE连接进行管理。可将手动IP地址分配给拨号器接口，或将其设置为从服务器请求一个IP地址（使用`ip address negotiated`命令）：
+
+```console
+Router(config)#interface dialer1
+Router(config-if)#dialer pool 1
+Router(config-if)#encapsulation ppp
+Router(config-if)#ip address negotiated
+Router(config)#interface FastEthernet0/0
+Router(config-if)#no ip address
+Router(config-if)#pppoe-client dial-pool-number 1
+Router(config-if)#no shutdown
+```
+
+### 关于认证（Authentication）
+
+为了令到PPPoE连接安全，可使用两种方法：
+
+- 口令认证协议（Password Authentication Protocol, PAP） - 不安全的、以明文方式发送凭据（包含用户名与口令）
+- 询问握手协议（Challenge Handshake Authentication Protocol, CHAP） - 安全的（明文的用户名与经`MD5`散列化的口令），是首选方式
+
+可如下配置`PAP`：
+
+_服务器侧_：
+
+```console
+Server(config)#username Client password Password
+Server(config)#interface virtual-template 1
+Server(config-if)#ppp authentication pap
+Server(config-if)#ppp pap sent-username Server password Password
+```
+
+_客户端_：
+
+```console
+Client(config)#username Server password Password
+Client(config)#interface dialer 1
+Client(config-if)#ppp authentication pap
+Client(config-if)#ppp pap sent-username Client password Password
+```
+
+`CHAP`可如下进行配置：
+
+_服务器侧_：
+
+```console
+Server(config)#username Client password Password
+Server(config)#interface virtual-template 1
+Server(config-if)#ppp authentication chap
+```
+
+_客户端_：
+
+```console
+Client(config)#username Server password Password
+Client(config)#interface dialer 1
+Client(config-if)#ppp authentication chap
+```
+
+### PPPoE的验证与故障排除（PPPoE Verification and Troubleshooting）
+
+在PPPoE会话成功形成后，客户端控制台上将出现下面的消息：
+
+```console
+%DIALER-6-BIND: Interface Vi1 bound to profile Di1
+%LINK-3-UPDOWN: Interface Virtual-Access1, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Virtual-Access1, changed state to up
+```
+
+在客户端路由器上使用下面的命令，可对拨号器接口，以及从PPPoE服务器处获取到的（协商到的）IP地址进行检查：
+
+```console
+Router#show ip interface brief
+Interface                  IP-Address       OK? Method Status               Protocol
+Virtual-Access1            unassigned       YES unset  up/up
+Dialer1                    10.10.10.2       YES IPCP   up/up
+```
+
+在客户端路由器上可使用下面的命令，显示出PPPoE会话的状态：
+
+```console
+Router#show pppoe session
+1 client session
+Uniq ID  PPPoE  RemMAC      Port        Source   VA         State
+       SID  LocMAC                               VA-st
+N/A     16  ca00.4843.0008  Fa0/0       Di1      Vi1        UP
+            ca01.4843.0008                                  UP
+```
+
+一些对于PPPoE连接进行故障排除有用的命令如下：
+
+```console
+Router#debug ppp ?
+  authentication  CHAP and PAP authentication
+  bap             BAP protocol transactions
+  cbcp            Callback Control Protocol negotiation
+  elog            PPP ELOGs
+  error           Protocol errors and error statistics
+  forwarding      PPP layer 2 forwarding
+  mppe            MPPE Eventsmultilink Multilink activity
+  negotiation     Protocol parameter negotiation
+  packet          Low-level PPP packet dump
+```
+
 
