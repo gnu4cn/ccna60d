@@ -343,5 +343,42 @@ VPNs带来的主要好处如下：
 
 多协议标签交换，是通过将一个标签追加到任意类型的数据包上，而运作的（Multiprotocol Label Switching(MPLS) functions by appending a label to any type of packet）。随后数据包就根据该标签的值，而非任何`Layer 3`信息，经由网络设施得以转发。给数据包打上标签，提供了非常高效的转发，且令到MPLS可工作在极大范围的现有技术上。通过简单地将一个标签添加到数据包头部中，MPLS就可在许多物理与数据链路层的广域网实现中使用（The labeling of the packet provides very efficient forwarding and allows MPLS to work with a wide range of undelying technologies. By simply adding a label in the packet header, MPLS can be used in many Physical and Data Link Layer WAN implementations）。
 
+MPLS的标签，是放在`Layer 2`头部与`Layer 3`头部之间的。使用MPLS技术，仅在数据包进入服务提供商云时，才会加入额外开销。在进入MPLS网络后，相比传统的`Layer 3`网络，数据包交换的完成要快得多，因为MPLS的包交换只是基于MPLS标签的交换，而不是要拆封整个的`Layer 3`头部（By using MPLS, overhead is added only when the packet enters the service provider cloud. After entering the MPLS network, packet switching is done much faster than in traditional Layer 3 networks because it is based only on swapping the MPLS label, instead of stripping the entire Layer 3 header）。
+
+MPLS有两种不同样式（MPLS comes in two different flavours）：
+
+- 帧模式的MPLS（Frame Mode MPLS）
+- （数据）单元模式的MPLS（Cell Mode MPLS）
+
+帧模式的MPLS是最为流行的MPLS类型，而在此场景中，标签是放在`Layer 2`头部与`Layer 3`头部之间的（因此MPLS通常被视为一种`Layer 2.5`的技术）。单元模式的MPLS用在`ATM`网络中，并使用`ATM`头部中的一些字段，作为标签。
+
+兼容MPLS的路由器（MPLS-capable routers），也被叫做标签交换路由器（Label Switched Routers, LSRs），同时这些路由器也有两种样式：
+
+- 边沿标签交换路由器（服务提供商边沿路由器，Edge LSR(PE<Provider Edge> routers)）
+- 服务提供商标签交换路由器（P(Provider) LSR）
+
+`PE routers`（服务提供商边沿路由器），是那些关注标签分布的服务提供商边沿设备（`PE routers` are Provider Edge devices that take care of label distribution）；它们根据标签对数据包进行转发，并负责标签的插入与移除。`P routers`就是服务提供商路由器，它们的职责包括 _标签式转发_，以及基于标签的高效率包转发（`P routers` are Provider routers and their responsibility consists of _label forwarding_ and efficient packet forwarding based labels）。
+
+> **注**：请参考[这里](http://blog.51cto.com/sirstma/1860720)。
+
+## 基本的串行线路配置（Basic Serial Line Configuration）
+
+在不打算改变默认的`HDLC`（High-level Data Link Control，高级数据链路控制，思科专有）封装时，那么为建立WAN连接，仅需完成下面的步骤：
+
+1. 给接口添加一个IP地址
+2. 开启接口（以`no shutdown`命令）
+3. 确保在数据通信设备侧有一个时钟速率（Ensure there is a clock rate on the DCE side）
+
+在连接了数据通信设备电缆时的配置如下：
+
+```console
+Router#config t
+Router(config)#interface Serial0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#clock rate 64000
+Router(config-if)#no shutdown
+Router(config-if)#^Z
+Router#
+```
 
 
