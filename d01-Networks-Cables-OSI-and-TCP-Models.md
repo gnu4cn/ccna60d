@@ -538,11 +538,15 @@ FTP 使用了 `20` 和 `21` 号端口。通常，自客户端发起的到 FTP �
 
 TFTP 在思科路由器上用到很多，用来备份配置以及升级路由器。下面的命令执行这些功能：
 
-`Router#copy tftp flash:`
+```console
+Router#copy tftp flash:
+```
 
 会提示你输入新的 flash 文件所在的其它主机的 IP 地址：
 
-`Address or name of remote host []? 10.10.10.1`
+```console
+Address or name of remote host []? 10.10.10.1
+```
 
 然后你必须输入其它路由器上的 flash 镜像的文件名：
 
@@ -624,16 +628,16 @@ Success rate is 0% percent, round-trip min/avg/max = 4/6/12 ms
 
 下面是其它几个表示回应 ping 数据包的符号所表示的意义：
 
-- ! --  每个回应有一个感叹号
-- . --  一次超时一个句点
-- U --  目的主机不可达
-- N --  网络不可达消息
-- P --  协议不可达消息
-- Q --  源抑制消息
-- M --  无法分片
-- ? --  未知数据包类型
+- `!` --  每个回应有一个感叹号
+- `.` --  一次超时一个句点
+- `U` --  目的主机不可达
+- `N` --  网络不可达消息
+- `P` --  协议不可达消息
+- `Q` --  源抑制消息
+- `M` --  无法分片
+- `?` --  未知数据包类型
 
-通过 `Ctrl+Shift+6` 并输入`X`来终止一个 ping 会话。
+通过 `Ctrl+Shift+6` 并输入`X`来终止一个 `ping` 会话。
 
 RFC 1700 中定义了 ICMP 数据包。CCNA 大纲不包括所有代码和名称的内容。
 
@@ -641,7 +645,7 @@ RFC 1700 中定义了 ICMP 数据包。CCNA 大纲不包括所有代码和名称
 
 ### 追踪路由，Traceroute
 
-Traceroute 可以用来测试网络的连通性，是一个广泛使用的工具，它又被用来做测量和管理。Traceroute 通过发出一些带有小的 TTL 字段 UDP 数据包，然后等待 ICMP 超时回应，以此来跟随目的 IP 的数据包。在 Traceroute 数据包的进行过程中，记录就会一跳接一跳地显示出来。每跳会测试 3 次。一个星号（`*`）表明该跳超出了时间限制。
+Traceroute 可以用来测试网络的连通性，是一个广泛使用的工具，它又被用来做测量和管理。Traceroute 通过发出一些带有小的 TTL 字段 UDP 数据包，然后等待 ICMP 超时回应，以此来跟随目的 IP 的数据包。在 Traceroute 数据包的进行过程中，记录就会一跳接一跳地显示出来。每跳会测试 `3` 次。一个星号（`*`）表明该跳超出了时间限制。
 
 思科路由器的命令是`traceroute`, Windows 计算机是`tracert`。如下所示：
 
@@ -675,13 +679,13 @@ Trace complete.
 
 Traceroute 的输出字段有如下定义：
 
-- ...   --  超时
-- U     --  端口不可达消息
-- H     --  主机不可达消息
-- P     --  协议不可达消息
-- N     --  网络不可达消息
-- ?     --  未知包类型
-- Q     --  收到源抑制（source quench received）
+- `...`   --  超时
+- `U`     --  端口不可达消息
+- `H`     --  主机不可达消息
+- `P`     --  协议不可达消息
+- `N`     --  网络不可达消息
+- `?`     --  未知包类型
+- `Q`     --  收到源抑制（source quench received）
 
 在你想要对网络连通性进行故障排除时，Traceroute 是一个非常有用的命令。尽管有超出 CCNA 大纲，下面还是对此有更多的说明。
 
@@ -1323,19 +1327,19 @@ Loopback0   192.168.20.1    YES     manual  up      up
 
 | **键盘输入，Keystroke** | **用途，Meaning** |
 | -- | -- |
-| Ctrl+A | 将光标移至命令行开头 |
-| Ctrl+E | 将光标移至命令行末尾 |
-| Ctrl+B | 将光标移往后移动一个字符 |
-| Ctrl+F | 将光标移往前移动一个字符 |
-| Esc+B | 将光标往前移动一个词 |
-| Esc+F | 将光标往后移动一个词 |
-| Ctrl+P 或向上箭头 | 翻出上一条命令 |
-| Ctrl+N 或向下箭头 | 翻出下一条命令 |
-| Ctrl+U | 删除这条命令 |
-| Ctrl+W | 删除一个词 |
-| Tab | 补全命令 |
-| Show history | 默认情况下，显示前 10 条命令 |
-| 退格按键，Backspace | 删除一个字符 |
+| `Ctrl+A` | 将光标移至命令行开头 |
+| `Ctrl+E` | 将光标移至命令行末尾 |
+| `Ctrl+B` | 将光标移往后移动一个字符 |
+| `Ctrl+F` | 将光标移往前移动一个字符 |
+| `Esc+B` | 将光标往前移动一个词 |
+| `Esc+F` | 将光标往后移动一个词 |
+| `Ctrl+P` 或向上箭头 | 翻出上一条命令 |
+| `Ctrl+N` 或向下箭头 | 翻出下一条命令 |
+| `Ctrl+U` | 删除这条命令 |
+| `Ctrl+W` | 删除一个词 |
+| `Tab` | 补全命令 |
+| `show history` | 默认情况下，显示前 10 条命令 |
+| 退格按键，`Backspace` | 删除一个字符 |
 
 **考试中出一道有关这些编辑命令的题目是很常见的。**
 
@@ -1348,22 +1352,22 @@ Loopback0   192.168.20.1    YES     manual  up      up
 
 在现代企业网络中使用到的常见路由器及交换机接口带宽有：
 
-- 100Mbps（通常叫做快速以太网，FastEthernet）
-- 1Gbps (通常叫做千兆以太网，GigabitEthernet)
-- 10Gbps (通常叫做万兆以太网，TenGigabitEthernet)
+- `100Mbps`（通常叫做快速以太网，`FastEthernet`）
+- `1Gbps` (通常叫做千兆以太网，`GigabitEthernet`)
+- `10Gbps` (通常叫做万兆以太网，`TenGigabitEthernet`)
 
 为定位到（address）一个指定的路由器接口并进入到接口配置模式以设置其特定参数，你必须知道接口命名法。在不同路由器生产商之间，其接口命名法会有不同，但接口命名法通常由两部分组成：
 
-- 接口类型（Ethernet, FastEthernet 等）
+- 接口类型（`Ethernet`, `FastEthernet` 等）
 - 接口插槽/模块以及端口号
 
 比如，常见的接口命名法有以下这些：
 
-- Ethernet1/0 (第 1 号插槽，第 0 号端口)
-- FastEthernet0/3 ( 第 0 号插槽，第 3 号端口)
-- GigabitEthernet0/1/1 (第 0 号模块， 第 1 号插槽， 第 1 好端口)
+- `Ethernet1/0` (第 `1` 号插槽，第 `0` 号端口)
+- `FastEthernet0/3` ( 第 `0` 号插槽，第 `3` 号端口)
+- `GigabitEthernet0/1/1` (第 `0` 号模块， 第 `1` 号插槽， 第 `1` 好端口)
 
-> **注意**: 第 0 号插槽通常表示那些内建的端口，而其它插槽则表示那些可以随时添加上去的拓展插槽。插槽和端口的编号通常是从 0 开始的。
+> **注意**: 第 `0` 号插槽通常表示那些内建的端口，而其它插槽则表示那些可以随时添加上去的拓展插槽。插槽和端口的编号通常是从 `0` 开始的。
 
 在进行配置时，**为令到路由器具有基本的那些功能，你务必要配置以下参数**：
 
@@ -1380,9 +1384,9 @@ FastEthernet0/0 unassigned  YES unset   administratively down   down
 FastEthernet0/1 unassigned  YES unset   administratively down   down
 ```
 
-从以上输出可以看出，该路由器在插槽 0 上有两个快速以太网接口（FastEthernet, 100Mbps），都没有配置过（也就是，没有 IP 地址）且是管理性关闭的（也就是，状态为：adminitrively down）。
+从以上输出可以看出，该路由器在插槽 `0` 上有两个快速以太网接口（`FastEthernet`, `100Mbps`），都没有配置过（也就是，没有 IP 地址）且是管理性关闭的（也就是，状态为：`adminitrively down`）。
 
-在开始配置接口参数前，你必须要在思科设备上使用命令 `configure terminal` 进入路由器的配置模式, 在使用命令 `interface <interface name>` 进入到接口配置模式。接口配置过程的第一步是开启该接口。比如，使用 `no shutdown` 命令可以开启接口 FastEthernet0/0 :
+在开始配置接口参数前，你必须要在思科设备上使用命令 `configure terminal` 进入路由器的配置模式, 在使用命令 `interface <interface name>` 进入到接口配置模式。接口配置过程的第一步是开启该接口。比如，使用 `no shutdown` 命令可以开启接口 `FastEthernet0/0` :
 
 ```console
 Router#configure terminal
@@ -1438,9 +1442,9 @@ Last input 00:00:02, output 00:00:03, output hang never
 [Output restricted...]
 ```
 
-**show 命令，Show commands**
+**`show` 命令，Show commands**
 
-通过在特权模式（priviledged mode）下使用 `show x` 命令, 你可以十分简单地茶看到路由器的绝大部分设置项，其中的 x 是下一条命令，x 的选择有以下这些：
+通过在特权模式（`priviledged mode`）下使用 `show x` 命令, 你可以十分简单地茶看到路由器的绝大部分设置项，其中的 `x` 是下一条命令，`x`的选择有以下这些：
 
 ```console
 Router#show ?
@@ -1491,7 +1495,7 @@ Serial1     unassigned  YES unset   administratively down   down
 
 其中的 `method` 标签表明地址指定的方式。可以是 `unset`，`manual`, `NVRAM`, `IPCP` 或者 `DHCP`。
 
-路由器能够检索（recall）出先前于路由器提示符处输入的一些命令 -- 默认 10 条，方法是使用向上箭头。使用这个特性能够让你无再次输入长命令行，从而节省大量时间和精力。`show history` 命令显示前 10 条命令的缓冲区。
+路由器能够检索（`recall`）出先前于路由器提示符处输入的一些命令 -- 默认 `10` 条，方法是使用向上箭头。使用这个特性能够让你无再次输入长命令行，从而节省大量时间和精力。`show history` 命令显示前 `10` 条命令的缓冲区。
 
 ```console
 Router#show history
@@ -1602,7 +1606,7 @@ O E2    80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
 
 **Ping**
 
-`ping` 命令提供了一种到特定目标的基本连特性测试。这种方式用以测试路由器能否到达一个网络。Ping 使用 ICMP, 通过往一台机器发送 echo 请求方式来验证这台机器是否在运行。如果那台机器是在运行，它就会发出一个 ICMP 的 echo 回应消息给源机器，以确认它的可用性。一个 ping 的样例如下所示。
+`ping` 命令提供了一种到特定目标的基本连特性测试。这种方式用以测试路由器能否到达一个网络。Ping 使用 ICMP, 通过往一台机器发送 echo 请求方式来验证这台机器是否在运行。如果那台机器是在运行，它就会发出一个 ICMP 的 echo 回应消息给源机器，以确认它的可用性。一个 `ping` 的样例如下所示。
 
 ```console
 Router#ping 10.10.10.2
@@ -1612,9 +1616,9 @@ Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
 Success rate is 80 percent (4/5), round-trip min/avg/max = 20/40/76 ms
 ```
 
-标准的 `ping` 命令发出 5 个到目标的 ICMP 数据包。而 ping 输出中，点（.）表示失败，叹号（！）表示成功收到数据包。ping 命令的输出还给出了到目标网络的往返时间（the round-trip time）, 有最小时间、平均时间以及最大时间。
+标准的 `ping` 命令发出 `5` 个到目标的 ICMP 数据包。而 `ping` 输出中，点（`.`）表示失败，叹号（`!`）表示成功收到数据包。`ping` 命令的输出还给出了到目标网络的往返时间（the round-trip time）, 有最小时间、平均时间以及最大时间。
 
-如你需要调整 ping 相关的参数，你可在思科路由器上执行扩展的 ping 命令。通过在控制台处输入 `ping` 并按下回车键来执行。路由器就会通过一个交互式菜单进行提示，你就可以指定包含以下的这些参数了。
+如你需要调整 `ping` 相关的参数，你可在思科路由器上执行扩展的 `ping` 命令。通过在控制台处输入 `ping` 并按下回车键来执行。路由器就会通过一个交互式菜单进行提示，你就可以指定包含以下的这些参数了。
 
 - ICMP 数据包的个数
 - 包的大小
@@ -1656,7 +1660,7 @@ Tracing the route to 192.168.1.1
     1 10.10.10.1 60 msec *  64 msec
 ```
 
-跟 ping 一样，思科路由器也允许你执行扩展的 traceroute 命令，搭配一些相关参数，而这些参数大多与 ping 相关的参数一样。
+跟 `ping` 一样，思科路由器也允许你执行扩展的 `traceroute` 命令，搭配一些相关参数，而这些参数大多与 `ping` 相关的参数一样。
 
 ```console
 Router#traceroute
