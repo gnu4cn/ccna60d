@@ -44,7 +44,7 @@
 
 接着就是要中继链路所要使用的封装协议。这是通过执行 `switchport trunk encapsulation [option]` 命令完成的。此命令可用的选项有下面这些。
 
-```
+```console
 Switch(config)#interface FastEthernet1/1
 Switch (config-if)#switchport trunk encapsulation ?
 dot1q - Interface uses only 802.1q trunking encapsulation when trunking
@@ -58,7 +58,7 @@ negotiate - Device will negotiate trunking encapsulation with peer on interface
 
 DTP 是一个***思科专有的***点对点协议（point-to-protocol）, 它在两台交换机间协商建立起某种常见中继模式。DTP 会在稍后专门讲到。下面的输出演示了如何将某交换机端口配置为在建立起一条中继链路是采用 IEEE 802.1Q 封装方式。
 
-```
+```console
 Switch (config)#interface FastEthernet1/1
 Switch (config-if)#switchport
 Switch (config-if)#switchport trunk encapsulation dot1q
@@ -66,7 +66,7 @@ Switch (config-if)#switchport trunk encapsulation dot1q
 
 此配置可通过命令 `show interfaces [name] switchport` 进行验证，如下列输出所示。
 
-```
+```console
 Switch#show interfaces FastEthernet1/1 switchport
 Name: Fa0/2
 Switchport: Enabled
@@ -91,7 +91,7 @@ Trunking Native Mode VLAN: 1 (default)
 
 手动配置一个中继，是通过在所需要的交换机上，执行接口配置命令 `switchport mode trunk` 完成的。此命令将该端口强制变成永久（静态）中继模式。下面的配置输出演示了如何将一个端口静态地配为中继端口。
 
-```
+```console
 VTP-Server(config)#interface FastEthernet0/1
 VTP-Server(config-if)#switchport
 VTP-Server(config-if)#switchport trunk encapsulation dot1q
@@ -102,7 +102,7 @@ VTP-Server(config)#
 
 如你使用的是一台低端交换机，就大可以忽略 `switchport` 命令，上面的输出是来自一台 Catalyst 6000 系列交换机。此配置可通过 `show interfaces [name] switchport` 命令予以验，如下面的输出所示。
 
-```
+```console
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -119,7 +119,7 @@ Trunking Native Mode VLAN: 1 (default)
 
 尽管中继链路的静态配置强制交换机建立一条中继，动态 ISL 和动态中继协议（DTP）数据包仍能从该接口发出。这样做了后，一条静态配置的中继链路就可以与相邻的使用了 DTP 的交换机，建立起中继关系，接着的小节将会讲到。经由 `show interfaces [name] switchport` 命令的输出，便可验证这点。如下面的输出所示。
 
-```
+```console
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -135,7 +135,7 @@ Trunking Native Mode VLAN: 1 (default)
 
 在上面的输出中，粗体文字表明尽管中继链路是静态配置的，端口仍然在发出 DTP 和 DISL 数据包。在一些场合，此特性被看成是不受欢迎的。因此，通过执行接口配置命令 `switchport nonegotiate`，在静态配置作为中继链路的端口上关闭 DISL 及 DTP 数据包发送，被认为是一种良好实践，具体操作如以下的输出。
 
-```
+```console
 VTP-Server(config)#interface FastEthernet0/1
 VTP-Server(config-if)#switchport
 VTP-Server(config-if)#switchport trunk encapsulation dot1q
@@ -147,7 +147,7 @@ VTP-Server(config)#
 
 再一次，`show interfaces [name] switchport` 命令可被用作验证配置，像下面这样。
 
-```
+```console
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -188,7 +188,7 @@ DTP 是一个在两台交换机之间协商出一种常见中继模式的，思�
 
 在交换的局域网中应用 DTP 时，`show dtp [interface <name>]` 命令就可用来显示交换机的全局 DTP 信息以及特定接口的 DTP 信息。下面的输出给出了 `show dtp` 命令打印出的信息。
 
-```
+```console
 VTP-Server#show dtp
 Global DTP information
         Sending DTP Hello packets every 30 seconds
@@ -198,7 +198,7 @@ Global DTP information
 
 从上面的输出可以看出，交换机每 30 秒就发出一个 DTP 数据包。而 DTP 超时被设置为 300 秒（5 分钟），当前有 4 个接口正使用着 DTP。命令 `show dtp intferface [name]` 会打印出特定接口的 DTP 信息，这些信息中包括了接口的类型（中继或接入）、端口当前的 DTP 配置情况、中继的封装方式，以及 DTP 数据包统计信息，如下面的输出所示。
 
-```
+```console
 VTP-Server#show dtp interface FastEthernet0/1
 DTP information for FastEthernet0/1:
     TOS/TAS/TNS:                                TRUNK/ON/TRUNK
@@ -232,7 +232,7 @@ DTP information for FastEthernet0/1:
 
 默认情况下，802.1Q 中继将 VLAN 1 作为原生 VLAN。执行命令 `show interfaces [name] switchport` 或命令 `show interfaces trunk`，就可查看到默认原生 VLAN 是哪一个，如下面的输出所示。
 
-```
+```console
 VTP-Server#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: EnabledAdministrative Mode: trunk
@@ -251,7 +251,7 @@ Voice VLAN: none
 
 但是，**中继链路两端上的原生 VLAN 必须一致**，记住这点是很重要。如出现了原生 VLAN 不匹配，生成树协议（Spanning Tree Protocol, STP）就把该端口置为端口 VLAN ID (port VLAN ID, PVID) 不一致状态，且不会转发该链路。此外，CDPv2 也会在交换机间传送原生 VLAN 信息，而在出现原生 VLAN 不匹配后，将会在交换机控制台上打印错误消息。通过对所需的 802.1Q 中继链路，执行接口配置命令 `switchport trunk native vlan [number]` 可以修改其默认原生 VLAN。如下面的输出所示。
 
-```
+```console
 VTP-Server(config)#interface FastEthernet0/1
 VTP-Server(config-if)#switchport trunk native vlan ?
 <1-4094>    VLAN ID of the native VLAN when this port is in trunking mode
@@ -281,7 +281,7 @@ VTP-Server(config-if)#switchport trunk native vlan ?
 
 在采用多物理路由器接口时，各需要的 VLAN 中到路由器的交换机链路，被配置为接入链路。然后路由器上的物理接口都配置上相应的 IP 地址，而 VLAN 上的网络主机，要么以静态方式配置上相应 VLAN 的 IP 地址，将该路由器物理接口作为默认网关，要么通过 DHCP 完成配置。图 3.3 中交换机的配置，在下面的输出中有演示。
 
-```
+```console
 VTP-Server-1(config)#vlan 10
 VTP-Server-1(config-vlan)#name Example-VLAN-10
 VTP-Server-1(config-vlan)#exit
@@ -304,7 +304,7 @@ VTP-Server-1(config-if-range)#exit
 
 下面的输出又演示了图 3.3 中的路由器的配置。
 
-```
+```console
 R1(config)#interface FastEthernet0/0
 R1(config-if)#ip add 10.10.10.1 255.255.255.0
 R1(config-if)#exit
@@ -325,7 +325,7 @@ R1(config-if)#exit
 
 在交换机上，那条连接路由器的单一链路，必须要配置为中继链路，这是因为**路由器不支持 DTP**。假如中继配置成 802.1Q 中继，那么在原生 VLAN 不是默认原生 VLAN 时，此中继的原生 VLAN 一定要定义。而该**原生 VLAN 也要在相应的路由器子接口上予以配置，配置命令为 `encapsulation dot1q [vlan] native` 子接口配置命令**。下面的输出演示了使用单一物理接口的 VLAN 间路由配置（又称作 “单臂路由，router-on-a-stick”）。图 3.4 中绘出的两个 VLANs 在下面的输出中也有显示，同时还有一个额外的 VLAN 用于管理用；该管理 VLAN 将被配置为原生 VLAN。
 
-```
+```console
 VTP-Server-1(config)#vlan 10
 VTP-Server-1(config-vlan)#name Example-VLAN-10
 VTP-Server-1(config-vlan)#exit
@@ -362,7 +362,7 @@ VTP-Server-1(config)#ip default-gateway 10.30.30.1
 图 3.4 中的路由器之配置如下面的输出所示。
 
 
-```
+```console
 R1(config)#interface FastEthernet0/0
 R1(config-if)#no ip address
 R1(config-if)#no shut <- 这一步相当重要，否则子接口也会处于 down down 状态
@@ -395,7 +395,7 @@ SVIs 是一系列代表了 VLAN 的逻辑接口。尽管某个交换机虚拟接
 
 以下输出演示了在单一交换机上实现 VLAN 间路由，做出的交换机虚拟接口配置。此输出引用了本小节前面的配置输出所用到的 VLANs。
 
-```
+```console
 VTP-Server-1(config)#vlan 10
 VTP-Server-1(config-vlan)#name Example-VLAN-10
 VTP-Server-1(config-vlan)#exit
@@ -428,7 +428,7 @@ VTP-Server-1(config-if)#exit
 
 你可通过使用 `show interface vlan x` 命令，来验证某个交换机虚拟接口是配置恰当的（IP 分址等）。下面的输出与 `show interface x` 命令等同。
 
-```
+```console
 Switch#show interfaces vlan 100
 Vlan100 is up, line protocol is down
     Hardware is EtherSVI, address is c200.06c8.0000 (bia c200.06c8.0000)
@@ -448,7 +448,7 @@ Vlan100 is up, line protocol is down
 
 下面是在我的 3750 交换机上的输出。这些输出与 2960 上的选项不完全一致，但你明白了这个意思。同时，请记住，**交换机型号及 IOS 对 SDM 配置选项有影响，因此，你要查看你的型号的配置手册**。
 
-```
+```console
 Switch(config)#sdm prefer ?
     access                  Access bias
     default                 Default bias
@@ -460,7 +460,7 @@ Switch(config)#sdm prefer ?
 
 在你期望在 2960 交换机上配置 VLAN 间路由时，就需要开启 Lanbase-routing SDM 选项。同时在此变更生效前，需要重启交换机。下面是 `show sdm prefer` 命令的输出，该输出告诉你当前的 SDM 配置以及资源分配情况。
 
-```
+```console
 Switch#show sdm prefer
 The current template is “desktop default” template.
 The selected template optimizes the resources in
@@ -496,7 +496,7 @@ Switch#
 
 要让交换机进行 VLAN 信息交换，这些交换机就务必要配置在同一个 VTP 域中，如下面的输出这样。
 
-```
+```console
 Switch(config)#vtp mode server  ←this is on by default
 Switch(config)#vtp domain in60days
 Changing VTP domain name from NULL to in60days
@@ -511,7 +511,7 @@ VTP Domain Name :                   in60days
 
 如要安全的传输 VTP 更新数据，可以为其加上一个口令，但要求 VTP 域中的每台交换机的口令都要匹配。
 
-```
+```console
 Switch(config)#vtp password Cisco321
 Setting device VLAN database password to Cisco321
 ```
@@ -577,7 +577,7 @@ VLANs 是一种相当直观的交换机特性，它很少需要进行故障排�
     - 接口务必要是 up/up
     - 中继链路两端的封装方式要匹配
 
-```
+```console
 SwitchA#show interface fa1/1 switchport
 Name: Fa1/1
 Switchport: Enabled
@@ -627,7 +627,7 @@ VLAN 间路由故障可以多种形式出现，尤其是考虑在该过程中涉
 
 这里有个输出示例。
 
-```
+```console
 Cat-3550-1#show interfaces trunk
 Port        Mode        Encapsulation       Status      Native vlan
 Fa0/1       on          802.1q              trunking    1
@@ -698,7 +698,7 @@ Fa0/2       1-99,201-4094
 1. 你需要在每台 PC 上添加 IP 地址。可自由选择，只要求它们在同一子网上。
 2. 在交换机 A 上设置主机名（hostname）, 创建 VLAN 2, 并将连接 PC 的那个接口放到 VLAN 2 中。如你愿意，你也可以赋予 VLAN 2 一个名称。
 
-```
+```console
 Switch>en
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -728,7 +728,7 @@ SwitchA#
 
 3. 将中继链路设置为中继模式。
 
-```
+```console
 SwitchA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 SwitchA(config)#int FastEthernet0/2
@@ -742,7 +742,7 @@ Fa0/2   1-1005
 
 4. 如你愿意，设置在该中继链路上仅允许 VLAN 2。
 
-```
+```console
 SwitchA(config)#int FastEthernet0/2
 SwitchA(config-if)#switchport trunk allowed vlan 2
 SwitchA(config-if)#^Z
@@ -757,7 +757,7 @@ Fa0/2   2
 
 5. 此时，如你自其中一台 PC ping 往另一台，将会失败。这是因为一边是在 VLAN 1 中，另一边在 VLAN 2 中。
 
-```
+```console
 PC>ping 192.168.1.1
 Pinging 192.168.1.1 with 32 bytes of data:
 Request timed out.
@@ -768,7 +768,7 @@ Ping statistics for 192.168.1.1:
 6. 此时在交换机 B 上配置同样的那些命令。创建 VLAN、将交换机 PC 端口放入 VLAN 2，并将该接口设置为接入模式，还要将中继链路设置为 “中继”。
 7. 现在你就可以从一台 PC 实现跨越中继链路 ping 通另一 PC 了。
 
-```
+```console
 PC>ping 192.168.1.1
 Pinging 192.168.1.1 with 32 bytes of data:
 Reply from 192.168.1.1: bytes=32 time=188ms TTL=128
