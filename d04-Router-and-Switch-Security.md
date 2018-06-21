@@ -50,7 +50,7 @@
     - 关闭未使用端口，shutdown unused ports
     - 错误关闭恢复，err disable recovery
 - 将未使用端口指派到一个未使用 VLAN 中，assign unused ports to an unused VLAN
-- 将原生 VLAN 设置成非 VLAN 1, set native VLAN to something other than VLAN 1
+- 将原生 VLAN 设置成非 `VLAN 1`, set native VLAN to something other than `VLAN 1`
 - 配置并验证 NTP 客户端
 
 ## 物理访问防护，Protecting Physical Access
@@ -79,7 +79,7 @@ Router(config)#line console 0
 Router(config-line)#login local
 ```
 
-你还可以为控制台（以及虚拟终端）线路创建一个超时值，如此就可以在确定的时间过后断开连接。默认的超时是 5 分钟。
+你还可以为控制台（以及虚拟终端）线路创建一个超时值，如此就可以在确定的时间过后断开连接。默认的超时是`5`分钟。
 
 ```console
 Router(config)#line console 0
@@ -148,12 +148,12 @@ enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
 
 - 设备重启，以及
 - 在重启过程中按下指定的中断键盘按键
-- 再设置配置寄存器（the configuration register）以跳过启动配置文件（通常将配置寄存器设置为 0x2142）
+- 再设置配置寄存器（the configuration register）以跳过启动配置文件（通常将配置寄存器设置为 `0x2142`）
 - 接着要执行一个 `copy start-config running-config` 命令
 
 此时，就可以创建新的口令了。
 
-而对交换机来说，口令恢复过程会有一点复杂（请再次用 Google 搜索你用到的具体交换机型号），但也可以通过一个小把戏实现口令恢复 -- 在给交换机上电时，按住 MODE 按钮 8 秒钟。交换机将以空白配置启动，而上一次的启动配置(the last startup configuration)将保存在 flash 中的 config.text.renamed 文件里头，所以该文件可复制用于运行配置(running configuration)，然后用其它口令对其进行修改。
+而对交换机来说，口令恢复过程会有一点复杂（请再次用 Google 搜索你用到的具体交换机型号），但也可以通过一个小把戏实现口令恢复 -- 在给交换机上电时，按住 MODE 按钮`8`秒钟。交换机将以空白配置启动，而上一次的启动配置(the last startup configuration)将保存在 flash 中的 config.text.renamed 文件里头，所以该文件可复制用于运行配置(running configuration)，然后用其它口令对其进行修改。
 
 ## 用户访问防护，Protecting User Access
 
@@ -171,9 +171,9 @@ RouterA(config-line)#exit
 RouterA(config)#exit
 ```
 
-你**可在路由器上指派不同用户帐号的访问级别**。比如，你也许打算那些初级网络团队成员仅能使用一些基本的故障排除命。你还有必要记住思科路由器有口令安全的两种模式（two modes of password security），用户模式（Exec mode）和特权模式（Enable mode）。
+你**可在路由器上指派不同用户帐号的访问级别**。比如，你也许打算那些初级网络团队成员仅能使用一些基本的故障排除命。你还有必要记住思科路由器有口令安全的两种模式（two modes of password security），用户模式（`Exec mode`）和特权模式（`Enable mode`）。
 
-思科路由器有可供配置的 16 种（0 到 15）不同特权级别，其中 15 级是完全的访问权限，如下所示。
+思科路由器有可供配置的 `16` 种（`0` 到 `15`）不同特权级别，其中 `15` 级是完全的访问权限，如下所示。
 
 ```console
 RouterA#conf t
@@ -224,9 +224,9 @@ Router#
 
 ## 路由器日志记录，Router Logging
 
-路由器提供事件记录的能力。它们可将日志消息照你的意愿，发送到屏幕或某台服务器。你应该记录路由器消息，而又**有 8 个可用的日志记录严重程度级别**（考试要求你知道这些不同的级别），如下面输出中的粗体字所示。
+路由器提供事件记录的能力。它们可将日志消息照你的意愿，发送到屏幕或某台服务器。你应该记录路由器消息，而又**有`8`个可用的日志记录严重程度级别**（考试要求你知道这些不同的级别），如下面输出中的粗体字所示。
 
-```
+```console
 logging buffered ?
 `<0-7>`Logging severity level
 alerts—Immediate action needed (severity=1)
@@ -301,7 +301,7 @@ Router(config)#exit
 
 ### 开启 SSH， Enable SSH
 
-尽可能地采用 SSH 而不是 Telnet 及 SNMP 来访问你的交换机。SSH 表示安全壳(secure shell), 令到某网络上的两台设备之间信息的安全交换。SSH 采用公钥加密法（pubic-key cryptography）来认证连接设备。Telnet 及 SNMP 版本 1 和 2 都是未加密的，易受包嗅探（packet sniffing）的影响， SNMP 版本 3 提供了保密性 -- 数据包有加密以防止恶意源窃取数据（snooping by an unauthorised source）。
+尽可能地采用 SSH 而不是 Telnet 及 SNMP 来访问你的交换机。SSH 表示安全壳(secure shell), 令到某网络上的两台设备之间信息的安全交换。SSH 采用公钥加密法（pubic-key cryptography）来认证连接设备。Telnet 及 SNMP 版本 `1` 和 `2` 都是未加密的，易受包嗅探（packet sniffing）的影响， SNMP 版本 `3` 提供了保密性 -- 数据包有加密以防止恶意源窃取数据（snooping by an unauthorised source）。
 
 要开启 SSH， 你需要有一个支持加密的 IOS 版本。一种快速找出 IOS 镜像是否支持加密的方法是执 `show version` 命令。查找镜像文件名中有无 `k9` 字样，或者在思科系统公司的安全性声明中查找有关字句。
 
@@ -337,9 +337,9 @@ If you require further assistance please contact us by sending email to export@c
 
 为建立加密连接，你需要在交换机上创建一对公钥和私钥（a private/public key, 见下面）。在连接时，你这边使用公钥加密数据，交换机将会使用它的私钥来解密数据。而在认证时，使用你所选择的用户名/口令组合。下一个问题是，要设置交换机的主机名和域名（hostname and domain name）, 因为在创建公钥/私钥对时，会用到主机名.域名命名法（hostname.domainname nomenclature）。显然，在命名主机名和域名时，将其命名为能够代表系统的有意义名字，是好的做法。
 
-首先，你要给交换机一个与默认主机名 Switch 不一样的主机名。接着，添加其域名（该域名通常与 Windows 活动目录的 FQDN 一致）。这时就可以创建用于秘密的密钥（the crypto key）了。系数/模量（the modulus） 是指你所希望使用的密钥的长度，取值范围是 360 到 2048, 后者具有最高的安全性；高于 1024 位的模量就认为是安全的了。此时，交换机上的 SSH 就已经开启了。
+首先，你要给交换机一个与默认主机名 Switch 不一样的主机名。接着，添加其域名（该域名通常与 Windows 活动目录的 FQDN 一致）。这时就可以创建用于秘密的密钥（the crypto key）了。系数/模量（the modulus） 是指你所希望使用的密钥的长度，取值范围是 `360` 到 `2048`, 后者具有最高的安全性；高于 `1024` 位的模量就认为是安全的了。此时，交换机上的 SSH 就已经开启了。
 
-有一些 SSH 相关的维护命令需要输入。`ip ssh time-out 60` 命令会将任何空闲 60 秒的 SSH 连接置为超时。而命令 `ip ssh authentication-retries 2` 则会在认证失败两次的 SSH 连接重置为初始状态。此设置并不会阻止用户建立新的连接并重试认证。设置过程如下所示。
+有一些 SSH 相关的维护命令需要输入。`ip ssh time-out 60` 命令会将任何空闲 `60` 秒的 SSH 连接置为超时。而命令 `ip ssh authentication-retries 2` 则会在认证失败两次的 SSH 连接重置为初始状态。此设置并不会阻止用户建立新的连接并重试认证。设置过程如下所示。
 
 ```console
 Switch(config)#hostname SwitchOne
@@ -350,7 +350,7 @@ SwitchOne(config)#ip ssh time-out 60
 SwitchOne(config)#ip ssh authentication-retries 2
 ```
 
-可使用命令 `ip ssh version 2` 开启 SSH 版本 2。让我们看看其中一个密钥。在这个实例中，该密钥是为 HTTPS 生成的。因为其是在开启 HTTPS 时自动生成的，所以其名称也会自动产生。
+可使用命令 `ip ssh version 2` 开启 SSH 版本`2`。让我们看看其中一个密钥。在这个实例中，该密钥是为 HTTPS 生成的。因为其是在开启 HTTPS 时自动生成的，所以其名称也会自动产生。
 
 ```
 firewall#show crypto key mypubkey rsa
@@ -400,7 +400,7 @@ HTTP secure server trustpoint:
 HTTP secure server active session modules: ALL
 ```
 
-还可以在 VTY 线路上应用控制列表（an access control list, ACL）。在第 9 天的课程将会讲到。
+还可以在 VTY 线路上应用控制列表（an access control list, ACL）。在第`9`天的课程将会讲到。
 
 ### 设置使能秘密口令，Set an Enable Secret Password
 
@@ -417,9 +417,9 @@ hostname Switch1
 enable password cisco
 ```
 
-> Farai 补充道 -- “你可以使用 `service password-encryption` 命令，对使能口令 `enable password` 进行 7 级加密。”
+> Farai 补充道 -- “你可以使用 `service password-encryption` 命令，对使能口令 `enable password` 进行 `7` 级加密。”
 
-通过在命令前加上 `no` 关键字后再次执行该命令，可以擦除配置文件中的大多数行。上面 Farai 提到的使用 `service password-encryption` 命令是毫无作用的，因为这个方法仅提供了弱加密（7 级）， 而下面的秘密口令（the secret password）则有着强加密（MD5）。
+通过在命令前加上 `no` 关键字后再次执行该命令，可以擦除配置文件中的大多数行。上面 Farai 提到的使用 `service password-encryption` 命令是毫无作用的，因为这个方法仅提供了弱加密（`7` 级）， 而下面的秘密口令（the secret password）则有着强加密（MD5）。
 
 ```console
 Switch1(config)#no enable password
@@ -486,7 +486,7 @@ udp-small-servers       Enable small UDP servers (e.g., ECHO)
 
 ### 修改原生 VLAN， Change the Native VLAN
 
-交换机使用原生 VLAN 来承载那些特定的协议流量，诸如思科发现协议（Cisco Discovery Protocol, CDP）、VLAN 中继协议（VLAN Trunking Protocol, VTP）、端口聚合协议（Port Aggregation Protocol, PAgP），以及动态中继协议（Dynamic Trunking Protocol, DTP）等协议信息。默认原生 VLAN 总是 VLAN 1; 但原生 VLAN 是可以手动设置为任何有效 VLAN 编号（除开 0 和 4096, 因为这些 VLAN 编号处于 VLANs 的保留范围）。
+交换机使用原生 VLAN 来承载那些特定的协议流量，诸如思科发现协议（Cisco Discovery Protocol, CDP）、VLAN 中继协议（VLAN Trunking Protocol, VTP）、端口聚合协议（Port Aggregation Protocol, PAgP），以及动态中继协议（Dynamic Trunking Protocol, DTP）等协议信息。默认原生 VLAN 总是 `VLAN 1`; 但原生 VLAN 是可以手动设置为任何有效 VLAN 编号（除开 0 和 4096, 因为这些 VLAN 编号处于 VLANs 的保留范围）。
 
 你可以使用下面输出中演示的命令（在每个接口下执行的），来查看原生 VLAN。
 
@@ -504,7 +504,7 @@ Trunking Native Mode VLAN: 1 (default)
 Voice VLAN: none
 ```
 
-**将端口放入 VLAN 1 被认为是一种安全漏洞（a security vulnerability）**, 允许黑客取得网络资源的访问。为减轻此问题，避免任何主机放入 VLAN 1 是一种明智可取的做法。同时也可将所有中继接口上的原生 VLAN 修改为某个未使用的 VLAN。
+**将端口放入 `VLAN 1` 被认为是一种安全漏洞（a security vulnerability）**, 允许黑客取得网络资源的访问。为减轻此问题，避免任何主机放入 `VLAN 1` 是一种明智可取的做法。同时也可将所有中继接口上的原生 VLAN 修改为某个未使用的 VLAN。
 
 `Switch(config-if)#switchport trunk native vlan 888`
 
@@ -518,7 +518,7 @@ Voice VLAN: none
 ### 修改管理 VLAN, Change the Management VLAN
 
 
-给交换机配置一个 IP 地址，以实现为管理目的而远程登陆到其上，也是可以的。这又叫做交换机虚拟接口（Switch Virtual Interface, SVI）。将该管理访问做到除 VLAN 1 之外的其它 VLAN 上，是一种明智的预防措施，如下面的输出所示。
+给交换机配置一个 IP 地址，以实现为管理目的而远程登陆到其上，也是可以的。这又叫做交换机虚拟接口（Switch Virtual Interface, SVI）。将该管理访问做到除 `VLAN 1` 之外的其它 VLAN 上，是一种明智的预防措施，如下面的输出所示。
 
 ```console
 Switch(config)#vlan 3
@@ -678,7 +678,7 @@ Switch(config)#errdisable recovery cause ?
 - storm-control
 - udld
 
-多数平台上端口自动恢复的默认时间是 300 秒，此时间可以用全局配置命令 `errdisable recovery interval` 手动修改。
+多数平台上端口自动恢复的默认时间是 `300` 秒，此时间可以用全局配置命令 `errdisable recovery interval` 手动修改。
 
 ```console
 Switch(config)#errdisable recovery interval ?
@@ -750,7 +750,7 @@ clock summer-time CDT recurring
 clock summer-time CST recurring 2 Sun Mar 2:00 1 Sun Nov 2:00
 ```
 
-首先，我们设置时区（the time zone）。我是位于中部时区（the Central time zone）， 比 GMT 要早 6 个小时。接着告诉交换机夏令时（时间变化，the time change）是循环的。最后设置夏令时具体是什么。此时，我们就可以设置时间和日期了。
+首先，我们设置时区（the time zone）。我是位于中部时区（the Central time zone）， 比 GMT 要早 `6` 个小时。接着告诉交换机夏令时（时间变化，the time change）是循环的。最后设置夏令时具体是什么。此时，我们就可以设置时间和日期了。
 
 ```console
 Switch#clock set 14:55:05 June 19 2007
@@ -823,11 +823,11 @@ CDP 是一个思科专有协议，也就是说它只运行在思科设备上。�
 
 因为 CDP 是一种二层服务，所以它**并不需要配置有 IP 地址来交换信息**。只需开启接口就行。如有配置 IP 地址，该 IP 地址也会包含进 CDP 消息中。
 
-CDP 作为非常强大的故障排除工具，考试中要求你掌握如何来使用它。图 4.1 展示了 Router 0 的 CDP 输出。请设想一下在没有拓扑图（topology diagram）的情况下，你要对此网络进行故障排除的情形。
+CDP 作为非常强大的故障排除工具，考试中要求你掌握如何来使用它。图 4.1 展示了 `Router 0` 的 CDP 输出。请设想一下在没有拓扑图（topology diagram）的情况下，你要对此网络进行故障排除的情形。
 
-!["Router 0 的 CDP 输出"](images/0401.png)
+![`Router 0` 的 CDP 输出](images/0401.png)
 
-图 4.1 -- Router 0 的 CDP 输出
+图 4.1 -- `Router 0` 的 CDP 输出
 
 下列配置输入，正是图 4.1 中的。
 
@@ -874,7 +874,7 @@ advertisement version: 2
 Duplex: full
 ```
 
-现在你可以看到 IOS 版本、型号、IP 地址以及其它信息。记住现在你仍未在 Router 0 上配置 IP 地址。
+现在你可以看到 IOS 版本、型号、IP 地址以及其它信息。记住现在你仍未在 `Router 0` 上配置 IP 地址。
 
 前面我们已经讲过怎样在整台设备或仅在某个接口上关闭 CDP 了。而另两个有关命令是显示设备有关 CDP 的协议信息的 `show cdp` 命令，以及通过输入设备名称来查看某台具设备信息的 `show cdp entry <Router>` 命令。建议在今天要配置的实验中花些时间，来查看 CDP 的众多输出。
 
@@ -895,13 +895,15 @@ Router0#show cdp ?
 
 ## 交换机端口安全，Switch Port Security
 
-端口安全特性，是通过限制某个特定端口或是接口能够学习到的 MAC 地址数目，来保护交换机端口安全，并最终确保 CAM 表的安全的一项，Catalyst 交换机的有力特性。具备了端安全特性，交换机就能够维护一张用于明确哪个 MAC 地址（或哪些地址），可以接入哪些本地交换机端口的表格。此外，交换机同样可以配置为仅允许在任何给定的端口上学习到指定数量的 MAC 地址。端口安全如图 4.2 所示。
+端口安全特性，是通过限制某个特定端口或是接口能够学习到的 MAC 地址数目，来保护交换机端口安全，并最终确保内容可寻址存储器（Content Addressable Memory, CAM）表的安全的一项，Catalyst 交换机的有力特性。具备了端安全特性，交换机就能够维护一张用于明确哪个 MAC 地址（或哪些地址），可以接入哪些本地交换机端口的表格。此外，交换机同样可以配置为仅允许在任何给定的端口上学习到指定数量的 MAC 地址。端口安全如图 4.2 所示。
+
+> **注**：关于CAM的更多信息，请参考 [CAM (Content Addressable Memory) VS TCAM (Ternary Content Addressable Memory)](https://supportforums.cisco.com/t5/network-infrastructure-documents/cam-content-addressable-memory-vs-tcam-ternary-content/ta-p/3107938)。
 
 !["端口安全的运作"](images/0402.png)
 
 图 4.2 -- 端口安全的运作
 
-图 4.2 展示了在某台 Catalyst 交换机上，通过端口安全特性配置的 4 个端口，它们都只允许单一 MAC 地址接入。从 1 号到 3 号端口连接的 MAC 地址与端口安全所允许的地址匹配。在没有其它过滤的情况下，这些主机就能够经由其各自交换机端口转发流量。而端口 4 上所配置的是允许 AAAA.0000.0004 MAC 地址，但所接入的 MAC 地址却是 BBBB.0000.0001。因为主机 MAC 地址与所允许的 MAC 不一样，端口安全（port security）将在端口上做出如同管理员所设定的适当动作。这些有效端口安全动(the valid port security actions)作将在接下来的部分详细说明。
+图 4.2 展示了在某台 Catalyst 交换机上，通过端口安全特性配置的 `4` 个端口，它们都只允许单一 MAC 地址接入。从 `1` 号到 `3` 号端口连接的 MAC 地址与端口安全所允许的地址匹配。在没有其它过滤的情况下，这些主机就能够经由其各自交换机端口转发流量。而端口 `4` 上所配置的是允许 `AAAA.0000.0004` MAC 地址，但所接入的 MAC 地址却是 `BBBB.0000.0001`。因为主机 MAC 地址与所允许的 MAC 不一样，端口安全（port security）将在端口上做出如同管理员所设定的适当动作。这些有效端口安全动(the valid port security actions)作将在接下来的部分详细说明。
 
 **端口安全特性**设计用于保护交换局域网（the switched LAN）免受两种主要的攻击方式。这两种方式在下的小节讲到。
 
@@ -937,18 +939,18 @@ MAC 地址欺骗，用于冒充某个源 MAC 地址，以达到扮演网络上�
 
 !["交换机 CAM 表的建立"](images/0403.png)
 
-图 4.3 中, 交换机允许正常，根据 CAM 表条目，它知道连接至其端口上的所有设备的 MAC 地址。而基于当前的 CAM 表，如 4 号主机想要发给 2 号主机一个帧，交换机就会简单地将该帧转发出它的 FastEthernet 0/2 接口，而前往 2 号主机。
+图 4.3 中, 交换机允许正常，根据 CAM 表条目，它知道连接至其端口上的所有设备的 MAC 地址。而基于当前的 CAM 表，如 `4` 号主机想要发给 `2` 号主机一个帧，交换机就会简单地将该帧转发出它的 `FastEthernet 0/2` 接口，而前往 `2` 号主机。
 
-现在，假设 1 号主机被某个想要接收所有发往 2 号主机流量的攻击者入侵了。则经由 MAC 地址欺骗，攻击者精心构建出使用 2 号主机源地址的以太网帧。在交换机收到该帧后，它记下该源地址，并重写 CAM 表中 2 号主机所对应的条目，将其指向 FastEthernet 0/1 端口，而不是 2 号主机所真正连接的 FastEthernet 0/2。此概念如图 4.4 所示。
+现在，假设 `1` 号主机被某个想要接收所有发往 `2` 号主机流量的攻击者入侵了。则经由 MAC 地址欺骗，攻击者精心构建出使用 `2` 号主机源地址的以太网帧。在交换机收到该帧后，它记下该源地址，并重写 CAM 表中 `2` 号主机所对应的条目，将其指向 `FastEthernet 0/1` 端口，而不是 `2` 号主机所真正连接的 `FastEthernet 0/2`。此概念如图 4.4 所示。
 
 !["MAC 地址欺骗"](images/0404.png width=800)
 
-根据图 4.4, 在 3 号主机或 4 号主机尝试将帧发给 2 号主机时，交换机会将这些帧转发出 FastEthernet 0/1, 到 1 号主机，因为 CAM 表已被 MAC 地址欺骗攻击投毒。在 2 号主机发出另一个帧时，交换机再次从 FastEthernet 0/2 了解其 MAC 地址, 并再度将 CAM 表条目重写，以反应出该变化。结果就出现 2 号主机与 1 号主机之间就谁保有此 MAC 地址的拔河。
+根据图 4.4, 在 `3` 号主机或 `4` 号主机尝试将帧发给 `2` 号主机时，交换机会将这些帧转发出 `FastEthernet 0/1`, 到 `1` 号主机，因为 CAM 表已被 MAC 地址欺骗攻击投毒。在 `2` 号主机发出另一个帧时，交换机再次从 `FastEthernet 0/2` 了解其 MAC 地址, 并再度将 CAM 表条目重写，以反应出该变化。结果就出现 `2` 号主机与 `1` 号主机之间就谁保有此 MAC 地址的拔河。
 
-此外，这也将扰乱交换机，造成反复的重写 MAC 地址表条目，引发在合法主机（也就是 2 号主机）上的拒绝服务攻击（Denial of Service , DoS）。而假如假冒的 MAC 地址树木很高，MAC 地址欺骗攻击还将对持续重写其 CAM 表的交换机的性能造成严重影响。应用端口安全(implementing port security)，可以减轻 MAC 地址欺骗攻击的影响。
+此外，这也将扰乱交换机，造成反复的重写 MAC 地址表条目，引发在合法主机（也就是 `2` 号主机）上的拒绝服务攻击（Denial of Service , DoS）。而假如假冒的 MAC 地址数目很高，MAC 地址欺骗攻击还将对持续重写其 CAM 表的交换机的性能造成严重影响。应用端口安全(implementing port security)，可以减轻 MAC 地址欺骗攻击的影响。
 
 ### 地址安全的端口安全，Port Security Secure Addresses
-
+ 
 **经由端口安全特性，我们可以指定特定 MAC 才被允许访问某个交换机端口，同时限制某个单一交换机端口所支持的 MAC 地址数目**。以下本节所说明的几种端口安全应用方式。
 
 * 静态 MAC 地址保全, Static secure MAC addresses
@@ -962,8 +964,8 @@ MAC 地址欺骗，用于冒充某个源 MAC 地址，以达到扮演网络上�
 粘滞的 MAC 地址保全，是静态和动态 MAC 地址保全的结合。地址可动态习得，也可静态配置，存储在 MAC 地址表中，也保存在交换机配置文件里。这就意味着在交换机关闭或是重启后，它无需再次动态发现 MAC 地址，因为这些 MAC 地址已经保存在配置文件中了（如你有保存允许的配置）。
 
 ### 动作的端口安全，Port Security Actions
-
-一旦开启了端口安全，管理员就可定义出在出现违反端口安全事件后，交换机所采取的动作了。思科 IOS 软件允许管理员指定 4 种在出现冲突时所采取的不同动作。
+ 
+一旦开启了端口安全，管理员就可定义出在出现违反端口安全事件后，交换机所采取的动作了。思科 IOS 软件允许管理员指定 `4` 种在出现冲突时所采取的不同动作。
 
 - 保护，Protect
 - 关闭（默认动作）, Shutdown(default)
@@ -990,7 +992,7 @@ VTP-Server-1(config-if)#switchport mode access
 
 > **注意:**在诸如 Catalyst 2950 及 Catalyst 2960 系列的二层交换机上无需 `switchport` 命令。而在比如 Catalyst 3750、Catalyst 4500 以及 Catalyst 6500 系列等的多层交换机上， 它是要要到的。
 
-默认情况下，端口安全是关闭的；但可通过接口配置命令 `switchport port-security [mac-address {mac-address} [vlan {vlan-id | {access | voice}}] | mac-address {sticky} [mac-address | vlan {vlan-id | {access | voice}}] [maximum {value} [vlan {vlan-list | {access | voice}}]] 予以开启。表 4.1 说明了该命令的这些选项。
+默认情况下，端口安全是关闭的；但可通过接口配置命令 `switchport port-security [mac-address {mac-address} [vlan {vlan-id | {access | voice}}] | mac-address {sticky} [mac-address | vlan {vlan-id | {access | voice}}] [maximum {value} [vlan {vlan-list | {access | voice}}]]` 予以开启。表 4.1 说明了该命令的这些选项。
 
 
 | 关键字 | 说明 |
@@ -1000,13 +1002,13 @@ VTP-Server-1(config-if)#switchport mode access
 | vlan {access} | 此关键字应只用在某个接入端口上，以指定该 VLAN 作为接入 VLAN。 |
 | vlan {voice} | 此关键字应只用在某个接入端口上, 用以知道该 VLAN 作为一个语音 VLAN。而只有在该特定端口上配置了语音 VLAN 时，该选项才可用。 |
 | mac-address {sticky} [mac-address] | 此关键字用于在特定接口上开启动态或地址粘滞学习（used to enable dynamic or sticky learning），或者为其配置一个静态安全 MAC 地址。|
-| maxium {value} | 此关键字用于指定某个接口上可以学到的安全地址的最大数目。默认是 1。 |
+| maxium {value} | 此关键字用于指定某个接口上可以学到的安全地址的最大数目。默认是 `1`。 |
 
 ### 静态安全地址配置， Configuring Static Secure MAC Addresses
 
-下面的输出演示了怎样在某个接口上开启端口安全，以及在某个交换机**接入端口**上配置一个静态安全 MAC 地址 001f:3c59:d63b。
+下面的输出演示了怎样在某个接口上开启端口安全，以及在某个交换机**接入端口**上配置一个静态安全 MAC 地址 `001f:3c59:d63b`。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
@@ -1016,7 +1018,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.d63b
 
 下面的输出演示了怎样在某个接口上开启端口安全，并在某个交换机**中继端口**的 VLAN 5 中配置一个静态安全 MAC 地址 001f:3c59:d63b。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport trunk encapsulation dot1q
@@ -1429,7 +1431,7 @@ Router(config)#logging 10.1.1.1
 
 **实验步骤，Walkthrough**
 
-1. 连接一台 PC 或笔记本计算机到交换机。另外为后面的配置建立一个控制台连接。连接 PC 的那个以太网端口，将会作为本实验中配置安全设置的那个端口。我所选择的是交换机的 FastEthernet0/1 端口。
+1. 连接一台 PC 或笔记本计算机到交换机。另外为后面的配置建立一个控制台连接。连接 PC 的那个以太网端口，将会作为本实验中配置安全设置的那个端口。我所选择的是交换机的 `FastEthernet0/1` 端口。
 
 2. 登入 VTY 线路，并建立使用本地用户名和口令的远程登陆访问（Telnet access referring to a local username and password）。
 
@@ -1447,7 +1449,7 @@ Switch(config)#username in60days password cisco
 Switch(config)#
 ```
 
-3. 为交换机上的 VLAN 1 添加一个 IP 地址（所有端口都自动在 VLAN 1 中）。此外， 将 192.168.1.1 加到 PC 的 FastEthernet 接口上。
+3. 为交换机上的 `VLAN 1` 添加一个 IP 地址（所有端口都自动在 `VLAN 1` 中）。此外， 将 `192.168.1.1` 加到 PC 的 `FastEthernet` 接口上。
 
 ```console
 Switch(config)#interface vlan1
@@ -1480,7 +1482,7 @@ Switch(config-line)#transport input ssh
 
 !["Telnet 失败"](images/0409.png)
 
-7. 在交换机上为 FastEthernet 端口设置端口安全。如你未将端口设置为接入模式（而是动态模式或者中继模式）的话，此操作将失败。
+7. 在交换机上为 `FastEthernet` 端口设置端口安全。如你未将端口设置为接入模式（而是动态模式或者中继模式）的话，此操作将失败。
 
 ```console
 Switch(config)#interface FastEthernet0/1
