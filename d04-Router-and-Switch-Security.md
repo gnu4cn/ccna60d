@@ -65,7 +65,7 @@
 
 - 只添加一个口令即可
 
-```
+```console
 Router(config)#line console 0
 Router(config-line)#password cisco
 Router(config-line)#login
@@ -73,7 +73,7 @@ Router(config-line)#login
 
 - 为控制台添加一个本地用户名和口令组合
 
-```
+```console
 Router(config)#username paul password cisco
 Router(config)#line console 0
 Router(config-line)#login local
@@ -81,7 +81,7 @@ Router(config-line)#login local
 
 你还可以为控制台（以及虚拟终端）线路创建一个超时值，如此就可以在确定的时间过后断开连接。默认的超时是 5 分钟。
 
-```
+```console
 Router(config)#line console 0
 Router(config-line)#exec-timeout ?
     <0-35791>   Timeout in minutes
@@ -96,7 +96,7 @@ Router(config-line)#
 
 在某人给远程登陆或者说虚拟终端线路添加了口令之前，你实际上是不能远程登陆进一台路由器的。同样，你可以给虚拟终端线路添加一个口令，或是告诉路由器去查找一个本地用户名及口令组合（该组合可以在配置文件中，或是存储在一台 RADIUS/TACACS 服务器上），如下面所示。
 
-```
+```console
 Router(config-line)#line vty 0 15
 Router(config-line)#password cisco
 Router(config-line)#login   ← or login local
@@ -104,7 +104,7 @@ Router(config-line)#login   ← or login local
 
 下面的输出是自某台路由器到另一台的远程登陆会话。当你获得远程登陆访问时，你可以看到主机名发生了改变。注意在你输入口令时，它看不到。
 
-```
+```console
 Router1#telnet 192.168.1.2
 Trying 192.168.1.2 ...Open
 User Access Verification
@@ -115,7 +115,7 @@ Router2>
 
 而如你有一个安全版 IOS 镜像，则可以将路由器配置为仅允许安全壳访问，而不是远程登陆访问。这样做的好处在于所有数据都是加密了的。如你在启用安全壳后，再次使用远程登时，连接将被终止。
 
-```
+```console
 Router1(config)#line vty 0 15
 Router1(config-line)#transport input ssh
 Router2#telnet 192.168.1.2
@@ -129,7 +129,7 @@ Trying 192.168.1.2 ...Open
 
 使能口令是未加密的，所以在路由器配置中可以看到。而使能秘密有 5 级加密(level 5 encryption, MD5)，难于破解。自 15.0(1）S 后的较新 IOS 版本中，还可以使用比 MD5 加密高级的 4 级加密（level 4 encryption, SHA256）, 5 级加密最终会不赞成使用。你可以给使能口令加上命令 `service password-encryption`, 但因为此方式使用 7 级加密(level 7 encryption, 比如，低安全性；思科称其为“背后安全性，over the shoulder security”, 因其仅需某人从你背后偷看并记住一个稍难的词组，便可以用网上的 7 级口令解密工具予以破解)，而很容易被破解。下面的输出中可以看到 7 级与 5 级加密文本。
 
-```
+```console
 Router(config)#enable password cisco
 Router(config)#exit
 Router#show run
@@ -159,7 +159,7 @@ enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
 
 思科 IOS 提供对用户的单独用户名及口令，同时对所能够使用的命令进行清单限制的能力。这在分层次网络支持时是有用的。下列输出中给出了一个示例。
 
-```
+```console
 RouterA#config term
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#username paul password cisco
@@ -175,7 +175,7 @@ RouterA(config)#exit
 
 思科路由器有可供配置的 16 种（0 到 15）不同特权级别，其中 15 级是完全的访问权限，如下所示。
 
-```
+```console
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#username support privilege 4 password soccer
@@ -191,7 +191,7 @@ RouterA(config-line)#^z
 
 支持那人在登入到路由器并尝试进入配置模式时，此命令及其它命令将不可用且无效，也不能看到。
 
-```
+```console
 RouterA con0 is now available
 Press RETURN to get started.
 User Access Verification
@@ -204,7 +204,7 @@ RouterA#config t ←  not allowed to use this
 
 你可在路由器提示符下查看默认的不同特权级别(the default privilege levels)。
 
-```
+```console
 Router>show privilege
 Current privilege level is 1
 Router>en
@@ -241,7 +241,7 @@ warnings—Warning conditions (severity=4)
 
 而你有可以将这些日志消息发往几个不同的地方。
 
-```
+```console
 Router(config)#logging ?
     A.B.C.D     IP address of the logging host
     buffered    Set buffered logging parameters
@@ -254,7 +254,7 @@ Router(config)#logging ?
 
 日志消息通常会在你经由控制台进入到路由器时，显示在屏幕上。而这可能会在你敲入配置命令时多少有些烦人。这里就有个在我输入一个命令（加了下划线的那条）时，被一条控制台日志消息(a console logging message)给中断了的例子。
 
-```
+```console
 Router(config)#int f0/1
 Router(config-if)#no shut
 Router(config-if)#end
@@ -265,7 +265,7 @@ Router#
 
 此时你既可以用命令 `no logging console` 关闭日志消息输出，也可以用 `logging synchronous` 命令将它们设置为无中断（not interrupt）， `logging synchronous` 命令会重新输入在被日志消息中断之前，你所输入的那行命令。`logging synchronous` 命令在虚拟终端线路上也是可用的。
 
-```
+```console
 Router(config)#line con 0
 Router(config-line)#logging synchronous
 Router(config-line)#
@@ -305,7 +305,7 @@ Router(config)#exit
 
 要开启 SSH， 你需要有一个支持加密的 IOS 版本。一种快速找出 IOS 镜像是否支持加密的方法是执 `show version` 命令。查找镜像文件名中有无 `k9` 字样，或者在思科系统公司的安全性声明中查找有关字句。
 
-```
+```console
 Switch#sh version
 Cisco IOS Software, C3560 Software (C3560-ADVIPSERVICES K9-M), Version
 12.2(35)SE1, RELEASE SOFTWARE (fc1)
@@ -341,7 +341,7 @@ If you require further assistance please contact us by sending email to export@c
 
 有一些 SSH 相关的维护命令需要输入。`ip ssh time-out 60` 命令会将任何空闲 60 秒的 SSH 连接置为超时。而命令 `ip ssh authentication-retries 2` 则会在认证失败两次的 SSH 连接重置为初始状态。此设置并不会阻止用户建立新的连接并重试认证。设置过程如下所示。
 
-```
+```console
 Switch(config)#hostname SwitchOne
 SwitchOne(config)#ip domain-name mydomain.com
 SwitchOne(config)#crypto key generate rsa
@@ -367,7 +367,7 @@ A6A2D601 45F313B6 6B020301 0001
 
 要验证交换机上的 SSH 开启，输入以下命令。
 
-```
+```console
 Switch#show ip ssh
 SSH Enabled - version 1.99
 Authentication timeout: 120 secs; Authentication retries: 2
@@ -380,7 +380,7 @@ Switch#
 
 查看交换机上 HTTP 服务器的状态。
 
-```
+```console
 Switch#show ip http server status
 HTTP server status: Disabled
 HTTP server port: 80
@@ -408,7 +408,7 @@ HTTP secure server active session modules: ALL
 
 上面已经提到，你实际上可以在交换机或路由器上同时设置使能口令（a password）和使能秘密口令（enable secret password）,但这会带来混乱。所以**请只设置使能秘密口令**就好。下面的配置文件演示了**通过在命令前键入 `do` 关键字，而无需回到特权模式，就可执行该命令**的情形。
 
-```
+```console
 Switch1(config)#enable password cisco
 Switch1(config)#do show run
 Building configuration...
@@ -421,7 +421,7 @@ enable password cisco
 
 通过在命令前加上 `no` 关键字后再次执行该命令，可以擦除配置文件中的大多数行。上面 Farai 提到的使用 `service password-encryption` 命令是毫无作用的，因为这个方法仅提供了弱加密（7 级）， 而下面的秘密口令（the secret password）则有着强加密（MD5）。
 
-```
+```console
 Switch1(config)#no enable password
 Switch1(config)#enable secret cisco
 Switch1(config)#do show run
@@ -436,7 +436,7 @@ enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0 [strong level 5 password]
 
 你总是应该关闭那些你不会用到的服务。思科已经在关闭那些不安全和很少用到的服务和协议上做得很好了；尽管如此，你可能会要因明确这点而亲自关闭它们。同样也会有一些服务是有帮助的。多数服务可在全局配置模式中的 `service` 命令下找到。
 
-```
+```console
 Switch(config)# service ?
 compress-config         Compress the configuration file
 config                  TFTP load config files
@@ -490,7 +490,7 @@ udp-small-servers       Enable small UDP servers (e.g., ECHO)
 
 你可以使用下面输出中演示的命令（在每个接口下执行的），来查看原生 VLAN。
 
-```
+```console
 Switch#show interfaces FastEthernet0/1 switchport
 Name: Fa0/1
 Switchport: Enabled
@@ -520,7 +520,7 @@ Voice VLAN: none
 
 给交换机配置一个 IP 地址，以实现为管理目的而远程登陆到其上，也是可以的。这又叫做交换机虚拟接口（Switch Virtual Interface, SVI）。将该管理访问做到除 VLAN 1 之外的其它 VLAN 上，是一种明智的预防措施，如下面的输出所示。
 
-```
+```console
 Switch(config)#vlan 3
 Switch(config-vlan)#interface vlan3
 %LINK-5-CHANGED: Interface Vlan3, changed state to up
@@ -535,7 +535,7 @@ Switch(config-if)#ip address 192.168.1.1 255.255.255.0
 
 在下面的输出中，你能看到一台连接我的交换机的路由器，在我执行 `show cdp neighbor detail` 命令时，其能看见哪些基本信息。
 
-```
+```console
 Router#show cdp neighbor detail
 Device ID: Switch1
 Entry address(es):
@@ -554,11 +554,13 @@ Router#
 
 下面的命令将对整个设备关闭 CDP。
 
-`Switch1(config)#no cdp run`
+```console
+Switch1(config)#no cdp run
+```
 
 而要对某个特定接口关闭 CDP， 执行以下命令。
 
-```
+```console
 Switch1(config)#int FastEthernet0/2
 Switch1(config-if)#no cdp enable
 ```
@@ -567,7 +569,7 @@ Switch1(config-if)#no cdp enable
 
 横幅消息将于某用户登入路由器或交换机时显示出来。其并不会提供任何实质性的安全，但会显示你设置的警告信息。在下面的配置中，我选择的是 “Y” 字母作为界定符（delimiting character）, 界定符用以告诉路由器，我已输完消息文字。
 
-```
+```console
 Switch1(config)#banner motd Y
 Enter TEXT message. End with the character ‘Y’.
 KEEP OUT OR YOU WILL REGRET IT Y
@@ -576,7 +578,7 @@ Switch1(config)#
 
 在我从交换机登入到路由器时，我能看到横幅消息。错在选择了 “Y” 作为界定符，因为它割除了我的消息文字。
 
-```
+```console
 Router#telnet 192.168.1.3
 Trying 192.168.1.3 ...Open
 KEEP OUT OR
@@ -590,7 +592,7 @@ KEEP OUT OR
 
 在本书中，横幅消息作为一些实验的组成部分。我建议你掌握全部三种类型横幅消息，并以登入路由器的方式来测试它们。依据你所用的平台和 IOS，会有不同的选择。
 
-```
+```console
 Router(config)#banner ?
     LINE                c banner-text c, where ‘c’ is a delimiting character
     exec                Set EXEC process creation banner
@@ -605,7 +607,7 @@ Router(config)#banner ?
 
 VTP 确保网络上交换机之间传输的是精确的 VLAN 信息。而为了保护 VLAN 信息的更新，你应该在交换机上加入 VTP 口令（该 VTP 域中所有交换机上的 VTP 口令都应一致）， 如下面输出演示的那样。
 
-```
+```console
 Switch1(config)#vtp domain 60days
 Changing VTP domain name from NULL to 60days
 Switch1(config)#vtp password cisco
@@ -617,7 +619,7 @@ Switch1(config)#
 
 默认下的交换机允许所有 VLANs 通过中继链路。你将其修改为指定 VLANs 才能通过中继链路。如下面的输出所示。
 
-```
+```console
 Switch1(config)#int FastEthernet0/4
 Switch1(config-if)#switchport mode trunk
 Switch1(config-if)#switchport trunk allowed vlan ?
@@ -641,7 +643,7 @@ Fa0/4       7-12
 
 出错关闭端口(an err-disabled port）看起来会是这样的。
 
-```
+```console
 Switch# show interface f0/1
 FastEthernet0/1 is down, line protocol is down [err-disabled]
 .....
@@ -652,7 +654,7 @@ FastEthernet0/1 is down, line protocol is down [err-disabled]
 
 完成该功能设置的命令是 `errdisable recovery cause`, 在全局路由器配置模式下输入。
 
-```
+```console
 Switch(config)#errdisable recovery cause ?
     all         Enable timer to recover from all causes
     bpduguard   Enable timer to recover from bpdu-guard error disable state
@@ -678,14 +680,14 @@ Switch(config)#errdisable recovery cause ?
 
 多数平台上端口自动恢复的默认时间是 300 秒，此时间可以用全局配置命令 `errdisable recovery interval` 手动修改。
 
-```
+```console
 Switch(config)#errdisable recovery interval ?
     <30-86400>  timer-interval(sec)
 ```
 
 而命令 `show errdisable recovery` 命令则会提供有关出错关闭恢复功能（the err-disable recovery function）激活了的那些特性的细节信息，以及受到监测的接口，并包含了接口重新开启剩余时间。
 
-```
+```console
 Switch#show errdisable recovery
 ErrDisable Reason           Timer Status
 -----------------           --------------
@@ -735,7 +737,7 @@ TACACS+ 表示“加强版终端访问控制器访问控制系统（Terminal Acc
 
 交换机上的时间经常被忽略；但它却是重要的。在你遇到安全入侵（security violations）、SNMP 问题（SNMP traps）, 或者事件记录时，会用到时间戳。如交换机上的时间不正确，就会难于找出时间发生的时间。举个例子，让我们看看下面的交换机，并检查一下它的时间。
 
-```
+```console
 Switch#show clock
 *23:09:45.773 UTC Tue Mar 2 1993
 ```
@@ -750,7 +752,7 @@ clock summer-time CST recurring 2 Sun Mar 2:00 1 Sun Nov 2:00
 
 首先，我们设置时区（the time zone）。我是位于中部时区（the Central time zone）， 比 GMT 要早 6 个小时。接着告诉交换机夏令时（时间变化，the time change）是循环的。最后设置夏令时具体是什么。此时，我们就可以设置时间和日期了。
 
-```
+```console
 Switch#clock set 14:55:05 June 19 2007
 Switch#
 1d23h: %SYS-6-CLOCKUPDATE: System clock has been updated from 17:26:01 CST
@@ -761,14 +763,14 @@ Switch#show clock
 
 请注意，**时钟设置实在使能模式（Enable mode），而不是配置模式下**。除了手动设置时钟外，你可以使用网络时间协议（Network Time Protocol, NTP）。它让你可将交换机的时钟与某台原子钟（an atomic clock）同步，保证非常精确的时间。
 
-```
+```console
 Switch(config)#ntp server 134.84.84.84 prefer
 Switch(config)#ntp server 209.184.112.199
 ```
 
 使用下面的两个命令，你可以查看时钟是否已经和 NTP 源保持同步。
 
-```
+```console
 Switch#show ntp associations
 Switch#show ntp status
 ```
@@ -786,7 +788,7 @@ Switch#show ntp status
 
 而关闭端口是通过在**接口配置模式**下使用 `shutdown` 命令完成的。
 
-```
+```console
 Switch#conf t
 Switch(config)#int fa0/0
 Switch(config-if)#shutdown
@@ -794,7 +796,7 @@ Switch(config-if)#shutdown
 
 验证某端口处于关闭状态有多种方法，其一就是使用 `show ip interface brief` 命令。
 
-```
+```console
 Router(config-if)#do show ip interface brief
 Interface           IP-Address  OK? Method  Status                  Protocol
 FastEthernet0/0     unassigned  YES unset   administratively down   down
@@ -803,7 +805,7 @@ FastEthernet0/1     unassigned  YES unset   administratively down   down
 
 请注意，**管理性关闭**状态就是说该端口是手工关闭的。验证关闭状态的另一方法是使用 `show interface` 命令。
 
-```
+```console
 Router#show interface fa0/0
 FastEthernet0/0 is administratively down, line protocol is down
     Hardware is Gt96k FE, address is c200.27c8.0000 (bia c200.27c8.0000)
@@ -829,7 +831,7 @@ CDP 作为非常强大的故障排除工具，考试中要求你掌握如何来�
 
 下列配置输入，正是图 4.1 中的。
 
-```
+```console
 Router0#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge, S - Switch, H -
 Host, I - IGMP, r - Repeater, P - Phone
@@ -841,7 +843,7 @@ Router0#
 
 在上述命令的后面加上 `detail` 命令，你可以看到更多信息。
 
-```
+```console
 Router0#show cdp neighbors detail
 Device ID: Switch
 Entry address(es):
@@ -876,7 +878,7 @@ Duplex: full
 
 前面我们已经讲过怎样在整台设备或仅在某个接口上关闭 CDP 了。而另两个有关命令是显示设备有关 CDP 的协议信息的 `show cdp` 命令，以及通过输入设备名称来查看某台具设备信息的 `show cdp entry <Router>` 命令。建议在今天要配置的实验中花些时间，来查看 CDP 的众多输出。
 
-```
+```console
 Router0#show cdp
 Global CDP information:
     Sending CDP packets every 60 seconds
@@ -1196,7 +1198,7 @@ Max Addresses limit in System : 1024
 
 使用接口配置命令 `switchport port-security [violation {protect | restrict | shutdown | shutdown vlan}]` 来配置这些选项。如果某个端口因为因为一个安全冲突而关闭，它就显示为 `errdisabled`，此时需要使用 `shutdown` 和接着的 `no shutdown` 命令来将其再度开启。
 
-```
+```console
 Switch#show interfaces FastEthernet0/1 status
 Port Name	Status			Vlan	Duplex	Speed	Type
 Fa0/1		errdisabled		100		full	100		100BaseSX
@@ -1214,7 +1216,7 @@ Fa0/1		errdisabled		100		full	100		100BaseSX
 
 下面的输出演示了如何在某个端口上配置粘滞地址学习最多 10 个 MAC 地址。如果端口上探测到某未知 MAC 地址（比如第 11 个 MAC 地址）时，端口将被配置为丢弃收到的那些帧。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport port-security
 VTP-Server-1(config-if)#switchport port-security mac-address sticky
@@ -1226,7 +1228,7 @@ VTP-Server-1(config-if)#switchport port-security violation restrict
 
 是通过命令 `show port-security` 命令，来对所配置的端口安全冲突动作进行验证的，如下面的输出所示。
 
-```
+```console
 VTP-Server-1#show port-security
 Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
 				(Count)			(Count)		(Count)
@@ -1237,7 +1239,7 @@ Max Addresses limit in System : 1024
 
 如交换机上开启了日志记录，同时配置了限制模式（Restrict mode）或关闭模式（Shutdown mode），类似于下面输出的这些消息将会在控制台打印出来，并记录到本地缓存或者发往某台日志服务器。
 
-```
+```console
 VTP-Server-1#show logging
 ...
 [Truncated Output]
@@ -1296,7 +1298,7 @@ address 0004.c16f.8741 on port Gi0/2.
 
 1. 使用某个启用秘密口令（an enable secret password），登入使用保护启用模式（Protect Enable mode）。通过登出特权模式（Privileged mode）并再度登入来进行测试。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#enable secret cisco
@@ -1313,7 +1315,7 @@ Router#
 
 2. 设置一个启用口令（enable pasword），接着加入口令加密服务（service password encryption）。此操作在实际路由器上很少执行，因为这是不安全的做法。
 
-```
+```console
 Router(config)#no enable secret
 Router(config)#enable password cisco
 Router(config)#service pass
@@ -1336,7 +1338,7 @@ enable password 7 0822455D0A16
 
 3. 对 Telnet 线路进行保护。建立一个本地用户名及其口令，并令到用户在登入路由器时，使用此用户名和口令。
 
-```
+```console
 Router(config)#line vty 0 ?
 <1-15>
 Last Line number
@@ -1352,21 +1354,21 @@ Router(config)#
 
 4. 用一个口令来保护控制台。只需在控制台端口上直接设置一个口令就行。
 
-```
+```console
 Router(config)#line console 0
 Router(config-line)#password cisco
 ```
 
 通过将控制台线从路由器拔出，并再次插入路由器，就可以对此进行测试。同样，如有一个替代端口，也可为其设置口令进行保护。
 
-```
+```console
 Router(config)#line aux 0
 Router(config-line)#password cisco
 ```
 
 5. 通过仅允许 SSH 流量进入，来保护 Telnet 线路。还可以仅允许 SSH 流量发出。该命令需要一个安全镜像（a security image）才能工作。
 
-```
+```console
 Router(config)#line vty 0 15
 Router(config-line)#transport input ssh
 Router(config-line)#transport output ssh
@@ -1374,7 +1376,7 @@ Router(config-line)#transport output ssh
 
 6. 添加一个今日横幅消息（a banner message of the day, MOTD）。将告知路由器已结束输入的字符设为 ”X“（界定符，the delimiting character）。
 
-```
+```console
 Router(config)#banner motd X
 Enter TEXT message.
 End with the character ‘X’.
@@ -1392,13 +1394,15 @@ Router>
 
 7. 关闭整个路由器的思科发现协议。还可以使用命令 `no cdp enable interface`，只关闭某个接口上的思科发现协议。
 
-`Router(config)#no cdp run`
+```console
+Router(config)#no cdp run
+```
 
 可通过在关闭思科发现协议前，连接一台交换机或路由器到该路由器，并执行 `show cdp neighbor (detail)` 命令，来测试上面的命令是否起作用。
 
 8. 设置路由器将日志消息发送到网络上的某台主机。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -1429,7 +1433,7 @@ Router(config)#logging 10.1.1.1
 
 2. 登入 VTY 线路，并建立使用本地用户名和口令的远程登陆访问（Telnet access referring to a local username and password）。
 
-```
+```console
 Switch#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch(config)#line vty 0 ?
@@ -1445,7 +1449,7 @@ Switch(config)#
 
 3. 为交换机上的 VLAN 1 添加一个 IP 地址（所有端口都自动在 VLAN 1 中）。此外， 将 192.168.1.1 加到 PC 的 FastEthernet 接口上。
 
-```
+```console
 Switch(config)#interface vlan1
 Switch(config-if)#ip address 192.168.1.2 255.255.255.0
 Switch(config-if)#no shut
@@ -1467,7 +1471,7 @@ Switch#
 
 5. IT 经理改变主意，要仅使用 SSH 访问，那么就在 VTY 线路上修改配置。仅有那些确定的交换机型号和 IOS 版本才支持 `SSH` 命令。
 
-```
+```console
 Switch(config)#line vty 0 15
 Switch(config-line)#transport input ssh
 ```
@@ -1478,7 +1482,7 @@ Switch(config-line)#transport input ssh
 
 7. 在交换机上为 FastEthernet 端口设置端口安全。如你未将端口设置为接入模式（而是动态模式或者中继模式）的话，此操作将失败。
 
-```
+```console
 Switch(config)#interface FastEthernet0/1
 Switch(config-if)#switchport port-security
 Command rejected: FastEthernet0/1 is a dynamic port.
@@ -1489,7 +1493,7 @@ Switch(config-if)#
 
 8. 硬性设置 PC 的 MAC 地址为该端口的允许地址。在 PC 的命令行上使用命令 `ipconfig/all` 来查看其 MAC 地址。再就要检查端口安全的状态和设置了。
 
-```
+```console
 Switch(config-if)#switchport port-security mac-address 0001.C7DD.CB18
 Switch(config-if)#^Z
 Switch#show port-security int FastEthernet0/1
@@ -1513,7 +1517,7 @@ Security Violation Count	: 0
 
 10. 你将看到 FastEthernet 端口立即宕掉。
 
-```
+```console
 Switch#
 %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
