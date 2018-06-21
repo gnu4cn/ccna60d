@@ -1051,10 +1051,10 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan
 
 ```console
 VTP-Server-1#show port-security
-Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
-			(Count)			(Count)				(Count)
+Secure Port	MaxSecureAddr  CurrentAddr SecurityViolation   Security Action
+			(Count)		  (Count)	   (Count)
 -------------------------------------------------------
-Gi0/2		1				1					0					Shutdown
+Gi0/2		 1				1			  0				  Shutdown
 ------------------------------------------------------------------
 Total Addresses in System : 1
 Max Addresses limit in System : 1024
