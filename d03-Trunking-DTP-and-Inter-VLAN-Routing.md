@@ -52,11 +52,11 @@ isl - Interface uses only ISL trunking encapsulation when trunking
 negotiate - Device will negotiate trunking encapsulation with peer on interface
 ```
 
-关键字 `[dot1q]` 强制该交换机端口使用 IEEE 802.1Q 封装方式。关键字 `[isl]` 强制该交换机端口使用思科 ISL 封装方式。
+关键字 `[dot1q]` 强制该交换机端口使用 IEEE `802.1Q` 封装方式。关键字 `[isl]` 强制该交换机端口使用思科 ISL 封装方式。
 而 `[negotiate]` 关键字则指明说在动态交换机间链路协议（Dynamic Inter-Switch Link Protocol, DISL）及动态中继协议（Dynamic Trunking Protocol, DTP）无法就封装格式达成一致时，ISL 作为备选格式。DISL 简化了两台互联的快速以太网设备间 ISL 中继链路的建立。在 DISL 协议下，只需链路的一端需要配置为中继端口，因此而将 VLAN 中继配置过程大大简化。
 
 
-DTP 是一个***思科专有的***点对点协议（point-to-protocol）, 它在两台交换机间协商建立起某种常见中继模式。DTP 会在稍后专门讲到。下面的输出演示了如何将某交换机端口配置为在建立起一条中继链路是采用 IEEE 802.1Q 封装方式。
+DTP 是一个***思科专有的***点对点协议（point-to-protocol）, 它在两台交换机间协商建立起某种常见中继模式。DTP 会在稍后专门讲到。下面的输出演示了如何将某交换机端口配置为在建立起一条中继链路是采用 IEEE `802.1Q` 封装方式。
 
 ```console
 Switch (config)#interface FastEthernet1/1
@@ -226,11 +226,11 @@ DTP information for FastEthernet0/1:
     1 link downs, last link down on Mon Mar 01 1993, 00:00:20
 ```
 
-### IEEE 802.1Q 原生 VLAN
+### IEEE `802.1Q` 原生 VLAN
 
-昨天的课程中，你学到了 802.1Q， 或是 VLAN 标记法，在除了原生 VLAN 的帧外的所有帧中，插入一个标签。IEEE 定义了原生 VLAN, 以提供给不能明白 VLAN 标签的，原有的 802.3 端口以连通性。
+昨天的课程中，你学到了 `802.1Q`， 或是 VLAN 标记法，在除了原生 VLAN 的帧外的所有帧中，插入一个标签。IEEE 定义了原生 VLAN, 以提供给不能明白 VLAN 标签的，原有的 `802.3` 端口以连通性。
 
-默认情况下，802.1Q 中继将 VLAN 1 作为原生 VLAN。执行命令 `show interfaces [name] switchport` 或命令 `show interfaces trunk`，就可查看到默认原生 VLAN 是哪一个，如下面的输出所示。
+默认情况下，`802.1Q` 中继将 `VLAN 1` 作为原生 VLAN。执行命令 `show interfaces [name] switchport` 或命令 `show interfaces trunk`，就可查看到默认原生 VLAN 是哪一个，如下面的输出所示。
 
 ```console
 VTP-Server#show interfaces FastEthernet0/1 switchport
@@ -249,7 +249,7 @@ Voice VLAN: none
 
 交换机使用 VLAN 1 来承载一些特定的协议流量，比如思科发现协议（Cisco Discovery Protocol, CDP）、VLAN 中继协议（VLAN Trunking Protocol, VTP）、端口聚合协议（Port Aggregation Protocol, PAgP）, 以及动态中继协议（Dynamic Trunking Protocol, DTP） 等的协议信息。CDP 和 PAgP 将在今天的课程后面部分详细讨论。尽管默认原生 VLAN 总是 VLAN 1, 它是可以手动修改为任何不在**保留 VLANs** 中的任何有效 VLAN 编号的。
 
-但是，**中继链路两端上的原生 VLAN 必须一致**，记住这点是很重要。如出现了原生 VLAN 不匹配，生成树协议（Spanning Tree Protocol, STP）就把该端口置为端口 VLAN ID (port VLAN ID, PVID) 不一致状态，且不会转发该链路。此外，CDPv2 也会在交换机间传送原生 VLAN 信息，而在出现原生 VLAN 不匹配后，将会在交换机控制台上打印错误消息。通过对所需的 802.1Q 中继链路，执行接口配置命令 `switchport trunk native vlan [number]` 可以修改其默认原生 VLAN。如下面的输出所示。
+但是，**中继链路两端上的原生 VLAN 必须一致**，记住这点是很重要。如出现了原生 VLAN 不匹配，生成树协议（Spanning Tree Protocol, STP）就把该端口置为端口 VLAN ID (port VLAN ID, PVID) 不一致状态，且不会转发该链路。此外，CDPv2 也会在交换机间传送原生 VLAN 信息，而在出现原生 VLAN 不匹配后，将会在交换机控制台上打印错误消息。通过对所需的 `802.1Q` 中继链路，执行接口配置命令 `switchport trunk native vlan [number]` 可以修改其默认原生 VLAN。如下面的输出所示。
 
 ```console
 VTP-Server(config)#interface FastEthernet0/1
@@ -323,7 +323,7 @@ R1(config-if)#exit
 
 图 3.4 描绘了图 3.3 中同样的 LAN。但在图 3.4 中，仅使用了一个物理路由器接口。而为了实现一种 VLAN 间路由解决方案，使用 `interface [name].[subinterface number]` 全局配置命令，在该主要路由器接口上配置出了子接口。而通过命令 `encapsulation [isl|dot1q] [vlan]` 子接口配置命令，又将各子接口与某个特定 VLAN 关联了起来。最后一步就是给子接口配置上需要的 IP 地址。
 
-在交换机上，那条连接路由器的单一链路，必须要配置为中继链路，这是因为**路由器不支持 DTP**。假如中继配置成 802.1Q 中继，那么在原生 VLAN 不是默认原生 VLAN 时，此中继的原生 VLAN 一定要定义。而该**原生 VLAN 也要在相应的路由器子接口上予以配置，配置命令为 `encapsulation dot1q [vlan] native` 子接口配置命令**。下面的输出演示了使用单一物理接口的 VLAN 间路由配置（又称作 “单臂路由，router-on-a-stick”）。图 3.4 中绘出的两个 VLANs 在下面的输出中也有显示，同时还有一个额外的 VLAN 用于管理用；该管理 VLAN 将被配置为原生 VLAN。
+在交换机上，那条连接路由器的单一链路，必须要配置为中继链路，这是因为**路由器不支持 DTP**。假如中继配置成 `802.1Q` 中继，那么在原生 VLAN 不是默认原生 VLAN 时，此中继的原生 VLAN 一定要定义。而该**原生 VLAN 也要在相应的路由器子接口上予以配置，配置命令为 `encapsulation dot1q [vlan] native` 子接口配置命令**。下面的输出演示了使用单一物理接口的 VLAN 间路由配置（又称作 “单臂路由，router-on-a-stick”）。图 3.4 中绘出的两个 VLANs 在下面的输出中也有显示，同时还有一个额外的 VLAN 用于管理用；该管理 VLAN 将被配置为原生 VLAN。
 
 ```console
 VTP-Server-1(config)#vlan 10
@@ -618,7 +618,7 @@ VLAN 间路由故障可以多种形式出现，尤其是考虑在该过程中涉
     - 连接终端站的那些端口，通常是被分配到一个特定 VLAN 的接入端口
     - 而将交换机连接至路由器的那些端口，则通常是中继端口
 
-在确认设备之间的连通性无误后，逻辑上下一步就是检查二层配置了，**以所配置的中继端口上的封装方式开始**, 这通常是作为首选的 802.1Q 封装方式。接着就要确保中继链路两端都是配置了同样的封装方式。
+在确认设备之间的连通性无误后，逻辑上下一步就是检查二层配置了，**以所配置的中继端口上的封装方式开始**, 这通常是作为首选的 `802.1Q` 封装方式。接着就要确保中继链路两端都是配置了同样的封装方式。
 
 可用于查看封类型的一些命令有以下这些。
 
@@ -671,7 +671,7 @@ Fa0/2       1-99,201-4094
 1. Containing Broadcasts within a smaller group of devices will make the network faster; saves resources on devices because they process less Broadcasts; added security by keeping devices in a certain group (or function) in a separate Broadcast domain; and flexibility in expanding a network across a geographical location of any size.
 2. True, but not recommended.
 3. False.
-4. 802.1Q and ISL.
+4. `802.1Q` and ISL.
 5. The `vlan x` and `name y` commands.
 6. On, off, auto, desirable, and nonegotiate.
 7. The `switchport access vlan 5` command.
