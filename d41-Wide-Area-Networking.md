@@ -606,7 +606,7 @@ Encapsulation HDLC, loopback not set, keepalive set (10 sec)
 
 __服务器配置__：
 
-```concole
+```console
 Router(config)#bba-group pppoe GROUP
 Router(config-bba-group)#virtual-template 1
 Router(config)#interface virtual-template 1
