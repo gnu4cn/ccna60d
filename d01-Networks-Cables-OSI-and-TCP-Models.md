@@ -348,7 +348,7 @@ CCNA 考试要求你理解 OSI 模型，以及各层有哪些应用和协议。�
 
 TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由 先进防务研究计划署（the Defense Advanced Research Projects Agency，DARPA）创建的四层或五层模型。它就是为人熟知的国防部模型。自顶向下的四层分别是：
 
-```
+```console
 4 - 应用, Application [Telnet/FTP/DNS/RIP]
 3 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
 2 - 互联网/网际网络, Internet or Internetwork [IPSec/IP]
@@ -357,7 +357,7 @@ TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由 先进�
 
 TCP/IP 模型已由四层更新为五层，所以你会在考试中被问到有关五层 TCP 模型（a five-layered TCP model）的问题。较高的层离用户较近，而较低的层描述了其它系统交互时所采用的技术或协议。五层 TCP 模型如下所示：
 
-```
+```console
 5 - 应用, Application [Telnet/FTP/DNS/RIP]
 4 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
 3 - 网络层，Network [IPSec/IP]
@@ -546,7 +546,7 @@ TFTP 在思科路由器上用到很多，用来备份配置以及升级路由器
 
 然后你必须输入其它路由器上的 flash 镜像的文件名：
 
-```
+```console
 Source filename []? / c2500-js-1.121-17.bin
 Destination filename [c2500-js-1.121-17.bin]?
 ```
@@ -583,7 +583,7 @@ ICMP 是一个在某网络上用 IP 数据包（或数据报）来报告问题�
 
 因为这些 ping 包有一个生存时间的字段（a Time to Live, TTL）, 它们提供了一个很好的网络延迟数据。下面的 ping 输出来自一台桌面 PC：
 
-```
+```console
 C:\ping cisco.com
 
 Pinging cisco.com [198.133.219.25] with 32 bytes of data:
@@ -603,7 +603,7 @@ Minimum = 160ms,    Maximun = 460ms, Average = 240ms
 
 思科路由器的 ping 命令有着复杂的参数，提供了更细的粒度，你可以指定指定 ping 发出的源地址，发出多少次 ping，ping 数据包的大小，以及其它参数。此特性在测试中是很有用的，在后面的实验部分用到很多次，如下面的输出所示：
 
-```
+```console
 Router#ping <- press Enter here
 Protocol [ip]:
 Target IP address: 172.16.1.5
@@ -645,9 +645,7 @@ Traceroute 可以用来测试网络的连通性，是一个广泛使用的工具
 
 思科路由器的命令是`traceroute`, Windows 计算机是`tracert`。如下所示：
 
-
-
-```
+```console
 C:\Documents and Settings\pc>tracert hello.com
 Tracing route to hello.com [63.146.123.17]
 over a maximum of 30 hops:
@@ -709,7 +707,7 @@ ARP 将一个已知的 IP 地址解析为 MAC 地址。当主机需要在其网�
 
 在下面的路由器中，只有一条它自己的快以太网接口 ARP 条目，知道它邻居对其进行了 ping 操作后，因此，头 5 个 ping 数据包（ICMP）将会失败，就像下面的句点后有 4 个感叹号：
 
-```
+```console
 Router#show arp
 Protocol    Address     Age (min)   Hardware Addr   Type    Interface
 Internet    192.168.1.1 -           0002.4A4C.6801  ARPA    FastEthernet0/0
@@ -850,7 +848,7 @@ ANSI/TIA/EIA-568-A 标准中对以太网线的类别进行了定义，有 3 类�
 
 考试中仍然要求你能理解并排除全双工方面的故障；本书后面的第一层和第二层故障排除部分将详细介绍。使用`show interface X`命令就可以轻易地检查接口的双工设置。
 
-```
+```console
 Switch#show interface FastEthernet0/1
 FastEthernet0/1 is down, line protocol is down (disabled)
     Hardware is Lance, address is 0030.a388.8401 (bia 0030.a388.8401)
@@ -863,7 +861,7 @@ BW 100000 Kbit, DLY 1000 usec,
 
 如果此接口与某台全双工设备连接起来，你将立即看到有错误发生，同时链路流量将极为慢速。你可以在一台真实交换机上执行`show interfaces status`命令，但考试中这条命令可能不会工作，因为像 Packet Tracer 这样的路由器模拟软件仅能运行有限的一些命令。在下面的输出中，你会发现接口 FastEthernet 1/0/2 存在一些问题。
 
-```
+```console
 Switch#show interfaces status
 Port    Name    Status      Vlan    Duplex  Speed   Type
 Fa1/0/1         notconnect  1       auto    auto    10/100BaseTX
@@ -875,7 +873,7 @@ Fa1/0/5         notconnect  1       auto    auto    10/100BaseTX
 
 当然要修复这个问题也是十分容易的，像下面这样：
 
-```
+```console
 Switch(config)#int f1/0/2
 Switch(config-if)#duplex ?
     auto Enable AUTO duplex configuration
@@ -892,7 +890,7 @@ Switch(config-if)#duplex full
 
 像下面这样就可以手动设置速率：
 
-```
+```console
 Router#config t
 Router(config)#interface GigabitEthernet 0/0
 Router(config-if)#speed ?
@@ -904,7 +902,7 @@ Router(config-if)#speed ?
 
 下面的命令是要查看以太网接口的设置：
 
-```
+```console
 Router#show interface FastEthernet0
 FastEthernet0 is up, line protocol is up
     Hardware is DEC21140AD, address is 00e0.1e3e.c179 (bia 00e0.1e3e.c179)
@@ -1007,7 +1005,7 @@ EIA/TIA 的以太网线规格要求网线的末端务必是 RJ45 公头（见图
 
 实际上，你可以简化思科 IOS 命令的输入，就像下面的输出那样。但考试中简化输入的命令可能不会运行，因为考试使用的是路由器模拟器（而不是真实的路由器）。
 
-```
+```console
 Router#sh ip int brie
 Interface       IP-Address  OK? Method  Status                  Protocol
 FastEthernet0/0 unassigned  YES unset   administratively down   down
@@ -1100,7 +1098,7 @@ Router>
 
 在用户模式下输入 `enable` 命令，就带你进入了下一模式，叫做特权模式或特权执行模式（Priviledged Exec mode）。输入 `disable` 命令退回到用户模式。而要退出整个会话，输入 `logout` 或者 `exit`。
 
-```
+```console
 Router>enable
 Router#
 Router#disable
@@ -1113,7 +1111,7 @@ Router>
 
 为了真正配置路由器，你需要进入全局配置模式。在特权运行模式下，输入 `configure terminal` 命令， 或其简短版本 `config t` 来进入此模式。此外，仅输入 `config` 时，路由器会询问你要进入何种模式。terminal 是模式的（默认选项会被中括号括起来）。如你按下了回车键，就会接受中括号里的命令。
 
-```
+```console
 Router#config
 Configuring from terminal, memory, or network[terminal]? ← press Enter
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -1124,7 +1122,7 @@ Router(config)#
 
 接口模式下，可以输入路由器接口，如快速以太网、串行接口等，的命令。在一台全新的路由器上，默认所有接口都是关闭的，没有任何配置。
 
-```
+```console
 Router>enable
 Router#config t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -1138,7 +1136,7 @@ Router(config-if)#
 
 线路配置模式用来对控制台、Telnet 或者辅助端口（auxiliary ports）进行改变。你可以控制哪些人可以通过这些端口访问到路由器，以及在这些端口上部署口令或者**“访问控制列表（access control lists）”这种安全特性**。
 
-```
+```console
 Router#config t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#line console 0
@@ -1151,7 +1149,7 @@ Router(config-line)#
 
 为了给路由器配置一种路由协议，以便它能够建立起网络图（build a picture of the network）, 你需要用到路由器配置模式。
 
-```
+```console
 Router#config t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#router rip
@@ -1162,7 +1160,7 @@ Router(config-router)#
 
 此种模式实际上是属于交换机的，但既然我们在此讨论不同模式，所以也有必要提一下。本书的交换机实验中，你会用到很多这种模式。
 
-```
+```console
 Switch#conf t
 Enter configuration commands, one per line.
 Switch(config)#vlan 10
@@ -1171,7 +1169,7 @@ Switch(config-vlan)#
 
 在具备以太网交换机卡的路由器上，会使用虚拟局域网数据库配置模式（VLAN Database Configuration mode，该模式在交换机上已被废除），其与 VLAN 配置模式是相似的。
 
-```
+```console
 Router#vlan database
 Router(vlan)#vlan 10
 VLAN 10 added:
@@ -1186,7 +1184,7 @@ Router#
 
 路由器是没有菜单的，你也不能用鼠标在不同模式之间切换，这些都是经由命令行界面(command line interface, CLI)完成的。有些上下文敏感（context-sensitive）的帮助信息以 [?] 关键字形式给出。在路由器提示符处输入问号，所有可用的命令都将显示出来。
 
-```
+```console
 Router#?
 Exec commands:
 access-enable           Create a temporary Access-List entry
@@ -1218,14 +1216,14 @@ help                    Description of the interactive help system
 
 此外，如你已经开始输入一个命令，却忘记了该命令的剩下部分，输入`?`系统就会给出一个可用的命令清单。`?`在 CCNA 考试中是可用的，但如你用了问号，说明你就没有认真完成本书的那些实验:)
 
-```
+```console
 Router#cl?
 clear clock
 ```
 
 按 `Tab` 键有命令补全功能。
 
-```
+```console
 Router#copy ru
 ← press the Tab key here
 Router#copy running-config
@@ -1235,14 +1233,14 @@ Router#copy running-config
 
 首先，进入全局配置模式：
 
-```
+```console
 Router#config t
 Router(config)#
 ```
 
 接着，告诉路由器你要配置哪个接口：
 
-```
+```console
 Router(config)#interface FastEthernet0
 Router(config-if)#exit
 Router(config)#
@@ -1250,7 +1248,7 @@ Router(config)#
 
 如你不确定采用何种方式输入接口编号，就使用 [?] 关键字。无需担心你所看到的所有选项。大多数人都只会用到快速以太网、串行接口及环回接口（Loopback interfaces）。
 
-```
+```console
 Router(config)#interface ?
 Async               Async interface
 BRI                 ISDN Basic Rate Interface
@@ -1283,14 +1281,14 @@ Router(config)#interface FastEthernet0
 
 输入 `exit` 命令从某个配置模式中退出。这会将你带回到其第二高的级别(the next-highest level)。而要从任何的配置模式中退出，按下 `Ctrl+Z` 或输入 `end` 命令就可以了。
 
-```
+```console
 Router(config-if)#exit
 Router(config)#
 ```
 
 或是 `Ctrl+Z` 的办法。
 
-```
+```console
 Router(config-if)#^z
 Router#
 ```
@@ -1301,7 +1299,7 @@ CCNA 大纲通常不会涉及环回接口的知识点，但不管在工作中，
 
 使用环回接口的一大好处在于随路由器的运行，它们总是保持开启的，因为它们是逻辑的，意味着它们绝不会宕下去（go down）。而又由于它们是虚拟的，所以你不可以将网线插到它们上面。
 
-```
+```console
 Router#config t
 Router#(config)#interface Loopback0
 Router#(config-if)#ip address 192.168.20.1 255.255.255.0
@@ -1375,7 +1373,7 @@ Loopback0   192.168.20.1    YES     manual  up      up
 
 你可以将这三个参数作为一台路由器的典型配置，因为它们常用在现代企业网络中。要查看所有可用的接口及其当前状态，你可以执行以下命令。
 
-```
+```console
 Router#show ip interface brief
 Interface       IP-Address  OK? Method  Status                  Protocol
 FastEthernet0/0 unassigned  YES unset   administratively down   down
@@ -1386,7 +1384,7 @@ FastEthernet0/1 unassigned  YES unset   administratively down   down
 
 在开始配置接口参数前，你必须要在思科设备上使用命令 `configure terminal` 进入路由器的配置模式, 在使用命令 `interface <interface name>` 进入到接口配置模式。接口配置过程的第一步是开启该接口。比如，使用 `no shutdown` 命令可以开启接口 FastEthernet0/0 :
 
-```
+```console
 Router#configure terminal
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#interface FastEthernet0/0
@@ -1405,7 +1403,7 @@ Router(config-if)#
 
 先不要担心到哪里去找到 IP 地址，我们后面会解决这个问题。
 
-```
+```console
 Router>enable   ← takes you from User mode to Privileged mode
 Router#config t ← from Privileged mode to Configuration mode
 Router(config)#interface Serial0    ← and then into Interface Configuration mode
@@ -1418,7 +1416,7 @@ Router#
 
 如下面的输出那样，可以为该接口加入一些描述信息。
 
-```
+```console
 RouterA(config)#interface Serial0
 RouterA(config-if)#description To_Headquarters
 RouterA(config-if)#^Z   ← press Ctrl+Z to exit
@@ -1426,7 +1424,7 @@ RouterA(config-if)#^Z   ← press Ctrl+Z to exit
 
 在完成路由器的接口配置后，于思科路由器上，你可以使用以下命令，通过检查完整的接配置参数来验证其设置：
 
-```
+```console
 RouterA#show interface Serial0
 Serial0 is up, line protocol is up
 Hardware is HD64570
@@ -1444,7 +1442,7 @@ Last input 00:00:02, output 00:00:03, output hang never
 
 通过在特权模式（priviledged mode）下使用 `show x` 命令, 你可以十分简单地茶看到路由器的绝大部分设置项，其中的 x 是下一条命令，x 的选择有以下这些：
 
-```
+```console
 Router#show ?
 access-expression   List access expression
 access-lists        List access lists
@@ -1481,7 +1479,7 @@ clns                CLNS network information
 | `show interface Serial0` | 显示串行接口的统计信息 |
 | `show history` | 显示输入的前 10 条命令 |
 
-```
+```console
 Router#show ip interface brief
 Interface   Address     OK? Method  Status                  Protocol
 Ethernet0   10.0.0.1    YES manual  up                      up
@@ -1495,7 +1493,7 @@ Serial1     unassigned  YES unset   administratively down   down
 
 路由器能够检索（recall）出先前于路由器提示符处输入的一些命令 -- 默认 10 条，方法是使用向上箭头。使用这个特性能够让你无再次输入长命令行，从而节省大量时间和精力。`show history` 命令显示前 10 条命令的缓冲区。
 
-```
+```console
 Router#show history
 show ip interface brief
 show history
@@ -1511,7 +1509,7 @@ show memory
 
 通过命令 `terminal history size` 命令来增大历史命令缓冲区（the history buffer）:
 
-```
+```console
 Router#terminal history ?
 size Set history buffer size
 <cr>
@@ -1539,7 +1537,7 @@ Router#terminal history size 20
 
 这里有一个 `show version` 命令的缩短了的输出。请自己动手输入这个命令。
 
-```
+```console
 Router#show version
 Cisco 1841 (revision 5.0) with 114688K/16384K bytes of memory.
 Processor board ID FTX0947Z18E
@@ -1565,7 +1563,7 @@ Configuration register is 0x2102
 - 链路状态
 - 协议状态
 
-```
+```console
 Router#show ip interface brief
 Interface       IP-Address  OK? Method  Status              Protocol
 FastEthernet0/0 unassigned  YES unset   administratively down   down
@@ -1585,7 +1583,7 @@ Router#
 - 下一跳
 - 外出接口
 
-```
+```console
 R1#show ip route
 Codes:  C - connected, S - static, R - RIP, M - mobile, B - BGP
         D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter
@@ -1606,7 +1604,7 @@ O E2    80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
 
 `ping` 命令提供了一种到特定目标的基本连特性测试。这种方式用以测试路由器能否到达一个网络。Ping 使用 ICMP, 通过往一台机器发送 echo 请求方式来验证这台机器是否在运行。如果那台机器是在运行，它就会发出一个 ICMP 的 echo 回应消息给源机器，以确认它的可用性。一个 ping 的样例如下所示。
 
-```
+```console
 Router#ping 10.10.10.2
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
@@ -1625,7 +1623,7 @@ Success rate is 80 percent (4/5), round-trip min/avg/max = 20/40/76 ms
 - 服务类型
 
 
-```
+```console
 Router#ping
 Protocol [ip]:
 Target IP address: 10.10.10.2
@@ -1651,7 +1649,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 20/36/72 ms
 
 `traceroute` 命令是另一个用于查看数据包在到达其目的地前所经过的跳数。下面的输出表示数据包在到达其目标前必须经过一跳。
 
-```
+```console
 R2#traceroute 192.168.1.1
 Type escape sequence to abort.
 Tracing the route to 192.168.1.1
@@ -1660,7 +1658,7 @@ Tracing the route to 192.168.1.1
 
 跟 ping 一样，思科路由器也允许你执行扩展的 traceroute 命令，搭配一些相关参数，而这些参数大多与 ping 相关的参数一样。
 
-```
+```console
 Router#traceroute
 Protocol [ip]:
 Target IP address: 192.168.1.1
