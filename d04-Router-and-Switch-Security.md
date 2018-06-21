@@ -914,7 +914,7 @@ Router0#show cdp ?
 
 交换机的 CAM 表是一些存储位置，这些存储位置包含了物理端口上的那些 MAC 地址，及其 VLAN 参数。交换机 CAM 表中动态学习到的内容，或者说 MAC 地址表，可通过命令 `show mac-address-table dynamic` 查看到，如下面的输出所示。
 
-```
+```console
 VTP-Server-1#show mac-address-table dynamic
             Mac Address Table
 -------------------------------------------
@@ -984,7 +984,7 @@ MAC 地址欺骗，用于冒充某个源 MAC 地址，以达到扮演网络上�
 
 在配置端口安全之前，建议将交换机端口静态配置为二层接入端口（端口安全只能配置为静态接入端口或中继端口上，不能配置在动态端口上）。此配置如下面的输出所示。
 
-```
+```console
 VTP-Server-1(config)#interface FastEthernet0/1
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
@@ -1029,7 +1029,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.d63b vlan
 
 而下面的输出则演示了如何在某个接口上开启端口安全，并在某个交换机接入端口的 VLAN 5(数据 VLAN） 和 VLAN 7(语音 VLAN），分别配置一个静态安全 MAC 地址 001f:3c59:5555 和 001f:3c59:7777。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
@@ -1049,7 +1049,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan
 
 同过执行 `show port-security` 命令，可以验证全局端口安全配置参数（global port security configuration parameters）。下面展示了默认值下的此命令的打印输出。
 
-```
+```console
 VTP-Server-1#show port-security
 Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
 			(Count)			(Count)				(Count)
@@ -1062,7 +1062,7 @@ Max Addresses limit in System : 1024
 
 如同上面的输出中所见到的那样，默认情况下，每个端口上仅允许一个安全 MAC 地址。此外，在出现冲突事件时的默认动作就是关闭端口。粗体文本表明，已知仅有一个安全地址，就是配置在接口上的静态地址。经由执行 `show port-security interface [name]` 亦可确认同样的参数，如下面的输出所示。
 
-```
+```console
 VTP-Server-1#show port-security interface gi0/2
 Port Security : Enabled
 Port status : SecureUp
@@ -1081,7 +1081,7 @@ Security Violation count : 0
 
 而要查看该端口上具体配置的静态安全 MAC 地址，就要用到 `show port-security address` 或者 `show running-config interface [name]` 命令了。以下输出演示了 `show port-security address`。
 
-```
+```console
 VTP-Server-1#show port-security address
 			Secure Mac Address Table
 ------------------------------------------------------------------
@@ -1108,7 +1108,7 @@ Max Addresses limit in System : 1024
 
 下面的输出演示了怎样将交换机端口，接口 GigabitEthernet0/2, 配置为动态学习并将至多两个 MAC 地址设为安全 MAC 地址。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
@@ -1120,7 +1120,7 @@ VTP-Server-1(config-if)#switchport port-security maximum 2
 
 可用除了 `show running-config` 命令外的，在静态地址保全配置示例中用到的同样命令，来验证动态 MAC 地址保全的配置。这是因为，与静态或粘滞的 MAC 地址保全不同，所有动态学习到的地址是不保存在交换机配置文件中的，且在端口关闭后会被移除。那些同样的地址也要在端口再度开启后重新学习。下面的输出演示了 `show port-security address` 命令的输出，现实了一个配置为动态 MAC 地址保全学习的接口。
 
-```
+```console
 VTP-Server-1#show port-security address
 			Secure Mac Address Table
 ------------------------------------------------------------------
@@ -1138,7 +1138,7 @@ Max Addresses limit in System : 1024
 
 下面的输出演示了如何来在某个端口上配置动态粘滞学习，以及限制端口学习到至多 10 个的 MAC 地址。
 
-```
+```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
 VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
@@ -1149,7 +1149,7 @@ VTP-Server-1(config-if)#switchport port-security maximum 10
 
 默认情况下，基于上述配置，在接口 GigabitEthernet0/2 将会动态学到至多 10 个地址，并添加进交换机当前配置中去。在开启粘滞地址学习后， 各个端口上学到的 MAC 地址被自动保存到当前配置文件，同时加入到地址表中。下面的输出显示了接口 GigabitEthernet0/2 上所自动学到的 MAC 地址（以粗体显示）。
 
-```
+```console
 VTP-Server-1#show running-config interface GigabitEthernet0/2
 Building configuration...
 Current configuration : 550 bytes
@@ -1170,7 +1170,7 @@ switchport port-security mac-address sticky 0030.803f.ea81
 
 上面输出中粗体的 MAC 地址都是动态学到的，且被加入到当前配置文件中了。而无需管理员手动配置来将这些地址加入到配置文件。默认情况下，粘滞 MAC 地址保全并不是自动加入到启动配置文件（the startup configuration, NVRAM）中去的。而为确认此信息已被保存到 NVRAM 中，也就是这些地址不要在交换机重启后重新学习，就要记住执行 `copy running-config startup-config` 命令， 或者命令 `copy system:running-config nvram:startup-config`, 执行二者中的哪一条，取决于部署该特性的那台交换机的 IOS 版本。下面的输出演示了在配置了粘滞地址学习的端口上的 `show port-security address` 命令。
 
-```
+```console
 VTP-Server-1#show port-security address
 		Secure Mac Address Table
 ------------------------------------------------------------------
