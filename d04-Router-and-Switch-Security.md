@@ -1016,7 +1016,7 @@ VTP-Server-1(config-if)#switchport port-security
 VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.d63b
 ```
 
-下面的输出演示了怎样在某个接口上开启端口安全，并在某个交换机**中继端口**的 VLAN 5 中配置一个静态安全 MAC 地址 001f:3c59:d63b。
+下面的输出演示了怎样在某个接口上开启端口安全，并在某个交换机**中继端口**的 `VLAN 5` 中配置一个静态安全 MAC 地址 `001f:3c59:d63b`。
 
 ```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
@@ -1027,7 +1027,7 @@ VTP-Server-1(config-if)#switchport port-security
 VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.d63b vlan 5
 ```
 
-而下面的输出则演示了如何在某个接口上开启端口安全，并在某个交换机接入端口的 VLAN 5(数据 VLAN） 和 VLAN 7(语音 VLAN），分别配置一个静态安全 MAC 地址 001f:3c59:5555 和 001f:3c59:7777。
+而下面的输出则演示了如何在某个接口上开启端口安全，并在某个交换机接入端口的 `VLAN 5`(数据 VLAN） 和 `VLAN 7`(语音 VLAN），分别配置一个静态安全 MAC 地址 `001f:3c59:5555` 和 `001f:3c59:7777`。
 
 ```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
@@ -1041,7 +1041,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.5555 vlan
 VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan voice
 ```
 
-记住在某个同时配置了语音 VLAN 和数据 VLAN 的接口上开启端口安全时，该端口上的最大允许安全地址数应设置为 2，这一点非常重要。这又是通过包含在上面输出中的**接口配置命令** `switchport port-security maxium 2` 完成的。
+记住在某个同时配置了语音 VLAN 和数据 VLAN 的接口上开启端口安全时，该端口上的最大允许安全地址数应设置为 `2`，这一点非常重要。这又是通过包含在上面输出中的**接口配置命令** `switchport port-security maxium 2` 完成的。
 
 两个 MAC 地址中的一个由 IP 电话使用，交换机在语音 VLAN 上学到此地址。另一个由可连接在 IP 电话上的主机（比如 PC）所使用。交换机将在数据 VLAN 上学到这个 MAC 地址。
 
@@ -1136,7 +1136,7 @@ Max Addresses limit in System : 1024
 
 ### 配置保全 MAC 地址粘滞，Configuring Sticky Secure MAC Addresses
 
-下面的输出演示了如何来在某个端口上配置动态粘滞学习，以及限制端口学习到至多 10 个的 MAC 地址。
+下面的输出演示了如何来在某个端口上配置动态粘滞学习，以及限制端口学习到至多 `10` 个的 MAC 地址。
 
 ```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
@@ -1147,7 +1147,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address sticky
 VTP-Server-1(config-if)#switchport port-security maximum 10
 ```
 
-默认情况下，基于上述配置，在接口 GigabitEthernet0/2 将会动态学到至多 10 个地址，并添加进交换机当前配置中去。在开启粘滞地址学习后， 各个端口上学到的 MAC 地址被自动保存到当前配置文件，同时加入到地址表中。下面的输出显示了接口 GigabitEthernet0/2 上所自动学到的 MAC 地址（以粗体显示）。
+默认情况下，基于上述配置，在接口 GigabitEthernet0/2 将会动态学到至多 `10` 个地址，并添加进交换机当前配置中去。在开启粘滞地址学习后， 各个端口上学到的 MAC 地址被自动保存到当前配置文件，同时加入到地址表中。下面的输出显示了接口 `GigabitEthernet0/2` 上所自动学到的 MAC 地址（以粗体显示）。
 
 ```console
 VTP-Server-1#show running-config interface GigabitEthernet0/2
@@ -1191,7 +1191,7 @@ Max Addresses limit in System : 1024
 
 ### 配置端口安全冲突的动作， Configuring the Port Security Violation Action
 
-和在早前指出的那样，思科 IOS 软件允许管理员指定于出现冲突时可采取的 4 种不同动作，如下所示。
+和在早前指出的那样，思科 IOS 软件允许管理员指定于出现冲突时可采取的 `4` 种不同动作，如下所示。
 
 - 保护动作，Protect
 - 端口关闭动作（默认），Shutdown(default)
@@ -1216,7 +1216,7 @@ Fa0/1		errdisabled		100		full	100		100BaseSX
 
 **为顺利通过考试，你务必要记住这个表！**
 
-下面的输出演示了如何在某个端口上配置粘滞地址学习最多 10 个 MAC 地址。如果端口上探测到某未知 MAC 地址（比如第 11 个 MAC 地址）时，端口将被配置为丢弃收到的那些帧。
+下面的输出演示了如何在某个端口上配置粘滞地址学习最多 `10` 个 MAC 地址。如果端口上探测到某未知 MAC 地址（比如第 `11` 个 MAC 地址）时，端口将被配置为丢弃收到的那些帧。
 
 ```console
 VTP-Server-1(config)#interface GigabitEthernet0/2
