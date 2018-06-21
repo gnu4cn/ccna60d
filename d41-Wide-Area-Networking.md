@@ -525,9 +525,133 @@ Router#debug ppp ?
   elog            PPP ELOGs
   error           Protocol errors and error statistics
   forwarding      PPP layer 2 forwarding
-  mppe            MPPE Eventsmultilink Multilink activity
+  mppe            MPPE Events
+  multilink       Multilink activity
   negotiation     Protocol parameter negotiation
   packet          Low-level PPP packet dump
 ```
 
+## WAN连接的故障排除（Troubleshooting WAN Connections）
 
+在试图启动一条广域网连接（现在先不管PPP与帧中继连接）时，可运用开放系统互联模型：
+
+`Layer 1` -- 对线缆进行检查，以确保其连接正确。其外还要检查一下有没有执行`no shutdown`命令，以及在数据通信设备侧有没有应用一个时钟速率。
+
+```console
+RouterA#show controllers serial 0
+HD unit 0, idb = 0x1AE828, driver structure at 0x1B4BA0
+buffer size 1524 HD unit 0, V.35 DTE cable
+
+RouterA#show ip interface brief
+Interface     IP-Address     OK? Method Status              Protocol
+Serial0       11.0.0.1       YES unset  administratively down down
+Ethernet0     10.0.0.1       YES unset  up                    up
+```
+
+`Layer 2` -- 检查以确保对接口应用了正确的封装。确保链路的另一侧有着同样的封装类型。
+
+```console
+RouterB#show interface Serial0
+Serial1 is down, line protocol is down
+Hardware is HD64570
+Internet address is 12.0.0.1/24
+MTU 1500 bytes, BW 1544 Kbit, DLY 1000 usec, rely 255/255, load 1/255
+Encapsulation HDLC, loopback not set, keepalive set (10 sec)
+```
+
+`Layer 3` -- IP地址与子网掩码对不对，子网掩码与另一侧是不是匹配。
+
+```console
+RouterB#show interface Serial0
+Serial1 is down, line protocol is down
+Hardware is HD64570
+Internet address is 12.0.0.1/24
+MTU 1500 bytes, BW 1544 Kbit, DLY 1000 usec, rely 255/255, load 1/255
+Encapsulation HDLC, loopback not set, keepalive set (10 sec)
+```
+
+## 第41天问题
+
+1. Name at least three WAN categories.
+2. The need for NBMA appears when there is no native `_______` support for a group of systems that want to communicate over the same network.
+3. In NBMA environments you still need to bind the Layer 3 address (IP address) to the Layer 2 address (DLCI). This can be done in an automated fashion, using a technology called Inverse ARP. True or false?
+4. Name 2 NBMA interface types.
+5. `_______` requires DTE and DCE and is the default encapsulation type on Cisco routers.
+6. `_______` technologies involve the use of carrier Ethernet in Metropolitan Area Networks (MANs).
+7. T1 is a standard often used in what geographical regions?
+8. What are the two flavours of ISDN?
+9. `_______` is the most common form of DSL connection that functions over standard telephone lines. It offers unequal download and upload throughput, with the download rate being higher than the upload rate.
+10. `_______` functions by appending a label to any type of packet.
+
+
+## 第41天答案
+
+1. Circuit-switched, cell-switched, broadband, leased-line, and packet-switched.
+2. Broadcast.
+3. True.
+4. Multipoint and Point-to-Point.
+5. HDLC.
+6. Metro Ethernet.
+7. North America, Japan, and South Korea.
+8. BRI and PRI.
+9. ADSL.
+10. MPLS.
+
+
+## 第41天实验
+
+### PPPoE实验
+
+在两台路由器之间，以本课程模块中所给出的信息，配置带有CHAP的PPPoE：
+
+__服务器配置__：
+
+```concole
+Router(config)#bba-group pppoe GROUP
+Router(config-bba-group)#virtual-template 1
+Router(config)#interface virtual-template 1
+Router(config-if)#ip address 10.10.10.1 255.255.255.0
+Router(config-if)#peer default ip address pool POOL
+Router(config)#ip local pool POOL 10.10.10.2 10.10.10.254
+Router(config)#interface FastEthernet0/0
+Router(config-if)#no ip address
+Router(config-if)#pppoe enable group GROUP
+Router(config-if)#no shutdown
+```
+
+__客户端配置__:
+
+```console
+Router(config)#interface dialer1
+Router(config-if)#dialer pool 1
+Router(config-if)#encapsulation ppp
+Router(config-if)#ip address negotiated
+Router(config)#interface FastEthernet0/0
+Router(config-if)#no ip address
+Router(config-if)#pppoe-client dial-pool-number 1
+Router(config-if)#no shutdown
+```
+
+__询问握手认证协议（CHAP）配置__:
+
+```console
+Server(config)#username Client password Password
+Server(config)#interface virtual-template 1
+Server(config-if)#ppp authentication chap
+Client(config)#username Server password Password
+Client(config)#interface dialer 1
+Client(config-if)#ppp authentication chap
+```
+
+__对配置进行验证__：
+
+```console
+Router#show pppoe session
+1 client session
+Uniq ID  PPPoE  RemMAC      Port        Source   VA         State
+       SID  LocMAC                               VA-st
+N/A     16  ca00.4843.0008  Fa0/0       Di1      Vi1        UP
+            ca01.4843.0008                                  UP
+```
+
+请访问[www.in60days.com](http://www.in60days.com)并自由观看作者完成该实验。
