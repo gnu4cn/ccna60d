@@ -1087,7 +1087,7 @@ VTP-Server-1#show port-security address
 Vlan    Mac Address       Type                 Ports   Remaining Age
                                                           (mins)
 ----    -----------       ----                 -----   -----------
-1       001f.3c59.d63b    SecureConfigured     Gi0/2       -
+   1    001f.3c59.d63b    SecureConfigured     Gi0/2       -
 --------------------------------------------------------------------
 Total Addresses in System : 1
 Max Addresses limit in System : 1024
