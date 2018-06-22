@@ -59,13 +59,13 @@
 
 - 第一种方法需要用户手动配置。如用户知道目的IPv6主机的IPv6地址，就可以用此IPv6地址，自其双栈主机手动建立一此IPv6会话。尽管此方式可以良好运作，但要记住多台主机的IPv4及IPv6地址，会十分繁琐。
 
-- 那么第二种方式就需要使用某种命名服务，比如DNS。使用此种方法，就要同时使用IPv4和IPv6地址，来配置完全合格的域名（Full Qualified Domain Names, FQDNs），比如[www.howtonetwork.com](http://www.howtonetwork.com)。FQDN是由一个IPv4协议栈的A记录（an A record for the IPv4 protocol stack）, 以及一个IPv6协议栈的AAAA记录表示的，这样的FQDN就令到DNS服务器既可使用IPv4, 又可使用IPv6进行查询了。
+- 那么第二种方式就需要使用某种命名服务，比如DNS。使用此种方法，就要同时使用IPv4和IPv6地址，来配置完全合格的域名（Full Qualified Domain Names, FQDNs），比如[www.howtonetwork.com](http://www.howtonetwork.com)。FQDN是由一个IPv4协议栈的`A`记录（an `A` record for the IPv4 protocol stack）, 以及一个IPv6协议栈的`AAAA`记录表示的，这样的FQDN就令到DNS服务器既可使用IPv4, 又可使用IPv6进行查询了。
 
-###在思科IOS路由器中部署双栈支持
+###在思科IOS路由器中部署双栈支持 
+ 
+尽管对那些不同厂商的具备双栈部署支持的不同类型主机的不同配置方式的讨论，是超出CCNA考试要求范围的。但作为一名未来的网络工程师，掌握如何在思科IOS软件下部署各种双栈方案，是强制性的（imperative to understand how to implement dual-stack solutions in Cisco IOS software）。在思科IOS路由器中，双栈运作的启用，通过简单地在路由器接口上配置好IPv4及IPv6即可。
 
-尽管对那些不同厂商的具备双栈部署支持的不同类型主机的不同配置方式的讨论，是超出CCNA考试要求范围的。但作为一名未来的网络工程师，掌握如何在思科IOS软件下部署各种双栈方案，是强制性的（imperative to understand how to implement dual-stack solutions in Cisco IOS software）。在思科IOS路由器中，双栈运作的启用，通过简单地在路由器接口上配置好IPv4及IPv4即可。
-
-通过在接口配置命令`ip address [address] [mask]`后添加`[secondary]`关键字，就可以为接口指定多个的IPv4地址。对于IPv6来说，是不需要`[secondary]`关键字的，因为使用第7天课程中所介绍的接口配置命令`ipv6 address`，就可以为每个接口配置多个前缀。下面的配置示例，演示了如何在单一的路由器接口上配置多个IPv4地址和IPv6地址及前缀：
+通过在接口配置命令`ip address [address] [mask]`后添加`[secondary]`关键字，就可以为接口指定多个的IPv4地址。对于IPv6来说，是不需要`[secondary]`关键字的，因为使用第`7`天课程中所介绍的接口配置命令`ipv6 address`，就可以为每个接口配置多个前缀。下面的配置示例，演示了如何在单一的路由器接口上配置多个IPv4地址和IPv6地址及前缀：
 
 ```
 R3(config)#ipv6 unicast-routing
@@ -152,7 +152,7 @@ TEST-HOST   None  (perm, OK)  0  IP     10.0.0.3
 TEST-HOST   None  (perm, OK)  0  IPv6   3FFF:1234:ABCD:1::3
 ```
 
-在同一主机同时配置一个IPv4及IPv6地址时，思科IOS软件将使用IPv6地址。如有使用DNS，那么在主机同时配置了IPv6及IPv4 DNS服务器时，该双栈主机将先搜寻AAAA（IPv6）记录，并（在查询不到时）回滚到A记录（IPv4）（If DNS is used, the dual-stack host will first search AAAA(IPv6) records and then fall back to the A records(IPv4) when configured with both IPv6 and IPv4 DNS servers）。可想下面这样通过执行一次简单的到先前配置的静态主机`TEST-HOST`的`ping`操作，对此默认行为进行验证：
+在同一主机同时配置一个IPv4及IPv6地址时，思科IOS软件将使用IPv6地址。如有使用DNS，那么在主机同时配置了IPv6及IPv4 DNS服务器时，该双栈主机将先搜寻`AAAA`（IPv6）记录，并（在查询不到时）回滚到`A`记录（IPv4）（If DNS is used, the dual-stack host will first search `AAAA`(IPv6) records and then fall back to the `A` records(IPv4) when configured with both IPv6 and IPv4 DNS servers）。可想下面这样通过执行一次简单的到先前配置的静态主机`TEST-HOST`的`ping`操作，对此默认行为进行验证：
 
 ```
 R1#ping test-host repeat 10
@@ -174,7 +174,7 @@ R1(config)#ip name-server 3FFF:1234:ABCD:1::2
 R1(config)#ip name-server 192.168.1.2
 ```
 
-> **注意**：正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找AAAA记录（也就是IPv6）。在如果未找到AAAA记录，主机就会查找一条A记录，以与该主机名进行通信。
+> **注意**：正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找`AAAA`记录（也就是IPv6）。在如果未找到`AAAA`记录，主机就会查找一条`A`记录，以与该主机名进行通信。
 
 ##经由IPv4网络对IPv6数据报进行隧道传输
 
