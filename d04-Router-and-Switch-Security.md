@@ -1081,11 +1081,11 @@ Security Violation count : 0
 
 而要查看该端口上具体配置的静态安全 MAC 地址，就要用到 `show port-security address` 或者 `show running-config interface [name]` 命令了。以下输出演示了 `show port-security address`。
 
-```
+```sh
 VTP-Server-1#show port-security address
           Secure Mac Address Table
 -------------------------------------------------------------------
-Vlan    Mac Address       Type				   Ports   Remaining Age
+Vlan    Mac Address       Type                 Ports   Remaining Age
                                                           (mins)
 ----    -----------       ----                 -----   -----------
 1       001f.3c59.d63b    SecureConfigured     Gi0/2       -
