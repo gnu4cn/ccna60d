@@ -884,12 +884,12 @@ Global CDP information:
     Sending a holdtime value of 180 seconds
     Sending CDPv2 advertisements is enabled
 Router0#show cdp ?
-    entry       Information for specific neighbor entry
-    interface   CDP interface status and configuration
-    neighbors   CDP neighbor entries
-    traffic     CDP statistics
-    |           Output modifiers
-    <cr>
+  entry       Information for specific neighbor entry
+  interface   CDP interface status and configuration
+  neighbors   CDP neighbor entries
+  traffic     CDP statistics
+  |           Output modifiers
+  <cr>
 ```
 
 ## 交换机端口安全，Switch Port Security
