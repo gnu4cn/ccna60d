@@ -919,12 +919,12 @@ VTP-Server-1#show mac-address-table dynamic
 -------------------------------------------
 Vlan    Mac Address         Type        Ports
 ----    -----------         --------    -----
-    2   000c.cea7.f3a0      DYNAMIC     Fa0/1
-    2   0013.1986.0a20      DYNAMIC     Fa0/2
-    6   0004.c16f.8741      DYNAMIC     Fa0/3
-    6   0030.803f.ea81      DYNAMIC     Fa0/4
-    8   0004.c16f.8742      DYNAMIC     Fa0/5
-    8   0030.803f.ea82      DYNAMIC     Fa0/6
+   2    000c.cea7.f3a0      DYNAMIC     Fa0/1
+   2    0013.1986.0a20      DYNAMIC     Fa0/2
+   6    0004.c16f.8741      DYNAMIC     Fa0/3
+   6    0030.803f.ea81      DYNAMIC     Fa0/4
+   8    0004.c16f.8742      DYNAMIC     Fa0/5
+   8    0030.803f.ea82      DYNAMIC     Fa0/6
 Total Mac Addresses for this criterion: 6
 ```
 
