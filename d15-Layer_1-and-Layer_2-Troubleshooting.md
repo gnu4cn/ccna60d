@@ -60,16 +60,16 @@ LAN交换是一种用在局域网中的包交换形式。LAN交换是在数据�
 
 <table>
 <tr>
-<td>1</td><td>系统LED</td><td>5</td><td>速率LED</td>
+<td>`1`</td><td>系统LED</td><td>`5`</td><td>速率LED</td>
 </tr>
 <tr>
-<td>2</td><td>冗余电源（redundant power supply, RPS） LED</td><td>6</td><td>PoE LED</td>
+<td>`2`</td><td>冗余电源（redundant power supply, RPS） LED</td><td>`6`</td><td>PoE LED</td>
 </tr>
 <tr>
-<td>3</td><td>状态LED</td><td>7</td><td>模式按钮</td>
+<td>`3`</td><td>状态LED</td><td>`7`</td><td>模式按钮</td>
 </tr>
 <tr>
-<td>4</td><td>双工LED</td><td>8</td><td>端口LEDs</td>
+<td>`4`</td><td>双工LED</td><td>`8`</td><td>端口LEDs</td>
 </tr>
 </table>
 
@@ -288,8 +288,8 @@ Output queue: 0/40 (size/max)
 
 - **帧数目**（frame number）：该字段给出了接收到的带有不正确的CRC及大小不是整数个字节的数据包数目。这通常是由不正常功能的以太网设备（硬件错误）而导致的冲突造成的。
 - **循环冗余校验**（CRC）：该字段表示由发送设备生成的CRC与接收设备计算出的校验和不一致。这通常表示LAN上的传输错误、冲突或是系统传输不良数据。
-- **畸形帧**（runts）: 此字段表示由于比最小数据包大小还小而丢弃的包数量。在以太网段上，比64字节还小的包都被看作畸形帧。
-- **巨大帧**（giants）: 此字段表示由于比最大数据包大小还大而丢弃的包数量。在以太网段上，比起1518字节还大的数据包被看作巨大帧。
+- **畸形帧**（runts）: 此字段表示由于比最小数据包大小还小而丢弃的包数量。在以太网段上，比`64`字节还小的包都被看作畸形帧。
+- **巨大帧**（giants）: 此字段表示由于比最大数据包大小还大而丢弃的包数量。在以太网段上，比起`1518`字节还大的数据包被看作巨大帧。
 - **晚发冲突**(late collisions): 晚发冲突通常在网线过长或网络中有过多中继器时。冲突数目反应了因为以太网冲突而导致的重传报文数目。而这通常是由于对LAN的过度扩展造成的。
 - **输入错误**（input errors）: 该字段提供所有畸形帧、巨大帧、CRC错误帧、超出帧（overruns）及忽略数据包的总数。
 - **输出错误**（output errors）: 该字段提供了阻止数据报最后从接口发出的错误总数（this field provides the total sum of all errors that prevented the final transmission of datagrams out of the interface）。
@@ -316,7 +316,7 @@ Gi3/0/1       0
 
 字段`Rcv-Err`表示收到帧错误的总和。该计数器在接口收到诸如畸形帧、巨大帧或FCS错误帧时增长。
 
-`UnderSize`字段在交换机接收到长度小于64字节的帧时增长。这通常是由故障发送设备造成的。
+`UnderSize`字段在交换机接收到长度小于`64`字节的帧时增长。这通常是由故障发送设备造成的。
 
 不同的`collisions`字段表示接口上的冲突。接口上的冲突通常发生在半双工以太网上，而这在现代网络中几乎是不存在的。因此，这些计数器对于全双工链路不应增长。如果这些计数器下出现了非零数值，那么通常表明存在全双工不匹配故障。当探测到全双工不匹配时，交换机会在控制台或日志中打印出类似于下面的消息。
 
@@ -330,9 +330,9 @@ Gi3/0/1       0
 
 因为双工不匹配或其它物理层问题，比如坏网线、坏端口以及所连接设备上的坏网卡，也可能导致`Runts`字段下可以看到非零值。畸形帧是指所接收到的有着错误的CRC、小于最小IEEE 802.3帧大小，也就是以太网的64字节的那些帧。
 
-最后，当接收到的帧超过IEEE 802.3最大帧大小，非巨大以太网（non-jumbo Ethernet, [Jumbo frame](https://en.wikipedia.org/wiki/Jumbo_frame), [Linux_Jumbo_frame](pdfs/Linux_Jumbo_frame.pdf)）的1518字节时，并有着坏的FCS时，`Giants`计数器就会增长。对于那些连接到某台工作站的端口或接口，该字段下的非零数值典型地是由所连接设备上的坏网卡导致的。不过，对于那些连接到另一交换机（比如通过中继链路）的端口或接口，如采用的是802.1Q封装方式，则该字段将会包含一个非零数值。**在802.1Q下，其打标记机制（the tagging mechanism）对帧进行了修改，因为中继设备插入了一个4字节的标记，并随后再度计算了FCS。**
+最后，当接收到的帧超过IEEE 802.3最大帧大小，非巨大以太网（non-jumbo Ethernet, [Jumbo frame](https://en.wikipedia.org/wiki/Jumbo_frame), [Linux_Jumbo_frame](pdfs/Linux_Jumbo_frame.pdf)）的`1518`字节时，并有着坏的FCS时，`Giants`计数器就会增长。对于那些连接到某台工作站的端口或接口，该字段下的非零数值典型地是由所连接设备上的坏网卡导致的。不过，对于那些连接到另一交换机（比如通过中继链路）的端口或接口，如采用的是802.1Q封装方式，则该字段将会包含一个非零数值。**在802.1Q下，其打标记机制（the tagging mechanism）对帧进行了修改，因为中继设备插入了一个`4`字节的标记，并随后再度计算了FCS。**
 
-对已有最大以太网帧大小的帧插入4字节后，就构成了一个1522字节的帧，那么接收设备就会将其看着是一个幼小巨大帧（a baby giant frame）。因此，尽管交换机仍将处理这些帧，该计数器将增长并包含一个非零值。为解决这个问题，802.3委员会建立一个名为802.3ac的小组来将以太网最大大小扩展到1522字节；这样以来，采行802.1Q中继时就不常见到该字段下的非零值了。
+对已有最大以太网帧大小的帧插入`4`字节后，就构成了一个`1522`字节的帧，那么接收设备就会将其看着是一个幼小巨大帧（a baby giant frame）。因此，尽管交换机仍将处理这些帧，该计数器将增长并包含一个非零值。为解决这个问题，802.3委员会建立一个名为802.3ac的小组来将以太网最大大小扩展到`1522`字节；这样以来，采行802.1Q中继时就不常见到该字段下的非零值了。
 
 类似与`show interfaces`及`show interfaces <name> counters errors`命令所提供的信息，命令`show controllers ethernet-controller <interface>`也可以用来现实流量计数及错误计数信息。`show controllers ethernet-controllers <interface>`命令的输出如下所示。
 
@@ -429,7 +429,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 网络壅塞同样可能引起交换网络中的间隙性连通故障。VLAN超载的第一个表象就是某端口上的接收或发送缓冲过度预订(oversubscribed)。此外，端口上过多的帧丢弃也是网络壅塞的指标。而网络壅塞的常见原因，就是对主干连接的聚合带宽需求估计不足。那么，**壅塞问题就可以通过配置以太网信道或往现有以太网信道中加入更多的端口，得到解决。**同时网络壅塞又是连通性故障的常见原因，同时重要的是要知道**交换机本身可能经历壅塞问题，而交换机本身的壅塞问题有可能会对网络性能产生类似的影响**（a common cause of network congestion is due to underestimating aggregate bandwidth requirements for backbone connections. In such cases, congestion issues can be resolved by configuring EtherChannels or by adding additional ports to existing EtherChannels. While network congestion is a common cause of connectivity issues, it is also important to know that the switch itself can experience congestion issues, which can have a similar impact on network performance）。
 
-**交换机内部壅塞**，有限的交换机带宽可能导致壅塞问题，由此造成的壅塞可能对网络性能造成极为严重的影响。在LAN交换中，带宽是指交换机内部交换线路（[the switch fabric](pdfs/the_Definition_of_a_Switch_Fabric-EtherealMind.pdf)）的传输能力。因此，如果交换线路的传输能力是5Gbps, 而要尝试将7Gbps的流量通过交换机传输，结果就是数据包丢失及差强人意的网络性能了。在那些所有端口的聚合传输容量可能超出总的骨干容量的超出预订平台上，这是一个常见的问题（this is a common issue in oversubscribed platforms, where the aggregate capacity of all ports can exceed the totoal backplane capacity）。
+**交换机内部壅塞**，有限的交换机带宽可能导致壅塞问题，由此造成的壅塞可能对网络性能造成极为严重的影响。在LAN交换中，带宽是指交换机内部交换线路（[the switch fabric](pdfs/the_Definition_of_a_Switch_Fabric-EtherealMind.pdf)）的传输能力。因此，如果交换线路的传输能力是`5Gbps`, 而要尝试将`7Gbps`的流量通过交换机传输，结果就是数据包丢失及差强人意的网络性能了。在那些所有端口的聚合传输容量可能超出总的骨干容量的超出预订平台上，这是一个常见的问题（this is a common issue in oversubscribed platforms, where the aggregate capacity of all ports can exceed the totoal backplane capacity）。
 
 在交换LAN中，**硬件故障**也可能引起连通性问题。这类问题的实例包括交换机的坏端口或坏模块。尽管在可能的情况下可以通过查看诸如LEDs等物理指示器来对这类故障进行排错，某些时候这类问题是难于排错及诊断的。在怀疑存在潜在的硬件故障的多数情况下，都应需求技术支持中心（Technical Assistance Centre, TAC）的支持。
 
@@ -533,7 +533,7 @@ MD5 digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 [Truncated Output]
 ```
 
-在应用`show vtp status`命令时，要确保交换机使用同一版本的VTP。默认情况下，Catalyst交换机允许VTP版本1。而运行VTP版本1的交换机是不能加入到VTP版本2的域中的。而如某交换机不兼容VTP版本2, 那么就要使用全局配置命令`vtp version`，将所有VTP版本2的交换机配置为运行版本1。
+在应用`show vtp status`命令时，要确保交换机使用同一版本的VTP。默认情况下，Catalyst交换机允许VTP版本`1`。而运行VTP版本`1`的交换机是不能加入到VTP版本`2`的域中的。而如某交换机不兼容VTP版本`2`, 那么就要使用全局配置命令`vtp version`，将所有VTP版本`2`的交换机配置为运行版本`1`。
 
 > **注意：**如在服务器上修改了VTP版本，那么此改变将自动传播到VTP域中的客户端交换机。
 
@@ -807,7 +807,7 @@ Fa0/12                0                  1                        0
 ![VTP Join报文及VTP修剪](images/03fig15.gif)
 
 *VTP Join报文及VTP修剪*
-
+ 
 ##第15天问题
 
 1. What is the colour of the system LED under normal system operations?
