@@ -1049,12 +1049,12 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan
 
 同过执行 `show port-security` 命令，可以验证全局端口安全配置参数（global port security configuration parameters）。下面展示了默认值下的此命令的打印输出。
 
-```sh
+```console
 VTP-Server-1#show port-security
-Secure Port	MaxSecureAddr  CurrentAddr SecurityViolation   Security Action
-			(Count)		  (Count)	   (Count)
+Secure Port MaxSecureAddr  CurrentAddr SecurityViolation   Security Action
+           (Count)        (Count)      (Count)
 -------------------------------------------------------
-Gi0/2		 1				1			  0				  Shutdown
+Gi0/2       1               1             0               Shutdown
 ------------------------------------------------------------------
 Total Addresses in System : 1
 Max Addresses limit in System : 1024
@@ -1083,13 +1083,13 @@ Security Violation count : 0
 
 ```console
 VTP-Server-1#show port-security address
-			Secure Mac Address Table
-------------------------------------------------------------------
-Vlan	Mac Address		Type				Ports	Remaining Age
-														(mins)
-----	-----------		----				-----	-----------
-1		001f.3c59.d63b	SecureConfigured	Gi0/2		-
+          Secure Mac Address Table
 -------------------------------------------------------------------
+Vlan    Mac Address       Type				   Ports   Remaining Age
+                                                          (mins)
+----    -----------       ----                 -----   -----------
+1       001f.3c59.d63b    SecureConfigured     Gi0/2       -
+--------------------------------------------------------------------
 Total Addresses in System : 1
 Max Addresses limit in System : 1024
 ```
