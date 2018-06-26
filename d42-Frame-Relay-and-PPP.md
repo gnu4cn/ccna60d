@@ -133,4 +133,48 @@ RouterA#debug frame-relay lmi
 
 在将两台路由器经由物理接口连接到帧中继云时，就意味着从帧中继角度讲，那些特定接口就是多点的了，因为默认物理帧中继接口就是多点结构。就算两台路由器之间的连接可能看起来是点对点的，但该连接仍是帧中继的多点连接（If you connect two routers to the Frame Relay cloud using physical interfaces, this means that the specific interfaces are Multipoint from a Frame Relay perspective, because a physical Frame Relay interface by default is a Multipoint structure. Even though the connection between the two routers may appear to be Point-to-Point, it is a Frame Relay Multipoint connection）。
 
+![帧中继多点实例](images/4205.png)
 
+*图 42.5 - 帧中继多点实例*
+
+因为两台路由器使用多点接口，所以默认这两台设备将通过使用反向ARP动态处理三层到二层的解析。如打算设计不使用反向ARP的方案，就可在各台设备上关闭动态映射行为，并于随后配置上静态的帧中继映射。
+
+对于三层到二层的解析，点对点配置就是理想的选择，因为解析过程在使用这类接口时不会发生。在配置点对点帧中继时，可使用点对点子接口，而这些子接口不会从LMI获取到DLCI编号分配，这就与多点情况一样（Point-to-point configurations are the ideal choice when it comes to `Layer 2` to `Layer 2` resolution because this process does not occur when using such interface types. When configuring Point-to-Point Frame Relay, you would use Point-to-Point subinterfaces and these subinterfaces would not get the DLCI assignments from LMI, like in the Multipoint situation）。
+
+另一选项将是创建子接口，并将这些创建出来的子接口声明为多点。这类接口将与物理多点接口一样运作，因此需确定要使用的解析方法，也就是反向ARP或静态映射。也可使用两种解析方法的结合，比如在连接的一端部署反向ARP，并在另一端定义静态映射（Another option would be to create subinterfaces and declaring them as Multipoint. These types of interfaces behave exactly like the physical Multipoint interfaces, so you need to decide on the resolution method to be used, either Inverse ARP or static mappings. A combination of these methods can be used, for example, by implementing Inverse ARP on one end of the connection and defining static maps on the other end）。
+
+接口类型设置与所选的三层到二层解析方法仅本地有意义。这意味着在帧中继涉及中可以有各种变化（The interface type settings and the selected Layer 3 to Layer 2 resolution method is only locally significant. This means that you can have all kinds of variations in your Frame Relay design），比如下图表42.1中所列出的这些：
+
+*表 42.1 - 帧中继涉及中的各种组合*
+
+<table>
+<tr>
+<th>本地接口</th>
+<th rowspan=7>连接到</th>
+<th>远端接口</th>
+</tr>
+<tr>
+<td>主接口（Main interface）</td>
+<td>主接口（Main interface）</td>
+</tr>
+<tr>
+<td>主接口（Main interface）</td>
+<td>点对点接口（Point-to-Point interface）</td>
+</tr>
+<tr>
+<td>主接口（Main interface）</td>
+<td>多点接口（Multipoint interface）</td>
+</tr>
+<tr>
+<td>多点接口（Multipoint interface）</td>
+<td>点对点接口（Point-to-Point interface）</td>
+</tr>
+<tr>
+<td>多点接口（Multipoint interface）</td>
+<td>多点接口（Multipoint interface）</td>
+</tr>
+<tr>
+<td>点对点接口（Point-to-Point interface）</td>
+<td>点对点接口（Point-to-Point interface）</td>
+</tr>
+</table>
