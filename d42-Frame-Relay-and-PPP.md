@@ -145,7 +145,7 @@ RouterA#debug frame-relay lmi
 
 接口类型设置与所选的三层到二层解析方法仅本地有意义。这意味着在帧中继涉及中可以有各种变化（The interface type settings and the selected Layer 3 to Layer 2 resolution method is only locally significant. This means that you can have all kinds of variations in your Frame Relay design），比如下图表42.1中所列出的这些：
 
-*表 42.1 - 帧中继涉及中的各种组合*
+*表 42.1 - 帧中继设计中的各种组合*
 
 <table>
 <tr>
@@ -178,3 +178,13 @@ RouterA#debug frame-relay lmi
 <td>点对点接口（Point-to-Point interface）</td>
 </tr>
 </table>
+
+部分网状网络的设计与配置，将是最具挑战性的。部分网状网络就意味着在所有涉及帧中继环境的端点之间，并不会全都提供二层电路（Partial-mesh designs and configurations will be the most challenging. This implies that Layer 2 circuits will not be provisioned between all endpoints involved in the Frame Relay environment）。
+
+在轴辐（中心-分支，hub-and-spoke）环境中，分支之间没有直接相连，因此就意味着它们无法通过反向ARP进行彼此解析。为解决这些问题，可执行以下措施：
+
+- 提供额外的静态映射（Provide additional static mappings）
+- 配置点对点的子接口（Configure Point-to-Point subinterfaces）
+- 对轴辐设施加以设计，使得三层设计可解决解析的问题（比如通过使用OSPF的点对多点网络类型，Design the hub-and-spoke infrastructure so that the Layer 3 routing design can solve the resolution problems(e.g., by using the OSPF Point-to-Multipoint network type)）
+
+
