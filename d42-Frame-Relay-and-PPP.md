@@ -187,4 +187,17 @@ RouterA#debug frame-relay lmi
 - 配置点对点的子接口（Configure Point-to-Point subinterfaces）
 - 对轴辐设施加以设计，使得三层设计可解决解析的问题（比如通过使用OSPF的点对多点网络类型，Design the hub-and-spoke infrastructure so that the Layer 3 routing design can solve the resolution problems(e.g., by using the OSPF Point-to-Multipoint network type)）
 
+帧中继支持可对服务质量（Quality of Service, QoS）施加影响的标记。比如，帧中继头部就包含了一个丢弃资质为（a DE(Discard Eligible) bit）。对于QoS的帧中继环境，数据包可籍由丢弃资质位加以标记，而这就告诉服务提供商那些特定数据包不是非常重要，在壅塞时可被丢弃。这样做将令到那些没有设置丢弃资质位的数据包优先。
+
+在帧中继环境中可配置其它参数，就是向前显式壅塞通知与向后显式壅塞通知（Forward Explicit Congestion Notifications(FECNs) and Backward Explicit Congestion Notifications(BECNs)），这通常会是一个突如其来的考试问题（which commonly crops up as an exam question）。帧中继设备在配置了FECNs或BECNs时，就可通知壅塞设备，并可造成发送速率的下降（The Frame Relay equipment, if configured to do so, can notify devices of congestion and can cause the slowing down of the sending rates）。
+
+## 配置帧中继（Configuring Frame Relay）
+
+不幸的是，配置帧中继较为棘手，这是因为不同的网络类型，要求不同的命令（Unfortunately, it can be somewhat tricky to configure Frame Relay, and this is because different network types require different commands）。这一点的原因，在于要解决WAN上网络地址解析方法，以及路由协议如何运作的问题。配置帧中继的步骤如下所示：
+
+1. 设置封装方式（Set encapsulation）
+2. 设置本地管理接口类型（可选的，Set LMI type(optional)）
+3. 配置静态/动态地址映射（Configure static/dynamic address mapping）
+4. 解决特定于协议的一些问题（Address protocol-specific problems）
+
 
