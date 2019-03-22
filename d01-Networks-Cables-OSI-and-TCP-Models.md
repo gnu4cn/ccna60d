@@ -346,8 +346,7 @@ CCNA 考试要求你理解 OSI 模型，以及各层有哪些应用和协议。�
 
 ### TCP/IP、DoD 模型
 
-TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由国防高级研究计划局（the Defense Advanced Research Projects Agency，DARPA）创建的四层或五层模型。它就是为人熟知的国防部模型。自顶向下的四层分别是：
-
+TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由 高级防务研究项目署（the Defense Advanced Research Projects Agency，DARPA）创建的四层或五层模型。它就是为人熟知的国防部模型。自顶向下的四层分别是：
 ```console
 4 - 应用, Application [Telnet/FTP/DNS/RIP]
 3 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
