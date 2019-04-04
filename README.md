@@ -1,7 +1,7 @@
 60 通过 CCNA
 =======
 
-你可以直接在GitBook阅读本书：[CCNA60D@gitbook](https://gnu4cn.gitbooks.io/ccna-60d/content/)
+你可以直接在GitBook阅读本书：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
