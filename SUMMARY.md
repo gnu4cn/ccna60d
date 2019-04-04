@@ -25,3 +25,6 @@
 * [第37天，EIGRP故障排除](d37-Troubleshooting-EIGRP.md)
 * [第38天，IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
 * [第39天，开放最短路径优先协议](d39-OSPF.md)
+* [第40天，系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
+* [第41天，广域组网](d41-Wide-Area-Networking.md)
+* [第42天，帧中继与点对点协议](d42-Frame-Relay-and-PPP.md)
