@@ -2,12 +2,7 @@
 TRIES=4
 
 push () {
-    git add *.*
-    git add .gitignore
-    git add images/*.png
-    git add pdfs/*.pdf
-    git add mindmaps/*.mm
-    git add mindmaps/*.md
+    git add .
     git commit -m "$1"
     push_success=0
     push_tries=0
