@@ -9,6 +9,8 @@
 
 - 支付宝：`laxers@gmail.com`（请以留言的方式，告诉译者你想说的话）
 
+	![捐赠给本书译者](images/alipay-laxers.png)
+
 - Bitcoin: `1Dh1b7DSZc9myZDdWtQte6e35FDHwHrDWa`
 
 
