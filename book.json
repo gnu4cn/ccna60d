@@ -1,0 +1,26 @@
+{
+    "plugins" : [
+        "highlight-code",
+        "livereload",
+        "lunr",
+        "sharing",
+        "fontsettings",
+        "theme-comscore",
+        "qrcode-list"
+    ],
+    "pluginsConfig": {
+        "qrcode-list": {
+            "title": "打尚&联系",
+            "description": "如果您感觉有收获，欢迎给我打赏，以激励我输出更多的优质内容。",
+            "except": ["谢谢你的支持"],
+            "lists": [
+                {
+                    "src": "./images/a6x09981lks9yco3b8xcqf0.png",
+                    "content": "支付宝",
+                    "alt": "支付宝"
+                }
+            ]
+        }
+    }
+
+}
