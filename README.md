@@ -1,7 +1,9 @@
 60 通过 CCNA
 =======
 
-你可以直接在 xfoss.com 阅读本书：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+你可以直接在 xfoss.com 阅读本书：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)。xfoss.com 还有其他书籍：
+
++ [TypeScript 手册](https://ts.xfoss.com/)，一本TypeScript的入门书籍，翻译自 TypeScript官方网站
 
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
