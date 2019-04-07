@@ -18,6 +18,11 @@
                     "src": "./images/a6x09981lks9yco3b8xcqf0.png",
                     "content": "支付宝",
                     "alt": "支付宝"
+                },
+                {
+                    "src": "./images/wechat-pay.png",
+                    "content": "微信支付",
+                    "alt": "微信支付"
                 }
             ]
         }
