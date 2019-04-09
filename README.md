@@ -4,6 +4,7 @@
 你可以直接在 xfoss.com 阅读本书：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)。xfoss.com 还有其他书籍：
 
 + [TypeScript 手册](https://ts.xfoss.com/)，一本TypeScript的入门书籍，翻译自 TypeScript官方网站
++ [Wagtail CMS内容管理系统教程](https://wagtail.xfoss.com)，一本有关强大的、基于Python Django web框架的 Wagtail 内容管理系统的教程
 
 
 你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
