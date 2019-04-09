@@ -1,4 +1,4 @@
-60 通过 CCNA
+60天通过CCNA
 =======
 
 你可以直接在 xfoss.com 阅读本书：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)。xfoss.com 还有其他书籍：
