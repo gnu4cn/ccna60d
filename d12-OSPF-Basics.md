@@ -66,7 +66,7 @@
 
 各台路由器参照其本地LSDB，对收到的摘要信息做出评估，以确保其有着最新信息。如邻接关系的一侧认识到它需要一个更新，路由器就从邻接路由器请求新信息。而来自邻居路由器的更新就包含了LSDB中的具体数据。此交换过程持续到两台路由器都拥有同样的LSDB。OSPF用到不同类型的报文，以交换数据库信息，从而确保所有路由器都有着网络的统一视图。这些不同的数据包类型将在本模块稍后进行详细说明。
 
-跟着数据库交换，SPF算法就运行起来，创建出到某个区域或网络主干中所有主机的最短路径树, SPF算法将执行运算的路由器，作为该树的根（Following the database exchange, the SPF algorithm runs and creates a shotest path tree to all hosts in an area or in the network backbone, with the router that is performing the calculation at the root of that tree）。在第10天中，对SPF算法进行了简要介绍。
+紧接着数据库的交换，SPF算法就运行起来，创建出到某个区域或网络主干中所有主机的最短路径树, SPF算法将执行运算的路由器，作为该树的根（Following the database exchange, the SPF algorithm runs and creates a shortest path tree to all hosts in an area or in the network backbone, with the router that is performing the calculation at the root of that tree）。在第10天中，对SPF算法进行了简要介绍。
 
 ### OSPF基础
 
