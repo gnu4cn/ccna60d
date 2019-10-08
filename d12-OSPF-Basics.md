@@ -1,10 +1,10 @@
-#第12天
+# 第12天
 
 **OSPF基础知识**
 
 **OSPF Basics**
 
-##今天的任务
+## 今天的任务
 
 - 阅读今天的理论课文
 - 复习昨天的理论课文
@@ -25,7 +25,7 @@
 	- 路由器ID，router ID
 	- 被动接口，passive interface
 
-##开放最短路径优先
+## 开放最短路径优先
 
 **Open Shortest Path First**
 
@@ -56,7 +56,7 @@
 
 最后，`RFC 2740`说明了为支持IPv6而对OSPF做出的修改（也就是版本`3`）。应假定本模块中所有对OSPF一词的使用，都是指的OSPF版本`2`。
 
-###链路状态基础
+### 链路状态基础
 
 **Link State Fundamentals**
 
@@ -68,7 +68,7 @@
 
 跟着数据库交换，SPF算法就运行起来，创建出到某个区域或网络主干中所有主机的最短路径树, SPF算法将执行运算的路由器，作为该树的根（Following the database exchange, the SPF algorithm runs and creates a shotest path tree to all hosts in an area or in the network backbone, with the router that is performing the calculation at the root of that tree）。在第10天中，对SPF算法进行了简要介绍。
 
-###OSPF基础
+### OSPF基础
 
 **OSPF Fundamentals**
 
@@ -103,7 +103,7 @@ OSPF骨干区域从ABRs接收到汇总路由信息。该路由信息被散布到
 
 > **注意：** 本书后面会详细说明OSPF ABRs及其它OSPF路由器类型。
 
-###组网类型
+### 组网类型
 
 **Network Types**
 
@@ -236,13 +236,13 @@ Serial0/0 is up, line protocol is up
 [Truncated Output]
 ```
 
-##配置OSPF
+## 配置OSPF
  
 **OSPF Configuration**
 
 本节对OSPF配置基础进行说明。
 
-###在思科IOS软件中开启OSPF
+### 在思科IOS软件中开启OSPF
 
 **Enabling OSPF in Cisco IOS Software**
 
@@ -296,7 +296,7 @@ R3#show ip ospf 1
 %OSPF: Router process 1 is not running, please configure a router-id
 ```
 
-###开启接口或网络的OSPF路由
+### 开启接口或网络的OSPF路由
 
 **Enabling OSPF Routing for Interfaces or Networks**
 
@@ -348,13 +348,13 @@ Lo3 		1 	3 		10.1.1.1/32 	1 		LOOP	0/0
 
 此外，比如有两台路由器是背靠背连接（connected back-to-back），一台使用接口配置命令`ip ospf [process id] area [area id]`进行了配置，而其邻居路由器使用路由器配置命令`network [network] [wildcard] area [area id]`进行了配置，假设两个区域IDs相同，那么两台路由器将成功建立OSPF邻接关系。
 
-###OSPF区域
+### OSPF区域
 
 **OSPF Areas**
 
 **OSPF区域号既可以配置为一个`0`到`4294967295`之间的整数，也可使用点分十进制表示法**（也就是采用IP地址格式）。与OSPF进程号不同，**为建立邻接关系，OSPF区域号必须匹配**。最常见OSPF区域配置类型为使用一个整数来指定OSPF区域。确保对支持的两种区域配置方式都要熟悉。
 
-###OSPF路由器ID
+### OSPF路由器ID
 
 **OSPF Router ID**
 
@@ -419,7 +419,7 @@ Distance: (default is 110)
 
 到第`39`天，**DR和BDR选举时，就将看到这个路由器ID有着特别的重要性**。
 
-###OSPF被动接口
+### OSPF被动接口
 
 **OSPF Passive Interfaces**
 
@@ -441,7 +441,7 @@ FastEthernet0/0 is up, line protocol is up
 		No Hellos (Passive interface)
 ```
 
-##第12天问题
+## 第12天问题
 
 1. What protocol does OSPF use?
 2. How does OSPF determine whether other Link State routers are operating on the interfaces as well?
