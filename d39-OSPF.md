@@ -583,7 +583,7 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 
 类型4的LSA对有关自治系统边界路由器的信息进行描述（The Type 4 LSA describes information regarding the Autonomous System Boundry Router(ASBR)）。此类LSA包含了与类型3 LSA的相同数据包格式，并以一些显著的差异，完成同样的基本功能。与类型3的LSA类似，类型4的LSA是由区域边界路由器生成的。两种LSAs的通告路由器字段（the Advertising Router field）都包含着生成该汇总LSA的区域边界路由器的路由器ID。但是，类型4的LSA使用区域边界路由器，为仅有某条路由器LSA可达的各台自治系统边界路由器所创建的。随后该区域边界路由器将该类型4的LSA注入到相应区域。此类LSA提供到有关该自治系统边界路由器本身的可靠性信息。你应熟知的类型3与类型4 LSAs的关键不同，在下表39.2中有列出：
 
-*表 39.2 - 关于类型3与类型4汇总LSAs*
+*表 39.2 - 类型3与类型4汇总LSAs*
 
 | 类型3的汇总LSA | 类型4的汇总LSA |
 | --- | --- |
@@ -598,7 +598,7 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 
 外部链路状态通过用于对那些该自治系统的外部目的网络进行描述（The External Link State Advertisement is used to describe destinations that are external to the autonomous system）。也就是说，类型5的LSAs提供了要抵达外部网络的必要信息。除了外部路由外，某个OSPF路由域（an OSPF routing domain）的默认路由，也可作为类型5的链路状态通告，而加以注入。
 
-## 关于OSPF的各种区域（OSPF Areas）
+## OSPF的各种区域（OSPF Areas）
 
 除了在本课程模块之前的小节中描述并用到的骨干区域（`Area 0`）及其它非骨干区域外，OSPF规格还定义了记住“特殊”类型的区域。这些区域的配置，主要是为了通过阻止不同类型的LSAs（主要是类型5的LSAs）诸如到确切区域，而减小出于这些区域中的路由器上的链路状态数据库的大小，这些其它区域包括：
 
@@ -607,11 +607,11 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 - 末梢区域（Stub Areas, SAs）
 - 完全末梢区域（Totally Stubby Areas, TSAs）
 
-### 关于次末梢区域（Not-So-Stubby Areas, NSSAs）
+### 次末梢区域（Not-So-Stubby Areas, NSSAs）
 
 次末梢区域是OSPF末梢区域的一种，其允许自治系统边界路由器使用NSSA外部LSA（类型7），注入外部路由信息。如同在前面的小节中所指出的，类型4、类型5与类型7的LSAs是用于外部路由的计算。这里不会就类型7的LSAs的细节，或它们在NSSAs中的使用方式，进行检视。
 
-### 关于完全次末梢区域（Totally Not-So-Stubby Areas, TNSSAs）
+### 完全次末梢区域（Totally Not-So-Stubby Areas, TNSSAs）
 
 完全次末梢区域是次末梢区域的一个扩展。与次末梢区域类似，类型5的LSAs不被允许进入TNSSAs；与NSSAs不同的是，汇总LSAs也不允许进入到TNSSAs中。此外，在配置了某个TNSSA时，默认路由就作为类型7的LSA注入到该区域。TNSSAs有着以下特性：
 
@@ -620,7 +620,7 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 - 它们不允许外部LSAs
 - 默认路由是以一条汇总LSA被注入的
 
-### 关于末梢区域（Stub Areas）
+### 末梢区域（Stub Areas）
 
 末梢区域与NSSAs有些类似，主要的例外就是不允许外部路由（类型5或类型7）进入到末梢区域（Stub areas are somewhat similar to NSSAs, with the major exception being that external routes(Type 5 or Type 7) are not allowed into Stub Areas）。重要的是对末梢在OSPF何EIGRP中的功能是完全不同的。在OSPF中，某个区域作为末梢区域的配置，通过阻止外部LSAs被通告到这些区域，在无需额外配置下，就可减小这些区域中路由器的路由表及OSPF数据库的大小。末梢区域有着以下特性：
 
@@ -628,7 +628,7 @@ OSPF使用网络链路状态通告（类型2的LSA），来在多路访问网段
 - 来自其它区域的类型3的LSAs允许进入到这些区域
 - 外部路由的LSAs（也就是类型4及类型5的LSAs）不被允许
 
-### 关于完全末梢区域（Totally Stubby Areas）
+### 完全末梢区域（Totally Stubby Areas）
 
 完全末梢区域是末梢区域的一个扩展。但与末梢区域不同的是，完全末梢区域通过限制外部LSAs外，还限制了类型3的LSAs，从而进一步地减小了完全末梢区域中路由器上的链路状态数据库（Link State Database, LSDB）的大小。通常将TSAs配置在那些有着到网络，比如在传统的分支网络，的单个入口及出口点的路由器上（TSAs are typically configured on routers that have a single ingress and egress point into the network, for example in a traditional hub-and-spoke network）。该区域的路由器将所有外部流量转发到区域边界路由器。同时该区域边界路由器也是所有骨干区域及区域间流量到完全末梢区域的出口点（The ABR is also the exit point for all backbone and inter-area traffice to the TSA），其有着以下特性：
 
@@ -755,7 +755,7 @@ Serial0/0 is up, line protocol is up
   Suppress Hello for 0 neighbor(s)
 ```
 
-## 关于OSPF的默认路由（OSPF Default Routing）
+## OSPF的默认路由（OSPF Default Routing）
 
 与EIGRP支持好几种生成与通告默认路由的方式不同，OSPF仅使用路由器配置命令`default-information originate [always] [metric <value>] [metric-type <1|2>] [route-map <name>]`，来动态地通告默认路由。
 
