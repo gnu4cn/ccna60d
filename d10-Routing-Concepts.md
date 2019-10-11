@@ -209,7 +209,7 @@ Distance: (default is 115 )
 
 从一名网络管理员的角度看，重要的是理解**`bandwidth`命令不会影响接口的物理容量**（因此该命令又是被成为是一个道具命令(a cosmetic command)）。也就是说，在`FastEthernet`接口上配置了更高的带宽，并不意味着其就具备了支持`GigabitEthernet`速率的能力。**开放路径优先（OSPF）和增强内部网关路由协议（EIGRP）都在度量值计算中用到了带宽变量**。
 
-### 成本（开销）
+### 成本
 
 **Cost**
 
