@@ -1,10 +1,10 @@
-#第6天
+# 第6天
 
 **网络地址转换**
 
 **Network Address Translation**
 
-##第六天的任务
+## 第六天的任务
 
 - 阅读今天的课文
 - 回顾昨天的课文内容
@@ -32,7 +32,7 @@
 	- 单向NAT
 - 按需求配置并验证NAT
 
-##NAT基础，NAT Basics
+## NAT基础，NAT Basics
 
 想象一下如果网络不是以IP地址运行，而是按颜色来运作。蓝色和黄色有无限的供应，其它颜色却是短缺的。网络分开成使用蓝色和黄色的许多用户，因为这两种颜色可以随意使用。而蓝色用户需要频繁地前往外部网络，那么就需要去买点绿色凭据，在蓝色用户需要与外部网络上的主机通信时，路由器可以用其将蓝色用户的凭据进行替换。路由器此时会像下面这样做。
 
@@ -94,7 +94,7 @@ NAT为进入和发出的流量去改装数据包的头部，并对每个会话�
 
 NAT内部和外部的分址，是一个经典的考试问题，所以还需在回头看几次这里的内容。
 
-##配置并验证NAT，Configuring and Verifying NAT
+## 配置并验证NAT，Configuring and Verifying NAT
  
 在思科IOS上对网络地址转换的配置和验证是一个简单的事情。在配置NAT时，要执行下面这些操作。
 
@@ -146,7 +146,7 @@ tcp		150.1.1.5:159	10.5.5.3:159	200.1.1.1:23	200.1.1.1:23
 - 对多个内部地址，用两个以上的外部地址进行替换（动态NAT，dynamic NAT）
 - 将多个内部地址，用多个外部端口进行转换（这就是**端口地址转换**，或者叫**单向NAT**, Port Address Translation or one-way NAT）
 
-###静态NAT
+### 静态NAT
 
 **Static NAT**
 
@@ -183,7 +183,7 @@ Router(config)#ip nat inside source static 192.168.2.1 200.1.1.2
 
 强烈建议将上述命令敲入到某台路由器中去。本书中有很多的NAT实验，但是在阅读理论章节的同时，你敲入得越多，那么这些信息就能越好地进入你的大脑。
 
-###动态NAT或NAT地址池
+### 动态NAT或NAT地址池
 
 通常会用到一组可路由地址，或是一个可路由地址池。一对一的NAT映射，有其局限性，首当其冲的就是成本高，其次路由器上有着多行的配置。动态NAT允许为内部主机配置一或多个的公网地址组。
 
@@ -214,7 +214,7 @@ Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
 
 该ACL用于告诉路由器哪些地址要转换，哪些地址不要转换。而该子网掩码实际上是反转的，叫做反掩码，在第九天会涉及。所有NAT地址池都需要一个名字，而在本例中，它简单地叫做“poolname”。源列表引用自那个ACL（the source list refers to the ACL）, **经译者在GNS3上测试,动态NAT仍然是一对一的地址转换**。
 
-###NAT Overload/端口地址转换/单向NAT
+### NAT Overload/端口地址转换/单向NAT
 
 **NAT Overload/Port Address Translation/One-Way NAT**
 
@@ -249,7 +249,7 @@ Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
 
 >Farai指出 -- “以多于一个IP方式使用PAT，就是对地址空间的浪费，因为路由器会使用第一个IP地址，并为每个随后的连接仅增大端口号。这就是为何通常将PAT配置为该接口上的超载(overload)。”
 
-##NAT故障排除
+## NAT故障排除
 
 **Troubleshooting NAT**
 
@@ -257,7 +257,7 @@ NAT故障中十次有九次，都是由于路由器管理员忘记了把`ip nat 
 
 使用命令`debug ip nat [detailed]`，可以在路由器上对NAT转换进行调试，又可以使用命令`sh ip nat translations`，来查看NAT地址池。
 
-##第六天问题
+## 第六天问题
 
 1. NAT converts the `_______` headers for incoming and outgoing traffic and keeps track of each session.
 2. The `_______` address is the IP address of an outside, or external, host as it appears to inside hosts.
@@ -269,7 +269,7 @@ NAT故障中十次有九次，都是由于路由器管理员忘记了把`ip nat 
 8. NAT most often fails to work because the `_______` command is missing.
 9. Which `debug` command shows live NAT translations occurring?
 
-##第六天问题的答案
+## 第六天问题的答案
 
 1. Packet.
 2. Outside local.
@@ -281,9 +281,9 @@ NAT故障中十次有九次，都是由于路由器管理员忘记了把`ip nat 
 8. The `ip nat inside` or `ip nat outside` command.
 9. The `debug ip nat [detailed]` command.
 
-##第六天的实验
+## 第六天的实验
 
-###静态NAT实验
+### 静态NAT实验
 
 **Static NAT Lab**
 
@@ -418,7 +418,7 @@ NAT: expiring 172.16.1.1 (10.1.1.1) icmp 7 (7)
 
 >译者注: 通过本实验，要注意三个问题：一是**可路由地址可以是外部接口同一网段的地址，也可以不是**；二是**NAT超时问题，该参数可以设置**；三是**环回接口的使用, 常用来模拟LAN中的计算机**。
 
-###NAT地址池/动态NAT实验
+### NAT地址池/动态NAT实验
 
 **NAT Pool Lab**
 
@@ -590,7 +590,7 @@ icmp 	172.16.1.2:25 	10.2.2.2:25 	192.168.1.2:25 	192.168.1.2:25
 RouterA#
 ```
 
-###NAT Overload实验
+### NAT Overload实验
 
 **NAT Overload Lab**
 

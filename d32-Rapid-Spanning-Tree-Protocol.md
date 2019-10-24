@@ -1,4 +1,4 @@
-#第32天
+# 第32天
 
 **快速生成树协议**
 
@@ -64,13 +64,13 @@ RSTP包含了以下的端口角色。
 
 *图 32.3 -- RSTP备份端口*
 
-###带有PVST+的RSTP
+### 带有PVST+的RSTP
 
 **RSTP with PVST+**
 
 加强版的基于各VLAN的生成树允许每个VLAN都有一个单独的STP实例（Per VLAN Spanning Tree Plus(PVST+) allows for an individual STP instance per VLAN）。传统或普通的PVST+模式在出现某条链路失效时，在网络收敛中，依赖较旧的802.1D STP的使用。
 
-###RPVST+
+### RPVST+
 
 快速的基于各VLAN的生成树加强版，允许与PVST+ 一起使用802.1W（Rapid Per VLAN Spanning Tree Plus(RPVST+) allows for the use of 802.1W with PVST+）。这就允许在每个VLAN都有一个单独的RSTP实例的同时，提供比起802.1D STP所能提供的更为快速的收敛。**默认情况下，在某台思科交换机上开启RSTP时，也就在该交换机上开启了R-PVST+。**
 
@@ -80,7 +80,7 @@ RSTP包含了以下的端口角色。
 - 802.1W(快速生成树) -- Imagine Elmer Fudd saying "rapid" as "wapid"
 - 802.1S（多生成树） -- You add the letter "s" to nouns to make them plural(multiple) but this is a CCNP SWITCH subject
 
-##RSTP的配置
+## RSTP的配置
 
 **Configuring RSTP**
 
@@ -93,7 +93,7 @@ Switch is in rapid-pvst mode
 Root bridge for: VLAN0050, VLAN0060, VLAN0070
 ```
 
-##第32天问题
+## 第32天问题
 
 **Day 32 Questions**
 
@@ -103,7 +103,7 @@ Root bridge for: VLAN0050, VLAN0060, VLAN0070
 4. Which command enables RSTP?
 5. By default, when RSTP is enabled on a Cisco switch, R-PVST+ is enabled on the switch. True or false?
 
-##第32天问题答案
+## 第32天问题答案
 
 **Day 32 Answers**
 
@@ -113,11 +113,11 @@ Root bridge for: VLAN0050, VLAN0060, VLAN0070
 4. The `spanning-tree mode rapid-pvst` command.
 5. True.
 
-##第32天实验
+## 第32天实验
 
 **Day 32 Lab**
 
-###RSTP实验
+### RSTP实验
 
 **RSTP Lab**
 

@@ -1,10 +1,10 @@
-#第34天
+# 第34天
 
 **第一跳冗余协议**
 
 **First Hop Redundancy Protocols**
 
-##第34天任务
+## 第34天任务
 
 - 阅读今天的课文
 - 回顾昨天的课文
@@ -62,7 +62,7 @@ Switch 1 已被配置了优先级值`105`，而Switch 2使用的是默认优先�
 
 思科IOS软件当前支持两个版本的HSRP：版本1及版本2。后续章节将对它们的相似点和不同点进行说明。
 
-###HSRP版本1
+### HSRP版本1
 
 默认情况下，当在思科IOS软件中开启热备份路由器协议是，是开启的版本1。HSRP版本1将可配置的HSRP分组限制在最多255个。HSRP版本1的那些路由器之间的通信，是通过往多播组地址（Multicast group address）`224.0.0.2`上，使用UDP端口`1985`发送报文进行的。下面的图34.3显示了HSRP版本1的报文：
 
@@ -76,7 +76,7 @@ Switch 1 已被配置了优先级值`105`，而Switch 2使用的是默认优先�
 
 在图34.4中，要注意版本字段显示的是数值0。这是在版本1开启时该字段的默认值；不过仍然要知道这里使用的是HSRP版本1。
 
-###HSRP版本2
+### HSRP版本2
 
 HSRP版本2使用了新的多播地址`224.0.0.102`，而不是版本1的多播地址`224.0.0.2`, 来发送Hello数据包。不过其所用到的UDP端口号仍然一样（`1985`）。同时此新地址在IP数据包及以太网数据帧中都得以编码，如下图34.5所示：
 
@@ -90,7 +90,7 @@ HSRP版本2使用了新的多播地址`224.0.0.102`，而不是版本1的多播�
 ![HSRP版本2的数据包字段](images/3406.png)
 *图 34.6 -- HSRP版本2的数据包字段*
 
-###HSRP版本1与版本2的比较
+### HSRP版本1与版本2的比较
 
 HSRP 版本2包括了一些对版本1的增强。本小节将对这些增强及与版本1的不同进行说明。
 
@@ -117,7 +117,7 @@ HSRP版本1的分组编号是限制在0到255的，而版本2的分组编号则�
 ![HSRP版本2的虚拟MAC地址格式](images/3411.png)
 *图 34.11 -- HSRP版本版本2的虚拟MAC地址格式*
 
-###HSRP的主网关选举
+### HSRP的主网关选举
 
 可通过将默认HSRP优先级值100, 修改为1到255之间的任何值，对HSRP主网关的选举施加影响。有着最高优先级的路由器将被选举为该HSRP分组的主网关。
 
@@ -126,7 +126,7 @@ HSRP版本1的分组编号是限制在0到255的，而版本2的分组编号则�
 ![HSRP的优先级与状态字段](images/3412.png)
 *图 34.12 -- HSRP的优先级与状态字段*
 
-###HSRP报文
+### HSRP报文
 
 HSRP路由器之间就下列三种类型的报文进行交换：
 
@@ -140,7 +140,7 @@ HSRP Coup报文实在当前备份路由器打算接过该HSRP组的活动网关�
 
 而HSRP的Resign报文，则是在活动路由器即将关闭，以及在一台有着更高优先级的网关发出一个Hello报文或Coup报文时发出的。也就是说，在活动网关交出其作为主网关角色时，发出此报文。
 
-###HSRP的抢占
+### HSRP的抢占
 
 **HSRP Preemption**
 
@@ -150,7 +150,7 @@ HSRP Coup报文实在当前备份路由器打算接过该HSRP组的活动网关�
 
 > 注意：抢占并不意味着生成树拓扑也会发生改变（译者注：这将导致次优路径）。
 
-###HSRP的各种状态
+### HSRP的各种状态
 
 与开放最短路径有限（Open Shortest Path First, OSPF）的方式类似，当在某个接口上开启了HSRP时，该网关接口会经历以下一系列状态的改变：
 
@@ -213,7 +213,7 @@ R2(config-if)#
 *Mar 1 01:22:26.478: HSRP: Fa0/0 Grp 1 Redundancy “hsrp-Fa0/0-1” state Speak -> Standby
 ```
 
-###HSRP地址分配
+### HSRP地址分配
 
 **HSRP Addressing**
 
@@ -311,7 +311,7 @@ FastEthernet0/0 is up, line protocol is up
 
 > **注意**：除了将HSRP配置为使用出厂地址（the burnt-in address, BIA）, 管理员亦可经由接口配置命令`standby [number] mac-address [mac]`，静态指定虚拟网关要使用的MAC地址。但一般不会这样做，因为这可能会导致交换网络中的重复MAC地址，这就会引起严重的网络故障，甚至造成网络中断。
 
-###HSRP的明文认证
+### HSRP的明文认证
 
 **HSRP Plain Text Authentication**
 
@@ -324,7 +324,7 @@ HSRP报文默认以明文密钥字串(the plain text key string)`cisco`发送，
 
 因为明文认证提供很低的安全性，那么下面介绍的消息摘要5（message digest 5, MD5）, 就是推荐的HSRP认证方式了。
 
-###HSRP MD5 认证
+### HSRP MD5 认证
 
 这并非CCNA题目，放在这里是为了完整性及那些要实际从事网络方面工作的人的考虑。
 
@@ -336,7 +336,7 @@ HSRP报文默认以明文密钥字串(the plain text key string)`cisco`发送，
 - 路由器与收到的数据包的MD5摘要不同时
 - 路由器与收到的数据包的明文认证字串不一致时
 
-###HSRP接口跟踪
+### HSRP接口跟踪
 
 **HSRP Interface Tracking**
 
@@ -363,7 +363,7 @@ HSRP接口跟踪功能令到管理员可将HSRP配置为追踪某个接口的状
 
 > 对于这些FHRPs，比如HSRP，可被配置为对这些增强对象进行跟踪，以令到在部署FHRP失效情形时具有更大的灵活性。比如，在采用EOT时，可将活动HSRP路由器配置为在网络或主机路由不可达时（也就是出现在路由表中），降低其优先级某个数值。EOT功能是超出了CCNA考试要求的，在配置示例中不会涉及。
 
-###HSRP的负载均衡
+### HSRP的负载均衡
 
 HSRP允许管理员在一些物理接口上配置多个HSRP组，以实现负载均衡。默认情况下，在两台网关之间配置HSRP时，在任何时期都只有一台网关对那个组的流量进行转发。这样就导致了备份网关链路上带宽的浪费。这在下图34.15中进行了演示：
 
@@ -407,7 +407,7 @@ Gateway-1(config-if)#exit
 
 > 在上面的输出配置中，`Group 1` 被配置为了主HSRP组， 同时`Group 2`与`Group 3`被配置为了客户组或叫做从组。
 
-###网关上HSRP的配置
+### 网关上HSRP的配置
 
 在网关上配置HSRP，需要完成以下步骤：
 
@@ -457,7 +457,7 @@ Vl172       1        100   Standby local   172.16.31.1     172.16.31.254
 
 基于此种配置，只有在`VTP-Server-1`失效时，`VTP-Server-2`才会成为活动网关。此外，因为没有配置抢占（preemption），那么即使在`VTP-Server-1`重新上线时，就算在该HSRP组中，其比起`VTP-Server-2`有着更高的优先级，它仍然无法强制性地接过活动网关角色。
 
-###HSRP抢占的配置
+### HSRP抢占的配置
 
 **Configuring HSRP Preemption**
 
@@ -508,7 +508,7 @@ IP redundancy name is “hsrp-Vl172-1” (default)
 
 而关键字`[reload]`用于指定网关在其重启后需要等待的时间（the `[reload]` keyword is used to specify the amount of time the gateway should wait after it initiates following a reload）。关键字`[sync]`是与IP冗余客户端配合使用的。此配置超出了CCNA考试要求，但在生产环境中是十分有用的，因为在出现某个正在被跟踪的抖动接口，或类似情况下，此配置可以阻止不必要的角色切换（this configuration is beyond the scope of the CCNA exam requirements but is very useful in production environments because it prevents an unnecessary change of roles in the case of a flapping interface that is being tracked, or similar activity）。
 
-###配置HSRP接口跟踪
+### 配置HSRP接口跟踪
 
 HSRP接口跟踪特性，令到管理员可以将HSRP配置为追踪接口状态，从而将当前优先级降低一个默认数值（10）或指定数值，以允许另一网关接过指定HSRP组的主网关角色。
 
@@ -563,7 +563,7 @@ Vlan172 - Group 1
     GigabitEthernet5/1           50         Up
 ```
 
-###配置HSRP的版本
+### 配置HSRP的版本
 
 如同在本课程模块先前指出的那样，默认当HSRP开启时，是启用的版本1。但可通过接口配置命令`standby version [1|2]`来手动开启HSRP版本2。下面的输出演示了HSRP版本2的配置：
 
@@ -593,7 +593,7 @@ Vlan172 - Group 1 (version 2)
 
 而HSRP的开启，就自动将HSRP所使用的MAC地址范围，从`0000.0C07.ACxx`，改变为`0000.0C9F。F000`到`0000.0C9F.FFFF`。因此务必要记住这将导致生产网络中的一些数据包丢失，因为网络中的设备必须要掌握到网关的新MAC地址。这类导致包丢失的变动，都推荐在维护窗口或几乎的断网窗口来进行。
 
-##虚拟路由器冗余协议
+## 虚拟路由器冗余协议
 
 **Virtual Router Redundancy Protocol**
 
@@ -615,7 +615,7 @@ VRRP以与HSRP类似的方式运作；但与HSRP不同，VRRP是一个定义在[
 ![VRRP的基本运作](images/3419.png)
 *图 34.19 -- VRRP的基本运作*
 
-###VRRP的多虚拟路由器支持特性
+### VRRP的多虚拟路由器支持特性
 
 可在某个接口上配置多大255个的虚拟路由器。而某个路由器接口实际能支持的虚拟路由器数目，由以下因素决定：
 
@@ -625,7 +625,7 @@ VRRP以与HSRP类似的方式运作；但与HSRP不同，VRRP是一个定义在[
 
 - 路由器接口对多MAC地址的支持情况，Router interface support of multiple MAC addresses 
 
-###VRRP的主路由器选举
+### VRRP的主路由器选举
 
 **VRRP Master Router Election**
 
@@ -642,18 +642,18 @@ VRRP默认使用优先级值来决定哪台路由器将被选举为主虚拟路�
 
 在`VRRP-1`失效时，因为`VRRP-2`有着比起`VRRP-3`更高的优先级，所以它就成为主虚拟路由器。但如果`VRRP-2`与`VRRP-3`有着相同优先级的话，`VRRP-3`将被选举为主虚拟路由器，因为它有着更高的IP地址。
 
-###VRRP的抢占
+### VRRP的抢占
 
 与HSRP不同，VRRP的抢占特性是默认开启的，因此无需管理员为开启此功能而进行显式的配置。但此功能可经由使用接口配置命令`no vrrp [number] preempt`进行关闭。
 
-###VRRP的负载均衡
+### VRRP的负载均衡
 
 VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于某台网关上配置了多个虚拟路由器（VRRP组）的网络中，一个接口可作为某个虚拟路由器（VRRP组）的主接口（虚拟路由器），同时又可作为另一或更多虚拟路由器（VRRP组）的备份（虚拟路由器）。下图34.21对此进行了演示：
 
 ![VRRP的负载均衡](images/3421.png)
 *图 34.21 -- VRRP的负载均衡*
 
-###VRRP的版本
+### VRRP的版本
 
 默认情况下，当在某台运行思科IOS软件的网关上配置了VRRP时，开启的是VRRP版本2（见下图）。版本2正是默认的以及当前的VRRP版本。这里并不能如同在HSRP中那样改变版本，因为并没有VRRP版本1的标准。
 
@@ -663,13 +663,13 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 ![VRRP版本2的数据包](images/3422.png)
 *图 34.22 -- VRRP版本2的数据包*
 
-###VRRP的各种通告
+### VRRP的各种通告
 
 **VRRP Advertisements**
 
 主虚拟路由器将通告发送给同一VRRP组中的其它VRRP路由器。通告就主虚拟路由器的优先级与状态进行通信。VRRP的通告是以IP数据包进行封装的，并被发送到在图34.18中所演示的那个指派给该VRRP组的IPv4多播地址。通告默认以每秒的频率发送；不过此时间间隔是可被用户配置的，因而可以改变。同时备份虚拟路由器收听主虚拟路由器通告的间隔，也可进行配置。
 
-###在网关上配置VRRP
+### 在网关上配置VRRP
 
 在网关上配置VRRP，需要以下步骤：
 
@@ -744,7 +744,7 @@ Interface          Grp Pri Time Own Pre State   Master addr     Group addr
 Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
 ```
 
-###配置VRRP的接口跟踪特性
+### 配置VRRP的接口跟踪特性
 
 为将VRRP配置为对某个接口进行跟踪，就必须要在全局配置模式下，为接口追踪而使用全局配置命令`track [object number] interface [line-protocol|ip routing]`, 或为IP前缀追踪而使用全局配置命令`track [object number] ip route [address | prefix] [reachablity | metric threshold]`，建立一个被跟踪的对象。依据软件与平台的不同，交换机上可对高达500个的被追踪对象进行跟踪。随后再使用接口配置命令`vrrp [number] track [object]`, 实现VRRP对被追踪对象的跟踪。
 
@@ -810,7 +810,7 @@ Track 2
 
 > **注意**：这些被追踪对象亦可与HSRP和GLBP配合使用。GLBP在下面的小节进行说明。
 
-###VRRP的调试
+### VRRP的调试
 
 命令`debug vrrp`提供给管理员用于查看有关VRRP运作情况实时信息的诸多选项。这些选项如下面的输出所示：
 
@@ -827,7 +827,7 @@ VTP-Server-1#debug vrrp ?
 ```
 
 
-##网关负载均衡协议
+## 网关负载均衡协议
 
 **Gateway Load Balancing Protocol**
 
@@ -838,7 +838,7 @@ GLBP网关之间的通信，是通过以每隔3秒的频率，往多播地址`22
 ![GLBP的三层及四层协议与地址](images/3424.png)
 *图 34.24 -- GLBP的三层及四层协议与地址，GLBP Layer 3 and Layer 4 Protocols and Addresses*
 
-###GLBP的运作
+### GLBP的运作
 
 在启用了GLBP后，该GLBP组的那些成员就选举出一台网关，作为改组的活动虚拟网关（the active virtual gateway, AVG）。该活动网关有着最高的优先级值。在成员优先级值相等时，组中带有最高IP地址的活动虚拟网关将被选举为网关。组中剩下的其它网关，就会在活动虚拟网关不可用时，提供活动虚拟网关的备份。
 
@@ -857,13 +857,13 @@ GLBP网关之间的通信，是通过以每隔3秒的频率，往多播地址`22
 
 通过使用上组中的所有网关，GLBP实现了无需像在HSRP或VRRP中那样需要配置多个组，就能做到负载均衡。
 
-###GLBP的虚拟MAC地址分配
+### GLBP的虚拟MAC地址分配
 
 一个GLBP允许每组有4个的虚拟MAC地址。由活动虚拟网关来负责将虚拟MAC地址分配给组中的各个成员。其它组成员是在它们发现了活动虚拟网关后，精油Hello报文，请求到虚拟MAC地址的。
 
 这些网关是依序分配到下一个虚拟MAC地址的。已通过活动虚拟网关分配到了虚拟MAC地址的网关，被称作主虚拟转发器（a primary virtual forwarder）, 而已学习到某个虚拟MAC地址的网关，被称作是从虚拟转发器（a secondary virtual forwarder）。
 
-###GLBP的冗余
+### GLBP的冗余
 
 在GLBP组中，是单一一台网关被选举为活动虚拟网关，有另一网关被选举为备份虚拟网关（the standby virtual gateway）的。组中剩下的其它网关，都被置于侦听状态（a Listen state）。在活动虚拟网关失效时，备份虚拟网关将接过该虚拟IP地址的角色。于此同时，又会再进行一次选举，此时将从那些处于侦听状态的网关中选出一个新的备份虚拟网关。
 
@@ -878,13 +878,13 @@ GLBP网关之间的通信，是通过以每隔3秒的频率，往多播地址`22
 
 而在超时计时器超时后，该虚拟转发器就被从该GLBP组的所有网关中移除。那些仍在使用ARP缓存中原有MAC地址的客户端，就必须刷新此项项目，以获取到新的虚拟MAC地址。GLBP使用Hello报文，来就这两个计时器的当前状态进行通信（when the timeout timer expires, the virtual forwarder is removed from all gateways in the GLBP group. Any clients still using the old MAC address in their ARP caches must refresh the entry to obtain the new virtual MAC address. GLBP uses Hello messages to communicate the current state of these two timers）。
 
-###GLBP的负载抢占
+### GLBP的负载抢占
 
 GLBP抢占默认是关闭的，也就是说仅在当前活动虚拟网关失效时，备份虚拟网关才能成为活动虚拟网关，这与分配给那些虚拟网关的优先级无关。这种运作方式，与HSRP中用到的类似。
 
 思科IOS软件允许管理员开启GLBP的抢占特性，这就令到在备份虚拟网关被指派了一个比当前活动虚拟网关更高的优先级值时，成为活动虚拟网关。默认GLBP的虚拟转发器抢占性方案是开启的，有一个30秒的延迟（By default, the GLBP virtual forwarder preemptive scheme is enabled with a delay of 30 seconds）。但这个延迟可由管理员手动调整。
 
-###GLBP的权重
+### GLBP的权重
 
 **GLBP Weighting**
 
@@ -894,7 +894,7 @@ GLBP采用了一种权重方案（a weighting scheme），来确定GLBP组中各
 
 此外，在某个GLBP组（成员）的权重降低到某个值时，还可设置一个阈值，用于关闭数据包的转发，且在权重值上升到另一与之时，又可自动开启转发。在当前活动虚拟转发器的权重掉到低权重阈值30秒时，备份虚拟转发器将成为活动虚拟转发器。
 
-###GLBP负载共同分担
+### GLBP负载共同分担
 
 **GLBP Load Sharing**
 
@@ -912,13 +912,13 @@ GLBP支持以下三种方式的负载分担：
 
 加权的负载分担机制，使用权重值来确定发送到某个特定AVF的流量比例。较高的权重值会带来更频繁的包含那台网关虚拟MAC地址的ARP响应。
 
-###GLBP的客户端缓存
+### GLBP的客户端缓存
 
 GLBP的客户端缓存，包含了使用到某个GLBP组作为默认网关的那些网络主机的信息。此缓存项目包含了关于发送了IPv4 ARP或IPv6 邻居发现（Neighbor Discovery, ND）请求主机，以及AVG指派了哪个转发器给它的信息，还有每台网络主机已被分配的GLBP转发器的编号，和当前分配给GLBP组中各台转发器的网络主机总数。
 
 可以开启某个GLBP组的活动虚拟网关，来存储一个使用到此GLBP组的所有LAN客户端的客户端缓存数据库（a client cache database）。客户端缓存数据库最多可以存储2000个条目，但建议条目数不要超过1000。同时GLBP缓存的配置，是超出CCNA考试要求的，此特性可使用命令`glbp client-cache`进行配置，使用命令`show glbp detail`进行验证。
 
-###在网关上配置GLBP
+### 在网关上配置GLBP
 
 在网关上配置GLBP，需要以下步骤：
 
@@ -1050,7 +1050,7 @@ Vlan192 - Group 1
 
 当在活动虚拟网关上执行时，命令`show glbp`除了展示其它内容外，还会给出备份虚拟网关的地址和组中所有活动虚拟转发器的数目，以及由活动虚拟网关所指派给这些活动虚拟转发器的状态。同时还显示了各台活动虚拟转发器的虚拟MAC地址。
 
-##第34天问题
+## 第34天问题
 
 1. Name two FHRP protocols that are Cisco proprietary.
 2. Name the open standard FHRP protocol.
@@ -1063,7 +1063,7 @@ Vlan192 - Group 1
 9. Just like HSRP, VRRP has the option of allowing the gateway to use the BIA or a statically configured address as the MAC address for VRRP groups. True or false?
 10. Which command can you use to configure a GLBP group IP address on a router interface?
 
-##第34天问题答案
+## 第34天问题答案
 
 1. HSRP and GLBP.
 2. VRRP.
@@ -1076,9 +1076,9 @@ Vlan192 - Group 1
 9. False.
 10. The `glbp [number] ip [virtual address]` command.
 
-##第34天实验
+## 第34天实验
 
-###HSRP实验
+### HSRP实验
 
 在包含了两台直连路由器的场景中（也就是`Fa0/0`连接到`Fa0/0`），对本课程模块中有解释的那些命令进行测试。这两天应都经由比如端口`Fa0/1`，连接到一台交换机。便在交换机上连接一台工作站（workstation）。
 
@@ -1111,11 +1111,11 @@ Vlan192 - Group 1
 - 在一台路由器的主网关状态变化时，使用命令`debug standby`对HSRP进行调试，从而观察另一台是如何被选举为主网关的
 
 
-###VRRP实验
+### VRRP实验
 
 重复上一实验，但这次在适用的命令改变下，用VRRP代替HSRP（repeat the previous lab but this time using VRRP instead of HSRP, with the applicable command changes）。
 
-###GLBP实验
+### GLBP实验
 
 重复第一个实验，在适用的命令改变下，用GLBP代替HSRP。在两台路由器上使用`glbp 10 load-balancing round-robin`命令，配置GLBP的负载共担，并观察LAN中流量是如何同时到达两台路由器的。
 

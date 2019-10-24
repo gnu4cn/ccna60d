@@ -1,10 +1,10 @@
-#第33天
+# 第33天
 
 **以太网通道及链路聚合协议**
 
 **EtherChannels and Link Aggregation Protocols**
 
-##第33天任务
+## 第33天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -29,7 +29,7 @@
 
 - 不同以太网通道技术，EtherChannels
 
-##掌握各种以太网通道
+## 掌握各种以太网通道
 
 **Understanding EtherChannels**
 
@@ -46,7 +46,7 @@
 
 用于自动创建一个以太网通道组（an EtherChannel group）的链路聚合协议有两个：**端口聚合协议**（Port Aggregation Protocol, PAgP）及**链路聚合控制协议**(Link Aggregation Control Protocol, LACP)。**PAgP是一个思科专有协议，同时LACP则是IEEE 802.3ad用于从几条物理链路建立逻辑链路规格的一部分。**本模块中将详细对这两个协议进行讲述。
 
-##端口聚合协议概述
+## 端口聚合协议概述
 
 **Port Aggregation Protocol Overview**
 
@@ -60,7 +60,7 @@
 ![端口聚合协议数据帧](images/3303.png)
 *图 33.3 -- 端口聚合协议数据帧*
 
-##各种PAgP端口模式
+## 各种PAgP端口模式
 
 **PAgP Port Modes**
 
@@ -70,13 +70,13 @@ PAgP支持不同端口模式，而这些端口模式则决定在两台支持PAgP
 
 采用PAgP的交换机以太网通道可被配置为以这两种模式运行：**自动**（`auto`）或**我要**（`desirable`）。这两种PAgP模式的运作，在下面的小节进行说明。
 
-###自动模式
+### 自动模式
 
 **Auto Mode**
 
 自动模式(`auto` mode)是一种仅在该端口接收到一个PAgP数据包时，才与另一PAgP端口进行协商的PAgP端口模式。在此模式开启后，该（这些）端口绝不会发起PAgP通信，而会在与邻居交换机建立一个以太网通道之前，被动地侦听任何接收到的PAgP数据包（when this mode is enabled, the port(s) will never initiate PAgP communications but will instead listen passively for any received PAgP packets before creating an EtherChannel with the neighbouring switch）。
 
-###我要模式
+### 我要模式
 
 **Desirable Mode**
 
@@ -94,7 +94,7 @@ PAgP支持不同端口模式，而这些端口模式则决定在两台支持PAgP
 <tr><td>Desirable</td><td>Desirable</td><td>形成以太网通道</td></tr>
 </table>
 
-##PAgP以太网通道协议数据包的转发
+## PAgP以太网通道协议数据包的转发
 
 **PAgP EtherChannel Protocol Packet Forwarding**
 
@@ -150,7 +150,7 @@ Group  Port-channel  Protocol    Ports
 
 尽管VSS超出了CCNA考试要求范围，了解**只有PAgP才能用于承载VSS控制数据包**是有益处的。因此，如要在一个VSS环境，或者要在一个最终会部署上VSS的环境中部署一些以太网通道，就会打算考虑运行PAgP而不是LACP，因为LACP是一个开放标准，不支持专有的VSS数据帧。本书中不会更为深入地涉及VSS。
 
-##链路聚合控制协议概述
+## 链路聚合控制协议概述
 
 **Link Aggregation Control Protocol Overview**
 
@@ -166,19 +166,19 @@ LACP通过在端口之间交换LACP数据包，实现对端口通道自动创建
 
 *图 33.4 -- IEEE 802.3 LACP数据帧*
 
-##LACP的端口模式
+## LACP的端口模式
 
 **LACP Port Modes**
 
 LACP通过在端口之间交换LACP数据包，实现对端口通道自动建立的支持。而LACP又是通过动态地掌握端口组的各项能力并将其通告给其它端口完成的端口间数据交换。一旦LACP正确地识别出那些匹配的以太网链路，就推进这些链路编组为一个端口通道。而一旦LACP模式得以配置，其仅会在某单个接口被分配到指定通道组时被改变。LACP支持两种模式，**主动**（`acitve`）及**被动**（`passive`）模式。后续小节将对这两种模式的运作进行说明。
 
-###LACP主动模式
+### LACP主动模式
 
 **LACP Active Mode**
 
 LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远端端口发起协商的主动协商状态（an active negotiating state in which the switch port initiates negotiations with remote ports by sending LACP packets）。主动模式与PAgP的`desirable`模式等价。也就是说，在此模式下，交换机端口主动尝试与另一台同样运行LACP的交换机建立以太网通道。
 
-###LACP被动模式
+### LACP被动模式
 
 **LACP Passive Mode**
 
@@ -198,7 +198,7 @@ LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远
 <tr><td>主动模式</td><td>被动模式</td><td>形成以太网通道</td></tr>
 </table>
 
-##以太网通道的负载分配方式
+## 以太网通道的负载分配方式
 
 **EtherChannel Load-Distribution Methods**
 
@@ -224,7 +224,7 @@ LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远
 <tr><td>src-port</td><td>进行基于源第4层端口的负载分配，performs load distribution based on the source Layer 4 port</td></tr>
 </table>
 
-##以太网通道配置准则
+## 以太网通道配置准则
 
 **EtherChannel Configuration Guidelines**
 
@@ -239,7 +239,7 @@ LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远
 - 记住有着不同STP路径开销（由某位管理员所修改的）的那些类似接口，仍可用于组成一个以太网通道。
 - 在开始通道配置之前，建议首先关闭所有成员接口（it is recommended to shut down all member interfaces prior to beginning channelling configuration）。
 
-###配置并验证二层以太网通道
+### 配置并验证二层以太网通道
 
 **Configuring and Verifying Layer 2 EtherChannels**
 
@@ -410,7 +410,7 @@ Protected: false
 Appliance trust: none
 ```
 
-###配置并验证PAgP以太网通道
+### 配置并验证PAgP以太网通道
 
 **Configuring and Verifying PAgP EtherChannels**
 
@@ -540,7 +540,7 @@ Fa0/2   Switch-2    0014.a9e5.d640  Fa0/2   24s SAC     10001
 Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   18s SAC     10001
 ```
 
-###配置并验证LACP以太网通道
+### 配置并验证LACP以太网通道
 
 **Configuring and Verifying LACP EtherChannels**
 
@@ -769,7 +769,7 @@ Switch-1#show lacp sys-id
 1    ,000d.bd06.4100
 ```
 
-##第33天问题
+## 第33天问题
 
 1. What type of ports does a FastEtherChannel contain?
 2. How many ports can a standard EtherChannel contain?
@@ -783,7 +783,7 @@ or false?
 9. LACP automatically configures an administrative key value on each port configured to use LACP. The administrative key defines the ability of a port to aggregate with other ports. Only ports that have the same administrative key are allowed to be aggregated into the same port channel group. True or false?
 10. What is the command used to assign a port to a channel group?
 
-##第33天答案
+## 第33天答案
 
 1. 100 Mbps ports.
 2. Up to eight ports.
@@ -796,9 +796,9 @@ or false?
 9. True.
 10. The `channel-group [number] mode` command in Interface Configuration mode.
 
-##第33天实验
+## 第33天实验
 
-###以太网通道实验
+### 以太网通道实验
 
 **EtherChannel Lab**
 

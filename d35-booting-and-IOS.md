@@ -1,8 +1,8 @@
-#第35天
+# 第35天
 
 **系统引导与IOS**
 
-##第35天任务
+## 第35天任务
 
 - 阅读以下今天的课文
 - 复习昨天的课文
@@ -27,7 +27,7 @@
 - 软件许可，licensing
 - 展示/修改许可证，show/change license
 
-##路由器存储与各种文件
+## 路由器存储与各种文件
 
 下图35.1对路由器内部的主要存储器部件进行了演示。每种存储器都扮演了不同角色，且包含了不同的文件：
 
@@ -120,7 +120,7 @@ Processor board ID 18086064, with hardware revision 00000003
 ![路由器的启动过程](images/3503.png)
 *图 35.3 -- 路由器的启动过程*
 
-##管理IOS
+## 管理IOS
 
 做好一些简单的路由器及交换机日常工作，就可避免许多的网络灾难（many network disasters could have been avoided with simple router and switch housekeeping）。如路由器配置文件对于你及你的业务比较重要，那么就应对其进行备份。
 
@@ -167,7 +167,7 @@ File    Length      Name/status
 
 作者本打算对此方面进行深入，但你应着重于CCNA考试本身及日常工作。不过灾难恢复应在深入研究及实验的目标清单当中。
 
-##各种启动选项
+## 各种启动选项
 
 **Booting Options**
 
@@ -199,7 +199,7 @@ RouterB(config)#boot system tftp: c2500-js-l.121-17.bin ? Hostname or A.B.C.D Ad
 RouterA(config)#boot system tftp:
 ```
 
-##启动过程及加电自检
+## 启动过程及加电自检
 
 **Booting Process and POST**
 
@@ -215,7 +215,7 @@ RouterA(config)#boot system tftp:
 
 在运行路由器上所作的任何修改，就将保存在RAM中，这里就需要手动执行命令`copy running-config startup-config`，令到当前配置作为在每次启动路由器时的启动配置。
 
-##IOS许可
+## IOS许可
 
 **IOS Licensing**
 
@@ -230,7 +230,7 @@ RouterA(config)#boot system tftp:
 
 作者在思科技术支持中心（Technical Assistant Center, TAC）就解决了数不清的那些买了一台路由器及一套IOS软件，却发现到手的产品无法支持其对网络设施所要求的那些特性，而迷惑的或是愤怒的客户。还要记住对于大型、企业网络，必须要提前数月来安排IOS升级，把IOS升级放到一个很小的维护窗口。
 
-##一个新的型号
+## 一个新的型号
 
 **A New Model**
 
@@ -246,7 +246,7 @@ RouterA(config)#boot system tftp:
 ![思科许可证管理器的图形界面](images/3506.png)
 *图 35.6 -- 思科许可证管理器的图形界面（Image Copyright Cisco Systems Inc.）*
 
-##许可证的激活
+## 许可证的激活
 
 **License Activation**
 
@@ -328,7 +328,7 @@ Router#
 
 
 
-##第35天问题
+## 第35天问题
 
 1. Which files would you usually find in DRAM?
 2. Where is the compressed IOS held?
@@ -342,7 +342,7 @@ Router#
 10. What is the purpose of the POST?
 
 
-##第35天答案
+## 第35天答案
 
 1. Uncompressed IOS, running configuration, and routing tables.
 2. On the flash memory.
@@ -356,7 +356,7 @@ Router#
 10. The POST tests the hardware in order to verify that all the components are present and healthy (interfaces, memory, CPU, ASICs, etc.).
 
 
-##第35天实验
+## 第35天实验
 
 对本课程模块中讲到的那些配置命令进行测试：
 

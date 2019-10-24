@@ -1,10 +1,10 @@
-#第37天
+# 第37天
 
 **EIGRP故障排除**
 
 **Troubleshooting EIGRP**
 
-##第37天任务
+## 第37天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -28,7 +28,7 @@
     - 负载均衡，Load balancing
     - 水平分割，Split horizon
 
-##邻居关系故障的排除
+## 邻居关系故障的排除
 
 **Troubleshooting Neighbour Relationships**
 
@@ -200,7 +200,7 @@ Se0/0              0        0/0        0        0/1             0           0
 
 通常在进行故障排除时，都是建议在思科IOS软件中使用`show`命令（`show` commands），而不是`debug`命令（`debug` commands）。虽然调试提供到实时信息，但调试是非常耗费处理器资源的，从而造成设备的高CPU使用率，同时在某些情况下，甚至造成设备设备崩溃。除了这些`show`命令之外，还应对软件所打印出的错误消息加以留意，因为这些消息提供了可用于故障排除及隔离出问题根源的有用信息。
 
-##路由安装的故障排除
+## 路由安装的故障排除
 
 **Troubleshooting Route Installation**
 
@@ -302,7 +302,7 @@ Event information for AS 1:
 
 但邻居`R2`到`192.168.100.0/24`网络的度量值却是`30`。该值要比可行距离`25`要高。那么该路由就不满足可行条件，而不被当作是一条可行后继。但该路由仍将被放入到EIGRP的拓扑表。不过就算该路径的度量值是处于由EIGRP路由器配置命令`variance 2`所指定的范围中，其也不会被用于负载分配。在这类情形中，可考虑使用**EIGRP的偏移清单**，来确保所有路由都被加以考虑（In such situations, consider using **EIGRP offset lists** to ensure that all routes are considered）。
 
-##路由通告的故障排除
+## 路由通告的故障排除
 
 **Troubleshooting Route Advertisement**
 
@@ -425,7 +425,7 @@ D       10.3.0.0 [90/2300416] via 172.16.1.1, 00:00:10, FastEthernet0/0
 D       10.1.0.0 [90/156160] via 172.16.1.1, 00:00:10, FastEthernet0/0
 ```
 
-##EIGRP路由故障的调试
+## EIGRP路由故障的调试
 
 **Debugging EIGRP Routing Issues**
 
@@ -559,7 +559,7 @@ packet
 [Truncated Output]
 ```
 
-##第37天问题
+## 第37天问题
 
 **Day 37 Questions**
 

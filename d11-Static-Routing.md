@@ -1,10 +1,10 @@
-#第11天
+# 第11天
 
 **静态路由**
 
 **Static Routing**
 
-##第11天任务
+## 第11天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -30,7 +30,7 @@
 
 如回头看一下第`10`天中的管理距离表，就会发现手动配置的网络比起路由协议，是首选的路由。这么做的理由就是，作为网络管理员，期望着比任何协议都要对网络有更好的了解，并比任何协议都清楚要达到什么目的。那么现在，就应该明白，在需要达到某种目的时，可以结合动态路由来使用静态路由。
 
-##静态路由配置
+## 静态路由配置
 
 **Configuring Static Routes**
 
@@ -73,7 +73,7 @@ Router(config)#ip route 0.0.0.0 0.0.0.0 s0/0
 上面的路由实际上就是一条默认路由（a default route）。默认路由用于引导那些未在路由表中显式列出的目的网络的数据包。
 
 
-###静态IPv6路由的配置
+### 静态IPv6路由的配置
 
 **Configuring Static IPv6 Routes**
 
@@ -116,7 +116,7 @@ Code: * - installed in RIB
 * 3FFF:1234:ABCD:1::/64 via interface FastEthernet0/0, distance 1
 ```
 
-##静态路由排错
+## 静态路由排错
 
 **Troubleshooting Satic Routes**
 
@@ -124,7 +124,7 @@ Code: * - installed in RIB
 
 > **注意** -- 今天内容很少，所以请前往第12天吧，因为那将是个非常充实的主题。
 
-##第11天问题
+## 第11天问题
 
 1. Name the three parameters needed to configure a static route.
 2. What is the command used to configure a static route?
@@ -132,7 +132,7 @@ Code: * - installed in RIB
 4. What is the command used to configure an IPv6 static route?
 5. What is the command used to view IPv6 static routes?
 
-##第11天答案
+## 第11天答案
 
 1. Network address, subnet mask (prefix length), and next-hop address or exit interface.
 2. The `ip route` command.
@@ -140,9 +140,9 @@ Code: * - installed in RIB
 4. The `ipv6 route` command.
 5. The `show ipv6 route static` command.
 
-##第11天实验
+## 第11天实验
 
-###静态路由实验
+### 静态路由实验
 
 **Static Routes Lab**
 

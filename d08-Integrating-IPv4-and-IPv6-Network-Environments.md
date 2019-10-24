@@ -1,10 +1,10 @@
-#第8天
+# 第8天
 
 **IPv4与IPv6共存的网络环境**
 
 **Integrating IPv4 and IPv6 Network Environments**
 
-##第8天任务
+## 第8天任务
 
 - 阅读下面的理论课文
 - 阅读ICND1记诵手册
@@ -53,7 +53,7 @@
 
 这个课程模块的剩余部分，将详细地介绍集成IPv4与IPv6网络的**双栈部署**与**隧道技术**。包括特定于思科IOS软件的一些配置示例。
 
-##IPv4与IPv6的双栈部署
+## IPv4与IPv6的双栈部署
 
 在双栈部署方案下，尽管某些主机有着采用IPv4和IPv6两种协议栈的能力，但在确定何时采用IPv6而不是IPv4协议栈时，这些主机仍需一些帮助。幸运的是，有两种方法可以实现，这两种方法如下：
 
@@ -61,7 +61,7 @@
 
 - 那么第二种方式就需要使用某种命名服务，比如DNS。使用此种方法，就要同时使用IPv4和IPv6地址，来配置完全合格的域名（Full Qualified Domain Names, FQDNs），比如[www.howtonetwork.com](http://www.howtonetwork.com)。FQDN是由一个IPv4协议栈的`A`记录（an `A` record for the IPv4 protocol stack）, 以及一个IPv6协议栈的`AAAA`记录表示的，这样的FQDN就令到DNS服务器既可使用IPv4, 又可使用IPv6进行查询了。
 
-###在思科IOS路由器中部署双栈支持 
+### 在思科IOS路由器中部署双栈支持 
  
 尽管对那些不同厂商的具备双栈部署支持的不同类型主机的不同配置方式的讨论，是超出CCNA考试要求范围的。但作为一名未来的网络工程师，掌握如何在思科IOS软件下部署各种双栈方案，是强制性的（imperative to understand how to implement dual-stack solutions in Cisco IOS software）。在思科IOS路由器中，双栈运作的启用，通过简单地在路由器接口上配置好IPv4及IPv6即可。
 
@@ -131,7 +131,7 @@ R3#show ipv6 interface FastEthernet0/0 | section address
     Hosts use stateless autoconfig for addresses.
 ```
 
-###思科IOS软件中配置静态IPv4及IPv6主机地址
+### 思科IOS软件中配置静态IPv4及IPv6主机地址
 
 思科IOS软件通过使用全局配置命令`ip host [name] [v4-address]`及`ipv6 host [name] [v6-address]`, 而提供了对相应的静态IPv4与IPv6主机地址配置的支持。下面的示例演示了在思科IOS软件中，如何配置静态IPv4及IPv6的主机名字与地址：
 
@@ -162,7 +162,7 @@ Sending 10, 100-byte ICMP Echos to 3FFF:1234:ABCD:1::3, timeout is 2 seconds:
 Success rate is 100 percent (10/10), round-trip min/avg/max = 0/1/4 ms
 ```
 
-###在思科IOS软件中配置IPv4及IPv6的DNS服务器
+### 在思科IOS软件中配置IPv4及IPv6的DNS服务器
 
 思科IOS软件中IPv4与IPv6 DNS服务器的配置，都依然是使用全局配置命令`ip name-server [address]`。不过这条命令现在已修改为允许将一个IPv4或IPv6地址，指定为DNS服务器的IP地址。下面的示例演示了如何将路由器配置为同时使用一台IPv4及IPv6 DNS服务器：
 
@@ -176,7 +176,7 @@ R1(config)#ip name-server 192.168.1.2
 
 > **注意**：正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找`AAAA`记录（也就是IPv6）。在如果未找到`AAAA`记录，主机就会查找一条`A`记录，以与该主机名进行通信。
 
-##经由IPv4网络对IPv6数据报进行隧道传输
+## 经由IPv4网络对IPv6数据报进行隧道传输
 
 **Tunnelling IPv6 Datagrams across IPv4 Networks**
 
@@ -212,7 +212,7 @@ R1(config)#ip name-server 192.168.1.2
 - 通用路由封装隧道技术，Generic Routing Encapsulation tunnelling
 
 
-##第8天问题
+## 第8天问题
 
 1. Name three IPv4 to IPv6 transition mechanism classes.
 2. `_______` implementation is required when internetwork devices and hosts use both protocol stacks (i.e., IPv4 and IPv6) at the same time.
@@ -223,7 +223,7 @@ R1(config)#ip name-server 192.168.1.2
 7. Which command is used to configure an IPv6 DNS server?
 8. `_______` entails encapsulating the IPv6 packets or datagrams and sending them over IPv4 networks.
 
-##第8天答案
+## 第8天答案
 
 1. Dual-stack implementation, tunnelling, and protocol translation.
 2. Dual-stack.
@@ -234,9 +234,9 @@ R1(config)#ip name-server 192.168.1.2
 7. The `ip name-server` command.
 8. Tunnelling.
 
-##第8天实验
+## 第8天实验
 
-###IPv4 - IPv6 基础集成实验
+### IPv4 - IPv6 基础集成实验
 
 在两台直连的思科路由器上，对本课程模块中讲到的一些IPv6概念与命令进行测试：
 
@@ -252,6 +252,6 @@ R1(config)#ip name-server 192.168.1.2
 
 - 在两台路由器上配置IPv4及IPv6的DNS服务器
 
-###IPv4 - IPv6 隧道技术实验
+### IPv4 - IPv6 隧道技术实验
 
 在家庭网络环境下，重现“通过IPv4进行IPv6的隧道传输”小节的场景（包括所有的机制）。要依循该小节中所呈现的事件顺序。可访问[www.in60days.com](http://www.in60days.com/)，看看作者是如何完成这个实验的。

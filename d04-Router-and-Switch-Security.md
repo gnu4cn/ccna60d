@@ -81,7 +81,7 @@ Router(config-line)#login local
 
 你还可以为控制台（以及虚拟终端）线路创建一个超时值，如此就可以在确定的时间过后断开连接。默认的超时是`5`分钟。
 
-```
+```console
 Router(config)#line console 0
 Router(config-line)#exec-timeout ?
     <0-35791>   Timeout in minutes

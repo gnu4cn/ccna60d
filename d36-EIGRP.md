@@ -1,10 +1,10 @@
-#第36天
+# 第36天
 
 **增强的内部网关路由协议**
 
 **Enhanced Interior Gateway Routing Protocol, EIGRP**
 
-##第36天任务
+## 第36天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -45,7 +45,7 @@
     - 开销不同时
 - 什么是EIGRP的被动接口，passive interfaces
 
-##思科EIGRP概述与基础知识
+## 思科EIGRP概述与基础知识
 
 为解决其先前的专有距离矢量路由协议 -- 内部网关路由协议（Interior Gateway Routing Protocol, IGRP）的某些缺陷，思科公司开发了EIGRP。相比路由信息协议（Routing Information Protocol, RIP），IGRP确实有着一些改进，比如对更多跳数的支持；但仍然有着那些传统距离矢量路由协议的局限，这些局限如下所示：
 
@@ -65,7 +65,7 @@
 
 而为了确保整个网络中没有环回路径，EIGRP使用了**弥散更新算法**（Diffusing Update Algorithm, DUAL），使用此算法来对邻居通告的所有路由进行追踪，并随后选出到目的网络最优的无环回路径。弥散更新算法是EIGRP的一个核心概念，将在本课程模块的稍后讲到。
 
-##EIGRP配置基础
+## EIGRP配置基础
 
 **EIGRP Configuration Fundamentals**
 
@@ -372,7 +372,7 @@ Distance: internal 90 external 170
 
 本小节将对EIGRP所用到的各种类型的报文进行说明。但是，在深入到各种不同报文类型前，首要的是对EIGRP数据包头部有扎实的掌握，这正是包含这些报文的地方。
 
-###EIGRP数据包头部
+### EIGRP数据包头部
 
 **EIGRP Packet Header**
 
@@ -404,7 +404,7 @@ Distance: internal 90 external 170
 
 在该EIGRP数据包头部，4位的OPCode字段被用于指明该EIGRP数据包类型或报文。EIGRP使用到不同的报文或数据包类型，它们是**Hello数据包**（Hello packets）、**确认数据包**（Acknowledgment packets）、**更新数据包**（Update packets）、**查询数据包**（Query packets）、**应答数据包**（Reply packets）以及**请求数据包**（Request packets），共计6种报文或数据包类型。将在随后的小节对这些类型的数据包进行说明。
 
-###Hello数据包
+### Hello数据包
 
 **Hello Packets**
 
@@ -412,13 +412,13 @@ Distance: internal 90 external 170
 
 EIGRP的Hello数据包，是发送到**链路本地多播组地址（the Link Local Multicast group address）`224.0.0.10`**上的。由EIGRP发出的Hello数据包，是**不需要发出确认数据包来确认其已收到**的（Hello packets sent by EIGRP do not require an Acknowledgment to be sent confirming that they were received）。因为Hello数据包不需要显式的确认，所以它们被分类为**不可靠的EIGRP数据包**（Hello packets are classified as unreliable EIGRP packets）。EIGRP Hello数据包的**OPCode为5**。
 
-###确认数据包
+### 确认数据包
 
 **Acknowledgment Packets**
 
 EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。EIGRP使用确认数据包来对EIGRP数据包的可靠送达进行确认。这些确认数据包（the ACK packets）总是发送到一个单播地址（a Unicast address）, 该地址就是可靠数据包发送方的源地址（the source address of the sender of the reliable packet），而并不是EIGRP的多播组地址了。此外，确认数据包将总是会包含一个非零的确认编号（a non-zero acknowledgment number）。确认数据包使用了Hello数据包相同的OPCode, 因为其本来就是一个不包含任何信息的Hello数据包。其OPCode为5。
 
-###更新数据包
+### 更新数据包
 
 **Update Packets**
 
@@ -429,19 +429,19 @@ EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。
 
 > **注意**：并不要求对EIGRP各种数据包中的所包含的信息有深入了解。
 
-###查询数据包
+### 查询数据包
 
 **Query Packets**
 
 增强IGRP的查询数据包是多播的，并被用于请求可靠的路由信息。EIGRP的查询数据包是在某条路由不可用，但该路由器却需要为快速收敛，而需要就该路由的状态进行询问时，所发送给其邻居的数据包。如发出查询数据包的路由器未能从其某些邻居收到响应，那么其就会再度向那些未响应的邻居发出一次查询。如在16次尝试后都没有响应，那么该EIGRP邻居关系将被重置。本课程模块后面将对此概念进行更为深入的说明。分配给EIGRP**查询数据包的OPCode为3**。
 
-###应答数据包
+### 应答数据包
 
 **Reply Packets**
 
 增强IGRP的应答数据包是作为对查询数据包的响应发送的。应答数据包用于可靠地响应某个查询数据包。应答数据包是到查询发起方的单播数据包。分配给EIGRP**应答数据包的OPCode为4**。
 
-###请求数据包
+### 请求数据包
 
 **Request Packets**
 
@@ -501,13 +501,13 @@ IP-EIGRP Traffic Statistics for AS 150
 | 应答数据包（Reply） | 用于对查询数据包的响应 | 可靠的 |
 | 请求数据包（Request） | 用于路由服务器应用中的信息请求 | 不可靠 |
 
-##EIGRP的邻居发现与邻居维护
+## EIGRP的邻居发现与邻居维护
 
 **EIGRP Neighbour Discovery and Maintenance**
 
 可将增强的IGRP配置为动态地发现相邻路由器（这是默认选项）（discover neighbouring routers dynamically(default)），或者经由管理员手动配置来发现相邻路由器。下面的小节将对这两种方式，以及其它有关EIGRP邻居相关话题，进行讨论。
 
-###动态的邻居发现
+### 动态的邻居发现
 
 **Dynamic Neighbour Discovery**
 
@@ -548,7 +548,7 @@ Fa0/0            1        0/0        1        0/1            50             0
 
 > **注意**：`show ip eigrp neighbours`命令将在后面讲到。在查看`show ip eigrp interfaces detail <name>`命令的输出时，要注意因为EIGRP同时用到多播及单播数据包（both Multicast and Unicast packets），所以该命令的计数器将包含两种类型数据包的数值，如上面输出所示。
 
-###静态的邻居发现
+### 静态的邻居发现
 
 **Static Neighbour Discovery**
 
@@ -603,7 +603,7 @@ Fa0/0            1        0/0        2        0/1            50             0
 
 此外，可使用`show ip eigrp neighbours [detail]`命令来判断EIGRP邻居的类型。在本课程模块的后面将对此命令进行详细讲解。
 
-###EIGRP的Hello及保持计时器
+### EIGRP的Hello及保持计时器
 
 **EIGRP Hello and Hold Timers**
 
@@ -638,7 +638,7 @@ Fa0/0            1        0/0        7        0/1            50             0
 
 调整默认EIGRP计时器数值的最常见原因，就是要加速路由协议的收敛。比如在一条低速WAN链路上，180秒的保持时间将是一个在EIGRP宣告某台邻居路由器宕机之前，所要等待的相当长的时间。相反，在某些情形中，为了确保得到一个稳定的路由拓扑，就可能有必要在某些高速链路上增加EIGRP计时器数值。在部署某种活动粘滞路由方案（a solution for Stuck-In-Active routes）时，这是常见的做法。本课程模块后面或详细讲解活动粘滞路由。
 
-###EIGRP的邻居表
+### EIGRP的邻居表
 
 **EIGRP Neighbour Table**
 
@@ -712,7 +712,7 @@ Static Address           Interface
 192.168.1.3              FastEthernet0/0
 ```
 
-###可靠传输协议
+### 可靠传输协议
 
 **Reliable Transport Protocol**
 
@@ -733,7 +733,7 @@ Static Address           Interface
 
 > **注意**：当前的CCNA考试不要求对MFT及RTO有深入了解。
 
-##各种度量值、弥散更新算法及拓扑表
+## 各种度量值、弥散更新算法及拓扑表
 
 **Metrics, DUAL, and the Topology Table**
 
@@ -741,7 +741,7 @@ Static Address           Interface
 
 在那之后，将学习到**弥散更新算法**（the Diffusing Update Algorithm, DUAL）与**EIGRP的拓扑表**。此小节包括了一个有关如何在一台运行着EIGRP的路由器上，将所有这些信息进行配合，以最终产生出IP路由表的讨论。
 
-###EIGRP综合度量值的计算
+### EIGRP综合度量值的计算
 
 **EIGRP Composite Metric Calculation**
 
@@ -785,7 +785,7 @@ Routing Protocol is “eigrp 150”
 
 > **注意**：不建议对这些默认的K值进行调整。对这些K值的调整，只应在那些对网络中这类行为造成的后果有扎实了解老练的高级工程师的指导下，或在思科公司技术支持中心的建议下完成。
 
-###使用接口带宽来影响EIGRP的度量值
+### 使用接口带宽来影响EIGRP的度量值
 
 **Using Interface Bandwidth to Influence EIGRP Metric Calculation**
 
@@ -851,7 +851,7 @@ Routing entry for 172.16.100.0/24
 
 总的来说，在应用带宽命令`bandwidth`对EIGRP的度量值计算施加影响时，重要的是记住，EIGRP会使用到目的网络路径上的最小带宽，以及延迟的累计值，来计算路由度量值（EIGRP uses the minimum bandwidth on the path to a destination network, along with the cumulative delay, to compute routing metrics）。同时还要对网络拓扑有牢固掌握，以对在何处使用`bandwidth`命令，从而实现对EIGRP度量值计算的影响。**但在真实世界中，对EIGRP度量值施加影响的首选方法，不是修改带宽，而是修改延迟**。
 
-###运用接口的延迟来对EIGRP的度量值计算进行影响
+### 运用接口的延迟来对EIGRP的度量值计算进行影响
 
 **Using Interface Delay to Influence EIGRP Metric Calculation**
 
@@ -972,7 +972,7 @@ Routing entry for 172.16.100.0/24
 
 而经由`Serial0/1`的路径，则被保留在拓扑表中，作为到该网络的一条替代路径（an alternate path）。
 
-###关于弥散更新算法
+### 关于弥散更新算法
 
 **The Diffusing Update Algorithm(DUAL)**
 
@@ -1012,7 +1012,7 @@ Routing entry for 172.16.100.0/24
 
 而当目的网络的可行后继路由器不存在时，本地路由器将向邻居路由器发出一次查询，对邻居路由器是否有着关于目的网络的信息。如邻居路由器有该信息，同时另一路由器确实有着到目的网络的路由，此时该路由器将执行一次**弥散运算**，以确定出一台新的后继路由器（If the information is available and another neighbour does have a route to the destination network, then the router performs **a diffusing computation** to determine a new Successor）。
 
-##EIGRP的拓扑表
+## EIGRP的拓扑表
 
 **The EIGRP Topology Table**
 
@@ -1143,7 +1143,7 @@ Cleaning up
 > **注意**：重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
 
 
-##相等开销及不相等开销下的负载均衡
+## 相等开销及不相等开销下的负载均衡
 
 **Equal Cost and Unequal Cost Load Sharing**
 
@@ -1370,7 +1370,7 @@ Routing entry for 172.16.100.0/24
 
 如上面的输出所示，基于该种不同开销下的负载均衡配置，两条不同度量值的路由，已被安装到路由表中。但注意到经由`Serial0/1`的流量分享计数（the traffic share count）是0，而经由`Serial0/0`的计数为1。这就意味着，尽管该路由条目已被安装到路由表中, 该路由器不会通过`Serial0/1`，向`172.16.100.0/24`网络发送任何数据包，除非经由`Serial0/0`的路径不再可用。
 
-##使用EIGRP作默认路由
+## 使用EIGRP作默认路由
 
 **Default Routing Using EIGRP**
 
@@ -1551,7 +1551,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 ```
 
-##EIGRP网络中的水平分割
+## EIGRP网络中的水平分割
 
 **Split Horizon in EIGRP Networks**
 
@@ -1685,7 +1685,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 
 因为EIGRP默认路由与静态邻居方面的配置在本课程模块的前面小节都已详细介绍过了，所以这里为了简洁期间，这些特性的配置就做了省略处理。
 
-##EIGRP的路由汇总
+## EIGRP的路由汇总
 
 **EIGRP Route Summarisation**
 
@@ -2339,7 +2339,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
 
-##什么是被动接口
+## 什么是被动接口
 
 **Understanding Passive Interface**
 
@@ -2491,7 +2491,7 @@ H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
 0   150.1.1.2    Se0/0      12    00:02:47  1     3000   0      69
 ```
 
-##掌握EIGRP路由器ID的用法
+## 掌握EIGRP路由器ID的用法
 
 **Understanding the Use of the EIGRP Router ID**
 
@@ -2596,7 +2596,7 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
       Hop count is 1
 ```
 
-##第36天问题
+## 第36天问题
 
 1. You can see the ASN with the `show ip _______` command.
 2. Every router you want to communicate with in your routing domain must have a different ASN. True or false?
@@ -2609,7 +2609,7 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 9. Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols. True or false?
 10. What EIGRP command can be used to enable unequal cost load sharing?
 
-##第36天问题答案
+## 第36天问题答案
 
 1. `protocols`.
 2. False.
@@ -2622,19 +2622,19 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 9. True.
 10. The `variance` command.
 
-##第36天实验
+## 第36天实验
 
 **EIGRP的实验**
 
-###拓扑图
+### 拓扑图
 
 ![EIGRP实验拓扑图](images/3622.png)
 
-###实验目的
+### 实验目的
 
 学习如何配置基本的EIGRP。
 
-###实验步骤
+### 实验步骤
 
 1. 基于上面的拓扑，配置上所有IP地址。确保可以经由串行链路`ping`通。
 2. 在两台路由器上以自治系统编号30, 配置EIGRP。

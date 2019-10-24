@@ -1,10 +1,10 @@
-#第15天
+# 第15天
 
 **一二层排错**
 
 **Layer 1 and Layer 2 Troubleshooting**
 
-##第15天任务
+## 第15天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -42,13 +42,13 @@ LAN交换是一种用在局域网中的包交换形式。LAN交换是在数据�
     - 验证封装类型是正确配置的, verify that encapsulation is configured correctly
     - 验证那些VLANs是被放行的，verify that VLANs are allowed
 
-##物理层上的排错
+## 物理层上的排错
 
 **Troubleshooting at the Phycical Layer**
 
 思科IOS交换机支持好几个可用于一层，或至少怀疑是一层故障排错的命令。但是，除了对这些软件命令工具包要熟悉外，对可用于链路状态排错，或示出错误情形的物理指示器（也就是那些LEDs）的掌握，也是重要的。
 
-###使用发光二极管（LEDs）的链路状态排错
+### 使用发光二极管（LEDs）的链路状态排错
 
 **Troubleshooting Link Status Using Light Emitting Diodes(LEDs)**
 
@@ -163,7 +163,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 在某条链路或某个端口LED颜色不是绿色时，就往往表明某种失效或其它故障，而重要的是记住**一条链路发出绿光也并不总意味着网线是完全没有问题的**。比如，只有一根线坏掉或是一个关闭端口，就可能导致一侧显示线路绿色光而另一侧不显示绿色绿色光。这可能是因为网线出现了物理压力而引起该网线具备临界级别的功能。在这种情况下，就可以使用CLI来完成额外的派错。
 
-###线缆故障排错
+### 线缆故障排错
 
 **Troubleshooting Cable Issues**
 
@@ -189,7 +189,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 > **注意：**就算是全新的网线有时也有问题，所以不要假定一根新网线就会如预期那样起作用。
 
 
-###模块故障的排错
+### 模块故障的排错
 
 **Troubleshooting Module Issues**
 
@@ -225,7 +225,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 为令到连接停机时间最低，就应检测那些插入了SFP模块的端口，以观察出现在统计信息中的可能错误。而这可通过标准监测工具完成，最常用的就是SNMP。
 
-##使用命令行接口来对链路故障进行排错
+## 使用命令行接口来对链路故障进行排错
 
 **Using the Command Line Interface to Troubleshoot Link Issues**
 
@@ -378,7 +378,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 > **注意：**根据该命令执行所在平台的不同，上面的输出会略有不同。比如，Catalyst 3650系列交换机还包含了一个`Discarded frames`字段，该字段显示因资源不可用而导致的放弃传输尝试的帧总数（a `Discarded frames` field, which shows the total number of frames whose transmission attempt is abandoned due to insufficient resources）。该字段中出现了较大的数值就典型地表明存在网络壅塞故障（a network congestion issue）。在上面的输出中，应探究一下`RxPortFifoFull drop`帧字段，该字段表示因为入口队列充满而丢弃的接口所接收到的帧总数（the `RxPortFifoFull drop` frame field, which indicates the total number of frames received on an interface that are dropped because the ingress queue is full）。
 
-###端口配置排错
+### 端口配置排错
 
 **Troubleshooting Port Configuration**
 
@@ -405,7 +405,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 通过对上述的端口配置选项进行检查，以及确保链路两端的所有参数都保持同步，那么就可以肯定所连接设备的连通性及流量吞吐都将是最优的。
 
-##VLANs及中继排错
+## VLANs及中继排错
 
 **Troubleshooting VLANs and Trunking**
 
@@ -439,7 +439,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 最后，如同其它技术一样，**不正确的配置同样会直接或间接地造成连通性问题**。比如，根桥放置粗劣就会导致慢速用户连通性。而将一台不当配置的交换机直接加入到生产网络，则会导致一些或全部用户的网络连接完全中断（the poor placement of the Root Bridge may result in slow connectivity for users. Directly integrating or adding an incorrectly configured switch into the production network could result in an outright outage for some or all users）。下面的小节对一些常见的VLAN相关故障、其可能的原因，以及为排除这些故障可采取的做法，进行了讲解。
 
-###动态VLAN通告排错
+### 动态VLAN通告排错
 
 **Troubleshooting Dynamic VLAN Advertisements**
 
@@ -563,7 +563,7 @@ MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 
 因此，如想知道为何加入到VTP域中的交换机没有接收任何的VLAN信息，那么可能是该交换机已有一个较高的配置修订号，而导致所有其它交换机覆写了它们的本地VLAN信息，并将本地VLAN信息替换成了接收自新交换机的通告报文中的VLAN信息。为避免此种情形，**在将新的交换机加入到某VTP域之前，总是要确保其配置修订号被设置为0。**这可以通过在该交换机上修改VTP模式或修改VTP域名称完成。配置修订号在命令`show vtp status`的输出中有包含。
 
-###VLAN内部端到端连接丢失
+### VLAN内部端到端连接丢失
 
 **Troubleshooting Loss of End-to-End Intra-VLAN Connectivity**
 
@@ -658,7 +658,7 @@ Appliance trust: none
 
 如之前小节所说到的，网络中一台新交换机的加入，可能导致管理域中VLAN信息的丢失（the integration of a new switch into the network can result in a loss of VLAN information in the management domain）。而此VLAN信息丢失又可能导致同一VLAN中设备间连通性的丢失。所以在将新交换机加入到LAN之前，一定要确保其配置修订号被重置到0。
 
-###使用“show vlan”命令
+### 使用“show vlan”命令
 
 **Using the "show vlan" Command**
 
@@ -808,7 +808,7 @@ Fa0/12                0                  1                        0
 
 *VTP Join报文及VTP修剪*
  
-##第15天问题
+## 第15天问题
 
 1. What is the colour of the system LED under normal system operations?
 2. What is the colour of the RPS LED during a fault condition?
@@ -822,7 +822,7 @@ Fa0/12                0                  1                        0
 10. Which command prints a brief status of all active VLANs?
 
 
-##第15天答案
+## 第15天答案
 
 1. Green.
 2. Amber.
@@ -835,9 +835,9 @@ Fa0/12                0                  1                        0
 9. `show interfaces [name] counters errors`.
 10. The `show vlan brief`command.
 
-##第15天实验
+## 第15天实验
 
-###一层排错实验
+### 一层排错实验
 
 在真实设备上对本模块中提到的一层排错相关命令进行测试。
 
@@ -845,7 +845,7 @@ Fa0/12                0                  1                        0
     - 执行一下`show interface`命令，并对本模块中所说明的有关信息进行查证
     - 对`show controllers`及`show interface counters errors`进行同样的执行
 
-###二层排错使用
+### 二层排错使用
 
 在真实设备上对本模块中提到的二层排错相关命令进行测试。
 

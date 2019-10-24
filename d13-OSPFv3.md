@@ -1,8 +1,8 @@
-#第13天
+# 第13天
 
 **OSPF版本3**
 
-##第13天任务
+## 第13天任务
 
 - 阅读今天的理论课文
 - 回顾昨天的理论课文
@@ -17,7 +17,7 @@
 - 路由器ID
 - 被动接口
 
-##OSPF第3版
+## OSPF第3版
 
 **OSPF Version 3**
 
@@ -42,7 +42,7 @@
 - `OSPFv3`利用到IPv6内建的`IPSec`的能力，并将AH和ESP扩展头部用着一种的认证机制，而不是想在`OSPFv2`中可配置的为数众多的认证机制（OSPFv3 leverages the built-in capabilities of IPSec and uses the AH and ESP extension headers as an authentication mechanism instead of the numerous authentication mechanisms configurable in OSPFv2）。因此，在`OSPFv3`的OSPF数据包中，那些认证和AuType字段就被移除了。
 - 最终的最后一个明显区别就是，`OSPFv3` `Hello`数据包现在不包含任何地址信息，而是包含了一个接口ID，该接口ID是发出`Hello`数据包路由器分配的，用于对链路做其接口的唯一区分。此接口ID成为网络LSA（the Network LSA）的链路状态ID（Link State ID）, 判断该路由器是否应成为该链路上的指定路由器（This interface ID becomes the Network LSA's Link State ID, should the router become the Designated Router on the link）。
 
-##思科IOS软件的OSPFv2和OSPFv3配置差异
+## 思科IOS软件的OSPFv2和OSPFv3配置差异
  
 **Cisco IOS Software OSPFv2 and OSPFv3 Configuration Differences**
 
@@ -69,7 +69,7 @@ R1(config-if)#ipv6 ospf neighbor FE80::205:5EFF:FE6E:5C80
 R1(config-if)#exit
 ```
 
-###思科IOS软件中OSPFv3的配置和验证
+### 思科IOS软件中OSPFv3的配置和验证
 
 **Configuring and Verifying OSPFv3 in Cisco IOS Software**
 
@@ -149,7 +149,7 @@ Neighbor 3.3.3.3
 
 在上面的输出中，注意真实的邻居地址是本地链路地址，而不是所配置的全球IPv6单播地址。
  
-##第13天问题
+## 第13天问题
 
 1. Both OSPFv2 and OSPFv3 can run on the same router. True or false?
 2. OSPFv2 and OSPFv3 use different LSA flooding and aging mechanisms. True or false?
@@ -160,7 +160,7 @@ Neighbor 3.3.3.3
 7. Which command would you use to see the OSPFv3 LSDB?
 8. A significant difference between OSPFv2 and OSPFv3 is that the OSPFv3 Hello packet now contains no address information at all but includes an interface ID, which the originating router has assigned to uniquely identify its interface to the link. True or false?
  
-##第13天答案
+## 第13天答案
  
 1. True.
 2. False.
@@ -171,9 +171,9 @@ Neighbor 3.3.3.3
 7. The `show ipv6 ospf database`
 8. True.
 
-##第13天实验
+## 第13天实验
  
-###OSPFv3基础实验
+### OSPFv3基础实验
  
 重复第`12`天的实验场景（两台路由器直连，各自又有环回接口），但以配置IPv6地址并在设备间使用OSPFv3对这些地址进行通告，取代配置IPv4的OSPF。
 

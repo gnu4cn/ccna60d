@@ -1,10 +1,10 @@
-#第38天
+# 第38天
 
 **EIGRP对IPv6的支持**
 
 **EIGRP For IPv6**
 
-##第38天任务
+## 第38天任务
 
 - 阅读今天的课文（以下内容）
 - 复习EIGRP模块
@@ -207,7 +207,7 @@ EIGRP-IPv6 Protocol for AS(1)
   Redistribution:
 ```
 
-##第38天问题
+## 第38天问题
 
 1. IPv6 security for EIGRPv6 is built-in. True or false?
 2. Because EIGRPv6 uses the Link-Local address of the neighbour as the next-hop address, the global IPv6 Unicast subnets do not need to be the same in order for a neighbour relationship to be established between two routers that reside within the same autonomous system and are on a common network segment. True or false?
@@ -216,7 +216,7 @@ EIGRP-IPv6 Protocol for AS(1)
 5. How do you enable EIGRP for IPv6 on a router interface?
 
 
-##第38天答案
+## 第38天答案
 
 1. True.
 2. True.
@@ -224,7 +224,7 @@ EIGRP-IPv6 Protocol for AS(1)
 4. The shutdown state.
 5. Issue the `ipv6 eigrp [ASN]` command.
 
-##第38天实验
+## 第38天实验
 
 请重复第36天的EIGRP实验，不过这次要使用IPv6地址并激活IPv6下的EIGRP-IPV6：
 

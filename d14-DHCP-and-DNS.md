@@ -1,8 +1,8 @@
-#第14天
+# 第14天
 
 **DHCP及DNS**
 
-##第14天任务
+## 第14天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
@@ -31,11 +31,11 @@
     - 排除的地址, excluded addresses
     - 租期，lease time
 
-##DHCP功能
+## DHCP功能
 
 **DHCP Functionality**
 
-###DHCP操作
+### DHCP操作
 
 **DHCP Operations**
 
@@ -78,7 +78,7 @@ DHCP服务器可被配置为在一个名为租期的特定时期，赋予某台�
 3. **DHCP确认数据包**（DHCP ACK packet）, 选中的那台DHCP服务器发出另一个广播报文，来确认给那台特定客户端的地址分配，再度用到UDP源端口`bootps 67`及目的端口`bootpc 68`。
 
 
-###DHCP的预订
+### DHCP的预订
  
 **DHCP Reservations**
 
@@ -107,7 +107,7 @@ DHCP服务器可被配置为以几种不同方式提供IP地址，包括下面�
 
 DHCP服务器的IP地址静态分配，是指定义出一些期望在网络上出现的MAC地址，并手动为这些MAC地址都分配上一个唯一IP地址，因此就管理性地建立起一张`MAC-to-IP`关联表。这通常在服务器环境中用到，因为服务器必须使用可预期的IP地址，以可供访问。
 
-###DHCP范围
+### DHCP范围
 
 **DHCP Scopes**
 
@@ -126,7 +126,7 @@ DHCP服务器的IP地址静态分配，是指定义出一些期望在网络上�
 
 依据所使用的DHCP服务器，也可以使用不同参数，创建出不同的范围，而这通常与不同子网有关。
 
-###DHCP租期
+### DHCP租期
 
 **DHCP Leases**
 
@@ -152,7 +152,7 @@ DHCP租期关乎每次DHCP分配，限定允许用户使用一个分配到的1P�
 
 *图14.3 -- DHCP租期计时器*
 
-###DHCP选项
+### DHCP选项
  
 **DHCP Options**
 
@@ -173,11 +173,11 @@ DHCP提供了`256`选项值，其中仅`254`个是可用的，因为`0`是垫底
 
 所有这些选项都是直接在DHCP服务器上配置，但不是所有DHCP服务器都提供了设置DHCP选项的能力。如网络管理员要用到这些特性，就应该采用一种企业级别的DHCP服务器。在将小型路由器作为家庭办公环境的DHCP服务器是，就可能不会有这些功能上的益处。
 
-##配置DHCP
+## 配置DHCP
  
 **Configuring DHCP**
 
-###思科路由器上的DHCP服务器
+### 思科路由器上的DHCP服务器
  
 **DHCP Servers on Cisco Routers**
 
@@ -225,7 +225,7 @@ IP address      Client-ID/  Lease expiration    Type    Hardware address/
 
 在上面的输出中，由该DHCP服务器服务的是单独一台客户端，同时分到到DHCP范围的第一个非排除IP地址：`192.168.1.2`。还可以看到租期超时日期及设备MAC地址。
 
-###思科路由器上的DHCP客户端
+### 思科路由器上的DHCP客户端
  
 **DHCP Clients on Cisco Routers**
 
@@ -253,7 +253,7 @@ FastEthernet0/0 10.10.10.2  YES DHCP    up                      up
 FastEthernet0/1 unassigned  YES unset   administratively down   down
 ```
 
-###DHCP数据包分析
+### DHCP数据包分析
  
 **DHCP Packet Analysis**
 
@@ -303,7 +303,7 @@ DHCP分配过程的最后数据包就是由服务器发出的DCHP确认数据包
     - DNS服务器：`8.8.8.8`
     - 域名：`Network+`
 
-##DHCP故障排除
+## DHCP故障排除
 
 **Troubleshooting DHCP Issues**
 
@@ -320,7 +320,7 @@ debug ip dhcp server events
 debug ip dhcp server packet
 ```
 
-###DNS操作
+### DNS操作
 
 **DNS Operations**
 
@@ -328,7 +328,7 @@ DNS将主机名映射到IP地址（而不是反过来）。这就允许你在web
 
 在主机或路由器想要将一个域名解析到IP地址（或反过来将IP地址解析到域名时），DNS用到UDP `53`号端口。而在两台DNS服务器之间打算同步或分享它们的数据库时，就使用TCP `53`号端口。
  
-##配置DNS
+## 配置DNS
  
 **Configuring DNS**
 
@@ -345,7 +345,7 @@ Router#pinging 192.168.1.2
 !!!!!
 ```
 
-###DNS故障排除
+### DNS故障排除
  
 **Troubleshooting DNS Issues**
 
@@ -356,7 +356,7 @@ Router#pinging 192.168.1.2
 访问控制清单（access control lists, ACL）常常拦阻DNS，那么这是另一个故障原因。使用命令`debug domain`，可在路由器上对DNS进行调试。
 
 
-##第14天问题
+## 第14天问题
  
 1. DHCP simplifies network administrative tasks by automatically assigning `_______` to hosts on a network.
 2. DHCP uses UDP ports `_______` and `_______`.
@@ -369,7 +369,7 @@ Router#pinging 192.168.1.2
 9. If the `_______` `_______`-`_______` command has been disabled on your router, then DNS won’t work.
 10. Which command will debug DNS packets on your router?
 
-##第14天问题答案
+## 第14天问题答案
 
 1. IP information (IP addresses).
 2. 67 and 68.
@@ -382,9 +382,9 @@ Router#pinging 192.168.1.2
 9. `ip domain-lookup`.
 10. The `debug domain` command.
  
-##第14天实验
+## 第14天实验
  
-###路由器上的DHCP实验
+### 路由器上的DHCP实验
  
 **拓扑**
 
@@ -438,7 +438,7 @@ Default Gateway.................: 172.16.1.2
 DNS Server......................: 172.16.1.3
 ```
 
-###路由器上的DNS实验
+### 路由器上的DNS实验
  
 **DNS on a Router lab**
 

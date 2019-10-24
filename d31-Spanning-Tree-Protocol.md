@@ -1,10 +1,10 @@
-#第31天
+# 第31天
 
 **生成树协议**
 
 **Spanning Tree Protocol**
 
-##第31天任务
+## 第31天任务
 
 - 阅读今天的课文
 - 完成今天的实验
@@ -31,7 +31,7 @@
     - 对根桥选举进行描述, describe root bridge election
     - 生成树的模式, spanning tree mode
 
-##STP的需求
+## STP的需求
 
 **The Need for STP**
 
@@ -55,7 +55,7 @@ STP运行着一种算法，用于根据所考虑的特定VLAN，决定出哪些�
 
 BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测及拓扑信息交换。BPDUs的两个类型分别是**配置BPDUs**及**拓扑变化通知BPDUs**（Configuration BPDUs and Topology Change Notification BPDUs）; 这里只会对配置BPDUs进行说明。
 
-##IEEE 802.1D的配置BPDUs
+## IEEE 802.1D的配置BPDUs
 
 **IEEE 802.1D Configuration BPDUs**
 
@@ -113,7 +113,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 4. **在Switch 4和Switch 5之间的LAN网段上**，Switch 4被选举为指定交换机，同时指定端口也处于其上。因为在一个网段上只能有一台指定交换机，所以Switch 4和Switch 5之间网段上，Switch 5的端口，就被阻塞掉了。该端口将不会转发任何BPDUs。
 
-##生成树端口的各种状态
+## 生成树端口的各种状态
 
 **Spanning Tree Port States**
 
@@ -151,7 +151,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 **默认收敛时间是30到50秒。**
 
-###生成树阻塞状态
+### 生成树阻塞状态
 
 **Spanning Tree Blocking State**
 
@@ -169,7 +169,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 接收网络管理报文，并对这些报文进行响应，receives and responds to network management messages
 
-###生成树侦听状态
+### 生成树侦听状态
 
 **Spanning Tree Listening State**
 
@@ -187,7 +187,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 对网络管理报文进行接收和响应，receives and responds to network management messages
 
-###生成树学习状态
+### 生成树学习状态
 
 **Spanning Tree Learning State**
 
@@ -205,7 +205,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 对网络管理报文进行接收和响应，receives and responds to network management messages
 
-###生成树转发状态
+### 生成树转发状态
 
 **Spanning Tree Forwarding State**
 
@@ -224,7 +224,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 - 接收网络管理报文并对其进行响应
 
 
-###生成树关闭状态
+### 生成树关闭状态
 
 **Spanning Tree Disabled State**
 
@@ -243,7 +243,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 - 对网络管理报文进行接收和响应
 
 
-##生成树桥ID
+## 生成树桥ID
 
 **Spanning Tree Bridge ID**
 
@@ -281,7 +281,7 @@ Fa0/2       128.2       19      FWD 19 32770    0008.21a9.4f80  128.2
 
 大多数思科Catalyst交换机都有一个可用作VLANs的BIDs的、1024个MAC地址的地址池。这些MAC地址被顺序分配，也就是该范围中的第一个MAC地址分配给VLAN 1, 第二个给VLAN 2, 第三个给VLAN 3, 以致第四个第五个等等。这样就提供了支持标准范围VLANs的支持能力，但要支持扩展范围的VLANs，就需要更多的MAC地址。该问题在802.1t（802.1D的技术和编辑修正）标准中得以解决（this issue was resolved in the 802.1t(Technical and Editoral corrections for 802.1D) standard）。
 
-##生成树根桥选举
+## 生成树根桥选举
 
 **Spanning Tree Root Bridge Election**
 
@@ -366,7 +366,7 @@ Fa0/15     Desg  FWD    19     128.15    P2p
 Fa0/18     Desg  FWD    19     128.18    P2
 ```
 
-##生成树开销及优先级
+## 生成树开销及优先级
 
 **Spanning Tree Cost and Priority**
 
@@ -374,7 +374,7 @@ Fa0/18     Desg  FWD    19     128.18    P2
 
 生成树算法的一项关键功能，就是尝试提供出网络中的各台交换机自根桥的最短路径。而该最短路径一旦选定，就被用于转发数据，而将其它冗余链路置为阻塞状态。生成树算法用到两个数值来确定哪个端口将被置为转发状态（也就是到根桥的最优路径），以及哪些端口将被置为阻塞状态。这两个数值就是端口开销和端口优先级。二者都将在下面的小节讲到。
 
-###生成树端口开销
+### 生成树端口开销
 
 **Spanning Tree Port Cost**
 
@@ -414,13 +414,13 @@ VLAN0050    Desg    FWD    200000      128.2       P2p
 
 重要的是记住带有更低的（数值）开销的端口是更为首选的端口；端口开销越低，那个特定端口被选举为根端口的可能性就越高（the lower the port cost, the higher the probability of that particular port being elected the Root Port）。**端口开销全局重要，并影响整个生成树网络。**该数值被配置在生成树域中的所有非根交换机上（on all Non-Root Switches in the Spanning Tree domain）。
 
-##生成树的根端口及指定端口
+## 生成树的根端口及指定端口
 
 **Spanning Tree Root and Designated Ports**
 
 STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，以及指向根端口另一边的指定端口（STP elects two types of ports that are used to forward BPDUs: the Root Port, which points towards the Root Bridge, and the Designated Port, which points away from the Root Bridge）。掌握这两种端口类型的作用及其选举过程，十分重要。
 
-###生成树根端口选举
+### 生成树根端口选举
 
 **Spanning Tree Root Port Election**
 
@@ -466,7 +466,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 基于第三个选举标准，Switch 5将优先使用来自Switch 4的BPDU，因为Switch 4的BID（0000.0000.000D）低于Switch 6的BID（0000.0000.000F）。Switch 5选出端口GigabitEthernet0/1作为根端口。
 
-###生成树指定端口的选举
+### 生成树指定端口的选举
 
 **Spanning Tree Designated Port Election**
 
@@ -498,7 +498,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 *图31.9 -- 已收敛的生成树网络*
 
-##思科生成树增强
+## 思科生成树增强
 
 **Cisco Spanning Tree Enhancements**
 
@@ -509,7 +509,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 在现实世界的网络中，这两个假设并不总是正确。在这种情况下，STP就可能无法阻止网络中循环的形成（in situations where that is the case, STP may not be able to prevent loops from being formed within the network）。正是由于存在这种可能，且为提升基本的802.1D STA性能，思科引入了一些对IEEE 802.1D标准的增强，将在下面进行说明。
 
-###端口快速
+### 端口快速
 
 **Port Fast**
 
@@ -517,7 +517,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 这在该端口所连接的诸如某台工作站的网卡这样的，没有发送或响应BPDUs的网络设备时不是问题。但如该端口所连接的设备确实在发出BPDUs，比如另一台交换机，这可能造成交换循环。这是因为该端口跳过了侦听及学习阶段而立即进入到转发状态（this may result in a switching loop. This is because the port skips the Listening and Learning states and proceeds immediately to the Forwarding state）。端口快速简单地令到该端口相较经历所有STA步骤，快得多地开始转发以太网帧。
 
-###BPDU守护
+### BPDU守护
 
 **BPDU Guard**
 
@@ -545,7 +545,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 在端口快速端口上带有BPDU守护下，在Switch 1接收到来自Switch 3的一个BPDU时，就立即将该端口转变成错误关闭状态（immediately transitions the port into the errdisable state）。结果就是STP计算不受该冗余链路的影响，且该网络不会有任何循环。
 
-###BPDU过滤器
+### BPDU过滤器
 
 **BPDU Filter**
 
@@ -555,7 +555,7 @@ BPDU守护与BPDU过滤器两个特性常常混淆或甚至被想成是同一个
 
 ![掌握BPDU过滤器](images/3113.png)
 
-###循环守护
+### 循环守护
 
 **Loop Guard**
 
@@ -578,7 +578,7 @@ BPDU守护与BPDU过滤器两个特性常常混淆或甚至被想成是同一个
 - 循环守护无法真正探测出一条单向链路，Loop Guard cannot actually detect a unidirectional link
 - 循环守护无法在端口快速或动态VLAN端口上开启，Loop Guard cannot be enabled on Port Fast or Dynamic VLAN ports
 
-###根守护
+### 根守护
 
 **Root Guard**
 
@@ -592,7 +592,7 @@ BPDU守护与BPDU过滤器两个特性常常混淆或甚至被想成是同一个
 
 **根守护阻止某个端口成为根端口，因此确保该端口始终是指定端口。**与其它可同时在全局基础上开启的思科STP增强不同，根守护必须手动在所有根桥不应出现的端口上开启（unlike other STP enhancements, which can also be enabled on a global basis, Root Guard must be manually enabled on all ports where the Root Bridge should not appear）。因为这点，在LAN中STP的设计和部署时确保拓扑的确定性就很重要（because of this, it is important to ensure a deterministic topology when designing and implementing STP in the LAN）。根守护令到网络管理员可以强制指定网络中的根桥（Root Guard enables an administrator to enforce the Root Bridge palcement in the network）, 确保不会有客户设备因疏忽或其它原因而成为生成树的根，所以根守护常用在ISP网络面向客户设备的边界（so it is usually used on the network edge of the ISP towards the customers's equipment）。
 
-###上行快速
+### 上行快速
 
 **Uplink Fast**
 
@@ -610,7 +610,7 @@ BPDU守护与BPDU过滤器两个特性常常混淆或甚至被想成是同一个
 
 *图31.17 -- 掌握上行快速（续）*
 
-###骨干快速
+### 骨干快速
 
 **Backbone Fast**
 
@@ -642,7 +642,7 @@ RLQs的类型有两种：RLQ请求和RLQ响应。**RLQ请求典型地在根端�
 
 >**注意：**RLQ PDU有着与普通BPDU同样的包格式，唯一区别在于RLQ PDU包含了两个用于请求和回应的思科SNAP(子网接入协议，[Subnetwork Access Protocol](https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol))地址。
 
-##STP排错
+## STP排错
 
 **Troubleshooting STP**
 
@@ -662,21 +662,21 @@ STP故障通常有以下三类（STP issues usually fall within the following th
 - 不正确的根端口, incorrect Root Port
 - 不正确的指定端口，incorrect Designated Port
 
-###不正确的根桥
+### 不正确的根桥
 
 优先级和基础MAC地址决定根桥是否是正确的（priority and base MAC addresss decide whether the Root Bridge is incorrect）。可以执行`show spanning-tree vlan <vlan#>`命令查看MAC地址及交换机优先级。而运用`spanning-tree vlan <vlan#> priority <priority>`命令修复此问题。
 
-###不正确的根端口
+### 不正确的根端口
 
 根端口提供了自该交换机到根桥最快的路径，同时开销是跨越整个路径的累积（the Root Port provides the fastest path from the switch to the Root Bridge, and the cost is cumulative across the entire path）。如怀疑存在正确的根端口，就可执行`show spanning-tree vlan <vlan#>`命令。如根端口是不正确的，可执行`spanning-tree cost <cost>`命令对其进行修复。
 
-###不正确的指定端口
+### 不正确的指定端口
 
 指定端口是将某个网络区段连接到网络其它部分最低开销的端口（the Designated Port is the lowest cost port connecting a network segment to the rest of the network）。如怀疑存在指定端口问题，就可以执行`show spanning-tree vlan <vlan#>`及`spanning-tree cost <cost>`命令。
 
 而可对相关事件进行调试的一个有用的STP排错命令，就是`Switch#debug spanning-tree events`。
 
-##第31天问题
+## 第31天问题
 
 1. How often do switches send Bridge Protocol Data Units ( BPDUs)?
 2. Name the STP port states in the correct order.
@@ -689,7 +689,7 @@ STP故障通常有以下三类（STP issues usually fall within the following th
 9. Contrary to popular belief, the Port Fast feature does not disable Spanning Tree on the selected port. This is because even with the Port Fast feature, the port can still send and receive BPDUs. True or false?
 10. The Backbone Fast feature provides fast failover when a direct link failure occurs. True or false?
 
-##第31天答案
+## 第31天答案
 
 1. Every two seconds.
 2. Blocking, Listening, Learning, Forwarding, and Disabled.
@@ -702,9 +702,9 @@ STP故障通常有以下三类（STP issues usually fall within the following th
 9. True.
 10. False.
 
-##第31天实验
+## 第31天实验
 
-###生成树根选举实验
+### 生成树根选举实验
 
 **实验拓扑**
 
