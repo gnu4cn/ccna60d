@@ -241,7 +241,7 @@ warnings—Warning conditions (severity=4)
 
 而你有可以将这些日志消息发往几个不同的地方。
 
-```
+```console
 Router(config)#logging ?
     A.B.C.D     IP address of the logging host
     buffered    Set buffered logging parameters
@@ -352,7 +352,7 @@ SwitchOne(config)#ip ssh authentication-retries 2
 
 可使用命令 `ip ssh version 2` 开启 SSH 版本`2`。让我们看看其中一个密钥。在这个实例中，该密钥是为 HTTPS 生成的。因为其是在开启 HTTPS 时自动生成的，所以其名称也会自动产生。
 
-```
+```console
 firewall#show crypto key mypubkey rsa
 Key name: HTTPS_SS_CERT_KEYPAIR.server
 Temporary key
@@ -376,7 +376,9 @@ Switch#
 
 而用一个简单的命令，就可以关闭 HTTP 访问。
 
-`Switch(config)#no ip http server`
+```console
+Switch(config)#no ip http server
+```
 
 查看交换机上 HTTP 服务器的状态。
 
@@ -435,7 +437,7 @@ enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0 [strong level 5 password]
 
 你总是应该关闭那些你不会用到的服务。思科已经在关闭那些不安全和很少用到的服务和协议上做得很好了；尽管如此，你可能会要因明确这点而亲自关闭它们。同样也会有一些服务是有帮助的。多数服务可在全局配置模式中的 `service` 命令下找到。
 
-```
+```console
 Switch(config)# service ?
 compress-config         Compress the configuration file
 config                  TFTP load config files
@@ -830,7 +832,7 @@ CDP 作为非常强大的故障排除工具，考试中要求你掌握如何来�
 
 下列配置输入，正是图 4.1 中的。
 
-```
+```console
 Router0#show cdp neighbors
 Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge, S - Switch, H -
 Host, I - IGMP, r - Repeater, P - Phone
@@ -877,7 +879,7 @@ Duplex: full
 
 前面我们已经讲过怎样在整台设备或仅在某个接口上关闭 CDP 了。而另两个有关命令是显示设备有关 CDP 的协议信息的 `show cdp` 命令，以及通过输入设备名称来查看某台具设备信息的 `show cdp entry <Router>` 命令。建议在今天要配置的实验中花些时间，来查看 CDP 的众多输出。
 
-```
+```console
 Router0#show cdp
 Global CDP information:
     Sending CDP packets every 60 seconds
@@ -913,7 +915,7 @@ Router0#show cdp ?
 
 交换机的 CAM 表是一些存储位置，这些存储位置包含了物理端口上的那些 MAC 地址，及其 VLAN 参数。交换机 CAM 表中动态学习到的内容，或者说 MAC 地址表，可通过命令 `show mac-address-table dynamic` 查看到，如下面的输出所示。
 
-```
+```console
 VTP-Server-1#show mac-address-table dynamic
             Mac Address Table
 -------------------------------------------
@@ -1048,7 +1050,7 @@ VTP-Server-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan
 
 同过执行 `show port-security` 命令，可以验证全局端口安全配置参数（global port security configuration parameters）。下面展示了默认值下的此命令的打印输出。
 
-```
+```console
 VTP-Server-1#show port-security
 Secure Port MaxSecureAddr  CurrentAddr SecurityViolation   Security Action
            (Count)        (Count)      (Count)
@@ -1080,7 +1082,7 @@ Security Violation count : 0
 
 而要查看该端口上具体配置的静态安全 MAC 地址，就要用到 `show port-security address` 或者 `show running-config interface [name]` 命令了。以下输出演示了 `show port-security address`。
 
-```
+```console
 VTP-Server-1#show port-security address
           Secure Mac Address Table
 -------------------------------------------------------------------
@@ -1119,7 +1121,7 @@ VTP-Server-1(config-if)#switchport port-security maximum 2
 
 可用除了 `show running-config` 命令外的，在静态地址保全配置示例中用到的同样命令，来验证动态 MAC 地址保全的配置。这是因为，与静态或粘滞的 MAC 地址保全不同，所有动态学习到的地址是不保存在交换机配置文件中的，且在端口关闭后会被移除。那些同样的地址也要在端口再度开启后重新学习。下面的输出演示了 `show port-security address` 命令的输出，现实了一个配置为动态 MAC 地址保全学习的接口。
 
-```
+```console
 VTP-Server-1#show port-security address
 			Secure Mac Address Table
 ------------------------------------------------------------------
@@ -1169,7 +1171,7 @@ switchport port-security mac-address sticky 0030.803f.ea81
 
 上面输出中粗体的 MAC 地址都是动态学到的，且被加入到当前配置文件中了。而无需管理员手动配置来将这些地址加入到配置文件。默认情况下，粘滞 MAC 地址保全并不是自动加入到启动配置文件（the startup configuration, NVRAM）中去的。而为确认此信息已被保存到 NVRAM 中，也就是这些地址不要在交换机重启后重新学习，就要记住执行 `copy running-config startup-config` 命令， 或者命令 `copy system:running-config nvram:startup-config`, 执行二者中的哪一条，取决于部署该特性的那台交换机的 IOS 版本。下面的输出演示了在配置了粘滞地址学习的端口上的 `show port-security address` 命令。
 
-```
+```console
 VTP-Server-1#show port-security address
 		Secure Mac Address Table
 ------------------------------------------------------------------
@@ -1199,7 +1201,7 @@ Max Addresses limit in System : 1024
 
 使用接口配置命令 `switchport port-security [violation {protect | restrict | shutdown | shutdown vlan}]` 来配置这些选项。如果某个端口因为因为一个安全冲突而关闭，它就显示为 `errdisabled`，此时需要使用 `shutdown` 和接着的 `no shutdown` 命令来将其再度开启。
 
-```
+```console
 Switch#show interfaces FastEthernet0/1 status
 Port Name	Status			Vlan	Duplex	Speed	Type
 Fa0/1		errdisabled		100		full	100		100BaseSX
@@ -1229,7 +1231,7 @@ VTP-Server-1(config-if)#switchport port-security violation restrict
 
 是通过命令 `show port-security` 命令，来对所配置的端口安全冲突动作进行验证的，如下面的输出所示。
 
-```
+```console
 VTP-Server-1#show port-security
 Secure Port	MaxSecureAddr	CurrentAddr	SecurityViolation	Security Action
 				(Count)			(Count)		(Count)
@@ -1518,7 +1520,7 @@ Security Violation Count	: 0
 
 10. 你将看到 FastEthernet 端口立即宕掉。
 
-```
+```console
 Switch#
 %LINK-5-CHANGED: Interface FastEthernet0/1, changed state to administratively down
 %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down

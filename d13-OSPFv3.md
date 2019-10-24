@@ -58,7 +58,7 @@
 
 > **注意：** 当在NBMA传输技术上配置OSPFv3时，应该使用本地链路地址来创建出静态FR地图声明语句（static Frame Relay map statements）。这是因为正是使用本地链路地址，而不是全球单播地址，建立邻接关系。比如，为给一个FR部署创建一幅静态FR地图语句并指定一台OSPF邻居路由器，就要在该路由器上应用下面的配置（在ICND2部分将对FR进行讲解）。
 
-```
+```console
 R1(config)#ipv6 unicast-routing
 R1(config)#ipv6 router ospf 1
 R1(config-rtr)#router-id 1.1.1.1
@@ -89,7 +89,7 @@ R1(config-if)#exit
 
 依之间所讲到的顺序配置步骤，照下面这样，在路由器`R1`上就会配置上OSPFv3。
 
-```
+```console
 R1(config)#ipv6 unicast-routing
 R1(config)#ipv6 router ospf 1
 R1(config-rtr)#router-id 1.1.1.1
@@ -103,7 +103,7 @@ R1(config-if)#exit
 
 而按照同样顺序的步骤，像下面这样在路由器`R3`上配置好OSPFv3路由。
 
-```
+```console
 R3(config)#ipv6 unicast-routing
 R3(config)#ipv6 router ospf 3
 R3(config-rtr)#router-id 3.3.3.3
@@ -122,7 +122,7 @@ R3(config-if)#exit
 
 依据上述两台路由器上OSPFv3的配置，就可以使用命令`show ipv6 ospf neighbor`, 来检查OSPFv3的邻接状态，在`R1`上如下所示。
 
-```
+```console
 R1#show ipv6 ospf neighbor
 Neighbor	ID Pri	State 		Dead Time	Interface ID 	Interface
 3.3.3.3		     1	FULL/BDR 	00:00:36 	4 				FastEthernet0/0
@@ -130,7 +130,7 @@ Neighbor	ID Pri	State 		Dead Time	Interface ID 	Interface
 
 通过将`[detail]`关键字追加到本命令的后面，还可以查看详细的邻居信息。
 
-```
+```console
 R1#show ipv6 ospf neighbor detail
 Neighbor 3.3.3.3
 	In the area 0 via interface FastEthernet0/0
@@ -184,7 +184,7 @@ Neighbor 3.3.3.3
 
 **R1:**
 
-```
+```console
 ipv6 router ospf 1
 router-id 1.1.1.1
 int fa0/0(或特定接口编号)
@@ -195,7 +195,7 @@ ipv6 ospf 1 area 0
 
 **R2:**
 
-```
+```console
 ipv6 router ospf 1
 router-id 2.2.2.2
 int fa0/0(或特定接口编号)

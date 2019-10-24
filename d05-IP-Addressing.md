@@ -168,7 +168,7 @@ IP 版本 4(IPv4）设计用于解决设备命名问题。IPv4 使用二进制�
 
 相对于二进制，十六进制对人类来讲更易于掌握，其又能够近似于二进制那样为计算机和网络设备所使用。任何的数都可由十六进制构造出来，这点跟二进制和十进制一样；如下面的例子一样，只需计算`16`的乘积。
 
-```
+```console
 1 x 16 = 16
 16 x 16 = 256
 16 x 16 x 16 =4096
@@ -712,47 +712,64 @@ IP 地址分配的规则有：**网络上的每个地址，都要是其主机所
 ## 课文中进制转换的答案
 
 1. Convert 1111 to hex and decimal
-```
+
+```console
 	Hex = F
 	Decimal = 15
 ```
+
 2. Convert 11010 to hex and decimal
-```
+
+```console
 	Hex = 1A
 	Decimal = 26
 ```
+
 3. Convert 10000 to hex and decimal
-```
+
+```console
 	Hex = 10
 	Decimal = 16
 ```
+
 4. Convert 20 to binary and hex
-```
+
+```console
 	Binary = 10100
 	Hex = 14
 ```
+
 5. Convert 32 to binary and hex
-```
+
+```console
 	Binary = 100000
 	Hex = 20
 ```
+
 6. Convert 101 to binary and hex
-```
+
+```console
 	Binary = 1100101
 	Hex = 65
 ```
+
 7. Convert A6 from hex to binary and decimal
-```
+
+```console
 	Binary = 10100110
 	Decimal = 166
 ```
+
 8. Convert 15 from hex to binary and decimal
-```
+
+```console
 	Binary = 10101
 	Decimal = 21
 ```
+
 9. Convert B5 from hex to binary and decimal
-```
+
+```console
 	Binary = 10110101
 	Decimal = 181
 ```
@@ -775,7 +792,7 @@ IP 地址分配的规则有：**网络上的每个地址，都要是其主机所
 
 1. 先是明确路由器上的串行借口编号，你的路由器与上面拓扑图中的可能有所不同。同时，还要明确串行链路的哪一端连接的是DCE线，因为在该端是需要`clock rate`命令的。
 
-```
+```console
 Router>en
 Router#sh ip interface brief
 Interface		IP-Address	OK?	Method	Status					Protocol
@@ -795,7 +812,7 @@ DCE cable, no clock rate
 
 2. 在一侧为路由器加上主机名及IP地址，如该侧是DCE，就为其加上时钟速率（the clock rate）。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#hostname RouterA
@@ -808,7 +825,7 @@ RouterA(config-if)#no shut
 
 3. 为另一侧加上主机名和IP地址。同时使用`no shut`命令将该接口开启。
 
-```
+```console
 Router>en
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -824,7 +841,7 @@ RouterB#
 
 4. 用`ping`命令测试连接。
 
-```
+```console
 RouterB#ping 192.168.1.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:

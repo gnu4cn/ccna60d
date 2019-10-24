@@ -46,7 +46,7 @@
 
 非同一子网问题，是在尝试建立EIGRP邻居关系时，所遇到的最常见故障之一。而在因为子网不一致造成EIGRP无法建立邻居关系时，将有下面的消息在控制台上打印出来，或是被路由器、交换机所记录（Uncommon subnet issues are one of the most common problems experienced when attempting to establish EIGRP neighbour relationships. When EIGRP cannot establish a neighbour relationship because of an uncommon subnet, the following error message will be printed on the console, or will be logged by the router or switch）：
 
-```
+```console
 *Mar 2 22:12:46.589 CST: IP-EIGRP(Default-IP-Routing-Table:1): Neighbor 150.1.1.2 not on common subnet for FastEthernet0/0
 *Mar 2 22:12:50.977 CST: IP-EIGRP(Default-IP-Routing-Table:1): Neighbor 150.1.1.2 not on common subnet for FastEthernet0/0
 ```
@@ -55,7 +55,7 @@
 
 导致报出上面错误消息的另一常见原因，就是**在尝试建立EIGRP邻居关系时，采用的是接口的从地址**(secondary addresses)。解决此类故障的最简单方式，同样是对路由器或交换机的配置进行检查。比如，假定上面的错误消息是在本地路由器控制台上打印出来的，那么故障排除的第一步，就是检查配置在接口上的IP地址，如下所示：
 
-```
+```console
 R1#show running-config interface FastEthernet0/0
 Building configuration...
 Current configuration : 140 bytes
@@ -69,7 +69,7 @@ end
 
 接着，就要验证到有着IP地址`150.1.1.2`的设备上的配置是一致的，如下所示：
 
-```
+```console
 R2#show running-config interface FastEthernet0/0
 Building configuration...
 Current configuration : 140 bytes
@@ -84,7 +84,7 @@ end
 
 从上面的输出可以看到，路由器R1上的主要子网（the primary subnet），却是本地路由器（R2）上的第二子网（the secondary subnet）。在使用从地址时，EIGRP是无法建立邻居关系的。该故障的解决方法，就是简单地将路由器R2的`Fastethernet0/0`接口的IP分址配置（the IP addressing configuration）予以更正即可，如下所示：
 
-```
+```console
 R2#config terminal
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -97,7 +97,7 @@ R2(config-if)#end
 
 而EIGRP的那些K值，则是用于给路径的不同方面，比如带宽、延迟等可能包含在EIGRP复合度量值中的参数，进行权重分配的。这里再度说明一下，默认的K值为：`K1=K3=1`及`K2=K4=K5=0`。如在某台路由器或交换机上对这些K值进行了修改，那么就必须对自治系统中所有其它路由器或交换机上的K值做同样修改。使用`show ip protocols`命令，就可查看到默认EIGRP的那些K值，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -124,7 +124,7 @@ Routing Protocol is “eigrp 150”
 
 在某台路由器上的K值被重置后，那么该本地路由器的所有邻居关系都将被重置。而如果在重置后所有路由器上的这些K值出现不一致，那么控制台上将打印出下面的错误消息，同时EIGRP邻居关系将不会建立：
 
-```
+```console
 *Oct 20 03:19:14.140 CST: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 1: Neighbor 150.2.2.1 (FastEthernet0/0) is down: Interface Goodbye received
 *Oct 20 03:19:18.732 CST: %DUAL-5-NBRCHANGE: IP-EIGRP(0) 1: Neighbor 150.2.2.1 (FastEthernet0/0) is down: K-value mismatched
 ```
@@ -135,7 +135,7 @@ Routing Protocol is “eigrp 150”
 
 **配置不当的访问控制清单（ACLs）与其它过滤器（filters）同样也是造成路由器建立EIGRP邻居关系失败的常见原因**。这时就要对路由器配置和其它中间设备进行检查，以确保EIGRP或多播数据包未被过滤掉。要用到的一个非常有用的故障排除命令，就是`show ip eigrp traffic`了。此命令提供了所有EIGRP数据包的统计信息。比如假设这里已经对基本的连通性（能`ping`通）及两台设备之间的配置进行了验证，但EIGRP邻居关系仍然没有建立。那么在此情况下，就可以在本地设备上开启调试（enabling debugging on the local device）之前，使用该命令检查看看路由器是否有Hello数据包的交换，如下所示：
 
-```
+```console
 R2#show ip eigrp traffic
 IP-EIGRP Traffic Statistics for AS 2
   Hellos sent/received: 144/0
@@ -153,7 +153,7 @@ IP-EIGRP Traffic Statistics for AS 2
 
 在上面的输出中，注意虽然该本地路由器已发出144个Hello数据包, 但其尚未收到任何的Hello数据包。假设已验证了两台设备之间有着连通性及各自配置，那么就应对本地路由器与中间设备（在适用时）上的访问控制清单配置进行检查，以确保EIGRP或多播数据包未被过滤掉。比如，可能发现有着一条ACL配置为拒绝所有D类与E类流量，而放行所有其它流量，譬如下面的ACL：
 
-```
+```console
 R2#show ip access-lists
 Extended IP access list 100
     10 deny ip 224.0.0.0 15.255.255.255 any
@@ -165,7 +165,7 @@ Extended IP access list 100
 
 最后，一些常见的认证配置错误，包括在配置密钥链时使用了不同密钥ID，以及指定了不同或不匹配的口令等（Finally, common authentication configuration mistakes include using different key IDs when configuring key chains and specifying different or mismatched password）。在某个接口下开启了认证时，EIGRP邻居关系将被重置并被重新初始化。如在部署认证之后，原本已建立的邻居关系未能再度建立，那么就要通过在路由器上观察运行配置，或使用`show key chain`及`show ip eigrp interfaces detail [name]`命令，来对各项认证参数进行检查。下面是由`show key chain`命令所打印出来的示例输出：
 
-```
+```console
 R2#show key chain
 Key-chain EIGRP-1:
     key 1 -- text “eigrp-1”
@@ -183,7 +183,7 @@ Key-chain EIGRP-3:
 
 以下是由`show ip eigrp interfaces detail [name]`命令所打印出的示例信息输出：
 
-```
+```console
 R2#show ip eigrp interfaces detail Serial0/0
 IP-EIGRP interfaces for process 1
                         Xmit Queue   Mean   Pacing Time    Multicast    Pending
@@ -220,7 +220,7 @@ Se0/0              0        0/0        0        0/1             0           0
 
 参考图37.1中所演示的图示，子网`150.1.1.0/30`将`10.1.1.0/24`与`10.2.2.0/24`分离开来。在开启了自动汇总时，路由器`R1`与`R2`都将相应地把`10.1.1.0/24`与`10.2.2.0/24`汇总到`10.0.0.0/8`。该汇总路由将以`5`的管理距离及下一跳接口`Null0`，被安装到路由表中。此较低的管理距离值，将阻止两台路由器对来自其它路由器的该`10.0.0.0/8`汇总的接收与安装，如下面的输出所示：
 
-```
+```console
 R2#debug eigrp fsm
 EIGRP FSM Events/Actions debugging is on
 R2#
@@ -239,7 +239,7 @@ R2#
 
 EIGRP路由器ID（RID）的主要用途，就是阻止路由环回的形成。RID用于识别外部路由的始发路由器（The RID is used to identify the originating router for external routes）。假如接收到一条有着与本地路由器相同RID的外部路由，该路由将被丢弃。不过重复的路由器ID，却并不会影响到任何内部EIGRP路由。设计此特性的目的，就是降低那些有着多台自治系统边界路由器（AS Boundary Router, ASBR）进行路由重分发的网络出现路由环回的可能性。在`show ip eigrp topology`命令的输出中，便可查看到始发路由器ID（The primary use of the EIGRP router ID(RID) is to prevent routing loops. The RID is used to identify the originating router for external routes. If an external route is received with the same RID as the local router, the route will be discarded. However, duplicate RIDs do not affect any internal EIGRP routes. This feature is designed to reduce the possibility of routing loops in networks where route redistribution is being performed on more than on ASBR. The originating RID can be viewed in the output of the `show ip eigrp topology` command），如下所示：
 
-```
+```console
 R1#show ip eigrp topology 2.2.2.2 255.255.255.255
 IP-EIGRP (AS 1): Topology entry for 2.2.2.2/32
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 156160
@@ -262,7 +262,7 @@ IP-EIGRP (AS 1): Topology entry for 2.2.2.2/32
 
 如怀疑存在潜在的RID重复故障，就可以对EIGRP事件日志中的事件进行检查，看看是否有任何路由因为RID重复而被拒绝。下面的示例演示了该EIGRP事件日志的输出样例，显示出一些因为从某台与本地路由器有着相同RID的路由器接收，而被弹回的路由（If you suspect a potential duplicate RID issue, you can check the events in the EIGRP event log to see if any routes have been rejected because of a duplicate RID. The following illustrates a sample output of the EIGRP event log, showing routes that have been rejected because they were received from a router with the same RID as the local router）:
 
-```
+```console
 R2#show ip eigrp events
 Event information for AS 1:
 ...
@@ -330,7 +330,7 @@ Event information for AS 1:
 
 参考图37.4, 所有路由器都位于EIGRP自治系统`150`中。`R2`正经由EIGRP对`10.1.1.0/24`、`10.1.2.0/24`与`10.1.3.0/24`子网进行通告。而`R1`也有着一个分配给子网`10.1.0.0/24`的接口，其就应相应地将这些子网通告给`R3`（`R1`, which also has an interface assigned to the `10.1.0.0/24` subnet, should in turn advertise these subnets to `R3`）。路由器`R2`上的EIGRP配置已作如下部署：
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#network 10.1.1.0 0.0.0.255
 R2(config-router)#network 10.1.2.0 0.0.0.255
@@ -342,7 +342,7 @@ R2(config-router)#exit
 
 而`R1`上的EIGRP则是部署如下：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.0.0 0.0.0.255
 R1(config-router)#network 172.16.0.0 0.0.0.3
@@ -352,7 +352,7 @@ R1(config-router)#exit
 
 最后，`R3`上的EIGRP配置部署如下：
 
-```
+```console
 R3(config)#router eigrp 150
 R3(config-router)#network 172.16.0.0 0.0.0.3
 R3(config-router)#no auto-summary
@@ -361,7 +361,7 @@ R3(config-router)#exit
 
 在此种配置之后，`R2`上的路由表显示出以下条目：
 
-```
+```console
 R2#show ip route eigrp
      172.16.0.0/30 is subnetted, 2 subnets
 D       172.16.0.0 [90/2172416] via 172.16.1.1, 00:02:38, FastEthernet0/0
@@ -371,7 +371,7 @@ D       10.0.0.0/8 [90/156160] via 172.16.1.1, 00:00:36, FastEthernet0/0
 
 `R1`上的路由表显示以下条目：
 
-```
+```console
 R1#show ip route eigrp
      172.16.0.0/16 is variably subnetted, 3 subnets, 2 masks
 D       172.16.0.0/16 is a summary, 00:01:01, Null0
@@ -385,7 +385,7 @@ D       10.0.0.0/8 is a summary, 00:01:01, Null0
 
 最后，`R3`上的路由表显示以下条目：
 
-```
+```console
 R3#show ip route eigrp
      172.16.0.0/30 is subnetted, 2 subnets
 D       172.16.1.0 [90/2172416] via 172.16.0.1, 00:21:21, Serial0/0
@@ -395,7 +395,7 @@ D       10.0.0.0/8 [90/2297856] via 172.16.0.1, 00:01:15, Serial0/0
 
 因为在`R1`上汇总是开启的，就出现了EIGRP不再通告由**汇总路由**`10.0.0.0/8`所包含的那些具体子网的情况了（Because summarisation is enabled on `R1`, it appears that the EIGRP is no longer advertising the specific subnets encompassed by the `10.0.0.0/8` **summary**）。而要允许这些具体子网通过EIGRP得以通告，就应在`R1`上将汇总关闭，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#no auto-summary
 R1(config-router)#exit
@@ -403,7 +403,7 @@ R1(config-router)#exit
 
 这么做之后，`R3`上的路由表将显示如下的路由条目：
 
-```
+```console
 R3#show ip route eigrp
      172.16.0.0/30 is subnetted, 2 subnets
 D       172.16.1.0 [90/2172416] via 172.16.0.1, 00:00:09, Serial0/0
@@ -416,7 +416,7 @@ D       10.1.0.0 [90/2297856] via 172.16.0.1, 00:00:09, Serial0/0
 
 同样的情况对于`R2`也将适用，`R2`上的路由表现在将显示出子网`10.1.0.0/24`与`10.3.0.0/24`的具体条目，如下所示：
 
-```
+```console
 R2#show ip route eigrp
      172.16.0.0/30 is subnetted, 2 subnets
 D       172.16.0.0 [90/2172416] via 172.16.1.1, 00:00:10, FastEthernet0/0
@@ -433,7 +433,7 @@ D       10.1.0.0 [90/156160] via 172.16.1.1, 00:00:10, FastEthernet0/0
 
 命令`debug ip routing [acl|static]`是一个强大的故障排除工具及命令（a powerful troubleshooting tool and command）。但需要注意到，尽管此命令并非特定于EIGRP，其提供到有关路由表的有用与详细信息。下面是由该命令所打印出的信息示例：
 
-```
+```console
 R1#debug ip routing
 IP routing debugging is on
 R1#
@@ -475,7 +475,7 @@ has_route: False
 
 可与某条访问控制清单结合使用此命令，来查看有关在那个访问控制清单中所引用到某条路由或某几条路由的信息。此外，同样的命令也可以用于本地设备上静态路由事件的调试。作为附注，在运行EIGRP时，作为使用此命令的替代，请考虑使用`show ip eigrp events`命令而不是此命令，因为`show ip eigrp events`提供到EIGRP内部事件的历史记录，且可用于对活动粘滞故障，以及路由抖动及其它事件进行排除（You can use this command in conjunction with an ACL to view information about the route or routes referenced in the ACL. Additionally, the same command can also be used for troubleshooting static route events on the local device. As a side note, instead of using this command, if you are running EIGRP, consider using the `show ip eigrp events` command instead, as it provides a history of EIGRP internal events and can be used to troubleshoot SIA issues, as well as route flaps and other events）。下面是`show ip eigrp events`命令所打印信息的一个示例：
 
-```
+```console
 R1#show ip eigrp events
 Event information for AS 150:
 1    23:03:49.135 Ignored route, metric: 192.168.3.0 28160
@@ -506,7 +506,7 @@ Event information for AS 150:
 
 除开`debug ip routing`命令，思科IOS软件里还有额外可用的两个EIGRP专用调试命令。命令`debug eigrp`可用于提供到有关弥散更新算法的有限状态机、EIGRP邻居关系、非停止转发事件、数据包及传输事件等的相关实时信息（In addition to the `debug ip routing` command, two additional EIGRP-specific debugging commands are also available in Cisco IOS software. The `debug eigrp` command can be used to provide real-time information on the DUAL Finite State Machine, EIGRP neighbour relationships, Non-Stop Forwarding events, packets, and transimission events）。下面演示了此命令可用的参数：
 
-```
+```console
 R1#debug eigrp ?
   fsm        EIGRP Dual Finite State Machine events/actions
   neighbors  EIGRP neighbors
@@ -517,7 +517,7 @@ R1#debug eigrp ?
 
 在`debug eigrp`命令之外，命令`debug ip eigrp`打印出有关EIGRP路由事件的详细信息，诸如EIGRP如何处理到来的更新等。下面演示了可与该命令结合使用的那些额外关键字：
 
-```
+```console
 R1#debug ip eigrp ?
   <1-65535>      Autonomous System
   neighbor       IP-EIGRP neighbor debugging
@@ -529,7 +529,7 @@ R1#debug ip eigrp ?
 
 最后，下面是命令`debug ip eigrp`的一个输出示例：
 
-```
+```console
 R1#debug ip eigrp
 IP-EIGRP Route Events debugging is on
 R1#

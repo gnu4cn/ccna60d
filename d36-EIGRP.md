@@ -71,7 +71,7 @@
 
 在思科IOS软件中，是通过使用全局配置命令`router eigrp [ASN]`，来开启增强的IGRP的。关键字`[ASN]`指定EIGRP的自治系统编号（autonomous system number, ASN），这是一个32位整数，大小介于1-65535之间。除了本章后面将涉及的其它因素之外，**运行EIGRP的那些路由器都必须位处同一自治系统中**，以成功形成邻居关系。在全局配置命令`router eigrp [ASN]`之后, 路由器就转变为EIGRP路由器配置模式（EIGRP Router Configuration mode）了，在这里就可以对那些与EIGRP有关的参数进行配置了。所配置的ASN，可在命令`show ip protocols`的输出中进行验证，如下面所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -89,7 +89,7 @@ Routing Protocol is “eigrp 150”
 
 而除了`show ip protocols`命令，命令`show ip eigrp neighbours`会打印出所有EIGRP邻居，以及这些邻居各自自治系统的信息。该命令及其可用选项，将在本课程模块的后面进行详细讲解。在那些运行了多个EIGRP实例的路由器上，可使用`show ip eigrp [ASN]`命令，来查看只与在此命令中所指定的自治系统有关的信息。下面的输出演示了这个命令的使用：
 
-```
+```console
 R1#show ip eigrp 150 ?
   interfaces  IP-EIGRP interfaces
   neighbors   IP-EIGRP neighbors
@@ -116,7 +116,7 @@ R1#show ip eigrp 150 ?
 
 如EIGRP已开启使用，且将路由器配置命令`network`与大的有类`10.0.0.0/8`网络一道进行了使用，同时**所有4个环回接口**（all four Loopback interfaces）又都开启了EIGRP路由的话，那么下面就给出了此种情况下`show ip eigrp interfaces`的输出演示：
 
-```
+```console
 R1#show ip eigrp interfaces
 IP-EIGRP interfaces for process 150
                      Xmit Queue   Mean    Pacing Time    Multicast      Pending
@@ -129,7 +129,7 @@ Lo3            0         0/0         0        0/10            0             0
 
 可使用`show ip protocols`命令，来对大的有类`10.0.0.0/8`网络上EIGRP的启用情况，进行验证。此命令的输出如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -152,7 +152,7 @@ Routing Protocol is “eigrp 150”
 
 使用命令`show ip eigrp topology`，可查看到EIGRP的拓扑表。此命令的输出如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -171,7 +171,7 @@ P 10.0.0.0/24, 1 successors, FD is 128256
 
 使用`network`命令来指明一个大的有类网络（a major classful network），就令到位于该有类网络中的多个子网，得以在最小配置下同时被通告出去。但可能存在管理员不想对某个有类网络中的所有子网，都开启EIGRP路由的情形。比如，参考前一示例中`R1`上所配置的环回接口，假设只打算对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，而不愿在`10.0.0.0/24`及`10.2.2.0/24`开启EIGRP路由。那么很明显这在使用`network`命令时，对这些网络（也就是`10.1.1.0`及`10.3.3.0`）予以指明就可以做到，思科IOS软件仍会将这些语句，转换成大的有类`10.0.0.0/8`网络，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.0
 R1(config-router)#network 10.3.3.0
@@ -180,7 +180,7 @@ R1(config-router)#exit
 
 尽管有着上面的配置，但`show ip protocols`命令给出的确实下面的输出：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -203,7 +203,7 @@ Distance: internal 90 external 170
 
 > **注意**：一个常见的误解就是，关闭EIGRP的自动汇总特性，就能解决此问题；但是，这与`auto-summary`命令一点关系都没有。比如，假设对在前一示例中的配置执行了`no auto-summary`命令，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.0
 R1(config-router)#network 10.3.3.0
@@ -213,7 +213,7 @@ R1(config-router)#exit
 
 `show ip protocols`命令仍将显示对网络`10.0.0.0/8`开启了EIGRP，如下面的输出所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -238,7 +238,7 @@ Distance: internal 90 external 170
 
 作为一个示例，命令`network 10.1.1.0 0.0.0.255`将匹配到网络`10.1.1.0/24`、`10.1.1.0/26`及`10.1.1.0/30`网络。参考上一输出中所配置的那些环回借口（the Loopback interfaces），为将`R1`配置为对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，且不对`10.0.0.0/24`子网或`10.2.2.0`子网开启，就应将其如下面那样进行配置：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.0 0.0.0.255
 R1(config-router)#network 10.3.3.0 0.0.0.255
@@ -247,7 +247,7 @@ R1(config-router)#exit
 
 使用命令`show ip protocols`，就可对此配置进行验证，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -271,7 +271,7 @@ Distance: internal 90 external 170
 
 此外，还可以使用命令`show ip eigrp interfaces`，确认到仅已对`Loopback1`与`Loopback3`开启了EIGRP路由：
 
-```
+```console
 R1#show ip eigrp interfaces
 IP-EIGRP interfaces for process 150
                      Xmit Queue   Mean    Pacing Time    Multicast      Pending
@@ -284,7 +284,7 @@ Lo3            0         0/0         0        0/10            0             0
 
 这里重要的是记住除了使用通配符掩码，**也可以使用子网掩码来配置`network`命令**。在此情况下，思科IOS软件将翻转子网掩码，而使用通配符掩码来保存该命令。比如，参照路由器上同样的环回借口，路由器`R1`也可被如下这样进行配置：
 
-```
+```console
 R1(config-router)#router eigrp 150
 R1(config-router)#network 10.1.1.0 255.255.255.0
 R1(config-router)#network 10.3.3.0 255.255.255.0
@@ -293,7 +293,7 @@ R1(config-router)#exit
 
 基于此种配置，就在运行配置中输入了下面的参数（这里使用了管道（pipe），取得运行配置中感兴趣的部分）：
 
-```
+```console
 R1#show running-config | begin router eigrp
 router eigrp 150
 network 10.1.1.0 0.0.0.255
@@ -311,7 +311,7 @@ auto-summary
 
 本示例中所用到的`network`配置，如下面输出所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.15 0.0.0.255
 R1(config-router)#exit
@@ -319,7 +319,7 @@ R1(config-router)#exit
 
 那么基于此配置，路由器上的运行配置，就会显示如下内容：
 
-```
+```console
 R1#show running-config | begin router eigrp
 router eigrp 150
 network 10.1.1.0 0.0.0.255
@@ -332,7 +332,7 @@ auto-summary
 
 > 当在生产网络中对EIGRP进行配置时，**一般做法都是使用全0的通配符掩码或全1的子网掩码**。比如，`network 10.1.1.1 0.0.0.0`及`network 10.1.1.1 255.255.255.255`，两个命令都会执行同样的动作。全0的通配符掩码或全1的子网掩码的使用，就将思科IOS软件配置为与一个具体接口地址进行匹配，而不考虑在接口本身上所配置哦子网掩码了。这两个命令都会匹配到配置了比如`10.1.1.1/8`、`10.1.1.1/16`、`10.1.1.1/24`, 以及`10.1.1.1/30`等地址的接口。这些命令的用法如下面的输出所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.0.0.1 0.0.0.0
 R1(config-router)#network 10.1.1.1 255.255.255.255
@@ -341,7 +341,7 @@ R1(config-router)#exit
 
 `show ip protocols`命令将验证到路由器对于两个`network`语句，都是以相似的方式进行处理的，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
     Outgoing update filter list for all interfaces is not set
@@ -451,7 +451,7 @@ EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。
 
 命令`debug eigrp packets`，可用于打印出本小节中所讲到的各种不同EIGRP数据包的实时调试信息。要知道此命令还包括了一些这里并没有说到的其它数据包，因为这些其它类型数据包超出了当前CCNA考试要求。下面的输出对此命令的用法进行了演示：
 
-```
+```console
 R1#debug eigrp packets ?
   SIAquery  EIGRP SIA-Query packets
   SIAreply  EIGRP SIA-Reply packets
@@ -472,7 +472,7 @@ R1#debug eigrp packets ?
 
 而`show ip eigrp traffic`命令，则是**用于对本地路由器所发送及接收到的EIGRP数据包的数量进行查看的命令**。该命令同时**还是一个强大的故障排除工具**。比如假设某路由器在发出Hello数据包，却并未收到任何回复，这可能表明其尚未配置好预期的邻居，或者甚至有可能某个确认数据包阻塞了EIGRP数据包（For example, if the router is sending out Hello packets but is not receiving any back, this could indicate that the intended neighbour is not configured, or even that an ACK may be blocking EIGRP packets）。下面的输出对此命令进行了演示：
 
-```
+```console
 R2#show ip eigrp traffic
 IP-EIGRP Traffic Statistics for AS 150
     Hellos sent/received: 21918/21922
@@ -530,7 +530,7 @@ IP-EIGRP Traffic Statistics for AS 150
 
 尽管`show ip eigrp neighbours`命令在动态与静态配置的邻居间没有区别，但**`show ip eigrp interfaces detail <name>` 命令却可以用于对路由器接口是否在发出多播数据包来发现和维护邻居关系，进行检查**。下面演示了在一台开启了动态邻居发现的路由器上该命令的输出：
 
-```
+```console
 R2#show ip eigrp interfaces detail FastEthernet0/0
 IP-EIGRP interfaces for process 150
                       Xmit Queue   Mean   Pacing Time    Multicast      Pending
@@ -565,7 +565,7 @@ Fa0/0            1        0/0        1        0/1            50             0
 
 参考图36.5中所给出的拓扑，路由器`R2`将作如下配置：
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#network 192.168.1.0 0.0.0.255
 R2(config-router)#neighbor 192.168.1.3 FastEthernet0/0
@@ -575,7 +575,7 @@ R2(config-router)#exit
 
 而应用于路由器`R3`上的配置则如下：
 
-```
+```console
 R3(config)#router eigrp 150
 R3(config-router)#network 192.168.1.0 0.0.0.255
 R3(config-router)#neighbor 192.168.1.2 FastEthernet0/0
@@ -585,7 +585,7 @@ R3(config-router)#exit
 
 可使用`show ip eigrp interfaces detail <name>`命令，对路由器接口使用多播（动态），还是使用单播（静态）数据包来进行邻居发现与维护进行判断。下面的输出对此进行了演示：
 
-```
+```console
 R2#show ip eigrp interfaces detail FastEthernet0/0
 IP-EIGRP interfaces for process 150
                       Xmit Queue   Mean   Pacing Time    Multicast      Pending
@@ -620,7 +620,7 @@ Fa0/0            1        0/0        2        0/1            50             0
 
 参考图36.6, 除开其它方面，该EIGRP Hello数据包（OPCode 5）包含了所配置的保持时间数值。图36.6中所显示的值15, 是一个使用接口配置命令`ip hold-time eigrp <ASN> <secs>`所配置的非默认数值。重要的是记住，在Hello数据包中，是**不包含Hello时间间隔的**。但可使用`show ip eigrp interfaces detail <name>`命令，查看到所配置的Hello时间。下面演示了此命令所打印出的信息：
 
-```
+```console
 R2#show ip eigrp interfaces detail FastEthernet0/0
 IP-EIGRP interfaces for process 150
                       Xmit Queue   Mean   Pacing Time    Multicast      Pending
@@ -654,7 +654,7 @@ EIGRP邻居表条目还包含了可靠传输协议（the Reliable Transport Prot
 
 邻居表包含了每个邻居的一个在可能需要重传时，用于对数据包进行排队的传输清单。此外，在邻居数据结构中还有着一些往返计时器，使用这些计时器来估算出最优重传间隔（the neighbour table includes a transmission list that is used to queue packets for possible retransmission on a per-neighbour basis. Additionally, round-trip timers are kept in the neighbour data structure to estimate an optimal retransmission interval）。所有这些信息都在`show ip eigrp neighbours`命令的输出中有打印出来。如下面所示：
 
-```
+```console
 R2#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
@@ -680,7 +680,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 
 尽管`show ip eigrp neighbours`命令打印出有关已知EIGRP邻居信息，其在动态发现的邻居和手动配置的邻居上是没有区别的。比如，在路由器`R2`上的该`show ip eigrp neighbours`命令的输出表明该路由器有着两个EIGRP邻居关系。在此配置下，其中一个是静态配置的邻居，而另一个则是动态发现的。可以看出，从下面的输出是没法判断出哪个是哪个的：
 
-```
+```console
 R2#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
@@ -691,7 +691,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 
 在路由器同时有着动态发现与静态配置的邻居关系环境中，可以使用`show ip eigrp neighbours detail`命令，来判断出哪个邻居是静态配置的，哪个是动态发现的，如下面所示：
 
-```
+```console
 R2#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
@@ -705,7 +705,7 @@ H   Address      Interface  Hold   Uptime     SRTT    RTO    Q     Seq
 
 参考上面的输出，邻居`192.168.1.3`就是手动配置的邻居，而邻居`150.2.2.2`则是动态发现的邻居了。还可以通过使用`show ip eigrp neighbours static <interface>`，来查看到那些静态邻居，如下所示：
 
-```
+```console
 R2#show ip eigrp neighbors static FastEthernet0/0
 IP-EIGRP neighbors for process 150
 Static Address           Interface
@@ -759,7 +759,7 @@ Static Address           Interface
 
 在使用`metric weights`命令时，`[tos]`表示服务类型（Type of Service）。尽管思科IOS软件显示可以使用任何0到8之间的数值，但在撰写本手册时，该字段（`[tos]`）当前却只能被设置为0。而这些K值，就可以被设置为0到255之间的任何数值。通过执行`show ip protocols`命令，就可查看默认的这些EIGRP K值。下面的输出对此进行了演示：
 
-```
+```console
 R2#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -796,7 +796,7 @@ Routing Protocol is “eigrp 150”
 
 参考图36.8中的图示，因为路由器`R1`与`R2`之间两条链路的带宽（及延迟）是相等的，所以从路由器`R2`到子网`172.16.100.0/24`将同时继承到这两条路径的相同EIGRP度量值（because of the equal bandwidth (and delay) values of the links between `R1` and `R2`, the same EIGRP metric will be derived for both paths from `R2` to the `172.16.100.0/24` subnet）。EIGRP将在这两条链路之间进行流量负载均衡，如下面路由器`R2`上的输出所示：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 2172416, type internal
@@ -819,7 +819,7 @@ Routing entry for 172.16.100.0/24
 
 第一种操作，就是可以增加`Serial0/0`上的带宽值，造成该路径的一个更好（更低）的度量值。那么第二种方法，就是可以降低`Serial0/1`上的带宽值，造成该路径的一个更差（更高）的度量值。两种选项都是可接受的，同时都将达成所需的结果。下面的输出演示了如何将`Serial0/0`上的默认带宽进行降低，从而有效地确保`Serial0/0`作为路由器`R2`及`172.16.100.0/24`网络之间的主要路径。
 
-```
+```console
 R2(config)#interface Serial0/1
 R2(config-if)#bandwidth 1024
 R2(config-if)#exit
@@ -829,7 +829,7 @@ R2(config-if)#exit
 
 该配置的结果就是接口`Serial0/0`成为路由器`R2`到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 2172416, type internal
@@ -872,7 +872,7 @@ Routing entry for 172.16.100.0/24
 
 在对接口的带宽及延迟数值进行计算时，重要的是记住**对接口带宽的调整并不会自动地调整到接口的延迟，相反也是这样。这两个数值是相互独立的**。比如，下面的输出展示了一个快速以太网接口的默认带宽及延迟数值：
 
-```
+```console
 R2#show interfaces FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
   Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
@@ -885,7 +885,7 @@ FastEthernet0/0 is up, line protocol is up
 
 为对此概念进行强化，下面使用接口配置命令`bandwidth`，将该快速以太网接口的带宽调整为1544Kbps：
 
-```
+```console
 R2(config)#interface FastEthernet0/0
 R2(config-if)#bandwidth 1544
 R2(config-if)#exit
@@ -893,7 +893,7 @@ R2(config-if)#exit
 
 此时显示在`show interfaces`命令的输出中的带宽数值，反应了该已应用下去的配置，但默认的接口延迟数值却仍然保持原来的大小，如下面的输出所示：
 
-```
+```console
 R2#show interfaces FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
   Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
@@ -927,7 +927,7 @@ FastEthernet0/0 is up, line protocol is up
 
 可使用`show ip route`命令对此计算进行验证，如下所示：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 2172416, type internal
@@ -948,7 +948,7 @@ Routing entry for 172.16.100.0/24
 
 与使用`bandwidth`命令一样，为了对EIGRP的度量值计算施加影响，我们既可以使用`delay`命令对接口延迟数值进行提升，也可以对其进行降低。比如，为了将路由器`R2`配置为使用链路`Serial0/0`到达`172.16.100.0/24`网络，而将`Serial0/1`仅用作一条备份链路，那么就可以如下将`Serial0/0`上的延迟数值进行降低：
 
-```
+```console
 R2(config)#int s0/0
 R2(config-if)#delay 100
 R2(config-if)#exit
@@ -956,7 +956,7 @@ R2(config-if)#exit
 
 此配置就对经由`Serial0/0`的路径的EIGRP度量值进行了调整，如下所示：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 1686016, type internal
@@ -1033,7 +1033,7 @@ EIGRP的拓扑表，是由EIGRP的各种**协议相关模块**, 在**弥散更�
 
 使用`show ip eigrp topology`命令，就可查看到EIGRP拓扑表的内容。该命令下可用的选项如下所示：
 
-```
+```console
 R2#show ip eigrp topology ?
   <1-65535>       AS Number
   A.B.C.D         IP prefix <network>/<length>, e.g., 192.168.0.0/16
@@ -1050,7 +1050,7 @@ R2#show ip eigrp topology ?
 
 不带选项的`show ip eigrp topology`命令，将仅打印出那些拓扑表中路由的、且是该路由器上所有开启的EIGRP实例的后继路由器及可行后继的信息（The `show ip eigrp topology` command with no options prints only the Successor and Feasible Successor information for routes in the topology table and for all of the EIGRP instances enabled on the router）。下面演示了该命令的打印输出：
 
-```
+```console
 R2#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(2.2.2.2)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -1066,7 +1066,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016
 
 而`show ip eigrp topology [network]/[prefix]`及`show ip eigrp topology [network] [mask]`两个命令，则将打印出其各自所指定路由的后继路由、可行后继路由以及未能满足可行条件的那些其它路由（The `show ip eigrp topology [network]/[prefix]` and `show ip eigrp topology [network] [mask]` commands print Successor routes, FS routes, and routes that have not met the FC for the route specified in either command）。下面的输出演示了`show ip eigrp topology [network]/[prefix]`命令的用法：
 
-```
+```console
 R2#show ip eigrp topology 172.16.100.0/24
 IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 1686016
@@ -1093,7 +1093,7 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
 
 在上面的输出中，可以看出经由`Serial0/1`的路径并没有满足可行条件（FC），因为其报告的距离（RD）超过了可行距离（FD）。这就是该路径没有在`show ip eigrp topology`命令的输出中打印出来的原因。而为了判断出那些后继路由、可行后继路由，以及未能满足可行条件的那些路由，就可以使用`show ip eigrp topology all-links`命令，而不是对单个前缀进行查看，从而查看到在EIGRP拓扑表中所有前缀的所有可能的路由。下面对此命令的输出进行了演示：
 
-```
+```console
 R2#show ip eigrp topology all-links
 IP-EIGRP Topology Table for AS(150)/ID(2.2.2.2)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -1123,7 +1123,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
 
 查询一旦发出，那么发出查询的EIGRP路由器就必须在计算后继路由前，等待完成所有应答的接收。如有任何邻居在三分钟之内没有应答，那么该路由就被称作处于活动粘滞状态（If any neighbour has not replied within three minutes, the route is said to be Stuck-In-Active(SIA)）。而当某条路由成为活动粘滞路由时，该（这些）未对查询进行响应的路由器的邻居关系，就将被重置。在此情况下，可以观察到路由器记录下了如下类似的一条消息：
 
-```
+```console
 %DUAL-5-NBRCHANGE: IP-EIGRP 150:
     Neighbor 150.1.1.1(Serial0/0) is down: stuck in active
 %DUAL-3-SIA:
@@ -1149,7 +1149,7 @@ Cleaning up
 
 思科IOS软件对所有路由协议支持默认下至多4条路径的相等开销负载均衡（Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols）。下面的`show ip protocols`命令的输出，对此进行了演示：
 
-```
+```console
 R2#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -1176,7 +1176,7 @@ Routing Protocol is “eigrp 150”
 
 而又可以使用路由器配置命令`maximum-paths <1-6>`，对默认的最多4条路径，修改为最多6条相等开销的路径。在进行相等开销的负载均衡时，路由器将负载在所有路径直接进行均匀地分配。有着一个流量分享计数，对每条路径上传输的数据包进行识别（The traffic share count identifies the number of outgoing packets on each path）。在进行相等开销的负载均衡时，单个的完整数据包是在某条单独路径上发出的，如下面的输出所示：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 2172416, type internal
@@ -1199,7 +1199,7 @@ Routing entry for 172.16.100.0/24
 
 关键字`<multiplier>`是一个介于1到128之间的整数。默认的倍数（multiplier）1，就是说不进行不相等开销下的负载均衡。此默认设置在下面的`show ip protocols`命令的输出中进行了演示：
 
-```
+```console
 R2#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -1232,7 +1232,7 @@ Routing Protocol is “eigrp 150”
 
 基于图36.11中所演示的拓扑，下面的输出演示在路由器`R2`上`172.16.100.0/24`前缀的路由表：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 3014400, type internal
@@ -1248,7 +1248,7 @@ Routing entry for 172.16.100.0/24
 
 下面的EIGRP拓扑表，同时显示了后继与可行后继路由：
 
-```
+```console
 R2#show ip eigrp topology 172.16.100.0 255.255.255.0
 IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 3014400
@@ -1287,7 +1287,7 @@ IP-EIGRP (AS 150): Topology entry for 172.16.100.0/24
 
 随后**必须对此数值进行向上取整**，这里就是2了。那么就可以在路由器配置模式中，通过应用将下面的配置，将路由器`R2`配置为进行非等价的负载均衡了：
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#variance 2
 R2(config-router)#exit
@@ -1295,7 +1295,7 @@ R2(config-router)#exit
 
 而根据此配置，此时`172.16.100.0/24`前缀的路由表条目就变成如下所示了：
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 3014400, type internal
@@ -1318,7 +1318,7 @@ Routing entry for 172.16.100.0/24
 
 > **注意**：该`traffic-share balanced`命令默认是开启的，且就算对其进行了显式配置，其也不会在运行配置中出现。这一点在下面进行了演示：
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#vari 2
 R2(config-router)#traffic-share balanced
@@ -1339,7 +1339,7 @@ no auto-summary
 
 下面的配置示例，使用了以上图36.11中展示的拓扑，用于对如何将路由器配置为把那些度量值少于最小度量值两倍的路由，放入到路由表中，而仅使用有着最低度量值的那条路由（后继路由）来转发数据包：
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#vari 2
 R2(config-router)#traffic-share min across-interfaces
@@ -1349,7 +1349,7 @@ R2(config-router)#exit
 此配置造成路由表中`172.16.100.0/24`前缀的以下输出：
 
 
-```
+```console
 R2#show ip route 172.16.100.0 255.255.255.0
 Routing entry for 172.16.100.0/24
   Known via “eigrp 150”, distance 90, metric 3014400, type internal
@@ -1390,7 +1390,7 @@ Routing entry for 172.16.100.0/24
 
 参考图36.12, 假设子网`200.10.10.0/24`是连接到互联网的。该子网位于路由器`R1`的`Fastethernet0/0`侧。路由器`R1`与`R2`相应地通过一条背靠背的串行连接相连。两台路由器都是处于EIGRP AS 150中。为了将`200.10.10.0/24`标记为最终网络，就要在路由器`R1`上进行如下配置：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 200.10.10.0 0.0.0.255
 R1(config-router)#exit
@@ -1400,7 +1400,7 @@ R1(config)#exit
 
 基于此配置，路由器`R2`就会将`200.10.10.0/24`作为最终网络接收下来，如下所示：
 
-```
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1421,7 +1421,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 
 参考上面的图36.12, `network`命令与一条既有默认静态路由的结合使用，在以下路由器`R1`的配置中进行了演示：
 
-```
+```console
 R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
 R1(config)#router eigrp 150
 R1(config-router)#network 0.0.0.0
@@ -1430,7 +1430,7 @@ R1(config-router)#exit
 
 基于此种配置，下面的输出，演示了路由器`R2`上的IP路由表：
 
-```
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1453,7 +1453,7 @@ D*   0.0.0.0/0 [90/2172416] via 150.1.1.1, 00:00:43, Serial0/0
 
 参考图36.13, 该图与图36.12是一样的，在路由器`R1`上完成以下配置：
 
-```
+```console
 R1(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0
 R1(config)#router eigrp 150
 R1(config-router)#redistribute static metric 100000 100 255 1 1500
@@ -1464,7 +1464,7 @@ R1(config-router)#exit
 
 基于此种配置，路由器`R2`上的路由表就如下所示了：
 
-```
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1482,7 +1482,7 @@ D*EX 0.0.0.0/0 [170/2195456] via 150.1.1.1, 00:01:16, Serial0/0
 
 因为该路由是在路由器`R1`上被重分发到EIGRP中的，所以如同上面所反应出的，其就是一条外部EIGRP路由了。对于那些外部路由，EIGRP拓扑表中就包含了诸如该路由所起源的路由器、该路由是为何种协议接收的，以及该外部路由的度量值等信息。下面的输出对此进行了演示：
 
-```
+```console
 R2#show ip eigrp topology 0.0.0.0/0
 IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 2195456
@@ -1510,7 +1510,7 @@ IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
 
 参考上面图36.13中所演示的网络拓扑图示，这里使用了接口配置命令`ip summary-address eigrp [asn] [network] [mask]`, 将路由器`R1`配置为把默认路由通告给`R2`，如下所示：
 
-```
+```console
 R1(config)#interface Serial0/0
 R1(config-if)#description ‘Back-to-Back Serial Connection To R2 Serial0/0’
 R1(config-if)#ip summary-address eigrp 150 0.0.0.0 0.0.0.0
@@ -1519,7 +1519,7 @@ R1(config-if)#exit
 
 使用这个命令的**主要优势在于，无需为了让EIGRP将网络`0.0.0.0/0`通告给邻居路由器，而将某条默认路由或某个默认网络放入到路由表中**（The primary advantage to using this command is that a default route or network does not need to exist in the routing table in order for EIGRP to advertise network `0.0.0.0/0` to its neighbour routers）。在执行了此命令后，本地路由器将生成一条到`Null0`接口的汇总路由，并将该条目标记为备选默认路由（the candidate default route）。如下所示：
 
-```
+```console
 R1#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1536,7 +1536,7 @@ D*   0.0.0.0/0 is a summary, 00:02:26, Null0
 
 于是在路由器`R2`上就作为一条内部EIGRP路由（an internal EIGRP route），接收到该汇总路由，如下所示：
 
-```
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1562,7 +1562,7 @@ D*   0.0.0.0/0 [90/2297856] via 150.1.1.1, 00:03:07, Serial0/0
 
 图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器`S1`与`S2`则是分支路由器(the spoke router)。在该帧中继广域网上，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中，各自与中心路由器之间的，所提供的数据链路层连接标识（Data Link Connection Identifier，这是个6位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
 
-```
+```console
 HQ#show frame-relay map
 Serial0/0 (up): ip 172.16.1.2 dlci 102(0x66,0x1860), static,
               broadcast,
@@ -1590,7 +1590,7 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
 
 在后面的广域网章节，将涉及到帧中继。这里在所有三台路由器上都开启了EIGRP，使用了自治系统编号`150`。下面的输出演示了中心路由器与分支路由器之间的EIGRP邻居关系：
 
-```
+```console
 HQ#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
@@ -1601,7 +1601,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 
 下面的输出对第一台分支路由器`S1`与中心路由器之间的EIGRP邻居关系：
 
-```
+```console
 S1#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
@@ -1611,7 +1611,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 
 下面的输出对第二台分支路由器`S2`与中心路由器之间的EIGRP邻居关系：
 
-```
+```console
 S2#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
@@ -1623,7 +1623,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 
 这种默认行为意味着尽管中心路由器注意到了这两条前缀，但分支路由器却只有局部的路由表。中心路由器上的路由表如下：
 
-```
+```console
 HQ#show ip route eigrp
      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 D       10.1.1.0/24 [90/2195456] via 172.16.1.1, 00:12:04, Serial0/0
@@ -1632,7 +1632,7 @@ D       10.2.2.0/24 [90/2195456] via 172.16.1.2, 00:12:06, Serial0/0
 
 分支路由器`S1`上的路由表如下：
 
-```
+```console
 S1#show ip route eigrp
      192.168.1.0/26 is subnetted, 1 subnets
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:53, Serial0/0
@@ -1640,7 +1640,7 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:53, Serial0/0
 
 分支路由器`S2`上的路由表如下：
 
-```
+```console
 S2#show ip route eigrp
      192.168.1.0/26 is subnetted, 1 subnets
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
@@ -1654,14 +1654,14 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
 
 通过在中心路由器的接口级别使用接口配置命令`no ip split-horizon eigrp [AS]`，就可以完成关闭水平分割。**命令`show ip split-horizon interface_name`不会显示EIGRP的水平分割状态，因为该命令是作用于RIP的**。所以要查看到EIGRP的水平分割状态，就必须对接口配置部分进行检查（也就是执行`show run interface_name`命令）。参考上面图36.14中所演示的网络拓扑，此接口配置命令就应在中心路由器上的`Serial0/0`接口上应用。应像下面这样完成：
 
-```
+```console
 HQ(config)#interface Serial0/0
 HQ(config-if)#no ip split-horizon eigrp 150
 ```
 
 在水平分割关闭后，中心路由器就可以把在某个接口上接收到的路由信息，再在该接口上发送出去了。比如，分支路由器`S2`上的路由表现在就显示了一个由分支`S1`通告给中心路由器的`10.1.1.0/24`前缀了：
 
-```
+```console
 S2#show ip route eigrp
      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 D       10.1.1.0/24 [90/2707456] via 172.16.1.3, 00:00:47, Serial0/0
@@ -1671,7 +1671,7 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:00:47, Serial0/0
 
 可使用一个简单的从分支路由器`S2`到`10.1.1.0/24`的`ping`操作，对连通性进行检查，如下所示：
 
-```
+```console
 S2#ping 10.1.1.2
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.1.1.2, timeout is 2 seconds:
@@ -1706,7 +1706,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 
 可以查看`show ip protocols`命令的输出，来对此默认行为进行验证。路由器`R1`上该命令的输出如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -1741,7 +1741,7 @@ Routing Protocol is “eigrp 150”
 
 参考上面的打印输出，可以看到环回接口上所发出的更新，就是一种资源的浪费，因为设备是无法物理连接到路由器环回接口上去监听此类更新的（Referencing the output printed above, you can see that sending updates on a Loopback interface is a waste of resource because a device cannot be connected physically to a router Loopback interface listening for such updates）。那么就可以通告使用路由器配置命令`passive-interface`，来关闭此默认行为，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#passive-interface Loopback1
 R1(config-router)#passive-interface Loopback2
@@ -1751,7 +1751,7 @@ R1(config-router)#exit
 
 这样的配置的结果，就是不再往这些环回发出EIGRP数据包了。因此，如下所示，汇总地址就不会在这些接口上通告出去了：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -1787,7 +1787,7 @@ Routing Protocol is “eigrp 150”
 
 继续有关自动汇总方面的内容，在对有类边界进行自动汇总后，EIGRP就将一条到汇总地址的路由，安装到EIGRP的拓扑表与IP路由表中（Continuing with automatic summarisation, following automatic summarisation at the classful boundary, EIGRP installs a route to the summary address into the EIGRP topology table and the IP routing table）。下面的EIGRP拓扑表中就包含了此汇总地址的路由，以及更具体的路由条目以及这些路由条目各自所直接连接的接口：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -1806,7 +1806,7 @@ P 10.1.1.0/24, 1 successors, FD is 128256
 
 在路由表中，汇总路由是直接连接到`Null0`接口上的。该路由有着一个默认为`5`的管理距离数值（a default administrative distance value of `5`）。下面的输出对此进行了演示：
 
-```
+```console
 R1#show ip route 10.0.0.0 255.0.0.0
 Routing entry for 10.0.0.0/8
   Known via “eigrp 150”, distance 5, metric 128256, type internal
@@ -1821,7 +1821,7 @@ Routing entry for 10.0.0.0/8
 
 在EIGRP完成自动汇总时，路由器将对汇总路由进行通告，从而抑制了那些更为具体路由的通告（When EIGRP performs automatic summarisation, the router advertises the summary route and suppresses the more specific routes）。换句话说，在汇总路由得以通告时，那些更为具体的前缀，在发往EIGRP邻居的更新中就被省略了（the more specific prefixes are suppressed in updates to EIGRP neighbours）。这一点可通过查看路由器`R2`上的路由表，加以验证，如下所示：
 
-```
+```console
 R2#show ip route eigrp
 D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 ```
@@ -1837,14 +1837,14 @@ D    10.0.0.0/8 [90/2298856] via 150.1.1.1, 00:29:05, Serial0/0
 
 因为两台路由器就只把汇总地址通告给对方，所以两台路由器都将无法到达对方的`10.x.x.x/24`子网。为掌握到图36.16所演示网络中自动汇总的衍生问题（ramifications），下面从在路由器`R1`及`R2`上的配置开始，一次一步的走一下这些步骤，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#network 10.1.1.0 0.0.0.255
 R1(config-router)#network 150.1.1.0 0.0.0.255
 R1(config-router)#exit
 ```
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#network 10.2.2.0 0.0.0.255
 R2(config-router)#network 150.1.1.0 0.0.0.255
@@ -1853,7 +1853,7 @@ R2(config-router)#exit
 
 因为两台路由器上有类边界处的自动汇总都是默认开启的，所以这两台路由器都将生成两个汇总地址：一个是`10.0.0.0/8`的，另一个是`150.1.0.0/16`的（Because automatic summarisation at the classful boundary is enabled by default on both of the routers, they will both generate two summary addresses: one for `10.0.0.0/8` and another for `150.1.0.0/16`）。这两个汇总地址都将指向到`Null0`接口，同时路由器`R1`上的路由表将显示下面这些条目：
 
-```
+```console
 R1#show ip route eigrp
      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 D       10.0.0.0/8 is a summary, 00:04:51, Null0
@@ -1863,7 +1863,7 @@ D       150.1.0.0/16 is a summary, 00:06:22, Null0
 
 与此类似，路由器`R2`上反应了同样的情况，如下所示：
 
-```
+```console
 R2#show ip route eigrp
      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
 D       10.0.0.0/8 is a summary, 00:01:58, Null0
@@ -1873,7 +1873,7 @@ D       150.1.0.0/16 is a summary, 00:01:58, Null0
 
 虽然汇总地址`150.1.0.0/16`被安装到了IP路由表中，路由器`R1`与`R2`是仍可`ping`通对方的，因为这里的更为具体路由条目（the more route-specific entry, `150.1.1.0/24`）是位处于直连接口之上的。可通过执行`show ip route [address] [mask] longer-prefixes`命令，来查看到这些某个汇总路由中的详细条目。下面演示了对于`150.1.0.0/16`汇总，该命令的输出：
 
-```
+```console
 R1#show ip route 150.1.0.0 255.255.0.0 longer-prefixes
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1890,7 +1890,7 @@ D       150.1.0.0/16 is a summary, 00:10:29, Null0
 
 因为那条更详细的`150.1.1.0/24`路由条目是存在的，所以发送到`150.1.1.2`地址的数据包将经由`Serial0/0`接口加以转发。这就令到路由器`R1`与`R2`的连通性没有问题，如下所示：
 
-```
+```console
 R1#ping 150.1.1.2
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 150.1.1.2, timeout is 2 seconds:
@@ -1902,7 +1902,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 那么到这里，一切都说得通了（So far, everything appears to be in order）。可以看出，因为大的`150.1.0.0/16`网络的这条更具体路由条目（`150.1.1.0/24`）的存在，路由器`R1`与`R2`之间是能`ping`通的。不过问题在于路由器`R1`与`R2`上大的网络`10.0.0.0/8`的那些子网。路由器`R1`（的路由表）显示出下面其生成的`10.0.0.0/8`汇总地址的具体路由条目：
 
-```
+```console
 R1#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1919,7 +1919,7 @@ D       10.0.0.0/8 is a summary, 00:14:23, Null0
 
 于此类似，路由器`R2`（的路由表）显示出其生成的`10.0.0.0/8`汇总地址的以下具体路由条目：
 
-```
+```console
 R2#show ip route 10.0.0.0 255.0.0.0 longer-prefixes
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1936,7 +1936,7 @@ D       10.0.0.0/8 is a summary, 00:14:23, Null0
 
 可以看出，两台路由器都没有到对方的`10.x.x.x/24`子网的路由。假设在路由器`R1`尝试往`10.2.2.0/24`发送数据包时，将使用那个汇总地址，那么数据包就将转发到`Null0`接口。下面的输出对此进行了演示：
 
-```
+```console
 R1#show ip route 10.2.2.0
 Routing entry for 10.0.0.0/8
   Known via “eigrp 150”, distance 5, metric 28160, type internal
@@ -1951,7 +1951,7 @@ Routing entry for 10.0.0.0/8
 
 路由器`R1`将无法`ping`通`R2`上的`10.x.x.x/24`子网，反之亦然，如下所示：
 
-```
+```console
 R1#ping 10.2.2.2
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.2.2.2, timeout is 2 seconds:
@@ -1966,13 +1966,13 @@ Success rate is 0 percent (0/5)
 
 第一个选项是相当简单粗暴基础的（very basic）。但是，静态路由配置不具备可伸缩性，且在大型网络中需要大量费时费力的配置。而第二选项，也就是**推荐做法**，除了具备伸缩性，比起第一选项只需较少的时间精力。**通过执行`no auto-summary`命令**，就可将自动汇总予以关闭（**较新版本的IOS中，该特性已被默认关闭了**）, 如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#no auto-summary
 R1(config-router)#exit
 ```
 
-```
+```console
 R2(config)#router eigrp 150
 R2(config-router)#no auto-summary
 R2(config-router)#exit
@@ -1980,7 +1980,7 @@ R2(config-router)#exit
 
 此配置的结果，就是大的网络上的那些具体子网，在两台路由器上都有通告。不会生成汇总路由，如下所示：
 
-```
+```console
 R2#show ip route eigrp
      10.0.0.0/24 is subnetted, 2 subnets
 D       10.1.1.0 [90/2172416] via 150.1.1.1, 00:01:17, Serial0/0
@@ -1988,7 +1988,7 @@ D       10.1.1.0 [90/2172416] via 150.1.1.1, 00:01:17, Serial0/0
 
 这些`10.x.x.x/24`子网之间的连通性，可使用一个简单的`ping`操作，加以验证，如下所示：
 
-```
+```console
 R2#ping 10.1.1.1 source 10.2.2.2 repeat 10
 Type escape sequence to abort.
 Sending 10, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds:
@@ -2004,7 +2004,7 @@ Success rate is 100 percent (10/10), round-trip min/avg/max = 1/3/4 ms
 
 参考图36.17, 路由器`R1`正在进行重分发（redistributing, 这令到这些网络成为外部的网络），并在随后将外部网络`10.0.0.0/24`、`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`这些外部网络经由EIGRP进行通告。路由器`R1`上开启了自动路由汇总。路由器`R1`上的初始配置是下面这样的：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#redistribute connected metric 8000000 5000 255 1 1514
 R1(config-router)#network 150.1.1.1 0.0.0.0
@@ -2013,7 +2013,7 @@ R1(config-router)#exit
 
 `show ip protocols`命令显示出路由器`R1`的`Serial0/0`接口上开启了EIGRP, 同时正通告着那些连接的网络。同时自动汇总是开启的，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -2037,7 +2037,7 @@ Gateway             Distance        Last Update
 
 就像前面输出示例所演示的那样, 因为这些`10.x.x.x/24`前缀都是外部路由，所以EIGRP不会对这些前缀进行自动汇总。又因此EIGRP不会往拓扑表，也不会往IP路由表中添加一条这些前缀的汇总路由。下面的输出对此进行了演示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2057,7 +2057,7 @@ P 10.3.3.0/24, 1 successors, FD is 1280256
 
 这些具体路由条目，是作为外部EIGRP路由，通告给路由器`R2`的，如下所示：
 
-```
+```console
 R2#show ip route eigrp
      10.0.0.0/24 is subnetted, 4 subnets
 D EX    10.3.3.0 [170/3449856] via 150.1.1.1, 00:07:02, Serial0/0
@@ -2068,7 +2068,7 @@ D EX    10.0.0.0 [170/3449856] via 150.1.1.1, 00:07:02, Serial0/0
 
 现在，假设`10.0.0.0/24`是一个内部网络，而`10.1.1.0/24`、`10.2.2.0/24`与`10.3.3.0/24`三个子网却是外部网络。因为这些将构成有类汇总地址`10.0.0.0/8`的路由中有一条是内部路由，所以EIGRP将创建出一个汇总地址，并将其包含在EIGRP拓扑表与IP路由表中。命令`show ip protocols`显示出`10.0.0.0/24`网络此时就是一个内部EIGRP网络了，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -2099,7 +2099,7 @@ Routing Protocol is “eigrp 150”
 
 在上面的输出中，EIGRP的自动汇总，已经生成一个`10.0.0.0/8`的汇总地址，因为`10.0.0.0/24`这个内部子网是该聚合地址（the aggregate address）的一部分。而EIGRP的拓扑表，将显示出这些外部与内部条目，以及生成的汇总地址，如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2121,14 +2121,14 @@ P 10.3.3.0/24, 1 successors, FD is 1280256
 
 此时，就仅有一条路由通告给路由器`R2`了，如下面的输出所示：
 
-```
+```console
 R2#show ip route eigrp
 D    10.0.0.0/8 [90/2297856] via 150.1.1.1, 00:04:05, Serial0/0
 ```
 
 从路由器`R2`的角度看，该路由就是一条简单的内部EIGRP路由。也就是说，路由器`R2`并不知道这个汇总地址还有着一些外部路由，如下所示：
 
-```
+```console
 R2#show ip route 10.0.0.0 255.0.0.0
 Routing entry for 10.0.0.0/8
   Known via “eigrp 150”, distance 90, metric 2297856, type internal
@@ -2144,7 +2144,7 @@ Routing entry for 10.0.0.0/8
 
 经由所接收到的这条汇总路由，路由器`R2`是可以同时到达这个内部的`10.0.0.0/24`与那些其它的外部`10.x.x.x/24`网络，如下所示：
 
-```
+```console
 R2#ping 10.0.0.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
@@ -2201,7 +2201,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/3/4 ms
 
 基于路由器`R1`上所配置的接口，`R2`上的路由表将显示出以下条目：
 
-```
+```console
 R2#show ip route eigrp
      10.0.0.0/24 is subnetted, 4 subnets
 D       10.3.3.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
@@ -2212,7 +2212,7 @@ D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:00:14, Serial0/0
 
 为将路由器`R1`上的这些路由条目进行汇总并通告出一条单一的特定（译者注，这里可能是“汇总”，而不是具体(specific)）路由，就要在`R1`的`Serial0/0`接口上应用如下配置：
 
-```
+```console
 R1(config)#interface Serial0/0
 R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
 R1(config-if)#exit
@@ -2220,7 +2220,7 @@ R1(config-if)#exit
 
 在此配置下，该汇总条目`10.0.0.0/14`就将被安装到路由器`R1`的EIGRP拓扑表与IP路由表中。该EIGRP拓扑表条目如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2241,7 +2241,7 @@ P 10.1.1.0/24, 1 successors, FD is 128256
 
 而该路由表条目，也同样反应出来此汇总路由的下一跳接口为`Null0`, 如下所示：
 
-```
+```console
 R1#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -2265,7 +2265,7 @@ C       150.2.2.0 is directly connected, Serial0/1
 
 可再次使用`show ip route [address] [mask] longer-prefixes`命令，来查看组成该聚合或者说汇总路由的那些具体路由条目，如下面路由器`R1`上的输出所示：
 
-```
+```console
 R1#show ip route 10.0.0.0 255.252.0.0 longer-prefixes
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -2285,7 +2285,7 @@ D       10.0.0.0/14 is a summary, 00:04:03, Null0
 
 而在路由器`R2`上，则接收到汇总地址`10.0.0.0/14`的一条单一的路由条目，如下所示：
 
-```
+```console
 R2#show ip route eigrp
      10.0.0.0/14 is subnetted, 1 subnets
 D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
@@ -2293,7 +2293,7 @@ D       10.0.0.0 [90/2297856] via 150.1.1.1, 00:06:22, Serial0/0
 
 为加强该汇总路由度量值概念，这里假设路由器`R1`上的那些路由都是有着不同度量值的外部路由（也就是说，这些路由是已被重分发到EIGRP中的）。那么`R1`上的EIGRP拓扑表，将显示以下条目：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2312,7 +2312,7 @@ P 10.3.3.0/24, 1 successors, FD is 1377792
 
 此时再度在路由器`R1`上做先前示例中的相同汇总地址配置，如下所示：
 
-```
+```console
 R1(config)#int s0/0
 R1(config-if)#ip summary-address eigrp 150 10.0.0.0 255.252.0.0
 R1(config-if)#exit
@@ -2320,7 +2320,7 @@ R1(config-if)#exit
 
 那么基于此配置，该汇总路由就以它所包含的所有路由中的最小度量值，而放入到EIGRP拓扑表和IP路由表中（Based on this configuration, the summary route is placed into the EIGRP topology table and the IP routing table with a metric equal to the lowest metric of all routes that it encompasses）。而根据前面所展示的`show ip eigrp topology`命令的输出，该汇总地址将获得到与`10.3.3.0/24`前缀相同的度量值，如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2347,7 +2347,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
 
 思科IOS软件允许管理员使用**路由器配置命令`passive-interface [name|default]`**, 将命名的接口（the named interface）或把所有接口，指定为被动模式。从而不会在这些被动接口上发出EIGRP数据包; 在这些被动接口之间，就绝对不会建立邻居关系了。下面的输出演示了在路由器上如何将两个开启了EIGRP的接口，配置为被动模式：
 
-```
+```console
 R1(config)#interface Loopback0
 R1(config-if)#ip address 10.0.0.1 255.255.255.0
 R1(config-if)#exit
@@ -2369,7 +2369,7 @@ R1(config-router)#exit
 
 基于此种配置，逻辑接口`Loopback0`与`Loopback1`是开启了EIGRP路由的，它们上面的直连网络将被通告给EIGRP邻居。但路由器`R1`是不会将EIGRP数据包从这两个接口发出去的。另一方面，接口`Serial0/0`上也配置上了EIGRP路由，不过这里是允许EIGRP在此接口上发出数据包的，因为它不是一个被动接口。所有三个网络都是安装到EIGRP路由表中的，如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2384,7 +2384,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
 
 但`show ip eigrp interfaces`显示EIGRP路由只是对`Serial0/0`接口是开启的，如下所示：
 
-```
+```console
 R1#show ip eigrp interfaces
 IP-EIGRP interfaces for process 150
                       Xmit Queue   Mean    Pacing Time     Multicast     Pending
@@ -2394,7 +2394,7 @@ Se0/0            1        0/0        0        0/15             0            0
 
 也可在`show ip protocols`命令的输出中查看到那些配置为被动模式的接口，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -2422,7 +2422,7 @@ Routing Protocol is “eigrp 150”
 
 路由器配置命令`passive-interface [name|default]`中的`[default]`关键字令到所有接口，都成为被动模式。先假设路由器上配置了50个的环回接口。如打算将每个环回接口都配置为被动模式，那么就需要50行的代码。而这时就可以使用`passive-interface default`命令，来令到所有接口都成为被动接口了。对于那些确实想要发出EIGRP数据包的接口，就可使用`no passive-interface [name]`命令进行配置。下面对`passive-interface default`命令的用法进行了演示：
 
-```
+```console
 R1(config)#interface Loopback0
 R1(config-if)#ip address 10.0.0.1 255.255.255.0
 R1(config-if)#exit
@@ -2450,7 +2450,7 @@ R1(config-router)#exit
 
 这里可以再度使用`show ip protocols`命令，来查看哪些接口是处于EIGRP下的被动模式的，如下所示：
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “eigrp 150”
   Outgoing update filter list for all interfaces is not set
@@ -2483,7 +2483,7 @@ Routing Protocol is “eigrp 150”
 
 这里通过使用`passive-interface default`命令，令到多个被动接口的配置就得以简化，并减少了代码。而当其与`no passive-interface Serial0/0`一起使用时，EIGRP数据包仍旧在接口`Serial0/0`上发出，从而允许EIGRP邻居关系通过此接口建立起来，如下所示：
 
-```
+```console
 R1#show ip eigrp neighbors
 IP-EIGRP neighbors for process 150
 H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
@@ -2499,7 +2499,7 @@ H   Address      Interface  Hold  Uptime    SRTT  RTO    Q      Seq
 
 在确定RID时，**EIGRP将选取路由器上所配置的IP地址中最高的作为RID**。**但如果在路由器上配置了环回接口，那么将优先选取这些接口，因为环回接口是路由器上存在的最稳定接口**。除非将EIGRP进程移除，那么RID随后就绝不会变化了（也就是，假如RID是手动配置的情况）。RID始终会在EIGRP拓扑表中列出，如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2520,7 +2520,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
 
 EIGRP的路由器ID（RID）是通过路由器配置命令`eigrp router-id [address]`进行配置的。在输入了此命令后，RID就以这个新地址，在EIGRP的拓扑表中得以更新。为对此进行演示，这里就以查看路由器上的当前RID开始，如下面的拓扑表中所指出的：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(10.3.3.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2531,7 +2531,7 @@ Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
 
 现在路由器上配置一个`1.1.1.1`的RID，如下所示：
 
-```
+```console
 R1(config)#router eigrp 150
 R1(config-router)#eigrp router-id 1.1.1.1
 R1(config-router)#
@@ -2541,7 +2541,7 @@ R1(config-router)#
 
 伴随这个改变，EIGRP邻居关系就被重置了，同时在EIGRP拓扑表中立即反映出了这个新的RID，如下所示：
 
-```
+```console
 R1#show ip eigrp topology
 IP-EIGRP Topology Table for AS(150)/ID(1.1.1.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -2557,7 +2557,7 @@ Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
 
 现在，源自该路由器的所有外部路由，就都包含了这个EIGRP路由器ID了。在下面的邻居路由器`R2`输出中，就可对此进行验证：
 
-```
+```console
 R2#show ip eigrp topology 192.168.254.0/24
 IP-EIGRP (AS 150): Topology entry for 192.168.254.0/24
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 7289856
@@ -2580,7 +2580,7 @@ IP-EIGRP (AS 150): Topology entry for 192.168.254.0/24
 
 而对于内部EIGRP路由，则是不包含RID的，如下面的输出所示：
 
-```
+```console
 R2#show ip eigrp topology 10.3.3.0/24
 IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 2297856
@@ -2639,7 +2639,7 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 1. 基于上面的拓扑，配置上所有IP地址。确保可以经由串行链路`ping`通。
 2. 在两台路由器上以自治系统编号30, 配置EIGRP。
 
-```
+```console
 RouterA(config)#router eigrp 30
 RouterA(config-router)#net 172.20.0.0
 RouterA(config-router)#net 10.0.0.0
@@ -2656,7 +2656,7 @@ RouterB(config-router)#net 192.168.1.0
 
 3. 对两台路由器上的路由表分别进行检查。
 
-```
+```console
 RouterA#sh ip route
 Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -2676,7 +2676,7 @@ D    192.168.1.0/24 [90/20640000] via 10.0.0.2, 00:00:49, Serial0/1/0
 RouterA#
 ```
 
-```
+```console
 RouterB#show ip route
 ...
 [Truncated Output]
@@ -2693,7 +2693,7 @@ RouterB#
 
 4. 查明两台路由器都对各个网络进行着自动汇总。并于随后在路由器B上关闭自动汇总。
 
-```
+```console
 RouterB#show ip protocols
 Routing Protocol is “eigrp 30”
   Outgoing update filter list for all interfaces is not set
@@ -2724,7 +2724,7 @@ RouterB(config-router)#no auto-summary
 
 5. 对路由器A上的路由表进行检查。
 
-```
+```console
 RouterA#show ip route
 ...
 [Truncated Output]

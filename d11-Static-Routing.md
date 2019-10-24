@@ -50,7 +50,7 @@
 
 要加入上面网络的一条静态路由，就要在左边的路由器上写出下面这行配置。
 
-```
+```console
 Router(config)#ip route 192.168.1.0 255.255.255.0 172.16.1.2
 ```
 
@@ -60,11 +60,13 @@ Router(config)#ip route 192.168.1.0 255.255.255.0 172.16.1.2
 
 *图11.2 -- 不总是知道下一跳地址的情形*
 
-`Router(config)#ip route 192.168.1.0 255.255.255.0 s0/0`
+```console
+Router(config)#ip route 192.168.1.0 255.255.255.0 s0/0
+```
 
 上面的命令行告诉路由器将目的为`192.168.1.10`网络的流量，从串行接口发出。而下面的命令则是告诉路由器将所有网络的所有流量，都从串行接口发出。
 
-```
+```console
 Router(config)#ip route 0.0.0.0 0.0.0.0 s0/0
 ```
 
@@ -81,7 +83,7 @@ Router(config)#ip route 0.0.0.0 0.0.0.0 s0/0
 
 以下的配置示例，演示了如何来配置`3`条静态IPv6路由。第一条路由，到子网`3FFF:1234:ABCD:0001::/64`, 会将流量从`FastEthernet0/0`转发出去。此路由仅用于单播流量的转发。第二条路由，到子网`3FFF:1234:ABCD:0002::/64`, 会将到那个子网的数据包从`Serial0/0`，使用下一跳路由器的数据链路层地址，作为IPv6的下一跳地址转发出去。本条路由仅会用于多播流量。最后，同样配置了一条指向`Serial0/1`作为出口接口的默认路由。此默认路由将会通过`Serial0/1`, 使用下一跳路由器的本地链路地址作为IPv6下一跳地址，转发那些到未知IPv6目的地址的数据包。这些路由如下面所示。
 
-```
+```console
 R1(config)#ipv6 route 3FFF:1234:ABCD:0001::/64 Fa0/0 unicast
 R1(config)#ipv6 route 3FFF:1234:ABCD:0002::/64 Se0/0 FE80::2222 multicast
 R1(config)#ipv6 route ::/0 Serial0/1 FE80::3333
@@ -89,7 +91,7 @@ R1(config)#ipv6 route ::/0 Serial0/1 FE80::3333
 
 依此配置，命令`show ipv6 route`可用于验证在本地路由器上应用的静态路由配置，如下所示。
 
-```
+```console
 R1#show ipv6 route static
 IPv6 Routing Table - 13 entries
 Codes: 	C - Connected, L - Local, S - Static, R - RIP, B - BGP
@@ -107,7 +109,7 @@ S	3FFF:1234:ABCD:2::/64 [1/0]
 
 除了使用`show ipv6 route`命令外，命令`show ipv6 static [prefix] [detail]`也可一用来对所有或仅是某条特定静态路由的细节信息进行查看。下面输出演示了如何使用这个命令。
 
-```
+```console
 R1#show ipv6 static 3FFF:1234:ABCD:1::/64 detail
 IPv6 static routes
 Code: * - installed in RIB
@@ -158,7 +160,7 @@ Code: * - installed in RIB
 2. 通过串行链路进行`ping`操作，以确保该链路是工作的。
 3. 在`Router A`上指定一条静态路由，将到`10.1.1.0/10`网络的所有流量，从串行接口发送出去。当然要使用你自己的串行端口编号；不要只是拷贝我的配置，你的接口有不同编号！
 
-```
+```console
 RouterA(config)#ip route 10.0.0.0 255.192.0.0 Serial0/1/0
 RouterA(config)#exit
 RouterA#ping 10.1.1.1
@@ -194,7 +196,7 @@ RouterA#
 
 4. 在`Router B`上配置一条静态路由，将到`172.16.1.0/24`网络的所有流量，发到下一跳地址`192.168.1.1`。
 
-```
+```console
 RouterB(config)#ip route 172.16.1.0 255.255.255.0 192.168.1.1
 RouterB(config)#exit
 RouterB#ping 172.16.1.1

@@ -176,7 +176,7 @@ HSRP Coup报文实在当前备份路由器打算接过该HSRP组的活动网关�
 
 以下输出给出了在一台刚开启HSRP的网关上，`debug standby`命令中显示的状态变化：
 
-```
+```console
 R2#debug standby
 HSRP debugging is on
 R2#
@@ -223,7 +223,7 @@ R2(config-if)#
 
 为解决此问题，思科IOS软件允许管理员将HSRP配置为使用其所配置上的物理接口的实际MAC地址。那么结果就是一个单独的MAC地址为所有HSRP组所使用（也就是活动网关所使用的MAC地址），且在每次往连接到这些交换机上的路由器添加HSRP组的时候，无需对端口安全配置进行修改。此操作是通过使用接口配置命令`standby use-bia`命令完成的。下面的输出演示了命令`show standby`，该命令给出了一个配置了两个不同HSRP组的网关接口的信息：
 
-```
+```console
 Gateway-1#show standby
 FastEthernet0/0 - Group 1
     State is Active
@@ -254,7 +254,7 @@ FastEthernet0/0 - Group 2
 
 下面的输出，演示了如何将HSRP配置为使用该网关接口的实际MAC地址，作为不同HSRP分组的虚拟MAC地址：
 
-```
+```console
 Gateway-1#conf
 Configuring from terminal, memory, or network [terminal]?
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -265,7 +265,7 @@ Gateway-1(config-if)#exit
 
 基于上面的输出中的配置，命令`show standby`会反应出HSRP组的新MAC地址，如下面的输出所示:
 
-```
+```console
 Gateway-1#show standby
 FastEthernet0/0 - Group 1
     State is Active
@@ -297,7 +297,7 @@ FastEthernet0/0 - Group 2
 
 那么这里两个HSRP组所用的MAC地址，都是`0013.1986.0a20`，就是分配给物理网关接口的MAC地址了。这在下面的输出中有证实：
 
-```
+```console
 Gateway-1#show interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
     Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
@@ -391,7 +391,7 @@ HSRP允许管理员在一些物理接口上配置多个HSRP组，以实现负载
 
 > 但是，为了刷新那些交换机的虚拟MAC地址，这些客户组仍然要发送周期性的报文。不过与主组的协议选举报文相比，这些刷新报文是以低得多的频率发送的。尽管HSRP客户组的配置是超出CCNA考试要求的，下面的输出还是演示两个客户组的配置，这两个客户组被配置为跟随主组HSRP `Group 1`, 该主组又被命名为`SWITCH-HSRP`组：
 
-```
+```console
 Gateway-1(config)#interface vlan100
 Gateway-1(config-if)#ip address 192.168.1.1 255.255.255.0
 Gateway-1(config-if)#ip address 172.16.31.1 255.255.255.0 secondary
@@ -426,7 +426,7 @@ Gateway-1(config-if)#exit
 
 > **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN172 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
-```
+```console
 VTP-Server-1(config)#interface vlan172
 VTP-Server-1(config-if)#ip address 172.16.31.1 255.255.255.0
 VTP-Server-1(config-if)#standby 1 ip 172.16.31.254
@@ -442,7 +442,7 @@ VTP-Server-2(config-if)#exit
 
 在配置应用后，就可使用`show standby [interface brief]`命令，对HSRP的配置进行验证。下面的输出对`show standby brief`命令进行了展示：
 
-```
+```console
 VTP-Server-1#show standby brief
                      P indicates configured to preempt.
                      |
@@ -463,14 +463,14 @@ Vl172       1        100   Standby local   172.16.31.1     172.16.31.254
 
 抢占特性令到某台网关在本身比当前活动网关有着更高优先级时，强制性地接过活动网关的角色。使用命令`standby [number] preempt`命令，来配置HSRP抢占特性。下面的输出，演示了在`VTP-Server-1`上的此项配置：
 
-```
+```console
 VTP-Server-1(config)#interface vlan172
 VTP-Server-1(config-if)#standby 1 preempt
 ```
 
 这里同样使用命令`show standby [interface [name] |brief]`, 来验证在某个网关上已有配置抢占特性。是通过下面的`show standby brief`命令输出中的“P”字样演示的：
 
-```
+```console
 VTP-Server-1#show standby brief
                      P indicates configured to preempt.
                      |
@@ -482,14 +482,14 @@ Vl172       1   105  P Active  local   172.16.31.2     172.16.31.254
 
 默认下抢占是立即发生的。但可使用接口配置命令`standby [number] preempt delay [minimum|reload|sync]`对此时间间隔进行修改。关键字`[minimum]`用于指定在抢占前等待的最短时间（秒）。下面的输出展示了如何配置在抢占前等待30秒钟：
 
-```
+```console
 VTP-Server-1(config)#interface vlan172
 VTP-Server-1(config-if)#standby 1 preempt delay minimum 30
 ```
 
 此配置可使用命令`show standby [interface]`进行验证。下面的输出对此进行了演示：
 
-```
+```console
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -514,7 +514,7 @@ HSRP接口跟踪特性，令到管理员可以将HSRP配置为追踪接口状态
 
 在下面的输出中，`VTP-Server-1`被配置为对连接到假想WAN路由器的接口`Gigabitethernet5/1`的状态，进行跟踪。在那个接口状态转变为`down`时，该网关就将其优先级值降低10（默认的）:
 
-```
+```console
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -536,14 +536,14 @@ Vlan172 - Group 1
 
 而要将该网关降低值配置为比如50, 就可以执行命令`standby [name] track [interface] [decrement value]`, 如下面的输出所示：
 
-```
+```console
 VTP-Server-1(config)#interface vlan172
 VTP-Server-1(config-if)#standby 1 track GigabitEthernet5/1 50
 ```
 
 此项配置可使用命令`show standby [interface]`进行验证。下面对此进行了演示：
 
-```
+```console
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1
     State is Active
@@ -567,14 +567,14 @@ Vlan172 - Group 1
 
 如同在本课程模块先前指出的那样，默认当HSRP开启时，是启用的版本1。但可通过接口配置命令`standby version [1|2]`来手动开启HSRP版本2。下面的输出演示了HSRP版本2的配置：
 
-```
+```console
 VTP-Server-1(config)#interface vlan172
 VTP-Server-1(config-if)#standby version 2
 ```
 
 使用命令`show standby [interface]`，可对此配置进行验证。下面的输出对此进行了演示：
 
-```
+```console
 VTP-Server-1#show standby vlan172
 Vlan172 - Group 1 (version 2)
     State is Active
@@ -688,7 +688,7 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 
 > **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
-```
+```console
 VTP-Server-1(config)#interface vlan192
 VTP-Server-1(config-if)#ip address 192.168.1.1 255.255.255.0
 VTP-Server-1(config-if)#vrrp 1 ip 192.168.1.254
@@ -706,7 +706,7 @@ VTP-Server-2(config-if)#exit
 
 下面还使用命令`show vrrp [all|brief|interface]`, 对此配置进行了验证。关键字`[all]`展示了有关该VRRP配置的所有信息，包括了组的状态、描述信息（在配置了的情况下）、本地网关优先级，以及主虚拟路由器和其它信息。关键字`[brief]`则会列印出该VRRP配置的摘要信息。而`[interface]`关键字会列印出特定接口的VRRP信息。下面的输出展示了`show vrrp all`命令的输出：
 
-```
+```console
 VTP-Server-1#show vrrp all
 Vlan192 - Group 1
 ‘SWITCH-VRRP-Example’
@@ -735,7 +735,7 @@ Vlan192 - Group 1
 
 下面的输出展示了由命令`show vrrp brief`所列印出的信息：
 
-```
+```console
 VTP-Server-1#show vrrp brief
 Interface          Grp Pri Time Own Pre State   Master addr     Group addr
 Vl192              1   105 3589      Y  Master  192.168.1.1     192.168.1.254
@@ -752,7 +752,7 @@ Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
 
 下面的输出展示了如何配置VRRP的跟踪，引用了对象1, 该被跟踪对象对`Loopback0`接口的线路协议进行跟踪：
 
-```
+```console
 VTP-Server-1(config)#track 1 interface Loopback0 line-protocol
 VTP-Server-1(config-track)#exit
 VTP-Server-1(config)#interface vlan192
@@ -762,7 +762,7 @@ VTP-Server-1(config-if)#exit
 
 而下面的输出则展示了如何将VRRP配置为对引用对象2的追踪，此被追踪对象追踪了到前缀`1.1.1.1/32`的可达性。一个被追踪的IP路由对象在存在一个该路由的路由表条目时，被认为是在线且可达的，同时该路由不是无法访问的（无法访问就是说有着255的路由度量值）, 当发生无法访问时，该路由就会从路由信息数据库中被移除（a tracked IP route object is considered to be up and reachable when a routing table entry exists for the route and the route is not accessible(i.e., has a route metric of 255)，in which case the route is removed from the Routing Information Base(RIB) anyway）。
 
-```
+```console
 VTP-Server-1(config)#track 2 ip route 1.1.1.1/32 reachability
 VTP-Server-1(config-track)#exit
 VTP-Server-1(config)#interface vlan192
@@ -771,7 +771,7 @@ VTP-Server-1(config-if)#vrrp 1 track 2
 
 VRRP跟踪的配置，是通过使用命令`show vrrp interface [name]`命令进行验证的。下面的输出对此进行了演示：
 
-```
+```console
 VTP-Server-1#show vrrp interface vlan192
 Vlan192 - Group 1
 ‘SWITCH-VRRP-Example’
@@ -791,7 +791,7 @@ Vlan192 - Group 1
 
 而要查看被追踪对象的各项参数，就使用命令`show track [number] [brief] [interface] [ip] [resolution] [timers]`。下面是`show track`命令输出的演示：
 
-```
+```console
 VTP-Server-1#show track
 Track 1
     Interface Loopback0 line-protocol
@@ -814,7 +814,7 @@ Track 2
 
 命令`debug vrrp`提供给管理员用于查看有关VRRP运作情况实时信息的诸多选项。这些选项如下面的输出所示：
 
-```
+```console
 VTP-Server-1#debug vrrp ?
     all Debug all VRRP information
     auth VRRP authentication reporting
@@ -937,7 +937,7 @@ GLBP的客户端缓存，包含了使用到某个GLBP组作为默认网关的那
 
 > **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
-```
+```console
 VTP-Server-1(config)#interface vlan192
 VTP-Server-1(config-if)#glbp 1 ip 192.168.1.254
 VTP-Server-1(config-if)#glbp 1 priority 110
@@ -955,7 +955,7 @@ VTP-Server-4(config-if)#exit
 
 一旦该GLBP组已被配置，就可使用命令`show glbp brief`来查看该GLBP配置的摘要信息了，如同下面的输出所示：
 
-```
+```console
 VTP-Server-1#show glbp brief
 Interface   Grp  Fwd Pri State      Address         Active router   Standby router
 Vl192       1    -   110 Active     192.168.1.254   local           192.168.1.4
@@ -993,7 +993,7 @@ Vl192       1    4   -   Active     0007.b400.0104  local           -
 
 命令`show glbp`将有关该GLBP组状态的详细信息打印了出来，下面对此命令的输出进行了演示：
 
-```
+```console
 VTP-Server-1#show glbp
 Vlan192 - Group 1
     State is Active

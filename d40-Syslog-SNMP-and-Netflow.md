@@ -58,7 +58,7 @@
 
 在`syslog`中，设施（the facility）用于表示生成消息的源。源可以是某个本地设备上的进程、应用，或者甚至操作系统本身。设施是以数字（整数）表示的。在思科IOS软件中，有八个本地使用设施可由进程及应用（以及设备本身）用于发送`syslog`消息。默认思科IOS设备使用设施`local7`来发送`syslog`报文。但要注意大多数思科设备提供了改变默认设施级别的选项。在思科IOS软件中，可使用全局配置命令`loggin facility [facility]`来指定`syslog`的设施。该命令可用的选项如下所示：
 
-```sh
+```console
 R1(config)#logging facility ?
   auth    Authorization system
   cron    Cron/at facility
@@ -98,7 +98,7 @@ R1(config)#logging facility ?
 
 下面的配置实例，演示了如何将所有信息（informational(level6)）及以下的报文，发送到一台有着IP地址`192.168.1.254`的`syslog`服务器：
 
-```sh
+```console
 R2(config)#logging on
 R2(config)#logging trap informational
 R2(config)#logging 192.168.1.254
@@ -106,7 +106,7 @@ R2(config)#logging 192.168.1.254
 
 此配置可使用`show syslog`命令进行验证，如下所示：
 
-```sh
+```console
 R2#show logging
 Syslog logging: enabled (11 messages dropped, 1 messages rate-limited, 0 flushes, 0 overruns, xml disabled, filtering disabled)
     Console logging: disabled
@@ -121,19 +121,19 @@ No active filter modules.
 
 一般在配置日志记录时，重要的是要确保路由器或交换机的时钟反映的是真实的当前时间，这可实现与错误数据的关联。日志消息上的不准确或不正确时间戳，会令到使用过滤或关联流程，来做错误与问题隔离十分困难，并十分耗时。在思科IOS软件中，系统时钟可手动配置，或者将设备配置为自动将其时钟与网络时间协议服务器进行同步。在后面的小节将对这两种方法进行讨论。在网络中仅有少数互联网络设备时，手动的时钟或时间配置没有问题。在思科IOS软件中，系统时间是通过使用`clock set hh:mm:ss [day & month | month & day] [year]`特权`EXEC`命令进行配置的。其不是在全局配置模式下配置或指定的。下面的配置示例，演示了如何将系统时钟设置为 2010 年 10 月 20 日上午12:15：
 
-```sh
+```console
 R2#clock set 12:15:00 20 october 2010
 ```
 
 也可以向下面这样在路由器上应用同样的配置：
 
-```sh
+```console
 R2#clock set 12:15:00 october 20 2010
 ```
 
 在此配置下，可使用`show clock`命令来查看到系统时间：
 
-```sh
+```console
 r2#show clock
 12:15:19.419 utc wed oct 20 2010
 ```
@@ -142,7 +142,7 @@ r2#show clock
 
 此外，一些地方使用标准时间（Standard Time）与夏令时间（Dayligh Saving Time）。考虑这个因素，那么在手动配置系统时钟时，确保于所有设备上正确设置系统时间（标准还是夏令时）就很重要了。下面的配置实例，演示了如何将系统时钟，设置为比GMT晚6个小时的中部标准时间（Central Standard Time, CST）时区的2010年10月20日上午12点40分：
 
-```sh
+```console
 R2#config t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -153,14 +153,14 @@ R2#clock set 12:40:00 october 20 2010
 
 依据此配置，本地路由器上的系统时钟现在显示为下面这样：
 
-```sh
+```console
 R2#show clock
 12:40:17.921 CST Wed Oct 20 2010
 ```
 
 > **注意**：如在`clock timezone`命令之前使用`clock set`命令，那么使用`clock set`命令所指定的时间，将被`clock timezone`命令的使用进行偏移。比如假定上面示例中使用的配置命令是像下面这样输入的时：
 
-```sh
+```console
 R2#clock set 12:40:00 october 20 2010
 R2#config t
 Enter configuration commands, one per line.
@@ -171,7 +171,7 @@ R2(config)#end
 
 因为这里`clock set`命令先使用，所以路由器上的`show clock`命令将显示偏移了6小时的系统时钟，就如使用`clock timezone`命令所指定的那样。在同样的路由器的以下输出对此行为进行了演示：
 
-```sh
+```console
 R2#show clock
 06:40:52.181 CST Wed Oct 20 2010
 ```
@@ -186,13 +186,13 @@ NTP使用层的概念（a concept of a stratum），来描述某台机器距离�
 
 在思科IOS软件中，使用全局配置命令`ntp server [address]`，来将某台设备配置带有一台或多台NTP服务器的IP地址。如先前指出的那样，可通过重复使用同样的命令，指定多个NTP参考地址。此外，该命令还可用于配置服务器与客户端之间的安全及其它特性。下面的配置实例，演示了如何将某台设备配置为将其时间与一台有着IP地址`10.0.0.1`的NTP进行同步：
 
-```sh
+```console
 R1(config)#ntp server 10.0.0.1
 ```
 
 根据此配置，可使用`show ntp accociations`命令来对NTP设备之间的通信进行检查，如下面的输出所示：
 
-```sh
+```console
 R2#show ntp associations
 address     ref clock    st  when  poll  reach  delay  offset  disp
 *~10.0.0.1  127.127.7.1  5   44    64    377    3.2    2.39    1.2
@@ -203,7 +203,7 @@ address     ref clock    st  when  poll  reach  delay  offset  disp
 
 接着的`st`字段表示该参考的层（the stratum of the reference）。从上面的打印输出，可以看到`10.0.0.1`的NTP设备有着`5`的层数。本地设备的层数，将增加`1`到值`6`，如下所示，因为其是从有着层`5`的服务器出接收到的时间源。如有另一台设备被同步到该本地路由器，那么它将反应出一个`7`的层数，如此等等。用于检查NTP配置的第二个命令，就是`show ntp status`命令了，其输出如下面所示：
 
-```sh
+```console
 R2#show ntp status
 Clock is synchronized, stratum 6, reference is 10.0.0.1
 nominal freq is 249.5901 Hz, actual freq is 249.5900 Hz, precision is 2**18
@@ -216,7 +216,7 @@ root dispersion is 4.88 msec, peer dispersion is 0.23 msec
 
 在不论是通过手动还是NTP设置好系统时钟之后，都要确保发送给服务器的日志包含正确的时间戳。这是通过使用全局配置命令`service timestamp log [datetime | uptime]`执行的。关键字`[datetime]`支持下面这些字面的额外子关键字：
 
-```sh
+```console
 R2(config)#service timestamps log datetime ?
   localtime      Use local time zone for timestamps
   msec           Include milliseconds in timestamp
@@ -227,7 +227,7 @@ R2(config)#service timestamps log datetime ?
 
 而`[uptime]`关键字则没有额外关键字，而将本地路由器配置为仅包含系统运行时间（the system uptime）作为发送的消息的时间戳。下面的配置实例，演示了如何将本地路由器配置为所有消息都包含本地时间、毫秒信息，以及时区：
 
-```sh
+```console
 R2#configure terminal
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -240,7 +240,7 @@ R2(config)#service timestamps log datetime localtime msec show-timezone
 
 根据此配置，本地路由器的控制台将打印以下消息：
 
-```sh
+```console
 Oct 20 02:14:10.519 CST: %SYS-5-CONFIG_I: Configured from console by console
 Oct 20 02:14:11.521 CST: %SYS-6-LOGGINGHOST_STARTSTOP: Logging to host 150.1.1.254 started - CLI initiated
 ```
@@ -291,7 +291,7 @@ SNMP的三个版本分别是版本`1`、`2`与`3`。版本`1`，或`SNMPv1`，�
 
 `SNMPv3`蜜柑有使用这种同样的基于共有的安全形式（the same community-based form of security），而是使用了用户与组的安全（user and group security）。下面的配置实例，演示了如何配置带有两个共有字符串的本地设备，其一用于只读访问，另一个用于读写访问。此外，该本地设备还配置了为思科IOS的SLA（Service Level Agreement, 服务级别协议）操作/命令与`syslog`，而使用只读共有字符串，将SNMP陷阱发送到`1.1.1.1`：
 
-```sh
+```console
 R2#config t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -369,7 +369,7 @@ IP（数据）流基于五个，上至七个的一套IP数据包属性，它们�
 
 以下实例演示了如何为某个指定的路由器接口开启NetFlow：
 
-```sh
+```console
 R1#config t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -380,7 +380,7 @@ R1(config-if)#end
 
 根据此配置，可使用`show ip cache flow`命令来查看在数据流缓存中所收集的统计数据，如下面的输出所示：
 
-```sh
+```console
 R1#show ip cache flow
 IP packet size distribution (721 total packets):
    1-32   64   96  128  160  192  224  256  288  320  352  384  416  448  480
@@ -420,7 +420,7 @@ Se0/0      10.0.0.2       Local   1.1.1.1        06 C0B3 0017    59
 
 下面的示例演示了如何配置并开启指定路由器接口的NetFlow数据收集，并于随后使用NetFlow版本`5`的数据格式，将数据导出到某台有着IP地址`150.1.1.254`的NetFlow收集器：
 
-```sh
+```console
 R1(config)#interface Serial0/0
 R1(config-if)#ip flow ingress
 R1(config-if)#exit

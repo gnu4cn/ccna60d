@@ -102,7 +102,7 @@ PAgP支持不同端口模式，而这些端口模式则决定在两台支持PAgP
 
 在以太网通道捆绑（an EtherChannel bundle）被配置成一个中继端口时，该中继就在编号最低的VLAN上发送和接收PAgP数据帧。**生成树协议总是选择以太网通道捆绑中的第一个可运作端口**（when an EtherChannel bundle is configured as a trunk port, the trunk sends and receives PAgP frames on the lowest numbered VLAN. Spanning Tree Protocol(STP) always chooses the first operational port in an EtherChannel bundle）。命令`show pagp [channel number] neighbor`同样可用于验证将会用于STP数据包发送和接收的端口，确定出以太网通道捆绑中STP将使用的端口，如下面的输出所示。
 
-```
+```console
 Switch-1#show pagp neighbor
 Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         P - Device learns on physical port.
@@ -116,7 +116,7 @@ Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   15s     SC      10001
 
 根据上面的输出，STP将在端口`FastEthernet0/1`上发出其协议数据包，因为该端口是第一个可运作接口。而如那个端口失效，STP将在`FastEthernet0/2`上发出其协议数据包。而由PAgP所使用的默认端口则可由`show EtherChannel summary`命令进行查看，如下面的输出所示。
 
-```
+```console
 Switch-1#show EtherChannel summary
 Flags:  D - down
         I - stand-alone
@@ -259,7 +259,7 @@ LACP主动模式将一个交换机端口置为经由发送LACP数据包，对远
 
 下面的输出演示了如何在Switch 1及Switch 2上，基于图33.5中所描述的网络拓扑，配置无条件通道操作。该以太网通道将配置成一个使用默认参数的二层802.1Q中继。
 
-```
+```console
 Switch-1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-1(config)#interface range fa0/1 – 3
@@ -275,7 +275,7 @@ Switch-1(config)#exit
 
 >**注意：**注意到该交换机自动默认创建出`interface port-channel 1`（根据下面的输出）。**没有要配置该接口的显式用户配置**（notice that the switch automatically creates `interface port-channel 1` by default(refer to the output below). No explicit user configurtion is required to configure this interface）。
 
-```
+```console
 Switch-2#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-2(config)#interface range fa0/1 - 3
@@ -290,7 +290,7 @@ Switch-2(config)#exit
 
 命令`show EtherChannel [options]`此时即可用于验证该以太网通道的配置。下面的输出中打印了可用选项（依据不同平台会有不同）。
 
-```
+```console
 Switch-2#show EtherChannel ?
     <1-6>           Channel group number
     detail          Detail information
@@ -305,7 +305,7 @@ Switch-2#show EtherChannel ?
 
 下面的输出对命令`show EtherChannel summary`进行了演示。
 
-```
+```console
 Switch-2#show EtherChannel summary
 Flags:  D - down
         I - stand-alone
@@ -327,7 +327,7 @@ Group  Port-channel  Protocol    Ports
 
 在上面的输出中，可以看到在通道组1（Channel Group 1）中有三条链路。接口FastEthernet0/1是默认端口；**该端口将用于发送比如的STP数据包**。如果该端口失效，FastEthernet0/2就将被指定为默认端口，如此延续（this port will be used to send STP pakcets, for example. If this port fails, FastEthernet0/2 will be designated as the default port, and so forth）。同时通过看看`Po1`后面的`SU`标志，还可以看到该端口组是一个活动的二层以太网通道。下面的输出现实了由`show EtherChannel detail`命令所打印出的信息。
 
-```
+```console
 Switch-2#show EtherChannel detail
                 Channel-group listing:
                 ----------------------
@@ -385,7 +385,7 @@ Time since last port bundled:   0d:00h:21m:20s     Fa0/3
 
 最后，还可通过执行命令`show interfaces port-channel [number] switchport`, 对该逻辑的端口通道接口（the logical port-channel interface）的二层运作状态进行查看。这在下面的输出中有所演示。
 
-```
+```console
 Switch-2#show interfaces port-channel 1 switchport
 Name: Po1
 Switchport: Enabled
@@ -425,7 +425,7 @@ Appliance trust: none
 
 下面的输出演示了如何在基于上面的图33.5中所给出的网络拓扑的Switch 1和Switch 2上，配置PAgP的通道（PAgP channelling）。该以太网通道将被配置为使用默认参数的二层802.1Q中继。
 
-```
+```console
 Switch-1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-1(config)#interface range fa0/1 - 3
@@ -441,7 +441,7 @@ Switch-1(config-if-range)#exit
 
 在此示例中，在一个连接到一台安静相邻设备的物理端口上运行PAgP阻止了那个交换机端口成为运作端口；但是，该安静设置允许PAgP运行，从而将该接口加入到一个通道组，同时利用该接口进行传输。在本例中，因为Switch 2将被配置为`auto`模式（被动模式）, 该端口采用默认的安静模式运作，就是首先的了（In this case, running PAgP on a physical port connected to a silent partner prevents that switch port from ever becoming operational; however, the silent setting allows PAgP to operate, to attatch the interface to a channel group, and to use the interface for transmission. In this example, because Switch 2 will be configured for auto mode(passive mode), it is preferred that the port uses the default silent mode operation）。这在下面的PAgP以太网通道配置中进行了演示。
 
-```
+```console
 Switch-1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-1(config)#interface range fa0/1 - 3
@@ -458,7 +458,7 @@ Switch-1(config-if-range)#exit
 
 继续进行PAgP以太网通道的配置，则Switch 2被配置为以下这样。
 
-```
+```console
 Switch-2#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-2(config)#int range fa0/1 - 3
@@ -472,7 +472,7 @@ Switch-2(config-if-range)#exit
 
 以下输出演示了怎样通过在Switch 1及Switch 2上使用命令`show EtherChannel summary`，验证该PAgP以太网通道的配置。
 
-```
+```console
 Switch-1#show EtherChannel summary
 Flags:  D - down
         I - stand-alone
@@ -493,7 +493,7 @@ Group  Port-channel  Protocol    Ports
 
 还可以通过执行命令`show pagp [options]`, 查看到PAgP以太网通道的配置及统计数据。下面的输出，演示了此命令下可用的选项。
 
-```
+```console
 Switch-1#show pagp ?
   <1-6>     Channel group number
   counters  Traffic information
@@ -503,7 +503,7 @@ Switch-1#show pagp ?
 
 >**注意：**对需要的端口通道编号的进入，提供上面所打印出的后三个选项。这在下面的输出中进行了演示。
 
-```
+```console
 Switch-1#show pagp 1 ?
   counters  Traffic information
   internal  Internal information
@@ -512,7 +512,7 @@ Switch-1#show pagp 1 ?
 
 关键字`[counters]`提供了有关PAgP发出及接收到的数据包的信息。关键字`[internal]`提供了诸如端口状态、Hello间隔时间、PAgP端口优先级以及端口学习方式等的信息。下面的输出对命令`show pagp internal`的使用进行了演示。
 
-```
+```console
 Switch-1#show pagp 1 internal
 Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         d - PAgP is down.
@@ -528,7 +528,7 @@ Fa0/3   SC      U6/S7   H       30s         1       128      Any        29
 
 关键字`[neighbor]`打印出邻居名称、PAgP邻居的ID、邻居设备ID（MAC）以及邻居端口。同时在比如邻居是一台物理学习设备时（a physical learner）,这些标志同样表明了邻居运行的模式。下面的输出对命令`show pagp neighbor`的使用，进行了演示。
 
-```
+```console
 Switch-1#show pagp 1 neighbor
 Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         P - Device learns on physical port.
@@ -555,7 +555,7 @@ Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   18s SAC     10001
 
 下面的输出对在Switch 1和Switch 2上如何配置基于图33.5中所给出的网络拓扑的LACP通道，进行了演示，该以太网通道将被配置为一个使用默认参数的二层802.1Q中继，如下面的输出所示。
 
-```
+```console
 Switch-1#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Switch-1(config)#int range FastEthernet0/1 - 3
@@ -580,7 +580,7 @@ Switch-2(config-if-range)#exit
 
 下面的输出演示了如何通过在Switch 1及Switch 2上执行`show EtherChannel summary`命令，来对该LACP以太网通道配置进行验证。
 
-```
+```console
 Switch-1#show EtherChannel summary
 Flags:  D - down
         I - stand-alone
@@ -602,7 +602,7 @@ Group  Port-channel  Protocol    Ports
 
 默认LACP允许最多16个端口进入到一个端口通道组中（by default, LACP allows up to 16 ports to be entered into a port channel group）。前8个运作接口将为LACP所使用，而剩下的8个接口将被置为热备份状态。命令`show EtherChannel detail`显示出一个LACP以太网通道中所支持的链路最大数量，如下面的输出所示。
 
-```
+```console
 Switch-1#show EtherChannel 1 detail
 Group state = L2
 Ports: 3   Maxports = 16
@@ -694,7 +694,7 @@ Time since last port Un-bundled: 00d:00h:00m:49s    Fa0/1
 
 LACP的配置及统计数据也可以通过执行`show lacp [options]`命令进行查看。此命令可用的选项在下面的输出中进行了演示。
 
-```
+```console
 Switch-1#show lacp ?
   <1-6>     Channel group number
   counters  Traffic information
@@ -705,7 +705,7 @@ Switch-1#show lacp ?
 
 `[counters]`关键字提供了有关LACP发出和接收到的数据包的信息。该命令的打印输出如下面所示。
 
-```
+```console
 Switch-1#show lacp counters
           LACPDUs        Marker     Marker Response     LACPDUs
 Port    Sent   Recv    Sent   Recv    Sent   Recv       Pkts Err
@@ -718,7 +718,7 @@ Fa0/3   21     18      0      0       0      0          0
 
 而`[internal]`关键字提供了诸如端口状态、管理密钥（adminitrative key）、LACP端口优先级，以及端口编号等信息。下面的输出对此进行了演示。
 
-```
+```console
 Switch-1#show lacp internal
 Flags:  S - Device is sending Slow LACPDUs. F - Device is sending Fast
                                             LACPDUs.
@@ -733,7 +733,7 @@ Fa0/3     SA     bndl   32768        0x1      0x1    0x2     0x3D
 
 关键字`[neighbor]`打印出邻居名称、LACP邻居的ID、邻居的设备ID（MAC），以及邻居端口等信息。这些标志还表明邻居运行所处状态，以及其是否时一个物理学习设备（the flags also indicate the mode the neighbor is operating in, as well as whether it is a physical learner, for example）。下面的输出对此进行了演示。
 
-```
+```console
 Switch-1#show lacp neighbor
 Flags:  S - Device is sending Slow LACPDUs. F - Device is sending Fast
                                             LACPDUs.
@@ -764,7 +764,7 @@ Fa0/3     00001,0014.a9e5.d640  0x3             24s         SP
 
 最后，关键字`[sys-id]`提供了本地交换机的系统ID（finally, the `[sys-id]` keyword provides the system ID of the local switch）。这是一个该交换机MAC地址和LACP优先级的结合体，如下面的输出所示。
 
-```
+```console
 Switch-1#show lacp sys-id
 1    ,000d.bd06.4100
 ```

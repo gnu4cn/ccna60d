@@ -69,7 +69,7 @@ EIGRPv6保留了EIGRPv4中的大部分相同基础的核心功能（For the most
 
 根据上述配置步骤顺序，路由器`R1`上EIGRPv6将被如下配置上：
 
-```
+```console
 R1(config)#ipv6 unicast-routing
 R1(config)#ipv6 router eigrp 1
 R1(config-rtr)#eigrp router-id 1.1.1.1
@@ -84,7 +84,7 @@ R1(config-if)#exit
 
 而根据同样的步骤顺序，路由器`R3`上的EIGRPv6就被如下这样配置上：
 
-```
+```console
 R3(config)#ipv6 unicast-routing
 R3(config)#ipv6 router eigrp 1
 R3(config-rtr)#eigrp router-id 3.3.3.3
@@ -105,7 +105,7 @@ R3(config-if)#exit
 
 EIGRPv6的验证过程，将按照EIGRPv4的同样过程进行。首先要验证EIGRP的邻居关系已被成功建立。对于EIGRPv6, 这是通过使用`show ipv6 eigrp neighbours`命令完成的，如下所示：
 
-```
+```console
 R1#show ipv6 eigrp neighbors
 EIGRP-IPv6 Neighbors for AS(1)
 H   Address              Interface Hold Uptime    SRTT   RTO Q   Seq
@@ -116,7 +116,7 @@ H   Address              Interface Hold Uptime    SRTT   RTO Q   Seq
 
 如同先前指出的那样，请注意这里的下一跳地址（也就是EIGRP的邻居地址）被指定为本地链路地址，而不是全局单播地址。此命令所打印出的所有其它信息，与`show ip eigrp neighbors`命令打印出是相同的。而要查看详细的邻居信息，可简单地在`show ipv6 eigrp neighbours`命令后面追加上`[detail]`关键字。使用此选项就打印出有关EIGRP版本、以及从那个特定EIGRP邻居处接收到的前缀数目等信息，如下所示：
 
-```
+```console
 R1#show ipv6 eigrp neighbors
 EIGRP-IPv6 Neighbors for AS(1)
 H   Address              Interface Hold Uptime    SRTT   RTO Q   Seq
@@ -129,7 +129,7 @@ H   Address              Interface Hold Uptime    SRTT   RTO Q   Seq
 
 在对EIGRPv6的邻居关系进行验证之后，就可以对路由信息进行验证了。比如，要查看到从EIGRPv6邻居处接收到的那些IPv6前缀，就将使用`show ipv6 route`命令，如下面的输出所示：
 
-```
+```console
 R1#show ipv6 route eigrp
 IPv6 Routing Table - default - 6 entries
 Codes: C - Connected, L - Local, S - Static, U - Per-user Static route
@@ -144,7 +144,7 @@ D   3FFF:1234:ABCD:3::/64 [90/3072]
 
 请再次注意，这里所接收到的前缀，都包含着作为所有接收到的前缀的下一跳IPv6地址的本地链路地址。而要查看EIGRPv6的拓扑表，就应使用`show ipv6 eigrp topology`命令。该命令支持那些与用于查看EIGRPv4的拓扑表的`show ip eigrp topology`命令下可用的同样的参数。这里基于上面已部署的配置，`R1`上的拓扑表显示出以下IPv6前缀信息：
 
-```
+```console
 R1#show ipv6 eigrp topology
 EIGRP-IPv6 Topology Table for AS(1)/ID(1.1.1.1)
 Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
@@ -159,7 +159,7 @@ P 3FFF:1234:ABCD:3::/64, 1 successors, FD is 3072
 
 与EIGRPv4中的情况一样，可在此命令的后面追加一个前缀，以查看到有关那个前缀或子网的详细信息。比如，要查看有关子网`3FFF:1234:ABCD:2::/64`的详细信息，就应简单的输入`show ipv6 eigrp topology 3FFF:1234:ABCD:2::/64`命令，如下所示：
 
-```
+```console
 R1#show ipv6 eigrp topology 3FFF:1234:ABCD:2::/64
 EIGRP-IPv6 Topology Entry for AS(1)/ID(1.1.1.1) for 3FFF:1234:ABCD:2::/64
   State is Passive, Query origin flag is 1, 1 Successor(s), FD is 3072
@@ -179,7 +179,7 @@ flag is 0x0
 
 最后，一个简单的`ping`就可以且应该用于对子网之间的连通性加以验证。下面就是一个从`R1`到`R3`上的地址`3FFF:1234:ABCD:2::3`的`ping`操作：
 
-```
+```console
 R1#ping 3FFF:1234:ABCD:2::3 repeat 10
 Type escape sequence to abort.
 Sending 10, 100-byte ICMP Echos to 3FFF:1234:ABCD:2::3, timeout is 2 seconds:
@@ -189,7 +189,7 @@ Success rate is 100 percent (10/10), round-trip min/avg/max = 0/0/4 ms
 
 与EIGRPv4下的情况一样，也可使用`show ipv6 protocols`对EIGRPv6的一些默认协议数值进行检查，该命令的输出在下面有打印出来。该命令包含了那些开启了EIGRP实例的接口、路由重分发的信息（在适用时），以及手动配置指定或所配置的点分十进制的EIGRPv6路由器ID。
 
-```
+```console
 R1#show ipv6 protocols
 IPv6 Routing Protocol is “eigrp 1”
 EIGRP-IPv6 Protocol for AS(1)

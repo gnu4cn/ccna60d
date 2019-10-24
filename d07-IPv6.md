@@ -634,7 +634,7 @@ DAD通过使用邻居询问（`135`类型的ICMPv6）及节点询问多播地址
 
 在全局开启IPv6路由之后，接口配置命令`ipv6 address [ipv6-address/prefix-length | prefix-name sub-bits/prefix-length | anycast | autoconfig <default> | dhcp | eui-64 | link-local]`就可以用于配置接口的IPv6分址了。关键字`[ipv6-address/prefix-length]`用于指定分配给该接口的IPv6前缀和前缀长度。下面的配置演示了如何为一个路由器接口配置子网`3FFF:1234:ABCD:5678::/64`上的第一个地址。
 
-```
+```console
 R1(config)#ipv6 unicast-routing
 R1(config)#interface FastEthernet0/0
 R1(config-if)#ipv6 address 3FFF:1234:ABCD:5678::/64
@@ -643,7 +643,7 @@ R1(config-if)#exit
 
 按照此配置，`show ipv6 interface [name]`命令就可用于验证配置的IPv6地址子网（即`3FFF:1234:ABCD:5678::/64`）, 如下面的输出所示。
 
-```
+```console
 R1#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80::20C:CEFF:FEA7:F3A0
@@ -660,7 +660,7 @@ FastEthernet0/0 is up, line protocol is up
 
 就如在本模块早先指出的那样，IPv6允许在同一接口上配置多个前缀。而如过在同一借口上配置了多个前缀，`show ipv6 interface [name] prefix`命令，就可以用来查看所有分配的前缀，以及它们各自的有效和首选生命期数值。下面的输出显示了在一个配置了多个IPv6前缀的路由器接口上，该命令所打印出的信息。
 
-```
+```console
 R1#show ipv6 interface FastEthernet0/0 prefix
 IPv6 Prefix Advertisements FastEthernet0/0
 Codes:	A - Address, P - Prefix-Advertisement, O - Pool
@@ -681,7 +681,7 @@ AD	3FFF:1234:ABCD:9012::/64 [LA] Valid lifetime 2592000, preferred lifetime 6048
 
 `[autoconfig <default>]`关键字开启SLAAC。如用到该关键字，路由器将动态学习链路上的前缀，之后将`EUI-64`地址加到所有学习到的前缀上。`[default]`关键字是一个允许安装一条默认路由的可选关键字（the `<default>` keyword is an optional keyword that allows a default route to be installed）。下面的配置样例，演示了如何在某个路由器接口上开启无状态自动配置，同时额外地允许安装上默认路由。
 
-```
+```console
 R2(config)#ipv6 unicast-routing
 R2(config)#interface FastEthernet0/0
 R2(config-if)#ipv6 address autoconfig default
@@ -690,7 +690,7 @@ R2(config-if)#exit
 
 按照这个配置，路由器`R2`将会监听`FastEthernet0/0`接口所在本地网段上的RA报文。该路由器将会对每个学习到的前缀，动态地配置一个`EUI-64`地址，并接着安装上指向该RA通告路由器本地链路地址的默认路由。使用`show ipv6 interface [name]`命令，即可对动态地址配置进行验证，如下面的输出所示。
 
-```
+```console
 R2#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80::213:19FF:FE86:A20
@@ -716,7 +716,7 @@ FastEthernet0/0 is up, line protocol is up
 
 在上面的输出中，注意到尽管接口上没有配置显式的IPv6地址，还是动态地为经由侦听RA报文所发现的子网，配置了一个`EUI-64`地址。每个这些前缀的计时器，都继承自通告RA报文的那台路由器。为了进一步验证无状态自动配置，可以使用`show ipv6 route`命令，来验证到首选通告路由器本地链路地址的默认路由，如下面所演示的那样。
 
-```
+```console
 R2#show ipv6 route ::/0
 IPv6 Routing Table - 13 entries
 Codes:	C - Connected, L - Local, S - Static, R - RIP, B - BGP
@@ -746,7 +746,7 @@ S	::/0 [1/0]
 
 按照这样的配置，命令`show ipv6 interface`就可用于验证验证分配到接口`FastEthernet0/0`上的IPv6接口ID， 如下面的输出所示。
 
-```
+```console
 R2#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80::213:19FF:FE86:A20
@@ -763,7 +763,7 @@ FastEthernet0/0 is up, line protocol is up
 
 要验证该`EUI-64`地址的构造过程，同样可以通过使用`show interface`命令，查看指定接口的MAC地址的方式，来检查该完整的IPv6地址。
 
-```
+```console
 R2#show interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	Hardware is AmdFE, address is 0013.1986.0a20 (bia 0013.1986.0a20)
@@ -776,7 +776,7 @@ FastEthernet0/0 is up, line protocol is up
 
 而如果要手动配置一个本地链路地址，就必须分配一个本地链路地址块`FE80::/10`中的地址。下面的配置实例，演示了如何在某接口上配置一个本地链路地址。
 
-```
+```console
 R3(config)#interface FastEthernet0/0
 R3(config-if)#ipv6 address fe80:1234:abcd:1::3 link-local
 R3(config-if)#exit
@@ -784,7 +784,7 @@ R3(config-if)#exit
 
 按照该配置，就可用`show ipv6 interface [name]`命令验证这个手动配置的本地链路地址，如下面的输出所示。
 
-```
+```console
 R3#show ipv6 interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	IPv6 is enabled, link-local address is FE80:1234:ABCD:1::3

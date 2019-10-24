@@ -77,7 +77,7 @@
 
 为进一步说明这一点，这里参考图39.2, 假定该网段上的所有路由器都具有默认的OSPF优先级`1`（并同时加载OSPF进程），因为`R4`有着最高的路由器ID而被选为指定路由器。`R3`因为有着第二高的路由器ID而被选为后备指定路由器。因为`R2`与`R1`既不是指定也不是后备指定路由器，因此它们为称为思科命名法中的`DROther`路由器。可在所有路由器上使用`show ip ospf neighbour`命令对此进行验证，如下所示：
 
-```sh
+```console
 R1#show ip ospf neighbor
 Neighbor ID     Pri     State           Dead Time   Address         Interface
 2.2.2.2           1     2WAY/DROTHER    00:00:38    192.168.1.2     Ethernet0/0
@@ -106,7 +106,7 @@ Neighbor ID     Pri     State           Dead Time   Address         Interface
 
 因为`R4`已被选为指定路由器，它就生成网络链路状态通告（the Network LSA），这类链路状态通告，是就该多路访问网段上的其它路由器进行通告的。可在网段上的任意路由器上，使用`show ip ospf database network [link state ID]`命令，或在指定路由器上使用`show ip ospf database network self-originate`命令，对此加以验证。下面演示了在指定路由器（`R4`）上命令`show ip ospf database network self-originate`命名的输出：
 
-```sh
+```console
 R4#show ip ospf database network self-originate
             OSPF Router with ID (4.4.4.4) (Process ID 4)
                 Net Link States (Area 0)
@@ -132,7 +132,7 @@ R4#show ip ospf database network self-originate
 
 所连接路由器字段（the Attached Router field）列出了在该网络网段上所有路由器的路由器ID。这样就令到该网段上的所有路由器，知悉有哪些其它路由器也同样位处该网段上。下面的输出，演示了在`R1`、`R2`与`R3`上的`show ip ospf database network [link state ID]`命令的输出，反映出同样的信息：
 
-```sh
+```console
 R2#show ip ospf database network
             OSPF Router with ID (2.2.2.2) (Process ID 2)
                 Net Link States (Area 0)
@@ -394,7 +394,7 @@ OSPF的`Hello`数据包，还在广播链路上用于指定路由器与后备指
 
 在思科IOS软件中，可使用`show ip ospf traffic`命令来查看OSPF数据包的统计信息。该命令展示了发送及接收道德OSPF数据包的总数，并将这些OSPF数据包细分到单独的OSPF进程，最终又细分到具体进程下开启了OSPF进程的各个接口上。该命令也可用于对OSPF临接关系建立的故障排除，其作为调试用途时，不是处理器占用密集的方式。下面的输出中演示了该命令所打印的信息：
 
-```sh
+```console
 R4#show ip ospf traffic
 OSPF statistics:
   Rcvd: 702 total, 0 checksum errors
@@ -536,7 +536,7 @@ Summary traffic statistics for process ID 4:
 
 尽管对每个关键字用法的输出进行演示是不现实的，但下面的小节仍对不同类型的LSA，以及与`show ip ospf database`命令结合使用从而查看到这些LSA的详细信息的一些常见关键字，进行了介绍。该命令所支持的关键字，在下面的输出中进行了演示：
 
-```sh
+```console
 R3#show ip ospf database ?
   adv-router        Advertising Router link states
   asbr-summary      ASBR Summary link states
@@ -659,7 +659,7 @@ OSPF度量值通常被成为开销（The OSPF metric is commonly referred to as 
 
 如先前所演示的那样，可使用`show ip ospf interface [name]`来查看到某个接口的OSPF开销。在度量值计算中用到的默认参考带宽，可在`show ip protocols`命令的输出中查看到，如下面的输出中所演示的那样：
 
-```sh
+```console
 R4#show ip protocols
 Routing Protocol is “ospf 4”
   Outgoing update filter list for all interfaces is not set
@@ -686,8 +686,7 @@ Reference bandwidth unit is 100 mbps
 
 > **注意**：再次，因为OSPF度量值不支持小数，该值将被向下取整到简单的`647`的度量值，如下面的输出所示：
 
-
-```sh
+```console
 R4#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
   Internet Address 10.0.2.4/24, Area 2
@@ -707,7 +706,7 @@ Serial0/0 is up, line protocol is up
 
 在执行了路由器配置命令`auto-cost reference-bandwidth 1000`后，思科IOS软件就打印出下面的消息，表明应将此同样的值，应用该OSPF域中的所有路由器上。这在下面的输出中进行了演示：
 
-```sh
+```console
 R4(config)#router ospf 4
 R4(config-router)#auto-cost reference-bandwidth 1000
 % OSPF: Reference bandwidth is changed.
@@ -729,7 +728,7 @@ R4(config-router)#auto-cost reference-bandwidth 1000
 
 接口配置命令`ip ospf cost <1-65535>`，被用于手动指定某条链路的开销。链路的开销值越低，其就比到相同目的网络的、有着更高开销值的其它链路，越有可能被优先选用。下面的示例演示了如何为某条串行（`T1`）链路配置上一个OSPF开销`5`：
 
-```sh
+```console
 R1(config)#interface Serial0/0
 R1(config-if)#ip ospf cost 5
 R1(config-if)#exit
@@ -737,7 +736,7 @@ R1(config-if)#exit
 
 可使用`show ip ospf interface [name]`命令对此配置进行验证，如下面的输出所示：
 
-```sh
+```console
 R1#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
   Internet Address 10.0.0.1/24, Area 0
@@ -765,7 +764,7 @@ Serial0/0 is up, line protocol is up
 
 下面的配置示例，演示了如何将一台开启OSPF的路由器，配置为在路由表中存在一条默认路由时，生成一条默认路由并对其进行通告。既有的默认路由可以是一条静态路由，甚至为在该路由器上配置了多种路由协议时，从另一种路由协议产生的一条默认路由。下面的输出演示的是基于一条配置的静态默认路由的此种配置：
 
-```sh
+```console
 R4(config)#ip route 0.0.0.0 0.0.0.0 FastEthernet0/0 172.16.4.254
 R4(config)#router ospf 4
 R4(config-router)#network 172.16.4.0 0.0.0.255 Area 2
@@ -790,7 +789,7 @@ R4(config-router)#exit
 
 其中路由器A的配置为：
 
-```sh
+```console
 router ospf 20
 network 4.4.4.4 0.0.0.0 area 0
 network 192.168.1.0 0.0.0.255 area 0
@@ -799,7 +798,7 @@ router-id 4.4.4.4
 
 路由器B的配置为：
 
-```sh
+```console
 router ospf 22
 network 172.16.1.0 0.0.0.255 area 0
 network 192.168.1.0 0.0.0.255 area 0
@@ -808,7 +807,7 @@ router-id 192.168.1.2
 
 路由器C的配置为：
 
-```sh
+```console
 router ospf 44
 network 1.1.1.1 0.0.0.0 area 1
 network 172.16.1.0 0.0.0.255 area 0
@@ -850,7 +849,7 @@ O     192.168.1.0/24 [110/128] via 172.16.1.1, 00:10:39, Serial0/0/0
 
 另一个常见的错误配置就是将接口指定为了被动接口（Another common misconfiguration is specifying the interface as passive）。如果真这样做了，那么该接口就不会发出`Hello`数据包，同时使用那个接口就不会建立邻居关系。既可使用`show ip protocols`，也可使用`show ip ospf interface`命令，来检查哪些接口被配置或指定为了被动接口。下面是在某个被动接口上的后一个命令的示例输出：
 
-```sh
+```console
 R1#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
   Internet Address 172.16.0.1/30, Area 0
@@ -874,7 +873,7 @@ Serial0/0 is up, line protocol is up
 
 访问控制清单过滤，是另一种常见的造成临接关系建立失败的原因。为排除此类故障，重要的是熟悉网络拓扑。比如，在建立某个临接关系失败的路由器是通过不同物理交换机进行连接的时，就可能为ACL过滤是以先前为安全目的，而已配置在交换机上的VACL（VLAN ACL）的形式部署的。`show ip ospf traffic`命令，就是一个可找出OSPF数据包是被阻塞了还是被丢弃了的有用工具，其会打印出如下输出所演示的，有关发出的OSPF数据包的信息：
 
-```sh
+```console
 R1#show ip ospf traffic Serial0/0
     Interface Serial0/0
 OSPF packets received/sent
@@ -909,7 +908,7 @@ OSPF LSA errors
 
 OSPF之所以不对路由器进行通告的一个常见原因，就是该网络未通过OSPF进行通告。在当前的思科IOS软件中，使用路由器配置命令`network`或接口配置命令`ip ospf`，就可使网络得以通告。不管使用哪种方式，都可以使用`show ip protocols`命令，来查看将OSPF配置为对哪些网络进行通告，就如同下面的输出中所看到的：
 
-```sh
+```console
 R2#show ip protocols
 Routing Protocol is “ospf 1”
   Outgoing update filter list for all interfaces is not set
@@ -931,7 +930,7 @@ Distance: (default is 110)
 
 此外，请记住还可以使用`show ip ospf interfaces`命令来找出那些接口开启了OSPF，及其它一些信息。除了网络配置，若接口宕掉，OSPF也不会对路由器进行通告。可使用`show ip ospf interfaces`命令，来确定接口状态，如下所示：
 
-```sh
+```console
 R1#show ip ospf interface brief
 Interface    PID   Area     IP Address/Mask    Cost   State   Nbrs F/C
 Lo100        1     0        100.1.1.1/24       1      DOWN    0/0
@@ -940,7 +939,7 @@ Fa0/0        1     0        10.0.0.1/24        1      BDR     1/1
 
 参考上面的输出，可看到`Loopback100`出于`DOWN`状态。细看就可以发现该故障是由于该接口已被管理性关闭，如下面的输出所示：
 
-```sh
+```console
 R1#show ip ospf interface Loopback100
 Loopback100 is administratively down, line protocol is down
   Internet Address 100.1.1.1/24, Area 0
@@ -951,7 +950,7 @@ Loopback100 is administratively down, line protocol is down
 
 如使用`debug ip routing`命令对IP路由事件（IP routing events）进行调试，并于随后在`Loopback100`接口下执行`no shutdown`命令，那么就可以看到下面的输出：
 
-```sh
+```console
 R1#debug ip routing
 IP routing debugging is on
 R1#conf t
@@ -978,7 +977,7 @@ R1#
 
 参考图39.15， 路由器`R1`与`R2`通过一条背靠背的连接（a back-to-back connection）相连。这两台路由器共享了`10.0.0.0/24`子网。不过`R1`还配置了一些在其`FastEthernet0/0`接口下的额外（次要）子网，因此`R1`上该接口的配置就如下打印出来：
 
-```sh
+```console
 R1#show running-config interface FastEthernet0/0
 Building configuration...
 Current configuration : 183 bytes
@@ -994,7 +993,7 @@ end
 
 在`R1`与`R2`上都开启了OSPF。`R1`上部署的配置如下所示：
 
-```sh
+```console
 R1#show running-config | section ospf
 router ospf 1
 router-id 1.1.1.1
@@ -1006,7 +1005,7 @@ network 10.0.2.1 0.0.0.0 Area 1
 
 `R2`上部署的配置如下所示：
 
-```sh
+```console
 R2#show running-config | section ospf
 router ospf 2
 router-id 2.2.2.2
@@ -1016,7 +1015,7 @@ network 10.0.0.2 0.0.0.0 Area 0
 
 默认情况下，因为`R1`上的次要子网已被放入到一个不同的OSPF区域，所以它们不会被该路由器通告。这一点在`R2`上可以看到，在执行了`show ip route`命令时，就显示下面的输出：
 
-```sh
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1032,7 +1031,7 @@ C       10.0.0.0 is directly connected, FastEthernet0/0
 
 为解决这个问题，就必须将那些次要子网，指派到`Area 0`，如下所示：
 
-```sh
+```console
 R1(config)#router ospf 1
 R1(config-router)#network 10.0.1.1 0.0.0.0 Area 0
 *Mar 18 20:20:37.491: %OSPF-6-AREACHG: 10.0.1.1/32 changed from Area 1 to Area 0
@@ -1043,7 +1042,7 @@ R1(config-router)#end
 
 在此配置改变之后，那些网络就被通告给路由器`R2`了，如下所示：
 
-```sh
+```console
 R2#show ip route
 Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -1064,7 +1063,7 @@ O       10.0.1.0 [110/2] via 10.0.0.1, 00:01:08, FastEthernet0/0
 
 在本课程模块的最后一节，将看看一些较为常用的OSPF调试命令。OSPF的调试，是通过使用`debug ip ospf`命令来开启的。该命令可结合下面这些额外关键字一起使用：
 
-```sh
+```console
 R1#debug ip ospf ?
   adj             OSPF adjacency events
   database-timer  OSPF database timer
@@ -1082,7 +1081,7 @@ R1#debug ip ospf ?
 
 命令`debug ip osfp adj`将打印有关临接事件的实时信息。在对OSPF的邻居临接故障进行故障排除时，这是一个有用的故障排除工具。下面是一个由该命令打印的信息示例。下面的示例演示了如何使用该命令，来判断MTU不匹配而导致的无法到达`Full`状态，从而阻止了邻居临接的建立：
 
-```sh
+```console
 R1#debug ip ospf adj
 OSPF adjacency events debugging is on
 R1#
@@ -1110,7 +1109,7 @@ R1#
 
 命令`debug ip ospf lsa-generation`将打印出有关OSPF链路状态通告的信息。该命令可用于在使用OSPF时对路由通告的故障排除。下面是由该命令所打印的输出信息的一个示例：
 
-```sh
+```console
 R1#debug ip ospf lsa-generation
 OSPF summary lsa generation debugging is on
 R1#
@@ -1132,7 +1131,7 @@ R1#
 
 命令`debug ip ospf spf`提供有有关最短路径优先算法事件的实时信息。该命令可以下面的关键字结合使用：
 
-```sh
+```console
 R1#debug ip ospf spf ?
   external   OSPF spf external-route
   inter      OSPF spf inter-route
@@ -1143,7 +1142,7 @@ R1#debug ip ospf spf ?
 
 与所有`debug`命令一样，在对SPF事件进行调试之前，都应对诸如网络大小及路由器上资源占用等因素加以考虑。下面是自`debug ip ospf spf statistic`命令的输出示例：
 
-```sh
+```console
 R1#debug ip ospf spf statistic
 OSPF spf statistic debugging is on
 R1#clear ip ospf process
@@ -1210,7 +1209,7 @@ __实验步骤__
 
 2. 将OSPF添加到路由器`A`。将`Loopback0`上的网络放入到`Area 1`，将那个`10`网络放入到`Area 0`。
 
-```sh
+```console
 RouterA(config)#router ospf 4
 RouterA(config-router)#network 172.20.1.0 0.0.0.255 area 1
 RouterA(config-router)#network 10.0.0.0 0.0.0.3 area 0
@@ -1235,7 +1234,7 @@ Distance: (default is 110)
 
 3. 将OSPF添加到路由器`B`。将该环回网络放入到OSPF的`Area 40`。
 
-```sh
+```console
 RouterB(config)#router ospf 2
 RouterB(config-router)#net 10.0.0.0 0.0.0.3 area 0
 RouterB(config-router)#
@@ -1261,7 +1260,7 @@ Distance: (default is 110)
 
 4. 对两台路由器上的路由表进行检查。查找那些OSPF通告的网络。将见到一个`IA`，也就是OSPF的区域间（inter-area）。还将见到OSPF的`AD`，也就是管理距离（Administrative Distance）`110`。
 
-```sh
+```console
 RouterA#sh ip route
 ...
 [Truncated Output]
@@ -1276,7 +1275,7 @@ RouterA#
 
 5. 在两台路由器上分别执行一些可用的OSPF命令。
 
-```sh
+```console
 RouterA#sh ip ospf ?
   <1-65535>       Process ID numberborder-routers Border and Boundary Router Information
   database        Database summary

@@ -243,7 +243,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 下面是在一个GigabitEthernet交换端口上的`show interfaces`命令的输出。
 
-```
+```console
 Catalyst-3750-1#show interfaces GigabitEthernet3/0/1
 GigabitEthernet0/1 is up, line protocol is down (notconnect)
 Hardware is GigabitEthernet, address is 000f.2303.2db1 (bia 000f.2303.2db1)
@@ -296,7 +296,7 @@ Output queue: 0/40 (size/max)
 
 除了`show interfaces`命令，命令`show interfaces [name] counters errors`也可以用来查看接口错误及促进一层的排错。下面就是命令`show interface [name] counters errors`打印出的输出。
 
-```
+```console
 Catalyst-3750-1#show interfaces GigabitEthernet3/0/1 counters errors
 Port        Align-Err   FCS-Err   Xmit-Err    Rcv-Err UnderSize
 Gi3/0/1         0         0          0          0         0
@@ -320,7 +320,7 @@ Gi3/0/1       0
 
 不同的`collisions`字段表示接口上的冲突。接口上的冲突通常发生在半双工以太网上，而这在现代网络中几乎是不存在的。因此，这些计数器对于全双工链路不应增长。如果这些计数器下出现了非零数值，那么通常表明存在全双工不匹配故障。当探测到全双工不匹配时，交换机会在控制台或日志中打印出类似于下面的消息。
 
-```
+```console
 %CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on FastEthernet0/1 (not full duplex), with R2 FastEthernet0/0 (full duplex)
 ```
 
@@ -336,7 +336,7 @@ Gi3/0/1       0
 
 类似与`show interfaces`及`show interfaces <name> counters errors`命令所提供的信息，命令`show controllers ethernet-controller <interface>`也可以用来现实流量计数及错误计数信息。`show controllers ethernet-controllers <interface>`命令的输出如下所示。
 
-```
+```console
 Catalyst-3750-1#show controllers ethernet-controller GigabitEthernet3/0/1
 Transmit GigabitEthernet3/0/1   Receive
 4069327795 Bytes                3301740741 Bytes
@@ -460,7 +460,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 该命令的输出还包括了封装错误数，而封装错误数可用于检查802.1Q和ISL，以及中继封装不匹配数目，如下面的输出所示。
 
-```
+```console
 Cat-3550-1#show interfaces FastEthernet0/12 counters trunk
 Port    TrunkFramesTx   TrunkFramesRx   WrongEncap
 Fa0/12           1696           32257            0
@@ -470,7 +470,7 @@ Fa0/12           1696           32257            0
 
 用于对可能的二层错误配置进行排错的另一个命令，就是`show interfaces [name] trunk`。该命令的输出包含了中继封装协议及模式、802.1Q的原生VLAN、允许通过中继链路VLANs、VTP域中活动的VLANs，以及被修剪掉的VLANs（the output of `show interfaces [name] trunk` includes the trunking encapsulation protocol and mode, the native VLAN for 802.1Q, the VLANs that are allowed to traverse the trunk, the VLANs that are active in the VTP domain, and the VLANs that are pruned）。**一个VLAN传播的常见问题，就是上游交换机已通过使用接口配置命令`switchport trunk allowed vlan`，被配置为对某些VLANs进行过滤。**命令`show interfaces [name] trunk`的输出如下所示。
 
-```
+```console
 Cat-3550-1#show interfaces trunk
 Port    Mode        Encapsulation   Status      Native vlan
 Fa0/12  desirable   n-802.1q        trunking    1
@@ -496,7 +496,7 @@ Fa0/15  none
 
 **另一个常见中继错误配置故障就是原生VLAN不匹配。**在配置802.1Q中继链路时，中继链路两端的原生VLAN必须匹配；否则该链路便不会工作。如存在原生VLAN不匹配，STP就会将该端口置为端口VLAN ID不一致状态（a port VLAN ID(PVID) inconsistent state），且不会在该链路上进行转发。在此情况下，将有类似于下面的消息在控制台或日志中打印出来。
 
-```
+```console
 *Mar 1 03:16:43.935: %SPANTREE-2-RECV_PVID_ERR: Received BPDU with inconsistent peer vlan id 1 on FastEthernet0/11 VLAN2.
 *Mar 1 03:16:43.935: %SPANTREE-2-BLOCK_PVID_PEER: Blocking FastEthernet0/11 on VLAN0001. Inconsistent peer vlan.
 *Mar 1 03:16:43.935: %SPANTREE-2-BLOCK_PVID_LOCAL: Blocking FastEthernet0/11 on VLAN0002. Inconsistent local vlan.
@@ -507,7 +507,7 @@ Fa0/15  none
 
 尽管STP排错将在本书后面进行讲解，该不一致状态仍可通过使用`show spanning-tree`命令进行查证，如下面所示。
 
-```
+```console
 Cat-3550-1#show spanning-tree interface FastEthernet0/11
 Vlan                Role    Sts     Cost        Prio.Nbr    Type
 ------------------- ----    ---     --------    --------    ----------------
@@ -517,7 +517,7 @@ VLAN0002            Desg    BKN*    19          128.11      P2p *PVID_Inc
 
 如已经查明该中继链路确实是正确配置，及两台交换机间是可运作的，接下来就应对VTP配置参数进行检查了。这些参数包括VTP域名、正确的VTP模式及VTP口令，如对该VTP域配置了某个参数，就要使用相应的`show vtp status`及`show vtp password`命令。`show vtp status`命令的输出如下所示。
 
-```
+```console
 Cat-3550-1#show vtp status
 VTP Version                     : running VTP2
 Configuration Revision          : 0
@@ -541,7 +541,7 @@ VTP客户端/服务器（clinet/server）或服务器/服务器(server/server)�
 
 最后，`show vtp status`命令的输出也包含了用于认证目的的MD5散列值。该散列值是从VTP域名称和密码生成的，域中所有交换机上的该散列值应是一致的。而如在这些交换机上的域名称和密码不同，则计算出的MD5也会不同。而如域名称或密码不同，那么`show vtp status`命令就会示出一条MD5摘要校验和不匹配（an MD5 digest checksum mismatch）消息，如下面的输出所示。
 
-```
+```console
 Cat-3550-1#show vtp status
 VTP Version                     : running VTP2
 Configuration Revision          : 0
@@ -591,7 +591,7 @@ MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 
 除了VTP修剪外，交换机中继链路上对VLANs的不正确过滤，也可能导致端到端VLAN连通性的丢失。**默认允许所有VLANs通过所有中继链路；**但是思科IOS软件允许管理员通过使用接口配置命令`switchport trunk allowed vlan`，在指定中继链路上选择性地移除（或加入）VLANs。可以使用命令`show interfaces [name] trunk`及`show interfaces [name] switchport`，来查看中继链路上被修剪和限制的VLANs。作为检查某个中继端口上放行VLANs最容易的方式，命令`show interfaces [name] trunk`的输出如下所示。
 
-```
+```console
 Cat-3550-1#show interfaces trunk
 Port    Mode    Encapsulation   Status      Native vlan
 Fa0/1   on      802.1q          trunking    1
@@ -624,7 +624,7 @@ Fa0/2   1,40,50,60,70,80,90,254
 
 在某个已被静态配置为802.1Q中继链路端口上的`show interfaces [name] switchport`命令的输出如下所示。
 
-```
+```console
 Cat-3550-2#show interfaces FastEthernet0/7 switchport
 Name: Fa0/7
 Switchport: Enabled
@@ -664,7 +664,7 @@ Appliance trust: none
 
 除了在前面几个小节中介绍的那些命令外，还有一些用于对VLAN配置进行检查和排错的有用思科IOS软件的命令。最常用到的VLAN检查和排错命令之一就是`show vlan`命令了。该命令显示管理域内所有VLANs的参数，如下面的输出所示。
 
-```
+```console
 Cat-3550-1#show vlan
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- -------------------------------
@@ -712,7 +712,7 @@ Primary Secondary Type              Ports
 
 该命令打印出所有可用的VLANs，以及所分配到每个单独VLANs的那些端口。该命令的输出所包含的端口仅是接入端口，且不管这些端口是否开启或宕掉，都会显示出来。该命令输出不包括中继链路，因为这些输出属于所有所有VLANs。`show vlan`命令还提供了RSPAN(Remote Switch Port ANalyser, 远程交换机端口分析器) VLANs, 以及交换机上私有VLAN（Private VLAN, PVLAN， 这是一个CCNP考点）的信息。`show vlan`命令还可以带上一些额外关键字来使用，以提供更具体的信息。下面的输出显示了可与该命令一起使用的所支持的附加关键字。
 
-```
+```console
 Cat-3550-1#show vlan ?
 brief           VTP all VLAN status in brief
 id              VTP VLAN status by VLAN id
@@ -726,7 +726,7 @@ summary         VLAN summary information
 
 `brief`字段打印所有活动VLANs的简要信息。此命令的输出与上面的相同，唯一的区别就是省掉了后两个部分。`id`字段提供了和`show vlan`一样的信息，但如下面的输出所示，只包含特定VLAN的信息。
 
-```
+```console
 Switch-1#show vlan id 150
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- --------------------
@@ -759,7 +759,7 @@ VLAN与属于该VLAN的接入端口一样，再度包含在了输出中。中继
 
 另一个有用的VLAN排错命令，就是`show vtp counters`。该命令打印有关VTP数据包统计的信息。以下是在某台配置为VTP服务器的交换机上，`show vtp counters`的输出。
 
-```
+```console
 Cat-3550-1#show vtp counters
 VTP statistics:
 Summary advertisements received     : 15

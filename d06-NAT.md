@@ -112,7 +112,7 @@ NAT内部和外部的分址，是一个经典的考试问题，所以还需在�
 
 下面的输出给出了一种思科IOS软件下配置NAT（动态NAT）的方式。可以看出，该配置使用了可用的`description`和`remark`两种特性，来帮助管理员更容易地对网络进行管理和故障排除。
 
-```
+```console
 R1(config)#interface FastEthernet0/0
 R1(config-if)#description ‘Connected To The Internal LAN’
 R1(config-if)#ip address 10.5.5.1 255.255.255.248
@@ -132,7 +132,7 @@ R1(config)#exit
 
 按照这个配置，命令`show ip nat translations`就可以用来对路由器上具体进行的转换进行查看，如下面的输出所示。
 
-```
+```console
 R1#show ip nat translations
 Pro		Inside global	Inside local	Outside local	Outside global
 icmp	150.1.1.4:4		10.5.5.1:4		200.1.1.1:4		200.1.1.1:4
@@ -165,7 +165,7 @@ tcp		150.1.1.5:159	10.5.5.3:159	200.1.1.1:23	200.1.1.1:23
 
 对上面的网络，配置应像下面这样。
 
-```
+```console
 Router(config)#interface f0/0
 Router(config-if)#ip address 192.168.1.1 255.255.255.0
 Router(config-if)#ip nat inside
@@ -178,6 +178,7 @@ Router(config-if)#exit
 Router(config)#ip nat inside source static 192.168.1.1 200.1.1.1
 Router(config)#ip nat inside source static 192.168.2.1 200.1.1.2
 ```
+
 命令`ip nat inside`和`ip nat outside`，告诉路由器哪些是内侧NAT接口，哪些是外侧的NAT接口。而命令`ip nat inside source`命令，就定义了那些静态转换，想要多少条就可以有多少条的该命令，那么就算你掏钱买的那些公网IP地址有多少个，就写上多少条吧。在思科公司，笔者曾解决有关此类问题的大量主要的配置错误，就是找不到`ip nat inside`及`ip nat outside`语句！考试中可能会碰到那些要求找出配置错误的问题。
 
 强烈建议将上述命令敲入到某台路由器中去。本书中有很多的NAT实验，但是在阅读理论章节的同时，你敲入得越多，那么这些信息就能越好地进入你的大脑。
@@ -201,7 +202,7 @@ Router(config)#ip nat inside source static 192.168.2.1 200.1.1.2
 
 在上面的图6.5中，让内部地址使用的是一个从`200.1.1.1`到`200.1.1.16`的地址池。下面是要实现该目的的配置文件。这里就不再给出路由器接口地址了。
 
-```
+```console
 Router(config)#interface f0/0
 Router(config-if)#ip nat inside
 Router(config)#interface s0/1
@@ -234,7 +235,7 @@ IP地址处于紧缺之中，在有着成千上万的地址需要路由时，将
 
 而要配置PAT，需要进行如同动态NAT的那些同样配置，还要在地址池后面加上关键字“overload”。
 
-```
+```console
 Router(config)#interface f0/0
 Router(config-if)#ip nat inside
 Router(config)#interface s0/1
@@ -302,7 +303,7 @@ NAT故障中十次有九次，都是由于路由器管理员忘记了把`ip nat 
 
 2. 在路由器`A`上需要加入一个IP地址，以模拟LAN上的一台主机。**通过一个环回接口，可以实现这个目的**。
 
-```
+```console
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#interface Loopback0
@@ -312,7 +313,7 @@ RouterA(config-if)#
 
 3. 为进行测试，需要告诉`Router B`将发往任何网络的任何流量，都发往`Router A`。通过一条静态路由完成这个。
 
-```
+```console
 RouterB#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterB(config)#ip route 0.0.0.0 0.0.0.0 Serial0/1/0
@@ -321,7 +322,7 @@ RouterB(config)#
 
 4. 要测试该条静态路由是否工作，通过从`Router A`上的环回接口对`Router B`进行`ping`操作。
 
-```
+```console
 RouterA#ping
 Protocol [ip]:
 Target IP address: 192.168.1.2
@@ -346,7 +347,7 @@ RouterA#
 
 5. 在`Router A`上配置一个静态NAT条目。使用NAT，将地址`10.1.1.1`, 在其离开该路由器时，转换成`172.16.1.1`。同样需要告诉路由器哪个是NAT的内部接口，哪个是外部接口。
 
-```
+```console
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#int Loopback0
@@ -360,7 +361,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此就可以看到转换的进行。此时再执行另一个扩展`ping`操作（自`L0`接口的），并查看NAT表。因为IOS的不同，你的输出可能与我的不一样。
 
-```
+```console
 RouterA#debug ip nat
 IP NAT debugging is on
 RouterA#
@@ -410,7 +411,7 @@ RouterA#
 
 7. 记住，路由器随后很快就会清除该NAT转换，为其它IP地址使用这个/这些NAT地址而对其进行清理。
 
-```
+```console
 NAT: expiring 172.16.1.1 (10.1.1.1) icmp 6 (6)
 NAT: expiring 172.16.1.1 (10.1.1.1) icmp 7 (7)
 ```
@@ -437,7 +438,7 @@ NAT: expiring 172.16.1.1 (10.1.1.1) icmp 7 (7)
 
 2. 需要给`RouterA`添加两个IP地址来模拟LAN上的主机。通过两个环回接口，可以达到这个目的。这两个IP地址将位处不同子网，但都以`10`地址开头。
 
-```
+```console
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#interface Loopback0
@@ -449,7 +450,7 @@ RouterA(config-if)#
 
 3. 为了进行测试，需要告诉`RouterB`将到任何网络的任何流量，都发往`RouterA`。用一条静态路由完成这点。
 
-```
+```console
 RouterB#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterB(config)#ip route 0.0.0.0 0.0.0.0 Serial0/1/0
@@ -458,7 +459,7 @@ RouterB(config)#
 
 4. 在`RouterA`上，从环回接口向`RouterB`发出`ping`操作，以此来测试该静态路由是否工作。
 
-```
+```console
 RouterA#ping
 Protocol [ip]:
 Target IP address: 192.168.1.2
@@ -483,7 +484,7 @@ RouterA#
 
 5. 在`RouterA`上配置一个NAT地址池。在本实验中，使用地址池`172.16.1.1`到`172.16.1.10`。任何以`10`开头的地址，都将成为一个NAT。记住你**必须**指定NAT的内部和外部接口，否则NAT就不会工作。
 
-```
+```console
 RouterA#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 RouterA(config)#int l0
@@ -506,7 +507,7 @@ RouterA(config)#
 
 6. 打开NAT调试，如此才可以看到转换的发生。接着执行扩展`ping`（自`L0`和`L1`发出的），并查看NAT表。因为IOS平台的不同，你的输出可能和下面的不一样。将会看到NAT地址池中的两个地址正在用到。
 
-```
+```console
 RouterA#debug ip nat
 RouterA#ping
 Protocol [ip]:
@@ -595,11 +596,13 @@ RouterA#
 
 重复先前的实验。这次，在引用地址池时，将`overload`命令加到该配置行的后面。这会指示路由器使用PAT。去掉`Loopback1`。**请注意，正如Farai指出的那样，在真实世界中，地址池通常只会有一个地址，否则在外部接口上会超载**（Please note that as Farai says, in the real world, your pool will usually have only one address or you will overload your outside interface）。
 
-`RouterA(config)#ip nat inside source list 1 pool 60days overload`
+```console
+RouterA(config)#ip nat inside source list 1 pool 60days overload
+```
 
 我已经为方便而使用思科Packet Tracer，完成了上面的实验，所以你通常会碰到与我的输出所不一致的输出。下面是一个PAT实验的示例输出。从中可以看出，路由器给每个转换都加上了一个端口号。不幸的是，在NAT地址池实验中，会看到相似的编号，这是一个PAT的混淆之处。
 
-```
+```console
 RouterA#show ip nat tran
 Inside global	Inside local		Outside local		Outside global
 10.0.0.1:8759 	172.16.1.129:8759 	192.168.1.2:8759 	192.168.1.2:8759

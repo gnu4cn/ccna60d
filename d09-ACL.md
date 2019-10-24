@@ -150,7 +150,7 @@
 
 在接口上已创建并应用的ACL。
 
-```
+```console
 Router>en
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
@@ -162,7 +162,7 @@ Router(config-if)#ip access-group 1 in
 
 现在其从接口上卸下。
 
-```
+```console
 Router(config)#int FastEthernet0/0
 Router(config-if)#no ip access-group 1 in
 Router(config-if)#^Z
@@ -170,7 +170,7 @@ Router(config-if)#^Z
 
 查看那些ACLs。将其复制并粘贴到文本编辑器，并进行修改。
 
-```
+```console
 Router#show run ← or show ip access lists
 access-list 1 permit host 172.16.1.1
 access-list 1 permit host 172.16.2.1
@@ -178,7 +178,7 @@ access-list 1 permit host 172.16.2.1
 
 实际上还需在配置行之间加入一个叹号（如是将其粘贴到路由器上的情况下），来告诉路由器执行一次确认（you actually need to add an exclamation mark in-between each line of configuration, if you are pasting it in, to tell the router to do a carriage return）[wikipedia: 回车符](http://zh.wikipedia.org/wiki/%E5%9B%9E%E8%BD%A6%E7%AC%A6)。
 
-```
+```console
 access-list 1 permit host 172.16.1.1
 !
 access-list 1 permit host 172.16.2.2
@@ -186,7 +186,7 @@ access-list 1 permit host 172.16.2.2
 
 下面是正被粘贴到路由器配置中的那些行。要先删除早先的ACL，再粘贴进新版本。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#no access-list 1
@@ -214,7 +214,7 @@ Router(config-if)#ip access-group 1 in ← reapply to the interface
 
 在打算短时间对ACL进行测试或是撤销ACL时，许多工程师都会将其完全删除掉。这是不必要的。如你要停止ACL运行，只需简单地将其从所应用到的接口上移除即可。
 
-```
+```console
 Router(config)#int FastEthernet0/0
 Router(config-if)#no ip access-group 1 in
 Router(config-if)#^Z
@@ -318,7 +318,7 @@ CCNA考试中反掩码计算的一种简易方法，就是把一个数与子网�
 ![有着多台/个主机网络的网络](images/0906.png)
 
 
-```
+```console
 Router(config)#access-list 1 permit host 172.16.1.1
 Router(config)#access-list 1 permit host 172.16.1.1
 Router(config)#access-list 1 permit host 192.168.1.1
@@ -335,13 +335,13 @@ Router(config)#access-list 1 permit 10.1.0.0 0.0.255.255
 
 一般来说，你可以看看扩展的ACLs配置语法，就像下面这样。
 
-```
+```console
 access list# permit/deny [service/protocol] [source network/IP] [destination network/IP] [port#]
 ```
 
 比如下面这样。
 
-```
+```console
 access-list 101 deny tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq telnet
 access-list 100 permit tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq ftp
 access-list 100 permit icmp any any
@@ -354,7 +354,7 @@ access-list 100 permit icmp any any
 
 可为上面的网络配置一条ACL，以e-mail、web和文件服务器为例，可以像下面这样（应用在服务器侧的）。
 
-```
+```console
 access-list 100 permit tcp host 172.16.1.1 host 172.20.1.1 eq smtp
 access-list 100 permit tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq ftp
 access-list 100 permit tcp host 192.168.1.1 host 172.40.1.1 eq www
@@ -362,7 +362,7 @@ access-list 100 permit tcp host 192.168.1.1 host 172.40.1.1 eq www
 
 而如有不同要求，就也可以像下面这条ACL。
 
-```
+```console
 access-list 101 deny icmp any 172.20.0.0 0.0.255.255
 access-list 101 deny tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq telnet
 ```
@@ -383,7 +383,7 @@ access-list 101 deny tcp 10.1.0.0 0.0.255.255 host 172.30.1.1 eq telnet
 
 在配置命名ACLs时的另一不同之处，就是必须一直使用命令`ip access-list`，这与编号ACLs可以只使用简单的`access-list`命令，是不一样的。
 
-```
+```console
 Router(config)#access-list ?
 	<1-99>				IP standard access list
 	<100-199>			IP extended access list
@@ -417,7 +417,7 @@ R1(config)#ip access-list extended ?
 
 **图9.8 -- 命名ACL**
 
-```
+```console
 Router(config)#ip access-list extended BlockWEB
 Router(config-ext-nacl)#?
 Ext Access List configuration commands:
@@ -439,7 +439,7 @@ Router(config-ext-nacl)#permit ip any any
 - `show ip access-list`: 显示设备上所创建的所有ACLs
 - `show ip access-list <acl_name>`: 显示某条特定的命名ACL
 
-```
+```console
 Router(config)#do show ip access-lists
 Standard IP access list test
 	30 permit 10.1.1.1
@@ -462,21 +462,21 @@ Standard IP access list test
 
 接口上的应用。
 
-```
+```console
 Router(config)#int FastEthernet0/0
 Router(config-if)#ip access-group 101 in
 ```
 
 线路上的应用。
 
-```
+```console
 Router(config)#line vty 0 15
 Router(config-line)#access-class 101 in
 ```
 
 接口上的应用。
 
-```
+```console
 Router(config)#int FastEthernet0/0
 Router(config-if)#ip access-group BlockWEB in
 ```
@@ -487,7 +487,7 @@ Router(config-if)#ip access-group BlockWEB in
 
 自`12.4`往后，你会发现思科IOS给每个ACL条目添加了序号。那么现在就可以创建一条访问控制清单，并在其后从它里面一处一行了。
 
-```
+```console
 Router(config)#ip access-list standard test
 Router(config-std-nacl)#permit 172.16.1.1
 Router(config-std-nacl)#permit 192.168.1.1
@@ -512,7 +512,7 @@ Standard IP access list test
 
 **要加入一个新的ACL行，只需简单地输入新的序号并接着输入该ACL语句**。下面的例子展示如何往现有的ACL中加入行`15`。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#ip access
@@ -535,7 +535,7 @@ Router(config-std-nacl)#
 
 要移除某个ACL行，只需简单地敲入`no <seq_number>`命令即可，就如同下面的例子中行`20`被删除掉了。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#ip access
@@ -556,7 +556,7 @@ Router(config-std-nacl)#
 
 要对某条ACL重新编号，使用`ip access-list resequence <acl_name> <starting_seq_number> <step_to_increment>`命令。该命令的行为可由下面的例子进行检验。
 
-```
+```console
 Router(config)#ip access-list resequence test 100 20
 Router(config)#do show ip access-lists
 Standard IP access list test
@@ -574,7 +574,7 @@ Router(config-std-nacl)#
 
 默认情况下，通过那些为某个接口的数据包所匹配上的ACL条目，会创建出一个不断增大的计数器，该计数器可使用`show ip access-list`命令进行查看，如下面的例子所示。
 
-```
+```console
 Router#show ip access-lists
 Extended IP access list test
 	10 deny tcp any any eq 80 (10 matches)
@@ -583,7 +583,7 @@ Extended IP access list test
 
 而如果需要更详细的有关那些为ACL条目所匹配的流量信息，可以给相关的ACL条目配置`log`或`log-input`参数。
 
-```
+```console
 Router(config)#ip access-list extended test
 Router(config)#no 10
 Router(config)#10 deny tcp any any eq 80 log
@@ -599,7 +599,7 @@ Extended IP access list test
 
 而如果你仍需要更多有关该事件（transaction）的细节，就要用`log-input`参数替代`log`参数了，就像下面这样。
 
-```
+```console
 Router(config)#ip access-list extended test
 Router(config)#no 10
 Router(config)#10 deny tcp any any eq 80 log-input
@@ -627,7 +627,7 @@ Extended IP access list test
 
 下面的例子定义了一条允许来自主机`10.10.10.1`的Telnet流量，该ACL随后被应用到VTY线路的进入方向。
 
-```
+```console
 Router(config)#ip access-list extended VTY_ACCESS
 Router(config-ext-nacl)#permit tcp host 10.10.10.1 any eq telnet
 Router(config-ext-nacl)#deny tcp any any
@@ -640,7 +640,7 @@ Router(config-line)#
 
 使用以下命令对配置进行验证。
 
-```
+```console
 Router#show run | sect line vty
 line vty 0 4
 access-class VTY_ACCESS in
@@ -667,7 +667,7 @@ access-class VTY_ACCESS in
 
 可使用命令`show ip access-list` 或 `show access-list`命令， 查看ACL全局统计信息，这两个命令又可以仅查看某个特定编号ACL或命名ACL的全局统计信息。
 
-```
+```console
 Router#show ip access-lists
 Extended IP access list test
 	10 deny tcp any any eq 80 (10 matches)
@@ -682,7 +682,7 @@ Extended IP access list test
 
 在想要查看单个接口上的ACL匹配情况，不管是进还是出方向时，可以使用命令`show ip access-list interface <interface_name> [in|out]`，如下面所示。
 
-```
+```console
 Router#show ip access-list interface FastEthernet0/1 in
 Extended IP access list 100 in
 	10 permit ip host 10.10.10.1 any (5 matches)
@@ -743,14 +743,14 @@ Extended IP access list 100 in
 
 1. 配置上面的网络。在两台路由器上加入一条静态路由，领导到任何网络的任何流量都从串行接口发出。这么做的原因是，尽管这不是一个路由实验，仍然需要路由的流量。把`.1`地址加到路由器`A`的串行接口，`.2`地址加到路由器`B`的串行接口。
 
-```
+```console
 RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
 RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
 ```
 
 2. 在路由器A上配置一条标准ACL，放行`192.168.1.0/10`网络。默认情况下，其它所有网络都将被阻止。
 
-```
+```console
 RouterA(config)#access-list 1 permit 192.168.1.0 0.0.0.63
 RouterA(config)#int Serial0/1/0
 RouterA(config-if)#ip access-group 1 in
@@ -761,7 +761,7 @@ RouterA#
 
 3. 从路由器`B`上测试该条ACL，默认将使用`10.0.0.1`地址。
 
-```
+```console
 RouterB#ping 10.0.0.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
@@ -771,7 +771,7 @@ Success rate is 0 percent (0/5)
 
 4. 以源地址`192.168.1.1`来做另一个ping测试，这将没有问题。
 
-```
+```console
 RouterB#ping
 Protocol [ip]:
 Target IP address: 10.0.0.1
@@ -808,11 +808,13 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
 
 1. 配置上述网络。在路由器`B`上加入一条静态路由，令到前往所有网络的所有流量都从串行接口上发出。这么做是因为，尽管这不是一个路由实验，仍然需要路由流量。
 
-`RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0`
+```console
+RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+```
 
 2. 在路由器`A`上配置一条扩展ACL。仅允许往环回接口上发起Telnet流量。
 
-```
+```console
 RouterA(config)#access-list 100 permit tcp any host 172.20.1.1 eq 23
 RouterA(config)#int s0/1/0
 RouterA(config-if)#ip access-group 100 in
@@ -825,11 +827,13 @@ RouterA#
 
 上面的那条ACL编号为`100`, 这就告诉路由器，它是一条扩展ACL。所要允许的是TCP。该条ACL允许来自任何网络的，目的地址为`172.20.1.1`的Telnet端口，端口号为`23`。在执行`show run`命令时，就会看到，路由器实际上会将端口号替换为其对应的名称，就像下面演示的这样。
 
-`access-list 100 permit tcp any host 172.20.1.1 eq telnet`
+```console
+access-list 100 permit tcp any host 172.20.1.1 eq telnet
+```
 
 3. 现在，从路由器B上做一个Telnet测试。首先往路由器`A`的串行接口上Telnet，将会被阻止。接着测试环回接口。
 
-```
+```console
 RouterB#telnet 10.0.0.1
 Trying 10.0.0.1 ...
 % Connection timed out; remote host not responding
@@ -858,14 +862,14 @@ RouterA> ←Hit Control+Shift+6 together and then let go and press the X key to 
 
 1. 配置上面的网络。在两台路由器上加入一条静态路由，领导到任何网络的任何流量都从串行接口发出。这么做的原因是，尽管这不是一个路由实验，仍然需要路由的流量。
 
-```
+```console
 RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
 RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
 ```
 
 2. 在路由器`B`上加入一条扩展的命名ACL。只放行主机`172.20.1.1`，阻止其它任何主机或网络。
 
-```
+```console
 RouterB(config)#ip access-list extended blockping
 RouterB(config-ext-nacl)#permit icmp host 172.20.1.1 any
 RouterB(config-ext-nacl)#exit
@@ -876,7 +880,7 @@ RouterB(config-if)#
 
 3. 现在分别从路由器`A`的串行接口和换回接口发出`ping`来测试该条ACL。
 
-```
+```console
 RouterA#ping 192.168.1.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
@@ -907,13 +911,18 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 31/34/47 ms
 
 要放行RIP，就要像这样指定。
 
-`access-list 101 permit udp any any eq rip`
+```console
+access-list 101 permit udp any any eq rip
+```
 
 要放行OSPF，要像这样指定。
 
-`access-list 101 permit ospf any any`
+```console
+access-list 101 permit ospf any any
+```
 
 要放行EIGRP，要像这样指定。
 
-`access-list 101 permit eigrp any any`
-
+```console
+access-list 101 permit eigrp any any
+```

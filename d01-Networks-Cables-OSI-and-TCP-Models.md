@@ -347,6 +347,7 @@ CCNA 考试要求你理解 OSI 模型，以及各层有哪些应用和协议。�
 ### TCP/IP、DoD 模型
 
 TCP/IP 模型是另一个框架，作为 OSI 模型的替代。它是由 高级防务研究项目署（the Defense Advanced Research Projects Agency，DARPA）创建的四层或五层模型。它就是为人熟知的国防部模型。自顶向下的四层分别是：
+
 ```console
 4 - 应用, Application [Telnet/FTP/DNS/RIP]
 3 - 传输/主机到主机，Transport/Host-to-Host [UDP/TCP/ICMP]
@@ -1278,7 +1279,9 @@ Router(config)#interface FastEthernet0
 
 最终，路由器进入到了接口配置模式。
 
-`Router(config-if)#`
+```console
+Router(config-if)#
+```
 
 在这里，你可以为接口配置上 IP 地址，设置其带宽，部署一条访问控制清单，以及完成很多其它事项。你的路由器或交换机可能会与我（作者）的有不同的接口编号，所以请使用 `?` 或 `show ip interface brief` 命令去查看你的选项。
 

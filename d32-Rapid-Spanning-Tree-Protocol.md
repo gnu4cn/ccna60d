@@ -10,7 +10,7 @@
 - 复习昨天的课文
 - 完成今天的实验
 - 阅读ICND2记诵指南
-- 在网站[http://subnetting.org/](subnetting.org)
+- 在网站 [http://subnetting.org/](subnetting.org)
 
 IEEE 802.1D标准是在连通性从失去到恢复需要一分钟左右，就被认为性能已经可观的时期设计出来的。在IEEE 802.1D STP下，恢复大约需要50秒，这其中包括20秒的最大老化计时器（the Max Age timer）超时，以及额外的给端口从阻塞状态过渡到转发状态的30秒。
 
@@ -86,7 +86,7 @@ RSTP包含了以下的端口角色。
 
 RSTP的配置只需一个命令！
 
-```
+```console
 Switch(config)#spanning-tree mode rapid-pvst
 Switch#show spanning-tree summary
 Switch is in rapid-pvst mode
@@ -133,7 +133,7 @@ Root bridge for: VLAN0050, VLAN0060, VLAN0070
 
 1. 检查交换机上的生成树模式。
 
-```
+```console
 SwitchA#show spanning-tree summary
 Switch is in pvst mode
 Root bridge for: VLAN0002 VLAN0003
@@ -141,7 +141,7 @@ Root bridge for: VLAN0002 VLAN0003
 
 2. 将模式改为RSTP并再度检查。
 
-```
+```console
 SwitchA(config)#spanning-tree mode rapid-pvst
 SwitchA#show spanning-tree summary
 Switch is in rapid-pvst mode

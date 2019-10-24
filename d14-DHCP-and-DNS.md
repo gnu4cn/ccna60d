@@ -183,7 +183,7 @@ DHCP提供了`256`选项值，其中仅`254`个是可用的，因为`0`是垫底
 
 第一步就是在路由器上开启DHCP服务。这是通过使用`service dhcp`命令完成的，如下面所示（as exemplified below）。
 
-```
+```console
 Router#configure terminal
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#service dhcp
@@ -191,7 +191,7 @@ Router(config)#service dhcp
 
 下一步就是创建一个DHCP池，该DHCP池定义出将分配给客户端的IP地址池。在本例中，名为`SUBNET_A`的池将提供来自范围`192.168.1.0/24`的IP地址。
 
-```
+```console
 Router(config)#ip dhcp pool SUBNET_A
 Router(dhcp-config)#network 192.168.1.0 255.255.255.0
 Router(dhcp-config)#default-router 192.168.1.1
@@ -209,14 +209,14 @@ Router(dhcp-config)#lease 30
 
 在需要时，也可以配置一些从`192.168.1.0/24`范围中排除的地址。我们就说要排除路由器接口IP地址（`192.168.1.1`）及`192.168.1.250`到`192.168.1.255`地址范围，从该范围就可手动为网络中的服务器分配地址。这是通过下面的配置完成的。
 
-```
+```console
 Router(config)#ip dhcp excluded-address 192.168.1.1
 Router(config)#ip dhcp excluded-address 192.168.1.250 192.168.1.255
 ```
 
 可使用下面的命令来查看当前由该路由器DHCP服务器所服务的客户端。
 
-```
+```console
 Router#show ip dhcp binding
 Bindings from all pools not associated with VRF:
 IP address      Client-ID/  Lease expiration    Type    Hardware address/
@@ -233,20 +233,20 @@ IP address      Client-ID/  Lease expiration    Type    Hardware address/
 
 将一个路由器接口配置为DHCP客户端的命令如下。
 
-```
+```console
 Router(config)#int FastEthernet0/0
 Router(config-if)#ip address dhcp
 ```
 
 一旦某台DHCP服务器分配了一个IP地址，在路由器控制台上就可以看到下面的通知消息（该消息包含了地址和掩码）。
 
-```
+```console
 *Mar 1 00:29:15.779: %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 10.10.10.2, mask 255.255.255.0, hostname Router
 ```
 
 使用命令`show ip interface brief`，就可以观察到该DHCP分配方式。
 
-```
+```console
 Router#show ip interface brief
 Interface       IP-Address  OK? Method  Status                  Protocol
 FastEthernet0/0 10.10.10.2  YES DHCP    up                      up
@@ -315,7 +315,7 @@ DHCP分配过程的最后数据包就是由服务器发出的DCHP确认数据包
 
 同样可以使用下面的`debug`命令作为排错过程中的部分。
 
-```
+```console
 debug ip dhcp server events
 debug ip dhcp server packet
 ```
@@ -336,7 +336,7 @@ DNS将主机名映射到IP地址（而不是反过来）。这就允许你在web
 
 也可以将某个主机名设置到路由器上的一个IP地址表中来节省时间，或是令到更易于记住要`ping`的或是连接到的哪台设备，如下面的输出所示。
 
-```
+```console
 Router(config)#ip host R2 192.168.1.2
 Router(config)#ip host R3 192.168.1.3
 Router(config)#exit
@@ -404,7 +404,7 @@ Router#pinging 192.168.1.2
 
 3. 配置DHCP地址池。接着为地址配置一个`3`天`3`小时`5`分的租期。最后将`1`到`10`的地址排除在分配给主机的地址之外。假设这些地址已为其它服务器或接口使用。
 
-```
+```console
 Router#conf t
 Router(config)#ip dhcp pool 60days
 Router(dhcp-config)#network 172.16.0.0 255.255.0.0
@@ -416,7 +416,7 @@ Router(config)#
 
 4. 执行一个`ipconfig /all`命令，查看是否有IP地址分配到PC。如旧地址仍在使用，就需要执行一下`ipconfig /renew`命令。
 
-```
+```console
 PC>ipconfig /all
 Physical Address................: 0001.C7DD.CB19
 IP Address......................: 172.16.0.1
@@ -427,7 +427,7 @@ DNS Servers.....................: 0.0.0.0
 
 5. 如想要的话，可回到DHCP地址池配置模式（DHCP Pool Configuration mode），加入一个默认网关及DNS服务器地址，它们也将在主机PC上得到设置。
 
-```
+```console
 Router(config)#ip dhcp pool 60days
 Router(dhcp-config)#default-router 172.16.1.2
 Router(dhcp-config)#dns-server 172.16.1.3

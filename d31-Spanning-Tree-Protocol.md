@@ -255,7 +255,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 **桥优先级是该交换机相对于其它交换机的优先级。**桥优先级取值范围是0到65535。思科Catalyst交换机的默认值为32768。
 
-```
+```console
 Switch2#show spanning-tree vlan 2
 
 VLAN0002
@@ -313,14 +313,14 @@ Fa0/2       128.2       19      FWD 19 32770    0008.21a9.4f80  128.2
 
 - 可以手动设置优先级
 
-```
+```console
 Switch(config)#spanning-tree vlan 2 priority ?
 <0-61440>   bridge priority in increments of 4096
 ```
 
 - 或者使用宏命令`primary`或`secondary`将其设置为根桥
 
-```
+```console
 Switch(config)#spanning-tree vlan 2 root ?
     primary     Configure this switch as primary root for this spanning tree
     secondary   Configure switch as secondary root
@@ -330,7 +330,7 @@ Switch(config)#spanning-tree vlan 2 root ?
 
 *图31.6 -- 强制某台交换机成为根桥*
 
-```
+```console
 SwitchC#show spanning-tree vlan 5
 VLAN0005
 Spanning tree enabled protocol ieee
@@ -354,7 +354,7 @@ Bridge ID   Priority  4096 (priority 8192 sys-id-ext 5)
 
 注意到VLAN编号通常会被加到优先级数字上，如下面的输出展示的那样。
 
-```
+```console
 SwitchA#show spanning-tree vlan 5
 Bridge ID   Priority 32773 (priority 32768 sys-id-ext 5)
 Address 0013.c3e8.2500
@@ -394,7 +394,7 @@ Fa0/18     Desg  FWD    19     128.18    P2
 
 在思科IOS Catalyst交换机中，可通过执行`show spanning-tree interface [name]`查看默认端口开销值，如下面的输出中演示的那样，该输出展示了一个FastEthernet接口的默认短整数端口开销。
 
-```
+```console
 
 VTP-Server#show spanning-tree interface FastEthernet0/2
 Vlan        Role    Sts    Cost    Prio.Nbr    Type
@@ -404,7 +404,7 @@ VLAN0050    Desg    FWD    19      128.2       P2p
 
 下面的输出显示了同样的长整数端口开销分配（the following output shows the same for long port cost assignment）。
 
-```
+```console
 
 VTP-Server#show spanning-tree interface FastEthernet0/2
 Vlan        Role    Sts    Cost    Prio.Nbr    Type
@@ -718,11 +718,13 @@ STP故障通常有以下三类（STP issues usually fall within the following th
 
 1. 设置各台交换机的主机名并将其用交叉线连接起来。此时可以检查它们之间的接口是否被设置到“trunk”中继。
 
-`Switch#show interface trunk`
+```console
+Switch#show interface trunk
+```
 
 2. 在将一侧设置为中继链路之前，可能看不到中继链路变成活动的。
 
-```
+```console
 SwitchB#conf t
 Enter configuration commands, one per line. End with CNTL/Z.
 SwitchB(config)#int FastEthernet0/1
@@ -739,7 +741,7 @@ Fa0/1   1
 
 3. 将看到另一交换机是留作自动模式的。
 
-```
+```console
 SwitchA#show int trunk
 Port    Mode        Encapsulation   Status      Native vlan
 Fa0/1   auto        n-802.1q        trunking    1
@@ -751,7 +753,7 @@ Fa0/1   1
 
 4. 在每台交换机上创建出两个VLANs。
 
-```
+```console
 SwitchA#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 SwitchA(config)#vlan 2
@@ -780,7 +782,7 @@ VLAN Name                   Status      Ports
 
 5. 确定哪台交换机是VLANs 2和3的根桥。
 
-```
+```console
 SwitchB#show spanning-tree vlan 2
 VLAN0002
     Spanning tree enabled protocol ieee
@@ -800,7 +802,7 @@ Fa0/1               Desg  FWD  19        128.1    P2p
 
 可以看到，Switch B是根。在交换机A上完成同样的命令，并对VLAN 3进行检查。优先级是32768加上VLAN编号，这里就是2.最低MAC地址将确定出根桥。
 
-```
+```console
 SwitchB#show spanning-tree vlan 3
 VLAN0003
     Spanning tree enabled protocol ieee
@@ -821,7 +823,7 @@ Fa0/1               Desg  FWD  19         128.1    P2p
 
 6. 将另一个交换机设置为VLANs 2和3的根桥。对VLAN 2使用命令`spanning-tree vlan 2 priority 4096`，以及对VLAN 3的`spanning-tree vlan 3 root primary`命令。
 
-```
+```console
 SwitchA(config)#spanning-tree vlan 2 priority 4096
 SwitchA(config)#spanning-tree vlan 3 root primary
 SwitchA#show spanning-tree vlan 2

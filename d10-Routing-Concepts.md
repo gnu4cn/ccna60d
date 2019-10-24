@@ -168,7 +168,7 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 默认路由来源管理距离会显示在`show ip protocols`命令的输出中。下面的输出演示了这点。
 
-```
+```console
 R1#show ip protocols
 Routing Protocol is “isis”
 	Invalid after 0 seconds, hold down 0, flushed after 0
@@ -292,7 +292,7 @@ Distance: (default is 115 )
 
 一旦路由已放入到路由表，默认情况下比起那些较不具体的路由，最为具体或有着最长匹配前缀的路由总是优先选用的。这在下面的实例中进行了演示，该实例展示了包含有`80.0.0.0/8`、`80.1.0.0/16`及`80.1.1.0/24`前缀路由条目的一个路由表。这三条路由前缀分别通过EIGRP、OSPF及RIP路由协议接收到。
 
-```
+```console
 R1#show ip route
 Codes:	C - connected, S - static, R - RIP, M - mobile, B - BGP
 		D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -313,7 +313,7 @@ O E2	 80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
 
 基于该路由表的内容，如路由器收到一个目的为`80.1.1.1`的数据包，就会使用那条RIP路由，因为这是最为具体的条目，尽管EIGRP和OSPF都有着更好的管理距离值而是更为优先的路由来源。`show ip route 80.1.1.1`命令可用于检验这点。
 
-```
+```console
 R1#show ip route 80.1.1.1
 Routing entry for 80.1.1.0/24
 	Known via “rip”, distance 120, metric 1
@@ -330,7 +330,7 @@ Routing entry for 80.1.1.0/24
 
 有类协议无法使用VLSM（也就是RIPv1和IGRP，它们都已不在CCNA大纲中了）。这是因为它们不会去识别除了默认网络掩码外的其它任何东西。
 
-```
+```console
 Router#debug ip rip
 RIP protocol debugging is on
 01:26:59: RIP: sending v1 update to 255.255.255.255 via Loopback0
@@ -339,7 +339,7 @@ RIP protocol debugging is on
 
 有类协议用到VLSM（也就是RIPv2和EIGRP）。
 
-```
+```console
 Router#debug ip rip
 RIP protocol debugging is on
 01:29:15: RIP: received v2 update from 172.16.1.2 on Serial0
@@ -549,14 +549,14 @@ CEF使用一个FIB来做出基于IP目的地址前缀的交换决定（CEF uses 
 
 开启CEF只需简单的一条命令，那就是全局配置命令`ip cef [distributed]`。关键字`[distributed]`仅适用于像是`Catalyst 6500`系列、支持`dCEF`的高端交换机。下面的输出展示了如何在一台诸如`Catalyst 3750`系列交换机的低端平台上配置CEF。
 
-```
+```console
 VTP-Server-1(config)#ip cef
 VTP-Server-1(config)#exit
 ```
 
 下面的输出演示了在`Catalyst 6500`系列交换机上如何开启`dCEF`。
 
-```
+```console
 VTP-Server-1(config)#ip cef distributed
 VTP-Server-1(config)#exit
 ```
@@ -602,7 +602,7 @@ VTP-Server-1(config)#exit
 
 路由排错的第一步，就是检查路由协议是否开启及正确配置。这既可以通过检查当前运行配置（也就是`show run`命令），又可以使用结合了每种特定路由协议的`show`命令。这些路由协议的选项有下面这些。
 
-```
+```console
 Router#show ip ospf ?
 	<1-65535> 				Process ID number
 	border-routers 			Border and boundary router information
@@ -731,7 +731,7 @@ metric for determining the best forwarding path. True or false?
 - 在两台路由器上都配置一个环回接口，并从两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
 - 配置标准RIP并通告所有本地网络
 
-```
+```console
 R1:
 router rip
 version 2

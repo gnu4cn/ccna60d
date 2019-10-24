@@ -119,7 +119,7 @@ OSPF骨干区域从ABRs接收到汇总路由信息。该路由信息被散布到
 
 思科IOS软件中，非广播类型网络上开启了OSPF的路由器，默认每`30`秒发出`Hello`数据包。若`4`个`Hello`间隔，也就是`120`秒中都没有收到`Hello`数据包，那么该邻居路由器就被认为是“死了”。下面的输出演示了在一个帧中继串行接口上`show ip ospf interface`命令的输出。
 
-```
+```console
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
@@ -142,7 +142,7 @@ Serial0/0 is up, line protocol is up
 
 一条点对点连接, 简单来说就是一条两个端点之间的连接。P2P连接的实例，包括采用HDLC及PPP封装的物理WAN接口，以及FR和ATM的点对点子接口。**OSPF点对点组网类型中，不会选举出DR和BDR**。在P2P类型网络上，OSPF每`10`秒发出`Hello`数据包。在这些网络上，”死亡“间隔是`Hello`间隔的`4`倍，也就是`40`秒（A Point-to-Point(P2P) connection is simply a connection between two endpoints only. Examples of P2P connections include physical WAN interfaces using HDLC and PPP encapsulation, and Frame Relay(FR) and Asynchronous Transfer Mode(ATM) Point-to-Point subinterfaces. No DR or BDR is elected on OSPF Point-to-Point network types. By default, OSPF sends Hello packets out every 10 seconds on P2P network types. The "dead" interval on these network types is four times the Hello interval, which is 40 seconds）。下面的输出演示了在一条P2P链路上的`show ip ospf interface`命令的输出。
 
-```
+```console
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
@@ -163,7 +163,7 @@ Serial0/0 is up, line protocol is up
 
 广播类型网络，是指那些原生支持广播和多播流量的网络，最常见例子就是以太网。就如同在非广播网络中一样，OSPF也会在广播网络上选举一台DR及/或BDR。默认情况下，OSPF每隔`10`秒发出`Hello`数据包，而如在`4`倍Hello间隔中没有收到`Hello`数据包，就宣告邻居”死亡“。下面的输出演示了在一个`FastEthernet`接口上`show ip ospf interface`命令的输出。
 
-```
+```console
 R2#show ip ospf interface FastEthernet0/0
 FastEthernet0/0 is up, line protocol is up
 	Internet Address 192.168.1.2/24, Area 0
@@ -192,7 +192,7 @@ FastEthernet0/0 is up, line protocol is up
 
 下面的输出演示了在一个经手动配置为点对多点网络的帧中继串行接口上的`show ip ospf interface`命令的输出。
 
-```
+```console
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 150.1.1.2/24, Area 0
@@ -215,7 +215,7 @@ OSPF要求链路上两台路由器组网类型一致（一致的意思是两台�
 
 思科IOS软件允许通过使用接口配置命令`ip ospf hello-interval <1-65535>`及`ip ospf dead-interval [<1-65535>|minimal]`，对默认OSPF `Hello`数据包及死亡计时器进行修改。`ip ospf hell0-interval <1-65535>`命令用于指定`Hello`间隔的秒数。在执行该命令后，软件会自动将死亡间隔配置为所配置的`Hello`包间隔的`4`倍。比如，假定某台路由器做了如下配置。
 
-```
+```console
 R2(config)#interface Serial0/0
 R2(config-if)#ip ospf hello-interval 1
 R2(config-if)#exit
@@ -223,7 +223,7 @@ R2(config-if)#exit
 
 通过在上面的`R2`上将`Hello`数据包间隔设置为`1`, 思科IOS软件就会自动的将默认死亡计时器调整为`Hello`间隔的`4`倍，就是`4`秒。下面的输出对此进行了演示。
 
-```
+```console
 R2#show ip ospf interface Serial0/0
 Serial0/0 is up, line protocol is up
 	Internet Address 10.0.2.4/24, Area 2
@@ -257,7 +257,7 @@ OSPF进程号是一个`1`与`65535`之间的整数。每个OSPF进程都维护�
 
 作为一个例子，看看下面的所有接口都关闭的路由器。
 
-```
+```console
 R3#show ip interface brief
 Interface		IP-Address	OK?	Method	Status					Protocol
 FastEthernet0/0	unassigned	YES	manual	administratively down	down
@@ -267,14 +267,14 @@ Serial0/1		unassigned	YES	unset	administratively down	down
 
 接着，使用全局配置命令`router ospf [process id]`在该路由器上开启了OSPF， 如下面输出所示。
 
-```
+```console
 R3(config)#router ospf 1
 R3(config-router)#exit
 ```
 
 基于此配置，思科IOS软件分配给该进程一个默认`0.0.0.0`的路由器ID，如下面`show ip protocols`命令的输出所示。
 
-```
+```console
 R3#show ip protocols
 Routing Protocol is “ospf 1”
 	Outgoing update filter list for all interfaces is not set
@@ -332,7 +332,7 @@ R3#show ip ospf 1
 
 就像前面指出的那样，在执行了`network [network] [wildcard] area [area id]`命令后，路由器匹配最具体的网络条目（最小的网络），来决定该接口应分配到的区域。对于在路由器上的网络配置语句及已配置的接口，命令`show ip ospf interface brief`会显示出这些接口都分配给了以下OSPF区域。
 
-```
+```console
 R1#show ip ospf interface brief
 Interface	PID	Area	IP Address/Mask	Cost	State	Nbrs F/C
 Lo4			1	0		10.2.0.1/32		1		LOOP	0/0
@@ -366,7 +366,7 @@ Lo3 		1 	3 		10.1.1.1/32 	1 		LOOP	0/0
 
 在下面的路由器上，给`Loopback0`配置了IP地址`1.1.1.1/32`, 给`F0/0`配置了`2.2.2.2/24`。接着在路由器上给所有接口配置了OSPF。
 
-```
+```console
 Router(config-if)#router ospf 1
 Router(config-router)#net 0.0.0.0 255.255.255.255 area 0
 Router(config-router)#end
@@ -390,7 +390,7 @@ Routing Protocol is “ospf 1”
 
 但又想要将路由器ID硬编码（hard code）为`10.10.10.1`。那么可通过再配置一个使用该IP地址的环回接口，或简单地将这个IP地址加在OSPF路由器ID处。**为令到改变生效，必须重启路由器或在路由器上清除该IP OSPF进程**（清除现有数据库）。
 
-```
+```console
 Router#conf t
 Enter configuration commands, one per line.
 End with CNTL/Z.
@@ -427,7 +427,7 @@ Distance: (default is 110)
 
 被动接口配置在OSPF和EIGRP中的工作方式是一样的，也就是一旦某接口被标记为被动接口，经由该接口形成的所有邻居关系都会被拆除，同时 **再也不会通过该接口发送或接收`Hello`数据包了**。不过，根据路由器上所配置的网络配置语句，该接口仍然会继续受通告。
 
-```
+```console
 Router(config)#router ospf 10
 Router(config-router)#passive-interface f0/0
 Router#show ip ospf int f0/0
@@ -480,7 +480,7 @@ FastEthernet0/0 is up, line protocol is up
 
 **`R1`:**
 
-```
+```console
 router ospf 1
 router-id 1.1.1.1
 network 10.10.10.0 0.0.0.255 area 0
@@ -489,7 +489,7 @@ network 11.11.11.1 0.0.0.0 area 0
 
 **`R2`:**
 
-```
+```console
 router ospf 1
 router-id 2.2.2.2
 network 10.10.10.0 0.0.0.255 area 0
