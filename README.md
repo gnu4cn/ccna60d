@@ -35,5 +35,3 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)。
 + 2017-7-14
 
     - 完成第36天--EIGRP 章节的修订，EIGRP已无问题
-
-## 谢谢！
