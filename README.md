@@ -1,7 +1,7 @@
 60天通过CCNA
 =======
 
-Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)。
+Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 
 你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
