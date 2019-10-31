@@ -1,6 +1,8 @@
 # 第39天 开放最短路径优先协议
 
-**OSPF**
+**Open Shortest Path First, OSPF**
+
+___
 
 Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
@@ -12,6 +14,7 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 > 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以 [捐赠译者](https://github.com/gnu4cn/buy-me-a-coffee)。
 
+___
 
 ## 第39天任务
 
