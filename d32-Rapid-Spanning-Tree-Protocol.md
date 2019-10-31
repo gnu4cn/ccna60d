@@ -1,8 +1,17 @@
-# 第32天
-
-**快速生成树协议**
+# 第32天 快速生成树协议
 
 **Rapid Spanning Tree Protocol**
+
+Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+
+
+你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
+
+
+本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
+
+> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以 [捐赠译者](https://github.com/gnu4cn/buy-me-a-coffee)。
+
 
 #第32天任务
 
@@ -10,7 +19,7 @@
 - 复习昨天的课文
 - 完成今天的实验
 - 阅读ICND2记诵指南
-- 在网站 [http://subnetting.org/](subnetting.org)
+- 在网站 [subnetting.org/](http://subnetting.org/) 花15分钟
 
 IEEE 802.1D标准是在连通性从失去到恢复需要一分钟左右，就被认为性能已经可观的时期设计出来的。在IEEE 802.1D STP下，恢复大约需要50秒，这其中包括20秒的最大老化计时器（the Max Age timer）超时，以及额外的给端口从阻塞状态过渡到转发状态的30秒。
 

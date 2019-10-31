@@ -4,6 +4,18 @@
 
 **Integrating IPv4 and IPv6 Network Environments**
 
+Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+
+
+你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
+
+
+本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
+
+> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以 [捐赠译者](https://github.com/gnu4cn/buy-me-a-coffee)。
+
+
+
 ## 第8天任务
 
 - 阅读下面的理论课文
