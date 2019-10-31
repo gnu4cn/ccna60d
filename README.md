@@ -30,6 +30,6 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 - 完成第37天--EIGRP故障排除章节
 - 完成第38天--IPv6下的EIGRP章节
 
-+ 2017-7-14
+### 2017-7-14
 
 - 完成第36天--EIGRP 章节的修订，EIGRP已无问题
