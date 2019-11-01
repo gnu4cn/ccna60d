@@ -91,7 +91,7 @@ RouterA#debug frame-relay lmi
 *图 42.3 - 永久虚拟电路*
 > **注**： NNI: Network-to-Network Interface, 网络到网络接口, 参考[wikipedia: NNI](https://en.wikipedia.org/wiki/Network-to-network_interface)。
 
-##数据链路连接标识符（Data Link Connection Identifier, DLCI）
+## 数据链路连接标识符（Data Link Connection Identifier, DLCI）
 
 数据链路连接标识符，是一个本地有意义的编号，用于标识到帧中继交换机的连接，如下图42.4所示。该编号可为`10`到`1007`之间的任意数字，包括了`10`与`1007`。
 
