@@ -1,4 +1,4 @@
-# 第41天 - 广域组网
+# 第41天 广域组网
 
 **Wide Area Networking**
 
