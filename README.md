@@ -4,7 +4,9 @@ __Cisco CCNA in 60 Days__
 
 ___
 
-Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/), [Android APP](https://github.com/gnu4cn/ccna60d-app/releases/download/v0.1.2/ccna60d.xfoss.com_v0.1.2.apk)
+Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+
+- [Android APP](https://github.com/gnu4cn/ccna60d-app/releases/download/v0.1.3/ccna60d.xfoss.com_v0.1.3.apk)
 
 
 你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
