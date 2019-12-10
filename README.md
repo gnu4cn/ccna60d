@@ -2,6 +2,9 @@
 
 __Cisco CCNA in 60 Days__
 
+
+![Forks](https://img.shields.io/github/forks/gnu4cn/ccna60d) ![Stars](https://img.shields.io/github/stars/gnu4cn/ccna60d)
+
 ___
 
 Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
