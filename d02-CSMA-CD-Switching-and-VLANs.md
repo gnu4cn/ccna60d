@@ -186,7 +186,7 @@ Fragment-free 交换是直通交换的一个修改变种。检查帧的前 64 �
 
 *图 2.9 -- 集线器在每个端口上都发送帧*
 
-集线器是愚蠢(dumb)设备。它们没有 MAC 地址存储机制，所以在设备 A 每次往设备 B 发送一个帧时，它都会往每个端口发送。交换机就不一样，有一块叫做专用集成电路（application-specific integrated circuit, AISC）的存储芯片，该芯片会建立一个设备端口表（图 2.10）。这个表保存在内容可寻址存储器（Content Addressable Memory, CAM）中。
+集线器是愚蠢(dumb)设备。它们没有 MAC 地址存储机制，所以在设备 A 每次往设备 B 发送一个帧时，它都会往每个端口发送。交换机就不一样，有一块叫做专用集成电路（application-specific integrated circuit, ASIC）的存储芯片，该芯片会建立一个设备端口表（图 2.10）。这个表保存在内容可寻址存储器（Content Addressable Memory, CAM）中。
 
 !["交换机建立起一张 MAC 地址表"](images/0210.png)
 
