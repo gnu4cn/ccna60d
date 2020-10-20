@@ -32,10 +32,10 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 	</tr>
 	<tr>
 		<td>
-			<img src="images/633086908.png" height="200" />
+			<img src="images/633086908.jpg" height="200" />
 		</td>
 		<td>
-			<img src="images/611739062.png" height="200" />
+			<img src="images/611739062.jpg" height="200" />
 		</td>
 		<td>
 			<img src="images/btc-qrcode.png" height="200" />
