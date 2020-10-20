@@ -18,31 +18,10 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
 > 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者:  
-<table>
-	<tr>
-		<th>
-			<img src="images/alipay-banner.png" height="15" />
-		</th>
-		<th>
-			<img src="images/wechat-pay-banner.png" height="15" />
-		</th>
-		<th>
-			<img src="images/logotop.png" height="15" />
-		</th>
-	</tr>
-	<tr>
-		<td>
-			<img src="images/633086908.jpg" height="200" />
-		</td>
-		<td>
-			<img src="images/611739062.jpg" height="200" />
-		</td>
-		<td>
-			<img src="images/btc-qrcode.png" height="200" />
-		</td>
-	</tr>
 
-</table>
+| <img src="images/alipay-banner.png" height="15" /> | <img src="images/wechat-pay-banner.png" height="15" /> | <img src="images/logotop.png" height="15" /> |
+| :----: | :----: | :----: |
+| <img src="images/633086908.jpg" height="200" /> | <img src="images/611739062.jpg" height="200" /> | <img src="images/btc-qrcode.png" height="200" /> |
 
 
 ## 捐赠记录
