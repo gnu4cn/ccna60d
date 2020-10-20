@@ -17,7 +17,7 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
-> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者: <img src="images/alipay-banner.png" onmouseover="this.src='images/633086908.png'" onmouseout="this.src='alipay-banner.png'" />
+> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者: <img src="images/alipay-banner.png" onmouseover="this.src='images/633086908.png'" onmouseout="this.src='alipay-banner.png'" height="20" />
 
 
 ## 捐赠记录
