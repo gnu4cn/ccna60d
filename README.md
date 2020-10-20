@@ -30,6 +30,18 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 			<img src="images/logotop.png" height="15" />
 		</th>
 	</tr>
+	<tr>
+		<td>
+			<img src="images/633086908.png" height="200" />
+		</td>
+		<td>
+			<img src="images/611739062.png" height="200" />
+		</td>
+		<td>
+			<img src="images/btc-qrcode.png" height="200" />
+		</td>
+	</tr>
+
 </table>
 
 
