@@ -201,9 +201,9 @@ Router(config)#ip nat inside source static 192.168.2.1 200.1.1.2
 
 路由器会维护一个内部地址到外部地址对应的清单，而最后该表格中的转换会超时(Your router will keep a list of the internal addresses to external addresses, and eventually the translation in the table will time out)。可以修改此超时值，但请找Cisco 技术支持工程师（a Cisco TAC engineer）的建议去修改。
 
-![到一个NAT公网可路由地址池的内部似有地址](images/0605.png)
+![到一个NAT公网可路由地址池的内部私有地址](images/0605.png)
 
-*图6.5 -- 到一个NAT公网可路由地址池的内部似有地址*
+*图6.5 -- 到一个NAT公网可路由地址池的内部私有地址*
 
 当路由器上的内部主机发出到外部的连接时，如执行命令`show ip nat translations`, 就会看到下面的包含类似信息的图表。
 
