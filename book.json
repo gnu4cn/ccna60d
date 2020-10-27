@@ -12,15 +12,12 @@
     },
     "pdf": {
         "fontSize": 12,
-        "footerTemplate": null,
-        "headerTemplate": null,
         "margin": {
-            "bottom": 22,
-            "left": 26,
-            "right": 22,
-            "top": 28
+            "bottom": 12,
+            "left": 16,
+            "right": 12,
+            "top": 18
         },
-        "pageNumbers": false,
         "paperSize": "a4"
     },
     "plugins" : [
