@@ -756,7 +756,7 @@ Router#
 
 对上述知识点进行拓展，考试要求理解数据包来回过程中寻址的改变。在数据包在网络上来回穿越的时候，两台终端设备都需要有某种方法来进行通信，其间的那些设备也要能交换数据包的下一跳地址才行。代理 ARP 当然给出了解决办法。数据包的 IP 地址始终保持不变，但为了让数据包能够传到下一跳，帧的 MAC 地址在设备之间发生了改变。
 
-在下面的图 1.20 中，数据帧将离开 HOST A， 它的 IP 地址是 192.168.1.1, 目的 IP 地址是 172.16.1.2, 源 MAC 地址为 AAAA:AAAA:AAAA, 目的 MAC 地址是 AAAA:AAAA:BBBB。路由器 R1 将保留 IP 地址，而将源地址修改为 AAAA:AAAA:CCCC。而在数据包离开路由器 R2 前往 HOST B 之前，IP 地址仍然不会改变，源地址将是 AAAA:AAAA:DDDD, 同时目的地址为 AAAA:AAAA:EEEE。
+在下面的图 1.20 中，数据帧将离开 `HOST A，` 它的 IP 地址是 `192.168.1.1`, 目的 IP 地址是 `172.16.1.2`, 源 MAC 地址为 `AAAA:AAAA:AAAA`, 目的 MAC 地址是 `AAAA:AAAA:BBBB`。路由器 `R1` 将保留 IP 地址，而将源地址修改为 `AAAA:AAAA:CCCC`。而在数据包离开路由器 `R2` 前往 `HOST B` 之前，IP 地址仍然不会改变，源地址将是 `AAAA:AAAA:DDDD`, 同时目的地址为 `AAAA:AAAA:EEEE`。
 
 !["数据包在设备间往复时，MAC 地址的改变"](images/30.png)
 
@@ -776,11 +776,11 @@ GARP 是一类特殊的 ARP 数据包。普通主机通常会在链路建立起�
 
 SNMP 为众多网络管理业务所使用。一套 SNMP 管理系统中，网络设备将名为陷阱（traps）的消息发送给管理工作站。这会想网络管理员报告任何的网络故障（比如接口故障），或是服务器上 CPU 使用等情况。
 
-使用`debug snmp`命令对 SNMP 流量进行调试。SNMP 使用 UDP 端口 161 及 162。
+使用`debug snmp`命令对 SNMP 流量进行调试。SNMP 使用 UDP 端口 `161` 及 `162`。
 
 ### 安全版超文本传输协议，Hyper Text Transfer Protocol Secure, HTTPS
 
-TLS，以及旧版的 SSL，被用到加固互联网上的通信，是通过采用各种加密方法实的。在电子邮件以及 VoIP，以及访问那些以 http:// 开头的站点时，你会发现这些加密方法。带有 TLS/SSL 的 HTTP（HTTPS）使用 443 端口。
+TLS，以及旧版的 SSL，被用到加固互联网上的通信，是通过采用各种加密方法实的。在电子邮件以及 VoIP，以及访问那些以 http:// 开头的站点时，你会发现这些加密方法。带有 TLS/SSL 的 HTTP（HTTPS）使用 `443` 端口。
 
 **IP 配置命令，IP Configuration Command**
 
@@ -876,7 +876,7 @@ BW 100000 Kbit, DLY 1000 usec,
     Half-duplex, 100Mb/s
 ```
 
-如果此接口与某台全双工设备连接起来，你将立即看到有错误发生，同时链路流量将极为慢速。你可以在一台真实交换机上执行`show interfaces status`命令，但考试中这条命令可能不会工作，因为像 Packet Tracer 这样的路由器模拟软件仅能运行有限的一些命令。在下面的输出中，你会发现接口 FastEthernet 1/0/2 存在一些问题。
+如果此接口与某台全双工设备连接起来，你将立即看到有错误发生，同时链路流量将极为慢速。你可以在一台真实交换机上执行`show interfaces status`命令，但考试中这条命令可能不会工作，因为像 Packet Tracer 这样的路由器模拟软件仅能运行有限的一些命令。在下面的输出中，你会发现接口 `FastEthernet 1/0/2` 存在一些问题。
 
 ```console
 Switch#show interfaces status
@@ -903,7 +903,7 @@ Switch(config-if)#duplex full
 
 **速率，speed**
 
-你可将路由器或交换机的速率保留成自动协商（auto-negotiate）, 或者硬性设置为 10Mbps、100Mbps 或者 1000Mbps。
+你可将路由器或交换机的速率保留成自动协商（auto-negotiate）, 或者硬性设置为 `10Mbps`、`100Mbps` 或者 `1000Mbps`。
 
 像下面这样就可以手动设置速率：
 
