@@ -15,10 +15,10 @@
         "footerTemplate": null,
         "headerTemplate": null,
         "margin": {
-            "bottom": 36,
-            "left": 62,
-            "right": 62,
-            "top": 36
+            "bottom": 22,
+            "left": 26,
+            "right": 22,
+            "top": 28
         },
         "pageNumbers": false,
         "paperSize": "a4"
@@ -29,27 +29,9 @@
         "lunr",
         "sharing",
         "fontsettings",
-        "theme-comscore",
-        "qrcode-list"
+        "theme-comscore"
     ],
     "pluginsConfig": {
-        "qrcode-list": {
-            "title": "打尚&联系",
-            "description": "如果您感觉有收获，欢迎给我打赏，以激励我输出更多的优质内容。",
-            "except": ["谢谢你的支持"],
-            "lists": [
-                {
-                    "src": "./images/a6x09981lks9yco3b8xcqf0.png",
-                    "content": "支付宝",
-                    "alt": "支付宝"
-                },
-                {
-                    "src": "./images/wechat-pay.png",
-                    "content": "微信支付",
-                    "alt": "微信支付"
-                }
-            ]
-        }
     }
 
 }
