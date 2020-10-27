@@ -7,7 +7,9 @@ __Cisco CCNA in 60 Days__
 
 ___
 
-Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+- Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+
+- PDF 版本：[ccna60d.pdf](./ccna60d.pdf)
 
 - [Android APP](https://github.com/gnu4cn/ccna60d-app/releases/download/v0.1.3/ccna60d.xfoss.com_v0.1.3.apk)
 
@@ -35,6 +37,10 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 - “远”通过支付宝进行了捐赠，并留言“60天通过ccna对我帮助很大期待更新”
 
 ## 更新记录
+
+*2020-10-27*
+
+- 生成PDF版本
 
 *2019-10-30*
 
