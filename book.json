@@ -1,0 +1,34 @@
+{
+    "author": "Translated by Peng Hailin, laxers@gmail.com",
+    "description": "这是一本 CCNA 教程",
+    "generator": "xfoss.com 网站",
+    "links": {
+        "sharing": {
+            "weibo": null
+        },
+        "sidebar": {
+            "60天通过CCNA考试": "https://ccna60d.xfoss.com/"
+        }
+    },
+    "pdf": {
+        "fontSize": 12,
+        "margin": {
+            "bottom": 12,
+            "left": 16,
+            "right": 12,
+            "top": 18
+        },
+        "paperSize": "a4"
+    },
+    "plugins" : [
+        "highlight-code",
+        "livereload",
+        "lunr",
+        "sharing",
+        "fontsettings",
+        "theme-comscore"
+    ],
+    "pluginsConfig": {
+    }
+
+}
