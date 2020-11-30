@@ -602,6 +602,7 @@ Access Mode VLAN: 0 ((Inactive))
 
 + VLAN 信息未有传输
     - 该 VLAN 在中继链路上阻塞了吗
+
 `Switch#show interface trunk`
 
 + VTP 信息无法到达 VTP 客户端
