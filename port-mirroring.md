@@ -24,7 +24,7 @@ SwitchA-Ethernet0/0/36] port-mirroring to observe-port 1 inbound/outbound/both c
 
 需要先进入接口模式，然后执行以上的`port-mirroring`命令，其中的`1`是第一步设置的观察索引号，`inbound/outbound/both`是指：上传流量、下载流量与全部流量。
 
->>> 需要注意的是：在上面两个接口中，`Ethernet 0/0/47`是接入监测设备的端口，而`Ethernet 0/0/36`是被监测的端口；检测设备网卡要打开混杂模式（`$sudo ifconfig enp2s0 promisc`, 关闭混杂模式： `$sudo ifconfig enp2s0 -promisc`）；
+> 需要注意的是：在上面两个接口中，`Ethernet 0/0/47`是接入监测设备的端口，而`Ethernet 0/0/36`是被监测的端口；检测设备网卡要打开混杂模式（`$sudo ifconfig enp2s0 promisc`, 关闭混杂模式： `$sudo ifconfig enp2s0 -promisc`）；
 
 ## 远程的端口镜像
 
