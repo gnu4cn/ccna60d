@@ -198,7 +198,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 如要确认遇到的不是网线故障，最简单的做法就是换一根好的网线，在进行同样的测试。这很容易办到同时可马上解决问题，而无需在排错过程中耗费过多的时间和资源。
 
-> **注意：**就算是全新的网线有时也有问题，所以不要假定一根新网线就会如预期那样起作用。
+> **注意：** 就算是全新的网线有时也有问题，所以不要假定一根新网线就会如预期那样起作用。
 
 
 ### 模块故障的排错
@@ -223,7 +223,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 - 模带宽，modal bandwidth
 - 运行距离，operating distance
 
-> **注意：**在为网络采购收发器时，应总要对设备端口、模块类型及所使用的光纤进行检查。
+> **注意：** 在为网络采购收发器时，应总要对设备端口、模块类型及所使用的光纤进行检查。
 
 任何时候都可将收发器插入到网络设备（比如交换机、路由器、防火墙等），或从其上拔下，而无需重启设备。在没有连接时，不会在SFP模块上看到活动，而这就是在可接触到设备时最容易排错的故障了。
 
@@ -288,7 +288,7 @@ Output queue: 0/40 (size/max)
 
 多数思科Catalyst交换机端口默认都是`notconnect`状态，如同该命令打印输出的第一行所示。但如果网线从该端口拔出或未有正确连接，端口状态也会转换成该状态。在连接的网线有问题或是网线另一端没有插入到活动端口或设备（比如某台工作站插入交换机的端口是关闭的）时，将同样显示为`notconnect`。
 
-> **注意：**在对GigabitEthernet端口排错时，若两端使用了不正确千兆接口转换器（Gigabit Interface Converters, GBICs），也会导致`notconnect`端口状态。
+> **注意：** 在对GigabitEthernet端口排错时，若两端使用了不正确千兆接口转换器（Gigabit Interface Converters, GBICs），也会导致`notconnect`端口状态。
 
 输出的第一部分是该命令打印出的第一行（也就是`[interface] is up`），表示特定接口的物理层状态。输出的第二部分（也就是`line protocol is down`）表明该接口的数据链路层状态。而如该该部分指示`up`，就意味着该接口可发送和接收保持活动信号。**记住交换机端口可能在物理层是起来的，却在数据链路层是宕掉的**，比如，当端口是一个SPAN(Switch)目的端口时，或者本地端口连接到一台CatOS交换机的一个关闭的端口时，都会这样（if this indicates an `"up"`, then it means that the interface can send and receive keepalives. Keep in mind that it is possible for the switch port to indicate that the Physical Layer is up while the Data Link Layer is down, for example, such as when the port is a SPAN destination port(for sniffer traffic) or if the local port is connected to a CatOS(older switch operating system) switch with its port disabled）。
 
@@ -388,7 +388,7 @@ Transmit GigabitEthernet3/0/1   Receive
           0 Good (>1 coll) frames
 ```
 
-> **注意：**根据该命令执行所在平台的不同，上面的输出会略有不同。比如，Catalyst 3650系列交换机还包含了一个`Discarded frames`字段，该字段显示因资源不可用而导致的放弃传输尝试的帧总数（a `Discarded frames` field, which shows the total number of frames whose transmission attempt is abandoned due to insufficient resources）。该字段中出现了较大的数值就典型地表明存在网络壅塞故障（a network congestion issue）。在上面的输出中，应探究一下`RxPortFifoFull drop`帧字段，该字段表示因为入口队列充满而丢弃的接口所接收到的帧总数（the `RxPortFifoFull drop` frame field, which indicates the total number of frames received on an interface that are dropped because the ingress queue is full）。
+> **注意：** 根据该命令执行所在平台的不同，上面的输出会略有不同。比如，Catalyst 3650系列交换机还包含了一个`Discarded frames`字段，该字段显示因资源不可用而导致的放弃传输尝试的帧总数（a `Discarded frames` field, which shows the total number of frames whose transmission attempt is abandoned due to insufficient resources）。该字段中出现了较大的数值就典型地表明存在网络壅塞故障（a network congestion issue）。在上面的输出中，应探究一下`RxPortFifoFull drop`帧字段，该字段表示因为入口队列充满而丢弃的接口所接收到的帧总数（the `RxPortFifoFull drop` frame field, which indicates the total number of frames received on an interface that are dropped because the ingress queue is full）。
 
 ### 端口配置排错
 
@@ -435,7 +435,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 因此好的做法就是在那些可以手动设置的地方，对10/100以太网连接的速率和双工手动进行设置，以避免自动协商带来的双工不匹配问题。**双工不匹配可能不仅会对直接连接到交换机上的用户造成影响，还可能对有着不匹配双工设置的交换机间连接上通过的网络流量造成影响。**使用命令`show interface`就可以查看到端口的接口速率和双工设置。
 
->**注意：**因为Catalyst交换机仅支持1Gbps链路全双工，所以对于GigabitEthernet连接，双工问题并不常见。
+>**注意：** 因为Catalyst交换机仅支持1Gbps链路全双工，所以对于GigabitEthernet连接，双工问题并不常见。
 
 思科IOS软件中的多个计数器都可用来鉴别潜在**坏网卡或网线问题**。通过对不同的`show`命令中的一些计数器的检查，来识别网卡或网线问题。比如，假设交换机端口计数器显示带有无效CRC或FCS错误的帧数持续增长，就有极大可能是因为工作站或机器的坏网卡，以及坏的网线。
 
@@ -547,7 +547,7 @@ MD5 digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 
 在应用`show vtp status`命令时，要确保交换机使用同一版本的VTP。默认情况下，Catalyst交换机允许VTP版本`1`。而运行VTP版本`1`的交换机是不能加入到VTP版本`2`的域中的。而如某交换机不兼容VTP版本`2`, 那么就要使用全局配置命令`vtp version`，将所有VTP版本`2`的交换机配置为运行版本`1`。
 
-> **注意：**如在服务器上修改了VTP版本，那么此改变将自动传播到VTP域中的客户端交换机。
+> **注意：** 如在服务器上修改了VTP版本，那么此改变将自动传播到VTP域中的客户端交换机。
 
 VTP客户端/服务器（clinet/server）或服务器/服务器(server/server)设备上的VTP传播是开启的。而如果在某台交换机上VTP是关闭的（也就是透明模式），那么该交换机将不会经由VTP动态地接收VLAN信息。不过，要留意**VTP版本2的透明模式交换机，将在其中继端口转发出接收到的VTP通告，而充当VTP中继。**就算VTP版本不一样，该过程也会照常进行。域中交换机上的VTP域名称也应保持一致。
 
@@ -590,7 +590,7 @@ MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 - 软件或硬件问题或缺陷，software or hardware issues or bugs
 
 
-> **注意：**为简明扼要地讲解，这里只会对中继、VTP修剪、以及往域内新加入交换机三个方面进行说明。软件或硬件问题或缺陷及交换机性能问题在本书中已有说明。而物理层排错在本模块早前已经进行了讲解。
+> **注意：** 为简明扼要地讲解，这里只会对中继、VTP修剪、以及往域内新加入交换机三个方面进行说明。软件或硬件问题或缺陷及交换机性能问题在本书中已有说明。而物理层排错在本模块早前已经进行了讲解。
 
 
 **VTP修剪在没有本地端口属于某些VLANs时，将那些VLANs从本地交换机的VLAN数据库中移除。**VTP修剪通过消除不必要的广播、多播及通过网络泛洪的那些未知流量，而提升中继链路效率（VTP pruning increases the efficiency of trunks by eliminating unnecessary Broadcast, Multicast, and unknown traffic from being flooded across the network）。
@@ -621,7 +621,7 @@ Fa0/2   1,40,50,60,70,80,90,254
 
 同样要检查中继链路上通告的正确VLANs。在中继链路上放行的不适当VLANs可能引起功能缺失或安全问题。也想要确保中继链路两端有着同样的放行VLANs（Inproper VLANs allowed on the link can lead to a lack of functionality or security issues. Also, you want to make sure that the same VLANs are allowed on both ends of a trunk）。
 
->**注意：**在将另外的需要在某条中继链路上放行的VLAN(s)加入进去时，应非常谨慎地不要忘记关键字`add`。比如，在已经配置了`switchport trunk allowed vlan 10, 20`，而打算同样放行VLAN 30时，就需要输入命令`switchport trunk allowed vlan add 30`。而如只是简单地配置`switchport trunk allowed vlan 30`，那么先前所允许的VLANs 10和20就会从中继链路上移除，这将导致VLANs 10和20的通信中断。
+>**注意：** 在将另外的需要在某条中继链路上放行的VLAN(s)加入进去时，应非常谨慎地不要忘记关键字`add`。比如，在已经配置了`switchport trunk allowed vlan 10, 20`，而打算同样放行VLAN 30时，就需要输入命令`switchport trunk allowed vlan add 30`。而如只是简单地配置`switchport trunk allowed vlan 30`，那么先前所允许的VLANs 10和20就会从中继链路上移除，这将导致VLANs 10和20的通信中断。
 
 由命令`show interfaces trunk`命令所提供的另一重要信息，就是中继端口状态。中继端口状态信息确认该中继链路是否形成，同时必须要在链路两端对此进行检查。如该端口未处于“中继”模式，此时最重要的就是必须对端口中继运作模式（the mode of operation, o/auto等）进行检查，看看在该模式下是否能与链路另一端形成中继状态。
 
