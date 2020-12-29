@@ -179,7 +179,7 @@ P 10.0.0.0/24, 1 successors, FD is 128256
         via Connected, Loopback0
 ```
 
-> **注意**：本课程模块稍后会对拓扑表、EIGRP的Hello数据包及更新数据包进行详细讲解。本小节仅着重于EIGRP的配置实施（EIGRP configuration implementation）。
+> **注意：** 本课程模块稍后会对拓扑表、EIGRP的Hello数据包及更新数据包进行详细讲解。本小节仅着重于EIGRP的配置实施（EIGRP configuration implementation）。
 
 使用`network`命令来指明一个大的有类网络（a major classful network），就令到位于该有类网络中的多个子网，得以在最小配置下同时被通告出去。但可能存在管理员不想对某个有类网络中的所有子网，都开启EIGRP路由的情形。比如，参考前一示例中`R1`上所配置的环回接口，假设只打算对`10.1.1.0/24`及`10.3.3.0/24`子网开启EIGRP路由，而不愿在`10.0.0.0/24`及`10.2.2.0/24`开启EIGRP路由。那么很明显这在使用`network`命令时，对这些网络（也就是`10.1.1.0`及`10.3.3.0`）予以指明就可以做到，思科IOS软件仍会将这些语句，转换成大的有类`10.0.0.0/8`网络，如下所示：
 
@@ -213,7 +213,7 @@ Routing Protocol is “eigrp 150”
 Distance: internal 90 external 170
 ```
 
-> **注意**：一个常见的误解就是，关闭EIGRP的自动汇总特性，就能解决此问题；但是，这与`auto-summary`命令一点关系都没有。比如，假设对在前一示例中的配置执行了`no auto-summary`命令，如下所示：
+> **注意：** 一个常见的误解就是，关闭EIGRP的自动汇总特性，就能解决此问题；但是，这与`auto-summary`命令一点关系都没有。比如，假设对在前一示例中的配置执行了`no auto-summary`命令，如下所示：
 
 ```console
 R1(config)#router eigrp 150
@@ -407,7 +407,7 @@ Distance: internal 90 external 170
 - EIGRP内部路由TLV，用于内部EIGRP路由，the EIGRP Internal Route TLV, Which is used for internal EIGRP routes
 - EIGRP外部路由TLV，用于外部的EIGRP路由，the EIGRP External Route TLV, which is used for external EIGRP routes
 
-> **注意**：并不要求对EIGRP的各种TLVs有详细了解。
+> **注意：** 并不要求对EIGRP的各种TLVs有详细了解。
 
 下图36.2演示了一个抓包到的EIGRP数据包的所呈现的不同字段：
 
@@ -439,7 +439,7 @@ EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。
 ![EIGRP的更新数据包](images/3603.png)
 *图 36.3 -- EIGRP的更新数据包*
 
-> **注意**：并不要求对EIGRP各种数据包中的所包含的信息有深入了解。
+> **注意：** 并不要求对EIGRP各种数据包中的所包含的信息有深入了解。
 
 ### 查询数据包
 
@@ -459,7 +459,7 @@ EIGRP确认数据包，就是一个**不包含数据的**EIGRP Hello数据包。
 
 增强IGRP的请求数据包，**用于从一个或多个邻居处获取特定信息，且是在路由服务器应用中用到的**（used in route server applications）。这些数据包既**可通过单播、也可通过多播进行发送，但它们总是以不可靠方式传输**。也就是说，它们**无需显式确认**。
 
-> **注意**：尽管这里的Hello数据包和确认数据包是作为两种独立的数据包类型的，但重要的是记住在某些课本中，EIGRP的Hello数据包与确认数据包被认为是同一中类型的数据包。这是因为，正如在本小节中指出的那样，确认数据包就是不包含数据的Hello数据包。
+> **注意：** 尽管这里的Hello数据包和确认数据包是作为两种独立的数据包类型的，但重要的是记住在某些课本中，EIGRP的Hello数据包与确认数据包被认为是同一中类型的数据包。这是因为，正如在本小节中指出的那样，确认数据包就是不包含数据的Hello数据包。
 
 命令`debug eigrp packets`，可用于打印出本小节中所讲到的各种不同EIGRP数据包的实时调试信息。要知道此命令还包括了一些这里并没有说到的其它数据包，因为这些其它类型数据包超出了当前CCNA考试要求。下面的输出对此命令的用法进行了演示：
 
@@ -662,7 +662,7 @@ Fa0/0            1        0/0        7        0/1            50             0
 
 EIGRP邻居表条目还包含了可靠传输协议（the Reliable Transport Protocol, RTP）所需要的信息。EIGRP使用可靠传输协议来确保更新、查询及应答数据包的可靠发送。此外还使用了顺序编号来匹配数据包与确认。EIGRP邻居表条目中记录了从该邻居收到的最后一个顺序编号，以便检测出那些次序被打乱了的数据包（In addtion, sequence numbers are also used to match acknowledgments with data packets. The last sequence number received from the neighbour is recorded in order to detect out-of-order packets）。这样做确保了可靠的数据包送达。
 
-> **注意**：本课程模块后面详细讲到了RTP。
+> **注意：** 本课程模块后面详细讲到了RTP。
 
 邻居表包含了每个邻居的一个在可能需要重传时，用于对数据包进行排队的传输清单。此外，在邻居数据结构中还有着一些往返计时器，使用这些计时器来估算出最优重传间隔（the neighbour table includes a transmission list that is used to queue packets for possible retransmission on a per-neighbour basis. Additionally, round-trip timers are kept in the neighbour data structure to estimate an optimal retransmission interval）。所有这些信息都在`show ip eigrp neighbours`命令的输出中有打印出来。如下面所示：
 
@@ -743,7 +743,7 @@ Static Address           Interface
 
 为了避免这种坑，路由器`R1`将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, `R1` will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器`R1`将以多播方式，发出一个特殊的名为顺序TLV的EIGRP数据包（when the timer expires, `R1` will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器`R2`（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists `R2`(the offender) and indicates an out-of-order Multicast packet）。而因为路由器`R3`未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器`R1`此时就使用单播，将该数据包重传给`R2`。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共16次尝试后，仍没有来自路由器`R2`的响应，EIGRP将重置该邻居。
 
-> **注意**：当前的CCNA考试不要求对MFT及RTO有深入了解。
+> **注意：** 当前的CCNA考试不要求对MFT及RTO有深入了解。
 
 ## 各种度量值、弥散更新算法及拓扑表
 
@@ -795,7 +795,7 @@ Routing Protocol is “eigrp 150”
 
 在对这些EIGRP的K值进行调整时，重要的是记住在EIGRP域中的所有路由器上，都要配置上同样的这些数值。如这些**K值不匹配，那么EIGRP的邻居关系就不会建立**。
 
-> **注意**：不建议对这些默认的K值进行调整。对这些K值的调整，只应在那些对网络中这类行为造成的后果有扎实了解老练的高级工程师的指导下，或在思科公司技术支持中心的建议下完成。
+> **注意：** 不建议对这些默认的K值进行调整。对这些K值的调整，只应在那些对网络中这类行为造成的后果有扎实了解老练的高级工程师的指导下，或在思科公司技术支持中心的建议下完成。
 
 ### 使用接口带宽来影响EIGRP的度量值
 
@@ -837,7 +837,7 @@ R2(config-if)#bandwidth 1024
 R2(config-if)#exit
 ```
 
-> **注意**：如同在第1天指出的，该配置并不意味着接口`Serial0/1`上仅容许1024Kbps速率的流量通过该接口（As stated in Day 1, this configuration does not mean that `Serial0/1` is now capable of only 1024Kbps of throughput through this interface）。
+> **注意：** 如同在第1天指出的，该配置并不意味着接口`Serial0/1`上仅容许1024Kbps速率的流量通过该接口（As stated in Day 1, this configuration does not mean that `Serial0/1` is now capable of only 1024Kbps of throughput through this interface）。
 
 该配置的结果就是接口`Serial0/0`成为路由器`R2`到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
 
@@ -855,11 +855,11 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
-> **注意**：这里星号（the asterisk, `*`）指向的接口，就是下一数据包要发送出去的接口。而在路由表中有着多个开销相等的路由时，星号的位置就会在这些开销相等的路径之间轮转。
+> **注意：** 这里星号（the asterisk, `*`）指向的接口，就是下一数据包要发送出去的接口。而在路由表中有着多个开销相等的路由时，星号的位置就会在这些开销相等的路径之间轮转。
 
 在将EIGRP作为路由协议时，尽管经由`Serial0/1`接口的路径未被安装到**路由表**中, 重要的是记住该路径并未被完全忽略掉（Although the path via the `Serial0/1` interface is not installed into the routing table, when using EIGRP as the routing protocol, it is important to remember that this path is not completely ignored）。而是该路径被存储在**EIGRP的拓扑表**中，EIGRP的拓扑表包含了到那些远端目网络的主要及替代（备份）路径。本课程模块后面将对EIGRP的拓扑表予以讲解。
 
-> **注意**: 默认在开启了EIGRP时，其可能会用到高达接口带宽的50%来发送EIGRP本身的数据包（EIGRP是一种非常话痨的协议，所以其在可能的带宽使用上进行了限制，EIGRP is a very chatty protocol, so it limits itself in possible bandwidth usage）。EIGRP是基于接口配置命令`bandwidth`，来判断带宽数量的。因此在对接口带宽数值进行调整时，就要记住这点。而该默认设置，可使用接口配置命令**`ip bandwidth-percent eigrp [ASN] [percentage]`**，进行修改。
+> **注意:** 默认在开启了EIGRP时，其可能会用到高达接口带宽的50%来发送EIGRP本身的数据包（EIGRP是一种非常话痨的协议，所以其在可能的带宽使用上进行了限制，EIGRP is a very chatty protocol, so it limits itself in possible bandwidth usage）。EIGRP是基于接口配置命令`bandwidth`，来判断带宽数量的。因此在对接口带宽数值进行调整时，就要记住这点。而该默认设置，可使用接口配置命令**`ip bandwidth-percent eigrp [ASN] [percentage]`**，进行修改。
 
 总的来说，在应用带宽命令`bandwidth`对EIGRP的度量值计算施加影响时，重要的是记住，EIGRP会使用到目的网络路径上的最小带宽，以及延迟的累计值，来计算路由度量值（EIGRP uses the minimum bandwidth on the path to a destination network, along with the cumulative delay, to compute routing metrics）。同时还要对网络拓扑有牢固掌握，以对在何处使用`bandwidth`命令，从而实现对EIGRP度量值计算的影响。**但在真实世界中，对EIGRP度量值施加影响的首选方法，不是修改带宽，而是修改延迟**。
 
@@ -925,9 +925,9 @@ FastEthernet0/0 is up, line protocol is up
 
 度量值 = [(10000000/1544) + (2000+10)] x 256
 
-> **注意**：记住在EIGRP度量值计算中，要将接口延迟数值除以10。
+> **注意：** 记住在EIGRP度量值计算中，要将接口延迟数值除以10。
 
-> **注意**：这里计算出的数值应总是要向下取到最接近的整数。
+> **注意：** 这里计算出的数值应总是要向下取到最接近的整数。
 
 度量值 = [(10000000/1544) + (2000+10)] x 256
 
@@ -1041,7 +1041,7 @@ EIGRP的拓扑表，是由EIGRP的各种**协议相关模块**, 在**弥散更�
 - 由邻居路由器所报告的到目的网络的报告距离, the Reported Distance by the neighbour router to the destination network
 - 目的网络的路由源（仅针对那些外部路由），The route source(only external routes) of the destination network
 
-> **注意**：尽管在拓扑表中包含了最大传输单元（MTU），但EIGRP并不会在实际的度量值计算中使用到该数值。而是该MTU仅简单地作为判断到目的网络数据包大小最小值而被追踪。接口的最大传输单元指定了经某条链路，在无需将数据报或数据包拆分到更小片的情况下，所能传输的数据报最大大小（The interface MTU specifies the largest size of datagram that can be transferred across a certain link without the need of fragmentation, or breaking the datagram or packet into smaller pieces）。
+> **注意：** 尽管在拓扑表中包含了最大传输单元（MTU），但EIGRP并不会在实际的度量值计算中使用到该数值。而是该MTU仅简单地作为判断到目的网络数据包大小最小值而被追踪。接口的最大传输单元指定了经某条链路，在无需将数据报或数据包拆分到更小片的情况下，所能传输的数据报最大大小（The interface MTU specifies the largest size of datagram that can be transferred across a certain link without the need of fragmentation, or breaking the datagram or packet into smaller pieces）。
 
 使用`show ip eigrp topology`命令，就可查看到EIGRP拓扑表的内容。该命令下可用的选项如下所示：
 
@@ -1152,7 +1152,7 @@ Cleaning up
 
 而为了防止因为延迟响应造成的来自其它EIGRP邻居的活动粘滞方面的故障，可使用路由器配置模式中的`timers active-time`命令，将本地路由器配置为等待多于默认的三分钟，以接收到返回给其查询数据包的响应。
 
-> **注意**：重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
+> **注意：** 重要的是应注意在对网络中某台路由器上的该默认参数进行修改时，就必须对EIGRP路由域中的所有路由器上的该参数进行修改（It is important to note that if you change this default parameter on one EIGRP router in your network, you must change it on all the other routers within your **EIGRP routing domain**）。
 
 
 ## 相等开销及不相等开销下的负载均衡
@@ -1328,7 +1328,7 @@ Routing entry for 172.16.100.0/24
 
 其中的流量分配计数（The traffic share count）表明，每从`Serial0/0`转发60个数据包，路由器就将从`Serial0/1`转发47个数据包。数据包的转发，是依两条路径的路由度量值的比例完成的。这是在应用了`variance`命令后的默认行为。而**通过路由器配置命令`traffic-share balanced`（the `traffic-share balanced` router configuration command），就可以开启此智能流量分配功能（this intelligent traffic sharing functionality），该命令无需显式配置（默认是开启的）**。
 
-> **注意**：该`traffic-share balanced`命令默认是开启的，且就算对其进行了显式配置，其也不会在运行配置中出现。这一点在下面进行了演示：
+> **注意：** 该`traffic-share balanced`命令默认是开启的，且就算对其进行了显式配置，其也不会在运行配置中出现。这一点在下面进行了演示：
 
 ```console
 R2(config)#router eigrp 150
@@ -1429,7 +1429,7 @@ C       150.1.1.0 is directly connected, Serial0/0
 
 `network`命令可用于对某条既有的指向某个物理或逻辑接口，通常是`Null0`接口的静态默认路由，进行通告（The `network` command can be used to advertise an existing static default route point to either a physical or a logical interface, typically the `Null0` interface）。
 
-> **注意**：`Null0`接口是路由器上的一个虚拟接口，会将路由至该接口的所有流量进行抛弃处理。如有着一条指向`Null0`的静态路由，那么所有以该静态路由中所指定网络为目的的流量，都将被简单地做丢弃处理。可将`Null0`接口看着是一个黑洞：数据包进入了，但不会有任何东西离开那里。其基本上就是路由器上的一个数位垃圾桶（It is essentially a bit-bucket on the router）。
+> **注意：** `Null0`接口是路由器上的一个虚拟接口，会将路由至该接口的所有流量进行抛弃处理。如有着一条指向`Null0`的静态路由，那么所有以该静态路由中所指定网络为目的的流量，都将被简单地做丢弃处理。可将`Null0`接口看着是一个黑洞：数据包进入了，但不会有任何东西离开那里。其基本上就是路由器上的一个数位垃圾桶（It is essentially a bit-bucket on the router）。
 
 参考上面的图36.12, `network`命令与一条既有默认静态路由的结合使用，在以下路由器`R1`的配置中进行了演示：
 
@@ -1472,7 +1472,7 @@ R1(config-router)#redistribute static metric 100000 100 255 1 1500
 R1(config-router)#exit
 ```
 
-> **注意**：这里度量值中所用到的那些数值，可从接口上进行继承到，或可以在使用此命令时指定想要的任意数值。
+> **注意：** 这里度量值中所用到的那些数值，可从接口上进行继承到，或可以在使用此命令时指定想要的任意数值。
 
 基于此种配置，路由器`R2`上的路由表就如下所示了：
 
@@ -1795,7 +1795,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-> **注意**：本课程模块稍后会对`passive-interface`命令进行详细讲解。
+> **注意：** 本课程模块稍后会对`passive-interface`命令进行详细讲解。
 
 继续有关自动汇总方面的内容，在对有类边界进行自动汇总后，EIGRP就将一条到汇总地址的路由，安装到EIGRP的拓扑表与IP路由表中（Continuing with automatic summarisation, following automatic summarisation at the classful boundary, EIGRP installs a route to the summary address into the EIGRP topology table and the IP routing table）。下面的EIGRP拓扑表中就包含了此汇总地址的路由，以及更具体的路由条目以及这些路由条目各自所直接连接的接口：
 
@@ -2528,7 +2528,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
 
-> **注意**：这里重要的是掌握到RID与邻居ID通常是不同的，然而这对于那些比如只有一个接口的路由器可能不适用。（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
+> **注意：** 这里重要的是掌握到RID与邻居ID通常是不同的，然而这对于那些比如只有一个接口的路由器可能不适用。（It is important to understand that the RID and the neighbour ID will typically be different, although this may not be the case in routers with a single interface, for example）。
 
 EIGRP的路由器ID（RID）是通过路由器配置命令`eigrp router-id [address]`进行配置的。在输入了此命令后，RID就以这个新地址，在EIGRP的拓扑表中得以更新。为对此进行演示，这里就以查看路由器上的当前RID开始，如下面的拓扑表中所指出的：
 

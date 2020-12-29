@@ -71,7 +71,7 @@ ___
 
 WAN分类中的一个必要概念就是电路交换技术，该技术最为相关的实例，就是公众交换电话网络了（An essential concept in WAN categorisation is circuit-switched technology， the most relevant example of this technology being the Public Switched Telephone Network, PSTN）。而归入此类别的一种技术，就是综合业务数字网。电路交换WAN连接的工作方式，是在需要连接时变为连接建立状态，并在连接不需要时连接终止。反映这种电路交换行为的另一个实例，就是老式的拨号连接（仅有PSTN的拨号调制解调器的模拟信号访问）。
 
-> **注意**：就在不久之前，拨号技术都还是访问互联网资源的唯一方式，这种方式提供到平均`40kbps`的可用带宽。如今这种技术几乎绝迹了。
+> **注意：** 就在不久之前，拨号技术都还是访问互联网资源的唯一方式，这种方式提供到平均`40kbps`的可用带宽。如今这种技术几乎绝迹了。
 
 电路交换选择的反面，就是长期租用线路技术了（leased-line technology）。这种技术是一条完全专属的连接，持续可用并由租户公司拥有。长租线路的实例，包括基于时分复用的长租线路（Time Division Multiplexing(TDM)-based leased lines）。这类接入方式通常都很昂贵，因为单个客户具有连接的整个使用权。
 
@@ -282,7 +282,7 @@ ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电�
 
 在非对称DSL下，客户是连接到位处服务提供商处的DSL访问服用器（DSL Access Multiplexer, DSLAM）上的。DSL访问服用器是一台对来自多个用户的连接，进行聚合的DSL汇聚设备（DSLAM is a DSL concentrator device that aggregates connections from multiple users）。
 
-> **注意**：ADSL的一个问题在于订户与DSLAM的距离受限。
+> **注意：** ADSL的一个问题在于订户与DSLAM的距离受限。
 
 高速DSL（High Bitrate DSL, HDSL）与甚高速DSL（Very High Bitrate DSL, VDSL），是其它大规模使用的DSL技术，提供了与ADSL相比增加了的吞吐量。甚高速率DSL可运行在最高`100Mbps`的速率。
 
@@ -295,7 +295,7 @@ ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电�
 
 经由同轴线的数据流量传输速率可高达`100Mbps`，这对于家庭用户甚至小型公司来说，都是绰绰有余的。
 
-> **注意**：除开电视和数据信号，同轴线连接还可传递语音流量。
+> **注意：** 除开电视和数据信号，同轴线连接还可传递语音流量。
 
 可与同轴线结合使用的另一种技术，就是以太网上的点对点协议（Point-to-Point Protocol over Ethernet, PPPoE）。这种连接方式可在同轴线调制解调器与端点设备（the endpoint devices）之间使用，以为同轴线调制解调器设施添加安全性。这种连接方式允许用户登录，并提供为了获取要使用的同轴线业务，而必须加以认证的用户名与口令。（登录）凭据是通过到同轴线调制解调器的以太网连接，并晚于对运行在以太网上的PPP的使用之前，进行传递（The credentials are carried across the Ethernet connection to the cable modem and beyond by using the PPP running over the Ethernet）。后面后简短地对PPPoE进行介绍。
 
@@ -317,7 +317,7 @@ ISDN PRI连接通常用作从公众交换电话网到大型电话系统（<电�
 
 `HSPA+`是一个基于`CDMA`的、提供高达`84Mbps`下载速率与`22Mbps`上传速率的标准。`LTE`则是基于`GSM/EDGE`的，提供高达`300Mbps`的下载与`75Mbps`上传速率的标准。
 
-> **注意**：这些标准都在持续开发中，因此它们的吞吐速率可能在将来会有所提升。
+> **注意：** 这些标准都在持续开发中，因此它们的吞吐速率可能在将来会有所提升。
 
 `GSM 3G`(第三代，third generation)，是一个对具备提供可达数兆（several `Mbps`）传输速率的网络的泛称。可通过提升信道的分配带宽（the channels' allocated bandwidth, 请参考[这里](https://en.wikipedia.org/wiki/Channel_allocation_schemes)，及[这里](https://en.wikipedia.org/wiki/Bandwidth_allocation)），并同时使用包交换技术，来达到这种传输速率。
 

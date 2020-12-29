@@ -521,7 +521,7 @@ Voice VLAN: none
 
 `Switch(config-if)#switchport trunk native vlan 888`
 
-> **注意：**这是 CCNA 大纲中的一个关键目标（one of the key objectives）, 所以务必牢记。
+> **注意：** 这是 CCNA 大纲中的一个关键目标（one of the key objectives）, 所以务必牢记。
 
 你还可以用下面的命令，来阻止原生 VLAN 上的数据通过中继链路。
 
@@ -1003,7 +1003,7 @@ VTP-Server-1(config-if)#switchport
 VTP-Server-1(config-if)#switchport mode access
 ```
 
-> **注意:**在诸如 Catalyst 2950 及 Catalyst 2960 系列的二层交换机上无需 `switchport` 命令。而在比如 Catalyst 3750、Catalyst 4500 以及 Catalyst 6500 系列等的多层交换机上， 它是要要到的。
+> **注意:** 在诸如 Catalyst 2950 及 Catalyst 2960 系列的二层交换机上无需 `switchport` 命令。而在比如 Catalyst 3750、Catalyst 4500 以及 Catalyst 6500 系列等的多层交换机上， 它是要要到的。
 
 默认情况下，端口安全是关闭的；但可通过接口配置命令 `switchport port-security [mac-address {mac-address} [vlan {vlan-id | {access | voice}}] | mac-address {sticky} [mac-address | vlan {vlan-id | {access | voice}}] [maximum {value} [vlan {vlan-list | {access | voice}}]]` 予以开启。表 4.1 说明了该命令的这些选项。
 

@@ -862,7 +862,7 @@ Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
 ```
 
->**注意：**如ping不工作，就要反复检查，确保在正确的路由器上加上了`clock rate`命令。还要确保正确插入了线缆，并使用命令 `show controllers serial x/x/x`, 这里的接口编号是你的路由器上的。
+>**注意：** 如ping不工作，就要反复检查，确保在正确的路由器上加上了`clock rate`命令。还要确保正确插入了线缆，并使用命令 `show controllers serial x/x/x`, 这里的接口编号是你的路由器上的。
 
 ### 二进制转换及子网划分练习， Binary Conversion and Subnetting Practice
 

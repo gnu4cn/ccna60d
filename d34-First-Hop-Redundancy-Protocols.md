@@ -172,7 +172,7 @@ HSRP Coup报文实在当前备份路由器打算接过该HSRP组的活动网关�
 
 而为了在某HSRP组中已有一个主网关的情形下，令到具有更高优先级的网关接过活动网关功能，就必须要将该路由器配置上抢占功能。这样做就允许该网关发起一次抢占，并接过该HSRP组的活动网关角色。HSRP抢占在接着的配置示例中有演示。
 
-> 注意：抢占并不意味着生成树拓扑也会发生改变（译者注：这将导致次优路径）。
+> **注意：** 抢占并不意味着生成树拓扑也会发生改变（译者注：这将导致次优路径）。
 
 ### HSRP的各种状态
 
@@ -190,7 +190,7 @@ HSRP Coup报文实在当前备份路由器打算接过该HSRP组的活动网关�
 
 6. 活动（ `Active` ）
 
-> 注意：这些接口状态过度并无设置时间数值（There are no set time values for these interface transitions）。
+> **注意：** 这些接口状态过度并无设置时间数值（There are no set time values for these interface transitions）。
 
 在关闭及初始化状态中，该网关处于尚未准备妥当或是无法参与到HSRP组情形，可能的原因在于相关接口没有开启。
 
@@ -333,7 +333,7 @@ FastEthernet0/0 is up, line protocol is up
 [Truncated Output]
 ```
 
-> **注意**：除了将HSRP配置为使用出厂地址（the burnt-in address, BIA）, 管理员亦可经由接口配置命令`standby [number] mac-address [mac]`，静态指定虚拟网关要使用的MAC地址。但一般不会这样做，因为这可能会导致交换网络中的重复MAC地址，这就会引起严重的网络故障，甚至造成网络中断。
+> **注意：** 除了将HSRP配置为使用出厂地址（the burnt-in address, BIA）, 管理员亦可经由接口配置命令`standby [number] mac-address [mac]`，静态指定虚拟网关要使用的MAC地址。但一般不会这样做，因为这可能会导致交换网络中的重复MAC地址，这就会引起严重的网络故障，甚至造成网络中断。
 
 ### HSRP的明文认证
 
@@ -453,7 +453,7 @@ Gateway-1(config-if)#exit
 
 *图 34.17 -- HSRP示例配置的拓扑*
 
-> **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN172 `ping`通。为简短起见，这些配置已在配置示例中省略。
+> **注意：** 这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN172 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
 ```console
 VTP-Server-1(config)#interface vlan172
@@ -467,7 +467,7 @@ VTP-Server-2(config-if)#standby 1 ip 172.16.31.254
 VTP-Server-2(config-if)#exit
 ```
 
-> **注意**：这里应用到`VTP-Server-2`的HSRP配置并没有手动指派优先级数值。默认情况下，HSRP将使用一个 `100` 的优先级值，以允许带有优先级值 `105` 的`VTP-Server-1`，在选举中胜选，从而被选举为该HSRP组的主网关。
+> **注意：** 这里应用到`VTP-Server-2`的HSRP配置并没有手动指派优先级数值。默认情况下，HSRP将使用一个 `100` 的优先级值，以允许带有优先级值 `105` 的`VTP-Server-1`，在选举中胜选，从而被选举为该HSRP组的主网关。
 
 在配置应用后，就可使用`show standby [interface brief]`命令，对HSRP的配置进行验证。下面的输出对`show standby brief`命令进行了展示：
 
@@ -634,7 +634,7 @@ VRRP以与HSRP类似的方式运作；但与HSRP不同，VRRP是一个定义在[
 
 *图 34.18 -- VRRP的多播地址，VRRP Multicast Addresses*
 
-> **注意**：这里的协议编号是十六进制形式的。而十六进制值`0x70`就等于是进制的112。与此类似，数据链路层目的地址`01-00-5e-00-00-12`中的十六进制值`12`就是十进制值18（也就是`224.0.0.18`）了。如你仍对这些数值是如何转换的没有掌握，那么本CCNA手册的十六进制到十进制转换在网上是很详细的。
+> **注意：** 这里的协议编号是十六进制形式的。而十六进制值`0x70`就等于是进制的112。与此类似，数据链路层目的地址`01-00-5e-00-00-12`中的十六进制值`12`就是十进制值18（也就是`224.0.0.18`）了。如你仍对这些数值是如何转换的没有掌握，那么本CCNA手册的十六进制到十进制转换在网上是很详细的。
 
 > **真是世界的部署**
 
@@ -690,7 +690,7 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 
 默认情况下，当在某台运行思科IOS软件的网关上配置了VRRP时，开启的是VRRP版本2（见下图）。版本2正是默认的以及当前的VRRP版本。这里并不能如同在HSRP中那样改变版本，因为并没有VRRP版本1的标准。
 
-> **注意**: 在本手册编写过程中，为IPv4与IPv6定义VRRP的版本3，正处于草案阶段，且并未标准化。
+> **注意:** 在本手册编写过程中，为IPv4与IPv6定义VRRP的版本3，正处于草案阶段，且并未标准化。
 
 
 ![VRRP版本2的数据包](images/3422.png)
@@ -721,7 +721,7 @@ VRRP允许以与HSRP类似的方式，实现负载均衡。比如，在一个于
 
 *图 34.23 -- VRRP配置示例的拓扑*
 
-> **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
+> **注意：** 这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
 ```console
 VTP-Server-1(config)#interface vlan192
@@ -737,7 +737,7 @@ VTP-Server-2(config-if)#vrrp 1 description ‘SWITCH-VRRP-Example’
 VTP-Server-2(config-if)#exit
 ```
 
-> **注意**：这里没有为`VTP-Server-2`上所应用的VRRP配置手动指派优先级数值。那么默认情况下，VRRP将使用100的优先级数值，这就令到带有优先级数值105的`VTP-Server-1`，在选举中获胜而被选举为该VRRP组的主虚拟路由器。此外，这里还为该VRRP组配置了一个描述信息。
+> **注意：** 这里没有为`VTP-Server-2`上所应用的VRRP配置手动指派优先级数值。那么默认情况下，VRRP将使用100的优先级数值，这就令到带有优先级数值105的`VTP-Server-1`，在选举中获胜而被选举为该VRRP组的主虚拟路由器。此外，这里还为该VRRP组配置了一个描述信息。
 
 下面还使用命令`show vrrp [all|brief|interface]`, 对此配置进行了验证。关键字`[all]`展示了有关该VRRP配置的所有信息，包括了组的状态、描述信息（在配置了的情况下）、本地网关优先级，以及主虚拟路由器和其它信息。关键字`[brief]`则会列印出该VRRP配置的摘要信息。而`[interface]`关键字会列印出特定接口的VRRP信息。下面的输出展示了`show vrrp all`命令的输出：
 
@@ -783,7 +783,7 @@ Vl192              1   100 3609      Y  Backup  192.168.1.1     192.168.1.254
 
 为将VRRP配置为对某个接口进行跟踪，就必须要在全局配置模式下，为接口追踪而使用全局配置命令`track [object number] interface [line-protocol|ip routing]`, 或为IP前缀追踪而使用全局配置命令`track [object number] ip route [address | prefix] [reachablity | metric threshold]`，建立一个被跟踪的对象。依据软件与平台的不同，交换机上可对高达500个的被追踪对象进行跟踪。随后再使用接口配置命令`vrrp [number] track [object]`, 实现VRRP对被追踪对象的跟踪。
 
-> **注意**：CCNA考试不要求完成这些高级对象追踪的配置。
+> **注意：** CCNA考试不要求完成这些高级对象追踪的配置。
 
 下面的输出展示了如何配置VRRP的跟踪，引用了对象1, 该被跟踪对象对`Loopback0`接口的线路协议进行跟踪：
 
@@ -843,7 +843,7 @@ Track 2
         VRRP Vlan192 1
 ```
 
-> **注意**：这些被追踪对象亦可与HSRP和GLBP配合使用。GLBP在下面的小节进行说明。
+> **注意：** 这些被追踪对象亦可与HSRP和GLBP配合使用。GLBP在下面的小节进行说明。
 
 ### VRRP的调试
 
@@ -973,7 +973,7 @@ GLBP的客户端缓存，包含了使用到某个GLBP组作为默认网关的那
 
 *图 34.26 -- GLBP配置示例的拓扑*
 
-> **注意**：这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
+> **注意：** 这里假定在`VTP-Server-1`与`VTP-Server-2`之间的VLAN与中继已有配置妥当，同时交换机之间可以经由VLAN192 `ping`通。为简短起见，这些配置已在配置示例中省略。
 
 ```console
 VTP-Server-1(config)#interface vlan192

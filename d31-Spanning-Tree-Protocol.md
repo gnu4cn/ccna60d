@@ -93,7 +93,7 @@ BPDUs都是每两秒发出的，此特性允许实现快速的网络循环探测
 
 - 通过阻塞冗余路径，网络中的循环得以消除，loops in the network are eliminated by blocking redundant paths
 
-> **注意：**随着逐步深入本模块内容，这些特性将会一一介绍。
+> **注意：** 随着逐步深入本模块内容，这些特性将会一一介绍。
 
 一旦所有交换机端口都处于转发或阻塞状态，生成树网络（the Spanning Tree network）就完成了收敛, 此时配置BPDUs就由根桥以默认每两秒的间隔发出。这就是**配置BPDUs的发端**。配置BPDUs通过根桥上的指定端口，转发到下游邻居交换机（this is referred to as the origination of Configuration BPDUs. The Configuration BPDUs are forwarded to downstream neighboring switches via the Designated Port on the Root Bridge）。
 
@@ -307,7 +307,7 @@ Fa0/2       128.2       19      FWD 19 32770    0008.21a9.4f80  128.2
 
 一旦选定，根桥就成为生成树网络的逻辑中心。这并不是说根桥位处该网络的物理中心。确保不要做出那样的错误假设。
 
->**注意：**重要的是记住在STP根桥选举期间，是没有流量在该相同STP域上转发的。
+> **注意：** 重要的是记住在STP根桥选举期间，是没有流量在该相同STP域上转发的。
 
 **思科IOS软件允许管理员对根桥选举施加影响。**此外，管理员**也可以配置一台备份根桥**（adminitrator can also configure a backup Root Bridge）。备份根桥是一台管理员优先选择、在当前根桥失效或从网络中移除时成为根桥的交换机。
 
@@ -443,19 +443,19 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 3. 最低的发送方桥ID, lowest sender Bridge ID
 4. 最低的发送方端口ID，lowest sender Port ID
 
->**注意：**为掌握生成树选举及指定出在任何给定情形下不同端口类型，那么重要的是记住这些打破平局的标准了。这些标准不仅要对其进行测试，还要为真实世界中设计、部署及支持互联网络而牢固掌握这个知识点。
+> **注意：** 为掌握生成树选举及指定出在任何给定情形下不同端口类型，那么重要的是记住这些打破平局的标准了。这些标准不仅要对其进行测试，还要为真实世界中设计、部署及支持互联网络而牢固掌握这个知识点。
 
 生成树**根端口是在该设备将数据包转发到根桥时，提供出最优路径，或最低开销的端口。**也就是说，根端口是接收到该交换机的最优BPDU的端口，而这又表明了在路径开销上其是到根桥的最短路径。根端口是基于根桥路径开销选举出的。
 
 根桥路径开销又是基于连接到根桥的所有链路的累积开销（路径开销）计算出的。路径开销是各个端口贡献给根桥开销的数值（the path cost is the value that each port contributes to the Root Bridge path cost）。因为此概念通常是十分令人困惑，在下图31.7中对其进行了演示。
 
-> **注意：**图31.7中除了一条链路外，其它链路都是GigabitEthernet链路。应假定用于端口开销计算的方法是传统的802.1D方法。因此，默认GigabitEthernet的端口开销就是4, 同时FastEthernet是19。
+> **注意：** 图31.7中除了一条链路外，其它链路都是GigabitEthernet链路。应假定用于端口开销计算的方法是传统的802.1D方法。因此，默认GigabitEthernet的端口开销就是4, 同时FastEthernet是19。
 
 ![生成树根端口选举](images/3107.png)
 
 *图31.7 -- 生成树根端口选举*
 
->**注意：**下面的解释对网络中交换机間的BPDUs数据流进行了说明。与其它信息一起，这些BPDUs包含了根桥路径开销信息，而根桥路径开销在接收交换机上的入站端口处被增加（along with other information, these BPDUs contain the Root Bridge path cost information, which is incremented by the ingress port on the receiving switch）。
+> **注意：** 下面的解释对网络中交换机間的BPDUs数据流进行了说明。与其它信息一起，这些BPDUs包含了根桥路径开销信息，而根桥路径开销在接收交换机上的入站端口处被增加（along with other information, these BPDUs contain the Root Bridge path cost information, which is incremented by the ingress port on the receiving switch）。
 
 1. 根桥发出一个带有根桥路径开销值0的BPDU，因为其端口直接位于该根桥上。此BPDU发送给Switch 2和Switch 3。
 2. 当Switch 2和Switch 3接收到来自根桥的BPDU时，它们便基于各自入站借口加上其自己的路径开销。因为Switch 2和Switch 3都是通过GigabitEthernet连接与根桥相连，所以它们将从根桥接收到的路径开销值（0）与它们的GigabitEthernet路径开销值（4）相加。Switch 2及Switch 3经由GigabitEthernet0/1到根桥的根桥路径开销也就是0+4=4。
@@ -463,7 +463,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 4. 当Switch 4和Switch 6接收到分别来自Switch 2和Switch 3的BPDUs时，它们根据入站借口对接收到的**根桥路径开销**予以增长。因为使用的是GigabitEthernet, 从Switch 2和Switch 3接收到的值被加上4。那么在Switch 4和Switch 6上经由其各自GigabitEthernet0/1接口的根桥路径开销就是0+4+4=8。
 5. Switch 5接收到两个BPDUs：一个来自Switch 4，另一个来自Switch 6。接收自Switch 4的BPDU有着根桥路径开销0+4+4+4=12。接收自Switch 6的BPDU有着根桥路径开销0+4+4+19=27。因为包含于接收自Switch 4的BPDU中的根桥路径开销值好于接收自Switch 6的，Switch 5将选举GigabitEthernet0/1作为**根端口**（the Root Port）。
 
->**注意：**交换机2、3、4、6都将选举其各自的GigabitEthernet端口作为根端口。
+> **注意：** 交换机2、3、4、6都将选举其各自的GigabitEthernet端口作为根端口。
 
 ![tips](images/3100.png)
 
@@ -484,7 +484,7 @@ STP选举出两种类型用于转发BPDUs的端口：指向根桥的根端口，
 
 与根端口不同，指定端口是指向与STP根相反方向的端口。该端口是指定设备（交换机）连接LAN的端口。指定端口同时也是在将来自LAN的数据包转发给根桥时有着最低路径开销的端口。
 
->**注意：**一些人将指定端口当作是指定交换机。这两个术语是可以互换的，且指的是同一个东西。也就是说，这是用于将来自某个特定LAN网段的帧，转发到根桥的交换机，或端口。
+> **注意：** 一些人将指定端口当作是指定交换机。这两个术语是可以互换的，且指的是同一个东西。也就是说，这是用于将来自某个特定LAN网段的帧，转发到根桥的交换机，或端口。
 
 **指定端口的主要目的是阻止循环。**在超过一台的交换机连接到同一网段时，所有交换机都将尝试对在那个网段上接收到的某个帧进行转发。这样的默认行为可能导致该帧的多个拷贝被多台交换机同时转发--从而造成网络循环。为避免这种默认行为，**STP在所有网段上都选举出一个指定端口。***这是因为根桥路径开销将始终为0。*STA的指定端口选举过程在下图31.8中进行了演示。
 
@@ -652,7 +652,7 @@ Switch 3将忽略这些较差BPDUs，直到最大存活值（the Max Age value�
 
 RLQs的类型有两种：RLQ请求和RLQ响应。**RLQ请求典型地在根端口上发出，用以检查到根桥的连通性。所有RLQ响应都是在指定端口上发出的。**因为RLQ请求包含了发送该RLQ响应的根桥BID，如到根桥路径中其它交换机仍能到达该RLQ响应中所指定的根桥，其就会响应给发出RLQ请求的交换机（because the RLQ request contains the BID of the Root Bridge that sent it, if another switch in the path to the Root Bridge can still reach the Root Bridge specified in the RLQ response, it will respond back to the sending switch）。如路径上的交换机已不能到达RLQ响应中的根桥，该交换机就简单地通过其根端口，往根桥转发该查询。
 
->**注意：**RLQ PDU有着与普通BPDU同样的包格式，唯一区别在于RLQ PDU包含了两个用于请求和回应的思科SNAP(子网接入协议，[Subnetwork Access Protocol](https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol))地址。
+> **注意：** RLQ PDU有着与普通BPDU同样的包格式，唯一区别在于RLQ PDU包含了两个用于请求和回应的思科SNAP(子网接入协议，[Subnetwork Access Protocol](https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol))地址。
 
 ## STP排错
 
@@ -869,4 +869,4 @@ Fa0/1              Desg  FWD  19          128.1    P2p
 SwitchA#
 ```
 
->**注意：**尽管Switch B有较低的桥ID，Switch A还是被强制作为根桥。
+> **注意：** 尽管Switch B有较低的桥ID，Switch A还是被强制作为根桥。

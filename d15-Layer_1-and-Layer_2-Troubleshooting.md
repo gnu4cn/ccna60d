@@ -435,7 +435,7 @@ Transmit GigabitEthernet3/0/1   Receive
 
 因此好的做法就是在那些可以手动设置的地方，对10/100以太网连接的速率和双工手动进行设置，以避免自动协商带来的双工不匹配问题。**双工不匹配可能不仅会对直接连接到交换机上的用户造成影响，还可能对有着不匹配双工设置的交换机间连接上通过的网络流量造成影响。**使用命令`show interface`就可以查看到端口的接口速率和双工设置。
 
->**注意：** 因为Catalyst交换机仅支持1Gbps链路全双工，所以对于GigabitEthernet连接，双工问题并不常见。
+> **注意：** 因为Catalyst交换机仅支持1Gbps链路全双工，所以对于GigabitEthernet连接，双工问题并不常见。
 
 思科IOS软件中的多个计数器都可用来鉴别潜在**坏网卡或网线问题**。通过对不同的`show`命令中的一些计数器的检查，来识别网卡或网线问题。比如，假设交换机端口计数器显示带有无效CRC或FCS错误的帧数持续增长，就有极大可能是因为工作站或机器的坏网卡，以及坏的网线。
 
@@ -621,7 +621,7 @@ Fa0/2   1,40,50,60,70,80,90,254
 
 同样要检查中继链路上通告的正确VLANs。在中继链路上放行的不适当VLANs可能引起功能缺失或安全问题。也想要确保中继链路两端有着同样的放行VLANs（Inproper VLANs allowed on the link can lead to a lack of functionality or security issues. Also, you want to make sure that the same VLANs are allowed on both ends of a trunk）。
 
->**注意：** 在将另外的需要在某条中继链路上放行的VLAN(s)加入进去时，应非常谨慎地不要忘记关键字`add`。比如，在已经配置了`switchport trunk allowed vlan 10, 20`，而打算同样放行VLAN 30时，就需要输入命令`switchport trunk allowed vlan add 30`。而如只是简单地配置`switchport trunk allowed vlan 30`，那么先前所允许的VLANs 10和20就会从中继链路上移除，这将导致VLANs 10和20的通信中断。
+> **注意：** 在将另外的需要在某条中继链路上放行的VLAN(s)加入进去时，应非常谨慎地不要忘记关键字`add`。比如，在已经配置了`switchport trunk allowed vlan 10, 20`，而打算同样放行VLAN 30时，就需要输入命令`switchport trunk allowed vlan add 30`。而如只是简单地配置`switchport trunk allowed vlan 30`，那么先前所允许的VLANs 10和20就会从中继链路上移除，这将导致VLANs 10和20的通信中断。
 
 由命令`show interfaces trunk`命令所提供的另一重要信息，就是中继端口状态。中继端口状态信息确认该中继链路是否形成，同时必须要在链路两端对此进行检查。如该端口未处于“中继”模式，此时最重要的就是必须对端口中继运作模式（the mode of operation, o/auto等）进行检查，看看在该模式下是否能与链路另一端形成中继状态。
 

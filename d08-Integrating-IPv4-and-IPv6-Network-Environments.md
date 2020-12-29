@@ -55,11 +55,11 @@ ___
 
 在网际网络设备和主机同时用到两种协议栈（也就是IPv4和IPv6）时，就要求采用双栈部署策略。双栈部署令到主机能够同时使用IPv4或IPv6与其它主机建立端到端的IP会话（Dual-stack implementation is required when internetwork devices and hosts use both protocol stacks(i.e., IPv4 and IPv6). Dual-stack implementation allows the hosts to use either IPv4 or IPv6 to establish end-to-end IP sessions with other hosts）。
 
-> **注意**：双栈部署并不是说那些仅支持IPv4或仅支持IPv6的主机，具备与其它主机通信的能力。要实现此特性，就需要其它的协议与机制。双栈仅指主机（或设施）能够同时支持IPv4协议栈**及**IPv6协议栈。
+> **注意：** 双栈部署并不是说那些仅支持IPv4或仅支持IPv6的主机，具备与其它主机通信的能力。要实现此特性，就需要其它的协议与机制。双栈仅指主机（或设施）能够同时支持IPv4协议栈**及**IPv6协议栈。
 
 在双栈部署无法应用的情形中，就有可能将IPv6数据要精油IPv4网络进行隧道处理（in situations where Dual-stack implementation can not be used, it is posssible to tunnel the IPv6 packets over IPv4 networks），使用一些隧道来将IPv6数据包封装在IPv4数据包中，以令到这些IPv6数据包进行跨越尚无或是还没有原生支持IPv6的网络部分。这样做允许一些IPv6"岛"（IPv6 "islands"）通过现行的IPv4设施之间相互通信。
 
-> **注意**：在运用隧道技术时，为将IPv6数据包经由IPv4设施进行隧道化传输，节点或互联网络的设备必须支持双栈（with tunnelling, nodes or internetwork devices must support dual-stack in order to tunnel IPv6 packets over the IPv4 infrastructure）。
+> **注意：** 在运用隧道技术时，为将IPv6数据包经由IPv4设施进行隧道化传输，节点或互联网络的设备必须支持双栈（with tunnelling, nodes or internetwork devices must support dual-stack in order to tunnel IPv6 packets over the IPv4 infrastructure）。
 
 最后，在某些情况下，有可能出现某些仅IPv4的环境，需要与仅IPv6的环境进行通信，以及反过来的情况。那么在此种情形下，双栈技术或隧道技术部署都不能用到，因此就必须启用IPv4与IPv6之间的协议转换。尽管此中方案也是支持的，但对于集成Ipv4与IPv6网络时，其是最不可选的（while supported, this is the least desirable method of integrating IPv4 and IPv6 networks）。不过因为此方案仍被支持，那么掌握如何实现此种方案，仍是重要的。
 
@@ -92,7 +92,7 @@ R3(config-if)#ipv6 enable
 R3(config-if)#exit
 ```
 
-> **注意**：尽管在思科IOS软件中IPv4路由默认是开启的，但IPv6路由却是默认关闭的，所以必须显式地开启。
+> **注意：** 尽管在思科IOS软件中IPv4路由默认是开启的，但IPv6路由却是默认关闭的，所以必须显式地开启。
 
 依据这些IPv4与IPv6地址的配置，就可以通过简单地对查看路由器配置，来验证这些配置，如下面的输出所示：
 
@@ -186,7 +186,7 @@ R1(config)#ip name-server 3FFF:1234:ABCD:1::2
 R1(config)#ip name-server 192.168.1.2
 ```
 
-> **注意**：正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找`AAAA`记录（也就是IPv6）。在如果未找到`AAAA`记录，主机就会查找一条`A`记录，以与该主机名进行通信。
+> **注意：** 正如先前提到的，当在同一路由器上同时配置了IPv4及IPv6 DNS服务器时，路由器将首先查找`AAAA`记录（也就是IPv6）。在如果未找到`AAAA`记录，主机就会查找一条`A`记录，以与该主机名进行通信。
 
 ## 经由IPv4网络对IPv6数据报进行隧道传输
 
