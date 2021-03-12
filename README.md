@@ -16,7 +16,11 @@ ___
 
 ___
 
-推荐模拟器：[GNS3下载](https://www.gns3.com/software/download)
+推荐模拟器：
+
+![GNS3](https://upload.wikimedia.org/wikipedia/commons/8/8f/GNS3_logo.png)
+
+[GNS3下载](https://www.gns3.com/software/download)
 
 ___
 
