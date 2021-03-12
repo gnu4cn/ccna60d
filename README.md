@@ -1,83 +1,53 @@
+# 60 天通过 CCNA 考试
+
 ## 60天通过CCNA
 
-__Cisco CCNA in 60 Days__
+**Cisco CCNA in 60 Days**
 
+* Github: [github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d)
+* Gitlab: [gitlab.com/unisko/ccna60d](https://gitlab.com/unisko/ccna60d/)
+* Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+* PDF 版本：[ccna60d.pdf](https://github.com/gnu4cn/ccna60d/tree/9e798f46959af227e50de97213941157c220a70b/ccna60d.pdf)
 
-___
+**推荐模拟器**
 
-- Github: [github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d)
+ !\[GNS3\]\(https://upload.wikimedia.org/wikipedia/commons/8/8f/GNS3\_logo.png\) \[GNS3下载\]\(https://www.gns3.com/software/download\)
 
-- Gitlab: [gitlab.com/unisko/ccna60d](https://gitlab.com/unisko/ccna60d/)
-
-- Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
-
-- PDF 版本：[ccna60d.pdf](./ccna60d.pdf)
-
-
-___
-
-
-__推荐模拟器__
-
-<div align="center">
-
-![GNS3](https://upload.wikimedia.org/wikipedia/commons/8/8f/GNS3_logo.png)
-
-[GNS3下载](https://www.gns3.com/software/download)
-</div>
-
-___
-
-你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
-
+你可以在 [https://github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d) 上 fork 本项目，并提交你的修正。
 
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
-> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者:  
+> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者:
 
-<div align="center">
-
-![支付宝二维码](images/633086908.jpg)
-
-*图 0-1 - 赞助译者 -* ***支付宝*** *付款码*
-
-![微信二维码](images/611739062.jpg)
-
-*图 0-2 - 赞助译者 -* ***微信*** *付款码*
-
-![Bitcoin二维码](images/btc-qrcode.png)
-
-*图 0-3 - 赞助译者 -* ***Bitcoin*** *付款码*
-
-</div>
-
+ !\[支付宝二维码\]\(images/633086908.jpg\) \*图 0-1 - 赞助译者 -\* \*\*\*支付宝\*\*\* \*付款码\* !\[微信二维码\]\(images/611739062.jpg\) \*图 0-2 - 赞助译者 -\* \*\*\*微信\*\*\* \*付款码\* !\[Bitcoin二维码\]\(images/btc-qrcode.png\) \*图 0-3 - 赞助译者 -\* \*\*\*Bitcoin\*\*\* \*付款码\*
 
 ## 捐赠记录
 
-*2017-08-03*
+_2017-08-03_
 
-- “十円”通过支付宝进行了捐赠，并留言“谢谢译者的辛勤付出！”
+* “十円”通过支付宝进行了捐赠，并留言“谢谢译者的辛勤付出！”
 
-*2017-05-21*
+_2017-05-21_
 
-- “远”通过支付宝进行了捐赠，并留言“60天通过ccna对我帮助很大期待更新”
+* “远”通过支付宝进行了捐赠，并留言“60天通过ccna对我帮助很大期待更新”
 
 ## 更新记录
 
-*2020-10-27*
+_2020-10-27_
 
-- 生成PDF版本
+* 生成PDF版本
 
-*2019-10-30*
+_2019-10-30_
 
-- 完成全部章节翻译
-- 重新通过 Gitbook 进行发布
+* 完成全部章节翻译
+* 重新通过 Gitbook 进行发布
 
-*2017-07-16*
+_2017-07-16_
 
-- 完成第37天--EIGRP故障排除章节
-- 完成第38天--IPv6下的EIGRP章节
+* 完成第37天--EIGRP故障排除章节
+* 完成第38天--IPv6下的EIGRP章节
 
-*2017-07-14*
+_2017-07-14_
 
-- 完成第36天--EIGRP 章节的修订，EIGRP已无问题
+* 完成第36天--EIGRP 章节的修订，EIGRP已无问题
+
