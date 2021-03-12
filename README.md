@@ -13,8 +13,12 @@ ___
 
 - PDF 版本：[ccna60d.pdf](./ccna60d.pdf)
 
-- [Android APP](https://github.com/gnu4cn/ccna60d-app/releases/download/v0.1.3/ccna60d.xfoss.com_v0.1.3.apk)
 
+___
+
+推荐模拟器：[GNS3下载](https://www.gns3.com/software/download)
+
+___
 
 你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
 
