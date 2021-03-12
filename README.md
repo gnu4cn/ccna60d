@@ -19,12 +19,13 @@ ___
 
 __推荐模拟器__
 
-<div align="center">
-
+<p align="center">
 ![GNS3](https://upload.wikimedia.org/wikipedia/commons/8/8f/GNS3_logo.png)
+</p>
 
+<p align="center">
 [GNS3下载](https://www.gns3.com/software/download)
-</div>
+</p>
 
 ___
 
@@ -35,21 +36,30 @@ ___
 
 > 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者:  
 
-<div align="center">
+<p align="center">
 
 ![支付宝二维码](images/633086908.jpg)
 
+</p>
+<p align="center">
 *图 0-1 - 赞助译者 -* ***支付宝*** *付款码*
 
+</p>
+<p align="center">
 ![微信二维码](images/611739062.jpg)
 
+</p>
+<p align="center">
 *图 0-2 - 赞助译者 -* ***微信*** *付款码*
 
+</p>
+<p align="center">
 ![Bitcoin二维码](images/btc-qrcode.png)
 
+</p>
+<p align="center">
 *图 0-3 - 赞助译者 -* ***Bitcoin*** *付款码*
-
-</div>
+</p>
 
 
 ## 捐赠记录
