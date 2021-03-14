@@ -17,7 +17,7 @@ ___
 </p>
 
 <p align="center">
-<a href="https://www.gns3.com/software/download">GNS3 下载</a>
+<a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>
 </p>
 
 
