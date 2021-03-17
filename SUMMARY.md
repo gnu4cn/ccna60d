@@ -28,6 +28,6 @@
 * [第40天，系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
 * [第41天，广域组网](d41-Wide-Area-Networking.md)
 * [第42天，帧中继与点对点协议](d42-Frame-Relay-and-PPP.md)
-* [附录：华为交换机端口镜像](port-mirroring.md)
-* [附录二：IPv6地址空间](IPv6地址空间.md)
+* [附录一：华为交换机端口镜像](port-mirroring.md)
+* [附录二：IPv6地址空间](IPv6_address_space.md)
 * [附录三：GNS3简介](GNS3_tutorial.md)
