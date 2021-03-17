@@ -17,7 +17,7 @@ ___
 </p>
 
 <p align="center">
-<a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>, [GNS3入门教程](GNS3_tutorial.md)
+<a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>, <a href="GNS3_tutorial.md">GNS3入门教程</a>
 </p>
 
 
