@@ -1,5 +1,4 @@
-# 60 天通过 CCNA 考试
-
+# 60 天通过 CCNA 考试🖧
 
 **Cisco CCNA in 60 Days**
 
@@ -23,33 +22,6 @@ ___
 
 ___
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
-
-> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以捐赠译者:  
-
-
-<p align="center">
-<img src="images/633086908.jpg" />
-</p>
-
-<p align="center">
-<i>图 0-1 - 赞助译者 - <b>支付宝</b> 付款码</i>
-</p>
-
-<p align="center">
-<img src="images/611739062.jpg" />
-</p>
-
-<p align="center">
-<i>图 0-2 - 赞助译者 - <b>微信</b> 付款码</i>
-</p>
-
-<p align="center">
-<img src="images/btc-qrcode.png" />
-</p>
-
-<p align="center">
-<i>图 0-3 - 赞助译者 - <b>Bitcoin</b> 付款码</i>
-</p>
 
 ## 捐赠记录
 
