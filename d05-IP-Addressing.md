@@ -161,12 +161,24 @@ IP 版本 4(IPv4）设计用于解决设备命名问题。IPv4 使用二进制�
 **表5.2 -- 十进制、十六进制和二进制位数，Decimal, Hex, and Binary Digits**
 
 <table>
-<tr><th>十进制，Decimal</th><td>`0`</td><td>`1`</td><td>`2`</td><td>`3`</td><td>`4`</td><td>`5`</td><td>`6`</td><td>`7`</td></tr>
-<tr><th>十六进制，Hex</th><td>`0`</td><td>`1`</td><td>`2`</td><td>`3`</td><td>`4`</td><td>`5`</td><td>`6`</td><td>`7`</td></tr>
-<tr><th>二进制，Binary</th><td>`0000`</td><td>`0001`</td><td>`0010`</td><td>`0011`</td><td>`0100`</td><td>`0101`</td><td>`0110`</td><td>`0111`</td></tr>
-<tr><th>十进制，Decimal</th><td>`8`</td><td>`9`</td><td>`10`</td><td>`11`</td><td>`12`</td><td>`13`</td><td>`14`</td><td>`15`</td></tr> 
-<tr><th>十六进制，Hex</th><td>`8`</td><td>`9`</td><td>`A`</td><td>`B`</td><td>`C`</td><td>`D`</td><td>`E`</td><td>`F`</td></tr>
-<tr><th>二进制，Binary</th><td>`1000`</td><td>`1001`</td><td>`1010`</td><td>`1011`</td><td>`1100`</td><td>`1101`</td><td>`1110`</td><td>`1111`</td></tr>
+    <tr>
+        <th>十进制，Decimal</th><td>`0`</td><td>`1`</td><td>`2`</td><td>`3`</td><td>`4`</td><td>`5`</td><td>`6`</td><td>`7`</td>
+    </tr>
+    <tr>
+        <th>十六进制，Hex</th><td>`0`</td><td>`1`</td><td>`2`</td><td>`3`</td><td>`4`</td><td>`5`</td><td>`6`</td><td>`7`</td>
+    </tr>
+    <tr>
+        <th>二进制，Binary</th><td>`0000`</td><td>`0001`</td><td>`0010`</td><td>`0011`</td><td>`0100`</td><td>`0101`</td><td>`0110`</td><td>`0111`</td>
+    </tr>
+    <tr>
+        <th>十进制，Decimal</th><td>`8`</td><td>`9`</td><td>`10`</td><td>`11`</td><td>`12`</td><td>`13`</td><td>`14`</td><td>`15`</td>
+    </tr>
+    <tr>
+        <th>十六进制，Hex</th><td>`8`</td><td>`9`</td><td>`A`</td><td>`B`</td><td>`C`</td><td>`D`</td><td>`E`</td><td>`F`</td>
+    </tr>
+    <tr>
+        <th>二进制，Binary</th><td>`1000`</td><td>`1001`</td><td>`1010`</td><td>`1011`</td><td>`1100`</td><td>`1101`</td><td>`1110`</td><td>`1111`</td>
+    </tr>
 </table>
 
 将二进制转换成十六进制及十进制，是相当简单的，如表5.3所示。
@@ -174,9 +186,15 @@ IP 版本 4(IPv4）设计用于解决设备命名问题。IPv4 使用二进制�
 **表5.3 -- 二进制到十六进制、十进制的转换**
 
 <table>
-<tr><th>十进制，Decimal</th><td>`13`</td><td>`6`</td><td>`2`</td><td>`12`</td></tr>
-<tr><th> 十六进制, Hex</th><td>`D`</td><td>`6`</td><td>`2`</td><td>`C`</td></tr>
-<tr><th> 二进制，Binary</th><td>`1101`</td><td>`0110`</td><td>`0010`</td><td>`1100`</td></tr>
+    <tr>
+        <th>十进制，Decimal</th><td>`13`</td><td>`6`</td><td>`2`</td><td>`12`</td>
+    </tr>
+    <tr>
+        <th> 十六进制, Hex</th><td>`D`</td><td>`6`</td><td>`2`</td><td>`C`</td>
+    </tr>
+    <tr>
+        <th> 二进制，Binary</th><td>`1101`</td><td>`0110`</td><td>`0010`</td><td>`1100`</td>
+    </tr>
 </table>
 
 相对于二进制，十六进制对人类来讲更易于掌握，其又能够近似于二进制那样为计算机和网络设备所使用。任何的数都可由十六进制构造出来，这点跟二进制和十进制一样；如下面的例子一样，只需计算`16`的乘积。
@@ -726,67 +744,76 @@ IP 地址分配的规则有：**网络上的每个地址，都要是其主机所
 
 1. Convert 1111 to hex and decimal
 
-```console
-	Hex = F
-	Decimal = 15
-```
+
+    ```console
+        Hex = F
+        Decimal = 15
+    ```
 
 2. Convert 11010 to hex and decimal
 
-```console
-	Hex = 1A
-	Decimal = 26
-```
+
+    ```console
+        Hex = 1A
+        Decimal = 26
+    ```
 
 3. Convert 10000 to hex and decimal
 
-```console
-	Hex = 10
-	Decimal = 16
-```
+
+    ```console
+        Hex = 10
+        Decimal = 16
+    ```
 
 4. Convert 20 to binary and hex
 
-```console
-	Binary = 10100
-	Hex = 14
-```
+
+    ```console
+        Binary = 10100
+        Hex = 14
+    ```
 
 5. Convert 32 to binary and hex
 
-```console
-	Binary = 100000
-	Hex = 20
-```
+
+    ```console
+        Binary = 100000
+        Hex = 20
+    ```
 
 6. Convert 101 to binary and hex
 
-```console
-	Binary = 1100101
-	Hex = 65
-```
+
+    ```console
+        Binary = 1100101
+        Hex = 65
+    ```
 
 7. Convert A6 from hex to binary and decimal
 
-```console
-	Binary = 10100110
-	Decimal = 166
-```
+
+    ```console
+        Binary = 10100110
+        Decimal = 166
+    ```
 
 8. Convert 15 from hex to binary and decimal
 
-```console
-	Binary = 10101
-	Decimal = 21
-```
+
+    ```console
+        Binary = 10101
+        Decimal = 21
+    ```
 
 9. Convert B5 from hex to binary and decimal
 
-```console
-	Binary = 10110101
-	Decimal = 181
-```
- 
+
+    ```console
+        Binary = 10110101
+        Decimal = 181
+    ```
+     
 ## 第五天的实验
 
 ### 路由器上的IP分址实验
@@ -805,62 +832,66 @@ IP 地址分配的规则有：**网络上的每个地址，都要是其主机所
 
 1. 先是明确路由器上的串行借口编号，你的路由器与上面拓扑图中的可能有所不同。同时，还要明确串行链路的哪一端连接的是DCE线，因为在该端是需要`clock rate`命令的。
 
-```console
-Router>en
-Router#sh ip interface brief
-Interface		IP-Address	OK?	Method	Status					Protocol
-FastEthernet0/0	unassigned	YES	unset	administratively down	down
-FastEthernet0/1	unassigned	YES	unset	administratively down	down
-Serial0/1/0		unassigned	YES	unset	administratively down	down
-Vlan1			unassigned	YES	unset	administratively down	down
-Router#
-Router#show controllers Serial0/1/0
-M1T-E3 pa: show controller:
-PAS unit 0, subunit 0, f/w version 2-55, rev ID 0x2800001, version 2
-idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
-Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
-line state: down
-DCE cable, no clock rate
-```
+
+    ```console
+    Router>en
+    Router#sh ip interface brief
+    Interface		IP-Address	OK?	Method	Status					Protocol
+    FastEthernet0/0	unassigned	YES	unset	administratively down	down
+    FastEthernet0/1	unassigned	YES	unset	administratively down	down
+    Serial0/1/0		unassigned	YES	unset	administratively down	down
+    Vlan1			unassigned	YES	unset	administratively down	down
+    Router#
+    Router#show controllers Serial0/1/0
+    M1T-E3 pa: show controller:
+    PAS unit 0, subunit 0, f/w version 2-55, rev ID 0x2800001, version 2
+    idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
+    Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
+    line state: down
+    DCE cable, no clock rate
+    ```
 
 2. 在一侧为路由器加上主机名及IP地址，如该侧是DCE，就为其加上时钟速率（the clock rate）。
 
-```console
-Router#conf t
-Enter configuration commands, one per line. End with CNTL/Z.
-Router(config)#hostname RouterA
-RouterA(config)#interface s0/1/0
-RouterA(config-if)#ip add 192.168.1.1 255.255.255.0
-RouterA(config-if)#clock rate 64000
-RouterA(config-if)#no shut
-%LINK-5-CHANGED: Interface Serial0/1/0, changed state to downRouterA(config-if)#
-```
+
+    ```console
+    Router#conf t
+    Enter configuration commands, one per line. End with CNTL/Z.
+    Router(config)#hostname RouterA
+    RouterA(config)#interface s0/1/0
+    RouterA(config-if)#ip add 192.168.1.1 255.255.255.0
+    RouterA(config-if)#clock rate 64000
+    RouterA(config-if)#no shut
+    %LINK-5-CHANGED: Interface Serial0/1/0, changed state to downRouterA(config-if)#
+    ```
 
 3. 为另一侧加上主机名和IP地址。同时使用`no shut`命令将该接口开启。
 
-```console
-Router>en
-Router#conf t
-Enter configuration commands, one per line. End with CNTL/Z.
-Router(config)#hostname RouterB
-RouterB(config)#int s0/1/0
-RouterB(config-if)#ip address 192.168.1.2 255.255.255.0
-RouterB(config-if)#no shut
-%LINK-5-CHANGED: Interface Serial0/1/0, changed state to down
-RouterB(config-if)#^Z
-RouterB#
-%LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
-```
+
+    ```console
+    Router>en
+    Router#conf t
+    Enter configuration commands, one per line. End with CNTL/Z.
+    Router(config)#hostname RouterB
+    RouterB(config)#int s0/1/0
+    RouterB(config-if)#ip address 192.168.1.2 255.255.255.0
+    RouterB(config-if)#no shut
+    %LINK-5-CHANGED: Interface Serial0/1/0, changed state to down
+    RouterB(config-if)#^Z
+    RouterB#
+    %LINK-5-CHANGED: Interface Serial0/1/0, changed state to up
+    ```
 
 4. 用`ping`命令测试连接。
 
-```console
-RouterB#ping 192.168.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
-```
+
+    ```console
+    RouterB#ping 192.168.1.1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
+    ```
 
 >**注意：** 如ping不工作，就要反复检查，确保在正确的路由器上加上了`clock rate`命令。还要确保正确插入了线缆，并使用命令 `show controllers serial x/x/x`, 这里的接口编号是你的路由器上的。
 
@@ -871,4 +902,3 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
 - 十进制到二进制的转换（随机数字）
 - 二进制到十进制的转换（随机数字）
 - IPv4 子网划分（随机网络和场景）
-

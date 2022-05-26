@@ -755,54 +755,58 @@ Extended IP access list 100 in
 
 1. 配置上面的网络。在两台路由器上加入一条静态路由，领导到任何网络的任何流量都从串行接口发出。这么做的原因是，尽管这不是一个路由实验，仍然需要路由的流量。把`.1`地址加到路由器`A`的串行接口，`.2`地址加到路由器`B`的串行接口。
 
-```console
-RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
-RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
-```
+
+    ```console
+    RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+    RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+    ```
 
 2. 在路由器A上配置一条标准ACL，放行`192.168.1.0/10`网络。默认情况下，其它所有网络都将被阻止。
 
-```console
-RouterA(config)#access-list 1 permit 192.168.1.0 0.0.0.63
-RouterA(config)#int Serial0/1/0
-RouterA(config-if)#ip access-group 1 in
-RouterA(config-if)#exit
-RouterA(config)#exit
-RouterA#
-```
+
+    ```console
+    RouterA(config)#access-list 1 permit 192.168.1.0 0.0.0.63
+    RouterA(config)#int Serial0/1/0
+    RouterA(config-if)#ip access-group 1 in
+    RouterA(config-if)#exit
+    RouterA(config)#exit
+    RouterA#
+    ```
 
 3. 从路由器`B`上测试该条ACL，默认将使用`10.0.0.1`地址。
 
-```console
-RouterB#ping 10.0.0.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
-UUUUU
-Success rate is 0 percent (0/5)
-```
+
+    ```console
+    RouterB#ping 10.0.0.1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
+    UUUUU
+    Success rate is 0 percent (0/5)
+    ```
 
 4. 以源地址`192.168.1.1`来做另一个ping测试，这将没有问题。
 
-```console
-RouterB#ping
-Protocol [ip]:
-Target IP address: 10.0.0.1
-Repeat count [5]:Datagram size [100]:
-Timeout in seconds [2]:
-Extended commands [n]: y
-Source address or interface: 192.168.1.1
-Type of service [0]:
-Set DF bit in IP header? [no]:
-Validate reply data? [no]:
-Data pattern [0xABCD]:
-Loose, Strict, Record, Timestamp, Verbose[none]:
-Sweep range of sizes [n]:
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
-Packet sent with a source address of 192.168.1.1
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
-```
+
+    ```console
+    RouterB#ping
+    Protocol [ip]:
+    Target IP address: 10.0.0.1
+    Repeat count [5]:Datagram size [100]:
+    Timeout in seconds [2]:
+    Extended commands [n]: y
+    Source address or interface: 192.168.1.1
+    Type of service [0]:
+    Set DF bit in IP header? [no]:
+    Validate reply data? [no]:
+    Data pattern [0xABCD]:
+    Loose, Strict, Record, Timestamp, Verbose[none]:
+    Sweep range of sizes [n]:
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.0.0.1, timeout is 2 seconds:
+    Packet sent with a source address of 192.168.1.1
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
+    ```
 
 ### 扩展ACL实验
 
@@ -820,41 +824,44 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 31/31/32 ms
 
 1. 配置上述网络。在路由器`B`上加入一条静态路由，令到前往所有网络的所有流量都从串行接口上发出。这么做是因为，尽管这不是一个路由实验，仍然需要路由流量。
 
-```console
-RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
-```
+
+    ```console
+    RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+    ```
 
 2. 在路由器`A`上配置一条扩展ACL。仅允许往环回接口上发起Telnet流量。
 
-```console
-RouterA(config)#access-list 100 permit tcp any host 172.20.1.1 eq 23
-RouterA(config)#int s0/1/0
-RouterA(config-if)#ip access-group 100 in
-RouterA(config-if)#line vty 0 15
-RouterA(config-line)#password cisco
-RouterA(config-line)#login
-RouterA(config-line)#^Z
-RouterA#
-```
 
-上面的那条ACL编号为`100`, 这就告诉路由器，它是一条扩展ACL。所要允许的是TCP。该条ACL允许来自任何网络的，目的地址为`172.20.1.1`的Telnet端口，端口号为`23`。在执行`show run`命令时，就会看到，路由器实际上会将端口号替换为其对应的名称，就像下面演示的这样。
+    ```console
+    RouterA(config)#access-list 100 permit tcp any host 172.20.1.1 eq 23
+    RouterA(config)#int s0/1/0
+    RouterA(config-if)#ip access-group 100 in
+    RouterA(config-if)#line vty 0 15
+    RouterA(config-line)#password cisco
+    RouterA(config-line)#login
+    RouterA(config-line)#^Z
+    RouterA#
+    ```
 
-```console
-access-list 100 permit tcp any host 172.20.1.1 eq telnet
-```
+    上面的那条ACL编号为`100`, 这就告诉路由器，它是一条扩展ACL。所要允许的是TCP。该条ACL允许来自任何网络的，目的地址为`172.20.1.1`的Telnet端口，端口号为`23`。在执行`show run`命令时，就会看到，路由器实际上会将端口号替换为其对应的名称，就像下面演示的这样。
+
+    ```console
+    access-list 100 permit tcp any host 172.20.1.1 eq telnet
+    ```
 
 3. 现在，从路由器B上做一个Telnet测试。首先往路由器`A`的串行接口上Telnet，将会被阻止。接着测试环回接口。
 
-```console
-RouterB#telnet 10.0.0.1
-Trying 10.0.0.1 ...
-% Connection timed out; remote host not responding
-RouterB#telnet 172.20.1.1
-Trying 172.20.1.1 ...Open
-User Access Verification ←password won’t show when you type it
-Password:
-RouterA> ←Hit Control+Shift+6 together and then let go and press the X key to quit.
-```
+
+    ```console
+    RouterB#telnet 10.0.0.1
+    Trying 10.0.0.1 ...
+    % Connection timed out; remote host not responding
+    RouterB#telnet 172.20.1.1
+    Trying 172.20.1.1 ...Open
+    User Access Verification ←password won’t show when you type it
+    Password:
+    RouterA> ←Hit Control+Shift+6 together and then let go and press the X key to quit.
+    ```
 
 > **注意：** 我们会在其它实验中涉及ACLs，但你真的需要完全地掌握这些内容。为此，要尝试其它的TCP端口，比如`80`、`25`等等。另外，要试试那些UDP端口，比如`53`。如没有将一台PC接上路由器，则是无法对这些其它端口进行测试的。
 
@@ -874,67 +881,70 @@ RouterA> ←Hit Control+Shift+6 together and then let go and press the X key to 
 
 1. 配置上面的网络。在两台路由器上加入一条静态路由，领导到任何网络的任何流量都从串行接口发出。这么做的原因是，尽管这不是一个路由实验，仍然需要路由的流量。
 
-```console
-RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
-RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
-```
+
+    ```console
+    RouterA(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+    RouterB(config)#ip route 0.0.0.0 0.0.0.0 s0/1/0
+    ```
 
 2. 在路由器`B`上加入一条扩展的命名ACL。只放行主机`172.20.1.1`，阻止其它任何主机或网络。
 
-```console
-RouterB(config)#ip access-list extended blockping
-RouterB(config-ext-nacl)#permit icmp host 172.20.1.1 any
-RouterB(config-ext-nacl)#exit
-RouterB(config)#int s0/1/0
-RouterB(config-if)#ip access-group blockping in
-RouterB(config-if)#
-```
+
+    ```console
+    RouterB(config)#ip access-list extended blockping
+    RouterB(config-ext-nacl)#permit icmp host 172.20.1.1 any
+    RouterB(config-ext-nacl)#exit
+    RouterB(config)#int s0/1/0
+    RouterB(config-if)#ip access-group blockping in
+    RouterB(config-if)#
+    ```
 
 3. 现在分别从路由器`A`的串行接口和换回接口发出`ping`来测试该条ACL。
 
-```console
-RouterA#ping 192.168.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-UUUUU
-Success rate is 0 percent (0/5)
-RouterA#ping
-Protocol [ip]:
-Target IP address: 192.168.1.1
-Repeat count [5]:
-Datagram size [100]:
-Timeout in seconds [2]:
-Extended commands [n]: y
-Source address or interface: 172.20.1.1
-Type of service [0]:
-Set DF bit in IP header? [no]:
-Validate reply data? [no]:
-Data pattern [0xABCD]:
-Loose, Strict, Record, Timestamp, Verbose[none]:
-Sweep range of sizes [n]:
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
-Packet sent with a source address of 172.20.1.1
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 31/34/47 ms
-```
 
-> **注意：** 你需要搞清楚各种服务，以及各种服务所用到的端口。否则，要配置ACL就会非常棘手。本条ACL相当简单，因此可以仅用一行完成。在有着路由协议运行时，需要放行它们。
+    ```console
+    RouterA#ping 192.168.1.1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+    UUUUU
+    Success rate is 0 percent (0/5)
+    RouterA#ping
+    Protocol [ip]:
+    Target IP address: 192.168.1.1
+    Repeat count [5]:
+    Datagram size [100]:
+    Timeout in seconds [2]:
+    Extended commands [n]: y
+    Source address or interface: 172.20.1.1
+    Type of service [0]:
+    Set DF bit in IP header? [no]:
+    Validate reply data? [no]:
+    Data pattern [0xABCD]:
+    Loose, Strict, Record, Timestamp, Verbose[none]:
+    Sweep range of sizes [n]:
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+    Packet sent with a source address of 172.20.1.1
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 31/34/47 ms
+    ```
 
-要放行RIP，就要像这样指定。
+    > **注意：** 你需要搞清楚各种服务，以及各种服务所用到的端口。否则，要配置ACL就会非常棘手。本条ACL相当简单，因此可以仅用一行完成。在有着路由协议运行时，需要放行它们。
 
-```console
-access-list 101 permit udp any any eq rip
-```
+    要放行RIP，就要像这样指定。
 
-要放行OSPF，要像这样指定。
+    ```console
+    access-list 101 permit udp any any eq rip
+    ```
 
-```console
-access-list 101 permit ospf any any
-```
+    要放行OSPF，要像这样指定。
 
-要放行EIGRP，要像这样指定。
+    ```console
+    access-list 101 permit ospf any any
+    ```
 
-```console
-access-list 101 permit eigrp any any
-```
+    要放行EIGRP，要像这样指定。
+
+    ```console
+    access-list 101 permit eigrp any any
+    ```

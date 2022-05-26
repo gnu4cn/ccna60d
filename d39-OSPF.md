@@ -1221,79 +1221,83 @@ __实验步骤__
 
 2. 将OSPF添加到路由器`A`。将`Loopback0`上的网络放入到`Area 1`，将那个`10`网络放入到`Area 0`。
 
-```console
-RouterA(config)#router ospf 4
-RouterA(config-router)#network 172.20.1.0 0.0.0.255 area 1
-RouterA(config-router)#network 10.0.0.0 0.0.0.3 area 0
-RouterA(config-router)#^Z
-RouterA#
-%SYS-5-CONFIG_I: Configured from console by console
-RouterA#show ip protocols
-Routing Protocol is “ospf 4”
-  Outgoing update filter list for all interfaces is not set
-  Incoming update filter list for all interfaces is not set
-  Router ID 172.20.1.1
-  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
-  Maximum path: 4
-  Routing for Networks:
-    172.20.1.0 0.0.0.255 area 1
-    10.0.0.0 0.0.0.3 area 0
-  Routing Information Sources:
-    Gateway         Distance      Last Update
-    172.20.1.1      110           00:00:09
-Distance: (default is 110)
-```
+
+    ```console
+    RouterA(config)#router ospf 4
+    RouterA(config-router)#network 172.20.1.0 0.0.0.255 area 1
+    RouterA(config-router)#network 10.0.0.0 0.0.0.3 area 0
+    RouterA(config-router)#^Z
+    RouterA#
+    %SYS-5-CONFIG_I: Configured from console by console
+    RouterA#show ip protocols
+    Routing Protocol is “ospf 4”
+      Outgoing update filter list for all interfaces is not set
+      Incoming update filter list for all interfaces is not set
+      Router ID 172.20.1.1
+      Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+      Maximum path: 4
+      Routing for Networks:
+        172.20.1.0 0.0.0.255 area 1
+        10.0.0.0 0.0.0.3 area 0
+      Routing Information Sources:
+        Gateway         Distance      Last Update
+        172.20.1.1      110           00:00:09
+    Distance: (default is 110)
+    ```
 
 3. 将OSPF添加到路由器`B`。将该环回网络放入到OSPF的`Area 40`。
 
-```console
-RouterB(config)#router ospf 2
-RouterB(config-router)#net 10.0.0.0 0.0.0.3 area 0
-RouterB(config-router)#
-00:22:35: %OSPF-5-ADJCHG: Process 2, Nbr 172.20.1.1 on Serial0/1/0 from LOADING to FULL, Loading Done
-RouterB(config-router)#net 192.168.1.0 0.0.0.63 area 40
-RouterB(config-router)# ^Z
-RouterB#show ip protocols
-Routing Protocol is “ospf 2”
-  Outgoing update filter list for all interfaces is not set
-  Incoming update filter list for all interfaces is not set
-  Router ID 192.168.1.1
-  Number of areas in this router is 2. 2 normal 0 stub 0 nssa
-  Maximum path: 4
-  Routing for Networks:
-    10.0.0.0 0.0.0.3 area 0
-    192.168.1.0 0.0.0.63 area 40
-  Routing Information Sources:
-    Gateway         Distance      Last Update
-    172.20.1.1      110           00:01:18
-    192.168.1.1     110           00:00:44
-Distance: (default is 110)
-```
+
+    ```console
+    RouterB(config)#router ospf 2
+    RouterB(config-router)#net 10.0.0.0 0.0.0.3 area 0
+    RouterB(config-router)#
+    00:22:35: %OSPF-5-ADJCHG: Process 2, Nbr 172.20.1.1 on Serial0/1/0 from LOADING to FULL, Loading Done
+    RouterB(config-router)#net 192.168.1.0 0.0.0.63 area 40
+    RouterB(config-router)# ^Z
+    RouterB#show ip protocols
+    Routing Protocol is “ospf 2”
+      Outgoing update filter list for all interfaces is not set
+      Incoming update filter list for all interfaces is not set
+      Router ID 192.168.1.1
+      Number of areas in this router is 2. 2 normal 0 stub 0 nssa
+      Maximum path: 4
+      Routing for Networks:
+        10.0.0.0 0.0.0.3 area 0
+        192.168.1.0 0.0.0.63 area 40
+      Routing Information Sources:
+        Gateway         Distance      Last Update
+        172.20.1.1      110           00:01:18
+        192.168.1.1     110           00:00:44
+    Distance: (default is 110)
+    ```
 
 4. 对两台路由器上的路由表进行检查。查找那些OSPF通告的网络。将见到一个`IA`，也就是OSPF的区域间（inter-area）。还将见到OSPF的`AD`，也就是管理距离（Administrative Distance）`110`。
 
-```console
-RouterA#sh ip route
-...
-[Truncated Output]
-     10.0.0.0/30 is subnetted, 1 subnets
-C       10.0.0.0 is directly connected, Serial0/1/0
-     172.20.0.0/24 is subnetted, 1 subnets
-C       172.20.1.0 is directly connected, Loopback0
-     192.168.1.0/32 is subnetted, 1 subnets
-O IA    192.168.1.1 [110/65] via 10.0.0.2, 00:01:36, Serial0/1/0
-RouterA#
-```
+
+    ```console
+    RouterA#sh ip route
+    ...
+    [Truncated Output]
+         10.0.0.0/30 is subnetted, 1 subnets
+    C       10.0.0.0 is directly connected, Serial0/1/0
+         172.20.0.0/24 is subnetted, 1 subnets
+    C       172.20.1.0 is directly connected, Loopback0
+         192.168.1.0/32 is subnetted, 1 subnets
+    O IA    192.168.1.1 [110/65] via 10.0.0.2, 00:01:36, Serial0/1/0
+    RouterA#
+    ```
 
 5. 在两台路由器上分别执行一些可用的OSPF命令。
 
-```console
-RouterA#sh ip ospf ?
-  <1-65535>       Process ID numberborder-routers Border and Boundary Router Information
-  database        Database summary
-  interface       Interface information
-  neighbor        Neighbor list
-```
+
+    ```console
+    RouterA#sh ip ospf ?
+      <1-65535>       Process ID numberborder-routers Border and Boundary Router Information
+      database        Database summary
+      interface       Interface information
+      neighbor        Neighbor list
+    ```
 
 请访问[www.in60days.com](http://www.in60days.com)并观看作者是如何完成该实验的。
 

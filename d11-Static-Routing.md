@@ -170,57 +170,61 @@ Code: * - installed in RIB
 **实验步骤**
 
 1. 按照上面的拓扑图分配IP地址。`Router A`可以是`192.168.1.1/30`, `Router B`可以是`.2`。
+
 2. 通过串行链路进行`ping`操作，以确保该链路是工作的。
+
 3. 在`Router A`上指定一条静态路由，将到`10.1.1.0/10`网络的所有流量，从串行接口发送出去。当然要使用你自己的串行端口编号；不要只是拷贝我的配置，你的接口有不同编号！
 
-```console
-RouterA(config)#ip route 10.0.0.0 255.192.0.0 Serial0/1/0
-RouterA(config)#exit
-RouterA#ping 10.1.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 18/28/32 ms
-RouterA#
-RouterA#show ip route
-Codes: 	C - Connected, S - Static, I - IGRP, R - RIP, M - Mobile, B - BGP
-		D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
-		N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-		E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
-		i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
-		* - Candidate default, U - Per-user static route, o - ODR
-		P - Periodic downloaded static route
-Gateway of last resort is not set
-	  10.0.0.0/10 is subnetted, 1 subnets
-S		  10.0.0.0 is directly connected, Serial0/1/0
-	  172.16.0.0/24 is subnetted, 1 subnets
-C		  172.16.1.0 is directly connected, Loopback0
-	  192.168.1.0/30 is subnetted, 1 subnets
-C		  192.168.1.0 is directly connected, Serial0/1/0
-RouterA#
-RouterA#show ip route 10.1.1.1
-Routing entry for 10.0.0.0/10
-Known via “static”, distance 1, metric 0 (connected)
-  Routing Descriptor Blocks:
-  * directly connected, via Serial0/1/0
-		Route metric is 0, traffic share count is 1
-RouterA#
-```
+
+    ```console
+    RouterA(config)#ip route 10.0.0.0 255.192.0.0 Serial0/1/0
+    RouterA(config)#exit
+    RouterA#ping 10.1.1.1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.1.1.1, timeout is 2 seconds:
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 18/28/32 ms
+    RouterA#
+    RouterA#show ip route
+    Codes: 	C - Connected, S - Static, I - IGRP, R - RIP, M - Mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+            N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+            E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+            * - Candidate default, U - Per-user static route, o - ODR
+            P - Periodic downloaded static route
+    Gateway of last resort is not set
+          10.0.0.0/10 is subnetted, 1 subnets
+    S		  10.0.0.0 is directly connected, Serial0/1/0
+          172.16.0.0/24 is subnetted, 1 subnets
+    C		  172.16.1.0 is directly connected, Loopback0
+          192.168.1.0/30 is subnetted, 1 subnets
+    C		  192.168.1.0 is directly connected, Serial0/1/0
+    RouterA#
+    RouterA#show ip route 10.1.1.1
+    Routing entry for 10.0.0.0/10
+    Known via “static”, distance 1, metric 0 (connected)
+      Routing Descriptor Blocks:
+      * directly connected, via Serial0/1/0
+            Route metric is 0, traffic share count is 1
+    RouterA#
+    ```
 
 4. 在`Router B`上配置一条静态路由，将到`172.16.1.0/24`网络的所有流量，发到下一跳地址`192.168.1.1`。
 
-```console
-RouterB(config)#ip route 172.16.1.0 255.255.255.0 192.168.1.1
-RouterB(config)#exit
-RouterB#ping 172.16.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds:
-!!!!!
-RouterB#show ip route 172.16.1.1
-Routing entry for 172.16.1.0/24
-Known via “static”, distance 1, metric 0
-  Routing Descriptor Blocks:
-  * 192.168.1.1
-	  Route metric is 0, traffic share count is 1
-RouterB#
-```
+
+    ```console
+    RouterB(config)#ip route 172.16.1.0 255.255.255.0 192.168.1.1
+    RouterB(config)#exit
+    RouterB#ping 172.16.1.1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds:
+    !!!!!
+    RouterB#show ip route 172.16.1.1
+    Routing entry for 172.16.1.0/24
+    Known via “static”, distance 1, metric 0
+      Routing Descriptor Blocks:
+      * 192.168.1.1
+          Route metric is 0, traffic share count is 1
+    RouterB#
+    ```

@@ -869,4 +869,3 @@ Fa0/12                0                  1                        0
     - 测试`show interface trunk`命令
     - 测试`show VTP status`命令
     - 测试`show VTP counter`命令
-

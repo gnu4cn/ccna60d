@@ -966,4 +966,3 @@ FastEthernet0/0 is up, line protocol is up
 - 将十进制转换成十六进制（随机数字）
 - 将十六进制转换成十进制（随机数字）
 - IPv6子网划分（随机网络和场景）
-

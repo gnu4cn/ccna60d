@@ -251,4 +251,3 @@ EIGRP-IPv6 Protocol for AS(1)
 - 使用`show ipv6 eigrp topology`命令对EIGRP的拓扑进行检查
 
 请访问[www.in60days.com](http://www.in60days.com/)并免费观看作者如何完成的此实验。
-

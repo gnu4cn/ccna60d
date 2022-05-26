@@ -369,16 +369,17 @@ IP（数据）流基于五个，上至七个的一套IP数据包属性，它们�
 
 1. 在那些希望对信息进行捕获并在流缓存中存储的所有接口上，使用接口配置命令`ip flow ingress`，把接口配置为将数据流捕获进入NetFlow缓存。重要的是记住NetFlow仅在每个接口的基础上配置的（Configure the interface to capture flows into the NetFlow cache using the `ip flow ingress` interface configuration command on all interfaces for which you want information to be captured and stored in the flow cache. It is important to remember that NetFlow is configured on a per-interface basis only）。
 
-> **Dario先生的提醒**：命令`ip route-cache flow`可在物理接口及其下的所有子接口上，开启（NetFlow）数据流（the `ip route-cache flow` command will enable flows on the physical interface and all subinterfaces associated with it）。
-> 而`ip flow ingress`命令则将开同一接口上的单个子接口、而非所有子接口上，开启（NetFlow）数据流。这在对观看某个接口的子接口`X`、`Y`及`Z`上的数据流不感兴趣，而真正想要观看同一接口上的子接口`A`、`B`与`C`子接口上的数据流时，此命令就很好用。
-> 此外，在NetFlow版本5下，唯一选项是使用`ip flow ingress`命令来监视上传统计数据（with NetFlow v5, the only option was to monitor inbound statistics using the `ip flow ingress` command）。不过随着NetFlow版本9的发布，现在就了使用`ip flow egress`命令，来对离开各个接口的流量进行监控的选择了。
+
+    > **Dario先生的提醒**：命令`ip route-cache flow`可在物理接口及其下的所有子接口上，开启（NetFlow）数据流（the `ip route-cache flow` command will enable flows on the physical interface and all subinterfaces associated with it）。
+    > 而`ip flow ingress`命令则将开同一接口上的单个子接口、而非所有子接口上，开启（NetFlow）数据流。这在对观看某个接口的子接口`X`、`Y`及`Z`上的数据流不感兴趣，而真正想要观看同一接口上的子接口`A`、`B`与`C`子接口上的数据流时，此命令就很好用。
+    > 此外，在NetFlow版本5下，唯一选项是使用`ip flow ingress`命令来监视上传统计数据（with NetFlow v5, the only option was to monitor inbound statistics using the `ip flow ingress` command）。不过随着NetFlow版本9的发布，现在就了使用`ip flow egress`命令，来对离开各个接口的流量进行监控的选择了。
 
 
-> **注意：** 从思科IOS版本`12.4(2)T`及`12.2(18)SXD`起，已将命令`ip flow ingress`替换为`ip route-cache flow`命令。而从思科IOS版本`12.2(25)S`起，命令`show running configuration` 的输出已被修改，因此命令`ip route-cache flow`命令，以及`ip flow ingress`命令，将在二者之一被配置后，出现在`show running-configuration`的输出中。
+    > **注意：** 从思科IOS版本`12.4(2)T`及`12.2(18)SXD`起，已将命令`ip flow ingress`替换为`ip route-cache flow`命令。而从思科IOS版本`12.2(25)S`起，命令`show running configuration` 的输出已被修改，因此命令`ip route-cache flow`命令，以及`ip flow ingress`命令，将在二者之一被配置后，出现在`show running-configuration`的输出中。
 
-随后NetFlow信息就存储在本地路由器上，同时可在本地设备上，使用`show ip cache flow`查看到。
+    随后NetFlow信息就存储在本地路由器上，同时可在本地设备上，使用`show ip cache flow`查看到。
 
-在打算将数据导出到NetFlow收集器的情况下，将需要两个额外任务，如下：
+    在打算将数据导出到NetFlow收集器的情况下，将需要两个额外任务，如下：
 
 2. 使用全局配置命令`ip flow-export version [1 | 5 | 9]`，配置思科IOS NetFlow的版本或格式。NetFlow版本`1`（`v1`）是在首个NetFlow发布中所支持的最初格式。在用于分析导出的NetFlow数据的应用仅支持该版本时，才应使用此版本。相比版本`1`，版本`5`导出更多的字段，同时也是应用最广泛的版本。而版本`9`则是最新的思科IOS NetFlow版本，也是一个新的IETF标准的基础。版本`9`是一个灵活的导出格式版本。
 

@@ -210,24 +210,24 @@ FDDI 网络中会用到双环连接的环形拓扑，以提供在一个环失效
 *表 1.1 -- 物理和逻辑拓扑*
 
 <table style="width: 100%">
-<tr>
-<th>拓扑</th><th>物理</th><th>逻辑</th>
-</tr>
-<tr>
-<td>总线</td><td>总线</td><td>总线</td>
-</tr>
-<tr>
-<td>星形</td><td>星形</td><td>总线</td>
-</tr>
-<tr>
-<td>令牌环</td><td>星形</td><td>环形</td>
-</tr>
-<tr>
-<td>点对点</td><td>总线</td><td>总线</td>
-</tr>
-<tr>
-<td>FDDI</td><td>环形</td><td>环形</td>
-</tr>
+    <tr>
+        <th>拓扑</th><th>物理</th><th>逻辑</th>
+    </tr>
+    <tr>
+        <td>总线</td><td>总线</td><td>总线</td>
+    </tr>
+    <tr>
+        <td>星形</td><td>星形</td><td>总线</td>
+    </tr>
+    <tr>
+        <td>令牌环</td><td>星形</td><td>环形</td>
+    </tr>
+    <tr>
+        <td>点对点</td><td>总线</td><td>总线</td>
+    </tr>
+    <tr>
+        <td>FDDI</td><td>环形</td><td>环形</td>
+    </tr>
 </table>
 
 ## OSI 和 TCP 模型
@@ -244,16 +244,30 @@ OSI 模型将所有网络功能划分为七个不同的层。该层次化模型�
 
 *表 1.2 OSI 模型*
 <table>
-<tr>
-<th>层 #</th><th>层名</th>
-</tr>
-<tr><td>7</td><td>应用层，Application</td></tr>
-<tr><td>6</td><td>表示层, Presentation</td></tr>
-<tr><td>5</td><td>会话层, Session</td></tr>
-<tr><td>4</td><td>传输层, Transport</td></tr>
-<tr><td>3</td><td>网络层, Network</td></tr>
-<tr><td>2</td><td>数据链路层, Data Link</td></tr>
-<tr><td>1</td><td>物理层, Physical</td></tr>
+    <tr>
+        <th>层 #</th><th>层名</th>
+    </tr>
+    <tr>
+        <td>7</td><td>应用层，Application</td>
+    </tr>
+    <tr>
+        <td>6</td><td>表示层, Presentation</td>
+    </tr>
+    <tr>
+        <td>5</td><td>会话层, Session</td>
+    </tr>
+    <tr>
+        <td>4</td><td>传输层, Transport</td>
+    </tr>
+    <tr>
+        <td>3</td><td>网络层, Network</td>
+    </tr>
+    <tr>
+        <td>2</td><td>数据链路层, Data Link</td>
+    </tr>
+    <tr>
+        <td>1</td><td>物理层, Physical</td>
+    </tr>
 </table>
 
 "**A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing"
@@ -385,31 +399,21 @@ TCP/IP 模型已由四层更新为五层，所以你会在考试中被问到有�
 *表 1.3 五层的 TCP 模型*
 
 <table>
-<tr>
-<th>应用，Application</th>
-<td>仍未封装的数据，</td>
-<td></td>
-</tr>
-<tr>
-<th>传输，Transport</th>
-<td>将 TCP 头部添加到数据上，TCP header added to the data</td>
-<td><b>段</b>，Segment</td>
-</tr>
-<tr>
-<th>网络，Network</th>
-<td>IP 头部被添加上去（包括 IP 地址）, IP header added(including IP address)</td>
-<td><b>包</b>，Packet</td>
-</tr>
-<tr>
-<th>数据链路，Data Link</th>
-<td>添加数据链路头部（数据链路地址）, Data Link header added(Data Link address)</td>
-<td><b>帧</b>，Frame</td>
-</tr>
-<tr>
-<th>物理，Physical</th>
-<td>转变成电信号, Turned into electrical signals</td>
-<td>线路上的<b>位</b>，Bits on the wire</td>
-</tr>
+    <tr>
+        <th>应用，Application</th><td>仍未封装的数据，</td><td></td>
+    </tr>
+    <tr>
+        <th>传输，Transport</th><td>将 TCP 头部添加到数据上，TCP header added to the data</td><td><b>段</b>，Segment</td>
+    </tr>
+    <tr>
+        <th>网络，Network</th><td>IP 头部被添加上去（包括 IP 地址）, IP header added(including IP address)</td><td><b>包</b>，Packet</td>
+    </tr>
+    <tr>
+        <th>数据链路，Data Link</th><td>添加数据链路头部（数据链路地址）, Data Link header added(Data Link address)</td><td><b>帧</b>，Frame</td>
+    </tr>
+    <tr>
+        <th>物理，Physical</th><td>转变成电信号, Turned into electrical signals</td><td>线路上的<b>位</b>，Bits on the wire</td>
+    </tr>
 </table>
 
 你可能会被问及 TCP/IP 模型与 OSI 模型的对应关系。如表 1.4 所示：
@@ -417,43 +421,30 @@ TCP/IP 模型已由四层更新为五层，所以你会在考试中被问到有�
 *表 1.4 -- TCP/IP 模型到 OSI 模型的对应关系*
 
 <table>
-<tr>
-<th>层号，Layer #</th>
-<th>OSI 模型</th>
-<th>TCP 模型</th>
-</tr>
-<tr>
-<td>7</td>
-<td>应用, Application</td>
-<td rowspan="3">应用, Application</td>
-</tr>
-<tr>
-<td>6</td>
-<td>表示, Presentation</td>
-</tr>
-<tr>
-<td>5</td>
-<td>会话, Session</td>
-</tr>
-<tr>
-<td>4</td>
-<td>传输, Transport</td>
-<td>主机到主机, Host to Host</td>
-</tr>
-<tr>
-<td>3</td>
-<td>网络, Network</td>
-<td>网际网络, Internetwork</td>
-</tr>
-<tr>
-<td>2</td>
-<td>数据链路, Data Link</td>
-<td rowspan="2">网络接口, Network Interface</td>
-</tr>
-<tr>
-<td>1</td>
-<td>物理, Physical</td>
-</tr>
+    <tr>
+        <th>层号，Layer #</th><th>OSI 模型</th><th>TCP 模型</th>
+    </tr>
+    <tr>
+        <td>7</td><td>应用, Application</td><td rowspan="3">应用, Application</td>
+    </tr>
+    <tr>
+        <td>6</td><td>表示, Presentation</td>
+    </tr>
+    <tr>
+        <td>5</td><td>会话, Session</td>
+    </tr>
+    <tr>
+        <td>4</td><td>传输, Transport</td><td>主机到主机, Host to Host</td>
+    </tr>
+    <tr>
+        <td>3</td><td>网络, Network</td><td>网际网络, Internetwork</td>
+    </tr>
+    <tr>
+        <td>2</td><td>数据链路, Data Link</td><td rowspan="2">网络接口, Network Interface</td>
+    </tr>
+    <tr>
+        <td>1</td><td>物理, Physical</td>
+    </tr>
 </table>
 
 思科选择了新的 TCP 模型而不再是 OSI 模型作为网络框架，但仍要求你理解 OSI 模型，所以在大纲中保留了 OSI 模型。
@@ -461,35 +452,24 @@ TCP/IP 模型已由四层更新为五层，所以你会在考试中被问到有�
 *表 1.5 新旧 TCP 模型对比*
 
 <table>
-<tr>
-<th>旧 TCP 模型, Old TCP Model</th>
-<th>层, Layer</th>
-<th>新 TCP 模型, New TCP Model</th>
-</tr>
-<tr>
-<td>应用, Application</td>
-<td>5</td>
-<td>应用, Application</td>
-</tr>
-<tr>
-<td>传输, Transport</td>
-<td>4</td>
-<td>传输, Transport</td>
-</tr>
-<tr>
-<td>互联网, Internet</td>
-<td>3</td>
-<td>网络, Network</td>
-</tr>
-<tr>
-<td rowspan="2">链路/网络接口, Link/Network Interface</td>
-<td>2</td>
-<td>数据链路, Data Link</td>
-</tr>
-<tr>
-<td>1</td>
-<td>物理, Phycial</td>
-</tr>
+    <tr>
+        <th>旧 TCP 模型, Old TCP Model</th><th>层, Layer</th><th>新 TCP 模型, New TCP Model</th>
+    </tr>
+    <tr>
+        <td>应用, Application</td><td>5</td><td>应用, Application</td>
+    </tr>
+    <tr>
+        <td>传输, Transport</td><td>4</td><td>传输, Transport</td>
+    </tr>
+    <tr>
+        <td>互联网, Internet</td><td>3</td><td>网络, Network</td>
+    </tr>
+    <tr>
+        <td rowspan="2">链路/网络接口, Link/Network Interface</td><td>2</td><td>数据链路, Data Link</td>
+    </tr>
+    <tr>
+        <td>1</td><td>物理, Phycial</td>
+    </tr>
 </table>
 
 ## TCP/IP
@@ -807,48 +787,24 @@ ANSI/TIA/EIA-568-A 标准中对以太网线的类别进行了定义，有 3 类�
 *表 1.6 常见以太网标准*
 
 <table>
-<tr>
-<th>速率</th>
-<th>名称</th>
-<th>IEEE 名称</th>
-<th>IEEE 标准</th>
-<th>线缆类型/长度</th>
-</tr>
-<tr>
-<td>10Mbps</td>
-<td>以太网，Ethernet</td>
-<td>10BASE-T</td>
-<td>802.3</td>
-<td>铜线/100米</td>
-</tr>
-<tr>
-<td>100Mbps</td>
-<td>快速以太网，FastEthernet</td>
-<td>100BASE-T</td>
-<td>802.3u</td>
-<td>铜线/100米, Copper/100m</td>
-</tr>
-<tr>
-<td>1000Mbps</td>
-<td>千兆以太网，GigabitEthernet</td>
-<td>1000BASE-LX</td>
-<td>802.3z</td>
-<td>光纤/5000米，Fibre/5000m</td>
-</tr>
-<tr>
-<td>1000Mbps</td>
-<td>千兆以太网</td>
-<td>1000BASE-T</td>
-<td>802.3ab</td>
-<td>铜线/100米, Copper/100m</td>
-</tr>
-<tr>
-<td>10Gbps</td>
-<td>万兆以太网，TenGigabitEthernet</td>
-<td>10GBASE-T</td>
-<td>802.3an</td>
-<td>铜线/100米, Copper/100m</td>
-</tr>
+    <tr>
+        <th>速率</th><th>名称</th><th>IEEE 名称</th><th>IEEE 标准</th><th>线缆类型/长度</th>
+    </tr>
+    <tr>
+        <td>10Mbps</td><td>以太网，Ethernet</td><td>10BASE-T</td><td>802.3</td><td>铜线/100米</td>
+    </tr>
+    <tr>
+        <td>100Mbps</td><td>快速以太网，FastEthernet</td><td>100BASE-T</td><td>802.3u</td><td>铜线/100米, Copper/100m</td>
+    </tr>
+    <tr>
+        <td>1000Mbps</td><td>千兆以太网，GigabitEthernet</td><td>1000BASE-LX</td><td>802.3z</td><td>光纤/5000米，Fibre/5000m</td>
+    </tr>
+    <tr>
+        <td>1000Mbps</td><td>千兆以太网</td><td>1000BASE-T</td><td>802.3ab</td><td>铜线/100米, Copper/100m</td>
+    </tr>
+    <tr>
+        <td>10Gbps</td><td>万兆以太网，TenGigabitEthernet</td><td>10GBASE-T</td><td>802.3an</td><td>铜线/100米, Copper/100m</td>
+    </tr>
 </table>
 
 思科喜欢将线缆规格有关的问题偷偷摸摸地放到考试中去，**所以务必要记住这个表格**。
@@ -1830,4 +1786,3 @@ My_Router(config)#router rip
 My_Router(config-router)#network 10.0.0.0
 My_Router(config-router)#
 ```
-

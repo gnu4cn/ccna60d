@@ -2649,108 +2649,113 @@ IP-EIGRP (AS 150): Topology entry for 10.3.3.0/24
 ### 实验步骤
 
 1. 基于上面的拓扑，配置上所有IP地址。确保可以经由串行链路`ping`通。
+
 2. 在两台路由器上以自治系统编号30, 配置EIGRP。
 
-```console
-RouterA(config)#router eigrp 30
-RouterA(config-router)#net 172.20.0.0
-RouterA(config-router)#net 10.0.0.0
-RouterA(config-router)#^Z
-RouterA#
-RouterB#conf t
-Enter configuration commands, one per line.
-End with CNTL/Z.
-RouterB(config)#router eigrp 30
-RouterB(config-router)#net 10.0.0.0
-%DUAL-5-NBRCHANGE: IP-EIGRP 30: Neighbor 10.0.0.1 (Serial0/1/0) is up: new adjacency
-RouterB(config-router)#net 192.168.1.0
-```
+
+    ```console
+    RouterA(config)#router eigrp 30
+    RouterA(config-router)#net 172.20.0.0
+    RouterA(config-router)#net 10.0.0.0
+    RouterA(config-router)#^Z
+    RouterA#
+    RouterB#conf t
+    Enter configuration commands, one per line.
+    End with CNTL/Z.
+    RouterB(config)#router eigrp 30
+    RouterB(config-router)#net 10.0.0.0
+    %DUAL-5-NBRCHANGE: IP-EIGRP 30: Neighbor 10.0.0.1 (Serial0/1/0) is up: new adjacency
+    RouterB(config-router)#net 192.168.1.0
+    ```
 
 3. 对两台路由器上的路由表分别进行检查。
 
-```console
-RouterA#sh ip route
-Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
-       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
-       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
-       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
-       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
-       * - candidate default, U - per-user static route, o - ODR
-       P - periodic downloaded static route
-Gateway of last resort is not set
-     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
-D       10.0.0.0/8 is a summary, 00:01:43, Null0
-C       10.0.0.0/30 is directly connected, Serial0/1/0
-     172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
-D       172.20.0.0/16 is a summary, 00:01:43, Null0
-C       172.20.1.0/24 is directly connected, Loopback0
-D    192.168.1.0/24 [90/20640000] via 10.0.0.2, 00:00:49, Serial0/1/0
-RouterA#
-```
 
-```console
-RouterB#show ip route
-...
-[Truncated Output]
-...
-     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
-D       10.0.0.0/8 is a summary, 00:01:21, Null0
-C       10.0.0.0/30 is directly connected, Serial0/1/0
-D    172.20.0.0/16 [90/20640000] via 10.0.0.1, 00:01:27, Serial0/1/0
-     192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
-D       192.168.1.0/24 is a summary, 00:01:21, Null0
-C       192.168.1.0/26 is directly connected, Loopback0
-RouterB#
-```
+    ```console
+    RouterA#sh ip route
+    Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
+           D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+           N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+           E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+           i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+           * - candidate default, U - per-user static route, o - ODR
+           P - periodic downloaded static route
+    Gateway of last resort is not set
+         10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    D       10.0.0.0/8 is a summary, 00:01:43, Null0
+    C       10.0.0.0/30 is directly connected, Serial0/1/0
+         172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+    D       172.20.0.0/16 is a summary, 00:01:43, Null0
+    C       172.20.1.0/24 is directly connected, Loopback0
+    D    192.168.1.0/24 [90/20640000] via 10.0.0.2, 00:00:49, Serial0/1/0
+    RouterA#
+    ```
+
+    ```console
+    RouterB#show ip route
+    ...
+    [Truncated Output]
+    ...
+         10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    D       10.0.0.0/8 is a summary, 00:01:21, Null0
+    C       10.0.0.0/30 is directly connected, Serial0/1/0
+    D    172.20.0.0/16 [90/20640000] via 10.0.0.1, 00:01:27, Serial0/1/0
+         192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+    D       192.168.1.0/24 is a summary, 00:01:21, Null0
+    C       192.168.1.0/26 is directly connected, Loopback0
+    RouterB#
+    ```
 
 4. 查明两台路由器都对各个网络进行着自动汇总。并于随后在路由器B上关闭自动汇总。
 
-```console
-RouterB#show ip protocols
-Routing Protocol is “eigrp 30”
-  Outgoing update filter list for all interfaces is not set
-  Incoming update filter list for all interfaces is not set
-  Default networks flagged in outgoing updates
-  Default networks accepted from incoming updates
-  EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
-  EIGRP maximum hopcount 100
-  EIGRP maximum metric variance 1
-Redistributing: eigrp 30
-  Automatic network summarization is in effect
-  Automatic address summarization:
-    192.168.1.0/24 for Serial0/1/0
-      Summarizing with metric 128256
-    10.0.0.0/8 for Loopback0
-      Summarizing with metric 20512000
-  Maximum path: 4
-  Routing for Networks:
-     10.0.0.0
-     192.168.1.0
-  Routing Information Sources:
-    Gateway         Distance      Last Update
-    10.0.0.1        90            496078
-  Distance: internal 90 external 170
-RouterB(config)#router eigrp 30
-RouterB(config-router)#no auto-summary
-```
+
+    ```console
+    RouterB#show ip protocols
+    Routing Protocol is “eigrp 30”
+      Outgoing update filter list for all interfaces is not set
+      Incoming update filter list for all interfaces is not set
+      Default networks flagged in outgoing updates
+      Default networks accepted from incoming updates
+      EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+      EIGRP maximum hopcount 100
+      EIGRP maximum metric variance 1
+    Redistributing: eigrp 30
+      Automatic network summarization is in effect
+      Automatic address summarization:
+        192.168.1.0/24 for Serial0/1/0
+          Summarizing with metric 128256
+        10.0.0.0/8 for Loopback0
+          Summarizing with metric 20512000
+      Maximum path: 4
+      Routing for Networks:
+         10.0.0.0
+         192.168.1.0
+      Routing Information Sources:
+        Gateway         Distance      Last Update
+        10.0.0.1        90            496078
+      Distance: internal 90 external 170
+    RouterB(config)#router eigrp 30
+    RouterB(config-router)#no auto-summary
+    ```
 
 5. 对路由器A上的路由表进行检查。
 
-```console
-RouterA#show ip route
-...
-[Truncated Output]
-...
-Gateway of last resort is not set
-     10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
-D       10.0.0.0/8 is a summary, 00:00:04, Null0
-C       10.0.0.0/30 is directly connected, Serial0/1/0
-     172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
-D       172.20.0.0/16 is a summary, 00:00:04, Null0
-C       172.20.1.0/24 is directly connected, Loopback0
-     192.168.1.0/26 is subnetted, 1 subnets
-D       192.168.1.0 [90/20640000] via 10.0.0.2, 00:00:04, Serial0/1/0
-RouterA#
-```
+
+    ```console
+    RouterA#show ip route
+    ...
+    [Truncated Output]
+    ...
+    Gateway of last resort is not set
+         10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    D       10.0.0.0/8 is a summary, 00:00:04, Null0
+    C       10.0.0.0/30 is directly connected, Serial0/1/0
+         172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+    D       172.20.0.0/16 is a summary, 00:00:04, Null0
+    C       172.20.1.0/24 is directly connected, Loopback0
+         192.168.1.0/26 is subnetted, 1 subnets
+    D       192.168.1.0 [90/20640000] via 10.0.0.2, 00:00:04, Serial0/1/0
+    RouterA#
+    ```
 
 请访问[www.in60days.com](http://www.in60days.com)，免费观看作者完成此试验。
