@@ -1,4 +1,4 @@
-# 第2天 CSMA/CD, 交换和虚拟局域网
+# 第 2 天 CSMA/CD, 交换和虚拟局域网
 
 __CSMA/CD, Switching, and VLANs__
 
@@ -141,7 +141,7 @@ FastEthernet1/0/1 is down, line protocol is down (notconnect)
 流量传输中的任何延时(delay)，都被称为传输延迟（latency）。**依据你所希望的在流量传输前对帧的检查程度，思科交换机提供了三种流量交换的方式**。对帧的检查越多，引入到交换机的延迟就越多。三种可供选择的交换模式(switching modes)为：
 
 - 直通模式，Cut-through
-- 存储转发模式(交换机默认)，Store-and-forward
+- 存储转发模式（交换机默认），Store-and-forward
 - Fragment-free（改进的直通模式）
 
 **直通模式**

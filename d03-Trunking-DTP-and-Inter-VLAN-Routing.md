@@ -1,4 +1,4 @@
-# 第3天 中继、DTP 及 VLAN 间路由
+# 第 3 天 中继、DTP 及 VLAN 间路由
 
 __Trunking, DTP, and Inter-VLAN Routing__
 

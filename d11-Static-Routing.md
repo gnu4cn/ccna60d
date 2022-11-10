@@ -1,4 +1,4 @@
-# 第11天 静态路由
+# 第 11 天 静态路由
 
 **Static Routing**
 
@@ -17,24 +17,24 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 ___
 
-## 第11天任务
+## 第 11 天任务
 
 - 阅读今天的课文
 - 复习昨天的课文
 - 完成今天的实验
-- 阅读ICND1记诵指南
+- 阅读 ICND1 记诵指南
 - 在[subnetting.org](http://subnetting.org/)上用`15`分钟
 
 选择作一名网络管理员，就是要在网络中用到动态路由协议或坚持使用静态路由，所谓静态路由，就是手动将网络的所有路由，加入到所有路由器上去。
 
-经常会有人问我（原作者）哪个路由协议是”最好的“。是没有一种方式适合于每个网络的，因为就算某家特定机构的网络需求，也会随时间变化。配置静态路由需要时间和精力，但可以省下一些网络带宽和CPU运算周期。如要加入一条新路由，就必须在所有路由器上进行手动添加。此外，如有某台路由器宕掉，静态路由就没有办法处理这个事情，所以还会往宕掉的网络发送流量（有关可靠静态路由的部分，不再CCNA大纲的范围之内）。
+经常会有人问我（原作者）哪个路由协议是”最好的“。是没有一种方式适合于每个网络的，因为就算某家特定机构的网络需求，也会随时间变化。配置静态路由需要时间和精力，但可以省下一些网络带宽和 CPU 运算周期。如要加入一条新路由，就必须在所有路由器上进行手动添加。此外，如有某台路由器宕掉，静态路由就没有办法处理这个事情，所以还会往宕掉的网络发送流量（有关可靠静态路由的部分，不再 CCNA 大纲的范围之内）。
 
 今天要学到下面这些。
 
 - 静态路由的配置
 - 静态路由排错
 
-本模块对应了以下CCNA大纲要求。
+本模块对应了以下 CCNA 大纲要求。
 
 - 按照给出的特定路由要求，配置并验证一条静态或默认路由的路由配置
 + 区分不同路由方式及各种路由协议
@@ -67,7 +67,7 @@ ___
 Router(config)#ip route 192.168.1.0 255.255.255.0 172.16.1.2
 ```
 
-对静态路由，需要指定在前往目的地址的路途上，路由器需要去往的下一跳IP地址，或者也可以指定一个出去的接口。通常不需要知道下一跳地址，因为那就是ISP，或者IP地址会随时变化（见下图11.2）。如果是这样，就要使用出去的接口。
+对静态路由，需要指定在前往目的地址的路途上，路由器需要去往的下一跳 IP 地址，或者也可以指定一个出去的接口。通常不需要知道下一跳地址，因为那就是 ISP ，或者 IP 地址会随时变化（见下图11.2）。如果是这样，就要使用出去的接口。
 
 ![不总是知道下一跳地址的情形](images/1102.png)
 
@@ -86,15 +86,15 @@ Router(config)#ip route 0.0.0.0 0.0.0.0 s0/0
 上面的路由实际上就是一条默认路由（a default route）。默认路由用于引导那些未在路由表中显式列出的目的网络的数据包。
 
 
-### 静态IPv6路由的配置
+### 静态 IPv6 路由的配置
 
 **Configuring Static IPv6 Routes**
 
-静态IPv6路由的配置，与静态IPv4路由的配置遵循同样的逻辑。在思科IOS软件中，全局配置命令`ipv6 route [ipv6-prefix/prefix-length] [next-hop-address | interface] [distance <1-254> | multicast | tag | unicast]`用于配置静态IPv6路由。当中的一些关键字是熟悉的，因为它们也适用于IPv4静态路由，而`[multicast]`关键字则是IPv6所独有的，用于配置一条IPv6静态多播路由(an IPv6 static Multicast route)。如用到此关键字，该路由就不会进到单薄路由表（the Unicast routing table），同时也绝不会用于转发单播流量。为确保该路由绝不会安装到单播路由信息库（the Unicast RIB）, 思科IOS软件将该条路由**（静态多播路由）的管理距离设置为`255`**。
+静态 IPv6 路由的配置，与静态 IPv4 路由的配置遵循同样的逻辑。在思科 IOS 软件中，全局配置命令`ipv6 route [ipv6-prefix/prefix-length] [next-hop-address | interface] [distance <1-254> | multicast | tag | unicast]`用于配置静态 IPv6 路由。当中的一些关键字是熟悉的，因为它们也适用于 IPv4 静态路由，而`[multicast]`关键字则是 IPv6 所独有的，用于配置一条 IPv6 静态多播路由(an IPv6 static Multicast route)。如用到此关键字，该路由就不会进到单薄路由表（the Unicast routing table），同时也绝不会用于转发单播流量。为确保该路由绝不会安装到单播路由信息库（the Unicast RIB）, 思科 IOS 软件将该条路由**（静态多播路由）的管理距离设置为`255`**。
 
-相反，`[unicast]`关键字则是用于配置一条IPv6静态单播路由。如用到此关键字，该条路由就绝不会进入到多播路由表（the Multicast routing table）, 并仅被用于转发单播流量。而**既没用到`[multicast]`关键字，也没用到`[unicast]`关键字时，默认情况下，该条路由机会用于单播数据包的转发，也会用于多播数据包的转发**。
+相反，`[unicast]`关键字则是用于配置一条 IPv6 静态单播路由。如用到此关键字，该条路由就绝不会进入到多播路由表（the Multicast routing table）, 并仅被用于转发单播流量。而**既没用到`[multicast]`关键字，也没用到`[unicast]`关键字时，默认情况下，该条路由机会用于单播数据包的转发，也会用于多播数据包的转发**。
 
-以下的配置示例，演示了如何来配置`3`条静态IPv6路由。第一条路由，到子网`3FFF:1234:ABCD:0001::/64`, 会将流量从`FastEthernet0/0`转发出去。此路由仅用于单播流量的转发。第二条路由，到子网`3FFF:1234:ABCD:0002::/64`, 会将到那个子网的数据包从`Serial0/0`，使用下一跳路由器的数据链路层地址，作为IPv6的下一跳地址转发出去。本条路由仅会用于多播流量。最后，同样配置了一条指向`Serial0/1`作为出口接口的默认路由。此默认路由将会通过`Serial0/1`, 使用下一跳路由器的本地链路地址作为IPv6下一跳地址，转发那些到未知IPv6目的地址的数据包。这些路由如下面所示。
+以下的配置示例，演示了如何来配置`3`条静态 IPv6 路由。第一条路由，到子网`3FFF:1234:ABCD:0001::/64`, 会将流量从`FastEthernet0/0`转发出去。此路由仅用于单播流量的转发。第二条路由，到子网`3FFF:1234:ABCD:0002::/64`, 会将到那个子网的数据包从`Serial0/0`，使用下一跳路由器的数据链路层地址，作为 IPv6 的下一跳地址转发出去。本条路由仅会用于多播流量。最后，同样配置了一条指向`Serial0/1`作为出口接口的默认路由。此默认路由将会通过`Serial0/1`, 使用下一跳路由器的本地链路地址作为 IPv6 下一跳地址，转发那些到未知 IPv6 目的地址的数据包。这些路由如下面所示。
 
 ```console
 R1(config)#ipv6 route 3FFF:1234:ABCD:0001::/64 Fa0/0 unicast
@@ -135,9 +135,9 @@ Code: * - installed in RIB
 
 排错总会涉及到某个配置问题（如果不是接口宕掉的话）。如流量没有到达目的地，就可以使用命令`traceroute`测试该路由。
 
-> **注意** -- 今天内容很少，所以请前往第12天吧，因为那将是个非常充实的主题。
+> **注意** -- 今天内容很少，所以请前往第 12 天吧，因为那将是个非常充实的主题。
 
-## 第11天问题
+## 第 11 天问题
 
 1. Name the three parameters needed to configure a static route.
 2. What is the command used to configure a static route?
@@ -145,7 +145,7 @@ Code: * - installed in RIB
 4. What is the command used to configure an IPv6 static route?
 5. What is the command used to view IPv6 static routes?
 
-## 第11天答案
+## 第 11 天答案
 
 1. Network address, subnet mask (prefix length), and next-hop address or exit interface.
 2. The `ip route` command.
@@ -153,7 +153,7 @@ Code: * - installed in RIB
 4. The `ipv6 route` command.
 5. The `show ipv6 route static` command.
 
-## 第11天实验
+## 第 11 天实验
 
 ### 静态路由实验
 
@@ -169,7 +169,7 @@ Code: * - installed in RIB
 
 **实验步骤**
 
-1. 按照上面的拓扑图分配IP地址。`Router A`可以是`192.168.1.1/30`, `Router B`可以是`.2`。
+1. 按照上面的拓扑图分配 IP 地址。`Router A`可以是`192.168.1.1/30`, `Router B`可以是`.2`。
 
 2. 通过串行链路进行`ping`操作，以确保该链路是工作的。
 
@@ -203,7 +203,7 @@ Code: * - installed in RIB
     RouterA#
     RouterA#show ip route 10.1.1.1
     Routing entry for 10.0.0.0/10
-    Known via “static”, distance 1, metric 0 (connected)
+    Known via “ static ”, distance 1, metric 0 (connected)
       Routing Descriptor Blocks:
       * directly connected, via Serial0/1/0
             Route metric is 0, traffic share count is 1
@@ -222,7 +222,7 @@ Code: * - installed in RIB
     !!!!!
     RouterB#show ip route 172.16.1.1
     Routing entry for 172.16.1.0/24
-    Known via “static”, distance 1, metric 0
+    Known via “ static ”, distance 1, metric 0
       Routing Descriptor Blocks:
       * 192.168.1.1
           Route metric is 0, traffic share count is 1

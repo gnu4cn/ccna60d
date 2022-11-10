@@ -1,4 +1,4 @@
-# 第10天 路由的一些概念
+# 第 10 天 路由的一些概念
 
 **Routing Concepts**
 
@@ -16,13 +16,13 @@ Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 ___
 
-## 第10天的任务
+## 第 10 天的任务
 
 - 阅读今天的课文
 - 回顾昨天的课文
 - 完成今天的实验
-- 阅读ICND1记诵指南
-- 在网站[subnetting.org](http://subnetting.org/)上花15分钟
+- 阅读 ICND1 记诵指南
+- 在网站[subnetting.org](http://subnetting.org/)上花 15 分钟
 
 ICND1考试要求你对**基本路由**（basic routing）及**数据包流经某个网络的过程**(packet flow accross a network)，有所掌握。我们也会**对各种路由协议背后的技术有所了解**(take a look at the technology behind routing protocols)。
 
@@ -32,7 +32,7 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 - 各种有类和无类协议，classful and classless protocols
 - 路由协议的分类，routing protocol classes
 
-本模块对应了CCNA大纲要求的以下方面。
+本模块对应了 CCNA 大纲要求的以下方面。
 
 + 描述基本路由的一些概念
 	- CEF
@@ -50,13 +50,13 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 路由协议的角色，一是**动态地学习其它网络**，二是**与其它设备交换路由信息**，三就是**连接上内部和/或外部网络**。
 
-务必要清楚，路由协议**不会**跨越网络发送数据包。它们是用来确定路由的最佳路径（their role is to determaine the best path for routing）。受路由的那些协议（routed protocols）才真正发出数据，而一个最常见的受路由协议实例，就是IP。
+务必要清楚，路由协议**不会**跨越网络发送数据包。它们是用来确定路由的最佳路径（their role is to determaine the best path for routing）。受路由的那些协议（routed protocols）才真正发出数据，而一个最常见的受路由协议实例，就是 IP 。
 
-不同路由协议采用不同方式来确定到某个网络或网络节点的最优路径。一些类型的路由协议，在静态环境或者说几乎没有变化的环境中运行最好，但却在这些环境发生变化后，需要很长时间进行收敛（converge）。另一些协议，则能够对网络中发生的变化迅速反应而能快速地进行收敛。
+不同路由协议采用不同方式来确定到某个网络或网络节点的最优路径。一些类型的路由协议，在静态环境或者说几乎没有变化的环境中运行最好，但却在这些环境发生变化后，需要很长时间进行收敛（ converge ）。另一些协议，则能够对网络中发生的变化迅速反应而能快速地进行收敛。
 
-当网络中所有路由器有着同样的视图（view）并对那些最优路由达成一致时，就实现了网络收敛（network convergence）。在要很长时间才能实现收敛时，将会发生远端网络之间间歇性的丢包及连通性丢失。除了这些问题之外，慢速的收敛还会导致网络路由循环（network routing loops）及完全的网络中断（outright network outages）。**所用到的路由协议算法确定了收敛情况**。
+当网络中所有路由器有着同样的视图（ view ）并对那些最优路由达成一致时，就实现了网络收敛（network convergence）。在要很长时间才能实现收敛时，将会发生远端网络之间间歇性的丢包及连通性丢失。除了这些问题之外，慢速的收敛还会导致网络路由循环（network routing loops）及完全的网络中断（outright network outages）。**所用到的路由协议算法确定了收敛情况**。
 
-因为这些路由协议有着不同特征，而在其各自的伸缩性（scalability）和性能上有所不同。一些路由协议适合于小型网络，而其它协议则既可用于小型、中型网络，又可在大型网络中使用。
+因为这些路由协议有着不同特征，而在其各自的伸缩性（ scalability ）和性能上有所不同。一些路由协议适合于小型网络，而其它协议则既可用于小型、中型网络，又可在大型网络中使用。
 
 ### 包转发
 
@@ -87,33 +87,33 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 **交换过程（the switching process）** 允许路由器通过一个接口接收数据包，并从另一接口发出。同时路由器也会以外出链路的适当数据链路帧方式，对数据包进行封装。
 
-可能会要求你对自一个网络接收，并以另一个网络为目的地的数据包所发生的事情进行解释。首先，路由器通过移除二层帧的头部和尾部，实现三层数据包的解封装; 接着，路由器查看该IP数据包的目的IP地址，以找出路由表中的最佳路径; 最后，路由器将该三层数据包封装为一个新的二层帧，并将该帧从离开接口转发出去，那么**封装方式就可能从以太网变为HDLC**。此过程在下图10.4中进行了演示。
+可能会要求你对自一个网络接收，并以另一个网络为目的地的数据包所发生的事情进行解释。首先，路由器通过移除二层帧的头部和尾部，实现三层数据包的解封装; 接着，路由器查看该 IP 数据包的目的 IP 地址，以找出路由表中的最佳路径; 最后，路由器将该三层数据包封装为一个新的二层帧，并将该帧从离开接口转发出去，那么**封装方式就可能从以太网变为HDLC**。此过程在下图10.4中进行了演示。
 
 ![某数据包的三层地址](images/1004.png)
 
 *图10.4 -- 某数据包的三层地址*
 
-记住在一个较早的模块中曾提到，当数据包往其最终目的漫游时，源和目的IP地址绝不会变化。而MAC地址则会改变，以允许在那些中间设备之间进行传输。这在下图10.5中有演示。
+记住在一个较早的模块中曾提到，当数据包往其最终目的漫游时，源和目的 IP 地址绝不会变化。而 MAC 地址则会改变，以允许在那些中间设备之间进行传输。这在下图10.5中有演示。
 
 ![二层地址改变](images/1005.png)
 
 *图10.5 -- 二层地址改变*
 
-图10.6展示了一个从主机`X`离开，前往主机`Y`的数据包。注意其下一跳MAC地址属于路由器`A`（采用了代理ARP）；但其IP地址则是属于主机`Y`。在帧到达路由器`B`时，以太网头部和尾部将换成WAN协议的头部和尾部，这里可以假定为HDLC的头部和尾部。
+图10.6展示了一个从主机`X`离开，前往主机`Y`的数据包。注意其下一跳 MAC 地址属于路由器`A`（采用了代理 ARP ）；但其 IP 地址则是属于主机`Y`。在帧到达路由器`B`时，以太网头部和尾部将换成 WAN 协议的头部和尾部，这里可以假定为 HDLC 的头部和尾部。
 
-![离开主机X的数据包](images/1006.png)
+![离开主机 X 的数据包](images/1006.png)
 
-*图10.6 -- 离开主机X的数据包*
+*图10.6 -- 离开主机 X 的数据包*
 
-图10.7展示了离开路由器`A`前往路由器`B`的同样数据包。这里有着一次路由查找，接着数据包就被从接口`E1` **交换出去**(there is a route lookup and then the packet is switched out of interface `E1`)。类型`800`(`Type 800`）表明该数据包是一个IPv4数据包。
+图10.7展示了离开路由器`A`前往路由器`B`的同样数据包。这里有着一次路由查找，接着数据包就被从接口`E1` **交换出去**(there is a route lookup and then the packet is switched out of interface `E1`)。类型`800`(`Type 800`）表明该数据包是一个 IPv4 数据包。
 
-![离开路由器A的数据包](images/1007.png)
+![离开路由器 A 的数据包](images/1007.png)
 
-*图10.7 -- 离开路由器A的数据包*
+*图10.7 -- 离开路由器 A 的数据包*
 
 图10.8展示了该帧最终到达路由器`C`并被转发给主机`Y`。
 
-![离开路由器C的数据包](images/1008.png)
+![离开路由器 C 的数据包](images/1008.png)
 
 *图10.8 -- 离开路由器`C`的数据包*
 
@@ -137,9 +137,9 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
  
 **IP Addressing and Address Summarisation**
 
-一个IP地址是分作两部分的。第一部分指明了网络地址，而第二部分指明的是主机地址。在设计某个网络时，就会用到某种IP分址方案，来将网络中的主机及设备进行唯一区分。该IP分址方案应是层次化的，且应建立在传统的逻辑层次化模型上。这样做就能实现该分址方案于网络中提供出一些指定点位，在这些点位完成有效的路由汇总。
+一个 IP 地址是分作两部分的。第一部分指明了网络地址，而第二部分指明的是主机地址。在设计某个网络时，就会用到某种 IP 分址方案，来将网络中的主机及设备进行唯一区分。该 IP 分址方案应是层次化的，且应建立在传统的逻辑层次化模型上。这样做就能实现该分址方案于网络中提供出一些指定点位，在这些点位完成有效的路由汇总。
 
-汇总（summarisation）减少路由器所必须处理信息的数量，以此就可以实现网络的快速收敛。汇总还通过隐藏掉网络中某些区域的详细拓扑信息，从而令到因网络发生改变而受影响区域的大小受限。此概念在下图10.9中进行了演示。
+汇总（ summarisation ）减少路由器所必须处理信息的数量，以此就可以实现网络的快速收敛。汇总还通过隐藏掉网络中某些区域的详细拓扑信息，从而令到因网络发生改变而受影响区域的大小受限。此概念在下图10.9中进行了演示。
 
 ![采用思科设计模型的路由汇总](images/1009.png)
 
@@ -153,16 +153,16 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 管理距离用于决定一个路由信息來源对另一个的可靠性（administrative distance is used to determine the reliability of one source of routing information from another）。一些路由信息来源被认为相较其它源更为可靠；那么，当自两种或更多不同路由协议得出两种或更多到同一目的的路径时，管理距离就可用于决定到某个目的网络或网络节点的最优或首选路径。
 
-在思科IOS软件中，**所有路由信息来源都分配了一个默认管理距离值**。该默认值是一个`0`到`255`之间的整数，其中值`0`分配给最可靠的路由信息来源，值`255`分配给最不可靠的来源。任何分配了管理距离值`255`的路由，都被认为是不受信任的，且不会被放入到路由表中。
+在思科 IOS 软件中，**所有路由信息来源都分配了一个默认管理距离值**。该默认值是一个`0`到`255`之间的整数，其中值`0`分配给最可靠的路由信息来源，值`255`分配给最不可靠的来源。任何分配了管理距离值`255`的路由，都被认为是不受信任的，且不会被放入到路由表中。
 
-**管理距离是一个仅影响本地路由器的本地有意义值**。该值不会在路由域中传播（this value is not propagated throughout the routing domain）。因此，对一台路由器上某个或某些路由来源默认管理距离的修改，仅影响那台路由器对路由信息来源的选用。表10.1展示了思科IOS软件中所用到的默认管理值（考试要求掌握这些值）。
+**管理距离是一个仅影响本地路由器的本地有意义值**。该值不会在路由域中传播（this value is not propagated throughout the routing domain）。因此，对一台路由器上某个或某些路由来源默认管理距离的修改，仅影响那台路由器对路由信息来源的选用。表10.1展示了思科 IOS 软件中所用到的默认管理值（考试要求掌握这些值）。
 
 **表10.1 -- 路由器管理距离**
 
 **Router Administrative Distances(ADs)**
 
 <table>
-<tr><th>路由来源</th><th>管理距离（AD）</th></tr>
+<tr><th>路由来源</th><th>管理距离（ AD ）</th></tr>
 <tr><td>连接的接口，Connected Interfaces</td><td>`0`</td></tr>
 <tr><td>静态路由，Static Routes</td><td>`1`</td></tr>
 <tr><td>增强内部网关路由协议汇总路由，Enhanced Interior Gateway Routing Protocol(EIGRP) Summary Routes</td><td>`5`</td></tr>
@@ -182,7 +182,7 @@ ICND1考试要求你对**基本路由**（basic routing）及**数据包流经�
 
 ```console
 R1#show ip protocols
-Routing Protocol is “isis”
+Routing Protocol is “ isis ”
 	Invalid after 0 seconds, hold down 0, flushed after 0
 	Outgoing update filter list for all interfaces is not set
 	Incoming update filter list for all interfaces is not set
@@ -217,9 +217,9 @@ Distance: (default is 115 )
 
 带宽一词，指的是在给定时间内，从一点往另一点可以传输数据的数量。一些路由算法会用到带宽来决定何种链路类型较其它类型更为首选。比如，某种路由协议会首选`GigabitEthernet`而不是`FastEthernet`, 因为前者比起后者有着提升了的容量。
 
-在思科IOS软件中，接口配置命令**`bandwidth`可用于修改某个接口的默认带宽值，从而有效地操纵某种路由协议选择一个接口而不是另一个**。比如，在用接口配置命令`bandwidth 1000000`将`FastEthernet`接口进行配置后，那么`FastEthernet`和`GigabitEthernet`二者在路由协议看起来就具有了相同的传输容量，而会分配到同样的度量值。其中一条链路仍然是`FastEthernet`链路，而另一条是`GigabitEthernet`的事实，与路由协议不相关。
+在思科 IOS 软件中，接口配置命令**`bandwidth`可用于修改某个接口的默认带宽值，从而有效地操纵某种路由协议选择一个接口而不是另一个**。比如，在用接口配置命令`bandwidth 1000000`将`FastEthernet`接口进行配置后，那么`FastEthernet`和`GigabitEthernet`二者在路由协议看起来就具有了相同的传输容量，而会分配到同样的度量值。其中一条链路仍然是`FastEthernet`链路，而另一条是`GigabitEthernet`的事实，与路由协议不相关。
 
-从一名网络管理员的角度看，重要的是理解**`bandwidth`命令不会影响接口的物理容量**（因此该命令又是被成为是一个道具命令(a cosmetic command)）。也就是说，在`FastEthernet`接口上配置了更高的带宽，并不意味着其就具备了支持`GigabitEthernet`速率的能力。**开放路径优先（OSPF）和增强内部网关路由协议（EIGRP）都在度量值计算中用到了带宽变量**。
+从一名网络管理员的角度看，重要的是理解**`bandwidth`命令不会影响接口的物理容量**（因此该命令又是被成为是一个道具命令(a cosmetic command)）。也就是说，在`FastEthernet`接口上配置了更高的带宽，并不意味着其就具备了支持`GigabitEthernet`速率的能力。**开放路径优先（ OSPF ）和增强内部网关路由协议（ EIGRP ）都在度量值计算中用到了带宽变量**。
 
 ### 成本
 
@@ -231,9 +231,9 @@ Distance: (default is 115 )
 
 **Delay**
 
-延迟的类型有多种，所有的延迟又影响不同类型的流量。一般意义上的延迟，是指将一个数据包通过互联网络，从其源处移到目的处所需要的时间长度。在思科IOS软件中，接口延迟值以微秒（`us`）计算的。
+延迟的类型有多种，所有的延迟又影响不同类型的流量。一般意义上的延迟，是指将一个数据包通过互联网络，从其源处移到目的处所需要的时间长度。在思科 IOS 软件中，接口延迟值以微秒（`us`）计算的。
 
-通过接口配置命令`delay`来配置接口的延迟值。在配置接口延迟值时，重要的是记住**这样做并不会影响到流量**（又是一个道具命令）。比如，配置了一个`5000`的延迟值，并不意味着从该接口发出的流量将有一个额外的`5000us`延迟。下表10.2展示了思科IOS软件中常见接口的默认延迟值。
+通过接口配置命令`delay`来配置接口的延迟值。在配置接口延迟值时，重要的是记住**这样做并不会影响到流量**（又是一个道具命令）。比如，配置了一个`5000`的延迟值，并不意味着从该接口发出的流量将有一个额外的`5000us`延迟。下表10.2展示了思科 IOS 软件中常见接口的默认延迟值。
 
 <table>
 <tr><th>接口类型</th><th>延迟（`us`）</th></tr>
@@ -243,25 +243,25 @@ Distance: (default is 115 )
 <tr><td>`T1`串行线路</td><td>`20000`</td></tr>
 </table>
 
-**EIGRP将接口延迟数值用作其度量值计算的部分**。手动修改接口延迟值会造成EIGRP度量值的重新计算。
+**EIGRP将接口延迟数值用作其度量值计算的部分**。手动修改接口延迟值会造成 EIGRP 度量值的重新计算。
 
 **负载**
 
 **Load**
 
-负载对不同的人来说有不同的意思。例如，在一般计算术语中，负载是指某项计算资源，譬如CPU，当前的使用量。而在此处，负载是指某个特定路由器接口使用的比例（load, as it applies in this context, refers to the degree of use for a particular router interface）。接口上的负载是一个`255`的分数。比如，一个`255/255`的负载就表明该接口已完全饱和，而一个`128/255`的负载则表明该接口是`50%`饱和的。默认情况下，负载是按`5`分钟平均值计算的（真实世界中常使用**接口配置命令`load-interval 30`**将其修改为一个最小的`30s`）。**接口负载值可用于EIGRP中的度量值计算**。
+负载对不同的人来说有不同的意思。例如，在一般计算术语中，负载是指某项计算资源，譬如 CPU ，当前的使用量。而在此处，负载是指某个特定路由器接口使用的比例（load, as it applies in this context, refers to the degree of use for a particular router interface）。接口上的负载是一个`255`的分数。比如，一个`255/255`的负载就表明该接口已完全饱和，而一个`128/255`的负载则表明该接口是`50%`饱和的。默认情况下，负载是按`5`分钟平均值计算的（真实世界中常使用**接口配置命令`load-interval 30`**将其修改为一个最小的`30s`）。**接口负载值可用于 EIGRP 中的度量值计算**。
 
 **路径长度**
 
 **Path Length**
 
-路径长度度量值是自本地路由器到目的网络所经过路径的总长度。不同路由算法在表示该值时有着不同的形式。比如路由信息协议（Routing Information Protocol, RIP）对在本地路由器和目的网络之间的**路由器**进行计数（跳数，hops）， 并使用该跳数作为度量值，而边界网关协议（Border Gateway Protocol, BGP）则对在本地路由器和目的网络之间**所经过的自治系统**进行计数，并使用该自治系统数来选择最优路径。
+路径长度度量值是自本地路由器到目的网络所经过路径的总长度。不同路由算法在表示该值时有着不同的形式。比如路由信息协议（Routing Information Protocol, RIP）对在本地路由器和目的网络之间的**路由器**进行计数（跳数， hops ）， 并使用该跳数作为度量值，而边界网关协议（Border Gateway Protocol, BGP）则对在本地路由器和目的网络之间**所经过的自治系统**进行计数，并使用该自治系统数来选择最优路径。
 
 **可靠性**
 
 **Reliability**
 
-和负载一样，可靠性一词，也是依据其所在上下文的不同，有着不同的意义。在这里，除非另有说明，总是可以假定可靠性是指网络链路或接口的可靠性、可信任性。在思科IOS软件中，某条链路或某个接口的可靠性表示为一个`255`的分数。比如，一个`255/255`的可靠性值表明接口是`100%`可靠的。与接口负载类似，某接口的默认可靠性是以过去`5`分钟平均值进行计算的。
+和负载一样，可靠性一词，也是依据其所在上下文的不同，有着不同的意义。在这里，除非另有说明，总是可以假定可靠性是指网络链路或接口的可靠性、可信任性。在思科 IOS 软件中，某条链路或某个接口的可靠性表示为一个`255`的分数。比如，一个`255/255`的可靠性值表明接口是`100%`可靠的。与接口负载类似，某接口的默认可靠性是以过去`5`分钟平均值进行计算的。
  
 ### 前缀匹配
  
@@ -282,7 +282,7 @@ Distance: (default is 115 )
 <tr><td>`0.0.0.0/0`</td><td>第五</td><tr>
 </table>
 
-> **注意：** 尽管在表10.3中默认路由是位列路由选择顺序最后的，但要记住一条默认路由并非总是出现在路由表中的。如路由表中没有默认路由，同时也没有到地址`1.1.1.1`的路由条目，那么路由器就会简单地丢弃到那个目的地的数据包。大多数情况下，路由器会发给源主机一条ICMP消息，告知其目的主机不可达。而一条默认路由就是用于将目的网络未在路由表中显式列出的数据包，导向默认路由。
+> **注意：** 尽管在表10.3中默认路由是位列路由选择顺序最后的，但要记住一条默认路由并非总是出现在路由表中的。如路由表中没有默认路由，同时也没有到地址`1.1.1.1`的路由条目，那么路由器就会简单地丢弃到那个目的地的数据包。大多数情况下，路由器会发给源主机一条 ICMP 消息，告知其目的主机不可达。而一条默认路由就是用于将目的网络未在路由表中显式列出的数据包，导向默认路由。
 
 ### IP路由表的建立
 
@@ -300,9 +300,9 @@ Distance: (default is 115 )
 	- 如新路由的度量值更低，就替换既有路由；或
 	- 新旧路由的度量值一样时，将两条路由用作负载均衡
 
-默认情况下建立路由信息库，当路由器在决定哪些路由要放入路由表时，总会选用有着最低管理距离值的路由协议。比如，某台路由器收到经由**外部的EIGRP**、OSPF及内部BGP给出的`10.0.0.0/8`前缀时，OSPF的路由将被放入到路由表中。而在那条路由被移除，或是不再收到时，外部EIGRP路由将被放入路由表中。最后如果OSPF和外部EIGRP路由都不再出现时，内部BGP路由就被用到。
+默认情况下建立路由信息库，当路由器在决定哪些路由要放入路由表时，总会选用有着最低管理距离值的路由协议。比如，某台路由器收到经由**外部的EIGRP**、 OSPF 及内部 BGP 给出的`10.0.0.0/8`前缀时， OSPF 的路由将被放入到路由表中。而在那条路由被移除，或是不再收到时，外部 EIGRP 路由将被放入路由表中。最后如果 OSPF 和外部 EIGRP 路由都不再出现时，内部 BGP 路由就被用到。
 
-一旦路由已放入到路由表，默认情况下比起那些较不具体的路由，最为具体或有着最长匹配前缀的路由总是优先选用的。这在下面的实例中进行了演示，该实例展示了包含有`80.0.0.0/8`、`80.1.0.0/16`及`80.1.1.0/24`前缀路由条目的一个路由表。这三条路由前缀分别通过EIGRP、OSPF及RIP路由协议接收到。
+一旦路由已放入到路由表，默认情况下比起那些较不具体的路由，最为具体或有着最长匹配前缀的路由总是优先选用的。这在下面的实例中进行了演示，该实例展示了包含有`80.0.0.0/8`、`80.1.0.0/16`及`80.1.1.0/24`前缀路由条目的一个路由表。这三条路由前缀分别通过 EIGRP 、 OSPF 及 RIP 路由协议接收到。
 
 ```console
 R1#show ip route
@@ -319,16 +319,16 @@ D		 80.0.0.0/8 [90/281600] via 10.1.1.2, 00:02:02, Ethernet0/0.1
 O E2	 80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
 ```
 
-从上面的输出看出，第一条路由是`80.1.1.0/24`。该路由是经由RIP学习到的，因此有着默认的管理距离值120。第二条路由是`80.0.0.0/8`。该路由是经由**内部的EIGRP**学习到的，因此有着默认管理距离值90。第三条路由是`80.1.0.0/16`。该路由是通过OSPF学习到的，且是一条有着管理距离110的**外部的OSPF**路由。
+从上面的输出看出，第一条路由是`80.1.1.0/24`。该路由是经由 RIP 学习到的，因此有着默认的管理距离值 120 。第二条路由是`80.0.0.0/8`。该路由是经由**内部的EIGRP**学习到的，因此有着默认管理距离值 90 。第三条路由是`80.1.0.0/16`。该路由是通过 OSPF 学习到的，且是一条有着管理距离 110 的**外部的OSPF**路由。
 
-> **注意：** 因为这些路由协议度量值各不相同，在有着来自不同协议的路由安装到路由表时，这些**度量值是在决定要使用的最佳路由时的非要素**。下面的部分将说明思科IOS软件是如何来建立路由表的。
+> **注意：** 因为这些路由协议度量值各不相同，在有着来自不同协议的路由安装到路由表时，这些**度量值是在决定要使用的最佳路由时的非要素**。下面的部分将说明思科 IOS 软件是如何来建立路由表的。
 
-基于该路由表的内容，如路由器收到一个目的为`80.1.1.1`的数据包，就会使用那条RIP路由，因为这是最为具体的条目，尽管EIGRP和OSPF都有着更好的管理距离值而是更为优先的路由来源。`show ip route 80.1.1.1`命令可用于检验这点。
+基于该路由表的内容，如路由器收到一个目的为`80.1.1.1`的数据包，就会使用那条 RIP 路由，因为这是最为具体的条目，尽管 EIGRP 和 OSPF 都有着更好的管理距离值而是更为优先的路由来源。`show ip route 80.1.1.1`命令可用于检验这点。
 
 ```console
 R1#show ip route 80.1.1.1
 Routing entry for 80.1.1.0/24
-	Known via “rip”, distance 120, metric 1
+	Known via “ rip ”, distance 120, metric 1
 	Redistributing via rip
 	Last update from 10.1.1.2 on Ethernet0/0.1, 00:00:15 ago
 	Routing Descriptor Blocks:
@@ -340,7 +340,7 @@ Routing entry for 80.1.1.0/24
 
 **Classful and Classless Protocols**
 
-有类协议无法使用VLSM（也就是RIPv1和IGRP，它们都已不在CCNA大纲中了）。这是因为它们不会去识别除了默认网络掩码外的其它任何东西。
+有类协议无法使用 VLSM （也就是 RIPv1 和 IGRP ，它们都已不在 CCNA 大纲中了）。这是因为它们不会去识别除了默认网络掩码外的其它任何东西。
 
 ```console
 Router#debug ip rip
@@ -349,7 +349,7 @@ RIP protocol debugging is on
 192.168.1.1
 ```
 
-有类协议用到VLSM（也就是RIPv2和EIGRP）。
+有类协议用到 VLSM （也就是 RIPv2 和 EIGRP ）。
 
 ```console
 Router#debug ip rip
@@ -373,15 +373,15 @@ RIP protocol debugging is on
 
 *图10.10 -- 限制不必要的对等数据交换*
 
-被动接口的一个用例实例就是用于防止路由协议数据自分布层对等传送（peerings）到接入层，就如同上面的图10.10所示。当留有三层跨越这些性质不同的接入层交换机的对等传输时（也就是在跨越交换机区块的不同交换机上有着多台主机），就只会增加内存负载、路由协议更新开销及更多的复杂性。同样，如发生了某条链路故障，流量会经由一台邻居接入交换机传输，而到达另一个VLAN成员处（by having Layer 3 switches across the different Access Layer switches(i.e., having multiple hosts on different switches across switch blocks) you are basically adding memory load, routing protocol update overhead, and more complexity. Also, if there is a link failure, the traffic may transit through a neighbouring Access Layer switch to get to another VLAN member）。
+被动接口的一个用例实例就是用于防止路由协议数据自分布层对等传送（ peerings ）到接入层，就如同上面的图10.10所示。当留有三层跨越这些性质不同的接入层交换机的对等传输时（也就是在跨越交换机区块的不同交换机上有着多台主机），就只会增加内存负载、路由协议更新开销及更多的复杂性。同样，如发生了某条链路故障，流量会经由一台邻居接入交换机传输，而到达另一个 VLAN 成员处（by having Layer 3 switches across the different Access Layer switches(i.e., having multiple hosts on different switches across switch blocks) you are basically adding memory load, routing protocol update overhead, and more complexity. Also, if there is a link failure, the traffic may transit through a neighbouring Access Layer switch to get to another VLAN member）。
 
-也就是说，你想要消除不必要的路由对等邻接（unnecessary routing peering adjacencies）,那么就要将那些面向二层交换机的端口，配置为被动接口，以此来抑制路由更新通告（suppress routing updates advertisements）。如某台分布层交换机在这些接口之一上，一条都没有接收到来自一台潜在对等设备的路由更新，其就不必去处理这些更新，也就不会通过那个设备形成邻居邻接关系。达成此配置的命令通常就是路由进程配置模式（the Routing Process Configuration mode）中的`passive-interface [interface number]`命令。要获得更多有关思科设计模型（the Cisco design model）的信息，请阅读一份CCDA手册。
+也就是说，你想要消除不必要的路由对等邻接（unnecessary routing peering adjacencies）,那么就要将那些面向二层交换机的端口，配置为被动接口，以此来抑制路由更新通告（suppress routing updates advertisements）。如某台分布层交换机在这些接口之一上，一条都没有接收到来自一台潜在对等设备的路由更新，其就不必去处理这些更新，也就不会通过那个设备形成邻居邻接关系。达成此配置的命令通常就是路由进程配置模式（the Routing Process Configuration mode）中的`passive-interface [interface number]`命令。要获得更多有关思科设计模型（the Cisco design model）的信息，请阅读一份 CCDA 手册。
 
 ## 路由协议分类
 
 **Routing Protocol Classes**
 
-路由协议有两大分类 -- **距离矢量**和**链路状态**(Distance Vector and Link State)。距离矢量路由协议在决定通过网络的最优路径（一条或多条）时，传统上使用一个一维矢量（a one-dimensional vector），而链路状态路由协议在决定通过网络的最优路径（一条或多条）时，使用最短路径优先（the Shortest Path First, SPF）。在深入探究路由协议的这两种类别的具体细节之前，我们先看看不同矢量，以及难以搞懂的SPF算法。
+路由协议有两大分类 -- **距离矢量**和**链路状态**(Distance Vector and Link State)。距离矢量路由协议在决定通过网络的最优路径（一条或多条）时，传统上使用一个一维矢量（a one-dimensional vector），而链路状态路由协议在决定通过网络的最优路径（一条或多条）时，使用最短路径优先（the Shortest Path First, SPF）。在深入探究路由协议的这两种类别的具体细节之前，我们先看看不同矢量，以及难以搞懂的 SPF 算法。
 
 ### 理解矢量
 
@@ -401,7 +401,7 @@ RIP protocol debugging is on
 
 **The Shortest Path First Algorithms**
 
-最短路径优先算法通过路由器创建出到某个区域或网络骨干中的所有主机的最短路径树，该路由器处于树的根部，并由该路由器完成树的生成计算。为让SPF算法以正确的方式工作，区域中的所有路由器都要有同样的数据库信息。在OSPF中，数据库信息同步是通过数据库交换过程实现的（the SPF algorithm creates a shortest-path tree to all hosts in an area or in the network backbone with the router that is performint the calculation at the root of that tree. In order for the SPF algorithm to work in the correct manner, all routers in the area should have the same database information. In OSPF, this is performed via the database exchange process）。
+最短路径优先算法通过路由器创建出到某个区域或网络骨干中的所有主机的最短路径树，该路由器处于树的根部，并由该路由器完成树的生成计算。为让 SPF 算法以正确的方式工作，区域中的所有路由器都要有同样的数据库信息。在 OSPF 中，数据库信息同步是通过数据库交换过程实现的（the SPF algorithm creates a shortest-path tree to all hosts in an area or in the network backbone with the router that is performint the calculation at the root of that tree. In order for the SPF algorithm to work in the correct manner, all routers in the area should have the same database information. In OSPF, this is performed via the database exchange process）。
 
 ### 距离矢量路由协议
 
@@ -414,7 +414,7 @@ RIP protocol debugging is on
 - 反向投毒，poison reverse
 - 保持计数器，hold-down timers
 
-对计数到无穷的运用，如某个目的网络远于路由协议所允许的最大跳数，该网络就认为其是不可达的。该网络的路由条目因此就不会安装到IP路由表中。
+对计数到无穷的运用，如某个目的网络远于路由协议所允许的最大跳数，该网络就认为其是不可达的。该网络的路由条目因此就不会安装到 IP 路由表中。
 
 水平分割特征指明路由信息再不能从其接收到的接口再发送出去。这样做就可以阻止路由信息再通告给学习到它的源路由器。尽管此特征是一种了不起的防止环回机制，但也有显著的不利之处，特别是在辐射状网络中。
 
@@ -424,7 +424,7 @@ RIP protocol debugging is on
 
 在保持期间，路由器压制住该网络并阻止通告出无效信息（during the hold-down period, the router suppresses the network and prevents advertising false information）。就算路由器收到来自网络可达的其它路由器（它们可能没有收到网络宕掉的触发更新）的信息，也不会将数据包路由到该不可达网络。此机制设计用于阻止黑洞流量（the router also does not route to the unreachable network, even if it receives information from another router(that may not have recieved the triggered update)that the network is reachable. This mechanism is designed to prevent black-holing traffic）。
 
-两个最常见的距离矢量协议，就是**RIP**和**IGRP**。**EIGRP是一个高级距离矢量协议**，距离矢量和链路状态两方面的特性在EIGRP中都有用到（也就是说，它是一个**混合协议(hybrid protocol)**）。
+两个最常见的距离矢量协议，就是**RIP**和**IGRP**。**EIGRP是一个高级距离矢量协议**，距离矢量和链路状态两方面的特性在 EIGRP 中都有用到（也就是说，它是一个**混合协议(hybrid protocol)**）。
 
 ### 链路状态路由协议
 
@@ -434,7 +434,7 @@ RIP protocol debugging is on
 
 由于网络中的路由器都有着网络的同样视图，用于在网络间转发数据包的路径就是最优的，且路由环回的可能性得以消除。因此，诸如水平分割和路由投毒这样的技巧对链路状态协议就不适用了，因为它们是用于距离矢量路由协议的。
 
-链路状态路由协议通过发送链路状态通告（Link State Advertisement），或者说链路状态数据包（Link State Packets）给位于同一区域内其它路由器的方式运作。这些数据包包含了有关链路所连接的接口、链路度量值及链路其它变量的信息。随着路由器对这些信息的积累，它们就运行SPF算法并计算出到各台路由器及目的网络的最短（最佳）路径。使用接收到的链路状态信息，路由器建立其链路状态数据库（the Link State Database, LSDB）。在相邻两台路由器的LSDBs同步了时，就说它们形成了邻接关系。
+链路状态路由协议通过发送链路状态通告（Link State Advertisement），或者说链路状态数据包（Link State Packets）给位于同一区域内其它路由器的方式运作。这些数据包包含了有关链路所连接的接口、链路度量值及链路其它变量的信息。随着路由器对这些信息的积累，它们就运行 SPF 算法并计算出到各台路由器及目的网络的最短（最佳）路径。使用接收到的链路状态信息，路由器建立其链路状态数据库（the Link State Database, LSDB）。在相邻两台路由器的 LSDBs 同步了时，就说它们形成了邻接关系。
 
 与发送给其邻居的是它们的完整路由表的距离矢量路由协议不同，链路状态路由协议在探测到网络拓扑发生改变时，发送的是增量更新，这点令到链路状态路由协议在较大型的网络中效率更高。使用增量更新也令到链路状态路由协议对网络变化的响应更为迅速，因此比起距离矢量路由协议有着更短的收敛时间。表10.4列出了不同的内部网关协议及其所属类别。
 
@@ -444,7 +444,7 @@ RIP protocol debugging is on
 <tr><th>协议名称</th><th>有类/无类</th><th>协议类别</th></tr>
 <tr><td>RIP(版本1)</td><td>有类</td><td>距离矢量</td></tr>
 <tr><td>IGRP</td><td>有类</td><td>距离矢量</td></tr>
-<tr><td>RIP（版本2）</td><td>无类</td><td>距离矢量</td></tr>
+<tr><td>RIP（版本 2 ）</td><td>无类</td><td>距离矢量</td></tr>
 <tr><td>EIGRP</td><td>无类</td><td>高级距离矢量</td></tr>
 <tr><td>IS-IS</td><td>无类</td><td>链路状态</td></tr>
 <tr><td>OSPF</td><td>无类</td><td>链路状态</td></tr>
@@ -466,7 +466,7 @@ RIP protocol debugging is on
 
 **Optimal Routing**
 
-所有路由协议的主要目标之一，就是选择通过网络从源子网或主机到目的子网或主机的最优路径。最优路由依据就是这些路由协议所使用的度量值。一种协议所认为的最优路由，并不一定也是从另一协议角度看的最优路由。比如，RIP可能认为一条仅有两跳长的路径是到某个目的网络的最优路径，尽管这些链路都是`64Kbps`，而诸如OSPF和EIGRP那样的先进协议则会到相同目的的最优路径是经过了`4`台路由器却有着`10Gbps`速率的链路。
+所有路由协议的主要目标之一，就是选择通过网络从源子网或主机到目的子网或主机的最优路径。最优路由依据就是这些路由协议所使用的度量值。一种协议所认为的最优路由，并不一定也是从另一协议角度看的最优路由。比如， RIP 可能认为一条仅有两跳长的路径是到某个目的网络的最优路径，尽管这些链路都是`64Kbps`，而诸如 OSPF 和 EIGRP 那样的先进协议则会到相同目的的最优路径是经过了`4`台路由器却有着`10Gbps`速率的链路。
 
 ### 稳定性
 
@@ -478,7 +478,7 @@ RIP protocol debugging is on
 
 **Ease of Use**
 
-路由算法被设计得尽可能简单。除了要提供对复杂互联网络部署的支持能力，路由协议还应考虑运行其算法所需的计算资源问题。一些路由算法比起其它算法需要更多的硬件和软件资源（比如CPU和内存）来运行；但它们却能够提供比其它替代的简单算法更多的功能。
+路由算法被设计得尽可能简单。除了要提供对复杂互联网络部署的支持能力，路由协议还应考虑运行其算法所需的计算资源问题。一些路由算法比起其它算法需要更多的硬件和软件资源（比如 CPU 和内存）来运行；但它们却能够提供比其它替代的简单算法更多的功能。
 
 ### 灵活性
 
@@ -499,10 +499,10 @@ RIP protocol debugging is on
 距离矢量路由协议因其过于简单的“依据传言的路由”方法，而容易造成大问题（it is a known fact that Distance Vector routing protocols are prone to major problems as a result of their simplistic "routing by rumor" approach）。距离矢量和链路中台协议采用不同方法来防止路由故障。有下面这些最为重要的机制。
 
 - **无效计数器**，invalidation timers: 在很长时间内都没有收到一些路由的更新时，这些计数器被用于将这些路由标记为不可达。
-- **跳数限制**, hop count limit: 当一些路由的跳数，比预先定义的跳数限制还多时，此参数就将这些路由标记为不可达。RIP的跳数限制是15, 而大型网络通常不会使用RIP。不可达路由不会作为最佳路由安装到路由表中。跳数限制防止网络中的环回更新，就想IP头部的TTL字段一样。
-- **触发的更新**, triggered updates：此特性允许有重要更新时对更新计数器进行旁路、忽视。比如，在有一个重要的路由更新必须要在网络中宣传是，就可以忽略RIP的`30`秒计数器。
+- **跳数限制**, hop count limit: 当一些路由的跳数，比预先定义的跳数限制还多时，此参数就将这些路由标记为不可达。 RIP 的跳数限制是15, 而大型网络通常不会使用 RIP 。不可达路由不会作为最佳路由安装到路由表中。跳数限制防止网络中的环回更新，就想 IP 头部的 TTL 字段一样。
+- **触发的更新**, triggered updates：此特性允许有重要更新时对更新计数器进行旁路、忽视。比如，在有一个重要的路由更新必须要在网络中宣传是，就可以忽略 RIP 的`30`秒计数器。
 - **保持计数器**, hold-down timers: 如某条特定路由的度量值持续变差，那条路由的更新就会在一个延迟时期内不被接受了。
-- **异步的更新**, asynchronous updates：异步更新代表另一种防止网络上的路由器，在同一时间其全部路由信息被冲掉的安全机制。在前面提到，OSPF每30分钟执行一次异步更新。异步更新机制为每台设备生成一个小的延时，因此这些设备不会准确地在同一时间信息全被冲掉。这样做可以改进带宽的使用以及处理能力。
+- **异步的更新**, asynchronous updates：异步更新代表另一种防止网络上的路由器，在同一时间其全部路由信息被冲掉的安全机制。在前面提到， OSPF 每 30 分钟执行一次异步更新。异步更新机制为每台设备生成一个小的延时，因此这些设备不会准确地在同一时间信息全被冲掉。这样做可以改进带宽的使用以及处理能力。
 - **路由投毒**, route poisoning: 此特性防止路由器通过已为无效的路由发送数据。距离矢量协议使用这个特性表明某条路由不再可达。路由投毒是通过将该路由的度量值设置为最大值完成的。
 - **水平分割**, split horizon：水平分割防止路由更新再从收到的接口上发送出去，因为在那个区域中的路由器应该已经知道了那条特定路由了。
 - **反向投毒**, poison reverse: 该机制是因被投毒路由而造成的水平分割的一个例外。
@@ -511,55 +511,55 @@ RIP protocol debugging is on
 
 **Topology-Based(CEF, Cisco Express Forwarding) Switching**
 
-将某数据包预期的目的地址与IP路由表进行匹配，需要使用一些路由器的CPU运算周期。企业路由器可能有着数十万的路由条目，并能对同样数量的数据包与这些条目进行匹配。在尝试以尽可能高的效率来完成这个过程中，思科构建出了各种不同的交换方法（various switching methods）。第一种叫做进程交换（process switching）, 而它用到路由查找及已分级的最佳匹配方法（uses the route lookup and best match already outlined）。此方式又在快速交换（fast switching）之上进行了改进。路由器生成的最近转发数据包IP地址清单，连同IP地址匹配下的数据链路层地址会被复制下来。作为对快速转发的改进，思科快速转发（Cisco Express Forwarding, CEF）技术得以构建。当下思科路由器的所有型号，默认运行的都是CEF。
+将某数据包预期的目的地址与 IP 路由表进行匹配，需要使用一些路由器的 CPU 运算周期。企业路由器可能有着数十万的路由条目，并能对同样数量的数据包与这些条目进行匹配。在尝试以尽可能高的效率来完成这个过程中，思科构建出了各种不同的交换方法（various switching methods）。第一种叫做进程交换（process switching）, 而它用到路由查找及已分级的最佳匹配方法（uses the route lookup and best match already outlined）。此方式又在快速交换（fast switching）之上进行了改进。路由器生成的最近转发数据包 IP 地址清单，连同 IP 地址匹配下的数据链路层地址会被复制下来。作为对快速转发的改进，思科快速转发（Cisco Express Forwarding, CEF）技术得以构建。当下思科路由器的所有型号，默认运行的都是 CEF 。
 
 ## 思科快速转发
 
 **Cisco Express Forwarding(CEF)**
 
-CEF运行于数据面（the data plane）, 是一种拓扑驱动的专有交换机制（a topology-driven proprietary switching mechanism）, 创建出捆绑到路由表（也就是控制面，the control plane）的转发表。开发CEF是为消除因基于数据流交换中用到的，进程交换的首个数据包查找方法出现的性能问题（CEF was developed to eliminate the performance penalty experencied due to the first-packet process-switched lookup method used by flow-based switching）。CEF通过允许为基于硬件的三层路由引擎用到的路由缓存，在接收到某个传输流的任何数据包之前，将所有三层交换所需的必要信息，包含到硬件当中。照惯例保存在路由缓存中的信息，现在是保存在CEF交换的两个数据结构中。这两个数据结构提供了高效率包转发的优化查找，它们分别成为FIB（Forwarding Information Base, 转发信息库）和邻居表。
+CEF运行于数据面（the data plane）, 是一种拓扑驱动的专有交换机制（a topology-driven proprietary switching mechanism）, 创建出捆绑到路由表（也就是控制面，the control plane）的转发表。开发 CEF 是为消除因基于数据流交换中用到的，进程交换的首个数据包查找方法出现的性能问题（CEF was developed to eliminate the performance penalty experencied due to the first-packet process-switched lookup method used by flow-based switching）。 CEF 通过允许为基于硬件的三层路由引擎用到的路由缓存，在接收到某个传输流的任何数据包之前，将所有三层交换所需的必要信息，包含到硬件当中。照惯例保存在路由缓存中的信息，现在是保存在 CEF 交换的两个数据结构中。这两个数据结构提供了高效率包转发的优化查找，它们分别成为 FIB （Forwarding Information Base, 转发信息库）和邻居表。
 
-> **注意：** 重要的是记住就算有了CEF，在路由表发生变化时，CEF转发表同样会更新。在新的CEF条目创建过程中，数据包会在一个较慢的交换路径中，使用比如进程交换的方式，进行交换。所有当前的思科路由器型号及当前的IOS都使用CEF。
+> **注意：** 重要的是记住就算有了 CEF ，在路由表发生变化时， CEF 转发表同样会更新。在新的 CEF 条目创建过程中，数据包会在一个较慢的交换路径中，使用比如进程交换的方式，进行交换。所有当前的思科路由器型号及当前的 IOS 都使用 CEF 。
 
 ### 转发信息库
 
 **Forwarding Information Base(FIB)**
 
-CEF使用一个FIB来做出基于IP目的地址前缀的交换决定（CEF uses a FIB to make IP destination prefix-based switching decisions）。FIB在概念上与路由表或信息库是相似的。FIB维护着包含在IP路由表中的转发信息的一个镜像。也就是说，FIB包含了来自路由表中的所有IP前缀。
+CEF使用一个 FIB 来做出基于 IP 目的地址前缀的交换决定（CEF uses a FIB to make IP destination prefix-based switching decisions）。 FIB 在概念上与路由表或信息库是相似的。 FIB 维护着包含在 IP 路由表中的转发信息的一个镜像。也就是说， FIB 包含了来自路由表中的所有 IP 前缀。
 
-当网络中的路由或拓扑发生改变是，IP路由表就会被更新，同时这些变化在FIB中也会反映出来。FIB维护着建立在IP路由表中信息上的下一跳地址信息。因为在FIB条目和路由表条目之间有着一一对应关系，FIB就包含了所有已知路由，并消除了在诸如快速交换方式和最优交换（optimum switching）方式中于交换路径（switching paths）有关的路由缓存维护需求。
+当网络中的路由或拓扑发生改变是， IP 路由表就会被更新，同时这些变化在 FIB 中也会反映出来。 FIB 维护着建立在 IP 路由表中信息上的下一跳地址信息。因为在 FIB 条目和路由表条目之间有着一一对应关系， FIB 就包含了所有已知路由，并消除了在诸如快速交换方式和最优交换（optimum switching）方式中于交换路径（switching paths）有关的路由缓存维护需求。
 
-此外，因为FIB查找表中包含了所有存在于路由表中的已知路由，FIB就消除了路由缓存维护，以及快速交换和进程交换的转发场景。这样做令到CEF比典型的demand-caching方案要更为高效地交换流量。
+此外，因为 FIB 查找表中包含了所有存在于路由表中的已知路由， FIB 就消除了路由缓存维护，以及快速交换和进程交换的转发场景。这样做令到 CEF 比典型的demand-caching方案要更为高效地交换流量。
 
 ### 邻接表
 
 **The Adjacency Table**
 
-创建邻接关系表来包含所有直连的下一跳。邻接节点就是只有一跳的节点（也就是直接连接的）。在发现邻接关系后，就生成了该邻接关系表。一旦某个邻居成为邻接关系，将用于到达那个邻居的一个叫作MAC字串或MAC重写（a MAC string or a MAC rewrite）的数据链路层头部，就被创建出来并存入到邻接表中。在以太网段上，头部信息依次包含了目的MAC地址、源MAC地址以及以太网类型（EtherType）。
+创建邻接关系表来包含所有直连的下一跳。邻接节点就是只有一跳的节点（也就是直接连接的）。在发现邻接关系后，就生成了该邻接关系表。一旦某个邻居成为邻接关系，将用于到达那个邻居的一个叫作 MAC 字串或 MAC 重写（a MAC string or a MAC rewrite）的数据链路层头部，就被创建出来并存入到邻接表中。在以太网段上，头部信息依次包含了目的 MAC 地址、源 MAC 地址以及以太网类型（ EtherType ）。
 
-而一旦某条路由得到解析，就会指向到一个邻接的下一跳。如在邻接表中找到了某个邻接，那么一个指向该适当邻接的指针就在FIB条目中进行缓存（as soon as a route is resolved, it points to an adjacent next hop. If an adjacency is found in the adjacency table, a pointer to the appropriate adjacency is cached in the FIB element）。而如果存在到某个同样目的网络的多条路径，则指向每条邻接的所有指针就会被加入到load-sharing结构体中，这样做可以实现负载均衡。当多条前缀加入到FIB时，那些需要例外处理的前缀，会以特别邻接关系进行缓存。
+而一旦某条路由得到解析，就会指向到一个邻接的下一跳。如在邻接表中找到了某个邻接，那么一个指向该适当邻接的指针就在 FIB 条目中进行缓存（as soon as a route is resolved, it points to an adjacent next hop. If an adjacency is found in the adjacency table, a pointer to the appropriate adjacency is cached in the FIB element）。而如果存在到某个同样目的网络的多条路径，则指向每条邻接的所有指针就会被加入到load-sharing结构体中，这样做可以实现负载均衡。当多条前缀加入到 FIB 时，那些需要例外处理的前缀，会以特别邻接关系进行缓存。
 
 ### 加速的及分布式CEF
 
 **Accelerated and Distributed CEF**
 
-默认下，所有基于CEF技术的思科Catalyst交换机都使用**一个中心化三层交换引擎**(a central Layer 3 switching engine)，在那里由单独的处理器对交换机中所有端口上接收到的流量，做出全部的三层交换决定。尽管思科Catalyst交换机中用到的三层交换引擎提供了高性能，但在某些网络中，即便使用单独的三层交换引擎来完成所有三层交换，仍然不能提供足够的性能。为解决这个问题，思科`Catalyst 6500`系列交换机允许通过使用特别的转发硬件对CEF进行优化（to address this issue, Cisco Catalyst 6500 series switches allow for CEF optimisation through the use of specialised forwarding hardware）。CEF优化有两种实现方式，加速的CEF或分布式CEF。
+默认下，所有基于 CEF 技术的思科 Catalyst 交换机都使用**一个中心化三层交换引擎**(a central Layer 3 switching engine)，在那里由单独的处理器对交换机中所有端口上接收到的流量，做出全部的三层交换决定。尽管思科 Catalyst 交换机中用到的三层交换引擎提供了高性能，但在某些网络中，即便使用单独的三层交换引擎来完成所有三层交换，仍然不能提供足够的性能。为解决这个问题，思科`Catalyst 6500`系列交换机允许通过使用特别的转发硬件对 CEF 进行优化（to address this issue, Cisco Catalyst 6500 series switches allow for CEF optimisation through the use of specialised forwarding hardware）。 CEF 优化有两种实现方式，加速的 CEF 或分布式 CEF 。
 
-加速的CEF允许让FIB的一个部分分布到`Catalyst 6500`交换机中的具备此功能的线路卡模块上去（Accelerated CEF allows a portion of the FIB to be distributed to capable line card modules in the Catalyst 6500 switch）。这样做令到转发决定在本地线路卡上使用本地存储的缩小的CEF表做出。假如有FIB条目在缓存中没有找到，就会向三层交换引擎发出需要更多FIB信息的请求。
+加速的 CEF 允许让 FIB 的一个部分分布到`Catalyst 6500`交换机中的具备此功能的线路卡模块上去（Accelerated CEF allows a portion of the FIB to be distributed to capable line card modules in the Catalyst 6500 switch）。这样做令到转发决定在本地线路卡上使用本地存储的缩小的 CEF 表做出。假如有 FIB 条目在缓存中没有找到，就会向三层交换引擎发出需要更多 FIB 信息的请求。
 
-分布式CEF指的是使用分布在安装于机架上的多块线路卡上的多个CEF表。在应用dCEF时，三层交换引擎（MSFC）维护着路由表并生成FIB，FIB将被所有线路卡动态完整下载，令到多个三层数据面（multiple Layer 3 data plane）同时运行。
+分布式 CEF 指的是使用分布在安装于机架上的多块线路卡上的多个 CEF 表。在应用 dCEF 时，三层交换引擎（ MSFC ）维护着路由表并生成 FIB ， FIB 将被所有线路卡动态完整下载，令到多个三层数据面（multiple Layer 3 data plane）同时运行。
 
-总体上说，dCEF和aCEF都是用到多个三层交换引擎的技术，这样就实现了多个三层交换操作同时并行运作，从而提升整体系统性能。CEF技术提供以下好处。
+总体上说， dCEF 和 aCEF 都是用到多个三层交换引擎的技术，这样就实现了多个三层交换操作同时并行运作，从而提升整体系统性能。 CEF 技术提供以下好处。
 
-- 性能改善，improved performance -- 比起快速交换路由缓存技术，CEF是较少CPU-密集的（CEF is less CPU-intensive than fast-switching route caching）。那么就有更多的CPU处理能力用在譬如QoS和加密等的三层业务上。
-- 伸缩性, scalability -- 当dCEF模式开启时，CEF在诸如Catalyst 6500系列交换机等的高端平台的所有线路卡上，提供了全部的交换能力。
+- 性能改善，improved performance -- 比起快速交换路由缓存技术， CEF 是较少CPU-密集的（CEF is less CPU-intensive than fast-switching route caching）。那么就有更多的 CPU 处理能力用在譬如 QoS 和加密等的三层业务上。
+- 伸缩性, scalability -- 当 dCEF 模式开启时， CEF 在诸如Catalyst 6500系列交换机等的高端平台的所有线路卡上，提供了全部的交换能力。
 - 迅速恢复的能力, resilience -- CEF提供了大型动态网络中无例可循水平的数据交换一致性和稳定性。在动态网络中，快速交换缓存条目由于路由变化而频繁地过期和作废。这些变动能够引起流量经由使用路由表的进程交换而不是使用路由缓存的快速交换（CEF offers **an unprecedented level of switching consistency and stability** in large dynamic networks. In dynamic networks, fast-switching cache entries are frequently invalidated due to routing changes. These changes can cause traffic to be process-switched using the routing table rather than fast-switched using the route cache）。
 
 ### CEF的配置
 
 **Configuring Cisco Express Forwarding**
 
-开启CEF只需简单的一条命令，那就是全局配置命令`ip cef [distributed]`。关键字`[distributed]`仅适用于像是`Catalyst 6500`系列、支持`dCEF`的高端交换机。下面的输出展示了如何在一台诸如`Catalyst 3750`系列交换机的低端平台上配置CEF。
+开启 CEF 只需简单的一条命令，那就是全局配置命令`ip cef [distributed]`。关键字`[distributed]`仅适用于像是`Catalyst 6500`系列、支持`dCEF`的高端交换机。下面的输出展示了如何在一台诸如`Catalyst 3750`系列交换机的低端平台上配置 CEF 。
 
 ```console
 VTP-Server-1(config)#ip cef
@@ -573,7 +573,7 @@ VTP-Server-1(config)#ip cef distributed
 VTP-Server-1(config)#exit
 ```
 
-> **注意：** 并没有用于配置或开启aCEF的显式命令。
+> **注意：** 并没有用于配置或开启 aCEF 的显式命令。
 
 ## 路由问题的故障排除
 
@@ -593,11 +593,11 @@ VTP-Server-1(config)#exit
 
 动态路由协议的采行，令到排错过程更为容易，因为可以检查由路由器发出和接收到的路由更新。而对路由更新的检查，可以通过抓包或内部的设备机制完成，同时将帮助我们看到路由表是在何时、如何生成的。有着一张拓扑图及其它列出了每个前缀在网络中所处位置的文档，将更好地帮助你对路由更新的理解，进而缩短排错的过程。在这样的一个排错过程中，一般的主张就是依网络的设计，决定某个特定数据包将会采取的路径，并调查一下到底这个数据包在该路径的何处，偏离了该路径。
 
-要对网络设备进行监控，有着不同工具。而这些工具都用到同样的网络管理协议，那就是简单网络管理协议（Simple Network Management Protocol, SNMP）, 该协议设计从某台管理工作站对网络设备发起不同参数的查询（ICND2涵盖了SNMP）。除了检查标准的“健康度”参数（比如CPU、内存、磁盘空间等等）外，SNMP还会查询路由器的下面这些参数。
+要对网络设备进行监控，有着不同工具。而这些工具都用到同样的网络管理协议，那就是简单网络管理协议（Simple Network Management Protocol, SNMP）, 该协议设计从某台管理工作站对网络设备发起不同参数的查询（ ICND2 涵盖了 SNMP ）。除了检查标准的“健康度”参数（比如 CPU 、内存、磁盘空间等等）外， SNMP 还会查询路由器的下面这些参数。
 
 - 接口上数据包计数
 - 使用到的带宽及通过量
-- 设备接口上的CRC及其他类型的错误
+- 设备接口上的 CRC 及其他类型的错误
 - 路由表信息
 
 其它可以用到工具就是标准的用于验证端到端连通性的`ping`和`traceroute`了。它们亦能展示一些可能有助于确定出网络中发生故障的点位的相关输出。
@@ -696,12 +696,12 @@ Router#show ip bgp ?
 在检查了有关前缀在路由表中确有出现后，就应对这些前缀的属性值（译者注：其路由跳数及各条路由的度量值、下一跳等信息）及路径选择方式进行仔细分析。这些分析包括下面这些。
 
 - 检查通告了该前缀的所有路由协议（还要包括静态路由）
-- 对AD进行比较和修改，以令到优先选择某种指定的路由协议，而不是默认正确的
+- 对 AD 进行比较和修改，以令到优先选择某种指定的路由协议，而不是默认正确的
 - 检查并调整这些协议的度量值
 
 通过对网络中某台路由器的恰当配置，并在配置过程中对每一步都做好文档，以及对网络中两点自荐路径的持续监测，就能够对网络中流量是如何准确地流经那些设备，有扎实掌握。
 
-## 第10天问题
+## 第 10 天问题
 
 1. What is a routing protocol?
 2. `_____` is used to determine the reliability of one source of routing information from
@@ -719,7 +719,7 @@ control plane).
 10. Link State routing protocols are those that use distance or hop count as its primary
 metric for determining the best forwarding path. True or false?
 
-## 第10天问题答案
+## 第 10 天问题答案
 
 1. A protocol that allows a router to learn dynamically how to reach other networks.
 2. Administrative distance.
@@ -732,16 +732,16 @@ metric for determining the best forwarding path. True or false?
 9. FIB.
 10. False.
 
-## 第10天的实验
+## 第 10 天的实验
 
 ### 路由概念实验
 
-采用两台直连的路由器，并测试本模块中提到的那些基本命令。RIP已不在CCNA考试中了，但其对于一个简单的实验来说，是十分简单易用的。
+采用两台直连的路由器，并测试本模块中提到的那些基本命令。 RIP 已不在 CCNA 考试中了，但其对于一个简单的实验来说，是十分简单易用的。
 
-- 给直连接口分配一个IPv4地址（10.10.10.1/24及10.10.10.2/24）
+- 给直连接口分配一个 IPv4 地址（10.10.10.1/24及10.10.10.2/24）
 - 用`ping`测试直连的连通性
 - 在两台路由器上都配置一个环回接口，并从两个不同范围为其分配上地址（11.11.11.1/32及12.12.12.2/32）
-- 配置标准RIP并通告所有本地网络
+- 配置标准 RIP 并通告所有本地网络
 
 ```console
 R1:
@@ -759,6 +759,6 @@ network 10.10.10.0
 network 12.12.12.0
 ```
 
-- 自R1向R2的环回接口进行`ping`操作，以测试连通性
-- 执行一条`show ip route`命令，来检查经由RIP收到了那些路由
-- 执行一条`show ip protocols`命令，来检查有配置了RIP且RIP在设备上是允许着的
+- 自 R1 向 R2 的环回接口进行`ping`操作，以测试连通性
+- 执行一条`show ip route`命令，来检查经由 RIP 收到了那些路由
+- 执行一条`show ip protocols`命令，来检查有配置了 RIP 且 RIP 在设备上是允许着的
