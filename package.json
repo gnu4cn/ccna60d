@@ -1,0 +1,26 @@
+{
+  "name": "ccna60d",
+  "version": "1.0.0",
+  "description": "**Cisco CCNA in 60 Days**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "git-push": "git add . && git commit -m \"updated.\" && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnu4cn/ccna60d.git"
+  },
+  "keywords": [
+    "Computer",
+    "network",
+    "计算机网络通信",
+    "CCNA"
+  ],
+  "author": "xfoss.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnu4cn/ccna60d/issues"
+  },
+  "homepage": "https://github.com/gnu4cn/ccna60d#readme"
+}
