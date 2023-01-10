@@ -67,7 +67,7 @@
             "edit": true
         },
         "tbfed-pagefooter": {
-            "copyright": "Copyleft @ rust.xfoss.com 2022",
+            "copyright": "Copyleft @ ccna.xfoss.com 2022",
             "modify_label": "该文件修订时间：",
             "modify_format": "YYYY-MM-DD HH:mm:ss"
         },
@@ -75,7 +75,7 @@
             "tag": "b"
         },
         "sitemap": {
-            "hostname": "https://rust-lang.xfoss.com/"
+            "hostname": "https://ccna.xfoss.com/"
         }
     }
 }
