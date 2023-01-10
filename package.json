@@ -4,8 +4,10 @@
   "description": "**Cisco CCNA in 60 Days**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "git-push": "git add . && git commit -m \"updated.\" && git push"
+    "sl-checkout": "sl pull && sl go main",
+    "sl-push": "sl add . && sl commit -m \"Updated.\" && sl push",
+    "git-push": "git add . && git commit -m \"Updated.\" && git push",
+    "serve": "npx honkit serve --port=10444 --lrport=35710 &"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,25 @@
   "bugs": {
     "url": "https://github.com/gnu4cn/ccna60d/issues"
   },
-  "homepage": "https://github.com/gnu4cn/ccna60d#readme"
+  "homepage": "https://github.com/gnu4cn/ccna60d#readme",
+  "devDependencies": {
+    "gitbook-plugin-back-to-top-button": "^0.1.4",
+    "gitbook-plugin-cuav-chapters": "^1.0.3",
+    "gitbook-plugin-fontsettings": "^2.0.0",
+    "gitbook-plugin-heading-anchors": "^1.0.3",
+    "gitbook-plugin-highlight-code": "^1.0.0",
+    "gitbook-plugin-theme-comscore": "^0.0.3",
+    "honkit": "^4.0.4"
+  },
+  "dependencies": {
+    "gitbook-plugin-ace": "^0.3.2",
+    "gitbook-plugin-code": "^0.1.0",
+    "gitbook-plugin-include-codeblock": "^3.2.3",
+    "gitbook-plugin-search-pro-fixed": "^1.0.1",
+    "gitbook-plugin-sectionx": "^3.1.0",
+    "gitbook-plugin-sitemap": "^1.2.0",
+    "gitbook-plugin-splitter": "^0.0.8",
+    "gitbook-plugin-tbfed-pagefooter": "^0.0.1",
+    "gitbook-plugin-theme-door": "^1.0.2"
+  }
 }

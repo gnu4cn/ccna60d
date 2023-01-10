@@ -22,13 +22,55 @@
     },
     "plugins" : [
         "highlight-code",
-        "livereload",
-        "lunr",
-        "sharing",
         "fontsettings",
-        "theme-comscore"
+        "theme-comscore",
+        "include-codeblock@^3.0.2",
+        "tbfed-pagefooter@^0.0.1",
+        "sectionx@^3.1.0",
+        "sitemap",
+        "code",
+        "-lunr",
+        "-search",
+        "-sharing",
+        "-fontsettings",
+        "cuav-chapters",
+        "heading-anchors",
+        "splitter",
+        "theme-door",
+        "search-pro-fixed"
     ],
+    "variables": {
+        "doorTheme": {
+            "nav": [
+                {
+                    "url": "https://java.xfoss.com",
+                    "target": "_blank",
+                    "name": "学习 Java ☕"
+                }
+            ]
+        }
+    },
     "pluginsConfig": {
+        "doorTheme": {
+            "search-placeholder": "请输入关键字搜索",
+            "logo": "./docs/images/rust-lang-ar21.svg",
+            "favicon": "./docs/images/rust-fav-icon.png"
+        },
+        "include-codeblock": {
+            "template": "ace",
+            "unindent": true,
+            "edit": true
+        },
+        "tbfed-pagefooter": {
+            "copyright": "Copyleft @ rust.xfoss.com 2022",
+            "modify_label": "该文件修订时间：",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        },
+        "sectionx": {
+            "tag": "b"
+        },
+        "sitemap": {
+            "hostname": "https://rust-lang.xfoss.com/"
+        }
     }
-
 }
