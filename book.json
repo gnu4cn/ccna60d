@@ -43,9 +43,14 @@
         "doorTheme": {
             "nav": [
                 {
+                    "url": "https://rust-lang.xfoss.com",
+                    "target": "_blank",
+                    "name": "学习 Rust 编程语言 · ⚙️"
+                },
+                {
                     "url": "https://java.xfoss.com",
                     "target": "_blank",
-                    "name": "学习 Java ☕"
+                    "name": "学习 Java 编程语言 · ☕"
                 }
             ]
         }
@@ -53,8 +58,8 @@
     "pluginsConfig": {
         "doorTheme": {
             "search-placeholder": "请输入关键字搜索",
-            "logo": "./docs/images/rust-lang-ar21.svg",
-            "favicon": "./docs/images/rust-fav-icon.png"
+            "logo": "./images/computer-network-services.png",
+            "favicon": "./images/network-svgrepo-com.ico"
         },
         "include-codeblock": {
             "template": "ace",
