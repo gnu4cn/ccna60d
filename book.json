@@ -51,6 +51,16 @@
                     "url": "https://java-lang.xfoss.com",
                     "target": "_blank",
                     "name": "学习 Java 编程语言 · ☕"
+                },
+                {
+                    "url": "https://ts-lang.xfoss.com",
+                    "target": "_blank",
+                    "name": "学习 TypeScript 语言 · 🖹"
+                },
+                {
+                    "url": "https://xfoss.com",
+                    "target": "_blank",
+                    "name": "捐助，donation · 💰"
                 }
             ]
         }
