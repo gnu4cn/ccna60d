@@ -1,91 +1,91 @@
 {
-    "author": "Translated by Peng Hailin, laxers@gmail.com",
-    "description": "这是一本 CCNA 教程",
-    "generator": "xfoss.com 网站",
-    "links": {
-        "sharing": {
-            "weibo": null
-        },
-        "sidebar": {
-            "60天通过CCNA考试": "https://ccna60d.xfoss.com/"
-        }
+  "author": "Translated by Peng Hailin, laxers@gmail.com",
+  "description": "这是一本 CCNA 教程",
+  "generator": "xfoss.com 网站",
+  "links": {
+    "sharing": {
+      "weibo": null
     },
-    "pdf": {
-        "fontSize": 12,
-        "margin": {
-            "bottom": 12,
-            "left": 16,
-            "right": 12,
-            "top": 18
-        },
-        "paperSize": "a4"
-    },
-    "plugins" : [
-        "highlight-code",
-        "fontsettings",
-        "theme-comscore",
-        "include-codeblock@^3.0.2",
-        "tbfed-pagefooter@^0.0.1",
-        "sectionx@^3.1.0",
-        "sitemap",
-        "code",
-        "-lunr",
-        "-search",
-        "-sharing",
-        "-fontsettings",
-        "cuav-chapters",
-        "heading-anchors",
-        "splitter",
-        "theme-door",
-        "search-pro-fixed"
-    ],
-    "variables": {
-        "doorTheme": {
-            "nav": [
-                {
-                    "url": "https://rust-lang.xfoss.com",
-                    "target": "_blank",
-                    "name": "学习 Rust 编程语言 · ⚙️"
-                },
-                {
-                    "url": "https://java-lang.xfoss.com",
-                    "target": "_blank",
-                    "name": "学习 Java 编程语言 · ☕"
-                },
-                {
-                    "url": "https://ts-lang.xfoss.com",
-                    "target": "_blank",
-                    "name": "学习 TypeScript 语言 · 🖹"
-                },
-                {
-                    "url": "https://xfoss.com",
-                    "target": "_blank",
-                    "name": "捐助，donation · 💰"
-                }
-            ]
-        }
-    },
-    "pluginsConfig": {
-        "doorTheme": {
-            "search-placeholder": "请输入关键字搜索",
-            "logo": "./images/computer-network-services.png",
-            "favicon": "./images/network-svgrepo-com.ico"
-        },
-        "include-codeblock": {
-            "template": "ace",
-            "unindent": true,
-            "edit": true
-        },
-        "tbfed-pagefooter": {
-            "copyright": "Copyleft @ ccna.xfoss.com 2022",
-            "modify_label": "该文件修订时间：",
-            "modify_format": "YYYY-MM-DD HH:mm:ss"
-        },
-        "sectionx": {
-            "tag": "b"
-        },
-        "sitemap": {
-            "hostname": "https://ccna.xfoss.com/"
-        }
+    "sidebar": {
+      "60天通过CCNA考试": "https://ccna60d.xfoss.com/"
     }
+  },
+  "pdf": {
+    "fontSize": 12,
+    "margin": {
+      "bottom": 12,
+      "left": 16,
+      "right": 12,
+      "top": 18
+    },
+    "paperSize": "a4"
+  },
+  "plugins": [
+    "highlight-code",
+    "include-codeblock@^3.0.2",
+    "tbfed-pagefooter@^0.0.1",
+    "sectionx@^3.1.0",
+    "sitemap",
+    "code",
+    "page-toc-button",
+    "-lunr",
+    "-search",
+    "-sharing",
+    "cuav-chapters",
+    "add-js-css",
+    "heading-anchors",
+    "navigation",
+    "splitter",
+    "search-pro2"
+  ],
+  "pluginsConfig": {
+    "page-toc-button": {
+      "maxTocDepth": 2,
+      "minTocSize": 2
+    },
+    "fontsettings": {
+      "theme": "white",
+      "family": "sans",
+      "size": 2
+    },
+    "include-codeblock": {
+      "template": "ace",
+      "unindent": true,
+      "edit": false
+    },
+    "tbfed-pagefooter": {
+      "copyright": "Copyleft @ ccna.xfoss.com 2022 - now",
+      "modify_label": "该文件修订时间：",
+      "modify_format": "YYYY-MM-DD HH:mm:ss"
+    },
+    "sectionx": {
+      "tag": "b"
+    },
+    "add-js-css": {
+      "css": [ "./custom-style.css" ]
+    },
+    "navigation": {
+      "navigatorList": [
+        {
+          "url": "https://rust-lang.xfoss.com",
+          "name": "学习 Rust 编程语言 · ⚙️"
+        },
+        {
+          "url": "https://java-lang.xfoss.com",
+          "name": "学习 Java 编程语言 · ☕"
+        },
+        {
+          "url": "https://ts-lang.xfoss.com",
+          "name": "学习 TypeScript 语言 · 🖹"
+        },
+        {
+          "url": "https://xfoss.com",
+          "name": "捐助，donation · 💰"
+        }
+      ]
+    },
+    "sitemap": {
+      "hostname": "https://ccna.xfoss.com/"
+    }
+  }
 }

@@ -26,23 +26,27 @@
   },
   "homepage": "https://github.com/gnu4cn/ccna60d#readme",
   "devDependencies": {
+    "gitbook-plugin-add-js-css": "^0.0.1",
     "gitbook-plugin-back-to-top-button": "^0.1.4",
     "gitbook-plugin-cuav-chapters": "^1.0.3",
     "gitbook-plugin-fontsettings": "^2.0.0",
     "gitbook-plugin-heading-anchors": "^1.0.3",
     "gitbook-plugin-highlight-code": "^1.0.0",
+    "gitbook-plugin-navigation": "^0.1.1",
+    "gitbook-plugin-page-toc-button": "^0.1.1",
+    "gitbook-plugin-search-pro2": "^1.0.2",
+    "gitbook-plugin-sharing": "^1.0.2",
     "gitbook-plugin-theme-comscore": "^0.0.3",
+    "gitbook-plugin-yh-changyan": "^1.0.0",
     "honkit": "^4.0.4"
   },
   "dependencies": {
     "gitbook-plugin-ace": "^0.3.2",
     "gitbook-plugin-code": "^0.1.0",
     "gitbook-plugin-include-codeblock": "^3.2.3",
-    "gitbook-plugin-search-pro-fixed": "^1.0.1",
     "gitbook-plugin-sectionx": "^3.1.0",
     "gitbook-plugin-sitemap": "^1.2.0",
     "gitbook-plugin-splitter": "^0.0.8",
-    "gitbook-plugin-tbfed-pagefooter": "^0.0.1",
-    "gitbook-plugin-theme-door": "^1.0.2"
+    "gitbook-plugin-tbfed-pagefooter": "^0.0.1"
   }
 }
