@@ -62,7 +62,8 @@
       "tag": "b"
     },
     "add-js-css": {
-      "css": [ "./custom-style.css" ]
+      "css": [ "./custom_style.css" ],
+      "js": [ "./custom_script.js" ]
     },
     "navigation": {
       "navigatorList": [
