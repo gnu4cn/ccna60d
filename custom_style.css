@@ -31,6 +31,9 @@ i.fa {
 }
 
 @media only screen and (min-width: 1024px) {
+  div.book-header {
+    top: 30px;
+  }
   .nav-list .nav-item a {
     font-size: small !important;
   }
