@@ -10,7 +10,7 @@
 - Gitlab: [gitlab.com/unisko/ccna60d](https://gitlab.com/unisko/ccna60d/)
 
 
-- [ccna.xfoss.com](https://ccna60d.xfoss.com/)
+- [ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 
 ___
