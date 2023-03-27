@@ -1,5 +1,3 @@
----
-
 # CCNA60 天
 
 [60 天通过 CCNA 考试](README.md)
