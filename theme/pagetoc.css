@@ -16,7 +16,7 @@
     }
     .pagetoc {
         position: fixed;
-        width: 200px;
+        width: 280px;
         height: calc(100vh - var(--menu-bar-height) - 0.67em * 4);
         overflow: auto;
     }
