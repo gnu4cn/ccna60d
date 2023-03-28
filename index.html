@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>60 天通过 CCNA 考试 - CCNA60D Chinese, 中文版 CCNA 60 days</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html" class="active">60 天通过 CCNA 考试</a></li><li class="chapter-item expanded "><a href="d01-Networks-Cables-OSI-and-TCP-Models.html"><strong aria-hidden="true">1.</strong> 第1天, 网络、线缆、OSI及TCP模型</a></li><li class="chapter-item expanded "><a href="d02-CSMA-CD-Switching-and-VLANs.html"><strong aria-hidden="true">2.</strong> 第2天, CSMA/CD, 交换和虚拟局域网</a></li><li class="chapter-item expanded "><a href="d03-Trunking-DTP-and-Inter-VLAN-Routing.html"><strong aria-hidden="true">3.</strong> 第3天, 中继、DTP 及 VLAN 间路由</a></li><li class="chapter-item expanded "><a href="d04-Router-and-Switch-Security.html"><strong aria-hidden="true">4.</strong> 第4天, 路由器和交换机安全</a></li><li class="chapter-item expanded "><a href="d05-IP-Addressing.html"><strong aria-hidden="true">5.</strong> 第5天, IP 地址分配</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">进阶</li><li class="chapter-item expanded "><a href="d06-NAT.html"><strong aria-hidden="true">6.</strong> 第6天, 网络地址转换</a></li><li class="chapter-item expanded "><a href="d07-IPv6.html"><strong aria-hidden="true">7.</strong> 第7天, 互联网协议版本6</a></li><li class="chapter-item expanded "><a href="d08-Integrating-IPv4-and-IPv6-Network-Environments.html"><strong aria-hidden="true">8.</strong> 第8天, IPv4与IPv6共存的网络环境</a></li><li class="chapter-item expanded "><a href="d09-ACL.html"><strong aria-hidden="true">9.</strong> 第9天, 访问控制清单</a></li><li class="chapter-item expanded "><a href="d10-Routing-Concepts.html"><strong aria-hidden="true">10.</strong> 第10天, 路由的一些概念</a></li><li class="chapter-item expanded "><a href="d11-Static-Routing.html"><strong aria-hidden="true">11.</strong> 第11天, 静态路由</a></li><li class="chapter-item expanded "><a href="d12-OSPF-Basics.html"><strong aria-hidden="true">12.</strong> 第12天, OSPF基础知识</a></li><li class="chapter-item expanded "><a href="d13-OSPFv3.html"><strong aria-hidden="true">13.</strong> 第13天, OSPF版本3</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">实操</li><li class="chapter-item expanded "><a href="d14-DHCP-and-DNS.html"><strong aria-hidden="true">14.</strong> 第14天, DHCP及DNS</a></li><li class="chapter-item expanded "><a href="d15-Layer_1-and-Layer_2-Troubleshooting.html"><strong aria-hidden="true">15.</strong> 第15天, 一二层排错</a></li><li class="chapter-item expanded "><a href="d31-Spanning-Tree-Protocol.html"><strong aria-hidden="true">16.</strong> 第31天, 生成树协议</a></li><li class="chapter-item expanded "><a href="d32-Rapid-Spanning-Tree-Protocol.html"><strong aria-hidden="true">17.</strong> 第32天, 快速生成树协议</a></li><li class="chapter-item expanded "><a href="d33-EtherChannels-and-Link-Aggregation-Protocols.html"><strong aria-hidden="true">18.</strong> 第33天, 以太网通道及链路聚合协议</a></li><li class="chapter-item expanded "><a href="d34-First-Hop-Redundancy-Protocols.html"><strong aria-hidden="true">19.</strong> 第34天, 第一跳冗余协议</a></li><li class="chapter-item expanded "><a href="d35-booting-and-IOS.html"><strong aria-hidden="true">20.</strong> 第35天, 启动与IOS</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">EIGRP</li><li class="chapter-item expanded "><a href="d36-EIGRP.html"><strong aria-hidden="true">21.</strong> 第36天, EIGRP</a></li><li class="chapter-item expanded "><a href="d37-Rroubleshooting-EIGRP.html"><strong aria-hidden="true">22.</strong> 第37天，EIGRP故障排除</a></li><li class="chapter-item expanded "><a href="d38-EIGRP-For-IPv6.html"><strong aria-hidden="true">23.</strong> 第38天，IPv6下的EIGRP</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">OSPF</li><li class="chapter-item expanded "><a href="d39-OSPF.html"><strong aria-hidden="true">24.</strong> 第39天，开放最短路径优先协议</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">SNMP 与 NetFlow</li><li class="chapter-item expanded "><a href="d40-Syslog-SNMP-and-Netflow.html"><strong aria-hidden="true">25.</strong> 第40天，系统日志、简单网络管理协议与NetFlow软件</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">广域网 WAN</li><li class="chapter-item expanded "><a href="d41-Wide-Area-Networking.html"><strong aria-hidden="true">26.</strong> 第41天，广域组网</a></li><li class="chapter-item expanded "><a href="d42-Frame-Relay-and-PPP.html"><strong aria-hidden="true">27.</strong> 第42天，帧中继与点对点协议</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">附录</li><li class="chapter-item expanded "><a href="port-mirroring.html"><strong aria-hidden="true">28.</strong> 附录一：华为交换机端口镜像</a></li><li class="chapter-item expanded "><a href="IPv6_address_space.html"><strong aria-hidden="true">29.</strong> 附录二：IPv6地址空间</a></li><li class="chapter-item expanded "><a href="GNS3_tutorial.html"><strong aria-hidden="true">30.</strong> 附录三：GNS3简介</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CCNA60D Chinese, 中文版 CCNA 60 days</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="60-天通过-ccna-考试"><a class="header" href="#60-天通过-ccna-考试">60 天通过 CCNA 考试</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next" href="d01-Networks-Cables-OSI-and-TCP-Models.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next" href="d01-Networks-Cables-OSI-and-TCP-Models.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
