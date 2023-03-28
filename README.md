@@ -20,11 +20,11 @@ ___
 **推荐模拟器**
 
 <p align="center">
-<img src="src/images/GNS3_logo.png" />
+    <img src="images/GNS3_logo.png" />
 </p>
 
 <p align="center">
-<a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>, <a href="GNS3_tutorial.md">GNS3入门教程</a>
+    <a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>, <a href="GNS3_tutorial.md">GNS3入门教程</a>
 </p>
 
 
