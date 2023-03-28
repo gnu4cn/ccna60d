@@ -4,3 +4,8 @@ language = "zh-CN"
 multilingual = false
 src = "src"
 title = "CCNA60D Chinese, 中文版 CCNA 60 days"
+
+[preprocessor.pagetoc]
+[output.html]
+additional-css = ["theme/pagetoc.css"]
+additional-js  = ["theme/pagetoc.js"]
