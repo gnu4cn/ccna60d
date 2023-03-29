@@ -7,16 +7,17 @@
 @media only screen and (min-width:1440px) {
     main {
         position: relative;
+        margin-left: calc((100% - var(--content-max-width))/2 - 120px) !important;
     }
     .sidetoc {
         margin-left: auto;
         margin-right: auto;
-        left: calc(100% + (var(--content-max-width))/4 - 140px);
+        left: calc(100% + (var(--content-max-width))/4 - 160px);
         position: absolute;
     }
     .pagetoc {
         position: fixed;
-        width: 280px;
+        width: 320px;
         height: calc(100vh - var(--menu-bar-height) - 0.67em * 4);
         overflow: auto;
     }
