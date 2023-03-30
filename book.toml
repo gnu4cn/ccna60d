@@ -9,3 +9,8 @@ title = "CCNA60D Chinese, 中文版 CCNA 60 days"
 [output.html]
 additional-css = ["theme/pagetoc.css"]
 additional-js  = ["theme/pagetoc.js"]
+git-repository-url = "https://github.com/gnu4cn/ccna60d"
+git-repository-icon = "fa-github"
+
+[output.html.print]
+enable = false

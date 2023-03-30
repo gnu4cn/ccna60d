@@ -2,7 +2,11 @@
     .sidetoc {
         display: none;
     }
+    #menu-bar {
+      position: fixed !important;
+    }
 }
+
 
 @media only screen and (min-width:1440px) {
     main {
