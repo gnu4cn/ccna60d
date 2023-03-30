@@ -1,6 +1,6 @@
 [book]
 authors = ["Lenny Peng"]
-language = "zh-CN"
+language = "zh"
 multilingual = false
 src = "src"
 title = "CCNA60D Chinese, 中文版 CCNA 60 days"
