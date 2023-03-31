@@ -18,7 +18,7 @@ ___
 **推荐模拟器**
 
 <p align="center">
-    <img src="images/GNS3_logo.png" />
+    <img src="images/GNS3_logo.png" alt="GNS3 logo" />
 </p>
 
 <p align="center">
