@@ -2,10 +2,6 @@
   .sidetoc {
     display: none;
   }
-  #menu-bar {
-    position: fixed !important;
-    width: 100vw;
-  }
   #search-toggle {
     display: none;
   }
