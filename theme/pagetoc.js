@@ -47,3 +47,21 @@ window.addEventListener('load', function() {
 
 // Handle active elements on scroll
 window.addEventListener("scroll", updateFunction);
+
+if(document.querySelector("#document-not-found404")) {
+  let timeLeft = 10;
+
+  var timerId = setInterval(() => {
+    if(timeLeft == -1) {
+      clearTimeout(timerId);
+      let siteRoot = window.location.origin;
+      window.location.replace(siteRoot);
+    } else {
+      let secCounts = document.querySelectorAll(".sec-count")
+      secCounts.forEach(count => {
+        count.innerHTML = timeLeft;
+      });
+      timeLeft--;
+    }
+  }, 1000);
+}
