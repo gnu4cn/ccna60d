@@ -4,6 +4,7 @@ language = "zh"
 multilingual = false
 src = "src"
 title = "CCNA60D Chinese, 中文版 CCNA 60 days"
+description = "CCNA in 60 days Chinese, 中文版 CCNA 60 days"
 
 [preprocessor.pagetoc]
 [output.html]
