@@ -70,20 +70,12 @@ LAN交换是一种用在局域网中的包交换形式。 LAN 交换是在数据
 
 ![思科 2960 交换机 LEDs ，图片版权归思科系统公司](images/1501.png)
 
-<table>
-<tr>
-<td>`1`</td><td>系统LED</td><td>`5`</td><td>速率LED</td>
-</tr>
-<tr>
-<td>`2`</td><td>冗余电源（redundant power supply, RPS） LED</td><td>`6`</td><td>PoE LED</td>
-</tr>
-<tr>
-<td>`3`</td><td>状态LED</td><td>`7`</td><td>模式按钮</td>
-</tr>
-<tr>
-<td>`4`</td><td>双工LED</td><td>`8`</td><td>端口LEDs</td>
-</tr>
-</table>
+| 编号 | 作用 | 编号 | 作用 |
+| :-- | :-- | :-- | :-- |
+| `1` | 系统LED | `5` | 速率LED |
+| `2` | 冗余电源（redundant power supply, RPS） LED | `6` | PoE LED |
+| `3` | 状态LED | `7` | 模式按钮 |
+| `4` | 双工LED | `8` | 端口LEDs |
 
 *图15.1 -- 思科 2960 交换机 LEDs ，图片版权归思科系统公司*
 
