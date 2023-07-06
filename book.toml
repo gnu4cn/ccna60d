@@ -16,3 +16,7 @@ google-analytics="G-V49YMMPZJN"
 
 [output.html.print]
 enable = false
+
+[output.epub]
+
+[output.pdf]
