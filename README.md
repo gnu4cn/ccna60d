@@ -3,7 +3,6 @@
 **Cisco CCNA in 60 Days**
 
 
-
 - Github: [github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d)
 
 
