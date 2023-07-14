@@ -19,7 +19,3 @@ enable = false
 
 [output.html.search]
 enable = false
-
-[output.epub]
-
-[output.pdf]
