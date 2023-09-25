@@ -11,11 +11,12 @@
 
 在线阅读：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
-本地阅读：[`mdbook` 本地运行](./howto_read_locally.md)
+EPUB 电子书下载：[CCNA60D.epub](https://ccna60d.xfoss.com/CCNA60D.epub)
+
+本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
 
 ___
-
 本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
 ## 捐赠记录
@@ -27,8 +28,6 @@ _2017-08-03_
 _2017-05-21_
 
 * “远”通过支付宝进行了捐赠，并留言 “60 天通过 ccna 对我帮助很大期待更新”
-
-
 
 ## 更新记录
 
@@ -60,12 +59,13 @@ _2017-07-14_
 
 * 完成第36天--EIGRP 章节的修订，EIGRP已无问题
 
+
 ___
 
 **推荐模拟器**
 
 <p align="center">
-    <img src="./images/GNS3_logo.png" alt="GNS3 logo" />
+    <img src="./src/images/GNS3_logo.png" alt="GNS3 logo" />
 </p>
 
 <p align="center">
