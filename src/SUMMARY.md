@@ -71,3 +71,4 @@
 - [附录一：华为交换机端口镜像](port-mirroring.md)
 - [附录二：IPv6地址空间](IPv6_address_space.md)
 - [附录三：GNS3简介](GNS3_tutorial.md)
+- [附录三：网络故障排除](network_troubleshooting.md)
