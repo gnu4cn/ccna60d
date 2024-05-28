@@ -68,7 +68,9 @@
 # 附录
 
 
-- [附录一：华为交换机端口镜像](port-mirroring.md)
-- [附录二：IPv6地址空间](IPv6_address_space.md)
-- [附录三：GNS3简介](GNS3_tutorial.md)
-- [附录三：网络故障排除](network_troubleshooting.md)
+- [附录 I：华为交换机端口镜像](port-mirroring.md)
+- [附录 II：IPv6地址空间](IPv6_address_space.md)
+- [附录 III：GNS3简介](GNS3_tutorial.md)
+- [附录 IV：网络故障排除](network_troubleshooting.md)
+- [附录 V：`dot1x` 认证下的动态 VLAN 实现](22_dot1x_port_dynamic_vlan.md)
+
