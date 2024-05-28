@@ -6,6 +6,28 @@
 华为交换机的配置，分传统模式与统一认证模式。因为核心交换机目前运行的是统一认证模式，因此配置时，应选择统一认证模式。而不论是统一认证模式，还是传统认证模式，M$ AD NPS 服务器配置都是一样的。
 
 
+### 配置端口聚合（HUAWEI & H3C）
+
+
+先创建出聚合出的端口，后将构成此聚合端口的接口，放入到所创建出的聚合端口中即可。
+
+
+```console
+<xfoss-com> system-view
+[xfoss-com] interface eth-trunk 1
+[xfoss-com-Eth-Trunk1] desc 'uplink to h3c'
+[xfoss-com-Eth-Trunk1] bpdu enable
+[xfoss-com-Eth-Trunk1] mode lacp-static
+[xfoss-com-Eth-Trunk1] quit
+[xfoss-com] interface GigabitEthernet 0/0/1
+[xfoss-com-GigabitEthernet0/0/1] eth-trunk 1
+[xfoss-com-GigabitEthernet0/0/1] quit
+[xfoss-com] interface GigabitEthernet 0/0/2
+[xfoss-com-GigabitEthernet0/0/2] eth-trunk 1
+[xfoss-com-GigabitEthernet0/0/2] quit
+```
+
+
 ### 交换机基础配置
 
 
