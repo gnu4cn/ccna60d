@@ -151,6 +151,49 @@ interface GigabitEthernet1/0/1
 ### IPSec 隧道建立问题
 
 
+
 - 建立 “接口模式” IPSec 隧道时，务必要选择物理接口，否则会报错；
 
-- 特性（“Feature”）版本下，无法在网页 GUI 界面下修改IPSEC VPN 配置；成熟版本下可以。
+- ~~特性（“Feature”）版本下，无法在网页 GUI 界面下修改IPSEC VPN 配置；成熟版本下可以~~，选择“转换未自定义隧道”后就可以了。
+
+
+### “自定义” 隧道下参数配置
+
+
+在不同企业、对端为非 FG 防火墙的如下 IPSec 隧道参数约定下，FG 端的配置如下面的截图所示。
+
+
+```text
+Phase 1 Proposal:
+    IKE Version:				IKEv1
+    Authentication Method:  	Preshared
+    Preshared Key:			    somekey(根据客户不同进行事先协商确定)
+    DH Group:				    Group 2
+    Encryption Algorithm:		3DES-CBC
+    Hash Algorithm:			    SHA-1
+    IKE SA Lifetime:     	    480 Mins
+    Mode:					    Main
+
+Phase 2 Proposal:
+    Perfect Forward Secrecy:	NO-PFS
+    Encapsulation:
+        Encryption (ESP)
+            Encryption Algorithm:		3DES-CBC
+            Authentication Algorithm:	SHA-1
+    IPSEC Tunnel Lifetime:		60 Mins
+```
+
+
+*图 1、阶段 1 认证方法*
+
+![阶段 1 认证方法](images/fg_ipsec_01.png)
+
+
+*图 2、阶段 1 参数*
+
+![阶段 1 参数](images/fg_ipsec_02.png)
+
+
+*图 3、阶段 2 参数*
+
+![阶段 2 参数](images/fg_ipsec_03.png)
