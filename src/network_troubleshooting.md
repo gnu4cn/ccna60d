@@ -165,22 +165,22 @@ interface GigabitEthernet1/0/1
 
 ```text
 Phase 1 Proposal:
-    IKE Version:				IKEv1
-    Authentication Method:  	Preshared
-    Preshared Key:			    somekey(根据客户不同进行事先协商确定)
-    DH Group:				    Group 2
-    Encryption Algorithm:		3DES-CBC
-    Hash Algorithm:			    SHA-1
-    IKE SA Lifetime:     	    480 Mins
-    Mode:					    Main
+    IKE Version:            IKEv1
+    Authentication Method:  Preshared
+    Preshared Key:          somekey(根据客户不同进行事先协商确定)
+    DH Group:               Group 2
+    Encryption Algorithm:   3DES-CBC
+    Hash Algorithm:         SHA-1
+    IKE SA Lifetime:        480 Mins
+    Mode:                   Main
 
 Phase 2 Proposal:
-    Perfect Forward Secrecy:	NO-PFS
+    Perfect Forward Secrecy:    NO-PFS
     Encapsulation:
         Encryption (ESP)
-            Encryption Algorithm:		3DES-CBC
-            Authentication Algorithm:	SHA-1
-    IPSEC Tunnel Lifetime:		60 Mins
+            Encryption Algorithm:       3DES-CBC
+            Authentication Algorithm:   SHA-1
+    IPSEC Tunnel Lifetime:      60 Mins
 ```
 
 
