@@ -197,3 +197,75 @@ Phase 2 Proposal:
 *图 3、阶段 2 参数*
 
 ![阶段 2 参数](images/fg_ipsec_03.png)
+
+
+## FG 固件升级
+
+
+FG 防火墙固件升级，需要按照升级路径进行。访问 [Recommended Upgrade Path](https://docs.fortinet.com/upgrade-tool/fortigate)，可以找到升级路径。
+
+
+在未按照升级路径升级固件时，就会出现系统无法启动，如下所示。
+
+
+```console
+FortiGate-60F (19:09-07.21.2021)
+Ver:05000009
+Serial number: FGT60FTK2209J3YG
+CPU: 1200MHz
+Total RAM: 2 GB
+Initializing boot device...
+Initializing MAC... NP6XLITE#0
+Please wait for OS to boot, or press any key to display configuration menu......
+
+Booting OS...
+Initializing firewall...
+failed verification on /data/datafs.tar.gz
+fos_ima: System Integrity check failed...
+CPU7: stopping
+CPU4: stopping
+CPU0: stopping
+CPU2: stopping
+CPU5: stopping
+CPU6: stopping
+CPU1: stopping
+
+```
+
+
+此时，设备可以启动到 Bootloader，可进入 `configuration menu`，选择升级前可启动的固件启动。如下所示。
+
+
+```console
+FortiGate-60F (19:09-07.21.2021)
+Ver:05000009
+Serial number: FGT60FTK2209J3YG
+CPU: 1200MHz
+Total RAM: 2 GB
+Initializing boot device...
+Initializing MAC... NP6XLITE#0
+Please wait for OS to boot, or press any key to display configuration menu..
+
+[C]: Configure TFTP parameters.
+[R]: Review TFTP parameters.
+[T]: Initiate TFTP firmware transfer.
+[F]: Format boot device.
+[I]: System information.
+[B]: Boot with backup firmware and set as default.
+[Q]: Quit menu and continue to boot.
+[H]: Display this list of options.
+
+Enter C,R,T,F,I,B,Q,or H:
+
+Loading backup firmware from boot device...
+
+
+Booting OS...
+.Initializing firewall...
+
+System is starting...
+Starting system maintenance...
+Scanning /dev/mmcblk0p1... (100%)
+Scanning /dev/mmcblk0p3... (100%)
+
+```
