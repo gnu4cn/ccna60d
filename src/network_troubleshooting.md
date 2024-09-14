@@ -199,7 +199,7 @@ Phase 2 Proposal:
 ![阶段 2 参数](images/fg_ipsec_03.png)
 
 
-## FG 固件升级
+### FG 固件升级
 
 
 FG 防火墙固件升级，需要按照升级路径进行。访问 [Recommended Upgrade Path](https://docs.fortinet.com/upgrade-tool/fortigate)，可以找到升级路径。
