@@ -135,16 +135,12 @@ TAC 给的示例配置如下：
 ```config
 config firewall shaper traffic-shaper
     edit "guarantee-ipsec-traffic"
-        set guaranteed-bandwidth 5000  //保证带宽,单位kbps，确保如果发生拥塞的时候能够流量优先保证
-        set maximum-bandwidth 10000 //最大带宽,单位kbps
-        set per-policy enable
-    next
-    edit "guarantee-dmz-traffic"
-        set maximum-bandwidth 30000 //最大带宽,单位kbps
+        set guaranteed-bandwidth 50000  //保证带宽,单位kbps，确保如果发生拥塞的时候能够流量优先保证
+        set maximum-bandwidth 100000 //最大带宽,单位kbps
         set per-policy enable
     next
     edit "guarantee-wan-traffic"
-        set maximum-bandwidth 50000 //最大带宽,单位kbps
+        set maximum-bandwidth 100000 //最大带宽,单位kbps
         set per-policy enable
     next
 end
@@ -152,22 +148,10 @@ config firewall shaping-policy
     edit 0 //顺序新建一条限速策略
         set name "guarantee-ipsec-traffic"
         set service "ALL"
-        set srcintf internal1    //流量的进入接口
-        set dstintf to_ks    //流量的出接口（ipsec接口）
+        set srcintf X    //流量的进入接口
+        set dstintf Y    //流量的出接口（ipsec接口）
         set traffic-shaper "guarantee-ipsec-traffic"
         set traffic-shaper-reverse "guarantee-ipsec-traffic"
-        set srcaddr "10.15.0.0/24"    //可以具体指定流量的IP范围
-        set dstaddr "10.11.0.0/24"    //可以具体指定流量的IP范围
-    next
-end
-config firewall shaping-policy
-    edit 0 //顺序新建一条限速策略
-        set name "guarantee-dmz-traffic"
-        set service "ALL"
-        set srcintf dmz    //流量的进入接口
-        set dstintf wan1    //流量的出接口（wan接口）
-        set traffic-shaper "guarantee-dmz-traffic"
-        set traffic-shaper-reverse "guarantee-dmz-traffic"
         set srcaddr "all"    //可以具体指定流量的IP范围
         set dstaddr "all"    //可以具体指定流量的IP范围
     next
@@ -176,8 +160,8 @@ config firewall shaping-policy
     edit 0 //顺序新建一条限速策略
         set name "guarantee-wan-traffic"
         set service "ALL"
-        set srcintf internal1    //流量的进入接口
-        set dstintf wan1    //流量的出接口（wan接口）
+        set srcintf X    //流量的进入接口
+        set dstintf Z    //流量的出接口（wan接口）
         set traffic-shaper "guarantee-wan-traffic"
         set traffic-shaper-reverse "guarantee-wan-traffic"
         set srcaddr "all"    //可以具体指定流量的IP范围
@@ -186,7 +170,7 @@ config firewall shaping-policy
 end
 ```
 
-使用配置查看命令，查看到的配置如下：
+参考示例配置进行配置后，使用配置查看命令，查看到的配置如下：
 
 
 ```config
@@ -248,6 +232,9 @@ config firewall shaping-policy
     next
 end
 ```
+
+
+预期这样配置后，可以解决北京 site 在接入带宽耗尽时，IPSec VPN 受到影响的问题。
 
 
 ### SSLVPN 中策略放行但某个网段下主机不通问题
