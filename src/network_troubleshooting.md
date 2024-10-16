@@ -123,6 +123,132 @@ interface GigabitEthernet1/0/1
 
 
 
+### 利用 “策略与对象” - “QoS 限速”，实现 IPSec VPN 流量优先
+
+
+此举的目的是运用设备的流量整形，保证在发生拥塞（接入带宽耗尽）时 IPSec VPN 隧道的流量仍能得到保证。
+
+
+TAC 给的示例配置如下：
+
+
+```config
+config firewall shaper traffic-shaper
+    edit "guarantee-ipsec-traffic"
+        set guaranteed-bandwidth 5000  //保证带宽,单位kbps，确保如果发生拥塞的时候能够流量优先保证
+        set maximum-bandwidth 10000 //最大带宽,单位kbps
+        set per-policy enable
+    next
+    edit "guarantee-dmz-traffic"
+        set maximum-bandwidth 30000 //最大带宽,单位kbps
+        set per-policy enable
+    next
+    edit "guarantee-wan-traffic"
+        set maximum-bandwidth 50000 //最大带宽,单位kbps
+        set per-policy enable
+    next
+end
+config firewall shaping-policy
+    edit 0 //顺序新建一条限速策略
+        set name "guarantee-ipsec-traffic"
+        set service "ALL"
+        set srcintf internal1    //流量的进入接口
+        set dstintf to_ks    //流量的出接口（ipsec接口）
+        set traffic-shaper "guarantee-ipsec-traffic"
+        set traffic-shaper-reverse "guarantee-ipsec-traffic"
+        set srcaddr "10.15.0.0/24"    //可以具体指定流量的IP范围
+        set dstaddr "10.11.0.0/24"    //可以具体指定流量的IP范围
+    next
+end
+config firewall shaping-policy
+    edit 0 //顺序新建一条限速策略
+        set name "guarantee-dmz-traffic"
+        set service "ALL"
+        set srcintf dmz    //流量的进入接口
+        set dstintf wan1    //流量的出接口（wan接口）
+        set traffic-shaper "guarantee-dmz-traffic"
+        set traffic-shaper-reverse "guarantee-dmz-traffic"
+        set srcaddr "all"    //可以具体指定流量的IP范围
+        set dstaddr "all"    //可以具体指定流量的IP范围
+    next
+end
+config firewall shaping-policy
+    edit 0 //顺序新建一条限速策略
+        set name "guarantee-wan-traffic"
+        set service "ALL"
+        set srcintf internal1    //流量的进入接口
+        set dstintf wan1    //流量的出接口（wan接口）
+        set traffic-shaper "guarantee-wan-traffic"
+        set traffic-shaper-reverse "guarantee-wan-traffic"
+        set srcaddr "all"    //可以具体指定流量的IP范围
+        set dstaddr "all"    //可以具体指定流量的IP范围
+    next
+end
+```
+
+使用配置查看命令，查看到的配置如下：
+
+
+```config
+FG-60F-BJ-KG # show firewall shaper traffic-shaper
+config firewall shaper traffic-shaper
+
+(...)
+
+    edit "guarantee-ipsec-traffic"
+        set guaranteed-bandwidth 5000
+        set maximum-bandwidth 10000
+        set per-policy enable
+    next
+    edit "guarantee-wan-traffic"
+        set maximum-bandwidth 50000
+        set per-policy enable
+    next
+    edit "guarantee-dmz-traffic"
+        set maximum-bandwidth 30000
+        set per-policy enable
+    next
+end
+
+
+FG-60F-BJ-KG # show firewall shaping-policy
+config firewall shaping-policy
+    edit 1
+        set uuid ba271712-8b82-51ef-606c-50e63838e1a5
+        set name "guarantee-ipsec-traffic"
+        set service "ALL"
+        set srcintf "internal"
+        set dstintf "to_ks"
+        set traffic-shaper "guarantee-ipsec-traffic"
+        set traffic-shaper-reverse "guarantee-ipsec-traffic"
+        set srcaddr "LAN"
+        set dstaddr "to_ks_remote_subnet_1"
+    next
+    edit 2
+        set uuid bddc113a-8b84-51ef-e3d2-5e0685bba2ae
+        set name "guarantee-dmz-traffic"
+        set service "ALL"
+        set srcintf "dmz"
+        set dstintf "wan1"
+        set traffic-shaper "guarantee-dmz-traffic"
+        set traffic-shaper-reverse "guarantee-dmz-traffic"
+        set srcaddr "all"
+        set dstaddr "all"
+    next
+    edit 3
+        set uuid 0c2ac2c8-8b85-51ef-d450-c9c2b69983c5
+        set name "guarantee-wan-traffic"
+        set service "ALL"
+        set srcintf "internal"
+        set dstintf "wan1"
+        set traffic-shaper "guarantee-wan-traffic"
+        set traffic-shaper-reverse "guarantee-wan-traffic"
+        set srcaddr "all"
+        set dstaddr "all"
+    next
+end
+```
+
 
 ### SSLVPN 中策略放行但某个网段下主机不通问题
 
