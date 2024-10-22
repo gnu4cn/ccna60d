@@ -73,4 +73,5 @@
 - [附录 III：GNS3简介](GNS3_tutorial.md)
 - [附录 IV：网络故障排除](network_troubleshooting.md)
 - [附录 V：`dot1x` 认证下的动态 VLAN 实现](22_dot1x_port_dynamic_vlan.md)
+- [附录 VI：Cacti 流量监控系统部署笔记](59_Cacti_deployment_notes.md)
 
