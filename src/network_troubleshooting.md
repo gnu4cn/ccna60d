@@ -385,7 +385,17 @@ Scanning /dev/mmcblk0p3... (100%)
 
 
 
-## 深信服 Sangfor SSL VPN 解锁用户
+## 深信服 Sangfor SSL VPN
+
+
+
+### 解锁用户
 
 
 “运行状态” -> “在线用户” -> “锁定用户：n[查看]”
+
+
+### VPN 上的 DNS 服务器设置
+
+
+`系统设置` -> `SSL VPN选项` -> `系统选项` -> `内网域名解析`
