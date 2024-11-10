@@ -54,7 +54,7 @@ Ten-GigabitEthernet1/0/51 transceiver manufacture information:
 ```
 
 
-- `display transceiver diagnosis interface Ten-GigabitEthernet 1/0/51` 
+- `display transceiver diagnosis interface Ten-GigabitEthernet 1/0/51`
 
 输出：
 
@@ -119,7 +119,33 @@ interface GigabitEthernet1/0/1
 ## FG 防火墙问题
 
 
+
 本小节记录网络设备 FG 防火墙的有关问题。
+
+
+### 在防火墙上无法 `ping` 通 IPSec VPN 远端网络问题
+
+在一台 FG-60F 上配置测试 LDAP 与双因素认证的 SSLVPN 时，发现无法连通 IPSec VPN 下的远端 AD 控制器，进而检查防火墙无法 `ping` 通该 AD 控制器，于是联系 FG TAC。FG TAC 排除解决后答复：
+
+
+> “如远程排查结果，IPSec VPN 阶段 2 中感兴趣流严格控制了只有内网网段能访问，防火墙 LDAP 配置没有指定源，所以流量无法通过 VPN 转发，带上内网接口 IP 源后已经可以正常访问”
+
+
+TAC 工程师并给出有关指令如下。
+
+```console
+# 为 ping 制定源 IP 地址
+exec ping-options source <source-intf_ip>
+```
+
+```console
+# 配置 LDAP 查询源 IP 地址
+config user ldap
+    edit <LDAP object name>
+    set source-ip <IP address associated an interface>
+    end
+```
+
 
 
 
