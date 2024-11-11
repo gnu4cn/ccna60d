@@ -147,6 +147,15 @@ config user ldap
 ```
 
 
+检查配置命令：
+
+
+
+```console
+show user ldap <LDAP object name>
+```
+
+
 
 
 ### 利用 “策略与对象” - “QoS 限速”，实现 IPSec VPN 流量优先
