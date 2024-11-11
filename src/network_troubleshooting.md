@@ -418,6 +418,14 @@ Scanning /dev/mmcblk0p3... (100%)
 
 ```
 
+### `7.2.x` 后固件升级
+
+
+> “7.2系列的固件在“系统”--“Fabric管理”这边上传固件。”
+
+
+进入 `Firmware & Registration` 后，需要在当前运行固件版本上点击，后 “升级” 按钮由灰色变为正常可用。
+
 
 
 ## 深信服 Sangfor SSL VPN
