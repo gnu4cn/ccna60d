@@ -123,6 +123,14 @@ interface GigabitEthernet1/0/1
 本小节记录网络设备 FG 防火墙的有关问题。
 
 
+### 使用 LDAP/AD 认证 SSLVPN 时指定用户组
+
+
+需要在 “远程组” 中，“编辑”  “远程服务器” 中的项目，在弹出的 “添加组匹配” 弹窗，浏览到特定组后，在其上点击右键，选择 “添加已选”，然后点击 “OK” 确认。
+
+
+
+
 ### 在防火墙上无法 `ping` 通 IPSec VPN 远端网络问题
 
 在一台 FG-60F 上配置测试 LDAP 与双因素认证的 SSLVPN 时，发现无法连通 IPSec VPN 下的远端 AD 控制器，进而检查防火墙无法 `ping` 通该 AD 控制器，于是联系 FG TAC。FG TAC 排除解决后答复：
@@ -415,7 +423,6 @@ System is starting...
 Starting system maintenance...
 Scanning /dev/mmcblk0p1... (100%)
 Scanning /dev/mmcblk0p3... (100%)
-
 ```
 
 ### `7.2.x` 后固件升级
