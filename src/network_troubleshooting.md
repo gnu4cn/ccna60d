@@ -124,7 +124,7 @@ interface GigabitEthernet1/0/1
 ### 开启 SSLVPN 的双因素认证
 
 
-经测试，要在 FGT-60F 启用双因素认证（2FA），需要一下必要条件。
+经测试，要在 FGT-60F 启用双因素认证（2FA），需要以下必要条件。
 
 
 - 用户手机上要安装 FortiToken App；
