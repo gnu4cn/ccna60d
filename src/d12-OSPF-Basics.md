@@ -515,3 +515,8 @@ network 12.12.12.2 0.0.0.0 area 0
 - 在两台路由器上（直接连接接口）修改 OSPF 的 Hello 包和死亡计时器：`ip ospf hello`及`ip ospf dead`
 - 执行一下`show ip ospf 1`命令，看看路由进程参数
 - 重复该实验，但这次使用`ip ospf 1 area 0 interface specific`命令，而不是在router OSPF 下的`network`命令，对各个网络进行通告。
+
+
+（End）
+
+

@@ -1786,3 +1786,8 @@ My_Router(config)#router rip
 My_Router(config-router)#network 10.0.0.0
 My_Router(config-router)#
 ```
+
+
+（End）
+
+

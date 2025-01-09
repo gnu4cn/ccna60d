@@ -165,3 +165,8 @@ Root bridge for: VLAN0050, VLAN0060, VLAN0070
 3. 用 RSTP 模式来重复第 31 天的实验。
 
 4. 你可以预先预测出那些端口将是根/指定/阻塞端口吗（can you predict which ports will be Root/Designated/Blocking beforehand）？
+
+
+（End）
+
+

@@ -762,3 +762,8 @@ network 12.12.12.0
 - 自 R1 向 R2 的环回接口进行`ping`操作，以测试连通性
 - 执行一条`show ip route`命令，来检查经由 RIP 收到了那些路由
 - 执行一条`show ip protocols`命令，来检查有配置了 RIP 且 RIP 在设备上是允许着的
+
+
+（End）
+
+

@@ -619,3 +619,8 @@ packet
 - 在将网络通告进 EIGRP 之前，启动 IP 路由调试；留意所生成的调试更新消息（Start the debug IP routing before advertising the network into EIGRP; notice the generated debug updates）
 
 请访问[www.in60days.com](http://www.in60days.com)网站，免费观看作者完成此实验。
+
+
+（End）
+
+

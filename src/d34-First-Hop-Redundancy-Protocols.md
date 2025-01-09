@@ -1158,3 +1158,8 @@ Vlan192 - Group 1
 重复第一个实验，在适用的命令改变下，用 GLBP 代替 HSRP 。在两台路由器上使用`glbp 10 load-balancing round-robin`命令，配置 GLBP 的负载共担，并观察 LAN 中流量是如何同时到达两台路由器的。
 
 访问[www.in60days.com](http://www.in60days.com/), 看看作者是怎样完成此实验的。
+
+
+（End）
+
+

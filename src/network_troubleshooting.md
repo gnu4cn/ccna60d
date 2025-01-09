@@ -472,3 +472,8 @@ Scanning /dev/mmcblk0p3... (100%)
 `系统设置` -> `SSL VPN选项` -> `系统选项` -> `内网域名解析`
 
 > **参考链接**：[VPN设备上的DNS解析顺序](https://bbs.sangfor.com.cn/forum.php?mod=viewthread&tid=9161)
+
+
+（End）
+
+

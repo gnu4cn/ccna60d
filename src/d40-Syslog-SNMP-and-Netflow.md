@@ -532,3 +532,8 @@ NetFlow数据可以易于理解的形式进行呈现，这就使得管理员能�
 - 使用`ip flow-export`命令配置一台外部 NetFlow 服务器
 
 请访问[www.in60days.com](http://www.in60days.com)网站，免费观看作者完成此实验。
+
+
+（End）
+
+

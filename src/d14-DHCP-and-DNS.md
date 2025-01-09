@@ -469,3 +469,8 @@ Router#pinging 192.168.1.2
 接着尝试解析一些公网网站名字，比如通过`ping www.cisco.com`。
 
 请访问[www.in60days.com](http://www.in60days.com), 观看我是怎么完成这个实验的。
+
+
+（End）
+
+

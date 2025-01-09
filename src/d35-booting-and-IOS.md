@@ -387,3 +387,8 @@ Router#
 - 以`boot system flash: [name]`命令，使用新的 IOS 文件启动设备
 
 访问[www.in60days.com](http://www.in60days.com/)网站，免费观看作者完成此实验。
+
+
+（End）
+
+

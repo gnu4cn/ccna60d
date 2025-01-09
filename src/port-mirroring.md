@@ -29,3 +29,8 @@ SwitchA-Ethernet0/0/36] port-mirroring to observe-port 1 inbound/outbound/both c
 ## 远程的端口镜像
 
 远程的端口镜像，是在本地端口镜像操作基础上，将观察端口（也就是上述本地端口镜像中的`Ethernet 0/0/47`）放到一个特别的镜像用`Vlan`中，并在本地交换机、核心交换机及观察端口所在交换机的中继端口上允许该`Vlan`通过，并将远端交换机上的观察端口，置为`access`模式，放在镜像用`Vlan`上即可。
+
+
+（End）
+
+

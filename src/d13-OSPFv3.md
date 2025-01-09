@@ -224,3 +224,8 @@ ipv6 ospf 1 area 0
 - 执行命令`show ipv6 ospf interface`及`show ipv6 ospf interface brief`，检查接口特定于 OSPF 的那些参数
 - 在两台路由器上（直连接口）修改`Hello`包和死亡计时器: `ipv6 ospf hello`及`ipv6 ospf dead`
 - 执行一下`show ipv6 ospf 1`命令，来查看路由进程参数
+
+
+（End）
+
+

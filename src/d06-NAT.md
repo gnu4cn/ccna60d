@@ -630,3 +630,8 @@ RouterA#show ip nat tran
 Inside global	Inside local		Outside local		Outside global
 10.0.0.1:8759 	172.16.1.129:8759 	192.168.1.2:8759 	192.168.1.2:8759
 ```
+
+
+（End）
+
+

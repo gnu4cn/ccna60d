@@ -876,3 +876,8 @@ STP故障通常有以下三类（STP issues usually fall within the following th
     ```
 
     > **注意：** 尽管Switch B有较低的桥 ID ，Switch A还是被强制作为根桥。
+
+
+（End）
+
+

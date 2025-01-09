@@ -828,3 +828,8 @@ or false?
 + 配置一个不同的`lacp system-priority`输出，并使用`show lacp sys-id`命令予以验证
 + 配置一个不同的`lacp port-priority`输出，并使用命令`show lacp internal`予以验证
 + 使用命令`port-channel load-balance`，对 LACP 的负载均衡进行配置，并使用`show etherchannel load-balance`命令对此进行验证
+
+
+（End）
+
+
