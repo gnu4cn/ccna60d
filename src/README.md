@@ -63,9 +63,9 @@ ___
 **推荐模拟器**
 
 <p align="center">
-    <img src="./src/images/GNS3_logo.png" alt="GNS3 logo" />
+    <img src="images/GNS3_logo.png" alt="GNS3 logo" />
 </p>
 
-<p align="center">
-    <a href="https://www.gns3.com/software/download">GNS3 下载(Linux, Windows, MacOS)</a>, <a href="GNS3_tutorial.md">GNS3入门教程</a>
-</p>
+- [GNS3 下载(Linux, Windows, MacOS)](https://www.gns3.com/software/download)
+
+- [GNS3入门教程](GNS3_tutorial.md)
