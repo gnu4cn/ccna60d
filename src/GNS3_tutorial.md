@@ -85,16 +85,10 @@
 
 ![CE12800 "Advanced"](./images/CE12800-settings_04.png)
 
+## 将 VyOS 或 CE12800 设备连接到宿主机
 
 
-
-
-
-
-
-
-
-
+通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。
 
 ## 简介
 
