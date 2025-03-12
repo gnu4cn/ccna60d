@@ -1,6 +1,100 @@
 # GNS3 入门
 
+
+
+
 > [Getting Started with GNS3](https://docs.gns3.com/docs/)
+
+
+
+
+## 更新（2025 年 3 月）
+
+时至今日，GNS3 已经发展到 `3.0.4` 版本，已经十分成熟。其安装使用也变得更加简单，已经可以平滑使用思科 iOS、VyOS 镜像，甚至华为 CE12800 镜像，仿真出这些设备并可在其上完成实验。
+
+
+在基于 ArchLinux 的 Manjaro 发行版中，只需运行一条命令 `yay -S gns3-server gns3-gui`，即可安装好 GNS3。这里记录在 GNS3 `3.0.4` 版本中，添加思科 IOS、VyOS 与华为 CE12800 镜像的步骤。
+
+
+
+### 思科 IOS 镜像添加
+
+
+1. 菜单 “Edit” - "Preferences" 打开 GNS3 选项设置对话框；
+
+![GNS3 Preferences](./images/GNS3-Preferences.png)
+
+
+2. 选择左侧的 “Dynamips” - “IOS routers”，进入 “IOS router templates” 设置页面，点击 “New”；
+
+![GNS3 IOS router templates](./images/GNS3-IOS-router-templates.png)
+
+3. 然后一步步添加下载的 IOS `.bin` 镜像文件，添加完成后点击 “OK” 后即可完成。随后在项目的拓扑中使用相应的思科路由器了。
+
+
+### VyOS `.qcow2` 镜像添加
+
+
+1. 在 “Preferences” 对话框，选择 “QEMU” - “Qemu VMs” - “New”，添加下载的 VyOS `.qcow2` 镜像，然后点击 “OK” 添加该镜像；
+
+![GNS3 Qemu VM templates](./images/GNS3-Qemu-VM-templates.png)
+
+
+2. 在 “Qemu VM templates” 页面，选中刚添加的 VyOS 条目，点击 “Edit” 编辑其选项。对其做如下这些设置；
+
+- 设置 “Symbol”、“Category”、“Boot priority” 等
+
+![VyOS "General settings"](./images/vyos-settings_01.png)
+
+- 设置 “Disk interface”
+
+![VyOS "HDD"](./images/vyos-settings_02.png)
+
+- 设置 VyOS “Network”
+
+![VyOS "Network"](./images/vyos-settings_03.png)
+
+
+- 设置 VyOS “Advanced”
+
+![VyOS "Advanced"](./images/vyos-settings_04.png)
+
+
+> 参考：[Running on GNS3](https://docs.vyos.io/en/equuleus/installation/virtual/gns3.html)
+
+
+### 添加 CE12800 `.qcow2` 镜像
+
+
+像 VyOS 那样添加 CE12800 的 `.qcow2` 镜像。并像 VyOS 那样编辑其配置。
+
+- 设置 CE12800 的 “QEMU VM template configuration” - “General settings”
+
+![CE12800 “General settings”](./images/CE12800-settings_01.png)
+
+- 设置 CE12800 的 “HDD”
+
+![CE12800 "HDD"](./images/CE12800-settings_02.png)
+
+- 设置 CE12800 的 “Network”
+
+![CE12800 "Network"](./images/CE12800-settings_03.png)
+
+
+- 设置 CE12800 的 “Advanced”
+
+![CE12800 "Advanced"](./images/CE12800-settings_04.png)
+
+
+
+
+
+
+
+
+
+
+
 
 ## 简介
 
