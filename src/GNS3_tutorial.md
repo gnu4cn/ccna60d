@@ -153,6 +153,8 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 > 参考：
 >
 > - [SSH login without password](https://arista.my.site.com/AristaCommunity/s/article/ssh-login-without-password)
+>
+> - [User Management](https://docs.vyos.io/en/equuleus/configuration/system/login.html#key-based-authentication)
 
 ## 简介
 
