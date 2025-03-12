@@ -117,7 +117,9 @@
 通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。可以拖入多个 `Cloud` 或 `NAT` 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
 
 
-### Arista 设备添加 SSH 密钥认证
+### Arista/VyOS 设备添加 SSH 密钥认证
+
+- Arista 设备
 
 
 在配置模式下，运行命令以下命令。
@@ -128,6 +130,25 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 ```
 
 其中 `ssh-rsa AAA...B8= hector@laptop` 是 `~/.ssh/id_rsa.pub` 里的全部内容。添加 `~/.ssh/id_ecdsa.pub` 的内容（更为简短）也是可以的。
+
+
+- VyOS 设备
+
+与 Arista 设备不同，VyOS 设备添加 SSH 密钥需要两步。首先添加密钥，接下来要为添加的密钥指定类型。
+
+```console
+# set system login user <username> authentication public-keys <identifier> key <key>
+# set system login user <username> authentication public-keys <identifier> type <type>
+```
+
+比如：
+
+```console
+# set system login user hector authentication public-keys hector@laptop key AAA...Bb2w=
+# set system login user hector authentication public-keys hector@laptop type ecdsa-sha2-nistp256
+```
+
+其中 `hector@laptop` 是所添加密钥的标识符，这样就可以在一台 VyOS 设备上，添加多名用户密钥或同一用户在多台计算机上的密钥。
 
 > 参考：
 >
