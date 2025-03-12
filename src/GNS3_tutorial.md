@@ -116,6 +116,23 @@
 
 通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。可以拖入多个 `Cloud` 或 `NAT` 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
 
+
+### Arista 设备添加 SSH 密钥认证
+
+
+在配置模式下，运行命令以下命令。
+
+
+```console
+localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
+```
+
+其中 `ssh-rsa AAA...B8= hector@laptop` 是 `~/.ssh/id_rsa.pub` 里的全部内容。添加 `~/.ssh/id_ecdsa.pub` 的内容（更为简短）也是可以的。
+
+> 参考：
+>
+> - [SSH login without password](https://arista.my.site.com/AristaCommunity/s/article/ssh-login-without-password)
+
 ## 简介
 
 世界范围内数十万网络工程师们，都在使用着GNS3，他们使用GNS3来对虚拟与真实网络进行模拟、配置、测试以及故障排除。GNS3允许在笔记本电脑上运行一个有着几台设备的小型拓扑，也可以在跨越多台服务器，以致云上运行有着众多设备的大型拓扑。
