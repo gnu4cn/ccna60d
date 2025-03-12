@@ -85,10 +85,36 @@
 
 ![CE12800 "Advanced"](./images/CE12800-settings_04.png)
 
-## 将 VyOS 或 CE12800 设备连接到宿主机
+
+## 添加 Arista 设备 `.qcow2`
+
+像 VyOS 那样添加 CE12800 的 `.qcow2` 镜像。并像 VyOS 那样编辑其配置。
 
 
-通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。
+- Arista "QEMU VM template configuration" - "General settings"
+
+![Arista "General settings"](./images/Arista-settings_01.png)
+
+
+- Arista "QEMU VM template configuration" - "HDD"
+
+![Arista "HDD"](./images/Arista-settings_02.png)
+
+- Arista "QEMU VM template configuration" - "Network"
+
+![Arista "HDD"](./images/Arista-settings_03.png)
+
+- Arista "QEMU VM template configuration" - "Advanced"
+
+![Arista "HDD"](./images/Arista-settings_04.png)
+
+
+
+
+## 将 VyOS/CE12800/Arista 设备连接到宿主机
+
+
+通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。可以拖入多个 `Cloud` 或 `NAT` 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
 
 ## 简介
 
