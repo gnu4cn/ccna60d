@@ -89,7 +89,7 @@
 ![CE12800 "Advanced"](./images/CE12800-settings_04.png)
 
 
-## 添加 Arista 设备 `.qcow2`
+### 添加 Arista 设备 `.qcow2`
 
 像 VyOS 那样添加 CE12800 的 `.qcow2` 镜像。并像 VyOS 那样编辑其配置。
 
@@ -114,7 +114,7 @@
 
 
 
-## 将 VyOS/CE12800/Arista 设备连接到宿主机
+### 将 VyOS/CE12800/Arista 设备连接到宿主机
 
 
 通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。可以拖入多个 `Cloud` 或 `NAT` 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
@@ -158,6 +158,8 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 > - [SSH login without password](https://arista.my.site.com/AristaCommunity/s/article/ssh-login-without-password)
 >
 > - [User Management](https://docs.vyos.io/en/equuleus/configuration/system/login.html#key-based-authentication)
+
+
 
 ## 简介
 
