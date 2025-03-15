@@ -20,122 +20,42 @@
 ![GNS3 下运行思科、华为、Arista 与 VyOS](images/GNS3-for-Ansible.png)
 
 
-### 思科 IOS 镜像添加
+### 设备镜像添加
 
+1. 从 GNS3 网站的设备 Appliance 页面，比如 [Cisco IOSv](https://gns3.com/marketplace/appliances/cisco-iosv)，下载设备的 Appliance 文件；
 
-1. 菜单 “Edit” - "Preferences" 打开 GNS3 选项设置对话框；
+2. 从设备的 Appliance 页面，获取到设备所需镜像的文件名信息。然后根据该信息下载到这些镜像文件。比如 Cisco IOSv 设备需要以下两个文件：
 
-![GNS3 Preferences](./images/GNS3-Preferences.png)
+- `vios-adventerprisek9-m.spa.159-3.m9.qcow2`
+- `IOSv_startup_config.img`
 
+3. 从菜单中的 `File` - `Image management`，将下载到的镜像文件，上传到 `gns3-server`；
 
-2. 选择左侧的 “Dynamips” - “IOS routers”，进入 “IOS router templates” 设置页面，点击 “New”；
-
-![GNS3 IOS router templates](./images/GNS3-IOS-router-templates.png)
-
-3. 然后一步步添加下载的 IOS `.bin` 镜像文件，添加完成后点击 “OK” 后即可完成。随后在项目的拓扑中使用相应的思科路由器了。
-
-
-### VyOS `.qcow2` 镜像添加
-
-
-1. 在 “Preferences” 对话框，选择 “QEMU” - “Qemu VMs” - “New”，添加下载的 VyOS `.qcow2` 镜像，然后点击 “OK” 添加该镜像；
-
-![GNS3 Qemu VM templates](./images/GNS3-Qemu-VM-templates.png)
-
-
-2. 在 “Qemu VM templates” 页面，选中刚添加的 VyOS 条目，点击 “Edit” 编辑其选项。对其做如下这些设置；
-
-- 设置 “Symbol”、“Category”、“Boot priority” 等
-
-![VyOS "General settings"](./images/vyos-settings_01.png)
-
-- 设置 “Disk interface”
-
-![VyOS "HDD"](./images/vyos-settings_02.png)
-
-- 设置 VyOS “Network”
-
-![VyOS "Network"](./images/vyos-settings_03.png)
-
-
-- 设置 VyOS “Advanced”
-
-![VyOS "Advanced"](./images/vyos-settings_04.png)
-
-
-> 参考：[Running on GNS3](https://docs.vyos.io/en/equuleus/installation/virtual/gns3.html)
-
-
-### 添加 CE12800 `.qcow2` 镜像
-
-
-像 VyOS 那样添加 CE12800 的 `.qcow2` 镜像。并像 VyOS 那样编辑其配置。
-
-- 设置 CE12800 的 “QEMU VM template configuration” - “General settings”
-
-![CE12800 “General settings”](./images/CE12800-settings_01.png)
-
-- 设置 CE12800 的 “HDD”
-
-![CE12800 "HDD"](./images/CE12800-settings_02.png)
-
-- 设置 CE12800 的 “Network”
-
-![CE12800 "Network"](./images/CE12800-settings_03.png)
-
-
-- 设置 CE12800 的 “Advanced”
-
-![CE12800 "Advanced"](./images/CE12800-settings_04.png)
-
-
-### 添加 Arista 设备 `.qcow2`
-
-像 VyOS 那样添加 CE12800 的 `.qcow2` 镜像。并像 VyOS 那样编辑其配置。
-
-
-- Arista "QEMU VM template configuration" - "General settings"
-
-![Arista "General settings"](./images/Arista-settings_01.png)
-
-
-- Arista "QEMU VM template configuration" - "HDD"
-
-![Arista "HDD"](./images/Arista-settings_02.png)
-
-- Arista "QEMU VM template configuration" - "Network"
-
-![Arista "HDD"](./images/Arista-settings_03.png)
-
-- Arista "QEMU VM template configuration" - "Advanced"
-
-![Arista "HDD"](./images/Arista-settings_04.png)
-
-
+4. 从菜单中的 `File` - `Import appliance` 打开第 1 步下载的 Appliance 文件，将根据第 3 步上传到 `gns3-server` 的镜像文件，自动发现该 Appliance 文件中所需的镜像文件，点击 `Next` 安装即可。随后该设备在 GNS3 中可用。
 
 
 ### 将 VyOS/CE12800/Arista 设备连接到宿主机
 
 
-通过 `Cloud` 或 `NAT` 设备即可将虚拟设备连接到宿主机。可以拖入多个 `Cloud` 或 `NAT` 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
+通过 Cloud 或 NAT 设备即可将虚拟设备连接到宿主机。可以拖入多个 Cloud 或 NAT 设备，实现多个虚拟交换机/路由器同时连接到宿主机。
 
 
-### Arista/VyOS 设备添加 SSH 密钥认证
+## Arista/VyOS 设备添加 SSH 密钥认证
 
-- Arista 设备
+### Arista 设备
 
 
 在配置模式下，运行命令以下命令。
-
 
 ```console
 localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 ```
 
+
 其中 `ssh-rsa AAA...B8= hector@laptop` 是 `~/.ssh/id_rsa.pub` 里的全部内容。添加 `~/.ssh/id_ecdsa.pub` 的内容（更为简短）也是可以的。
 
+### VyOS 设备
 
-- VyOS 设备
 
 与 Arista 设备不同，VyOS 设备添加 SSH 密钥需要两步。首先添加密钥，接下来要为添加的密钥指定类型。
 
@@ -144,6 +64,7 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 # set system login user <username> authentication public-keys <identifier> type <type>
 ```
 
+
 比如：
 
 ```console
@@ -151,14 +72,15 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 # set system login user hector authentication public-keys hector@laptop type ecdsa-sha2-nistp256
 ```
 
+
 其中 `hector@laptop` 是所添加密钥的标识符，这样就可以在一台 VyOS 设备上，添加多名用户密钥或同一用户在多台计算机上的密钥。
+
 
 > 参考：
 >
 > - [SSH login without password](https://arista.my.site.com/AristaCommunity/s/article/ssh-login-without-password)
 >
 > - [User Management](https://docs.vyos.io/en/equuleus/configuration/system/login.html#key-based-authentication)
-
 
 
 ## 简介
