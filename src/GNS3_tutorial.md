@@ -13,8 +13,11 @@
 时至今日，GNS3 已经发展到 `3.0.4` 版本，已经十分成熟。其安装使用也变得更加简单，已经可以平滑使用思科 iOS、VyOS 镜像，甚至华为 CE12800 镜像，仿真出这些设备并可在其上完成实验。
 
 
-在基于 ArchLinux 的 Manjaro 发行版中，只需运行一条命令 `yay -S gns3-server gns3-gui`，即可安装好 GNS3。这里记录在 GNS3 `3.0.4` 版本中，添加思科 IOS、VyOS 与华为 CE12800 镜像的步骤。
+在基于 ArchLinux 的 Manjaro 发行版中，只需运行一条命令 `yay -S gns3-server gns3-gui`，即可安装好 GNS3。这里记录在 GNS3 `3.0.4` 版本中，添加思科 IOS、Arista、VyOS 与华为 CE12800 镜像的步骤。
 
+
+
+![GNS3 下运行思科、华为、Arista 与 VyOS](images/GNS3-for-Ansible.png)
 
 
 ### 思科 IOS 镜像添加
