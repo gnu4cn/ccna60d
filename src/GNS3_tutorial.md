@@ -72,6 +72,24 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 # set system login user hector authentication public-keys hector@laptop type ecdsa-sha2-nistp256
 ```
 
+### 思科 IOSXE 设备
+
+
+思科 IOSXE 设备添加用户 SSH 密钥，是在 `ip ssh pubkey-chain` 命令下进行的。
+
+
+```console
+username c1ds privilege 15
+ip ssh server algorithm publickey ssh-ed25519
+ip ssh pubkey-chain
+ username c1ds
+  key-string
+   AAAA...Q3Ce
+```
+
+其中 `AAAA...Q3Ce` 是 `ssh-ed25519` 类型的用户公钥。
+
+
 
 其中 `hector@laptop` 是所添加密钥的标识符，这样就可以在一台 VyOS 设备上，添加多名用户密钥或同一用户在多台计算机上的密钥。
 
@@ -81,6 +99,8 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 > - [SSH login without password](https://arista.my.site.com/AristaCommunity/s/article/ssh-login-without-password)
 >
 > - [User Management](https://docs.vyos.io/en/equuleus/configuration/system/login.html#key-based-authentication)
+>
+> - [Cisco Login via SSH Key (Passwordless)](https://shnosh.io/cisco-ssh-key-login/#configure-iosxe)
 
 
 ## 简介
