@@ -72,6 +72,9 @@ localhost(config)# username admin ssh-key ssh-rsa AAA...E8= hector@laptop
 # set system login user hector authentication public-keys hector@laptop type ecdsa-sha2-nistp256
 ```
 
+其中 `hector@laptop` 是所添加密钥的标识符，这样就可以在一台 VyOS 设备上，添加多名用户密钥或同一用户在多台计算机上的密钥。
+
+
 ### 思科 IOSXE 设备
 
 
@@ -89,9 +92,19 @@ ip ssh pubkey-chain
 
 其中 `AAAA...Q3Ce` 是 `ssh-ed25519` 类型的用户公钥。
 
+现代 SSH 客户端不支持一些较旧型号的思科交换机的 SSH 加密方式，要使用 SSH 登陆这些交换机，就需要一些额外参数。比如：
 
 
-其中 `hector@laptop` 是所添加密钥的标识符，这样就可以在一台 VyOS 设备上，添加多名用户密钥或同一用户在多台计算机上的密钥。
+```console
+ssh -oHostKeyAlgorithms=+ssh-rsa hector@nxos-sw
+```
+
+也可以将该命令行选项，写入 `~/.ssh/config` 文件。
+
+```config
+Host nxos-sw
+    HostKeyAlgorithms=+ssh-rsa
+```
 
 
 > 参考：
