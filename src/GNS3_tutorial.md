@@ -122,7 +122,9 @@ Host nxos-sw
 ### `Cannot push configs to nvram ... : NVRAM size too small`
 
 
-直接删除 `/path/to/nvram_00001` 文件后即可启动。
+直接删除 `/path/to/nvram_00001` 文件后即可启动。由于未影响到 `startup-config.cfg` 文件，因此设备配置不会丢失。
+
+> **参考**：[Cannot push configs to nvram due to unknown nvram format](https://gns3.com/community/featured/cannot-push-configs-to-nvram-due)
 
 ## 简介
 
