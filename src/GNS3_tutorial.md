@@ -116,6 +116,14 @@ Host nxos-sw
 > - [Cisco Login via SSH Key (Passwordless)](https://shnosh.io/cisco-ssh-key-login/#configure-iosxe)
 
 
+## 常见问题
+
+
+### `Cannot push configs to nvram ... : NVRAM size too small`
+
+
+直接删除 `/path/to/nvram_00001` 文件后即可启动。
+
 ## 简介
 
 世界范围内数十万网络工程师们，都在使用着GNS3，他们使用GNS3来对虚拟与真实网络进行模拟、配置、测试以及故障排除。GNS3允许在笔记本电脑上运行一个有着几台设备的小型拓扑，也可以在跨越多台服务器，以致云上运行有着众多设备的大型拓扑。
@@ -409,6 +417,7 @@ __Qemu 镜像示例__ IOSvL2, IOSv, IOS-XRv, ASAv以及GNS3网站上所有可用
 ## 关于复杂网络拓扑
 
 在Windows或Mac OS上创建复杂网络拓扑时，推荐使用GNS3虚拟机。只有在创建简单GNS3拓扑时，才使用本地安装的GNS3。
+
 
 
 （End）
