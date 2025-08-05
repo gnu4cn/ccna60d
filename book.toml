@@ -24,3 +24,11 @@ enable = false
 
 [output.html.search]
 enable = false
+
+[output.epub]
+additional-css = ["theme/highlight.css"]
+use-default-css = false
+no-section-label = true
+curly-quotes = true
+epub-version = 3
+footnote-backrefs = true
