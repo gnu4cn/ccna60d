@@ -13,8 +13,7 @@
 
 + EPUB 电子书下载：
 
-    - [CCNA60D.Chinese.CCNA.60.days.epub](https://github.com/gnu4cn/ccna60d/releases/download/v1.1.0/CCNA60D.Chinese.CCNA.60.days.epub)
-    - [CCNA60D.epub](https://ccna60d.xfoss.com/CCNA60D.epub)
+    - [CCNA60D.Chinese.CCNA.60.days.epub](https://github.com/gnu4cn/ccna60d/releases/download/v1.1.0/CCNA60D.zh-CN.epub)
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
