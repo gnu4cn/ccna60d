@@ -11,10 +11,17 @@
 
 在线阅读：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
+
++ PDF 下载：
+    - [github.com: CCNA60D.zh-CN.v0.0.3.pdf](https://github.com/gnu4cn/ccna60d/releases/download/v0.0.2/CCNA60D.zh-CN.v0.0.3.pdf)
+    - [xfoss.com: CCNA60D.zh-CN.v0.0.3.pdf](https://ccna60d.xfoss.com/pdfs/CCNA60D.zh-CN.v0.0.3.pdf)
+
 + EPUB 电子书下载：
 
-    - [CCNA60D.Chinese.CCNA.60.days.epub](https://github.com/gnu4cn/ccna60d/releases/download/v1.1.0/CCNA60D.Chinese.CCNA.60.days.epub)
-    - [CCNA60D.epub](https://ccna60d.xfoss.com/CCNA60D.epub)
+    - [github.com: CCNA60D.zh-CN.v0.0.3.epub](https://github.com/gnu4cn/ccna60d/releases/download/v0.0.2/CCNA60D.zh-CN.v0.0.3.epub)
+    - [xfoss.com: CCNA60D.zh-CN.v0.0.3.epub](https://ccna60d.xfoss.com/pdfs/CCNA60D.zh-CN.v0.0.3.epub)
+
+
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
