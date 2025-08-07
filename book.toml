@@ -19,47 +19,47 @@ additional-js  = ["theme/pagetoc.js"]
 git-repository-url = "https://github.com/gnu4cn/ccna60d"
 git-repository-icon = "fa-github"
 
-# [output.html.print]
-# enable = false
+[output.html.print]
+enable = false
 
 [output.html.search]
 enable = false
 
-[output.epub]
-additional-css = ["theme/highlight.css"]
-use-default-css = false
-no-section-label = true
-curly-quotes = true
-epub-version = 3
-footnote-backrefs = true
-
-[output.pdf]
-## Set for auto-retrying if failed to generate PDF.
-# trying-times = 1
-## This backend only support latest Chromium based browsers, not Safari and Firefox currently.
-## If needed, please specify the full path.
-## If you specify the wrong binary, chances are that there will be a timeout error.
-# browser-binary-path = ""
-## Assign the static hosting site url so that relative links outside the book can be fixed.
-# static_site_url = "https://aye10032.gitbook.io/computernetwork/"
-## Check Chrome Devtools Protocol Docs for the explanation of the following params:
-## https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
-landscape = false
-display-header-footer = true
-print-background = true
-theme = ""
-scale = 0.8
-paper-width = 8
-paper-height = 10
-margin-top = 0.5
-margin-bottom = 0.5
-margin-left = 0.5
-margin-right = 0.5
-page-ranges = ""
-ignore-invalid-page-ranges = false
-header-template = "<h3 style='font-size:8px; margin-left: 48%' class='title'></h3>"
-footer-template = "<p style='font-size:10px; margin-left: 48%'><span class='pageNumber'></span> / <span class='totalPages'></span></p>"
-prefer-css-page-size = true
-
-# [output.pdf-outline]
-# like-wkhtmltopdf = true ## 启用该配置可以帮助生成更为详细的目录
+# [output.epub]
+# additional-css = ["theme/highlight.css"]
+# use-default-css = false
+# no-section-label = true
+# curly-quotes = true
+# epub-version = 3
+# footnote-backrefs = true
+#
+# [output.pdf]
+# ## Set for auto-retrying if failed to generate PDF.
+# # trying-times = 1
+# ## This backend only support latest Chromium based browsers, not Safari and Firefox currently.
+# ## If needed, please specify the full path.
+# ## If you specify the wrong binary, chances are that there will be a timeout error.
+# # browser-binary-path = ""
+# ## Assign the static hosting site url so that relative links outside the book can be fixed.
+# # static_site_url = "https://aye10032.gitbook.io/computernetwork/"
+# ## Check Chrome Devtools Protocol Docs for the explanation of the following params:
+# ## https://chromedevtools.github.io/devtools-protocol/tot/Page/#method-printToPDF
+# landscape = false
+# display-header-footer = true
+# print-background = true
+# theme = ""
+# scale = 0.8
+# paper-width = 8
+# paper-height = 10
+# margin-top = 0.5
+# margin-bottom = 0.5
+# margin-left = 0.5
+# margin-right = 0.5
+# page-ranges = ""
+# ignore-invalid-page-ranges = false
+# header-template = "<h3 style='font-size:8px; margin-left: 48%' class='title'></h3>"
+# footer-template = "<p style='font-size:10px; margin-left: 48%'><span class='pageNumber'></span> / <span class='totalPages'></span></p>"
+# prefer-css-page-size = true
+#
+# # [output.pdf-outline]
+# # like-wkhtmltopdf = true ## 启用该配置可以帮助生成更为详细的目录
