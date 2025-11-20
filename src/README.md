@@ -3,13 +3,12 @@
 **Cisco CCNA in 60 Days**
 
 
-- Github: [github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d)
-
-
-- Gitlab: [gitlab.com/unisko/ccna60d](https://gitlab.com/unisko/ccna60d/)
+译者已开始根据原书第 4 版，更新本书内容。敬请关注。
 
 
 在线阅读：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+
+
 
 
 + PDF 下载：
