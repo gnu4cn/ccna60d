@@ -80,17 +80,16 @@ ___
 
 如要通过 CCNA 考试，以及要在实际网络上工作，就必须要记住这些常见的端口号。在客户盯着你做事时，去查一下常见端口号是不可能的。这里有些你会碰到且需掌握的一些最常见的端口号。
 
-<table>
-<tr><th>端口</th><th>服务</th><th>端口</th><th>服务</th></tr>
-<tr><td>`20`</td><td>FTP数据</td><td>`80`</td><td>HTTP</td></tr>
-<tr><td>`21`</td><td>FTP控制</td><td>`110`</td><td>POP3</td></tr>
-<tr><td>`22`</td><td>SSH</td><td>`119`</td><td>NNTP</td></tr>
-<tr><td>`23`</td><td>Telnet</td><td>`123`</td><td>NTP</td></tr>
-<tr><td>`25`</td><td>SMTP</td><td>`161/162`</td><td>SNMP</td></tr>
-<tr><td>`53`</td><td>DNS</td><td>`443`</td><td>HTTPS(带有 SSL 的HTTP)</td></tr>
-<tr><td>`69`</td><td>TFTP</td><td></td><td></td></tr>
-</table>
- 
+| 端口 | 服务 | 端口 | 服务 |
+| :-: | :-: | :-: | :-: |
+| 20 | FTP 数据 | 80 | HTTP |
+| 21 | FTP 控制 | 110 | POP3 |
+| 22 | SSH | 119 | NNTP |
+| 23 | Telnet | 123 | NTP |
+| 25 | SMTP | 161/162 | SNMP |
+| 53 | DNS | 443 | HTTPS(HTTP with SSL) |
+| 69 | TFTP |  |  |
+
 ## 访问控制清单规则，Access Control List Rules
 
 这是最难掌握的部分之一。我从没有在哪本思科手册中见到里面曾写过一条完整的规则清单。仅有一些手册对其简单概过或是稍加解释，另外一些则完全不讲。难点就在于这些规则一直都在用，但到目前为止你都是通过试误法发现的它们（the difficulty is that the rules always apply but unitil now, you found them only by trial and error）。下面就是你需要知道的这些规则了。
@@ -127,7 +126,6 @@ ___
 
 这条规则另很多工程师为难。在每条 ACL 的底部，有着一条看不见的命令。该命令设置为拒绝尚未匹配的所有流量。而阻止此命令起作用的唯一方法，就是在底部手动配置一条`permit all`命令。在取得来自 IP 地址`172.20.1.1`的某个进入的数据包时的做法。
 
-<table>
 <tr><td>`Permit 10.0.0.0`</td><td>无匹配项</td></tr>
 <tr><td>`Permit 192.168.1.1`</td><td>无匹配项</td></tr>
 <tr><td>`Permit 172.16.0.0`</td><td>无匹配项</td></tr>
@@ -138,7 +136,7 @@ ___
 你实际上想要路由器放行该数据包，但却拒绝了。原因就在于那条隐式的`deny all`命令了，而该命令实际上是一种安全手段。
 
 ### ACL规则四 -- 路由器是不能过滤自己产生的流量的
- 
+
 **The router can't filter self-generated traffic.**
 
 这在某个实际网络上于部署 ACL 前进行测试时，会造成混乱。路由器不会过滤其自身产生的流量。在图9.2中有演示。
@@ -148,7 +146,7 @@ ___
 *图9.2 -- 对自身流量的 ACL 测试*
 
 ### ACL规则五 -- 不能对运行中的 ACL 进行编辑
- 
+
 **You can't edit a live ACL.**
 
 实际上，在`IOS 12.4`之前的版本中，只能对命名 ACL 进行编辑, 而不能对标准 ACL 或扩展 ACLs 两种进行编辑。这曾是 ACL 架构的一个局限（this was a limitation of ACL architecture）。在`IOS 12.4`之前，如想要编辑标准 ACL 或扩展 ACL ，就必须按照以下步骤进行（这里使用`list 99`作为例子）。
@@ -221,7 +219,7 @@ Router(config-if)#ip access-group 1 in ← reapply to the interface
 如使用的是Packet Tracer, 那么这些命可能不会工作。同时，请一定在某台路由器上尝试这些命令，因为它们是考试考点。**记住在编辑 ACL 前要先在接口上关闭它（此时它就不再是活动的了），以避免一些奇怪或是不可预期的行为发生**。而在`IOS 12.4`及以后的版本中，如何来编辑 ACLs ，会在后面演示。
 
 ### ACL规则六 -- 在接口上关闭ACL
- 
+
 **Disable the ACL on the interface.**
 
 在打算短时间对 ACL 进行测试或是撤销 ACL 时，许多工程师都会将其完全删除掉。这是不必要的。如你要停止 ACL 运行，只需简单地将其从所应用到的接口上移除即可。
@@ -241,15 +239,15 @@ Router(config-if)#^Z
 ![ACL的重用](images/0903.png)
 
 *图9.3 -- ACL的重用*
- 
+
 ### ACL规则八 -- ACL应保持简短
- 
+
 ACLs的基本规则就是保持简短且只专注于做一件事情。许多新手的思科工程师，将其 ACL 延伸到数行那么长，最后，经深思熟虑后，就可以紧缩到少数几行的配置。前面提到的将那些最为特定的（最小的）行放在 ACL 的顶部。这是好的做法，从而可以节约路由器 CPU 的执行周期。
 
 优良的 ACL 配置技能，来自于知识和操练。
 
 ### ACL规则九 -- 尽可能将 ACL 放在接近源的地方
- 
+
 思科文档建议将扩展 ACL 尽量放在离源近的地方，而将标准 ACL 尽量放在离目的近的地方，因为这可以避免不必要的开销，又能放行那些合法流量。
 
 ![将 ACL 尽量放在离源近的地方](images/0904.png)
@@ -259,7 +257,7 @@ ACLs的基本规则就是保持简短且只专注于做一件事情。许多新�
 >Farai 指出 -- “思科官方建议是扩展 ACL 尽量离源近，而标准 ACL 尽量离目的近”。
 
 ## 反掩码
- 
+
 **Wildcard Masks**
 
 **因为在 ACLs 及某些路由协议的配置中，反掩码是命令行的组成部分，所有有必要学习反掩码**。之所有存在反掩码，是因为需要有某种方式来告诉路由器，我们要去匹配 IP 地址或网络地址的哪些部分。
@@ -307,7 +305,7 @@ CCNA考试中反掩码计算的一种简易方法，就是把一个数与子网�
 请阅读子网划分和 VLSM 部分的课文，以更好地掌握此概念。
 
 ## 访问控制清单的配置
- 
+
 **Configuring Access Control Lists**
 
 熟能生巧，对于任何技能都是适用的。如同前面提到的，你应该在路由器上输入这里给出的每个例子，完成尽可能多的实验，并构建出自己的实例。在考试和现实世界中，你都需要精准快速的设计 ACL 。
@@ -315,7 +313,7 @@ CCNA考试中反掩码计算的一种简易方法，就是把一个数与子网�
 接下来的章节中出现的标准和扩展 ACLs 都是编号 ACLs 。它们是配置 ACLs 的经典方法。命名 ACLs 是配置 ACLs 的另一种方式，将在其后的部分出现。
 
 ### 标准ACLs
- 
+
 **Standard ACLs**
 
 标准的编号 ACLs 是最易于配置的，所以拿它来作为开端是最好的。**标准 ACLs 只能实现依据源网络或源 IP 地址的过滤**。
@@ -340,7 +338,7 @@ Router(config)#access-list 1 permit 10.1.0.0 0.0.255.255
 此 ACL 应在服务器侧的路由器上应用。又记得在清单的底部有一条隐式的`deny all`，所以其它流量都会给阻止掉。
 
 ### 扩展ACLs
- 
+
 **Extended ACLs**
 
 **扩展的编号 ACLs 中可以构建出细得多的粒度**。而正是由于有了细得多的粒度，令到扩展的编号 ACLs 变得诡异起来。藉由扩展的编号 ACLs ，可以对源或目的网络地址、端口、协议及服务进行过滤。
@@ -519,7 +517,7 @@ Standard IP access list test
 注意到**在路由器运行配置中，序号并不会显示出来**。要查看它们，必须执行一个`show [ip] access-list`命令。
 
 ## 加入一个 ACL 行
- 
+
 **Add an ACL Line**
 
 **要加入一个新的 ACL 行，只需简单地输入新的序号并接着输入该 ACL 语句**。下面的例子展示如何往现有的 ACL 中加入行`15`。
@@ -579,7 +577,7 @@ Router(config-std-nacl)#
 ```
 
 命令`resequence`则会创建新的序号，自`100`开始，每个新行增加`20`。译者注：在更新的 IOS 版本中，此命令可指定开始序号及步进序号。
- 
+
 ### ACL日志
 
 **ACL Logging**
@@ -628,7 +626,7 @@ Extended IP access list test
 ```
 
 **ACL日志在查看到底那些数据包被丢弃或放行的故障排除中，会是非常有用的**, 但在现实世界情形中（此内容超出 CCNA 考试范围）不得提的是：包含`[log]`或`[log-input]`关键字的 ACL 条目是为路由器进行线程交换的, 与之相反，现代路由器中， 默认都是经由 CEF 交换的（ACL entries that contain `[log]` or `[log-input]` keyword are process-switched by the router, as opposed to being CEF-switched, which is the default in modern routers）。这需要更多的路由器 CPU 周期，因而导致在有大量与被记录的 ACL 条目匹配时，出现问题。
- 
+
 ### 使用 ACLs 来限制 Telnet 和 SSH 访问
 
 **Using ACLs to Limit Telnet and SSH Access**
