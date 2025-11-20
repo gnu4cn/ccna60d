@@ -3,7 +3,7 @@
 
 [60 天通过 CCNA 考试](README.md)
 
-- [前言](src/preface.md)
+- [前言](preface.md)
 - [网络、线缆、OSI及TCP模型](d01-Networks-Cables-OSI-and-TCP-Models.md)
 - [CSMA/CD, 交换和虚拟局域网 VLAN](d02-CSMA-CD-Switching-and-VLANs.md)
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
