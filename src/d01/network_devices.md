@@ -63,25 +63,25 @@
 以下作为一名网络工程师，咱们将在咱们的工作中遇到的一些网络设备常见符号。当咱们在咱们的浏览器搜索引擎中输入 "Cisco icons"，咱们就可下载到思科网站上的这些图标。我们使用纯蓝色或彩色（Kindle 版本）。我（作者）已在全书中，混合使用了那些最常见的路由器和交换机符号，以便咱们习惯在现实世界的网络图中，咱们将看到的那些类型。
 
 
-!["路由器，routers"](images/60days-13.png)
+!["路由器，routers"](../images/60days-13.png)
 
-!["路由器，routers"](images/60days-4.png)
+!["路由器，routers"](../images/60days-4.png)
 
 **路由器，Routers**
 
-!["交换机，switch"](images/60days-5.png)
+!["交换机，switch"](../images/60days-5.png)
 
 **交换机（二层），Switch(Layer 2)**
 
-!["有防火墙的路由器"](images/60days-6.png)
+!["有防火墙的路由器"](../images/60days-6.png)
 
 **带有防火墙的路由器，Router with Firewall**
 
-!["无线路由器"](images/60days-7.png)
+!["无线路由器"](../images/60days-7.png)
 
 **无线路由器，Wireless Router**
 
-!["多层交换机"](images/60days-8.png)
+!["多层交换机"](../images/60days-8.png)
 
 **多层交换机，Multilayer Switch**
 
