@@ -254,3 +254,8 @@
 | 令牌环 | 星形 | 环形 |
 | 点对点 | 总线型 | 总线型 |
 | FDDI | 环形 | 环形 |
+
+
+> **参考资料**：
+>
+> - [有效節省成本的軸輻網路模型](https://medium.com/marketingdatascience/%E6%9C%89%E6%95%88%E7%AF%80%E7%9C%81%E6%88%90%E6%9C%AC%E7%9A%84%E8%BB%B8%E8%BC%BB%E7%B6%B2%E8%B7%AF%E6%A8%A1%E5%9E%8B-b5301bd385ed)
