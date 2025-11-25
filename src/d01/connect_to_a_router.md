@@ -1,5 +1,9 @@
 # 连接到路由器
 
+第一次连接路由器或交换机时，您可能会觉得有点困难。我们在上文介绍了控制台连接，因此连接电缆后，你需要在个人电脑或笔记本电脑上使用终端仿真程序。这样你就可以看到路由器的输出，并键入配置命令。
+
+The first time you connect to a router or a switch, it can seem a little daunting. We have covered console connections above, so once you connect the cable, you will need to use a terminal emulation program on your PC or laptop. This will allow you to see router output and type in the configuration commands.
+
 这是你头一次连接到一台路由器或交换机，看起来有些艰巨吧。前面的内容已经讲到了控制台连接了，所以在连上串行线后，你的 PC 或笔电就需要一个终端模拟程序了。有了这些，你就可以查看路由器的输出并敲入那些配置命令了。
 
 超级终端（HyperTerminal）作为默认程序已经用了很多年了，在完成灾难备份时，你可能仍需要这个程序；但是你可以选择 PuTTY 这个广泛使用的程序。从 [www.putty.org](http://www.putty.org/) 可以下载到他。老式的 PC 上的 COM 端口连接总是会用到标为 COM1 或 COM2 的逻辑端口。PuTTY 中有一个有关逻辑端口的设置，我们实际上叫这个是一条串行连接（a serial connection）。如图 1.37 所示。
