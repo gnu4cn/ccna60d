@@ -1,38 +1,42 @@
 # 连接到路由器
 
-第一次连接路由器或交换机时，您可能会觉得有点困难。我们在上文介绍了控制台连接，因此连接电缆后，你需要在个人电脑或笔记本电脑上使用终端仿真程序。这样你就可以看到路由器的输出，并键入配置命令。
+当咱们第一次连接某个路由器或交换机时，可能有点望而生畏。上面我们曾介绍过控制台连接，因此一旦咱们连接线缆后，咱们将需要使用咱们台式电脑或笔记本电脑上的某种终端仿真程序。这种程序允许咱们看到路由器输出，并键入配置命令。
 
-The first time you connect to a router or a switch, it can seem a little daunting. We have covered console connections above, so once you connect the cable, you will need to use a terminal emulation program on your PC or laptop. This will allow you to see router output and type in the configuration commands.
+多年来，HyperTerminal 都曾是默认选项，当咱们需要执行灾难恢复时，咱们可能仍需要这个程序；不过，现在咱们可以坚持使用 PuTTY，其被使用非常广泛。咱们可从 [chiark.greenend.org.uk/~sgtatham/putty/latest.html](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) 下载 PuTTY。使用 PC 上 COM 端口的老式连接，几乎总是会用到其上标有 COM1 或 COM2 的某个逻辑端口。咱们可在 PuTTY 中，看到使用这种连接的设施，PuTTY 实际上将其称之为串行连接，如下图 1.53 所示：
 
-这是你头一次连接到一台路由器或交换机，看起来有些艰巨吧。前面的内容已经讲到了控制台连接了，所以在连上串行线后，你的 PC 或笔电就需要一个终端模拟程序了。有了这些，你就可以查看路由器的输出并敲入那些配置命令了。
-
-超级终端（HyperTerminal）作为默认程序已经用了很多年了，在完成灾难备份时，你可能仍需要这个程序；但是你可以选择 PuTTY 这个广泛使用的程序。从 [www.putty.org](http://www.putty.org/) 可以下载到他。老式的 PC 上的 COM 端口连接总是会用到标为 COM1 或 COM2 的逻辑端口。PuTTY 中有一个有关逻辑端口的设置，我们实际上叫这个是一条串行连接（a serial connection）。如图 1.37 所示。
 
 !["PuTTY 使用 COM 端口得到串行访问"](../images/47.png)
 
-*图 1.37 -- PuTTY 使用 COM 端口得到串行访问*
+**图 1.53** -- **PuTTY 将 COM 端口用于串行访问**
 
-如你使用的是 USB 到翻转线（USB-to-rollover）转换器，那么你会收到一张包含其驱动程序的安装光盘，在安装好驱动程序后，你将得到一个可以使用的 COM 端口。如你使用的是 Windows 系统，在设备管理器中你会发现这个端口。如图 1.38 所示。
+当咱们使用 USB 转翻转线缆时，则将已收到一个驱动程序 CD，其在运行时，将给到咱们一个要用到的 COM 端口编号。当咱们使用 Windows 系统时，则可在设备管理器中，找到这个端口编号，如下图 1.54 所示。
+
 
 !["驱动程序将 COM4 作为控制台连接的端口"](../images/48.png)
 
-*图 1.38 -- 驱动程序将 COM4 作为控制台连接的端口*
+**图 1.54** -- **驱动程序已将 COM4 分配给控制台连接**
 
-在使用超级终端时，你还要选择一些连接参数，比如波特率等。你需要做如下选择，如图 1.39 所示。
+当咱们使用超级终端时，咱们将还需选择更多连接参数，比如波特率等。咱们应选择以下参数，如图 1.55 所示：
 
-- 每秒位数，Bits per second: 9600
-- 数据位数，Data bits：默认值 8
-- 校验，Parity: 无/None
-- 停止位，Stop bits: 默认值 1
-- 流控, Flow control: 必须是 无/None
+- 每秒比特数：9600
+- 数据位：默认为 8
+- 奇偶校验：默认为 None（无）
+- 停止位：默认值为 1
+- 流量控制：必须为 None（无）
+
 
 !["超级终端连接参数设置"](../images/49.png)
 
-*图 1.39 -- 超级终端连接参数设置*
+**图 1.55** -- **设置咱们的超级终端设置项**
 
-在开启路由器时，如你已经选择了正确的 COM 端口，并将翻转线插入到路由器的控制台端口，你将看到路由器的启动文字（见图 1.40）。如你不能看到任何文本，那么敲几下回车键并在此检查一下你的设置。
+在咱们打开路由器时，若咱们已选择正确的 COM 端口，**并** 将翻转线插入了控制台端口（而不是意外插入某个另外端口），咱们就应看到路由器启动文本（见图 1.56）。若咱们无法看到任何文字，就要多按几次 Enter 键，然后仔细检查咱们的设置。
 
-如路由器没有在他的 NVRAM 中找到启动配置文件（a startup configuration file）时, 或者路由器的配置寄存器（the configuration register）被设置为  0x2142 而忽略启动配置文件时，路由器会询问你是否要进入**初始设置模式(Initial Configuration mode)**。请输入 “n” 或 “no”， 输入 “yes” 会进入配置模式（setup mode）, 你是不会想要进入到这个模式的。
+![路由器的启动文本](../images/boot-up_text.png)
+
+**图 1.56** -- **路由器的启动文本**
+
+路由器可能会询问咱们是否打算进入初始配置模式。当路由器在 NVRAM（稍后会介绍）中找不到启动配置文件，或者配置寄存器被设置为忽略启动配置文件（通常为 `0x2142`）时，这种情况就会发生。一定要键入 "n" 或 "no"，否则咱们将进入设置模式，这是咱们不想要做的：
+
 
 ```
 Would you like to enter the initial configuration dialog?
@@ -44,7 +48,8 @@ Press RETURN to get started!
 Router>
 ```
 
-在另一个型号的路由器上，你会看到下面的输出：
+在某种不同路由器型号下，咱们将看到以下输出：
+
 
 ```
 Technical Support: www.cisco.com/techsupport
@@ -56,19 +61,30 @@ Press RETURN to get started!
 Router>
 ```
 
-### 路由器的各种模式，Routers Modes
+> *知识点*：
+>
+> - Initial Configuration mode
+>
+> - the configuration register
 
-为通过 CCNA 考试，你需要理解在完成各种操作时，需要进入的不同路由器模式提示符。而不管你要执行何种功能，首先你要是在正确的模式下（有不同的提示符来区分）。新手在配置路由器的过程中遇到找不到正确命令来使用的问题时，他们犯的最大错误往往就在这里。请一定要确定你在正确的模式下！
+## 路由器模式
 
-**用户模式，User Mode**
 
-在路由器启动后，第一个展现在你面前的叫用户模式（User Mode）或者用户执行模式（User Exec Mode）。用户模式下只有很小的一套命令可供使用，但在查找基本的路由器元素上是有用的。路由器默认名称是“Router”, 后面你会看到该名称可以修改。
+为通过 CCNA 考试，咱们将需要掌握应从何种路由器提示符，开始执行各种操作。无论咱们希望执行什么功能，咱们都将必须处在正确模式下（以不同的路由器提示符区分）。当新手学员在配置路由器时遇到问题，找不到要使用的正确命令时，这便是他们犯的最大错误。请确保咱们是在正确的模式下。
 
-`Router>`
 
-**特权模式，Privileged Mode**
+### 用户模式
 
-在用户模式下输入 `enable` 命令，就带你进入了下一模式，叫做特权模式或特权执行模式（Priviledged Exec mode）。输入 `disable` 命令退回到用户模式。而要退出整个会话，输入 `logout` 或者 `exit`。
+路由器引导后，呈现给咱们的第一个模式，称为用户模式或用户执行模式。用户模式只有一套极为有限的可用命令集，但对于查看一些路由器基本要素非常有用。路由器的默认名字为 "Router"，但正如咱们稍后看到的，这可被修改。
+
+```console
+Router>
+```
+
+### 高级模式
+
+在用户模式的提示符下键入 `enable` 就会将咱们领入叫做特权模式，或特权执行模式的下一模式。要返回到用户模式，咱们只需键入 `disable`。要完全退出会话，就要键入 `logout` 或 `exit`。
+
 
 ```console
 Router>enable
@@ -77,22 +93,23 @@ Router#disable
 Router>
 ```
 
-在查看路由器的整个配置、路由器的运行统计数据，以致路由器插入了哪些模组时，特权模式是有用的。在此提示符下，你会输入 `show` 命令，和用于调试的 `debug` 命令。
+对于查看路由器的整个配置、有关路由器运行情况的统计信息，甚至咱们已将哪些模组连接到了该路由器，特权模式都非常有用。在这个提示符下，咱们将键入那些 `show` 命令，并以 `debug` 命令排除故障。
 
-**全局配置模式，Global Configuration Mode**
 
-为了真正配置路由器，你需要进入全局配置模式。在特权运行模式下，输入 `configure terminal` 命令， 或其简短版本 `config t` 来进入此模式。此外，仅输入 `config` 时，路由器会询问你要进入何种模式。terminal 是模式的（默认选项会被中括号括起来）。如你按下了回车键，就会接受中括号里的命令。
+### 全局配置模式
 
-```console
+为了配置路由器，咱们就必须是在全局配置模式下。要进入全局配置模式，咱们只需在特权执行提示符下，键入 `configure terminal` 或 `config t`。或者，只需键入 `config`，路由器将询问咱们想要进入哪种模式。默认选项为 `terminal`（默认选项将显示在方括号 `[]` 内）。当咱们按下 Enter 键时，括号内的命令将被接受。
+
+
+<code>
 Router#config
-Configuring from terminal, memory, or network[terminal]? ← press Enter
+Configuring from terminal, memory, or network[terminal]? ← <b>press Enter</b>
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#
-```
+</code>
+### 接口配置模式
 
-**接口配置模式，Interface Configuration Mode**
-
-接口模式下，可以输入路由器接口，如快速以太网、串行接口等，的命令。在一台全新的路由器上，默认所有接口都是关闭的，没有任何配置。
+接口配置模式允许咱们输入针对单个路由器接口的命令，如 FastEthernet、串行接口等。在某个新的路由器上，在不存在任何配置下，所有接口默认都将是关闭的。
 
 ```console
 Router>enable
@@ -102,11 +119,15 @@ Router(config)#interface Serial0
 Router(config-if)#
 ```
 
-> show ip interface brief 命令可以查看到路由器有哪些接口。你的串行接口可能不是 Serial0。
+> 注： `show ip interface brief` 命令可以查看到路由器有哪些接口。咱们的串行接口可能不是 `Serial0`。
 
-**线路配置模式，Line Configuration Mode**
+初次阅读这些内容没有问题，但当咱们在阅读的同时，在真正路由器上尝试使用所有命令时，这将更有意义。记住要执行 `show ip interface brief` 命令，查看咱们有哪些可用接口。
 
-线路配置模式用来对控制台、Telnet 或者辅助端口（auxiliary ports）进行改变。你可以控制哪些人可以通过这些端口访问到路由器，以及在这些端口上部署口令或者**“访问控制列表（access control lists）”这种安全特性**。
+
+### 线路配置模式
+
+线路配置模式用于更改控制台、Telnet 或辅助端口（当咱们的路由器有这些时）。咱们可控制谁可以经由这些端口访问路由器，也可以在这些端口上，设置密码或一种称为 “访问控制列表” 的安全功能。
+
 
 ```console
 Router#config t
@@ -115,11 +136,13 @@ Router(config)#line console 0
 Router(config-line)#
 ```
 
-你还可以在此模式下设置波特率、执行级别（exec levels）等参数。
+咱们还可在线路配置模式下，配置波特率、执行级别等等。
 
-**路由器配置模式，Router Configuration Mode**
 
-为了给路由器配置一种路由协议，以便他能够建立起网络图（build a picture of the network）, 你需要用到路由器配置模式。
+### 路由器配置模式
+
+为了给路由器配置某种路由协议，以便其能够动态地构建起网络的图像，咱们将需要处在路由器配置模式下。
+
 
 ```console
 Router#config t
@@ -128,9 +151,10 @@ Router(config)#router rip
 Router(config-router)#
 ```
 
-**虚拟局域网配置模式，VLAN Configuration Mode**
+### VLAN 配置模式
 
-此种模式实际上是属于交换机的，但既然我们在此讨论不同模式，所以也有必要提一下。本书的交换机实验中，你会用到很多这种模式。
+这种模式实际上只适用于交换机，但由于咱们是在讨论模式，其还是值得一提。在咱们配置本书中的交换实验时，咱们将在该模式下花大量时间。
+
 
 ```console
 Switch#conf t
@@ -139,7 +163,8 @@ Switch(config)#vlan 10
 Switch(config-vlan)#
 ```
 
-在具备以太网交换机卡的路由器上，会使用虚拟局域网数据库配置模式（VLAN Database Configuration mode，该模式在交换机上已被废除），其与 VLAN 配置模式是相似的。
+配备了以太网交换机卡的路由器，会用到 VLAN 数据库配置模式（在交换机上这种模式已被弃用），其与 VLAN 配置模式类似：
+
 
 ```console
 Router#vlan database
@@ -152,9 +177,32 @@ Exiting....
 Router#
 ```
 
-### 配置一台路由器，Configuring a Router
+> *知识点*：
+>
+> - User mode, or User Exec mode
+>
+> - Privileged mode, or Privileged Exec mode
+>
+> - Global Configuration mode
+>
+> - Interface Configuration mode
+>
+> - Line Configuration mode
+>
+> - Router Configuration mode
+>
+> - VLAN Configuration mode
+>
+> - VLAN Database Configuration mode
 
-路由器是没有菜单的，你也不能用鼠标在不同模式之间切换，这些都是经由命令行界面(command line interface, CLI)完成的。有些上下文敏感（context-sensitive）的帮助信息以 [?] 关键字形式给出。在路由器提示符处输入问号，所有可用的命令都将显示出来。
+
+
+## 配置路由器
+
+路由器中没有菜单可用，咱们无法使用鼠标在不同模式间导航。全都经由命令行界面（CLI）完成。不过，有种问号（`?`）形式的上下文相关帮助。当咱们在路由器提示符下键入 `?` 时，咱们将显示以一个所有可用命令的列表。
+
+请注意，咱们将只会看到咱们模式下可用的那些命令。当咱们打算查看一些接口配置的命令时，咱们就必须在接口提示符下。
+
 
 ```console
 Router#?
@@ -181,36 +229,40 @@ enable                  Turn on privileged commands
 erase                   Erase a file
 exit                    Exit from the EXEC mode
 help                    Description of the interactive help system
+
+
 -- More –
 ```
 
-如果有多于屏幕能显示的信息，你将看到 `--More--` 栏。按空格键来查看下一页。按 `Ctrl+Z`或者`Q`回到提示符。
+当屏幕上显示信息过多时，咱们将看到那个 `-- More --` 的分页符。当咱们打算看到下一页时，就要按下空格键。若不想看下一页，那么就要同时按下 `Ctrl+Z` 键，或按下 "q" 返回路由器提示符。
 
-此外，如你已经开始输入一个命令，却忘记了该命令的剩下部分，输入`?`系统就会给出一个可用的命令清单。`?`在 CCNA 考试中是可用的，但如你用了问号，说明你就没有认真完成本书的那些实验:)
+
+此外，当咱们已开始键入某个命令，但忘记了还需要键入什么时，使用问号将给到咱们一个可用选项列表。`?` 在 CCNA 考试中将生效，但如果你在使用他，那就说明你没有完成我（作者）所有的实验！
 
 ```console
 Router#cl?
 clear clock
 ```
 
-按 `Tab` 键有命令补全功能。
+当咱们开始键入某条命令时，只要在该语法下仅有一个可能的单词或命令，那么咱们就可按下 Tab 键，为咱们补全这条命令。
 
-```console
-Router#copy ru
-← press the Tab key here
+<code>
+Router#copy ru ← <b>press the Tab key here</b>
 Router#copy running-config
-```
+</code>
 
-路由器有好几个可供选择的模式。这是为了避免对不打算修改的路由器配置部分造成不必要改变而设置的。看一下提示符就知道你当前所处哪个模式。比如你打算对某个快速以太网接口做一些改变，你需要在接口配置模式下来完成。
+路由器有数种可供选择的模式。这样做是为确保咱们不会更改路由器配置中，咱们不打算更改的部分。通过查看命令提示符，咱们便可识别咱们所处何种模式。例如，当咱们打算对其中一个快速以太网接口进行修改时，咱们就需要在接口配置模式下。
 
 首先，进入全局配置模式：
+
 
 ```console
 Router#config t
 Router(config)#
 ```
 
-接着，告诉路由器你要配置哪个接口：
+接着，告诉路由器咱们打算配置哪个接口：
+
 
 ```console
 Router(config)#interface FastEthernet0
@@ -218,7 +270,8 @@ Router(config-if)#exit
 Router(config)#
 ```
 
-如你不确定采用何种方式输入接口编号，就使用 [?] 关键字。无需担心你所看到的所有选项。大多数人都只会用到快速以太网、串行接口及环回接口（Loopback interfaces）。
+当咱们不确定要以哪种方式输入接口编号，那么就要使用 `?`。不要担心将给到咱们的那些全部选项。大多数人只会用到 `FastEthernet`、`Serial` 及 `Loopback` 三种接口。
+
 
 ```console
 Router(config)#interface ?
@@ -240,112 +293,112 @@ Virtual-Template    Virtual Template interface
 Virtual-TokenRing   Virtual TokenRing interface
 range               interface range command
 
+
 Router(config)#interface FastEthernet?
 <0-0> FastEthernet interface number
 Router(config)#interface FastEthernet0
 ```
 
-最终，路由器进入到了接口配置模式。
+最终，路由器会进入到接口配置模式。
 
 ```console
 Router(config-if)#
 ```
 
-在这里，你可以为接口配置上 IP 地址，设置其带宽，部署一条访问控制清单，以及完成很多其他事项。你的路由器或交换机可能会与我（作者）的有不同的接口编号，所以请使用 `?` 或 `show ip interface brief` 命令去查看你的选项。
+在这里，咱们可为接口设置 IP 地址、设置带宽、应用某个访问控制列表，以及完成很多其他事情。请注意，咱们的路由器和交换机，可能有着不同于我（作者）的接口编号，所以要使用 `?` 或 `show ip interface brief` 命令，查看咱们的选项。
 
-输入 `exit` 命令从某个配置模式中退出。这会将你带回到其第二高的级别(the next-highest level)。而要从任何的配置模式中退出，按下 `Ctrl+Z` 或输入 `end` 命令就可以了。
+
+当咱们需要退出某种配置模式，只需键入 `exit`。这会将咱们带回到下一最高级级别。而要退出任何类别配置模式时，只需同时按下 `Ctrl+Z`（或键入 `end`）。
+
 
 ```console
 Router(config-if)#exit
 Router(config)#
 ```
 
-或是 `Ctrl+Z` 的办法。
+或者使用 `Ctrl+Z` 这个选项：
 
 ```console
 Router(config-if)#^z
 Router#
 ```
 
-**环回接口，Loopback Interfaces**
+### 环回接口
 
-CCNA 大纲通常不会涉及环回接口的知识点，但不管在工作中，还是在操作实验中，都是有用的。环回接口是你配置得来的虚拟或逻辑接口（a virtual or logical interface）, 而不是物理存在的（所以你不会在路由器的面板上见到环回接口）。你可以往这类接口上执行 ping 操作，而无需在实验用有设备连接到路由器的快速以太网接口上。
+环回接口通常在 CCNA 考试大纲中不会涉及，但在现实世界与一些练习实验中，他们非常有用。所谓环回接口，是咱们配置的，而其物理上并不存在的某个虚拟或逻辑的接口（所以咱们永远不会在路由器面板上看到）。不过路由器将让咱们 ping 到这个接口，这样在实验中咱们就不必把设备连接到快速以太网接口上。
 
-使用环回接口的一大好处在于随路由器的运行，他们总是保持开启的，因为他们是逻辑的，意味着他们绝不会宕下去（go down）。而又由于他们是虚拟的，所以你不可以将网线插到他们上面。
 
-```console
+使用环回接口的一个好处是，只要路由器开机运行，他们便会保持在线。他们属于逻辑的，也就是他们永远不会宕机。不过，由于环回接口属于虚拟接口，因此咱们不能将网线插入这种接口。
+
+<code>
 Router#config t
 Router#(config)#interface Loopback0
 Router#(config-if)#ip address 192.168.20.1 255.255.255.0
-Router#(config-if)#^z ← press Ctrl+Z
+Router#(config-if)#^z ← <b>press Ctrl+Z</b>
 Router#
 Router#show ip interface brief
 Interface   IP-Address      OK?     Method  Status  Protocol
 Loopback0   192.168.20.1    YES     manual  up      up
-```
+</code>
 
-此命令的输出将显示出你的路由器的所有可用接口的信息。
+该命令的输出将显示咱们路由器上所有可用的接口。
 
-> 真实世界：可以在接口配置模式下输入 shutdown 命令来关掉一个环回接口。
-
-务必要给环回接口一个有效的 IP 地址。可以**用于那些路由协议** 或者**测试路由器是否允许某些流量通过**。本课程中会大量使用到环回接口。
-
-**编辑命令，Editting Commands**
-
-与其将已输入的整行命令全部删除，你可以对其进行编辑。下面这些键盘输入可以将光标移至该行命令的任意位置。
+> **实际应用**：
+>
+> 当咱们需要时，咱们可在接口配置模式下，使用 `shutdown` 命令关闭某个环回接口。
 
 
-| **键盘输入，Keystroke** | **用途，Meaning** |
-| -- | -- |
-| `Ctrl+A` | 将光标移至命令行开头 |
-| `Ctrl+E` | 将光标移至命令行末尾 |
-| `Ctrl+B` | 将光标移往后移动一个字符 |
-| `Ctrl+F` | 将光标移往前移动一个字符 |
-| `Esc+B` | 将光标往前移动一个词 |
-| `Esc+F` | 将光标往后移动一个词 |
-| `Ctrl+P` 或向上箭头 | 翻出上一条命令 |
-| `Ctrl+N` 或向下箭头 | 翻出下一条命令 |
-| `Ctrl+U` | 删除这条命令 |
-| `Ctrl+W` | 删除一个词 |
-| `Tab` | 补全命令 |
-| `show history` | 默认情况下，显示前 10 条命令 |
-| 退格按键，`Backspace` | 删除一个字符 |
+环回接口必须要给到某个有效 IP 地址。然后，咱们就可将他们用于路由协议，或测试咱们的路由器是否在放行某些流量。在整个课程中，咱们将经常用到这些接口。
 
-**考试中出一道有关这些编辑命令的题目是很常见的。**
+### 编辑命令
 
-**配置一个路由器接口，Configuring a Router Interface**
 
-基于其以下两个因素，路由器接口可以分为几种。
+在咱们已输入的配置行中浏览，而不是删除整行，是可行的。下表 1.7 所示的按键组合，将移动光标到行的不同位置。
 
-- 所采用的技术（比如，以太网）
-- 接口之带宽
 
-在现代企业网络中使用到的常见路由器及交换机接口带宽有：
 
-- `100Mbps`（通常叫做快速以太网，`FastEthernet`）
-- `1Gbps` (通常叫做千兆以太网，`GigabitEthernet`)
-- `10Gbps` (通常叫做万兆以太网，`TenGigabitEthernet`)
 
-为定位到（address）一个指定的路由器接口并进入到接口配置模式以设置其特定参数，你必须知道接口命名法。在不同路由器生产商之间，其接口命名法会有不同，但接口命名法通常由两部分组成：
+| 按键输入 | 操作 |
+| :-: | :-: |
+| `Ctrl+A` | 移至命令行的开头 |
+| `Ctrl+E` | 移至命令行的末尾 |
+| `Ctrl+B` | 向后移动一个字符 |
+| `Ctrl+F` | 向前移动一个字符 |
+| `Esc+B` | 向后移动一个单词 |
+| `Esc+F` | 向前移动一个单词 |
+| `Ctrl+P` 或向上箭头 | 调出上一命令 |
+| `Ctrl+N` 或向下箭头 | 调出下一命令 |
+| `Ctrl+U` | 删除一行 |
+| `Ctrl+W` | 删除一个单词 |
+| `Tab` | 补全某个命令 |
+| `show history` | 默认显示所输入的前 10 条命令 |
+| 退格键，`Backspace` | 删除单个字符 |
 
-- 接口类型（`Ethernet`, `FastEthernet` 等）
-- 接口插槽/模组以及端口号
+考试中关于以上内容的题目相当常见。
 
-比如，常见的接口命名法有以下这些：
 
-- `Ethernet1/0` (第 `1` 号插槽，第 `0` 号端口)
-- `FastEthernet0/3` ( 第 `0` 号插槽，第 `3` 号端口)
-- `GigabitEthernet0/1/1` (第 `0` 号模组， 第 `1` 号插槽， 第 `1` 好端口)
+### 配置路由器接口
 
-> **注意**: 第 `0` 号插槽通常表示那些内建的端口，而其他插槽则表示那些可以随时添加上去的拓展插槽。插槽和端口的编号通常是从 `0` 开始的。
+为了给某个特定路由器接口设置地址，而进入接口配置模式配置一些特定参数，咱们就必须了解接口的表示法。接口表示法会根据路由器制造商而有所不同，但通常由两部分组成：
 
-在进行配置时，**为令到路由器具有基本的那些功能，你务必要配置以下参数**：
+- 接口类型（`Ethernet`、`FastEthernet` 等）
+- 接口插槽/模组与端口编号
 
-- 速率，Speed
-- 双工，Duplex
-- IP 地址，IP address
+例如，一些常见接口表示法包括下面这些：
 
-你可以将这三个参数作为一台路由器的典型配置，因为他们常用在现代企业网络中。要查看所有可用的接口及其当前状态，你可以执行以下命令。
+- `Ethernet1/0`（插槽 1，端口 0）
+- `FastEthernet0/3`（插槽 0，端口 3）
+- `GigabitEthernet0/1/1`（模组 0，插槽 1，端口 1）
+
+    **注意**：插槽 0 通常表示那些内置的端口。其他插槽则表示可随时添加的一些扩展插槽。插槽和端口的编号通常从 0 开始。
+
+为了使路由器接口具有基本功能，咱们必须配置以下这些参数（除非他们有着由制造商设置的默认值）：
+
+- 速率
+- 双工
+- IP 地址
+
+咱们可在 Cisco 路由器上找到这些基本配置设置，因为他们通常会在现代企业网络中用到。要查看可用接口及其当前状态，咱们可执行以下命令：
 
 ```console
 Router#show ip interface brief
@@ -354,49 +407,54 @@ FastEthernet0/0 unassigned  YES unset   administratively down   down
 FastEthernet0/1 unassigned  YES unset   administratively down   down
 ```
 
-从以上输出可以看出，该路由器在插槽 `0` 上有两个快速以太网接口（`FastEthernet`, `100Mbps`），都没有配置过（也就是，没有 IP 地址）且是管理性关闭的（也就是，状态为：`adminitrively down`）。
+从上面的输出咱们可以看出，路由器在插槽 0 上有两个 `FastEthernet`（`100 Mbps`） 接口，这两个接口均未配置（即没有 IP 地址）且已被管理禁用（即状态为：`administratively down`）。
 
-在开始配置接口参数前，你必须要在思科设备上使用命令 `configure terminal` 进入路由器的配置模式, 在使用命令 `interface <interface name>` 进入到接口配置模式。接口配置过程的第一步是开启该接口。比如，使用 `no shutdown` 命令可以开启接口 `FastEthernet0/0` :
+在开始配置接口参数前，咱们必须使用 Cisco 设备上的 `configure terminal` 命令，进入路由器配置模式，然后使用 `interface <interface name>` 命令进入接口配置模式。接口配置过程中的第一步，是启用该接口。例如，接口 `FastEthernet0/0` 便可使用 `no shutdown` 命令启用。
 
 ```console
 Router#configure terminal
 Enter configuration commands, one per line. End with CNTL/Z.
 Router(config)#interface FastEthernet0/0
 Router(config-if)#no shutdown
-Router(config-if)#no shutdown
 Router(config-if)#
 *Mar 1 00:32:05.199: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
 *Mar 1 00:32:06.199: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+FastEthernet0/0, changed state to up
 ```
 
-接着的配置步骤涉及到配置速率以及双工设置，前面我们已经看到了。
+下一个配置步骤涉及到设置好速度及双工的设置，我们已介绍过这些内容。
 
-**给接口配置一个 IP 地址，Configuring an IP Address on an Interface**
 
-> 为让路由器与其他设备实现通信，他需要在连接的接口上有一个 IP 地址。配置一个 IP 地址是相当直接的，你还是要记住，在此之前需要进入接口配置模式。
 
-先不要担心到哪里去找到 IP 地址，我们后面会解决这个问题。
+### 在接口上配置 IP 地址
 
-```console
-Router>enable   ← takes you from User mode to Privileged mode
-Router#config t ← from Privileged mode to Configuration mode
-Router(config)#interface Serial0    ← and then into Interface Configuration mode
+
+为了让路由器与其他设备通信，他将需要有个已连接接口上的地址。在接口上配置 IP 地址非常简单，不过咱们务必要记得先要进入接口配置模式。
+
+现在不用担心在哪里找到 IP 地址，因为我们稍后将讨论这个问题。
+
+<code>
+Router>enable   ← <b>takes you from User mode to Privileged mode</b>
+Router#config t ← <b>from Privileged mode to Configuration mode</b>
+Router(config)#interface Serial0    ← <b>and then into Interface Configuration mode</b>
 Router(config-if)#ip address 192.168.1.1 255.255.255.0
-Router(config-if)#no shutdown   ← the interface is opened for traffic
-Router(config-if)#exit    ← you could also hold down the Ctrl+Z keys together to exit
+Router(config-if)#no shutdown   ← <b>the interface is opened for traffic</b>
+Router(config-if)#exit    ← <b>you could also hold down the Ctrl+Z keys together to exit</b>
 Router(config)#exit
 Router#
-```
+</code>
 
-如下面的输出那样，可以为该接口加入一些描述信息。
 
-```console
+
+某种说明也可添加到接口，如以下输出所示：
+
+<code>
 RouterA(config)#interface Serial0
 RouterA(config-if)#description To_Headquarters
-RouterA(config-if)#^Z   ← press Ctrl+Z to exit
-```
+RouterA(config-if)#^Z   ← <b>press Ctrl+Z to exit</b>
+</code>
 
-在完成路由器的接口配置后，于思科路由器上，你可以使用以下命令，通过检查完整的接配置参数来验证其设置：
+路由器接口配置完成后，咱们便可在 Cisco 路由器上，使用以下命令检查这个已完整配置后接口的那些参数，以验证设置。
 
 ```console
 RouterA#show interface Serial0
@@ -409,12 +467,14 @@ reliability 255/255, txload 1/255, rxload 1/255
 Encapsulation HDLC, loopback not set
 Keepalive set (10 sec)
 Last input 00:00:02, output 00:00:03, output hang never
-[Output restricted...]
+[Output Truncated]
 ```
 
-**`show` 命令，Show commands**
+### 显示命令
 
-通过在特权模式（`priviledged mode`）下使用 `show x` 命令, 你可以十分简单地茶看到路由器的绝大部分设置项，其中的 `x` 是下一条命令，`x`的选择有以下这些：
+
+在特权模式下，使用 `show x` 命令，其中 `x` 为下一命令，咱们便可查看路由器中的大部分设置，如以下输出中所示：
+
 
 ```console
 Router#show ?
@@ -439,19 +499,23 @@ cdapi               CDAPI informationcdp CDP information
 cef                 Cisco Express Forwarding
 class-map           Show QoS Class Map
 clns                CLNS network information
+
 --More--
 ```
 
-下面列出了一些常用的 `show` 命令及其意义，连同两个实例。
+一些较常见的 `show` 命令及其含义，以及示例，在表 1.8 中列出。
 
-| Show 命令 | 结果 |
-| -- | -- |
+**表 1.8** -- **常用 `show` 命令及其含义**
+
+| 命令 | 含义 |
+| :-: | :-: |
 | `show running-configuration` | 显示 DRAM 中的配置 |
 | `show startup-configuration` | 显示 NVRAM 中的配置 |
-| `show flash` | 显示闪存中的 IOS |
+| `show flash:` | 显示哪个 IOS 在闪存中 |
 | `show ip interface brief` | 显示所有接口的简要信息 |
 | `show interface Serial0` | 显示串行接口的统计信息 |
 | `show history` | 显示输入的前 10 条命令 |
+
 
 ```console
 Router#show ip interface brief
@@ -463,9 +527,10 @@ Serial0     192.168.1.1 YES manual  down                    down
 Serial1     unassigned  YES unset   administratively down   down
 ```
 
-其中的 `method` 标签表明地址指定的方式。可以是 `unset`，`manual`, `NVRAM`, `IPCP` 或者 `DHCP`。
+其中 `method` 标签表示地址的分配方式。其可以是 `unset`、`manual`、`NVRAM`、`IPCP` 或 `DHCP`。
 
-路由器能够检索（`recall`）出先前于路由器提示符处输入的一些命令 -- 默认 `10` 条，方法是使用向上箭头。使用这个特性能够让你无再次输入长命令行，从而节省大量时间和精力。`show history` 命令显示前 `10` 条命令的缓冲区。
+
+路由器可记住早先在路由器提示符下输入的命令（默认为 10 条命令），使用向上箭头便可调出这些命令。运用这一特性可节省大量时间和精力，因为其可避免咱们必须重新输入长行。`show history` 命令会显示处最近 10 条命令的缓冲区。
 
 ```console
 Router#show history
@@ -481,7 +546,7 @@ show logging
 show memory
 ```
 
-通过命令 `terminal history size` 命令来增大历史命令缓冲区（the history buffer）:
+咱们可使用 `terminal history size` 命令，增大历史记录缓冲区。
 
 ```console
 Router#terminal history ?
@@ -492,91 +557,95 @@ Router#terminal history size ?
 Router#terminal history size 20
 ```
 
-**验证基础路由器配置及网络连通性，Verifying Basic Router Configuration and Network Connectivity**
+### 验证基本的路由器配置与网络连通性
 
-下面的内容解释了一些最为有用的验证基础路由器配置的命令。
 
-**版本查看，Show Version**
+有助于验证基本路由器配置的一些最有用命令，在接下来的小节中解释。
 
-`show version` 命令提供了那些可以说是验证大多数路由器操作的起点的有用信息。包括：
 
-- 路由器的种类（`show inventory` 是另一个列出路由器硬件信息的有用命令）
-- IOS 的版本
-- 内存容量
-- 内存使用情况
-- CPU 类型
-- 闪存容量
-- 其他硬件参数
-- 上次重启原因
+- `show version`
 
-这里有一个 `show version` 命令的缩短了的输出。请自己动手输入这个命令。
+    `show version` 命令提供了可以作为验证大部分路由器操作起点的有用信息。这些信息包括以下内容：
 
-```console
-Router#show version
-Cisco 1841 (revision 5.0) with 114688K/16384K bytes of memory.
-Processor board ID FTX0947Z18E
-M860 processor: part number 0, mask 49
-2 FastEthernet/IEEE 802.3 interface(s)
-2 Low-speed Serial(sync/async) network interface(s)
-191K bytes of NVRAM.
-63488K bytes of ATA CompactFlash (Read/Write)
+    - 路由器类型（另一个列出路由器硬件的有用命令是 `show inventory`）
+    - IOS 版本
+    - 内存容量
+    - 内存使用情况
+    - CPU 类型
+    - 闪存容量
+    - 其他硬件参数
+    - 上次重新加载的原因
 
-Configuration register is 0x2102
-```
+    以下是 `show version` 命令的简短输出。请自行尝试。
 
-**Show Running-config**
+    ```console
+    Router#show version
+    Cisco 1841 (revision 5.0) with 114688K/16384K bytes of memory.
+    Processor board ID FTX0947Z18E
+    M860 processor: part number 0, mask 49
+    2 FastEthernet/IEEE 802.3 interface(s)
+    2 Low-speed Serial(sync/async) network interface(s)
+    191K bytes of NVRAM.
+    63488K bytes of ATA CompactFlash (Read/Write)
 
-`show running-config` 命令提供了路由器的完整配置，用于验证设备已被配置了恰当特性。因为其输出太过宽泛，这里就不给出来了。
+    Configuration register is 0x2102
+    ```
 
-**Show IP Interface Brief**
+- `show running-config`
 
-在前一部分提到的 `show ip interface brief` 命令，列出了路由器的接口以及他们的状态，包括以下项目：
+    `show running-config` 命令会提供路由器上的完整配置，同时其可被用于验证设备是否配置了那些正确功能特性。该命令的输出内容太过宽泛，因此其未在此给出。
 
-- 接口的名称及编号
-- IP 地址
-- 链路状态
-- 协议状态
 
-```console
-Router#show ip interface brief
-Interface       IP-Address  OK? Method  Status              Protocol
-FastEthernet0/0 unassigned  YES unset   administratively down   down
-FastEthernet0/1 unassigned  YES unset   administratively down   down
-Serial0/0/0     unassigned  YES unset   administratively down   down
-Serial0/1/0     unassigned  YES unset   administratively down   down
-Vlan1           unassigned  YES unset   administratively down   down
-Router#
-```
+- `show ip interface brief`
 
-**Show IP Route**
+    正如上一小节中曾提到的，`show ip interface brief` 命令会列出路由器接口及其状态，包括：
 
-`show ip route` 命令提供了有关设备路由能力的更深层次信息。他列出路由器所能到达的所有网络及到达这些网络的路径的信息，包括这些项目：
+    - 接口名称与编号
+    - IP 地址
+    - 链路状态
+    - 协议状态
 
-- 网络
-- 路由协议
-- 下一跳
-- 外出接口
+    ```console
+    Router#show ip interface brief
+    Interface       IP-Address  OK? Method  Status              Protocol
+    FastEthernet0/0 unassigned  YES unset   administratively down   down
+    FastEthernet0/1 unassigned  YES unset   administratively down   down
+    Serial0/0/0     unassigned  YES unset   administratively down   down
+    Serial0/1/0     unassigned  YES unset   administratively down   down
+    Vlan1           unassigned  YES unset   administratively down   down
+    Router#
+    ```
 
-```console
-R1#show ip route
-Codes:  C - connected, S - static, R - RIP, M - mobile, B - BGP
-        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter
-        area, N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external
-        type 2, E1 - OSPF external type 1, E2 - OSPF external type 2,
-        i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS
-        inter area, * - candidate default, U - per-user static route,
-        o – ODR, P - periodic downloaded static route
-Gateway of last resort is not set
-R       80.1.1.0/24 [120/1] via 10.1.1.2, 00:00:04, Ethernet0/0.1
-D       80.0.0.0/8 [90/281600] via 10.1.1.2, 00:02:02, Ethernet0/0.1
-O E2    80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
-```
+- `show ip route`
 
-除了上面的这些 `show` 命令外，还有一些用于验证路由器连通性的命令，比如 `ping` 和 `traceroute` 命令。
+    `show ip route` 命令会提供有关该设备路由能力的一些深度信息。他会列出路由器可到达的所有网络，以及有关这些网络可到达方式的信息，包括：
 
-**Ping 命令**
+    - 网络
+    - 路由协议
+    - 下一跳
+    - 传出接口
 
-`ping` 命令提供了一种到特定目标的基本连特性测试。这种方式用以测试路由器能否到达一个网络。Ping 使用 ICMP, 通过往一台机器发送 echo 请求方式来验证这台机器是否在运行。如果那台机器是在运行，他就会发出一个 ICMP 的 echo 回应消息给源机器，以确认他的可用性。一个 `ping` 的样例如下所示。
+    ```console
+    R1#show ip route
+    Codes:  C - connected, S - static, R - RIP, M - mobile, B - BGP
+            D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter
+            area, N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external
+            type 2, E1 - OSPF external type 1, E2 - OSPF external type 2,
+            i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS
+            inter area, * - candidate default, U - per-user static route,
+            o – ODR, P - periodic downloaded static route
+    Gateway of last resort is not set
+    R       80.1.1.0/24 [120/1] via 10.1.1.2, 00:00:04, Ethernet0/0.1
+    D       80.0.0.0/8 [90/281600] via 10.1.1.2, 00:02:02, Ethernet0/0.1
+    O E2    80.1.0.0/16 [110/20] via 10.1.1.2, 00:00:14, Ethernet0/0.1
+    ```
+
+除了上面介绍的这些 `show` 命令外，验证路由器连通性的其他有用方法，包括使用 `ping` 与 `traceroute` 命令。
+
+- `ping`
+
+    `ping` 命令提供了到某个特定目的地址的一种基本连通性测试。以这种方式，咱们可测试路由器是否能到达某个网络。Ping 的工作原理（使用 ICMP 时），是将一些 echo 请求发送到某台机器，以验证其是否开机和运行。当特定机器正在运行时，他将往回发送 ICMP 的 echo 回复消息到源地址，确认其可用性。一个 ping 示例在下面给出。
+
 
 ```console
 Router#ping 10.10.10.2
@@ -585,6 +654,9 @@ Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
 .!!!!
 Success rate is 80 percent (4/5), round-trip min/avg/max = 20/40/76 ms
 ```
+
+标准 ping 命令会向目的地发送五个 ICMP 数据包。查看 ping 输出时，圆点（.）代表失败，感叹号（!）代表成功接收到数据包。ping 命令的输出还显示了到目标网络的往返时间（最小值、平均值和最大值）。
+如果需要操作 ping 相关参数，可以从 Cisco 路由器发出扩展 ping 命令。方法是键入 ping 并在
 
 标准的 `ping` 命令发出 `5` 个到目标的 ICMP 数据包。而 `ping` 输出中，点（`.`）表示失败，叹号（`!`）表示成功收到数据包。`ping` 命令的输出还给出了到目标网络的往返时间（the round-trip time）, 有最小时间、平均时间以及最大时间。
 
