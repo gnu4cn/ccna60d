@@ -646,217 +646,80 @@ Router#terminal history size 20
 
     `ping` 命令提供了到某个特定目的地址的一种基本连通性测试。以这种方式，咱们可测试路由器是否能到达某个网络。Ping 的工作原理（使用 ICMP 时），是将一些 echo 请求发送到某台机器，以验证其是否开机和运行。当特定机器正在运行时，他将往回发送 ICMP 的 echo 回复消息到源地址，确认其可用性。一个 ping 示例在下面给出。
 
+    ```console
+    Router#ping 10.10.10.2
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
+    .!!!!
+    Success rate is 80 percent (4/5), round-trip min/avg/max = 20/40/76 ms
+    ```
 
-```console
-Router#ping 10.10.10.2
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
-.!!!!
-Success rate is 80 percent (4/5), round-trip min/avg/max = 20/40/76 ms
-```
+    标准 `ping` 命令会发送五个 ICMP 数据包到目的地址。在查看 ping 的输出时，圆点（`.`）表示一次失败，叹号（`!`）表示一次成功接收的数据包。ping 命令的输出还显示了到目的网络的往返时间（最小值、平均值及最大值）。
 
-标准 ping 命令会向目的地发送五个 ICMP 数据包。查看 ping 输出时，圆点（.）代表失败，感叹号（!）代表成功接收到数据包。ping 命令的输出还显示了到目标网络的往返时间（最小值、平均值和最大值）。
-如果需要操作 ping 相关参数，可以从 Cisco 路由器发出扩展 ping 命令。方法是键入 ping 并在
+    当咱们需要操作 ping 相关的那些参数时，咱们可在 Cisco 路由器下执行扩展的 ping。这是通过在终端下，键入 `ping` 并按下回车完成的。路由器将以一个交互式菜单提示咱们，其中咱们可指定所需的参数，包括：
 
-标准的 `ping` 命令发出 `5` 个到目标的 ICMP 数据包。而 `ping` 输出中，点（`.`）表示失败，叹号（`!`）表示成功收到数据包。`ping` 命令的输出还给出了到目标网络的往返时间（the round-trip time）, 有最小时间、平均时间以及最大时间。
+    - ICMP 数据包数量
+    - 数据包大小
+    - 超时
+    - 源接口
+    -服务类型
 
-如你需要调整 `ping` 相关的参数，你可在思科路由器上执行扩展的 `ping` 命令。通过在控制台处输入 `ping` 并按下回车键来执行。路由器就会通过一个交互式菜单进行提示，你就可以指定包含以下的这些参数了。
+    早先我们已介绍了扩展的 ping 输出，本指南中还将执行多次扩展的 ping。
 
-- ICMP 数据包的个数
-- 包的大小
-- 超时量
-- 源接口
-- 服务类型
-
-
-```console
-Router#ping
-Protocol [ip]:
-Target IP address: 10.10.10.2
-Repeat count [5]:
-Datagram size [100]:
-Timeout in seconds [2]:
-Extended commands [n]: y
-Source address or interface: FastEthernet0/0
-Type of service [0]:
-Set DF bit in IP header? [no]:
-Validate reply data? [no]:
-Data pattern [0xABCD]:
-Loose, Strict, Record, Timestamp, Verbose[none]:
-Sweep range of sizes [n]:
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
-Packet sent with a source address of 10.10.10.1
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 20/36/72 ms
-```
-
-**Traceroute 命令**
-
-`traceroute` 命令是另一个用于查看数据包在到达其目的地前所经过的跳数。下面的输出表示数据包在到达其目标前必须经过一跳。
-
-```console
-R2#traceroute 192.168.1.1
-Type escape sequence to abort.
-Tracing the route to 192.168.1.1
-    1 10.10.10.1 60 msec *  64 msec
-```
-
-跟 `ping` 一样，思科路由器也允许你执行扩展的 `traceroute` 命令，搭配一些相关参数，而这些参数大多与 `ping` 相关的参数一样。
-
-```console
-Router#traceroute
-Protocol [ip]:
-Target IP address: 192.168.1.1
-Source address: 10.10.10.2
-Numeric display [n]:
-Timeout in seconds [3]:
-Probe count [3]:
-Minimum Time to Live [1]:
-Maximum Time to Live [30]:
-Port Number [33434]:
-Loose, Strict, Record, Timestamp, Verbose[none]:
-Type escape sequence to abort.
-Tracing the route to 192.168.1.1
-    1 10.10.10.1 76 msec *  56 msec
-```
-
-## 第一天的问题
-
-### OSI/TCP 模型的问题 OSI/TCP Model Questions
-
-1. Name each layer of the OSI model, from Layer 7 down to Layer 1.
-2. The role of the Session Layer is to `_______`, `_______`, and `_______` sessions or dialogues between devices.
-3. What are the three methods used to control data flow at Layer 4?
-4. The Transport Layer includes several protocols, and the most widely known are `_______` and `_______`.
-5. Why is UDP used at all if TCP/IP offers guaranteed delivery?
-6. What is data referred to at each OSI layer?
-7. In order to interface with the upper and lower levels, the Data Link Layer is further subdivided into which two Sublayers?
-8. What are the five TCP/IP layers from the top down?
-9. How does the TCP/IP model map to the OSI model?
-10. Layer 2 addresses are also referred to as `_______` addresses.
-11. Using a switch will allow you to divide your network into smaller, more manageable sections known as `_______` `_______`.
-
-### 线缆的问题 Cable Questions
-
-1. The current standard Ethernet cable still uses eight wires twisted into pairs to prevent `_______` `_______` and `_______`.
-2. `_______` is when a signal from one Ethernet wire spills over into a neighbouring cable.
-3. Which command would set the FastEthernet router interface speed to 10Mbps?
-4. On a crossover cable, the wire on pin 1 on one end needs to connect to pin `_______` on the other end and pin 2 needs to connect to pin `_______`.
-5. Which cable would you use to connect a router Ethernet interface to a PC?
-6. You can see a summary of which interfaces you have on your router with the show `_______` `_______` `_______` command.
-7. Line Configuration mode lets you configure which ports?
-8. A Loopback interface is a `_______` or `_______` interface that you configure.
-9. The keyboard shortcut Ctrl+A does what?
-10. The `_______` keyboard shortcut moves the cursor back one word.
-11. By default, the `_______` `_______` command shows the last 10 commands entered.
-
-## 第一天的答案
-
-### OSI/TCP 模型答案
-1. Application, Presentation, Session, Transport, Network, Data Link, and Physical.
-2. Set up, manage, and terminate.
-3. Flow control, windowing, and acknowledgements.
-4. TCP and UDP.
-5. TCP uses a lot of bandwidth on the network and there is a lot of traffic sent back and forth to set up the connection, even before the data is sent. This all takes up valuable time and network resources. UDP packets are a lot smaller than TCP packets and they are very useful if a really reliable connection is not that necessary. Protocols that use UDP include DNS and TFTP.
-6. Bits (Layer 1), Frames (Layer 2), Packets (Layer 3), Segments (Layer 4) and Data (Layers 5-7).
-7. LLC and MAC.
-8. Application, Transport, Network, Data Link, and Network.
-
-9.
-
-![](../images/q-0.png)
-
-10. MAC.
-11. Collision domains.
-
-### 线缆答案 Cable Answers
-
-1. Electromagnetic interference (EMI) and crosstalk.
-2. Crosstalk.
-3. The `speed 10` command.
-4. 3 and 6.
-5. A crossover cable.
-6. `ip interface brief` .
-7. The console, Telnet, and auxiliary ports.
-8. Virtual or logical.
-9. Moves the cursor to the beginning of the command line.
-10. Esc+B.
-11. `show history` .
+    ```console
+    Router#ping
+    Protocol [ip]:
+    Target IP address: 10.10.10.2
+    Repeat count [5]:
+    Datagram size [100]:
+    Timeout in seconds [2]:
+    Extended commands [n]: y
+    Source address or interface: FastEthernet0/0
+    Type of service [0]:
+    Set DF bit in IP header? [no]:
+    Validate reply data? [no]:
+    Data pattern [0xABCD]:
+    Loose, Strict, Record, Timestamp, Verbose[none]:
+    Sweep range of sizes [n]:
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.10.10.2, timeout is 2 seconds:
+    Packet sent with a source address of 10.10.10.1
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 20/36/72 ms
+    ```
 
 
-## 第一天的实验 Day 1 Lab
+- `traceroute`
 
-### IOS 命令导航实验 IOS Command Navigation Lab
-
-**拓扑，Topology**
-
-![](../images/l-0.png)
-
-**实验目的，Purpose**
-
-学习如何通过控制台接口连接到一台路由器，以及尝试一些命令。
-
-**步骤，Walkthrough**
-
-1. 使用一条控制台线缆，和 PuTTY 程序（可免费在线获取，请搜索“PuTTY”）, 连接到一台路由器的控制台端口。
-2. 在 `Router>` 提示符处，输入下面的这些命令，探寻不同的路由器模式和命令。如你遇到询问进入配置模式，输入 `no` 并按下回车键。
-
-```
-Cisco IOS Software, 1841 Software (C1841-ADVIPSERVICESK9-M), Version 12.4(15)T1, RELEASE
-SOFTWARE (fc2)
-Technical Support: www.cisco.com/techsupport
-Copyright (c) 1986-2007 by Cisco Systems, Inc.
-Compiled Wed 18-Jul-07 04:52 by pt_team
-        --- System Configuration Dialog ---
-Continue with configuration dialog? [yes/no]:no
-Press RETURN to get started!
-Router>enable
-Router#show version
-Cisco 1841 (revision 5.0) with 114688K/16384K bytes of memory.
-Processor board ID FTX0947Z18E
-M860 processor: part number 0, mask 49
-2 FastEthernet/IEEE 802.3 interface(s)
-2 Low-speed Serial(sync/async) network interface(s)
-191K bytes of NVRAM.
-63488K bytes of ATA CompactFlash (Read/Write)
-Configuration register is 0x2102
-Router#show ip interface brief
-Interface       IP-Address  OK? Method  Status              Protocol
-FastEthernet0/0 unassigned  YES unset   administratively down   down
-FastEthernet0/1 unassigned  YES unset   administratively down   down
-Serial0/0/0     unassigned  YES unset   administratively down   down
-Serial0/1/0     unassigned  YES unset   administratively down   down
-Vlan1           unassigned  YES unset   administratively down   down
-Router#
-Router#conf t
-Enter configuration commands, one per line. End with CNTL/Z.
-Router(config)#interface Serial0/1/0  ← put your serial # here
-Router(config-if)#ip address 192.168.1.1 255.255.255.0
-Router(config-if)#interface Loopback0
-Router(config-if)#ip address 10.1.1.1 255.0.0.0
-Router(config-if)#^Z ← press Ctrl+Z keys together
-Router#
-Router#show ip interface brief
-Interface       IP-Address  OK? Method  Status              Protocol
-FastEthernet0/0 unassigned  YES unset   administratively down   down
-FastEthernet0/1 unassigned  YES unset   administratively down   down
-Serial0/0/0     unassigned  YES unset   administratively down   down
-Serial0/1/0     192.168.1.1 YES manual  administratively down   down
-Loopback0       10.1.1.1    YES manual  up                      up
-Vlan1           unassigned  YES unset   administratively down   down
-Router#show history
-Router(config)#hostname My_Router
-My_Router(config)#line vty 0 ?
-    <1-15>  Last Line number
-    <cr>
-My_Router(config)#line vty 0 15 ← enter 0 ? to find out how many lines you have
-My_Router(config-line)#
-My_Router(config-line)#exit
-My_Router(config)#router rip
-My_Router(config-router)#network 10.0.0.0
-My_Router(config-router)#
-```
+    `traceroute` 命令是另一个允许咱们查看数据包到达目的地址前，所经过跳数的有用工具。以下输出显示，数据包在到达其目的地前，只经过了一跳：
 
 
-（End）
+    ```console
+    R2#traceroute 192.168.1.1
+    Type escape sequence to abort.
+    Tracing the route to 192.168.1.1
+        1 10.10.10.1 60 msec *  64 msec
+    ```
+
+    与 ping 一样，Cisco 路由器允许咱们执行可定义数个相关参数，其中大部分与 ping 相关参数类似的扩展 `traceroute` 命令：
+
+    ```console
+    Router#traceroute
+    Protocol [ip]:
+    Target IP address: 192.168.1.1
+    Source address: 10.10.10.2
+    Numeric display [n]:
+    Timeout in seconds [3]:
+    Probe count [3]:
+    Minimum Time to Live [1]:
+    Maximum Time to Live [30]:
+    Port Number [33434]:
+    Loose, Strict, Record, Timestamp, Verbose[none]:
+    Type escape sequence to abort.
+    Tracing the route to 192.168.1.1
+        1 10.10.10.1 76 msec *  56 msec
+    ```
+
+请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 上第一天的考试。
+
+
