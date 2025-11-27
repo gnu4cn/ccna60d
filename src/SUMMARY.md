@@ -23,6 +23,9 @@
 + [IP 寻址和 VLSM](d02-IP_Addressing_and_VLSM.md)
     - [网络流量的类型](d02/traffic_types.md)
     - [IP 寻址](d02/ip_addressing.md)
+    - [地址类别](d02/addr_classes.md)
+    - [使用 IP 地址](d02/using_IP_addr.md)
+    - [子网划分](d02/subnetting.md)
 
 ---
 
