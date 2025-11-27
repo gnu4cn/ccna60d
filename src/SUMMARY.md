@@ -20,8 +20,9 @@
     - [第一天的问题](d01/questions.md)
     - [第一天的实验](d01/labs.md)
 
-+ [CSMA/CD, 交换和虚拟局域网 VLAN](d02-CSMA-CD-Switching-and-VLANs.md)
++ [IP 寻址和 VLSM](d02-CSMA-CD-Switching-and-VLANs.md)
     - [网络流量的类型](d02/traffic_types.md)
+    - [IP 寻址](d02/ip_addressing.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
