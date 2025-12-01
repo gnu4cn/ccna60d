@@ -11,22 +11,22 @@
 <td>A-255</td><td>0</td><td>0</td><td>0</td>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">不能使用</td><td>可以使用</td><td>可以使用</td><td>可以使用</td>
+<td style="background-color: gray;">不能使用</td><td>可以使用</td><td>可以使用</td><td>可以使用</td>
 </tr>
 <tr>
 <td>B-255</td><td>255</td><td>0</td><td>0</td>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">不能使用</td>
-<td style="backgroud-color: grey;">不能使用</td><td>可以使用</td><td>可以使用</td>
+<td style="background-color: gray;">不能使用</td>
+<td style="background-color: gray;">不能使用</td><td>可以使用</td><td>可以使用</td>
 </tr>
 <tr>
 <td>C-255</td><td>255</td><td>255</td><td>0</td>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">不能使用</td>
-<td style="backgroud-color: grey;">不能使用</td>
-<td style="backgroud-color: grey;">不能使用</td><td>可以使用</td>
+<td style="background-color: gray;">不能使用</td>
+<td style="background-color: gray;">不能使用</td>
+<td style="background-color: gray;">不能使用</td><td>可以使用</td>
 </tr>
 </table>
 
@@ -84,23 +84,23 @@
 <th>子网</th>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">0</td>
-<td style="backgroud-color: grey;">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td style="background-color: gray;">0</td>
+<td style="background-color: gray;">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
 <th>0</th>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">0</td>
-<td style="backgroud-color: grey;">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td style="background-color: gray;">0</td>
+<td style="background-color: gray;">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
 <th>64</th>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">1</td>
-<td style="backgroud-color: grey;">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td style="background-color: gray;">1</td>
+<td style="background-color: gray;">0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
 <th>128</th>
 </tr>
 <tr>
-<td style="backgroud-color: grey;">1</td>
-<td style="backgroud-color: grey;">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+<td style="background-color: gray;">1</td>
+<td style="background-color: gray;">1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
 <th>192</th>
 </tr>
 </table>
@@ -196,3 +196,427 @@
 <td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 </table>
+
+顶部的行表示咱们子网的增量，左侧的列表示咱们子网的掩码。使用这部分图表，咱们便可在几秒内回答任何子网问题。当咱们打算添加告诉咱们，如何回答任何设计问题的图表部分，如 “子网掩码 X” 将给到咱们多少个子网与主机” 时，只需添加一个 “2 的幂次” 部分。
+
+其中一列将是 “二的幂次”，另一列将是 “二的幂次减二”。减二的是为覆盖咱们不能用到的两个地址，即子网（subnetwork）和该子网的广播地址。为了回答问题，咱们要以数字 2 开始，并按所需次数将其翻倍。
+
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="background-color: gray;">
+<td></td><td>子网数</td><td>主机数 -2</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>16</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>32</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>64</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+
+以直接进入一个考试样的问题，咱们可能学得最好：
+
+主机 `192.168.100.100/26` 是在哪个子网中？
+
+
+咱们知道这是个 C 类地址，默认掩码是 24 个二进制位或 `255.255.255.0`。咱们可以看到，这里不是 24 位，而是 26 位，因此有 2 位被借用于构造子网。只需写下咱们的子网划分秘图，并勾选最上面一行（左侧）的两个位置。这将揭示咱们的子网增加了多少。然后，咱们便可在子网栏向下勾选两个位置，揭示具体子网掩码。
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="background-color: gray;">
+<td></td><td>子网数</td><td>主机数 -2</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>16</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>32</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>64</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+
+现在咱们知道了两件事：子网将以 64 的增量变大（咱们可使用 0 作为第一个子网值），同时咱们 `/26` 的子网掩码会以 192 结束，因此，完整形式便是 `255.255.255.192`：
+
+
+- `192.168.100.0/26` 为咱们的第一个子网
+- `192.168.100.64/26` 为咱们的第二个子网
+- `192.168.100.128/26` 为咱们的第三个子网
+- `192.168.100.192/26` 为咱们的最后一个子网
+
+在这个示例中，到咱们的实际子网值 192 时，咱们便不能再往下了，但请记住问题要求咱们找出主机 100。咱们可轻易看出，以 64 结尾的那个子网，便是主机 100 所在的子网，因为下一子网是 128，他太高了。
+
+为完整起见，我（作者）将加上主机地址和广播地址。通过取下一子网的值并减 1，咱们就可以快速计算出广播地址：
+
+| 子网 | 第一个主机 | 最后一个主机 | 广播地址 |
+| :-: | :-: | :-: | :-: |
+| `192.168.100.0` | `192.168.100.1` | `192.168.100.62` | `192.168.100.63` |
+| `192.168.100.64` | `192.168.100.65` | `192.168.100.126` | `192.168.100.127` |
+| `192.168.100.128` | `192.168.100.129` | `192.168.100.190` | `192.168.100.191` |
+| `192.168.100.192` | `192.168.100.193` | `192.168.100.254` | `192.168.100.255` |
+
+
+请将 IP 地址视为从 0 到 255 之间的任何数值。就像汽车上的里程表一样，每个数字都会滚动上升，直到再次滚回到 0，但下一个方框会滚动到 1。下面是两个示例八位组。为了节省篇幅，我（作者）在咱们到 0 2 时就往上跳过了：
+
+
+| 八位组 1 | 八位组 2 |
+| :-: | :-: |
+| 0 | 0 |
+| 0 | 1 |
+| 0 | 2(跳过) |
+| 0 | 255 |
+| 1 | 0 |
+| 1 | 1 |
+| 1 | 2 |
+
+
+当咱们打算使用这个图表的设计部分时，咱们当然可以。这类问题没有使用设计部分的需要，但要了解他的工作原理，咱们只需在子网列向下勾两个位置，因为咱们借用了 2 个比特位。从留给了咱们主机的 6 个比特位的最后那个八位组的 8 个比特位中，在 “主机-2” 列中向下勾选 6 个位置，揭示出咱们每个子网下会得到 64 减 2 个比特，即 4 个子网，同时每个子网 62 个主机：
+
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr style="background-color: gray;">
+<td></td><td>子网数</td><td>主机数 -2</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>2</td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>4</td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>8</td><td></td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>16</td><td></td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>32</td><td></td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>64</td><td></td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+
+准备好回答另一个问题了吗？当然，咱们准备好了。
+
+主机 `200.100.2.210/25` 位于哪个子网？
+
+和之前一样的操练。咱们知道这是个 C 类地址，要从 24 位变为 25 位，需要借用 1 位。在顶部行中横向打勾，然后在左侧列向下打勾：
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+因此，咱们的掩码将是 `255.255.255.128`，同时咱们的子网将以 128 为增量递增。实际上，对于某个 C 类地址，咱们无法借用少于 1 位；这只将给到我们两个子网：
+
+- `200.100.2.0` 与
+- `200.100.2.128`
+
+
+咱们已经可以回答这个问题了，因为咱们可以看到，主机 210 将位于第二个子网中。为了演示，我（作者）将再次写出其中的主机地址和广播地址：
+
+
+| 子网 | 第一个主机 | 最后一个主机 | 广播地址 |
+| :-: | :-: | :-: | :-: |
+| `200.100.2.0` | `200.100.2.1` | `200.100.2.126` | `200.100.2.127` |
+| `200.100.2.128` | `200.100.2.129` | `200.100.2.254` | `200.100.2.255` |
+
+
+下一个问题：`172.16.100.11/19` 属于哪个子网？
+
+咱们需要往 16（默认 B 类掩码）上加 3 才得到 19。要勾选图表顶部行的三个位置，得到子网的增量，然后在左侧列向下勾选三个位置，得到子网掩码。对于这些类型的问题，咱们不需要该图表的下半部分。
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td>4</td><td>4</td><td>4</td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+
+咱们的子网掩码是 `255.255.224.0`，同时咱们是在第三个八位组上进行子网划分，因为前两个八位组是为网络地址/默认子网掩码保留的。
+
+
+咱们的子网将如下：
+
+- `172.16.0.0/19`
+- `172.16.32.0/19`
+- `172.16.64.0/19`
+- `172.16.96.0/19`*
+- `172.16.128.0/19`
+- `172.16.160.0/19`
+- `172.16.192.0/19`
+- `172.16.224.0/19`
+- `172.16.224.0/19`
+
+
+在考试中，一旦咱们到了咱们主机所在子网的后一个子网时，才要停下，因为后一个子网将确保咱们有着正确的子网。咱们查找的是 `172.16` 网络中的主机 `100.11`；上面子网列表中的星号，标注了这个主机编号所在的子网。
+
+
+当出于某种原因，在考试中他们要求咱们，识别出主机地址和广播地址（加分目的），咱们可轻松添加这些内容。我（作者）将把他们中的前几个子网放在这里：
+
+| 子网 | 第一个主机 | 最后一个主机 | 广播地址 |
+| :-: | :-: | :-: | :-: |
+| 172.16.0.0 | 172.16.0.1 | 172.16.31.254 | 172.16.31.255 |
+| 172.16.32.0 | 172.16.32.1 | 172.16.63.254 | 172.16.63.255 |
+| 172.16.64.0 | 172.16.64.1 | 172.16.95.254 | 172.16.95.255 |
+| 172.16.96.0 | 172.16.96.1 | 172.16.127.254 | 172.16.127.255 |
+
+在考试中，他们很可能会通过将广播地址，增加为主机地址的选项，甚至将子网地址，增加为主机地址的选项，欺骗咱们。这就是为什么咱们要能够识别出哪个部分是哪个的原因。在实际网络中，咱们也将遇到这同样的问题，其间别的工程师曾试图将错误的地址，添加到某个接口。
+
+下一个问题：主机 `172.16.100.11/29` 位于哪个子网？
+
+正如咱们现在看到的，咱们可对大多数子网，使用咱们想要的任何掩码。我（作者）本可以问咱们，`10.100.100.1/29` 这个地址，所以，不要因为咱们有个子网位在第二、第三或第四个八位组的 A 类地址这一事实，而令咱们放弃。
+
+咱们需要为子网掩码借用 13 位，但那个子网划分表只有 8 个位置。既然你正在研究简单的子网划分方法，那么只需关注那个图表中，剩余数字溢出的部分。当咱们在咱们刚填满的图表旁，再画一张图表时，那么咱们就会有五个位置被填满（8 + 5 = 13 位）：
+
+<table>
+<tr>
+<td>二进制位</td><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td>
+</tr>
+<tr>
+<td>子网</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>128</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>192</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>224</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>240</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>248</td><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>252</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>254</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+<tr>
+<td>255</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+</tr>
+</table>
+
+
+从上图咱们可看出，子网掩码为 `255.255.255.248`。第三个八位组中的 255，是因为咱们在进入第四个八位组时填满了他。子网同样是以 8 为增量递增的。
+
+咱们本可以从 `172.16.0.0` 开始，但这样做的问题是，在数到 `172.16.100.11` 之前，需要花相当长的时间以 8 的倍数往上数，而考试是计时考试。因此，咱们需要加快计数过程。
+
+
+当咱们开始以 8 的增量往上数时，咱们会得到以下结果：
+
+- `172.16.0.0/29`
+- `172.16.0.8/29`
+- `172.16.0.16/29`，然后咱们会一直数到
+- `172.16.1.0/29`
+- `172.16.1.8/29`，然后继续一直数到
+- `172.16.20.0/29`
+- `172.16.20.8/29`
+
+
+这会花费很长时间，因为有超过 `8000` 个子网（2 的 13 次幂会给到咱们 8192，同时咱们可使用子网划分密图的设计部分检查这一结果）。
+
+我们来假设每个第三八位组，每次上升一位数（确实如此）。那么为什么不从 `172.16.100.x` 开始呢？
+
+
+- `172.16.100.0/29`
+- `172.16.100.8/29` *
+- `172.16.100.16/29`
+
+
+从上面咱们可以看出，主机 11 所在的子网，同时当咱们被要求算出广播地址时，其将如下面的图表所示：
+
+
+| 子网 | 第一个主机 | 最后一个主机 | 广播地址 |
+| :-: | :-: | :-: | :-: |
+| `172.16.100.0/29` | `172.16.100.1/29` | `172.16.100.6/24` | `172.16.100.7/24` |
+| `172.16.100.8/29` | `172.16.100.9/29` | `172.16.100.14/24` | `172.16.100.15/24` |
+| `172.16.100.16/29` | `172.16.100.17/29` | `172.16.100.22/24` | `172.16.100.23/24` |
+
+
+现在子网划分的内容足够了。我们将多次回顾这一主题。有关用到图表下半部分的一些网络设计示例，请查看 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnainé60days) 上的资源。
+
+此外，请记住有些可供咱们使用的子网资源：
+
+- Amazon 上的 《101 labs -- IP subnetting》
+- Amazon 上的 《IP Subnetting -- Zero to Guru》
+- [subnetting.org - Free Subnetting Questions and Answers Randomly Generated Online](http://www.subnetting.org/) -- 免费的子网划分问题生成器
+- [youtube.com: howtonetwork](https://www.youtube.com/user/paulwbrowning)
+
+
+
