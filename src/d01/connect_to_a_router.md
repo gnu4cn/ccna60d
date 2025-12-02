@@ -103,10 +103,16 @@ Router>
 
 <code>
 Router#config
+
 Configuring from terminal, memory, or network[terminal]? ← <b>press Enter</b>
+
 Enter configuration commands, one per line. End with CNTL/Z.
+
 Router(config)#
+
 </code>
+
+
 ### 接口配置模式
 
 接口配置模式允许咱们输入针对单个路由器接口的命令，如 FastEthernet、串行接口等。在某个新的路由器上，在不存在任何配置下，所有接口默认都将是关闭的。
@@ -248,6 +254,7 @@ clear clock
 
 <code>
 Router#copy ru ← <b>press the Tab key here</b>
+
 Router#copy running-config
 </code>
 
@@ -332,12 +339,19 @@ Router#
 
 <code>
 Router#config t
+
 Router#(config)#interface Loopback0
+
 Router#(config-if)#ip address 192.168.20.1 255.255.255.0
+
 Router#(config-if)#^z ← <b>press Ctrl+Z</b>
+
 Router#
+
 Router#show ip interface brief
+
 Interface   IP-Address      OK?     Method  Status  Protocol
+
 Loopback0   192.168.20.1    YES     manual  up      up
 </code>
 
@@ -435,12 +449,19 @@ FastEthernet0/0, changed state to up
 
 <code>
 Router>enable   ← <b>takes you from User mode to Privileged mode</b>
+
 Router#config t ← <b>from Privileged mode to Configuration mode</b>
+
 Router(config)#interface Serial0    ← <b>and then into Interface Configuration mode</b>
+
 Router(config-if)#ip address 192.168.1.1 255.255.255.0
+
 Router(config-if)#no shutdown   ← <b>the interface is opened for traffic</b>
+
 Router(config-if)#exit    ← <b>you could also hold down the Ctrl+Z keys together to exit</b>
+
 Router(config)#exit
+
 Router#
 </code>
 
@@ -450,7 +471,9 @@ Router#
 
 <code>
 RouterA(config)#interface Serial0
+
 RouterA(config-if)#description To_Headquarters
+
 RouterA(config-if)#^Z   ← <b>press Ctrl+Z to exit</b>
 </code>
 

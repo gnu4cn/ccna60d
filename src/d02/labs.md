@@ -21,7 +21,7 @@
     Interface		IP-Address	OK?	Method	Status					Protocol
     FastEthernet0/0	unassigned	YES	unset	administratively down	down
     FastEthernet0/1	unassigned	YES	unset	administratively down	down
-    <b>Serial0/1/0</b>		unassigned	YES	unset	administratively down	down
+    Serial0/1/0		unassigned	YES	unset	administratively down	down
     Vlan1			unassigned	YES	unset	administratively down	down
     Router#
     Router#show controllers Serial0/1/0
@@ -31,7 +31,7 @@
     idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
     Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
     line state: down
-    <b>DCE cable</b>, no clock rate
+    DCE cable, no clock rate
     ```
 
 
