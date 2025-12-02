@@ -27,6 +27,7 @@
     - [使用 IP 地址](d02/using_IP_addr.md)
     - [子网划分](d02/subnetting.md)
     - [路由汇总](d02/route_summarization.md)
+    - [变长子网掩码](d02/VLSM.md)
 
 ---
 
