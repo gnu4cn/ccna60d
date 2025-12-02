@@ -17,8 +17,8 @@
     - [TCP/IP](d01/TCP_IP.md)
     - [线缆与介质](d01/cables_and_media.md)
     - [连接到路由器](d01/connect_to_a_router.md)
-    - [第一天的问题](d01/questions.md)
-    - [第一天的实验](d01/labs.md)
+    - [第 1 天的问题](d01/questions.md)
+    - [第 1 天的实验](d01/labs.md)
 
 + [IP 寻址和 VLSM](d02-IP_Addressing_and_VLSM.md)
     - [网络流量的类型](d02/traffic_types.md)
@@ -28,6 +28,8 @@
     - [子网划分](d02/subnetting.md)
     - [路由汇总](d02/route_summarization.md)
     - [变长子网掩码](d02/VLSM.md)
+    - [第 2 天的问题](d02/questions.md)
+    - [第 2 天的实验](d02/labs.md)
 
 ---
 
