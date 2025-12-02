@@ -31,6 +31,10 @@
     - [第 2 天的问题](d02/questions.md)
     - [第 2 天的实验](d02/labs.md)
 
+
++ [IPv6 的一些概念](d03_IPv6_Concepts.md)
+
+
 ---
 
 # LAN 交换
