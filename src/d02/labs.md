@@ -15,24 +15,24 @@
 
 1. 首先确定咱们的串行接口的编号，因为他们可能与上面图表中我（作者）的编号不同。此外，请确定哪一侧连接了 DCE 电缆，因为这一侧将需要 `clock rate` 命令；
 
-    <code>
-    Router>en<br/>
-    Router#sh ip interface brief<br/>
-    Interface		IP-Address	OK?	Method	Status					Protocol<br/>
-    FastEthernet0/0	unassigned	YES	unset	administratively down	down<br/>
-    FastEthernet0/1	unassigned	YES	unset	administratively down	down<br/>
-    <b>Serial0/1/0</b>		unassigned	YES	unset	administratively down	down<br/>
-    Vlan1			unassigned	YES	unset	administratively down	down<br/>
-    Router#<br/>
-    Router#show controllers Serial0/1/0<br/><br/>
+    ```console
+    Router>en
+    Router#sh ip interface brief
+    Interface		IP-Address	OK?	Method	Status					Protocol
+    FastEthernet0/0	unassigned	YES	unset	administratively down	down
+    FastEthernet0/1	unassigned	YES	unset	administratively down	down
+    <b>Serial0/1/0</b>		unassigned	YES	unset	administratively down	down
+    Vlan1			unassigned	YES	unset	administratively down	down
+    Router#
+    Router#show controllers Serial0/1/0
 
-    M1T-E3 pa: show controller:<br/>
-    PAS unit 0, subunit 0, f/w version 2-55, rev ID 0x2800001, version 2<br/>
-    idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4<br/>
-    Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1<br/>
-    line state: down<br/>
-    <b>DCE cable</b>, no clock rate<br/>
-    </code>
+    M1T-E3 pa: show controller:
+    PAS unit 0, subunit 0, f/w version 2-55, rev ID 0x2800001, version 2
+    idb = 0x6080D54C, ds = 0x6080F304, ssb=0x6080F4F4
+    Clock mux=0x30, ucmd_ctrl=0x0, port_status=0x1
+    line state: down
+    <b>DCE cable</b>, no clock rate
+    ```
 
 
 2. 给一侧添加主机名与 IP 地址。当这一侧属于 DCE 时，则要添加时钟速率；
