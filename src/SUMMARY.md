@@ -26,6 +26,7 @@
     - [地址类别](d02/addr_classes.md)
     - [使用 IP 地址](d02/using_IP_addr.md)
     - [子网划分](d02/subnetting.md)
+    - [路由汇总](d02/route_summarization.md)
 
 ---
 
