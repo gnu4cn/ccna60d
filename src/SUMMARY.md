@@ -17,8 +17,8 @@
     - [TCP/IP](d01/TCP_IP.md)
     - [线缆与介质](d01/cables_and_media.md)
     - [连接到路由器](d01/connect_to_a_router.md)
-    - [第 1 天的问题](d01/questions.md)
-    - [第 1 天的实验](d01/labs.md)
+    - [第 1 天问题](d01/questions.md)
+    - [第 1 天实验](d01/labs.md)
 
 + [IP 寻址和 VLSM](d02-IP_Addressing_and_VLSM.md)
     - [网络流量的类型](d02/traffic_types.md)
@@ -36,6 +36,7 @@
     - [IPv6 的历史](d03/history_of_IPv6.md)
     - [IPv6 分址](d03/IPv6_addressing.md)
     - [IPv6 地址表示法](d03/IPv6_Addr_representation.md)
+    - [不同的 IPv6 地址类型](d03/IPv6_addr_types.md)
 
 
 ---
