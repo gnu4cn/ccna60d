@@ -35,6 +35,7 @@
 + [IPv6 的一些概念](d03_IPv6_Concepts.md)
     - [IPv6 的历史](d03/history_of_IPv6.md)
     - [IPv6 分址](d03/IPv6_addressing.md)
+    - [IPv6 地址表示法](d03/IPv6_Addr_representation.md)
 
 
 ---
