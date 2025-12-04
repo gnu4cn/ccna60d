@@ -37,6 +37,7 @@
     - [IPv6 分址](d03/IPv6_addressing.md)
     - [IPv6 地址表示法](d03/IPv6_Addr_representation.md)
     - [不同的 IPv6 地址类型](d03/IPv6_addr_types.md)
+    - [IPv6 的协议与机制](d03/IPv6_protocols_and_mechanisms.md)
 
 
 ---
