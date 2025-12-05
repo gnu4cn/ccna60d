@@ -39,6 +39,7 @@
     - [不同的 IPv6 地址类型](d03/IPv6_addr_types.md)
     - [IPv6 的协议与机制](d03/IPv6_protocols_and_mechanisms.md)
     - [IPv6 下的子网划分](d03/subnetting_with_IPv6.md)
+    - [IPv6 与 IPv4 的比较](d03/compared_to_IPv4.md)
 
 
 ---
