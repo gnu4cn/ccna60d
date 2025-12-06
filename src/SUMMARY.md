@@ -28,6 +28,7 @@
     - [子网划分](d02/subnetting.md)
     - [路由汇总](d02/route_summarization.md)
     - [变长子网掩码](d02/VLSM.md)
+    - [排除 IP 地址问题](d02/troubleshooting_IP_address.md)
     - [第 2 天问题](d02/questions.md)
     - [第 2 天实验](d02/labs.md)
 
@@ -40,6 +41,8 @@
     - [IPv6 的协议与机制](d03/IPv6_protocols_and_mechanisms.md)
     - [IPv6 下的子网划分](d03/subnetting_with_IPv6.md)
     - [IPv6 与 IPv4 的比较](d03/compared_to_IPv4.md)
+    - [第 3 天问题](d03/questions.com)
+    - [第 3 天实验](d03/labs.md)
 
 
 ---

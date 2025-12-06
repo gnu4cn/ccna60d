@@ -26,68 +26,101 @@
 
 ### IPv6 分址的故障排除工具
 
-网络中的 IPv6 故障排除会因路由协议和传输机制的不同而有很大差异，本节只专门讨论 IPv6 寻址的故障排除。除了检查接口是否有错别字（这是 IPv6 寻址问题的常见原因），你还应了解下表 3.12 中的下列命令，它们将帮助你排除 IPv6 地址部署方面的故障。请在完成任何 IPv6 实验时试用这些命令。
-表 3.12-IPv6 命令和操作
+排除网络中 IPv6 故障，会因使用的路由协议和传输机制，而有很大差异，这一小节只专门讨论 IPv6 分址的故障排除。除检查接口是否有拼写错误（IPv6 分址问题的常见原因），咱们还应了解下表 3.12 中，将帮助咱们排除 IPv6 地址部署问题的那些命令。请在任何咱们完成的 IPv6 实验中一定要试试。
 
-As you know, IPv6 interfaces that are directly connected do not need to be in the same subnet in order to communicate, although they may well be in order to comply with whatever network design and addressing policy you have in place where you work.
+**表 3.12** -- **IPv6 命令和操作**
 
+| 关键字 | 描述 |
+| :-: | :-: |
+| `Router#clear ipv6 route *` | 删除路由表中的所有 IPv6 路由。 |
+| `Router#clear ipv6 route 2001:ab8:c1:1::/64` | 删除路由表中某条指定 IPv6 路由。 |
+| `Router#clear ipv6 traffic` | 重置 IPv6 流量计数器。 |
+| `Router#debug ipv6 packet` | 显示 IPv6 数据包调试消息。 |
+| `Router#debug ipv6 routing` | 显示有关 IPv6 路由表更新及路由缓存更新的调试消息。 |
+| `Router#show ipv6 interface` | 显示 IPv6 接口的 IPv6 状态。 |
+| `Router#show ipv6 interface brief` | 显示 IPv6 接口的汇总信息。 |
+| `Router#show ipv6 neighbors` | 显示 IPv6 邻居信息。 |
+| `Router#show ipv6 route` | 显示 IPv6 的路由表。 |
+| `Router#show ipv6 route summary` | 显示 IPv6 路由表的汇总信息。 |
+| `Router#show ipv6 static` | 显示路由表中的静态 IPv6 路由。 |
+| `Router#show ipv6 static 2001:ab8:1:0/16` | 显示特定静态路由信息。 |
+| `Router#show ipv6 static interface serial0/0` | 显示该特定接口作为出口接口下的静态路由信息。 |
+| `Router#show ipv6 static detail` | 显示 IPv6 静态路由的详细条目。 |
+| `Router#show ipv6 traffic` | 显示 IPv6 流量的统计数据。 |
 
-## 第七天的问题
+上面的大多数命令都不言自明，但他们中有些对咱们来说可能很陌生。重要的是在咱们进行 IPv6 实验时，要尝试使用这些命令并记录输出结果。在做过几次本书中的实验后，也请咱们自己做实验。这是了解这种技术与可用输出的唯一方法。同样重要的是，一些调试命令以及清除路由的命令，可能会导致流量或 CPU 激增，因此在执行此类命令前，咱们可能需要寻求一次计划中断的许可。
 
-1. IPv6 addresses must always be used with a subnet mask. True or false?
-2. Name the three types of IPv6 addresses.
-3. Which command enables IPv6 on your router?
-4. The `0002` portion of an IPv6 address can be shortened to just 2. True or false?
-5. How large is the IPv6 address space?
-6. With IPv6, every host in the world can have a unique address. True or false?
-7. IPv6 does not have natively integrated security features. True or false?
-8. IPv6 implementations allow hosts to have multiple addresses assigned. True or false?
-9. How can the broadcast functionality be simulated in an IPv6 environment?
-10. How many times can the double colon (`::`) notation appear in an IPv6 address?
-
-## 第七天问题答案
-
-1. False.
-2. Unicast, Multicast, and Anycast.
-3. The `ipv6 unicast-routing`
-4. True.
-5. 128 bits.
-6. True.
-7. False.
-8. True.
-9. By using Anycast.
-10. One time.
-
-## 第七天实验
-
-### IPv6概念实验
-
-**IPv6 概念实验**
-
-在一对直接连接的思科路由器上，对在本模块中提到的 IPv6 概念和命令，进行测试。
-
-- 在两台路由器上都开启 IPv6 全球单播路由
-+ 在每个连接的接口上手动配置一个 IPv6 地址，比如下面这样。
-	- 在路由器 R1 的连接接口上配置`2001:100::1/64`
-	- 在路由器 R2 的连接接口上配置`2001:100::2/64`
-- 使用命令`show ipv6 interface`和`show ipv6 interface prefix`对配置进行验证
-- 测试直接`ping`的连通性
-- 使用 IPv6 无状态自动配置（`ipv6 address autoconfig default`）进行重新测试
-- 使用`EUI-64`地址（ IPv6 地址`2001::/64` `EUI-64`）进行重新测试
-- 硬编码一个借口本地链路地址: `ipv6 address fe80:1234:adcd:1::3 link-local`
-- 查看 IPv6 路由表
-
-### 十六进制转换及子网划分练习
-
-**Hex Conversion and Subnetting Practice**
-
-请把今天剩下的时间用于练习这些重要的题目上。
-
-- 将十进制转换成十六进制（随机数字）
-- 将十六进制转换成十进制（随机数字）
-- IPv6子网划分（随机网络和场景）
+我们来深入了解其中两条可帮助咱们解决 IPv6 问题的命令。
 
 
-（End）
+### `debug ipv6 packet`
+
+当咱们无法亲临现场，并使用专门软件完成流量的数据包捕获时，咱们会受益于 `debug ipvs packet` 这条命令。这条命令将显示设备接收到的、生成的及转发的所有数据包。不用说，数据量会让人应接不暇，因此强烈建议咱们在该命令末尾指定某条 ACL，这样咱们就只会看到咱们要查看的数据包，而不是所有 IPv6 数据包。当咱们未能指定 ACL 时，咱们很可能就将导致系统性能问题，而且咱们会有太多数据需要分析。
+
+
+以下示例给出了 `debug ipv6 packet` 命令的输出。有关各个字段与输出的详细信息，咱们可阅读 [Cisco IOS IPv6 命令参考](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i1.html)。
+
+```console
+*Mar  1 00:03:11.535: IPV6: source :: (FastEthernet0/0)
+*Mar  1 00:03:11.535:       dest FF02::1:FFED:0
+*Mar  1 00:03:11.535:       traffic class 224, flow 0x0, len 64+14, prot 58, hops 255, forward to ulp
+*Mar  1 00:03:12.483: IPV6: source FE80::C001:6FF:FEED:0 (FastEthernet0/0)
+*Mar  1 00:03:12.483:       dest FF02::1
+*Mar  1 00:03:12.483:       traffic class 224, flow 0x0, len 72+14, prot 58, hops 255, forward to ulp
+*Mar  1 00:03:12.507: IPV6: source FE80::C001:6FF:FEED:0 (FastEthernet0/0)
+*Mar  1 00:03:12.507:       dest FF02::1
+*Mar  1 00:03:12.507:       traffic class 224, flow 0x0, len 72+14, prot 58, hops 255, forward to ulp
+```
+
+### `show ipv6 traffic`
+
+
+`show ipvé traffic` 命令将显示有关 IPv6 的，有助于故障排除的重要统计数据。例如，咱们正经历到咱们路由器上特定接口，及源自咱们路由器接口的连通性问题。咱们运行 `show ipv6 traffic` 命令，并看到如下显示。那么有什么突出的现象，可能是该问题的根本原因呢？
+
+
+```console
+hostname#show ipv6 traffic
+IPv6 statistics:
+Rcvd: 545 total, 545 local destination
+    0 source-routed, 0 truncated
+    0 format errors, 0 hop count exceeded
+    0 bad header, 0 unknown option, 0 bad source     
+    0 unknown protocol, 0 not a router     
+    218 fragments, 109 total reassembled     
+    0 reassembly timeouts, 0 reassembly failures
+Sent: 255 generated, 0 forwarded     
+    1 fragmented into 2 fragments, 0 failed     
+    0 encapsulation failed, 200 no route, 0 too big
+Mcast: 168 received, 70 sent
+ICMP statistics:
+Rcvd: 116 input, 0 checksum errors, 0 too short    
+    0 unknown info type, 0 unknown error type    
+    unreach: 0 routing, 0 admin, 0 neighbor, 0 address, 0 port    
+    parameter: 0 error, 0 header, 0 option    
+    0 hopcount expired, 0 reassembly timeout,0 too big    
+    0 echo request, 0 echo reply    
+    0 group query, 0 group report, 0 group reduce    
+    0 router solicit, 60 router advert, 0 redirects    
+    31 neighbor solicit, 25 neighbor advert
+Sent: 85 output, 0 rate-limited    
+    unreach: 0 routing, 0 admin, 0 neighbor, 0 address, 0 port    
+    parameter: 0 error, 0 header, 0 option    
+    0 hopcount expired, 0 reassembly timeout,0 too big    
+    0 echo request, 0 echo reply    
+    0 group query, 0 group report, 0 group reduce    
+    0 router solicit, 18 router advert, 0 redirects    
+    33 neighbor solicit, 34 neighbor advert
+UDP statistics:
+Rcvd: 109 input, 0 checksum errors, 0 length errors    
+    0 no port, 0 dropped
+Sent: 37 output
+TCP statistics:
+Rcvd: 85 input, 0 checksum errors
+Sent: 103 output, 0 retransmitted
+```
+
+请注意，在 IPv6 发送的统计信息下，有 255 个数据包已生成，而其中 200 个列出了 “无路由”。该命令很好地总结了将有助于咱们排除网络故障的 IPv6 特定信息。
+
+请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 处第 3 天的考试。
 
 
