@@ -45,12 +45,14 @@
     - [第 3 天实验](d03/labs.md)
 
 - [复习日](d04_review.md)
+- [阶段复习日](./d05-section_review.md)
 
 
 ---
 
 # LAN 交换
 
+- [交换的概念](./d06_switching_concepts.md)
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
