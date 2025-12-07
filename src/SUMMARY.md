@@ -44,6 +44,8 @@
     - [第 3 天问题](d03/questions.com)
     - [第 3 天实验](d03/labs.md)
 
+- [复习日](d04_review.md)
+
 
 ---
 

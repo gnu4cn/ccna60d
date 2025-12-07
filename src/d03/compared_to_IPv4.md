@@ -31,7 +31,7 @@
 **表 3.12** -- **IPv6 命令和操作**
 
 | 关键字 | 描述 |
-| :-: | :-: |
+| :-- | :-- |
 | `Router#clear ipv6 route *` | 删除路由表中的所有 IPv6 路由。 |
 | `Router#clear ipv6 route 2001:ab8:c1:1::/64` | 删除路由表中某条指定 IPv6 路由。 |
 | `Router#clear ipv6 traffic` | 重置 IPv6 流量计数器。 |
