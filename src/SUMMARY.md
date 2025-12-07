@@ -55,6 +55,7 @@
 + [交换概念](./d06_switching_concepts.md)
     - [交换基础](d06/switching_basics.md)
     - [交换概念](d06/concepts.md)
+    - [交换机初始配置](d06/initial_setup.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
