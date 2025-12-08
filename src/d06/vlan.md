@@ -4,103 +4,121 @@
 
 !["路由器隔离广播域"](../images/0213.png)
 
-*图 2.13 -- 路由器隔离广播域*
+**图 6.13** -- **路由器分离广播域**
 
-在继续之前，让我们讨论一下局域网到底是什么。一个局域网本质上是一个广播域。图 2.13 中的网络上，如果 PC-A 发出一个广播包，PC-B 会接收到这个包，PC-C 和 PC-D 却不能。这是因为那台路由器打破了该广播域。现在你可以**使用虚拟局域网将交换机的那些端口放入不的广播域**，如下图所示。
+在我们继续前，我们来讨论一下局域网到底为何。局域网本质上是个广播域。在图 6.13 中所示的网络中，当 PC-A 发送一个广播数据包时，其将被 PC-B 接收，但不会被 PC-C 或 PC-D 接收。这是因为其中的路由器，打破了广播域。现在，咱们可使用虚拟局域网 (VLAN) ，将交换机端口置于不同广播域中，如下图所示。
 
 !["VLAN 下的广播域"](../images/0214.png)
 
-*图 2.14 -- VLAN 下的广播域*
+**图 6.14** -- **VLAN 下的广播域**
 
-图 2.14 中，该 2 层网络经由 VLANs 被划分为两个广播域。PC-A 发出的广播包为 PC-B 接收到，PC-C 和 PC-D 接收不到。如没有 VLANs，PC-C 和 PC-D 仍会收到 PC-A 发出的广播包。VLANs 的一些优点如下。
-
-- 更小规模的设备组中的较少广播包令到网络更快
-
-- 设备资源得以节省，因为它们只需处理少量的广播包
-
-- 通过将设备保留在特定组别（或按特定功能分组）的一个广播域中，而提升安全性。这里的组别，可以是公司/机构的部门，或是某个安全级别等。比如开发部门或者测试室就应该与生产部门的设备分开。
-
-- 带来在跨越任何尺度的地理位置上网络扩展的灵活性。比如，同一 VLAN 中某台 PC 在楼宇中的什么位置并不重要。它会以为自己与其它配置在同一 VLAN 中的机器在同样的网段上。图 2.15 中，VLAN 1 中的所有主机都能与其它主机通信，尽管它们不在同一楼层。对它们来说，VLAN 是透明的或不可见的。
+在图 6.14 中，该二层网络已通过使用 VLAN，被划分为两个广播域。现在，由 PC-A 发送的某个广播数据包，将被 PC-B 接收，而不会被 PC-C 和 PC-D 接收。在没有 VLAN 下，PC-C 和 PC-D 都会收到由 PC-A 发送的广播。以下是 VLAN 的一些优点：
+- 将广播限制在较小的设备组内，将是网络更快；
+- 由于设备处理更少广播，因此节省了设备资源；
+- 通过将某个组（或功能）中的设备，保持于一个单独广播域中，从而增加了安全性。这里所指的组，可以指部门、安全级别等。例如，属于开发或测试实验室的设备，应与生产设备分开；
+- 跨越地理位置，以任何规模扩展网络的灵活性。例如，某台 PC 在大楼中的何处并不重要。他会认为自己与配置在同一 VLAN 中的任何其他 PC一样，处于同一网段。在下图 6.15 中，`VLAN 1` 中的所有主机，都可以相互通信，即使他们位于不同楼层。对他们来说，VLAN 是透明或不可见的。
 
 !["VLANs 消除局域网的物理边界"](../images/0215.png)
 
-*图 2.15 -- VLANs 消除局域网的物理边界*
+<a name="f-6.15"></a>
+**图 6.15** -- **VLAN 移除了局域网的物理边界**
 
-### VLAN 标记，VLAN Marking
+## VLAN 标记
 
-虽然厂商在创建 VLANs 中采用其各自的方法，我们务必要小心处理一个涉及多厂商的 VLAN，以解决互操作性问题。比如思科开发的 **ISL 标准，是通过增加一个 26 字节的头部，以及一个新的 4 字节尾部（trailer）, 的方式来封装原始帧**。为解决兼容性问题，IEEE 开发了 `802.1Q` 标准，这是一个独立于厂商的方式，用以创建可互操作 VLANs。
+虽然各家厂商使用了各自方法创建 VLAN，因此多厂商的 VLAN 必须谨慎处理，以解决互操作性问题。例如，思科就开发了通过添加一个新的 26 字节头部和一个新的 4 字节尾部，封装原始数据帧的 ISL 标准，如下图 6.16 所示。为解决不兼容问题，IEEE 开发了一种与供应商无关的，创建可互操作 VLAN 的方法 [802.1Q](https://en.wikipedia.org/wiki/IEEE_802.1Q)。
 
 !["ISL 的标记方式"](../images/0216.png)
 
-*图 2.16 -- ISL 的标记方式*
+**图 6.16** -- **ISL 标记方法**
 
-`802.1Q` 通常被称为“帧标记（frame tagging）”, 因为它将一个叫做标签的 `32` 位头部（a 32-bit header, called a "tag"），插入到原始帧源地址后面，而不会对其它字段进行修改。紧邻源地址后两个字节，占据着一个注册以太网类型值 -- `0x8100`, 它表明该帧包含了一个 `802.1Q` 头部。接着的 `3` 位表示 `802.1P` 用户优先级（User Priority, UP）字段, 在服务质量（Quality of Service, QoS）技术中，用作服务类别（Class of Service, CoS）位。下一个字段是 `1` 位规范格式标识（Canonical Format Indicator, CFI），最后 `12` 位是 VLAN ID。所以在采行 802.1Q 标准时，我们总共能有 `4096` 个 VLANs。
+802.1Q 通常被称为数据帧打标签，因为他会将一个称为 “标签” 的 32 位头部，插入原始数据帧的源地址字段后，而不修改其他字段。源地址字段后的 2 个字节，包含了一个注册的以太网类型值 `0x8100`，这表示该数据帧，包含了个 802.1Q 的头部。接下来的 3 个比特位，表示 802.1P 的用户优先级字段，并在服务质量（QoS）技术中，用作服务等级（CoS）的比特位。下一个子字段是个 1 位的规范格式指示符，然后是 VLAN ID（12 位）。在使用 802.1Q 时，这给到我们总共 4096 个 VLAN。
+
+> *知识点*：
+>
+> - the Source Address field
+>
+> - a registered Ethernet type value of `0x8100`
+>
+> - the 802.1P User Priority field
+>
+> - Quality of Service, QoS
+>
+> - Class of Service, CoS
+>
+> - a 1-bit Canonical Format Indicator
 
 !["`802.1Q` 的标记方式"](../images/0217.png)
 
-*图 2.17 -- `802.1Q` 的标记方式*
 
-传送来自多个 VLANs 数据的那个端口叫做干线（trunk）端口。trunk 端口可以使用 ISL 协议，也可以使用 `802.1Q` 协议。`802.1Q` 中的一个特别概念是"原生 VLAN（native VLAN）"。这是一种特别的 VLAN 类型，它上面的帧是没有打标签的。原生 VLAN 的目的是让交换机在某个接口上运行 `802.1Q` 中继（单一链上的多 VLANs），即便另一设备无法支持中继的情况下，原生 VLAN 上的流量仍能通过该链路。如交换机在一条中继链路上收到未打标签的流量，就会假定这些流量是属于原生 VLAN 上的。**思科将 `VLAN 1` 作为_默认_的原生 VLAN**。
+**图 6.17** -- **802.1Q 标记方法**
 
-### 加入虚拟局域网， VLAN Membership
+承载来自多个 VLAN 数据的端口，被称为中继。他既可以使用 ISL 协议，也可使用 802.1Q 协议。802.1Q 世界中的一个特殊概念，是 “原生 VLAN”。这是一种其中的数据帧不会被打标签的特殊 VLAN 类型。原生 VLAN 的目的，是允许交换机在某个接口上，使用 802.1Q 的中继（单个链路上的多个 VLAN），而当别的设备不支持中继，那么原生 VLAN 的流量，仍会经由该链路发送。当交换机接收到某条中继链路上的任何未打标签流量时，他将认为其目的地是原生 VLAN。Cisco 使用 `VLAN 1` 作为默认的原生 VLAN。
 
-有两种常用的将端口加入到 VLANs 的方式 -- 静态方式或动态方式。
+## VLAN 成员资格
 
-通过静态 VLAN 指派或配置，交换机上的那些端口为管理员所配置在不同 VLANs 中，有关设备再连接到端口上。在某用需要搬往楼宇的其它部位时，就要求管理员改变交换机上的配置。默认情形下，所有交换机端口属于 `VLAN 1`。
 
-动态指派方式令到设备可根据其 MAC 地址而加入到特定的 VLAN。该特性给予管理员在无需改变交换机配置的情况下，允许用户接入任何交换机或是在楼栋内搬动的灵活性。**通过运用一台虚拟局域网管理策略服务器（a VlAN Management Policy Server, VMPS）实现动态特性**。
+将端口与 VLAN 关联有两种常见方式 -- 静态或动态。
 
-> Farai 指出 “先是端口指派到 VLANs 中，随后设备插入到端口上”。
+在静态的 VLAN 分配或配置下，交换机上的端口会被网络管理员，配置为在不同 VLAN 下，然后相关设备会被连接到端口。当用户需要搬到大楼的另一部分时，这将需要管理员修改交换机上的配置。默认情况下，所有交换机端口都属于 `VLAN 1`。
 
-请注意，由于各个 VLAN 都是不同的广播域，这就带来以下问题。
+而所谓动态的 VLAN 分配，允许设备根据设备的 MAC 地址（*译注*：也可运用 `dot1x` 协议而根据设备证书，参见：[交换机 dot1x 认证端口动态指定 VLAN 配置](../22_dot1x_port_dynamic_vlan.md)），加入某个特定 VLAN。这种方式给到管理员，允许用户连接到任何交换机，或在大楼内移动，而不必更改交换机上配置的灵活性。这是通过使用 VLAN 管理策略服务器 (VMPS) <sup>1</sup> 实现的。
 
-* 默认情形下，一个 VLAN 中的主机是不能到达其它 VLAN 的
-* VLAN 间通信需要一台三层设备（后面会讲到）
-* 每个 VLAN 都需要它们自己的子网，比如， `VLAN 1` -- `192.168.1.0/24`, `VLAN 2` -- `192.168.2.0/24`
-* 某 VLAN 中的所有主机应属于同一 VLAN
 
-### VLAN 链路， VLAN Links
+> **FARAI 有言**： “端口会被分配给 VLAN，而设备则会连接到端口”。
 
-我们知道在一台交换机上可以有连接到多个 VLANs 的主机。那么在流量从一台主机前往另一主机时，发生了些什么呢？比如说，在图 2.15 中，当 `VLAN 1` 位于一楼的主机尝试与 `VLAN 1` 位于二楼的主机通信时，二层的那台主机是怎样知道该流量是属于哪个 VLAN 的呢？
+请注意，由于每个 VLAN 都是个不同的广播域，这意味着：
 
-我们知道交换机采用了一种叫做“帧标记（frame tagging）” 的方式，来将流量在不同 VLANs 上保持隔离。交换机把包含了 VLAN ID 的一个头部添加进帧中。在图 2.15 中，一楼交换机将会给来自 `VLAN 2` 的流量打上标记后，传给交换机 `2`, 交换机 `2` 将会看到这个标记，从而得知该流量需要呆在 `VLAN 2` 中。**这样的流量只能在叫做*中继链路*的链路上通过。`VLAN 1` 通常被指定为原生 VLAN（native VLAN），而_原生 VLAN 上的流量不被标记_**。关于原生 VLAN 的内容，后面会提到。
+- 默认情况下，一个 VLAN 中的主机无法连接到另一 VLAN 中的主机
+- 对于 VLAN 之间的通信，一个三层设备是必要的（这将在稍后介绍）
+- 每个 VLAN 都需要其自己的子网，例如，`VLAN 1` -- `192.168.1.0/24`、`VLAN 2` -- `192.168.2.0/24`
+- 某个 VLAN 中的所有主机，都应属于同一个子网
 
-交换机端（在 CCNA 考试范围内）可一分为以下三种。
+## VLAN 链路
 
-- 接入端口，或接入链路，access links or ports
-- 中继端口，或中链路，trunk links or ports
-- 动态端口（很快就会学到这个）
+我们知道，一台交换机有着连接到多个 VLAN 的一些主机。但是，当流量从一台主机前往另一主机时，会发生什么呢？例如，在上面的 [图 6.15](#f-6.15) 中，当 1 楼的 `VLAN 1` 中的主机，试图连接 2 楼 `VLAN 1` 中主机时，2 楼的交换机，将怎样知道该流量属于哪个 VLAN 呢？
 
-### 接入链路，Access Links
+我们现在已经知道，交换机会使用一种称为 VLAN 标记，或 “数据帧打标签” 的机制，保持流量在不同 VLAN 上分离。交换机会在帧上添加一个包含 VLAN ID 的头部。在 [图 6.15](#f-6.15) 中，1 楼的交换机将把源自 VLAN 2 的流量打上标签，并将其传递给交换机 2，交换机 2 将看到该标签，就会知道该流量需要保持在那个 VLAN 内。此类打上标签的流量，只能在称为中继链路的特殊链路上流动。`VLAN 1` 通常会被指定为原生 VLAN，而原生 VLAN 上的流量不会被打标签。稍后我们将详细介绍原生 VLAN。
 
-被定义了作为接入链路的交换机端口，只能是唯一 VLAN 的一个成员。连接该接入链路的设备并不知晓任何其它 VLANs 的存在。在来自主机的帧进入到一个接入链路时，交换机就将一个标签加入到该帧中，在前往主机的帧从交换机接入链路出去时，交换将该标记从帧中移除。接入链路用于连接主机，也可以用于连接路由器。
+交换机端口（CCNA 考试范围内）可被分为以下几种：
 
-### 中继，Trunking
+- 接入链路或端口
+- 中继链路或端口
+- 动态端口（这将很快讨论）
 
-某个交换机端口通常既会连接网络上的某台主机，也会连接其它网络交换机、路由器或服务器。那么该链路就有可能需要传输多个 VLANs 上的流量。为实现这个目的，就需要区分每个帧都是来自于哪个 VLAN。这种区分方式就叫做 “帧标记（frame tagging）”, 在经中继链路传输前，出原生 VLAN 的帧外，所有帧都已打过标签。帧中的标记包含了 VLAN ID 信息。在帧到达目的主机所在的那台交换机后，该标记被移除。
+
+### 接入链路
+
+被定义为接入链路的交换机端口，只能是一个 VLAN 的成员。连接到接入链路的设备，不关心任何其他 VLAN 的存在。当某个数据帧从主机进入接入链路时，交换机将把一个标签添加到该数据帧，而当某个数据帧离开交换机接入链路前往主机时，交换机则会移除该标签。接入链路被用于连接主机，且他们还可用于连接路由器。中继链路将在接下来的小节介绍。
+
+### 中继
+
+交换机端口通常将连接到网络上的主机，或另一网络交换机、路由器或服务器。在这种情况下，那么链路就可能需要承载来自多个 VLAN 的流量。为了完成这一目的，每个数据帧都需要识别，其来自哪个 VLAN。这种识别方法，被称为数据帧打标签，除原生 VLAN 外，所有帧数据在通过中继链路前，都会被打上标签。数据帧中的标签，包含了 VLAN ID。当数据帧到达目的主机所在交换机时，标签就会被移除。
+
+
 
 !["VLAN 标记法"](../images/0218.png)
 
-*图 2.18 -- VLAN 标记法*
+**图 6.18** -- **VLAN 打标签**
 
-VLAN 中继用于传输多个 VLAN 的数据。为将属于某个 VLAN 的帧与其它 VLANs 的帧有所区别，在中继链路上传输的所有帧都经特别标记过，这样目的交换机就知道该帧属于那个 VLAN。ISL 和 `802.1Q` 是用于确保这些 VLANs 在穿过交换机中继链路后，仍能完全分辨出来的两种主要方式。
+VLAN 中继用于承载来自多个 VLAN 的数据。要区分一个 VLAN 的数据帧和另一 VLAN 的数据帧，所有通过中继链路发送的数据帧，都会被特别打上标签，从而目的交换机知道，数据帧属于哪个 VLAN。ISL 和 802.1Q 是我们前面简要提到的两种主要封装方法。他们可用于确保穿越某个交换机中继链路的那些 VLAN，能够被唯一地识别出来。
 
-交换机间链路（Inter-Switch Link, ISL) 是思科专有的。尽管如此，CCNA 考试用用到的型号是 2960 交换机，它只能识别 `802.1Q`。我们在这里提到 ISL 只是为了知识体系的完整性，以防你不得不配置老旧型号的交换机的情形。
+ISL 是思科专有的；不过，CCNA 考试中测试的型号为 2960 交换机，其只能识别 802.1Q。为了完整起见，以及以防万一，我们在此涉及了 ISL，咱们必须配置某个较旧的交换机型号。
 
-> Farai 指出 -- “所有新型号交换机默认都是采用 `802.1Q`， ISL 已被弃用。”
+> **FARAI 有言**：“现在所有新的交换机，都默认为 802.1Q。ISL 正被弃用。”
 
-802.1Q 与 ISL 有很多的不同，最大区别是，`802.1Q` 可以支持最多 `4096` 个 VLANs, ISL 只能支持最多 `1000` 个。另一个大的区别是 `802.1Q` 中的原生 VLAN 概念。默认情形下，`802.1Q` 中来自所有 VLANs 的帧都被打上标签。此规则的唯一例外就是属于原生 VLAN 的帧，这些帧未被标记。
+802.1Q 与 ISL 有几处不同。第一个显著区别是，802.1Q 支持多达 4096 个 VLAN，而 ISL 则只支持 1000 个 VLAN。另一显著区别，是 802.1Q 中使用的原生 VLAN 概念。默认情况下，在使用 802.1Q 时，所有 VLAN 的所有数据帧都会被打上标签。这一规则的唯一例外，是那些属于原生 VLAN 的数据帧，这些数据帧不会被打标签。
 
-尽管如此，你要记住，**在某个特定中继链路上，可以通过将某 VLAN 设为原生 VLAN，来指定其上面的帧不打标签**。比如，在采用 `802.1Q` 时，为阻止对 `VLAN 400` 上的帧打标签，你需要将 `VLAN 400` 配置为某特定中继上的原生 VLAN。IEEE `802.1Q` 原生 VLAN 配置在后面会详细介绍。
+不过，请记住，通过某 VLAN 为某个特定中继链路上的原生 VLAN，而指定该 VLAN 的数据帧将不被打上标签是可行的。例如，要防止在使用 802.1Q 时，对 `VLAN 400` 中的数据帧打标签，咱们可将该 VLAN 配置为某个特定中继链路上的原生 VLAN。IEEE 802.1Q 的原生 VLAN 配置，将在稍后详细介绍。
 
-以下是有关 `802.1Q` 特性的小结。
+下面总结了 802.1Q 的一些特性：
 
-- 支持最多 `4096` 个 VLANs
-- 采用帧内标记机制，修改原始帧
-- 是由 IEEE 开发的开发标准协议
-- 不对原生 VLAN 上的帧打标签；除此之外的所有帧都被标记
+- 支持多达 4096 个 VLAN
+- 使用了一种内部的打标签机制，而修改原始数据帧
+- 一种由 IEEE 制定的开放标准协议
+- 不会标记原生 VLAN 上的数据帧；单全部其他数据帧都会被打上标签
 
-下面是一台交换机上的简短示例配置。我将 `switchport` 命令包括了进去，该命令告诉交换机将其某个端口作为二层端口，而不是三层。
+下面是一个交换机的简短示例配置。我（作者）已包含了要求交换机作为二层交换端口，而非三层接口的 `switchport` 命令。这条命令应在比如 3660 交换机的多层交换机上添加。
+
 
 ```console
 Sw(config)#interface FastEthernet 0/1
@@ -110,34 +128,40 @@ Sw(config-if)#switchport trunk encapsulation dot1q
 Sw(config-if)#exit
 ```
 
-当然，在 2960 系列交换机上，`encapsulation` 不被识别，因为它只有一种类型。**在将一台交换机与其它交换机连接时，你需要将其接口设置为中继接口，以令到 VLANs 都被标记上**。`switchport` 命令的作用同样如此。再次说明，我在这里提到这个，是因为在现实中，你可能要配置一台三层交换机，如我们死盯 2960 型号，你可能会感到迷惑，我们不要这个！
+当然，在 2960 交换机上，`encapsulation` 这条命令不会被识别，因为只有一种类型（802.1Q）可用。当连接另一台交换机时，咱们将需要将连接接口设置为中继接口，以允许那些 VLAN 得以打上标签。`switchport` 命令也是如此。我（作者）再次说明这一点，因为在现实世界中，咱们很可能必须要配置三层交换机，而若我们严格按照 2960 型号，那么咱们会感到困惑，这是我们不希望的！
 
-交换机上的某中继链路可以是下列五种模式之一。
+交换机上的中继链路，可能处于五种可能模式之一：
 
-- 开启（On）模式 -- 强制该端口进入永久中继模式。不管插入设备是否同意将它们之间的链路转换成中继链路，该端口都会成为一个中继端口。
-- 关闭（Off）模式 -- 该链路不被作为中继链路使用，就算插入设备被设置成“中继”模式。
-- 自动（Auto）模式 -- 该端口不情愿成为一条中继链路。在插入设备被设置为“开启”或“我要（`desirable`)”模式时，链路就成为中继链路。当两端都被设置为“自动”模式时，链路就绝不会变成中继链路了，因为没有一方有转换成中继的意愿。
-- 我要（Desirable）模式 -- 该端口积极尝试转换成中继链路。如另一设备被设置为 “开启”、“自动” 或 “我要” 模式，链路就会成为中继链路
-- 没商量（No-negotiate）模式 -- 阻止端口经由协商成为中继连接。配置上此模式后，端口会强制进入接入模式或中继模式。
+- `on` -- 这种模式会强制该端口进入永久中继模式。该端口会成为一个中继端口，即使所连接设备未同意将链路转换为一个中继链路；
+- `off` -- 即使所连接设备被设置为 `trunk` 模式，该链路也不用作中继链路；
+- `auto` -- 该端口愿意成为中继链路。当另一设备被设置为 `on` 或 `desirable` 模式时，则该链路会成为中继链路。而当双方都被设置为 `auto` 模式时，那么链路将永不会成为中继链路，因为双方都不会尝试转换；
+- `desirable` -- 端口主动尝试转换为中继链路。当另一设备设置为 `on`、`auto` 或 `desirable`，则链路将成为中继链路。
+- `no-negotiate` - 该模式会阻止端口协商中继连接。端口将根据配置，强制进入 `access` 或 `trunk` 模式。
 
-### 配置 VLANs， Configuring VLANs
 
-现在你已对 VLANs 和中继链路有了了解，就让我们来配置一下图 2.19 中的网络吧。你需要将交换机配置为两个分别在 `fa0/1` 端口上的主机位于 `VLAN 5` 中，以及端口 `fa0/15` 之间的链路为中继链路。
+## 配置 VLAN
+
+现在咱们掌握了 VLAN 和中继链路，我们来配置下图 6.19 中所示的网络。咱们将需要配置交换机，使 `fa0/1` 端口上的主机位于 `VLAN 5` 中，并使 `fa0/15` 端口上的链路为一条中继链路。
+
 
 ![“测试网络”](../images/0219.png)
 
-*图 2.19 -- 测试网络*
+**图 6.19** -- **测试网络**
 
-在将端口指派到 VLANs 之前，务必先要全局配置命令 `vlan <vlan#>` 创建出那个 VLAN。而此命令又会将你带入 VLAN 配置模式，在那里又可以为 VLANs 赋予一个描述性的名称。这里有一个示例。
+
+在将端口指派到 VLAN 前，VLAN 本身必须使用 `vlan <vlan#>` 全局配置命令创建出来。这条命令将把咱们带入 VLAN 配置模式，其下一个描述性名字可被提供给 VLAN（若咱们希望）。下面是个示例：
 
 ```console
 Switch1(config)#vlan 5
 Switch1(config-vlan)#name RnD
+```
+
+```console
 Switch2(config)vlan 5
 Switch2(config-vlan)#name RnD
 ```
 
-使用命令 `show vlan` 命令来查看交换上存在着哪些 VLANs。其输出与下面的相似。
+要查看交换机上存在哪些 VLAN，就要使用 `show vlan` 命令。输出将类似于下面这个输出：
 
 ```console
 Switch1#show vlan
@@ -147,22 +171,30 @@ VLAN    Name        Status      Ports
                                 Fa0/10, Fa0/11, Fa0/12, Fa0/13 Fa0/14, Fa/15, Fa0/16, Fa0/17, Fa0/18
 ...
 [Truncated Output]
+
 ...
 5       RnD         active
 ...
 [Truncated Output]
 ```
 
-我们在通过使用接口配置命令 `switchport access vlan [vlan#]`, 将端口 `fa0/1` 加入到 `VLAN 5` 中去。
+我们来使用 `switchport access vlan [vlan#]` 这条接口配置命令，将端口 `fa0/1` 指派给 `VLAN 5`。
+
+
 
 ```console
 Switch1(config)#int fa0/1
 Switch1(config-if)#switchport access vlan 5
+```
+
+```console
 Switch2(config)#int fa0/1
+
 Switch2(config-if)#switchport access vlan 5
 ```
 
-在形如 3560 这样的三层交换机上，在将某个端口加入到一个 VLAN 前，你务必要使用命令 `switchport mode access` 将端口手动设置为接入模式。现在我们来看看 `show vlan` 命令的输出。
+在诸如 3560 交换机的具有三层能力的交换机上，在将端口放入某个 VLAN 前，我们必须以 `switchport mode access` 命令，手动将该端口设置为接入端口。现在我们来看看 `show vlan` 命令的输出。
+
 
 ```console
 Switch1#show vlan
@@ -173,13 +205,14 @@ VLAN    Name        Status      Ports
                                 Fa0/14, Fa/15, Fa0/16, Fa0/17, Fa0/18
 ...
 [Truncated Output]
+
 ...
 5       RnD         active      Fa0/1
 ...
 [Truncated Output]
 ```
 
-注意 `fa0/1` 现在被指派给了 `VLAN 5`。让我们来将两台交换机的 `fa0/15` 接口配置为中继链路。这里要注意的是 `3550` 型号交换机端口的默认模式是我要模式（`desirable`， 3560 型号的是自动模式）。 动态中继协议（Dynamic Trunk Protocol, DTP）会导致两台交换机上的 `fa0/15` 接口成为 ISL 中继链路。下一节课会学 DTP 的内容，但这里会简要提到 DTP 的一些东西。这种情况可用 `show interface trunk` 命令看到。
+注意 `fa0/1` 现在已被分配给 `VLAN 5`。咱们来将两台交换机上的接口 `fa0/15`，同时配置为中继链路。这里需要注意的是，（3550 型）交换机端口上的默认模式，是 `desirable`（在 3560 型号上其为 `auto`，因此请查看咱们的平台说明）。动态中继协议（DTP）将使两台交换机上的 `fa0/15`，成为 ISL 的中继链路。我们将在下一课中介绍 DTP，但我（作者）想要在这里简单提一下。这可使用 `show interface trunk` 命令验证：
 
 ```console
 Switch1#show interface trunk
@@ -187,18 +220,24 @@ Port    Mode        Encapsulation   Status      Native vlan
 Fa0/15  desirable   n-isl           trunking    1
 ```
 
-请注意，其模式为我要（`desirable`）, 封装方式是 ISL （`n` 代表 `negotiated`, 协商出的）。以下输出演示了配置中继为 ISL 方式的做法。
+请注意，其中模式为 `desirable`，封装为 ISL（`n` 代表协商的）。
+
+下面的输出显示了如何将中继配置为使用 ISL 的中继：
+
 
 ```console
 Switch1(config)#interface fa0/15
 Switch1(config-if)#switchport trunk encapsulation isl
 Switch1(config-if)#switchport mode trunk
+```
+
+```console
 Switch2(config)#interface fa0/15
 Switch2(config-if)#switchport trunk encapsulation isl
 Switch2(config-if)#switchport mode trunk
 ```
 
-`switchport trunk encapsulation` 命令设置端口的中继协议，而命令 `switchport mode trunk` 命令则是将端口设置为中继工作方式。现在的 `show interface trunk` 命令输出会是下面这样。
+`switchport trunk encapsulation` 这条命令，设置了端口上的中继协议，`switchport mode trunk` 命令会将端口设置为中继终端。`show interface trunk` 命令的输出，将看起来像下面这样。
 
 ```console
 Switch2#show interface trunk
@@ -206,292 +245,59 @@ Port    Mode    Encapsulation   Status      Native vlan
 Fa0/15  on      isl             trunking    1
 ```
 
-取代 N-ISL 的是 ISL。这是因为此次的协议是在接口上配置的，而不是协商出的。
+请注意，封装现在 `isl` 而不是 `n-isl` 了。这是因为这次协议不再是协商的，而是在接口上配置的了。
 
-> **重要提示：** 在将交换机某端口设置为中继模式前，要先设置其中继封装方式。而这个规则又不适用于 2960 交换机（当前 CCNA 大纲中用到的型号），2960 交换机只使用 `dot1q` （`802.1Q` 的另一种叫法）封装。因此，2960 交换机上的 `switchport trunk encapsulation` 命令不工作。
+**重要提示**：在将交换机端口设置为中继模式前，中继封装需要在其上配置好。请注意，这不适用于 2960 型交换机（目前用于 CCNA 教学大纲的型号），他只能使用 `dot1q`（802.1Q 的另一名称）封装。出于这一原因，`switchport trunk encapsulation` 这条命令在 2960 型交换机上将不起作用。
 
-与此类似，你可将交换机端口配置为 `802.1Q` 而不是 ISL，如下面的输出那样。
+同样，咱们也可将交换机端口配置为使用 802.1Q 而不是 ISL，如下输出中所示。
+
 
 ```console
 Switch1(config)#interface fa0/15
 Switch1(config-if)#switchport trunk encapsulation dot1q
 Switch1(config-if)#switchport mode trunk
+```
+
+```console
 Switch2(config)#interface fa0/15
 Switch2(config-if)#switchport trunk encapsulation dot1q
 Switch2(config-if)#switchport mode trunk
 ```
 
-命令 `show interface trunk` 命令的输出又成了这样。
+`show interface trunk` 命令的输出现在看起来像这样：
 
 ```console
 Switch2#show interface trunk
+
 Port    Mode    Encapsulation   Status      Native vlan
 Fa0/15  on      802.1q          trunking    1
 ```
 
-请注意，原生 VLAN 是 `1`。这正是一个 `802.1Q` 中继上的默认原生 VLAN，同时可使用 `switchport trunk native vlan <vlan#>` 命令进行修改。**中继链路上的两个接口原生 VLAN 必须匹配**。这条命令是 CCNA 大纲的一部分，**也被作为一中安全手段**。
+注意，原生 VLAN 为 `VLAN 1`。这是 802.1Q 中继上的默认原生 VLAN，而其可使用 `switchport trunk native vlan <vlan#>` 命令更改。中继上两个端口的原生 VLAN 必须匹配。该命令是 CCNA 考试大纲的一部分，并被视为一项安全措施。
 
-> **重要提示:** 交换机能存储所有 VLAN 的信息，在重启后也还在。如你打算交换机以空白配置启动，就需要在交换机上运行 `delete vlan.dat` 命令，如下面的输出所示。这只适用于真实交换机，在诸如 Packet Tracer 等交换机模拟器是做不到的。
+**重要提示**：交换机会记住所有 VLAN 信息，即使重新加载后也是如此。当咱们想要咱们的交换机以空白配置启动，那么咱们将需要在咱们的交换机上，执行 `delete vlan.dat` 命令，如下输出中所示。这一操作只适用实物交换机，而不适用于诸如 Packet Tracer 等交换机模拟器。
+
 
 ```console
 SwitchA#dir flash:
 Directory of flash:/
+
     1   -rw-    3058048     <no date>   c2960-i6q4l2-mz.121-22.EA4.bin
     2   -rw-    676         <no date>   vlan.dat
+
 64016384 bytes total (60957660 bytes free)
 SwitchA#
 SwitchA#delete vlan.dat
 Delete filename [vlan.dat]?
 Delete flash:/vlan.dat? [confirm]
+
 SwitchA#dir flash:
 Directory of flash:/
+
     1   -rw-    3058048         <no date>   c2960-i6q4l2-mz.121-22.EA4.bin
+
 64016384 bytes total (60958336 bytes free)
 SwitchA#
 ```
-
-## 交换故障排除基础，Basic Switching Troubleshooting
-
-理论上，一旦设备配置好并运行起来后，它就会一直运行下去，不过下面这些情况是常有的事，比如你要在某个不是你亲自配置的网络上做事，或者你会在轮班制工当中支持许多并不熟悉的网络，这些网络又在你不当班的时候被其他人改动过，这些状况都会导致出现多多少少的问题。我建议你在完成一些实验后，在回头看看这部分内容。
-
-### 常见的交换机问题，Common Switch Issues
-
-**无法远程登录到交换机，Can't Telnet to Switch**
-
-首先要问的是 Telnet 曾正常运行过吗？如曾正常运行过，现在却不行了，那就是有人对交换机进行了改动、重启过交换机，从而导致配置丢失，或者是网络上的某台设备阻止了 Telnet 流量。
-
-```console
-Switch#telnet 192.168.1.1
-Trying 192.168.1.1 ...Open
-[Connection to 192.168.1.1 closed by foreign host]
-```
-
-要检查的头一件事就是交换机上的 Telnet 是否已被确实开启（见下面的输出）。网络的 `80%` 错误都是由于唐突或疏忽造成的，所以请不要信誓旦旦，要亲历亲为，别去相信其他人的言词。
-
-一个简单的 `show running-config` 命令就可以将交换机的配置列出。在 `vty` 线路下，你将看到 Telnet 是否有被打开。注意你需要在 `vty` 线路下有 `login` 或者 `login local` (或者配置了 AAA， 而 AAA 配置超出了 CCNA 考试范围) 命令，以及 `password` 命令。如下面所示。
-
-```console
-line vty 0 4
-password cisco
-login
-line vty 5 15
-password cisco
-login
-```
-
-`login local` 命令告诉交换机或路由器去查找配置在其上的用户名和口令，如下面输出的那样。
-
-```console
-Switch1#sh run
-Building configuration...
-Current configuration : 1091 bytes!
-version 12.1
-hostname Switch1
-username david privilege 1 password 0 football
-line vty 0 4
-password cisco
-login local
-line vty 5 15
-password cisco
-login local
-...
-[Truncated Output]
-```
-
-**Ping 不通交换机， Can't Ping the Switch**
-
-首先要弄清楚那人要 `ping` 交换机的原因。如你真要 `ping` 交换机，那么得要给交换机配置上一个 IP 地址；此外，交换机也要知道如何将流量送出（要有默认网关）。
-
-**不能经由交换机 `ping` 通其它设备， Can't Ping through the Switch**
-
-如出现经由交换机 `ping` 不通的情况，那就要确保那两台终端设备位于同一 VLAN 中。每个 VLAN 被看成一个网络，因此各个 VLAN 都要有与其它 VLAN 所不同的地址范围。必须要有一台路由器，以实现一个 VLAN 与其它 VLAN 之间连通。
-
-**接口故障，Interface Issues**
-
-默认情况下，所有路由器接口都是对流量关闭的，而交换机接口是开启的。如你发现交换机接口处于管理性关闭状态，可以通过执行接口级命令 `no shutdown` 来开启它。
-
-```console
-Switch1(config)#int FastEthernet0/3
-Switch1(config-if)#no shut
-```
-
-**二层接口可被设置成三种模式：中继、接入，或动态模式**。**中继模式下，交换机可与其它交换机或服务器连接**。而接入模式用于连接终端设备，比如一台 PC 或笔记本计算机。动态模式令到交换机去探测采用何种设置。
-
-在形如 `3550` 型号交换机平台上，默认设置通是动态我要模式（`dynamic desirable`），你需要在 [Cisco.com](http://cisco.com) 上去查看你的交换机型号的设置以及发行注记。**CCNA 考试中，你将被要求配置一台 `2960` 型号交换机**。此型号的交换机在除非你硬性设置接口为中继或接入模式的情况下，会动态选择工作模式。
-
-```console
-Switch1#show interfaces switchport
-Name: Fa0/1
-Switchport: Enabled
-Administrative Mode: dynamic auto
-```
-
-默认设置可以方便地进行更改，如下面的输出这样。
-
-```console
-Switch1#conf t
-Enter configuration commands, one per line. End with CNTL/Z.
-Switch1(config)#int FastEthernet0/1
-Switch1(config-if)#switchport mode ?
-    access      Set trunking mode to ACCESS unconditionally
-    dynamic     Set trunking mode to dynamically negotiate access or trunk mode
-    trunk       Set trunking mode to TRUNK unconditionally
-
-Switch1(config-if)#switchport mode trunk
-%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/1, changed state to down
-
-Switch1(config-if)#^Z
-Switch1#
-%SYS-5-CONFIG_I: Configured from console by console
-Switch1#show interfaces switchport
-Name: Fa0/1
-Switchport: Enabled
-Administrative Mode: trunk
-Operational Mode: trunk
-```
-
-**更多有关接口的故障， More Interface Issues**
-
-交换机端口的默认设置是双工自动侦测（`auto-detect duplex`）以及速率自动侦测（`auto-detect speed`）。如你将一台 10Mbps 的设备插入到以半双工方式运行的交换机（现在已经很难找到这样的交换机了）上，该端口就会探测到插入的设备并运作起来。然而并不是任何时候都这样的，所以一般建议将交换机端口的双工方式及速率硬性设置，如下面的输出那样。
-
-```console
-Switch1#show interfaces switchport
-Name: Fa0/1
-Switchport: Enabled
-Administrative Mode: dynamic auto
-
-Switch1#show interface FastEthernet0/2
-FastEthernet0/2 is up, line protocol is up (connected)
-    Hardware is Lance, address is 0030.f252.3402 (bia 0030.f252.3402)
-BW 100000 Kbit, DLY 1000 usec,
-        reliability 255/255, txload 1/255, rxload 1/255
-    Encapsulation ARPA, loopback not set
-    Keepalive set (10 sec)
-    Full-duplex, 100Mb/s
-
-Switch1(config)#int fast 0/2
-Switch1(config-if)#duplex ?
-    auto    Enable AUTO duplex configuration
-    full    Force full-duplex operation
-    half    Force half-duplex operation
-Switch1(config-if)#speed ?
-    10      Force 10Mbps operation
-    100     Force 100Mbps operation
-    auto    Enable AUTO speed configuration
-```
-
-双工模式不匹配的一些迹象（除开错误消息外）有接口上的输入错误以及 CRC 错误，如下面的输出所示。请同时看看 ICND1 章节的第 `15` 天的一层和二层故障排除部分。
-
-```console
-Switch#show interface f0/1
-FastEthernet0/1 is down, line protocol is down (disabled)
-    Hardware is Lance, address is 0030.a388.8401 (bia 0030.a388.8401)
-BW 100000 Kbit, DLY 1000 usec,
-        reliability 255/255, txload 1/255, rxload 1/255
-    Encapsulation ARPA, loopback not set
-    Keepalive set (10 sec)
-    Half-duplex, 100Mb/s
-    input flow-control is off, output flow-control is off
-    ARP type: ARPA, ARP Timeout 04:00:00
-    Last input 00:00:08, output 00:00:05, output hang never
-    Last clearing of “show interface” counters never
-    Input queue: 0/75/0/0 (size/max/drops/flushes); Total output drops: 0
-    Queueing strategy: fifo
-    Output queue :0/40 (size/max)
-    5 minute input rate 0 bits/sec, 0 packets/sec
-    5 minute output rate 0 bits/sec, 0 packets/sec
-        956 packets input, 193351 bytes, 0 no buffer
-        Received 956 broadcasts, 0 runts, 0 giants, 0 throttles
-        755 input errors, 739 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
-        0 watchdog, 0 multicast, 0 pause input
-        0 input packets with dribble condition detected
-        2357 packets output, 263570 bytes, 0 underruns
-        0 output errors, 0 collisions, 10 interface resets
-        0 babbles, 0 late collision, 0 deferred
-        0 lost carrier, 0 no carrier
-        0 output buffer failures, 0 output buffers swapped out
-```
-
-**硬件故障，Hardware Issues**
-
-和其它电子设备一样，交换机端口也会出现失效或不能全时正常运行现象，而时而正常时而故障的情况是更难于处理的。工程师经常通过将一台已知正常的设备插入到交换机的另一端口，来测试故障的接口。你也可以跳转（bounce）某端口，就是在该端口是先用 `shutdown` 命令关闭，接着用 `no shutdown` 命令开启。更换网线也是一个常见的处理步骤。图 2.20 给出了一些其它的交换机故障和处理方法。
-
-请查阅你的交换机的文档，因为根据系统和端口 LEDs 的不同，每个端口会有闪烁的或是常亮的红色、琥珀色或者绿色的指示灯，表示功能正常或是端口、系统故障。
-
-!["常见交换机故障及解决方法"](../images/0220.png)
-
-*图 2.20 -- 常见交换机故障及解决方法*
-
-### VLAN 分配故障，VLAN Assignment Issues
-
-小环境下的网络管理起来相对容易，因为只需部署少数特性，就能满足业务需求。但在企业环境中，你不会去使小型工作组交换机或是家庭办公设备的（small workgroup switches and SOHO device）。相反，你会用到高端设备，它们提供提供了诸多高级/复杂功能，具有流量优化能力。
-
-此种环境下一种可能会配置到的特别特性，就是采用 VLANs 技术将不同网络区域进行逻辑隔离。在你遇到与某个 VLAN 有关的配置问题时，故障就会出现，这种故障可能会是难于处理的。一种处理方法就是去分析交换机的整个配置，并尝试找到问题所在。
-
-VLAN 相关故障，通常是经由观察网络主机之间连通性（比如某用户不能 ping 通服务器）缺失发现的，就算一层运行无问题。**有关 VLAN 故障的一个重要特征就是不会对网络的性能造成影响**。如你配错了一个 VLAN，连接就直接不通，尤其是在考虑 VLANs 通常是用作隔离 IP 子网的情况下，只有处于同一 VLAN 的设备才能各自通信。
-
-在排除 VLAN 故障时，首先要做的是查看设计阶段完成的网络文档和逻辑图表（网络拓扑图），如此你才能得知各个 VLAN 跨越的区域，以及相应设备和各交换机的端口情况。接着就要去检查每台交换机的配置，并通过将其与存档方案进行比较，以尝试找出问题。
-
-你还要对 IP 地址分配方案进行查验。如你采用的是设备静态 IP 地址分配方式，你可能打算回去检查那台设备，确保其有正确的 IP 地址和子网掩码。如在 IP 分址方案上存在问题，像是将设备配置到错误的网络上，或是子网掩码错误/默认网关错误的话，即使交换机的 VLAN 配置无误，你也会遇到连通性问题。
-
-还要确保交换机的中继配置正确。当存在多台交换机时，通常会有交换机间的上行链路，这些上行链路承载了网络上的 VLANs。这些交换机间链路常被配置为中继链路，以实现穿越多个 VLANs 的通信。如某 VLAN 中的数据需要从一台交换机发往另一交换机，那么它就必须是该中继链路组的成员，因此，你还要确保中继链路两端交换机配置正确。
-
-最后，如你要将某设备迁往另一个 VLAN，你务必要同时更改交换机及客户端设备，因为在迁移后，客户端设备会有一个不同子网的不同 IP 地址。
-
-如你有遵循这些 VLAN 故障排除方法，在你首次插入设备及 VLAN 间迁移时，肯定能得到预期的连通性。
-
-## 第二天的问题
-
-1. Switches contain a memory chip known as an `_______`, which builds a table listing which device is plugged into which port.
-2. The `_______` `_______`-`_______`-`_______` command displays a list of which MAC addresses are connected to which ports.
-3. Which two commands add an IP address to the VLAN?
-4. Which commands will enable Telnet and add a password to the switch Telnet lines?
-5. How do you permit only SSH traffic into your Telnet lines?
-6. What is the most likely cause of Telnet to another switch not working?
-7. Switches remember all VLAN info, even when reloaded. True or False?
-8. A switch interface can be in which of three modes?
-9. How do you set a switch to be in a specific mode?
-10. Which commands will change the switch duplex mode and speed?
-
-
-## 第二天问题答案
-
-1. ASIC.
-2. `show mac-address-table`
-3. The `interface vlan x` command and the `ip address x.x.x.x`command.
-4.
-```console
-Switch1(config)#line vty 0 15
-Switch1(config-line)#password cisco
-Switch1(config-line)#login
-```
-5. Use the `Switch1(config-line)#transport input ssh` command.
-6. The authentication method is not defined on another switch.
-7. True.
-8. Trunk, access, or dynamic mode.
-9. Apply the `switchport mode <mode>` command in Interface Configuration mode.
-10. The `duplex` and `speed` commands.
-
-
-## 第二天实验
-
-### 交换机概念实验
-
-请登入到一台思科交换机，并输入那些本单元课程中解释到的命令。包括：
-
-- 在不同交换机端口上配置不同的端口速率/自动协商速率
-- 使用 `show running-config` 和 `show interface` 命令，验证这些端口参数
-- 执行一下 `show version` 命令，来查看硬件信息以及 IOS 版本
-- 查看交换机 MAC 地址表
-- 给 VTY 线路配置一个口令
-- 定义出一些 VLANs 并为其指派名称
-- 将一个 VLAN 指派到一个配置为接入模式的端口上
-- 将某个端口配置为中继端口（ISL 以及 `802.1Q`），并将一些 VLANs 指派到该中继链路
-- 使用 `show vlan` 命令验证 VLAN 配置
-- 使用 `show interface switchport` 命令和 `show interface trunk` 命令，验证接口中继工作状态及 VLAN 配置
-- 删除 `vlan.dat` 文件
-
-
-（End）
 
 
