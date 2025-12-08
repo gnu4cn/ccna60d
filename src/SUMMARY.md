@@ -60,6 +60,7 @@
     - [虚拟局域网](d06/vlan.md)
     - [交换故障排除基础](d06/basic_switching_troubleshooting.md)
     - [VLAN 故障排除基础](d06/basic_vlan_troubleshooting.md)
+    - [数据与语音接入端口](d06/data_and_voice_access_ports.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)

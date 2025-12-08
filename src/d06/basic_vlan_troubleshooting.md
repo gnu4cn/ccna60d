@@ -1,73 +1,29 @@
-# VLAN 分配故障，VLAN Assignment Issues
+# VLAN 故障排除基础
 
-小环境下的网络管理起来相对容易，因为只需部署少数特性，就能满足业务需求。但在企业环境中，你不会去使小型工作组交换机或是家庭办公设备的（small workgroup switches and SOHO device）。相反，你会用到高端设备，它们提供提供了诸多高级/复杂功能，具有流量优化能力。
+VLAN 属于一项很少需要故障排除的相当简单功能。咱们将看到的一些问题，主要是配置错误。我们将在第 15 天详细介绍二层的故障排除。一些常见问题包括下面这些：
 
-此种环境下一种可能会配置到的特别特性，就是采用 VLANs 技术将不同网络区域进行逻辑隔离。在你遇到与某个 VLAN 有关的配置问题时，故障就会出现，这种故障可能会是难于处理的。一种处理方法就是去分析交换机的整个配置，并尝试找到问题所在。
-
-VLAN 相关故障，通常是经由观察网络主机之间连通性（比如某用户不能 ping 通服务器）缺失发现的，就算一层运行无问题。**有关 VLAN 故障的一个重要特征就是不会对网络的性能造成影响**。如你配错了一个 VLAN，连接就直接不通，尤其是在考虑 VLANs 通常是用作隔离 IP 子网的情况下，只有处于同一 VLAN 的设备才能各自通信。
-
-在排除 VLAN 故障时，首先要做的是查看设计阶段完成的网络文档和逻辑图表（网络拓扑图），如此你才能得知各个 VLAN 跨越的区域，以及相应设备和各交换机的端口情况。接着就要去检查每台交换机的配置，并通过将其与存档方案进行比较，以尝试找出问题。
-
-你还要对 IP 地址分配方案进行查验。如你采用的是设备静态 IP 地址分配方式，你可能打算回去检查那台设备，确保其有正确的 IP 地址和子网掩码。如在 IP 分址方案上存在问题，像是将设备配置到错误的网络上，或是子网掩码错误/默认网关错误的话，即使交换机的 VLAN 配置无误，你也会遇到连通性问题。
-
-还要确保交换机的中继配置正确。当存在多台交换机时，通常会有交换机间的上行链路，这些上行链路承载了网络上的 VLANs。这些交换机间链路常被配置为中继链路，以实现穿越多个 VLANs 的通信。如某 VLAN 中的数据需要从一台交换机发往另一交换机，那么它就必须是该中继链路组的成员，因此，你还要确保中继链路两端交换机配置正确。
-
-最后，如你要将某设备迁往另一个 VLAN，你务必要同时更改交换机及客户端设备，因为在迁移后，客户端设备会有一个不同子网的不同 IP 地址。
-
-如你有遵循这些 VLAN 故障排除方法，在你首次插入设备及 VLAN 间迁移时，肯定能得到预期的连通性。
-
-## 第二天的问题
-
-1. Switches contain a memory chip known as an `_______`, which builds a table listing which device is plugged into which port.
-2. The `_______` `_______`-`_______`-`_______` command displays a list of which MAC addresses are connected to which ports.
-3. Which two commands add an IP address to the VLAN?
-4. Which commands will enable Telnet and add a password to the switch Telnet lines?
-5. How do you permit only SSH traffic into your Telnet lines?
-6. What is the most likely cause of Telnet to another switch not working?
-7. Switches remember all VLAN info, even when reloaded. True or False?
-8. A switch interface can be in which of three modes?
-9. How do you set a switch to be in a specific mode?
-10. Which commands will change the switch duplex mode and speed?
+- VLAN 间路由不工作：要检查交换机和路由器之间的链路是否设置正确，以及相关 VLAN 是否被放行及未被修剪（请参阅 [VTP 修剪]()）。`show interface trunk` 命令将提供所需信息。还有，要检查路由器的子接口是否配置了正确的封装及 VLAN，以及子接口的 IP 地址是否是主机的默认网关；
+- 一些 VLAN 无法被创建出来：要检查交换机上的 VTP 模式是否设置为 `client`。当 VTP 模式为 `client` 时，VLAN 便无法得以创建。另一个重要因素，是交换机上所允许的 VLAN 数量。`show vtp status` 命令将提供所需的信息（请参阅下面的 [中继故障排除]() 与 [VTP]() 小节）；
+- 同一 VLAN 中的主机无法相互连接：某个 VLAN 中的主机，必须有着属于同一子网的 IP 地址。当子网不同时，那么他们就将无法相互连接。另一个要考虑的因素，是这些主机是否连接到同一交换机。当他们没有连接到同一交换机时，那么就要确保交换机之间的中继链路工作正常，以及确保该 VLAN 未从放行清单中排除/修剪。`show interface trunk` 命令将显示有关中继链路的必要信息。
 
 
-## 第二天问题答案
+## VLAN 分配问题
 
-1. ASIC.
-2. `show mac-address-table`
-3. The `interface vlan x` command and the `ip address x.x.x.x`command.
-4.
-```console
-Switch1(config)#line vty 0 15
-Switch1(config-line)#password cisco
-Switch1(config-line)#login
-```
-5. Use the `Switch1(config-line)#transport input ssh` command.
-6. The authentication method is not defined on another switch.
-7. True.
-8. Trunk, access, or dynamic mode.
-9. Apply the `switchport mode <mode>` command in Interface Configuration mode.
-10. The `duplex` and `speed` commands.
+一些小型环境中的网络，相对容易管理，因为要实现业务目标，只需有限数量的功能特性实现即可。然而，在企业环境中，咱们将不会使用一些小型工作组交换机与 SOHO 的设备。相反，咱们将使用一些能够通过提供大量高级功能，优化流量的高端设备。
+
+在这类环境中，一种可能配置的特殊功能，便是使用 VLANS 从逻辑上分隔不同网络区域。当咱们遇到与某个特定 VLAN 相关的配置问题，故障便会出现并会成为难于故障排除的故障。解决此类问题的一种方式，是分析交换机上的整个配置，并尝试找出问题所在。
+
+与 VLAN 相关的故障，通常会经由观察网络主机之间的连接缺失（如某名用户无法 `ping` 通某个服务器）发现，尽管一层运行似乎没有问题。VLAN 相关问题的一个重要特点是，他们不会导致网络的任何性能下降。而当咱们错误配置了某个 VLAN 时，连接将根本无法工作，特别是考虑到他们通常会隔离 IP 子网，因此只有同一 VLAN 中的设备，才能相互通信。
+
+排除 VLAN 问题的第一步，是查看设计阶段所开发的文档与逻辑图表，进而咱们可识别出每个 VLAN 的跨接区域，包括每个交换机上的相关设备及端口。下一步是检查每个交换机的配置，并尝试通过将其与文档中的解决方案比较，找出问题。
+
+咱们还应检查 IP 分址方案。当咱们是静态地为分配设备 IP 地址时，那么咱们可能需要回头检查设备，确保他有着正确的 IP 地址和子网掩码组合。当 IP 分址方案方面有任何错误时，如将设备配置在错误的网络上，或以错误子网掩码/默认网关配置设备时，那么即使咱们在交换机上有着正确的 VLAN，咱们也会遇到连通性问题。
 
 
-## 第二天实验
+咱们还将需要确认交换机上的中继配置是否正确。当咱们有着多台交换机时，他们之间通常有一些上行链路，而 VLAN 就承载于这些上行链路之上。这些交换机间的链路，通常被配置为中继，以允许跨多个 VLAN 的通信。当数据要从一个交换机发送到另一交换机时，VLAN 就必须是中继组的一员，因此咱们还必须确保，中继链路两侧的交换机配置均设置正确。
 
-### 交换机概念实验
+最后，当咱们将设备迁移到另一个 VLAN 时，咱们将必须同时对交换机和该客户端进行更改，因为作为这次迁移的结果，该客户端有着不同子网中下的不同 IP 地址。
 
-请登入到一台思科交换机，并输入那些本单元课程中解释到的命令。包括：
-
-- 在不同交换机端口上配置不同的端口速率/自动协商速率
-- 使用 `show running-config` 和 `show interface` 命令，验证这些端口参数
-- 执行一下 `show version` 命令，来查看硬件信息以及 IOS 版本
-- 查看交换机 MAC 地址表
-- 给 VTY 线路配置一个口令
-- 定义出一些 VLANs 并为其指派名称
-- 将一个 VLAN 指派到一个配置为接入模式的端口上
-- 将某个端口配置为中继端口（ISL 以及 `802.1Q`），并将一些 VLANs 指派到该中继链路
-- 使用 `show vlan` 命令验证 VLAN 配置
-- 使用 `show interface switchport` 命令和 `show interface trunk` 命令，验证接口中继工作状态及 VLAN 配置
-- 删除 `vlan.dat` 文件
-
-
-（End）
+当咱们遵循所有这些 VLAN 故障排除方法时，咱们就能确保在首次插入设备，或将设备从一个 VLAN 迁移至另一 VLAN 时，咱们将获得咱们所需的准确连接。
 
 
