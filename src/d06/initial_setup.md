@@ -125,6 +125,15 @@ Router#show line
 
 CTY 便是控制台线路。VTY 的线路用于 Telnet 连接，而 AUX 为辅助端口。
 
+> *知识点*：
+>
+> - Virtual TeletYpe, VTY
+>
+> - Console tty(TeletYpe), CTY
+>
+> - auxiliary port, AUX
+
+
 要获得更安全的访问方法，咱们可只允许 SSH 连入交换机，SSH 意味着流量将被加密。如下输出所示，为使 SSH 工作，咱们将需要交换机上的安全镜像。
 
 ```console
