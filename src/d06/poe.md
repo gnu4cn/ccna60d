@@ -16,6 +16,8 @@ PoE 被定义为 [IEEE 802.3af](https://www.ieee802.org/3/bu/index.html) 中的�
 - 已分配的电量会被释放。
 
 
-> *译注*：
+> *译注/知识点*：
+>
+> - powered device, PD
 >
 > <sup>1</sup>：[Daisy chain (electrical engineering)](https://en.wikipedia.org/wiki/Daisy_chain_(electrical_engineering))

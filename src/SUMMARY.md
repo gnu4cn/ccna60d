@@ -57,6 +57,7 @@
     - [交换概念](d06/concepts.md)
     - [交换机初始配置](d06/initial_setup.md)
     - [以太网供电](d06/poe.md)
+    - [虚拟局域网](d06/vlan.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
