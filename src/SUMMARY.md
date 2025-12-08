@@ -59,6 +59,7 @@
     - [以太网供电](d06/poe.md)
     - [虚拟局域网](d06/vlan.md)
     - [交换故障排除基础](d06/basic_switching_troubleshooting.md)
+    - [VLAN 故障排除基础](d06/basic_vlan_troubleshooting.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
