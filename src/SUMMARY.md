@@ -57,7 +57,7 @@
     - [交换概念](d06/concepts.md)
     - [交换机初始配置](d06/initial_setup.md)
     - [以太网供电](d06/poe.md)
-    - [虚拟局域网](d06/vlan.md)
+    - [虚拟局域网 VLAN](d06/vlan.md)
     - [交换故障排除基础](d06/basic_switching_troubleshooting.md)
     - [VLAN 故障排除基础](d06/basic_vlan_troubleshooting.md)
     - [数据与语音接入端口](d06/data_and_voice_access_ports.md)
@@ -67,7 +67,8 @@
 
 + [中继与 DTP](d07_trunking_and_dtp.md)
     - [配置及验证中继链路](d07/configuring_and_verifying_trunk_links.md)
-    - [动态中继协议](d07/dtp.md)
+    - [动态中继协议 DTP](d07/dtp.md)
+    - [VLAN 中继协议 VTP](d07/vtp.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
