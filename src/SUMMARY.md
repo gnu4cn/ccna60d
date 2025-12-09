@@ -61,6 +61,8 @@
     - [交换故障排除基础](d06/basic_switching_troubleshooting.md)
     - [VLAN 故障排除基础](d06/basic_vlan_troubleshooting.md)
     - [数据与语音接入端口](d06/data_and_voice_access_ports.md)
+    - [第 6 天问题](d06/questions.md)
+    - [第 6 天实验](d06/labs.md)
 
 
 - [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
