@@ -69,6 +69,10 @@
     - [配置及验证中继链路](d07/configuring_and_verifying_trunk_links.md)
     - [动态中继协议 DTP](d07/dtp.md)
     - [VLAN 中继协议 VTP](d07/vtp.md)
+    - [中继与 VTP 故障排除](d07/troubleshooting.md)
+    - [VLAN 间路由](d07/route_inter-vlan.md)
+    - [第 7 天问题](d07/questions.md)
+    - [第 7 天实验](d07/labs.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
