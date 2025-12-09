@@ -65,7 +65,9 @@
     - [第 6 天实验](d06/labs.md)
 
 
-- [中继、DTP 及 VLAN 间路由](d03-Trunking-DTP-and-Inter-VLAN-Routing.md)
++ [中继与 DTP](d07_trunking_and_dtp.md)
+    - [配置及验证中继链路](d07/configuring_and_verifying_trunk_links.md)
+
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
 

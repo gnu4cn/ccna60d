@@ -1,51 +1,4 @@
-# 第 3 天 中继、DTP 及 VLAN 间路由
-
-__Trunking, DTP, and Inter-VLAN Routing__
-
-___
-
-Gitbook：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
-
-
-你可以在 https://github.com/gnu4cn/ccna60d 上 fork 本项目，并提交你的修正。
-
-
-本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
-
-> 本书译者用其业余时间完成本书的翻译工作，并将其公布到网上，以方便你对网络技术的学习掌握，为使译者更有动力改进翻译及完成剩下章节，你可以 [捐赠译者](https://github.com/gnu4cn/buy-me-a-coffee)。
-
-___
-
-## 第三天的任务
-
-- 阅读今天的课文
-- 回顾昨天的课程
-- 完成今天的实验
-- 阅读 ICND1 记诵指南
-
-
-在最小规模的那些办公室里，你才会遇到仅使用一台交换机的情况，但是网络基础设施通常是由多台交换机构成的。多台交换机带来了其配置上的挑战，要求你对中继及其有关的问题有深入理解。思科将多台交换机的安装和故障排除，视为一个 CCNA 级别的基础主题。
-
-
-今天你将学到。
-
-- 中继工作方式，trunking
-- 动态中继协议（Dynamic Trunking Protocol, DTP）
-- VLAN 间路由
-
-本单元覆盖 ICND1 考试大纲的以下要求。
-
-- 在思科交换机上配置并验证中继
-- DTP
-- 自动协商
-+ VLAN 间路由的配置和验证（单臂路由，router-on-a-stick）
-    - 子接口，subinterfaces
-    - 上行路由，upstream routing
-    - 封装，encapsulation
-- 配置交换机虚拟接口，configure SVI(Switch Virtual Interface) Interfaces
-
-
-## 配置并验中继链路
+# 配置并验中继链路
 
 中继是一个可以承载多种流量类型，每种流量类型都用一个独特的 VLAN ID 做了标记，的交换机端口。在数据经由中继端口，或者说中继链路得以交换时，就被那个外出交换机中继端口（the egress switch trunk port）打上了标签（或者叫进行了着色）, 这样做了过后，接收交换机就能够分辨出数据是属于哪个特定的 VLAN 了。在接收交换机的进入端口（the receiving switch ingress port）上, 标签会被移除，然后数据就被转发给相应的目的设备。
 
@@ -184,13 +137,13 @@ DTP 是一个在两台交换机之间协商出一种常见中继模式的，思�
 
 图 3.1 演示所有 DTP 模式组合，在两台思科 Ｃatalyst 交换机间，这些组合有的能建立起中继链路，也有的不能建立（在这里的组合都能建立中继链路；请查看图 3.2 之后的说明）。
 
-!["DTP 模式组合"](images/0301.png)
+!["DTP 模式组合"](../images/0301.png)
 
 *图 3.1 -- DTP 模式组合*
 
 图 3.2 示出了将会在两台相邻交换机间成功建立中继链路的有效组合 -- 一端是 DTP 另一端静态配置为中继端口。
 
-!["DTP 模式组合，第二部分"](images/0302.png)
+!["DTP 模式组合，第二部分"](../images/0302.png)
 
 *图 3.2 -- DTP 模式组合，第二部分*
 
@@ -282,7 +235,7 @@ VTP-Server(config-if)#switchport trunk native vlan ?
 
 为实现 VLAN 间路由通信的第一种方式，需要用到带有多个接口的路由器，来作为每个单独配置 VLAN 的网关。此时路由器就能够使用这些物理的 LAN 接口，将接收自一个 VLAN 的数据包，路由到其它 VLAN 上。此种方式如图 3.3 所示。
 
-!["采用多个物理路由器接口的 VLAN 间路由"](images/0303.png)
+!["采用多个物理路由器接口的 VLAN 间路由"](../images/0303.png)
 
 *图 3.3 -- 采用多个物理路由器接口的 VLAN 间路由*
 
@@ -328,7 +281,7 @@ R1(config-if)#exit
 
 采用路由器子接口实现 VLAN 间路由的方法，解决了使用多路由器物理接口方法所可能存在的伸缩性问题。有了路由器子接口，就只需要路由器有一个物理接口就行，接下来的子接口是经由在那个物理接口上的配置获得。图 3.4 演示了这种方法。
 
-!["采用路由器子接口的 VLAN 间路由"](images/0304.png)
+!["采用路由器子接口的 VLAN 间路由"](../images/0304.png)
 
 *图 3.4 -- 采用路由器子接口的 VLAN 间路由*
 
@@ -492,7 +445,7 @@ Switch#
 
 虚拟局域网中继协议（VLAN Trunking Protocol, VTP）是一个思科专有的二层消息协议（a Cisco proprietary Layer 2 messaging protocol）， 用于管理同一个 VTP 域中交换机上 VLANs 增加、删除及重命名。VTP 允许 VLAN 信息在交换网络（the switched network）上宣告/扩散（propagate），这将减轻交换网络中的管理开销, 同时使得众多的交换机能够交换（exchange）并维护一致的 VLAN 信息。此概念在图 3.5 中进行了演示。
 
-!["VTP 更新"](images/0305.png)
+!["VTP 更新"](../images/0305.png)
 
 *图 3.5 -- VTP 更新*
 
@@ -554,7 +507,7 @@ VTP 以下列三种模式允许。
 
 时常会出现这样的情形，比如说，在网络的一边有 VLANs 20 到 50, 另一边有 VLANs 60 到 80。而一边的那些交换机上的 VLAN 信息却又无需传送到另一边的那些交换机上。为此，交换机能够将它们的 VLAN 信息进行修剪，因此而减少广播流量，如图 3.6 所示。
 
-!["运行中的 VTP 修剪"](images/0306.png)
+!["运行中的 VTP 修剪"](../images/0306.png)
 
 *图 3.6 -- 运行中的 VTP 修剪*
 
@@ -699,7 +652,7 @@ Fa0/2       1-99,201-4094
 
 **拓扑图，Topology**
 
-![](images/0300.png)
+![](../images/0300.png)
 
 **实验目的，Purpose**
 
