@@ -82,7 +82,8 @@
 
 + [生成树协议 STP](d10_stp.md)
     - [STP 的必要性](d10/the_need_for_stp.md)
-    - [IEEE 802.1D 的配置桥协议数据单元](d10/802.1d_conf_bpdu.md)
+    - [IEEE 802.1D 的配置 BPDU](d10/802.1d_conf_bpdu.md)
+    - [STP 端口状态](d10/port_states.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
