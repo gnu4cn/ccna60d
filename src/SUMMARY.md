@@ -74,6 +74,12 @@
     - [第 7 天问题](d07/questions.md)
     - [第 7 天实验](d07/labs.md)
 
+
++ [CDP 与 LLDP](d08_cdp_and_lldp.md)
+    - [CDP](d08/cdp.md)
+    - [LLDP](d08/lldp.md)
+    - [CDP/LLDP 实验](d08/labs.md)
+
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
 
