@@ -85,6 +85,7 @@
     - [IEEE 802.1D 的配置 BPDU](d10/802.1d_conf_bpdu.md)
     - [STP 端口状态](d10/port_states.md)
     - [STP 网桥 ID](d10/bridge_id.md)
+    - [STP 根桥选举](d10/root_bridge_election.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
