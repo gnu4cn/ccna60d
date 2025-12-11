@@ -1,153 +1,222 @@
-# Cisco 的生成树增强功能
+# Cisco® 的生成树增强功能
 
 正如前面所指出的，STP 对于其中启用了他的环境，做出了以下两个假设：
 
 - 所有链路都是双向的，都能发送和接收网桥协议数据单元
 - 所有交换机都能定期接收、处理及发送网桥协议数据单元
 
-*图31.9 -- 已收敛的生成树网络*
+在现实世界的网络中，这两条假设并不总是成立。在这种情形下，STP 就可能无法防止网络内环路的形成。鉴于这种可能性，并为提升基本 IEEE 802.1D 生成树算法的性能，Cisco® 引入了数项对 IEEE 802.1D 标准的改进，具体如下。
 
-## 思科生成树增强
+## 端口快速
 
-**Cisco Spanning Tree Enhancements**
+端口快速是一项通常只针对连接主机的某个端口或接口启用的特性。当这个端口上的链路起来时，交换机会跳过 STA 的第一阶段，而直接过渡到转发状态。与人们普遍认为的相反，端口快速特性不会禁用所选端口上的生成树。这是因为即使在端口快速特性下，该端口仍可发送及接收 BPDU。
 
-如早前指出的那样， STP 对其所在环境做出以下两点假设。
+在该端口连接到不发送或响应 BPDU 的网络设备，比如某个工作站上的网卡时，这并不是个问题。但是，当该端口被连接到真的发送 BPDU 的设备，比如另一交换机时，这就可能造成交换环路。这是因为该端口会跳过监听与学习状态，而立即进入转发状态。端口快速只是允许端口比要经历所有正常 STA 步骤的某个端口，更快地开始转发帧。
 
-- 所有链路都是双向的，而能够发送和接收桥协议数据单元。
-- 所有交换机都能正常地接收、处理及发出BPDUs
+在某个接入与中继接口上配置端口快速的命令分别如下。
 
-在现实世界的网络中，这两个假设并不总是正确。在这种情况下， STP 就可能无法阻止网络中循环的形成（in situations where that is the case, STP may not be able to prevent loops from being formed within the network）。正是由于存在这种可能，且为提升基本的802.1D STA性能，思科引入了一些对IEEE 802.1D标准的增强，将在下面进行说明。
+```console
+Switch#(config-if)#spanning-tree portfast
+Switch#(config-if)#spanning-tree portfast trunk
+```
 
-### 端口快速
+> *知识点*：
+>
+> - the Port Fast feature
+>
+> - the NIC on a workstation
+>
+> - a switching loop
 
-**Port Fast**
+## BPDU 防护
 
-端口快速是一项典型地对连接了一台主机的端口或接口开启的特性。当该端口上的链路起来时，交换机将跳过 STA 的第一阶段并直接过渡到转发状态。与通常的看法相反，端口快速特性并不在选定的端口上关闭生成树。这是因为就算带有端口快速特性，该端口仍能发送并接收 BPDUs 。
+BPDU 防护特性用于保护生成树域免受外部影响。BPDU 防护功能默认是禁用的，但对所有启用了端口快速的端口使用该特性。当某个配置了 BPDU 防护特性的端口接收到 BPDU 时，他会立即转换到 `errdisable` 状态。
 
-这在该端口所连接的诸如某台工作站的网卡这样的，没有发送或响应 BPDUs 的网络设备时不是问题。但如该端口所连接的设备确实在发出 BPDUs ，比如另一台交换机，这可能造成交换循环。这是因为该端口跳过了侦听及学习阶段而立即进入到转发状态（this may result in a switching loop. This is because the port skips the Listening and Learning states and proceeds immediately to the Forwarding state）。端口快速简单地令到该端口相较经历所有 STA 步骤，快得多地开始转发以太网帧。
+这样做会在那些以禁用生成树的端口上，阻止错误信息注入生成树域。与端口快速结合下的 BPDU 防护运作情况，在下图 10.10、图 10.11 和图 10.12 中展示了。
 
-### BPDU守护
-
-**BPDU Guard**
-
-**BPDU守护特性用于保护生成树域免受外部影响。 BPDU 默认是关闭的，但建议在所有开启了端口快速特性的端口上予以开启。**在配置了 BPDU 守护特性的端口接收到一个 BPDU 时，就立即转变成错误关闭状态（the errdisable state）。
-
-在那些关闭了生成树的端口上，这样做阻止了错误信息注入到生成树域中去。 BPDU 守护的运行，结合端口快速特性，在下面及后续的图31.10、31.11及31.12中，进行了演示。
 
 ![掌握 BPDU 守护](../images/3110.png)
 
-*图31.10 -- 掌握 BPDU 守护*
+**图 10.10** -- **理解 BPDU 防护**
 
-图31.10中，Switch 1到Host 1的连接上**开启了端口快速。那么在初始化后，该端口便过渡到转发状态，这就消除了该端口在没有省略掉 STA 而要走完侦听及学习状态所要花掉的 30 秒。**因为该网络主机是一台工作站，其不在那个端口上发送 BPDUs 。
+在图 10.10 中，端口快速在 `Switch 1` 上，对其到 `Host 1` 的连接上启用了。初始化后，那个端口会转入转发状态，这消除了 STA 未被绕过，端口进入监听和学习状态时会经历的 30 秒延迟。由于那个网络主机是台工作站，因此他不会在该端口上发送 BPDU。
 
-要么因为偶然，或是由于一些其它恶意目的，Host 1从Switch 1上断开连接。使用同一端口，SWitch 3被连接到Switch 1。Switch 3同时也连接到Switch 2。因为端口快速在连接Switch 1到Switch 3的端口上开启，此端口就从初始化变成转发状态，从而省略掉了一般 STP 初始化过程。此端口将接收并处理所有由Switch 3发送的 BPDUs ，如下图31.11所示。
+由于意外或某种别的恶意原因，`Host 1` 被从 `Switch 1` 拔出。`Switch 3` 被使用同一端口连接到 `Switch 1`。`Switch 3` 还被连接到 `Switch 2`。由于连接 `Switch 1` 到 `Switch 3` 的端口上启用了端口快速，因此这个端口从初始化状态进入转发状态，绕过了正常的 STP 初始化。如下图 10.11 中所示，这个端口还将接收并处理由交换机 3 发送的任何 BPDU。
 
 ![掌握 BPDU 守护（续）](../images/3111.png)
 
-*图31.11 掌握 BPDU 守护（续）*
+**图 10.11** -- **了解 BPDU 防护（续）**
 
-基于上面所演示的端口状态，可很快看出一个循环将在此网络中如何建立起来。为阻止此情形的发生，就应在所有的那些开启了端口快速的端口上，开启 BPDU 守护。这在下面的图31.12中进行了演示。
+根据上面所示的端口状态，咱们便可很快看出，一个环路在这个网络中如何被创建出来。为防止这种情况出现，BPDU 防护就应在所有启用了端口快速的端口上启用。如下图 10.12 所示。
+
 
 ![掌握 BPDU 守护（续）](../images/3112.png)
 
-*图31.12 -- 掌握 BPDU 守护（续）*
 
-在端口快速端口上带有 BPDU 守护下，在Switch 1接收到来自Switch 3的一个 BPDU 时，就立即将该端口转变成错误关闭状态（immediately transitions the port into the errdisable state）。结果就是 STP 计算不受该冗余链路的影响，且该网络不会有任何循环。
+**图 10.12** -- **理解 BPDU 防护（续）**
 
-### BPDU过滤器
+在端口快速的端口上 BPDU 防护启用下，当 `Switch 1` 收到来自 `Switch 3` 的 BPDU 时，他会立即将该端口转换为 `errdisable` 状态。那样做的结果便是，STP 的计算，不会受到这条冗余链路的影响，而该网络将不会有任何环路。
 
-**BPDU Filter**
+这可在该端口上，使用 `spanning-tree bpduguard enable` 命令配置。
 
-BPDU守护与 BPDU 过滤器两个特性常常混淆或甚至被想成是同一个特性。但它们是不同的，而掌握它们之间的区别就很重要。在某个端口上开启了端口快速时，该端口将发出 BPDUs 且将接受及处理收到的 BPDUs 。 BPDU 守护特性阻止该端口接收任何的 BPDUs ，但不阻止其发送 BPDUs 。如有接收到任何 BPDUs ，该端口就将成为错误关闭端口（if any BPDUs received, the port will be errdisabled）。
 
-而 BPDU 过滤器特性有着两方面的功能（the BPDU Filter feature has dual functionality）。当在接口级别配置上 BPDU 过滤器时，它将有效地在选定端口上，通过阻止这些端口发送或接收所有 BPDUs ，而关闭这些端口的 STP 。而在全局配置了 BPDU 过滤器，并与全局端口快速配合使用是，它会将任何接收到 BPDUs 的端口，还原成端口快速模式。下图31.13对此进行了演示。
+## BPDU 过滤
+
+BPDU 守护和 BPDU 过滤两项特性经常被混淆，甚至被认为同一特性。但他们是不同的，了解他们之间的区别很重要。当端口快速在某个端口上启用时，该端口将发出 BPDU，并将接受于处理接收到的 BPDU。BPDU 防护特性会防止该端口接收任何 BPDU，但不会阻止其发送 BPDU。当任何 BPDU 被接收到时，该端口将被置于 `errdisable` 状态。
+
+BPDU 过滤特性具有双重功能。在配置于接口级时，其会通过阻止所选端口发送或接收任何 BPDU，而有效地在这些端口上禁用 STP。而在全局性配置，并与全局的端口快速结合使用时，他将使任何接收到 BPDU 的端口，退出端口快速。这在下图 10.13 中得以演示。
+
 
 ![掌握 BPDU 过滤器](../images/3113.png)
 
-### 循环守护
+**图 10.13** -- **理解 BPDU 过滤**
 
-**Loop Guard**
+BPDU 过滤可使用 `spanning-tree bpdufilter enable` 命令，在交换机端口上启用。
 
-循环守护特性用于防止生成树网络中循环的形成。循环守护对根端口及阻塞端口进行探测，并确保它们继续接收 BPDUs 。当交换机在阻塞端口上接收到 BPDUs ，该信息就被忽视，因为来自根桥的最佳 BPDU 仍通过根端口，正在接收着。
+## 环路防护
 
-如该交换机链路是运行的，又没有接收到 BPDUs （因为该链路是单向链路，due to a unidirectional link），该交换机就假设将该链路开启是安全的，那么该端口就转换到转发状态并开始对接收到的 BPDUs 进行中继。如有某台交换机连接到该链路的另一端，这将有效地建立起一个生成树循环。下图31.14对此概念进行了演示。
+环路防护特性用于防止生成树网络内环路的形成。环路防护会检测根端口与阻塞端口，并确保他们继续接收 BPDU。当交换机在阻塞端口上收到 BPDU 时，那些信息会被忽略，因为最优 BPDU 仍在通过根端口，接收自根网桥。
+
+当交换机链路起来且未没有 BPDU 被接收（由于一条单向链路）时，交换机会假定启用这条链路是安全的，而该端口便会转换到转发状态，并开始中继（转发）收到的 BPUD。当某台交换机被连接到该链路的另一侧时，这会有效地创建出一个生成树环路。这一概念在下图 10.14 中得以演示。
 
 ![掌握循环守护](../images/3114.png)
 
-*图31.14 -- 掌握循环守护*
+**图 10.14** -- **了解环路防护**
 
-图31.14中，该生成树网络已完成收敛，从而所有端口都处于阻塞或转发状态。但是，因为一条单向链路，Switch 3上的阻塞端口停止了接收来自Switch 2上的指定端口的 BPDUs 。Switch 3假定该端口可被转换成转发状态，并开始此转换。该交换机此时就将接收到的 BPDUs 中继出那个端口，从而导致网络循环。
+在图 10.14 中，生成树网络已经收敛，且所有端口都处于阻塞或转发状态。但是，由于一条单向链路，`Switch 3` 上的阻塞端口会停止接收来自 `Switch 2` 上指定端口的 BPDU。`Switch 3` 假定了该端口可被过渡到转发状态，并因此开始这一（状态）迁移该。该交换机随后会在那个端口上，中继出去接收到的 BPDU，而导致一个网络环路。
 
-在循环守护开启时，Switch 3保持对所有非指定端口的追踪。在端口持续接收到 BPDUs 时，该端口就是好的；但如该端口停止接收到 BPDUs ，就被转移到循环不一致状态（a loop-inconsistent state）。也就是说，在循环守护开启时， STP 端口状态机（the STP port state machine）被修改为在缺少 BPDUs 时，阻止该端口从非指定端口角色转变成指定端口角色（in other words, when Loop Guard is enabled, the STP port state machine is modified to prevent the port from transitioning from the Non-Designated Port role to the Designated Port role in the absence of BPDUs）。在应用循环守护时，应知道以下这些应用准则。
+在环路防护启用后，交换机会跟踪所有非指定端口。只要端口继续接收 BPDU，就不会有问题；但当端口停止接收 BPDU 时，其就会被迁移到一种环路不一致状态。换句话说，在环路防护启用后，STP 的端口状态机会被修改为阻止端口在 BPDU 缺席时，从非指定端口角色过渡到指定端口角色。在实施环路防护时，咱们应注意以下的一些实施准则：
 
-- 不能在开启了根守护（Root Guard）的交换机上开启循环守护, Loop Guard cannot be enabled on a switch that also has Root Guard enabled
-- 循环守护不影响上行快速（Uplink Fast）或骨干快速（Backbone Fast）的运行, Loop Guard does not affect Uplink Fast or Backbone Fast operation
-- 循环守护只是必须在点对点链路上开启，Loop Guard must be enabled on Point-to-Point links only
-- 循环守护的运行不受生成树计时器的影响，Loop Guard operation is not affected by the Spanning Tree timers
-- 循环守护无法真正探测出一条单向链路，Loop Guard cannot actually detect a unidirectional link
-- 循环守护无法在端口快速或动态 VLAN 端口上开启，Loop Guard cannot be enabled on Port Fast or Dynamic VLAN ports
+- 环路防护不能在同时启用了根端口防护的交换机上启用；
+- 环路防护不会影响上行快速或骨干快速的运行；
+- 环路防护务必只在点对点的链路上启用；
+- 环路防护的运行，不受生成树的那些计时器影响；
+- 环路防护实际上无法检测单向链路；
+- 环路防护不能在端口快速或动态 VLAN 的端口上启用。
 
-### 根守护
 
-**Root Guard**
+环路防护可在交换机端口上，使用 `spanning-tree loopguard default` 命令启用。
 
-**根守护特性阻止指定端口成为根端口。**如在某个根守护特性开启的端口上接收到一个优良 BPDU （a superior BPDU）, 根守护将该端口移入根不一致状态（a root-inconsistent state）, 从而维持当前根桥状态（thus maintaining the current Root Bridge status quo）。下图31.15对此概念进行了演示。
+> *知识点*：
+>
+> - Loop Guard
+>
+> - the formation of loops within the Spanning Tree network
+>
+> - a unidirectional link
+>
+> - a loop-inconsistent state
+>
+> - Uplink Fast
+>
+> - Backbone Fast
+>
+> - Point-to-Point links
+>
+> - the Spanning Tree timers
+>
+> - Dynamic VLAN ports
+
+## 根端口防护
+
+根端口防护特性会防止指定端口成为根端口。当某个其上启用了根端口防护特性的端口，收到一个优势 BPDU 时，其便会将该端口迁移到根不一致状态，从而维持当前的根桥状态不变。这一概念在下图 10.15 中得以演示。
 
 ![掌握根守护](../images/3115.png)
 
-*图31.15 -- 掌握根守护*
+**图 10.15** -- **理解根端口防护**
 
-图31.15中，Switch 3被加入到当前 STP 网络，并发出比当前根桥更优质的 BPDUs 。在通常情况下， STP 将重新计算整个拓扑，同时Switch 3将会被选举为根桥。但因为当前根桥及Switch 2上的指定端口上开启了根守护特性，在接收到来自Switch 3的优良 BPDUs 时，两台交换机都会将这些指定端口置为根不一致状态。这样做保护了生成树拓扑。
+在图 10.15 中，`Switch 3` 被添加到了当前的 STP 网络，并发出比当前根桥的更优 BPDU。在正常情况下，STP 将重新计算整个拓扑，`Switch 3` 会是选出的根桥。但是，由于根端口守护特性在当前根桥，以及 `Switch 2` 上的指定端口上都启用了，因此当这两个交换机收到来自 `Switch 3` 的优势 BPDU 时，他们都会将这些端口置于根不一致状态。这会保留生成树拓扑。
 
-**根守护阻止某个端口成为根端口，因此确保该端口始终是指定端口。**与其它可同时在全局基础上开启的思科 STP 增强不同，根守护必须手动在所有根桥不应出现的端口上开启（unlike other STP enhancements, which can also be enabled on a global basis, Root Guard must be manually enabled on all ports where the Root Bridge should not appear）。因为这点，在 LAN 中 STP 的设计和部署时确保拓扑的确定性就很重要（because of this, it is important to ensure a deterministic topology when designing and implementing STP in the LAN）。根守护令到网络管理员可以强制指定网络中的根桥（Root Guard enables an administrator to enforce the Root Bridge palcement in the network）, 确保不会有客户设备因疏忽或其它原因而成为生成树的根，所以根守护常用在 ISP 网络面向客户设备的边界（so it is usually used on the network edge of the ISP towards the customers's equipment）。
+根端口防护特性会阻止端口成为根端口，从而确保该端口始终是个指定端口。不同于其他可同时在全局基础上启用的 STP 增强功能，根端口防护务必要在那些根桥不应出现的所有端口上，手动启用。由于这个原因，在 LAN 中设计与实施 STP 时，确保一种确定性的拓扑非常重要。根端口防护使管理员能强制执行网络中根网桥的布置，确保没有客户设备会因疏忽，或其他原因成为生成树的根，因此其通常用于面向客户设备的 ISP 网络边缘。
 
-### 上行快速
+根端口防护可在交换机端口上，使用 `spanning-tree guard root` 命令启用。
 
-**Uplink Fast**
+> *知识点*：
+>
+> - the Root Guard feature
+>
+> - a superior BPDU
+>
+> - a root-inconsistent state
+>
+> - the entire topology
+>
+> - on a globa basis
+>
+> - a deterministic topology
+>
+> - to enforce the Root Bridge placement in the network
+>
+> - the Root of the Spanning Tree
+>
+> - the network edge of ISP towards the customer's equipment
 
-**上行快速特性提升了在主要链路失效（根端口的直接失效）时，更快的到冗余链路的切换**（the Uplink Fast feature provides faster failover to a redundant link when the primary link fails(i.e., direct failure of the Root Port)）。该特性的主要目的是在出现上行链路失效时，提升 STP 的收敛时间。**该特性在带有到分布层冗余链路的接入层交换机上用的最多**；这也是其名称的由来。
+## 上行链路快速
 
-在接入层交换机有着到分布层的双宿主时，其中一条链路被被 STP 置为阻塞状态以防止环回（when Access Layer switches are dual-homed to the Distribution Layer, one of the links is placed into a Blocking state by STP to prevent loops）。在到分布层的主链路失效时，处于阻塞状态的端口就必须在开始转发流量之前，转换到侦听和学习状态。这导致在交换机能够转发以其它网段为目的的帧之前，有一个 30 秒的延迟。上行快速的运作，在下图31.16中进行演示。
+
+上行链路快速特性，提供了在主链路发生失效（即根端口直接失效）时，更快的故障切换到冗余链路。这一特性的主要目的，是在上行链路失效时，改进 STP 的收敛时间。这一特性在那些有着到分布层冗余上行链路的接入层交换机上最常用；因此，其也得名于此。
+
+
+在接入层交换机为双归属到分布层时，其中一条链路会被 STP 置于阻塞状态以防止环路。在到分布层的主链路失效时，处于阻塞状态的端口就必须在其开始转发流量前，先经历监听与学习状态。这会在该交换机能够将数据帧转发到其他网段前，造成 30 秒的延迟。上行链路快速的运行，如下图 10.16 中所示。
+
 
 ![掌握上行快速](../images/3116.png)
 
-*图31.16 -- 掌握上行快速*
+**图 10.16** -- **理解上行链路快速**
 
-图31.16中，在Access 1和Distribution 1之间的链路上出现了失效，Distribution 1是 STP 根桥，此失效意味着 STP 会将Access 1和Distribution 2之间的链路移入转发状态（也就是"阻塞中">"侦听中">"学习中">"转发中"，Blocking > Listening > Learning > Forwarding）。侦听和学习阶段各耗时 15 秒，所以该端口只需在总共 30 秒过去之后，便开始转发数据帧。**而在上行快速开启时，到分布层的后备端口被立即置为转发状态，从而带来无网络宕机时间的结果。**下图31.17对此概念进行了演示。
+在图 10.16 中，`Access 1` 和还是 STP 根桥的 `Distribution 1` 之间链路的失效，将意味着 STP 会将 `Access 1` 和 `Distribution 1` 之间的链路，迁移到转发状态（即阻塞 > 侦听 > 学习 > 转发）。监听和学习状态，各需 15 秒，因此该端口只会在总共 30 秒后，才开始转发数据帧。而在上行链路快速特性启用时，到分配层的备份端口，会被立即置于转发状态，从而达到没有网络宕机时间效果。这一概念在下图 10.17 中得以演示。
+
 
 ![掌握上行快速（续）](../images/3117.png)
 
-*图31.17 -- 掌握上行快速（续）*
+**图 10.17** -- **理解上行链路快速（续）**
 
-### 骨干快速
+上行链路可在交换机端口上，使用 `spanning-tree uplinkfast` 命令启用。
 
-**Backbone Fast**
+> *知识点*：
+>
+> - the Uplink Fast feature
+>
+> - faster failover to a redundant link when the primary link fails
+>
+> - direct failure of the Root Port
+>
+> - to improve the convergence time of STP in the event of a failure of an uplink
+>
+> - (Access Layer switches) dual-homed to the Distribution Layer
+>
+> - the backport to the Distribution Layer
+>
+> - no network downtime
 
-骨干快速特性提供了 STP 域中一条非直连链路出现失效时的快速切换。在交换机从其指定桥（在其根端口上）接收到一个较差 BPDU 时，快速切换便发生了。一个较差 BPDU 表明指定桥失去了其到根桥的连接，所以该交换机知悉存在上游失效而无需等待计时器超时就改变根端口。下图31.18中对此进行了演示。
+## 骨干快速
+
+
+骨干快速特性，提供 STP 域中某条间接链路失效时的快速故障切换。当交换机于其指定网桥（其根端口上），接收到某个次优 BPDU 时，故障切换便会发生。次优的 BPDU 表明，该指定网桥已失去了到根网桥的连接，因此该交换机便知道有了某种上游故障，而他会在无需等待定时器超时下，便更换根端口。这在下图 10.18 中进行了演示。
+
+在图 10.18 中，`Switch 1` 和 `Switch 2` 之间的链路失效了。`Switch 2` 检测到这一情况并发出表明自己是根桥的 BPDU。这些次优的 BPDU 会在 `Switch 3` 上被收到，其仍保存着接收自 `Switch 1` 的 BPDU 信息。
 
 ![掌握骨干快速](../images/3118.png)
 
-*图31.18 -- 掌握骨干快速*
 
-图31.18中，Switch 1和Switch 2之间的链路挂掉了。Switch 2探测到这个问题并发出 BPDUs 表明它是根桥。在来自Switch 1的 BPDUs 信息仍然保存着的Switch 3上，接收到较差的 BPDUs 。
+**图 10.18** -- **理解骨干快速**
 
-Switch 3将忽略这些较差 BPDUs ，直到最大存活值（the Max Age value）超时。在此期间，Switch 2继续将 BPDUs 发送给Switch 3。在最大存活时间超时后，Switch 3会将来自根桥、存储的 BPDU 信息老化排除，并转换到侦听状态，接着将把从根桥接收到的 BPDU 发送出去，发送给Switch 2。
+`Switch 3` 将忽略这些次优 BPDU，直到最大老化值超时。在此期间，`Switch 2` 会继续发送 BPDU 到 `Switch 3`。当最大老化时间超时后，`Switch 3` 将老化掉所存储的来自根桥的 BPDU 信息，并过渡到监听状态，随后将发出接收自根桥的 BPDU 到 `Switch 2`。
 
-因为此 BPDU 好于Switch 2自己的，Switch 2将停止发送 BPDUs ，同时Switch 2和Switch 3之间的端口经历侦听及学习状态的转换，并最终进入到转发状态。 STP 过程的此默认运行方式将意味着Switch 2将至少在 50 秒内无法转发数据帧。
+由于这个 BPDU 优于自己的 BPDU，因此 `Switch 2` 会停止发送 BPDU，同时 `Switch 2` 上与 `Switch 3` 之间的端口，会历经监听和学习状态，并最后进入转发状态。STP 进程的这种默认运行方式，将意味着 `Switch 2` 会在至少 50 秒内无法转发数据帧。
 
-骨干快速特性包含了一种允许在接收到一个较差的 BPDU 时，立即检查某个端口上存储的 BPDU 信息是否仍然有效的机制。此特性通过一种叫做RLQ PDU 的新协议数据单元及根链路请求实现的（this is implemented with a new PDU and the Root Link Query(RLQ), which is referred to as the RLQ PDU）。
 
-紧接着较差 BPDU 的接收，该交换机将在除接收该较差 BPDU 的端口外的所有非指定端口上，发出一个RLQ PDU。如该交换机是根桥或失去了到根桥的连接，就将对对该 RLQ 进行响应。否则，该 RLQ 将向上游传播（otherwise, the RLQ will be propagated upstream）。如该交换机在其根端口上接收到一个 RLQ 响应，那么到根桥的连通性仍然是完整的。如该响应实在非根端口上接收到的，就意味着到根桥的连通性已丢失，同时在交换机上的本地交换生成树必须重新计算且最大存活时间计数器被置为超时，如此就能重新找到一个新的根端口（if the response is received on a Non-Root Port, it means that connectivity to the Root Bridge is lost, and the local switch Spanning Tree must be recalculated on the switch and the Max Age timer expired so that a new Root Port can be found）。此概念在下图31.19中进行了演示。
+主干快速特性包含一种允许在某个次优 BPDU 收到时，立即检查存储在某个端口上的 BPDU 信息，是否仍然有效的机制。这是以一种称为 RLQ PDU 的新 PDU 以及根链路查询实现的。
+
+收到次优 BPDU 后，该交换机将在除收到次优 BPDU 的端口外的所有非指定端口上，发出 RLQ PDU。当交换机为根桥，或其已失去到根桥的连接时，那么他将响应 RLQ。否则，RLQ 将向上游传播。当交换机在其根端口上收到 RLQ 响应时，那么到根网桥的连接仍然完好。当响应在非根端口上收到时，就表示到根桥的连通性已丢失，同时本地交换机的生成树必须要在该交换机上重新计算。最大老化计时器已超时，从而就新的根端口就能找到。这一概念在下图 10.19 中进行了演示。
+
 
 ![掌握骨干快速（续）](../images/3119.png)
 
-*图31.19 -- 掌握骨干快速（续）*
+**图 10.19** -- **理解骨干快速（续）**
 
-参考图31.19, 紧接着较差 BPDU 的接收，Switch 3在除了该 BPDU 所接收到的端口之外的所有非指定端口上，发出一条 RLQ 请求。根桥功过一条从其指定端口发出的 RLQ 回应，对Switch 3的 RLQ 请求进行响应。因为是在Switch 3的根端口上接收到的该响应，该响应被认为是一条肯定响应（a positive response）。但如该响应是在非根端口上接收到的，那么该响应就被认为是否定的且该交换机将需要再度完成整个的生成树计算。
 
-基于Switch 3上接收到的肯定响应，就可以老化排除连接到Switch 2的端口而无需等待最大存活时间计数器过期（based on the positive response received on Switch 3, it can age out the port connected to Switch 2 without waiting for the Max Age timer to expire）。但是该端口仍必须经过侦听及学习状态。而通过立即将最大存活时间计数器进行老化清楚，骨干快速将收敛时间从 50 秒（ 20 秒的最大存活时间 + 30秒的侦听和学习时间）减少到 30 秒（侦听和学习状态的时间）。
 
-RLQs的类型有两种： RLQ 请求和 RLQ 响应。**RLQ请求典型地在根端口上发出，用以检查到根桥的连通性。所有 RLQ 响应都是在指定端口上发出的。**因为 RLQ 请求包含了发送该 RLQ 响应的根桥 BID ，如到根桥路径中其它交换机仍能到达该 RLQ 响应中所指定的根桥，其就会响应给发出 RLQ 请求的交换机（because the RLQ request contains the BID of the Root Bridge that sent it, if another switch in the path to the Root Bridge can still reach the Root Bridge specified in the RLQ response, it will respond back to the sending switch）。如路径上的交换机已不能到达 RLQ 响应中的根桥，该交换机就简单地通过其根端口，往根桥转发该查询。
 
 > **注意：** RLQ PDU有着与普通 BPDU 同样的包格式，唯一区别在于RLQ PDU包含了两个用于请求和回应的思科SNAP(子网接入协议，[Subnetwork Access Protocol](https://en.wikipedia.org/wiki/Subnetwork_Access_Protocol))地址。
 
