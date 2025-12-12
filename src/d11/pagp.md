@@ -96,8 +96,7 @@ Group  Port-channel  Protocol    Ports
 >
 > 在生产网络中，咱们可能会遇到由两台物理 Catalyst 6500 系列交换机组成，以一台逻辑交换机运行的 Cisco 的虚拟交换系统 (VSS)。在 VSS 中，一台交换机会被选为活动交换机，而另一台会被选为备用交换机。这两台交换机就是经由 EtherChannel 连接在一起，EtherChannel 实现二者之间控制数据包的发送与接收。
 >
-> 接入交换机会使用多板卡 EtherChannel（MEC），连接到 VSS。MEC 就是一条跨越两台物理 Catalyst 6500 交换机，终止于是单个逻辑 VSS 的 EtherChannel。增强的 PAgP（PAgP+）可用于实现这两台 Catalyst 6500 交换机，在他们之间的 EtherChannel 失效时，通过 MEC
-> 增强 PAgP（PAgP+）可用于允许这两台 Catalyst 6500 交换机，在他们之间的 EtherChannel 失效，而将导致两台交换机同时承担主动角色（双主动），有效影响交换网络中流量转发的情形下，通过 MEC 进行通信。这在下图中得以演示。
+> 接入交换机会使用多板卡 EtherChannel（MEC），连接到 VSS。MEC 就是一条跨越两台物理 Catalyst 6500 交换机，终止于是单个逻辑 VSS 的 EtherChannel。增强 PAgP（PAgP+）可用于实现这两台 Catalyst 6500 交换机，在他们之间的 EtherChannel 失效，而将导致两台交换机同时接管主动角色（双主动），有效影响交换网络中流量转发的情形下，通过 MEC 进行通信。这在下图中得以演示。
 >
 > ![PAgP+](../images/3300.png)
 >
