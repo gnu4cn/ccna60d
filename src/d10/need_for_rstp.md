@@ -50,4 +50,10 @@ RSTP 端口角色包括以下这些：
 - 802.1W（快速生成树）-- Imagine Elmer Fudd saying "rapid" as "wapid"；
 - 802.1S（多重生成树）-- You add the letter "s" to nouns to make them plural(multiple), but this is a CCNP SWITCH subject.
 
-
+> *知识点*：
+>
+> - Rapid Spanning Tree Protocol
+>
+> - Per VLAN Spanning Tree Plus, PVST+
+>
+> - Rapid Per VLAN Spanning Tree Plus, R-PVST+

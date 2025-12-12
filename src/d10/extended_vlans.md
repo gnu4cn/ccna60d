@@ -86,8 +86,14 @@ VLAN Name                    Status    Ports
 
 排除扩展 VLAN 的故障，涉及到与标准 VLAN 相同的过程。请记住，要配置扩展 VLAN，咱们交换机将需要处于透明模式。
 
+> *知识点*：
+>
+> - Extended VLANs
+>
+> - VTP transparent mode
+>
+> - VTP server mode
 
 
 请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 处的考试。
-
 
