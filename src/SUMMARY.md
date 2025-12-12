@@ -89,6 +89,8 @@
     - [STP 开销与优先级](d10/cost_and_priority.md)
     - [STP 根端口与指定端口](d10/root_and_designated_ports.md)
     - [Cisco® 的生成树增强](d10/cisco_enhancements.md)
+    - [STP 故障排除](d10/troubleshooting.md)
+    - [RSTP 的必要性](d10/need_for_rstp.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
