@@ -91,6 +91,10 @@
     - [Cisco® 的生成树增强](d10/cisco_enhancements.md)
     - [STP 故障排除](d10/troubleshooting.md)
     - [RSTP 的必要性](d10/need_for_rstp.md)
+    - [配置 RSTP](d10/configuring_rstp.md)
+    - [扩展 VLAN](d10/extended_vlans.md)
+    - [第 10 天问题](d10/questions.md)
+    - [第 10 天实验](d10/labs.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
