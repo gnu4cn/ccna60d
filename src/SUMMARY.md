@@ -99,6 +99,7 @@
 
 + [EtherChannel 与链路聚合协议](d11_etherchannels_and_link_aggr_protocols.md)
     - [掌握 EtherChannel](d11/understanding_etherchannel.md)
+    - [端口聚合控制协议概述](d11/pagp.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
