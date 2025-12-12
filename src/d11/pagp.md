@@ -1,76 +1,62 @@
 # 端口聚合协议概述
 
-端口聚合协议（PAgP）是 Cisco 专有的链路聚合协议，可自动创建以太通道。默认情况下，PAgP 数据包会在支持 EtherChannel 的端口之间发送，以便协商组建 EtherChannel。这些数据包会发送到目标组播 MAC 地址 01-00-0C-CC-CC-CC，这也是 CDP、UDLD、VTP 和 DTP 使用的同一个组播地址。下图 11.2 显示了 PAgP 帧中包含的字段，就像在线路上看到的一样。
-*图33.1 -- 以太网通道的物理和逻辑视图*
+端口聚合协议（PAgP）是一种实现了 EtherChannel 自动创建的 Cisco 专有链路聚合协议。默认情况下，为了协商一条 EtherChannel 的形成，PAgP 的数据包会在具备 EtherChannel 能力的端口间发送。这些数据包会被发送到目的组播 MAC 地址 `01-00-0C-CC-CC-CC`，这也是被 CDP、UDLD、VTP 与 DTP 用到的同一组播地址。下图 11.2 展示了在线路上看到的 PAgP 数据帧内所包含的字段。
 
-**每个以太网通道最多可由 8 个端口构成。**以太网通道中的物理链路**必须有着相似特性**(physical links in an EtherChannel must share similar characteristics)，诸如是定义在同一个 VLAN 中、或有着同样的速率以及双工设置。当在思科 Catalyst 交换机上配置以太网通道时，重要的是记住在不同 Catalyst 交换机型号之间，所支持的以太网通道数目会有所不同。
-
-比如在Catalyst 3750系列交换机上，支持的数目是 1 到 48 个；在Catalyst 4500系列交换机上，是 1 到 64 个；而在旗舰的Catalyst 6500系列交换机，有效的以太网通道配置数目则是依据软件版本（the software release）。对早于12.1(3a） E3 的版本，有效数值是 1 到 256 ；对于12.1(3a） E3 、12.1(3a） E4 以及12.1(4)E1，有效数值是 1 到 64 。而对于12.1(5c)EX及以后的版本，支持最大 64 的数量，范围从 1 到 256 。
-
-> **注意：** 并不要求知道不同 IOS 版本中所支持的以太网通道数量。
-
-用于自动创建一个以太网通道组（an EtherChannel group）的链路聚合协议有两个：**端口聚合协议**（Port Aggregation Protocol, PAgP）及**链路聚合控制协议**(Link Aggregation Control Protocol, LACP)。**PAgP是一个思科专有协议，同时 LACP 则是IEEE 802.3ad用于从几条物理链路建立逻辑链路规格的一部分。**本模块中将详细对这两个协议进行讲述。
-
-## 端口聚合协议概述
-
-**Port Aggregation Protocol Overview**
-
-端口聚合协议（Port Aggregation Protocol, PAgP）是一个实现以太网通道自动建立的思科专有链路聚合协议（a Cisco proprietary link aggregation protocol that enables the automatic creation of EtherChannels）。默认下， PAgP 数据包在可作为以太网通道的端口之间发送（PAgP packets are sent between EtherChannel-capable ports），就以太网通道的形成进行协商。这些数据包被发送到目的多播 MAC 地址`01-00-0C-CC-CC-CC`(the destination Multicast MAC address `01-00-0C-CC-CC-CC`)，而该多播 MAC 地址也是 CDP 、 UDLD 、 VTP 以及 DTP 所用到同一多播地址。下图33.2显示了在线路上所见到的一个 PAgP 数据帧中所包含的字段。
 
 ![PAgP以太网头部](../images/3302.png)
-*图 33.2 -- PAgP以太网头部*
 
-尽管对 PAgP 数据包格式的深入探讨超出了 CCNA 考试要求范围，下图33.3还是对一个典型的 PAgP 数据包所包含的字段进行了展示。 PAgP 数据所包含的一些字段与 CCNA 考试有关，在本模块的跟进中将详细说明这些字段。
+**图 11.2** -- **PAgP 的以太网头部**
+
+虽然深入 PAgP 数据包格式细节，超出了 CCNA 考试要求范围，下图 11.3 显示了一个典型 PAgP 数据包中所包含的字段。PAgP 数据包内包含的一些字段，与 CCNA 考试有关，而将在我们学习这一教学模组时详细介绍。
+
 
 ![端口聚合协议数据帧](../images/3303.png)
-*图 33.3 -- 端口聚合协议数据帧*
 
-## 各种 PAgP 端口模式
+**图 11.3** -- **端口聚合协议的数据帧**
 
-**PAgP Port Modes**
+## PAgP 端口模式
 
-PAgP支持不同端口模式，而这些端口模式则决定在两台支持 PAgP 的交换机(two PAgP-capable switches)之间将是否形成一个以太网通道。在深入到这两种 PAgP 端口模式之前，一种特别的模式需要专门关注。该模式（就是“ on ”模式）有时被误当作一种 PAgP 模式。事实上，其并不是一种 PAgP 的端口模式。
 
-**该`on`模式强制将某个端口无条件地置于某个通道当中。**该通道将只在另一个交换机端口连接上、且被配置为`on`模式时建立起来。在此模式开启后，就不会有该通道的协商被本地以太网通道协议所执行。也就是说，这样做将切实关闭以太网通道协商并强制该端口到该通道（when this mode is enabled, there is no negotiation of the channel performed by the local EtherChannel protocol. In other words, this effectively disables EtherChannel negotiation and forces the port to the channel）。该模式的运作与中继链路上的`switchport nonegatiate`类似。**而重要的是记住配置为`on`模式的交换机接口不会对 PAgP 数据包进行交换。**
+PAgP 支持会确定出两台具备 PAgP 能力交换机间，是否将形成 EtherChannel 的不同端口模式。在我们深入探讨这两种 PAgP 端口模式前，有种特殊模式值得特别注意。这种模式（`on` 模式）有时被错误地称为 PAgP 模式。但事实上，他并不是一种 PAgP 的端口模式。
 
-采用 PAgP 的交换机以太网通道可被配置为以这两种模式运行：**自动**（`auto`）或**我要**（`desirable`）。这两种 PAgP 模式的运作，在下面的小节进行说明。
 
-### 自动模式
+`on` 模式会强制某个端口，被无条件地置于某个通道中。只有另一交换机端口被连接并被配置为 `on` 模式时，通道才将被创建出来。在这一模式启用时，就没有通道协商由本地 EtherChannel 协议完成。换句话说，这将有效地禁用 EtherChannel 协商，而强制端口为通道。这一模式的运行方式，与中继链路上的 `switchport nonegotiate` 命令类似。重要的是要记住，配置为 `on` 模式的交换机接口，不会交换 PAgP 数据包。
 
-**Auto Mode**
 
-自动模式(`auto` mode)是一种仅在该端口接收到一个 PAgP 数据包时，才与另一 PAgP 端口进行协商的 PAgP 端口模式。在此模式开启后，该（这些）端口绝不会发起 PAgP 通信，而会在与邻居交换机建立一个以太网通道之前，被动地侦听任何接收到的 PAgP 数据包（when this mode is enabled, the port(s) will never initiate PAgP communications but will instead listen passively for any received PAgP packets before creating an EtherChannel with the neighbouring switch）。
+使用 PAgP 的交换机 EtherChannel，可被配置为以两种模式之一运行：`auto` 或 `desirable`。这两种 PAgP 运行模式在接下来的小节中介绍。
 
-### 我要模式
+### `auto` 模式
 
-**Desirable Mode**
 
-我要模式（`desirable` mode）是一种导致某端口发起与另一 PAgP 端口就通道建立而进行 PAgP 协商的 PAgP 端口模式（desirable mode is a PAgP mode that causes the port to initiate PAgP negotiation for a channel with another PAgP port）。也就是说，在此模式下，该端口主动尝试与运行了 PAgP 的另一交换机建立一个以太网通道。
+所谓 `auto` 模式，是一种只有在端口收到一个 PAgP 数据包时，才会与另一 PAgP 端口协商的 PAgP 模式。在这一模式启用后，端口将绝不会发起 PAgP 通信。而是在与邻近交换机创建 EtherChannel 前，端口将被动监听任何收到的 PAgP 数据包。
 
-总的来说，要记住配置成`on`模式的交换机接口，不交换 PAgP 数据包，**但它们会与那些配置为`auto`或`desirable`模式的伙伴接口进行 PAgP 数据包的交换**（but they do exchange PAgP packets with partner interfaces configured in the auto or desirable modes）。表33.1展示了不同的 PAgP 组合及其在建立一个以太网通道时所使用的结果。
+### `desirable` 模式
 
-*表 33.1 -- 采用不同 PAgP 模式的以太网通道形成*
+`desirable` 模式是一种会引起端口发起，就与另一 PAgP 端口一起的通道，PAgP 协商的 PAgP 模式。换句话说，在这种模式下，端口会主动尝试与另一运行 PAgP 的交换机，建立一条 EtherChannel。
 
-<table>
-<tr><th>交换机一 PAgP 模式</th><th>交换机二 PAgP 模式</th><th>以太网通道结果</th></tr>
-<tr><td>Auto</td><td>Auto</td><td>不会形成以太网通道</td></tr>
-<tr><td>Auto</td><td>Desirable</td><td>形成以太网通道</td></tr>
-<tr><td>Desirable</td><td>Auto</td><td>形成以太网通道</td></tr>
-<tr><td>Desirable</td><td>Desirable</td><td>形成以太网通道</td></tr>
-</table>
+总之，重要的是记住，配置为 `on` 模式的交换机接口，不会交换 PAgP 数据包，但会与配置为 `on` 或 `desirable` 模式的伙伴接口交换 PAgP 数据包。表 11.1 显示了不同的 PAgP 组合，以及在建立一条 EtherChannel 中用到这些组合时的结果：
 
-## PAgP以太网通道协议数据包的转发
+**表 11.1** -- **使用不同 PAgP 模式时 EtherChannel 的形成**
 
-**PAgP EtherChannel Protocol Packet Forwarding**
+| `Switch 1` 的 PAgP 模式 | `Switch 2` 的 PAgP 模式 | EtherChannel 结果 |
+| :-- | :-- | :-- |
+| `auto` | `auto` | 没有 EtherChannel 形成 |
+| `auto` | `desirable` | EtherChannel 形成 |
+| `desirable` | `auto` | EtherChannel 形成 |
+| `desirable` | `desirable` | EtherChannel 形成 |
 
-尽管 PAgP 允许以太网通道中的所有链路用于转发和接收用户流量，但应熟知一些关于在转发来自其它协议的流量时的限制。**DTP及 CDP 透过以太网通道中的所有物理接口发送和接收（协议）数据包。而 PAgP 仅在那些起来（`up`）并开启了`auto`或`desirable`模式的接口上发送并接收 PAgP 协议数据单元**（while PAgP allows for all links within the EtherChannel to be used to forward and receive user traffic, there are some restrictions that you should be familiar with regarding the forwarding of traffic from other protocols. DTP and CDP send and receive packets over all the physical interfaces in the EtherChannel. PAgP sends and receives PAgP Protocol Data Units only from interfaces that are up and have PAgP enabled for auto or desirable modes）。
+## PAgP 以太通道协议数据包转发
 
-在以太网通道捆绑（an EtherChannel bundle）被配置成一个中继端口时，该中继就在编号最低的 VLAN 上发送和接收 PAgP 数据帧。**生成树协议总是选择以太网通道捆绑中的第一个可运作端口**（when an EtherChannel bundle is configured as a trunk port, the trunk sends and receives PAgP frames on the lowest numbered VLAN. Spanning Tree Protocol(STP) always chooses the first operational port in an EtherChannel bundle）。命令`show pagp [channel number] neighbor`同样可用于验证将会用于 STP 数据包发送和接收的端口，确定出以太网通道捆绑中 STP 将使用的端口，如下面的输出所示。
+尽管 PAgP 允许 EtherChannel 中的所有链路用于转发和接收用户流量，但在转发来自一些其他协议的流量方面，有一些咱们应熟悉的限制。DTP 和 CDP 会透过 EtherChannel 下的全部物理接口发送及接收数据包。而 PAgP 则只会在那些已启动且将 PAgP 开启为 `auto` 或 `desirable` 模式的接口上，发送和接收 PAgP 的协议数据单元。
+
+当某条 EtherChannel 捆绑被配置为一个中继端口时，那么该中继链路就会在编号最低的那个 VLAN 上，发送及接收 PAgP 的数据帧。生成树协议 (STP) 总是选择某条 EtherChannel 捆绑中，第一个运行端口。`show pagp [channel number] neighbor` 命令也可用来验证，将被 STP 将用于发送和接收数据包的端口，确定出某条 EtherChannel 捆绑中，STP 将使用的端口，如下输出所示：
+
 
 ```console
 Switch-1#show pagp neighbor
 Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         P - Device learns on physical port.
+
 Channel group 1 neighbors
         Partner     Partner         Partner         Partner Group
 Port    Name        Device ID       Port    Age     Flags   Cap.
@@ -79,7 +65,7 @@ Fa0/2   Switch-2    0014.a9e5.d640  Fa0/2   1s      SC      10001
 Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   15s     SC      10001
 ```
 
-根据上面的输出， STP 将在端口`FastEthernet0/1`上发出其协议数据包，因为该端口是第一个可运作接口。而如那个端口失效， STP 将在`FastEthernet0/2`上发出其协议数据包。而由 PAgP 所使用的默认端口则可由`show EtherChannel summary`命令进行查看，如下面的输出所示。
+参考上面的输出，STP 将只把数据包，在 `FastEthernet0/1` 上发出，因为他是第一个运行的接口。当那个端口失效时，STP 就将在 `FastEthernet0/2` 处发出数据包。由 PAgP 使用的默认端口，可使用 `show EtherChannel summary` 命令查看，如下输出所示：
 
 ```console
 Switch-1#show EtherChannel summary
@@ -94,24 +80,26 @@ Flags:  D - down
         s - suspended
         S - Layer2
         f - failed to allocate aggregator
+
 Number of channel-groups in use: 1
 Number of aggregators: 1
+
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+--------------------------------
 1      Po1(SU)       PAgP        Fa0/1(Pd)  Fa0/2(P)    Fa0/3(P)
 ```
 
-当在以太网通道上配置诸如`Loop Guard`这样的附加 STP 特性时，非常重要的是记住就算该通道捆绑中的其它端口是可运作的，**在`Loop Guard`阻塞以太网通道捆绑的第一个端口时，就不会有 BPDUs 通过该通道得以发送了**。这是因为 PAgP 将强制令到作为以太网通道端口组中的所有端口在`Loop Guard`配置上一致（when configuring additional STP features such as Loop Guard on an EtherChannel, it is very important to remember that if Loop Guard blocks the first port, no BPDUs will be sent over the channel, even if other ports in the channel bundle are operational. This is because PAgP will enforce uniform Loop Guard configuration on all of the ports that are part of the EtherChannel group）。
+在某条 EtherChannel 上配置环路防护等额外 STP 特性时，重要的是记住，当环路防护阻塞了第一个端口时，那么即使这条通道捆绑中的其他端口正常工作，也不会有 BPDU 透过这条通道发送。这是因为 PAgP 将在属于这个 EtherChannel 组的所有端口上，强制执行统一的环路防护配置。
 
-> **真实场景应用**
 
-> **Real-World Implementation**
-
-> 在生产网络中，可能会用到思科虚拟交换系统（the Cisco Virtual Switching System, VSS），该系统是由两台物理Catalyst 6500系列交换机所构成的一台单一逻辑交换机。在 VSS 中，一台交换机被选为活动交换机（the active switch），同时另一交换机就被选为了备用交换机（the standby switch）。这两台交换机就是通过以太网通道连接在一起，从而允许它们之间控制数据包的发送和接收。
-
-> 接入交换机通过采用多机以太网通道（Multichassis EtherChannel, MEC）与 VSS 连接起来。而一个 MEC 就是一个对两台物理的Catalyst 6500交换机进行跨越而端接至一台逻辑虚拟交换机系统的以太网通道。增强的端口聚合协议（Enhanced PAgP, PAgP+）可用于允许Catalyst 6500交换机在其相互之间的以太网通道失效，导致两台交换机都假定其自身是活动角色（双活动）， 从而切实影响到交换网络中流量转发时，经由 MEC 进行通信（an MEC is simply an EtherChannel that spans the two physical Catalyst 6500 switches but terminates to the single logical VSS. Enhanced PAgP(PAgP+) can be used to allow the Catalyst 6500 switches to communicate via the MEC in the event that the EtherChannel between them fails, which would result in both switches assuming the active role(dual active), effectively affecting forwarding of traffic within the switched network）。这在下面的图表中进行了演示。
-
-![PAgP+](../images/3300.png)
+> **实际应用**
+>
+> 在生产网络中，咱们可能会遇到由两台物理 Catalyst 6500 系列交换机组成，以一台逻辑交换机运行的 Cisco 的虚拟交换系统 (VSS)。在 VSS 中，一台交换机会被选为活动交换机，而另一台会被选为备用交换机。这两台交换机就是经由 EtherChannel 连接在一起，EtherChannel 实现二者之间控制数据包的发送与接收。
+>
+> 接入交换机会使用多板卡 EtherChannel（MEC），连接到 VSS。MEC 就是一条跨越两台物理 Catalyst 6500 交换机，终止于是单个逻辑 VSS 的 EtherChannel。增强的 PAgP（PAgP+）可用于实现这两台 Catalyst 6500 交换机，在他们之间的 EtherChannel 失效时，通过 MEC
+> 增强 PAgP（PAgP+）可用于允许这两台 Catalyst 6500 交换机，在他们之间的 EtherChannel 失效，而将导致两台交换机同时承担主动角色（双主动），有效影响交换网络中流量转发的情形下，通过 MEC 进行通信。这在下图中得以演示。
+>
+> ![PAgP+](../images/3300.png)
 
 尽管 VSS 超出了 CCNA 考试要求范围，了解**只有 PAgP 才能用于承载 VSS 控制数据包**是有益处的。因此，如要在一个 VSS 环境，或者要在一个最终会部署上 VSS 的环境中部署一些以太网通道，就会打算考虑运行 PAgP 而不是 LACP ，因为 LACP 是一个开放标准，不支持专有的 VSS 数据帧。本书中不会更为深入地涉及 VSS 。
 
