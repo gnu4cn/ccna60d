@@ -1,32 +1,38 @@
-# 以太通道配置指南
+# EtherChannel 配置指南
 
-下一节列出并描述了配置第 2 层 PAgP 以太通道所需的步骤。不过，在深入了解这些配置步骤之前，请务必熟悉配置第 2 层 EtherChannels 时的以下注意事项：每个 EtherChannel 最多可以有八个兼容配置的以太网接口。LACP 允许您在一个 EtherChannel 组中拥有八个以上的端口。这些额外的端口是热备端口。EtherChannel 中的所有接口必须以相同的速度和双工模式运行。但请记住，与 PAgP 不同，LACP 不支持半双工端口。确保启用了 EtherChannel 中的所有接口。在某些情况下，如果接口未启用，逻辑端口通道接口将不会自动创建。首次配置 EtherChannel 组时，请务必记住端口要遵循为第一个添加的组端口设置的参数。如果为 EtherChannel 中的成员端口配置了交换机端口分析器 (SPAN)，则该端口将从 EtherChannel 组中移除。
+接下来的小节，列出并描述了配置二层 PAgP EtherChannel 所需的步骤。不过，在深入了解这些配置步骤前，重要的是咱们要熟悉在配置二层 EtherChannel 时的以下注意事项：
+
+- 每个 EtherChannel 最多可以有八个兼容兼容配置的以太网接口。LACP 允许咱们在一个 EtherChannel 组中有八个以上的端口。这些额外端口属于热备端口；
+- EtherChannel 中的所有接口，必须以同样速率及双工模式运行。但请记住，与 PAgP 不同，LACP 不支持半双工的端口；
+- 确保 EtherChannel 中的所有接口都被启动。在某些情况下，当接口未启用时，那么逻辑端口通道接口将不会被自动创建；
+- 首次配置某个 EtherChannel 组时，重要的是要记住端口要依照第一个添加的组端口所设置的参数；
+- 当交换机端口分析器 (SPAN) 在 EtherChannel 中某个成员端口上配置了时，那么该端口将从 EtherChannel 组中移除；
+- 将 EtherChannel 中的所有接口，都分配到同一 VLAN，或将他们配置为中继链路非常重要。若这些参数不同，那么通道将无法形成；
+- 请记住，有着不同 STP 路径开销（由管理员控制）的类似接口，仍可用于形成 EtherChannel。
+
+建议在开始通道配置前，关闭所有成员接口。
+
+## 配置与验证二层的 EtherChannel
+
+这一小节通过无条件地强制所选接口建立以太通道，介绍了二层 EtherChannel 的配置。
+
+1. 第一个配置步骤，是经由 `interface [name]` 或 `interface range [range]` 全局配置命令，进入想要的 EtherChannel 接口的接口配置模式；
+2. 第二个配置步骤，是经由 `switchport` 这个接口配置命令，将这些接口配置为二层的交换机端口；
+3. 第三步配置，是经由 `switchport mode [access|trunk]` 这个接口配置命令，将这些交换机端口配置为中继链路或接入链路；
+4. 作为可选项，当这个接口或这些接口，已被配置为接入端口时，那么就要使用 `switchport access vlan [number]` 命令，将他们分配到同一 VLAN。而当这个接口或这些接口，已被配置为中继端口时，则通过使用 `switchport trunk allowed vlan [range]` 这个接口配置命令，选择允许穿越该中继链路的 VLAN。若 `VLAN 1` 将不被用作原生 VLAN（对于 802.1Q），则要通过使用 `switchport trunk native vlan [number]` 这个接口配置命令输入本地 VLAN。在所有端口通道的成员接口上，这一配置必须一致；
+5. 下一配置步骤是要经由 `channel-group [number] mode on` 这个接口配置命令，将这些接口配置为无条件中继。
 
 
+通过使用上述步骤的无条件 EtherChannel 配置，将基于下图 11.5 中所示的网络拓扑结构。
 
-- 将以太网通道中的所有端口都指派到同一个 VLAN ，或将它们配置成中继端口，是必要的。而如果这些参数不同，该通道就不会形成。
-- 记住有着不同 STP 路径开销（由某位管理员所修改的）的那些类似接口，仍可用于组成一个以太网通道。
-- 在开始通道配置之前，建议首先关闭所有成员接口（it is recommended to shut down all member interfaces prior to beginning channelling configuration）。
-
-### 配置并验证二层以太网通道
-
-**Configuring and Verifying Layer 2 EtherChannels**
-
-该部分内容通过无条件地强制所选接口建立一个以太网通道，对二层以太网通道的配置进行了说明（this section describes the configuration of Layer 2 EtherChannels by unconditionally forcing the selected interfaces to establish an EtherChannel）。
-
-1. 第一个配置步骤是通过全局配置命令`interface [name]`或`interface range [range]`，进入那些所需要的以太网通道接口的接口配置模式；
-2. 配置的第二步是通过接口配置命令`switchport`，将这些接口配置为二层交换机接口；
-3. 第三个配置步骤是通过接口配置命令`switchport mode [access|trunk]`，将这些交换机端口配置为中继或接入链路；
-4. 作为可选步骤，如该接口或这些接口已被配置为接入端口，就要使用命令`switchport access vlan [number]`，将其指派到同样的 VLAN 中。而如该接口或这些接口已被配置为中继端口，就要通过执行接口配置命令`switchport trunk allowed vlan [range]`，选择允许通过该中继的那些 VLANs ；而如VLAN 1将不作为原生 VLAN （802.1Q的），就要通过执行接口配置命令`switchport trunk native vlan [number]`, 输入原生 VLAN 。此项配置在所有端口通道成员接口上必须一致。
-5. 下一配置步骤就是通过接口配置命令`channel-group [number] mode on`, 将这些接口配置为无条件中继(the next configuration step is to configure the interfaces to unconditionally trunk via the `channel-group [number] mode on` interface configration command)。
-
-用到上述步骤的无条件以太网通道配置，将基于下图33.5中所演示的网络拓扑。
 
 ![以太网通道配置输出示例的网络拓扑](../images/3305.png)
 
-*图 33.5 -- 以太网通道配置输出示例的网络拓扑*
+<a name="f-11.5"></a>
+**图 11.5** -- **用于 EtherChannel 配置输出示例的网络拓扑**
 
-下面的输出演示了如何在Switch 1及Switch 2上，基于图33.5中所描述的网络拓扑，配置无条件通道操作。该以太网通道将配置成一个使用默认参数的二层802.1Q中继。
+以下输出演示了基于图 11.5 中所示的网络拓扑，在 `Switch 1` 和 `Switch 2` 上如何配置无条件通道。这条 EtherChannel 将使用默认参数，被配置为一条二层的 802.1Q 中继链路。
+
 
 ```console
 Switch-1#conf t
@@ -42,7 +48,7 @@ Switch-1(config-if-range)#exit
 Switch-1(config)#exit
 ```
 
-> **注意：** 注意到该交换机自动默认创建出`interface port-channel 1`（根据下面的输出）。**没有要配置该接口的显式用户配置**（notice that the switch automatically creates `interface port-channel 1` by default(refer to the output below). No explicit user configurtion is required to configure this interface）。
+**注意**：请注意，默认情况下交换机会自动创建 `interface port-channel 1`（请参阅下面的输出）。配置这一接口无需显式的用户配置。
 
 ```console
 Switch-2#conf t
@@ -57,7 +63,7 @@ Switch-2(config-if-range)#exit
 Switch-2(config)#exit
 ```
 
-命令`show EtherChannel [options]`此时即可用于验证该以太网通道的配置。下面的输出中打印了可用选项（依据不同平台会有不同）。
+随后 `show EtherChannel [options]` 命令便可用于验证这条 EtherChannel 的配置。可用选项（这会因平台而异）打印在以下输出中：
 
 ```console
 Switch-2#show EtherChannel ?
@@ -72,7 +78,7 @@ Switch-2#show EtherChannel ?
     <cr>
 ```
 
-下面的输出对命令`show EtherChannel summary`进行了演示。
+以下输出演示了 `show EtherChannel summary` 这条命令：
 
 ```console
 Switch-2#show EtherChannel summary
@@ -87,19 +93,23 @@ Flags:  D - down
         s - suspended
         S - Layer2
         f - failed to allocate aggregator
+
 Number of channel-groups in use: 1
 Number of aggregators: 1
+
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+--------------------------------
 1      Po1(SU)          -        Fa0/1(Pd)  Fa0/2(P)    Fa0/3(P)
 ```
 
-在上面的输出中，可以看到在通道组 1 （Channel Group 1）中有三条链路。接口FastEthernet0/1是默认端口；**该端口将用于发送比如的 STP 数据包**。如果该端口失效，FastEthernet0/2就将被指定为默认端口，如此延续（this port will be used to send STP pakcets, for example. If this port fails, FastEthernet0/2 will be designated as the default port, and so forth）。同时通过看看`Po1`后面的`SU`标志，还可以看到该端口组是一个活动的二层以太网通道。下面的输出现实了由`show EtherChannel detail`命令所打印出的信息。
+在上面的输出中，咱们可以看到，通道组 1 中有三条链路。接口 `FastEthernet0/1` 是默认端口；例如，这个端口将被用于发送 STP 的数据包。当这个端口失效时，`FastEthernet0/2` 将被指定为默认端口，以此类推。通过查看 `Po1` 旁边的 `SU` 标志，咱们还可看出，这是条活动的二层 EtherChannel。以下输出显示了由 `show EtherChannel detail` 命令所打印的信息：
+
 
 ```console
 Switch-2#show EtherChannel detail
                 Channel-group listing:
                 ----------------------
+
 Group: 1
 ----------
 Group state = L2
@@ -108,51 +118,65 @@ Port-channels: 1 Max Port-channels = 1
 Protocol:    -
                 Ports in the group:
                 -------------------
+
 Port: Fa0/1
 ------------
+
 Port state      = Up Mstr In-Bndl
 Channel group   = 1           Mode  = On/FEC           Gcchange = -
 Port-channel    = Po1         GC    = -     Pseudo port-channel = Pol
 Port index      = 0           Load  = 0x00             Protocol = -
+
 Age of the port in the current state: 0d:00h:20m:20s
+
 Port: Fa0/2
 ------------
+
 Port state      = Up Mstr In-Bndl
 Channel group   = 1           Mode  = On/FEC           Gcchange = -
 Port-channel    = Po1         GC    = -     Pseudo port-channel = Pol
 Port index      = 0           Load  = 0x00             Protocol = -
+
 Age of the port in the current state: 0d:00h:21m:20s
+
 Port: Fa0/3
 ------------
+
 Port state      = Up Mstr In-Bndl
 Channel group   = 1           Mode  = On/FEC           Gcchange = -
 Port-channel    = Po1         GC    = -     Pseudo port-channel = Pol
 Port index      = 0           Load  = 0x00             Protocol = -
+
 Age of the port in the current state: 0d:00h:21m:20s
+
                 Port-channels in the group:
                 ---------------------------
+
 Port-channel: Po1
 ------------
+
 Age of the Port-channel     = 0d:00h:26m:23s
 Logical slot/port   = 1/0               Number of ports = 3
 GC                  = 0x00000000        HotStandBy port = null
 Port state          = Port-channel Ag-Inuse
 Protocol            = -
+
 Ports in the Port-channel:
+
 Index   Load   Port     EC state        No of bits
 ------+------+------+------------------+-----------
 0       00     Fa0/1    On/FEC          0
 0       00     Fa0/2    On/FEC          0
 0       00     Fa0/3    On/FEC          0
+
 Time since last port bundled:   0d:00h:21m:20s     Fa0/3
 ```
 
-在上面的输出中，可以看出这是一个带有通道组中最多 8 个可能端口中的三个的二层以太网通道。还可以看出，以太网通道模式是`on`, 这是基于由一条短横线所表示的协议字段看出的。此外，同样可以看出这是一个FastEtherChannel(FEC)（in the output above, you can see that this is a Layer 2 EtherChannel with three out of a maximum of eight possible ports in the channel group. You can also see that the EtherChannel mode is on, based on the protocol being denoted by a hash(-). In addition, you can also see that this is a FastEtherChannel(FEC)）。
+在上面的输出中，咱们可以看到，这是条通道组中最多可能的 8 个中 3 个端口的二层 EtherChannel。根据由破折号 (`-`) 所表示的协议，咱们还可以看出其中 EtherChannel 模式为 `on`。此外，咱们还可以看到，这是一条 FastEtherChannel (FEC)。
 
-最后，还可以通过执行命令`show interface port-channel [number] switchport`，对该逻辑的port-channel接口的二层运行状态进行检查。这在下面的输出中进行了演示。
-在上面的输出中，可以看到这是一个带有通道组中最多 8 个中的 3 个端口的二层以太网通道。还可以从由短横所表示的协议，看出以太网通道模式是`on`。此外，还可以看到这是一个FastEtherChannel(FEC)。
 
-最后，还可通过执行命令`show interfaces port-channel [number] switchport`, 对该逻辑的端口通道接口（the logical port-channel interface）的二层运作状态进行查看。这在下面的输出中有所演示。
+最后，咱们还可通过执行 `show interfaces port-channel [number] switchport` 命令，验证其中逻辑端口通道接口的二层运行状态。这在以下输出中得已演示：
+
 
 ```console
 Switch-2#show interfaces port-channel 1 switchport
@@ -179,20 +203,40 @@ Protected: false
 Appliance trust: none
 ```
 
-### 配置并验证 PAgP 以太网通道
 
-**Configuring and Verifying PAgP EtherChannels**
+> *知识点*：
+>
+> - the configuration of Layer 2 EtherChannels by unconditionally forcing the selected interfaces to establish an EtherChannel
+>
+> - unconditional channeling
+>
+> - a Layer 2 802.1Q trunk
+>
+> - the default port
+>
+> - an active Layer 2 EtherChannel
+>
+> - a Layer 2 EtherChannel
+>
+> - a FastEtherChannel, FEC
+>
+> - the logical port-channel interface
 
-此部分对 PAgP 二层以太网通道的配置进行了说明。为配置并建立一个 PAgP 以太网通道，需要执行以下步骤。
 
-1. 第一个配置步骤是通过全局配置命令`interface [name]`或`interface range [range]`，进入到所需的这些以太网接口的接口配置模式；
-2. 配置的第二步，是通过接口配置命令`switchport`, 将这些接口配置为二层交换端口；
-3. 第三个配置步骤，是通过接口配置命令`switchport mode [access|trunk]`，将这些交换端口，配置为中继或接入链路；
-4. 作为可选步骤，如果已将这些端口配置为接入端口，那么就要使用命令`switchport access vlan [number]`, 将其指派到同一个 VLAN 中；而如果这些接口已被配置为中继端口，那么就要通过执行接口配置命令`switchport trunk allowed vlan [range]`，来选择所允许通过该中继的那些 VLANs ；如未打算将VLAN 1用作原生 VLAN （对于802.1Q），就要通过执行接口配置命令`switchport trunk native vlan [number]`，输入原生 VLAN 。此项配置在所有端口通道的成员接口上一致。
-5. 作为可选项，通过执行接口配置命令`channel-protocol pagp`，将 PAgP 配置作为以太网通道协议（the EtherChannel protocol）。因为以太网通道默认是 PAgP 的，所以此命令被认为是可选的而无需输入。但执行该命令被看作是良好实践，因为可以令到配置绝对确定（it is considered good practice to issue this command just to be absolutely sure of your configuration）。
-6. 下一步就是通过接口配置命令`channel-group [number] mode`，将这些接口配置为无条件中继。
 
-下面的输出演示了如何在基于上面的图33.5中所给出的网络拓扑的Switch 1和Switch 2上，配置 PAgP 的通道（PAgP channelling）。该以太网通道将被配置为使用默认参数的二层802.1Q中继。
+## 配置并验证 PAgP 的 EtherChannel
+
+这一小节介绍 PAgP 的二层以太通道配置。为了配置和建立一条 PAgP 的 EtherChannel，以下步骤需要被执行：
+
+1. 第一个配置步骤，是经由 `interface [name]` 或 `interface range [range]` 的全局配置命令，进入想要的 EtherChannel 接口的接口配置模式；
+2. 第二个配置步骤，是经由 `switchport` 这个接口配置命令，将这些接口配置为二层的交换机端口；
+3. 第三个配置步骤，是经由 `switchport mode [accessltrunk]` 这个接口配置命令，将这些交换机端口配置为中继或接入链路；
+4. 作为可选项，当该接口或这些接口，已被配置为接入端口时，就要使用 `switchport access vlan [number]` 命令，将他们分配到统一 VLAN。当该接口或这些接口已被配置为中继端口时，就要通过使用 `switchport trunk allowed vlan [range]` 这个接口配置命令，选取允许穿越该中继的 VLAN。当 `VLAN 1` 将不被用作原生 VLAN（对于 802.1Q）时，则要使用 `switchport trunk native vlan [number]` 这个配置命令输入原生 VLAN。在所有端口通道的成员接口上，这一配置必须一样；
+5. 作为可选项，要通过执行 `channel-protocol pagp` 这条接口配置命令，配置 PAgP 为 EtherChannel 的协议。由于 EtherChannel 默认为 PAgP，因此这条命令被认为是可选的，而不是必需的。执行这一命令只是为了绝对确定咱们的配置，是一种良好做法。
+6. 下一配置步骤，是经由 `channel-group [number] mode` 这条接口配置命令，将这些接口配置为无条件中继。
+
+以下输出演示了如何根据上述 [图 11.5](#f-11.5) 中描述的网络拓扑，在 `Switch 1` 和 `Switch 2` 上配置 PAgP 通道。这条 EtherChannel 将使用默认参数，配置为一条二层的 802.1Q 中继链路。
+
 
 ```console
 Switch-1#conf t
@@ -206,9 +250,10 @@ Creating a port-channel interface Port-channel 1
 Switch-1(config-if-range)#exit
 ```
 
-> **注意：** 在上面的输出中，选择了端口通道的`desirable`模式。可以在此命令（`channel-group 1 mode desirable`）之后加上一个额外关键字`[non-silent]`。这是因为，默认情况下， PAgP 的`auto`模式默认是安静模式。当交换机被连接到一台不兼容 PAgP 的设备时，就用到安静模式，且绝不会传送数据包(an additional keyword, `[non-silent]`, may also be appended to the end of this command. This is because, by default, PAgP auto and desirable modes default to a silent mode. The silent mode is used when the switch is connected to a device that is not PAgP-capable and that seldom, if ever transmits packets)。一台安静相邻设备的例子（an example of a silent partner），就是一台文件服务器或未有生成流量的数据包分析器。而如果一台设备不会发出 PAgP 数据包（比如处于`auto`模式），也用到安静模式。
+**注意**： 在上述输出中，端口通道的 `desirable` 模式已被选取。一个额外关键字 `[non-silent]` 可被追加到这条命令末尾。这是因为默认情况下， PAgP的 `auto` 模式和 `desirable` 模式均默认为静默模式。当交换机连接到一台不具备 PAgP 能力，且很少，若有的话，传输数据包的设备时，静默模式就会被用到。静默方的一个示例，便是不产生流量的文件服务器，或数据包分析仪。当某个设备不会发送 PAP 数据包（如在 `auto` 模式下）时，静默模式也会被用到。
 
-在此示例中，在一个连接到一台安静相邻设备的物理端口上运行 PAgP 阻止了那个交换机端口成为运作端口；但是，该安静设置允许 PAgP 运行，从而将该接口加入到一个通道组，同时利用该接口进行传输。在本例中，因为Switch 2将被配置为`auto`模式（被动模式）, 该端口采用默认的安静模式运作，就是首先的了（In this case, running PAgP on a physical port connected to a silent partner prevents that switch port from ever becoming operational; however, the silent setting allows PAgP to operate, to attatch the interface to a channel group, and to use the interface for transmission. In this example, because Switch 2 will be configured for auto mode(passive mode), it is preferred that the port uses the default silent mode operation）。这在下面的 PAgP 以太网通道配置中进行了演示。
+在这种情况下，在某个连接到静默方的物理端口上运行 PAgP，便会该阻止交换机端口投入运行；但是，这种静默设置，会允许 PAgP 运行，以将该接口纳入某个通道组，并将该接口用于传输。在这个示例中，由于 `Switch 2` 将配置为 `auto` 模式（`passive` 模式），因此端口最好使用默认的静默模式运行。这在下面的 PAgP EtherChannel 配置输出中得以演示。
+
 
 ```console
 Switch-1#conf t
@@ -225,7 +270,8 @@ Creating a port-channel interface Port-channel 1
 Switch-1(config-if-range)#exit
 ```
 
-继续进行 PAgP 以太网通道的配置，则Switch 2被配置为以下这样。
+继续 PAgP EtherChannel 的配置，`Switch 2` 被配置为如下：
+
 
 ```console
 Switch-2#conf t
@@ -239,7 +285,8 @@ Creating a port-channel interface Port-channel 1
 Switch-2(config-if-range)#exit
 ```
 
-以下输出演示了怎样通过在Switch 1及Switch 2上使用命令`show EtherChannel summary`，验证该 PAgP 以太网通道的配置。
+以下输出演示了如何在 `Switch 1` 和 `Switch 2` 上，使用 `show EtherChannel summary` 命令验证 PAgP 的 EtherChannel 配置：
+
 
 ```console
 Switch-1#show EtherChannel summary
@@ -252,15 +299,19 @@ Flags:  D - down
         d - default port
         P - in port-channel
         s - suspended
-        S - Layer2f - failed to allocate aggregator
+        S - Layer2
+        f - failed to allocate aggregator
+
 Number of channel-groups in use:    1
 Number of aggregators:              1
+
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+--------------------------------
 1      Po1(SU)         PAgP      Fa0/1(Pd)  Fa0/2(P)    Fa0/3(P)
 ```
 
-还可以通过执行命令`show pagp [options]`, 查看到 PAgP 以太网通道的配置及统计数据。下面的输出，演示了此命令下可用的选项。
+
+PAgP 的 EtherChannel 配置及统计信息，也可通过执行 `show pagp [options]` 命令查看。这条命令下的可用选项如下输出中所示：
 
 ```console
 Switch-1#show pagp ?
@@ -270,7 +321,7 @@ Switch-1#show pagp ?
   neighbor  Neighbor information
 ```
 
-> **注意：** 对需要的端口通道编号的进入，提供上面所打印出的后三个选项。这在下面的输出中进行了演示。
+**注意**： 输入想要的端口通道编号，就会提供与上面打印出的最后三个选项相同的选项。这在以下输出中得以演示：
 
 ```console
 Switch-1#show pagp 1 ?
@@ -279,7 +330,7 @@ Switch-1#show pagp 1 ?
   neighbor  Neighbor information
 ```
 
-关键字`[counters]`提供了有关 PAgP 发出及接收到的数据包的信息。关键字`[internal]`提供了诸如端口状态、 Hello 间隔时间、 PAgP 端口优先级以及端口学习方式等的信息。下面的输出对命令`show pagp internal`的使用进行了演示。
+其中 `[counters]` 关键字提供了有关 PAgP 发送及接收的数据包的信息。`[internal]` 关键字提供了诸如端口状态、`Hello` 间隔、PAgP 端口优先级，以及端口学习方法等的信息。使用 `show pagp internal` 命令，在以下输出中得以演示：
 
 ```console
 Switch-1#show pagp 1 internal
@@ -287,6 +338,7 @@ Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         d - PAgP is down.
 Timers: H - Hello timer is running.         Q - Quit timer is running.
         S - Switching timer is running.     I - Interface timer is running.
+
 Channel group 1
                                 Hello       Partner PAgP     Learning   Group
 Port    Flags   State   Timers  Interval    Count   Priority Method     Ifindex
@@ -295,12 +347,13 @@ Fa0/2   SC      U6/S7   H       30s         1       128      Any        29
 Fa0/3   SC      U6/S7   H       30s         1       128      Any        29
 ```
 
-关键字`[neighbor]`打印出邻居名称、 PAgP 邻居的 ID 、邻居设备 ID （ MAC ）以及邻居端口。同时在比如邻居是一台物理学习设备时（a physical learner）,这些标志同样表明了邻居运行的模式。下面的输出对命令`show pagp neighbor`的使用，进行了演示。
+而 `[neighbor]` 关键字会打印出邻居名字、PAP 邻居的 ID、邻居的设备 ID（MAC），以及邻居的端口等。其中的一些标记，还会表明邻居正运行的模式，以及邻居是否是一个物理的学习者等。使用 `show pagp neighbor` 命令，这在以下输出中得以演示：
 
 ```console
 Switch-1#show pagp 1 neighbor
 Flags:  S - Device is sending Slow hello.   C - Device is in Consistent state.
         A - Device is in Auto mode.         P - Device learns on physical port.
+
 Channel group 1 neighbors
         Partner     Partner         Partner     Partner Group
 Port    Name        Device ID       Port    Age Flags   Cap.
@@ -308,6 +361,46 @@ Fa0/1   Switch-2    0014.a9e5.d640  Fa0/1   19s SAC     10001
 Fa0/2   Switch-2    0014.a9e5.d640  Fa0/2   24s SAC     10001
 Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   18s SAC     10001
 ```
+
+> *知识点*：
+>
+> - the configuration of PAgP Layer 2 EtherChannels
+>
+> - a PAgP EtherChannel
+>
+> - Interface Configuration mode
+>
+> - the EtherChannel protocol
+>
+> - PAgP channeling
+>
+> - the `silent` mode
+>
+> - a silent partner
+>
+> - the default silent mode operation
+>
+> - `Hello` interval
+>
+> - PAgP port priority
+>
+> - the port learning method
+>
+> - the neighbor name
+>
+> - ID of the PAgP neighbor
+>
+> - the neighbor device ID
+>
+> - the neighbor port
+>
+> - a physical learner
+
+
+
+## 配置并验证 LACP 的 EtherChannel
+
+本节介绍 LACP 第 2 层以太通道的配置。配置和建立 LACP EtherChannel 需要执行以下步骤：1.第一个配置步骤是通过接口 [name] 或接口范围 [range] 全局配置命令进入所需的 EtherChannel 接口的接口配置模式。2.第二个配置步骤是通过 switchport interface 配置命令将接口配置为二层交换机端口。3.第三个配置步骤是通过 switchport mode [accessltrunk] interface 配置命令将交换机端口配置为 trunk 或接入链路。
 
 ### 配置并验证 LACP 以太网通道
 
@@ -318,7 +411,7 @@ Fa0/3   Switch-2    0014.a9e5.d640  Fa0/3   18s SAC     10001
 1. 第一个配置步骤是通过全局配置命令`interface [name]`或`interface range [range]`, 进入到所需要的以太网通道接口的接口配置模式；
 2. 第二个配置步骤时通过接口配置命令`switchport`，将这些接口配置为二层交换端口；
 3. 第三个配置步骤，时通过接口配置命令`switchport mode [access|trunk]`，将这些交换端口配置为中继或接入链路；
-4. 作为可选步骤，如该接口或这些接口已被配置为接入端口，就要使用命令`switchport access vlan [number]`将其指派到同样的 VLAN 中。而如该接口或这些接口已被配置为中继端口，就要通过执行接口配置命令`switchport trunk allowed vlan [range]`, 选择允许通过该中继的VLANs; 而如将不使用VLAN 1作为原生 VLAN （802.1Q的），就要通过执行接口配置命令`switchport trunk native vlan [number]`，输入该原生 VLAN 。此项配置在所有的端口通道成员接口上一致；
+4. 作为可选项，如该接口或这些接口已被配置为接入端口，就要使用命令`switchport access vlan [number]`将其指派到同样的 VLAN 中。而如该接口或这些接口已被配置为中继端口，就要通过执行接口配置命令`switchport trunk allowed vlan [range]`, 选择允许通过该中继的VLANs; 而如将不使用VLAN 1作为原生 VLAN （802.1Q的），就要通过执行接口配置命令`switchport trunk native vlan [number]`，输入该原生 VLAN 。此项配置在所有的端口通道成员接口上一致；
 5. 通过执行接口配置命令`channel-protocol lacp`, 将 LACP 配置作为以太网通道协议。因为以太网通道协议默认时 PAgP ，该命令被认为时 LACP 所强制的，同时也是所要求输入的（because EtherChannels default to PAgP, this command is considered mandatory for LACP and is required）；
 6. 下一配置步骤时通过接口配置命令`channel-group [number] mode`，将这些接口配置为无条件中继（the next configuration step is to configure the interfaces to unconditionally trunk via the `channel-group [number] mode` interface configuration command）。
 

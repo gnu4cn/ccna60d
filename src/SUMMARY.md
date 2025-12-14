@@ -102,6 +102,7 @@
     - [端口聚合控制协议概述](d11/pagp.md)
     - [链路聚合控制协议概述](d11/lacp.md)
     - [EtherChannel 负载分配方式](d11/load-distribution.md)
+    - [EtherChannel 配置指南](d11/conf_guidelines.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
