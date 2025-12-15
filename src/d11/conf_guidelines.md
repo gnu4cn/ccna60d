@@ -679,6 +679,26 @@ Switch-1#show lacp sys-id
 1    ,000d.bd06.4100
 ```
 
+> *知识点*：
+>
+> - an LACP EtherChannel
+>
+> - an LACP Layer 2 EtherChannel
+>
+> - the EtherChannel protocol
+>
+> - By default, LACP allows up to 16 ports to be entered into a port channel group
+>
+> - the hot-standy state
+>
+> - the port state, administrative key, LACP port priority, and the port number
+>
+> - the neighbor name, ID of the LACP neighbor, the neighbor device ID(MAC), and the neighbor port
+>
+> - a physical learner
+>
+> - the system ID of the local switch, a combination of the switch MAC and LACP priority
+
 
 请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 处今天的考试。
 

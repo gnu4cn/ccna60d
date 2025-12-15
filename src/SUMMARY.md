@@ -110,6 +110,7 @@
 
 + [第 13 天 一层与二层故障排除](d13_troubleshooting_layer_1_and_2.md)
     - [物理层处的故障排除](d13/physical_layer.md)
+    - [使用 CLI 排除链路故障](d13/cli.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
