@@ -105,7 +105,11 @@
     - [EtherChannel 配置指南](d11/conf_guidelines.md)
     - [第 11 天问题](d11/questions.md)
     - [第 11 天实验](d11/labs.md)
+
 - [第 12 天 复习日](d12-review.md)
+
++ [第 13 天 一层与二层故障排除](d13_troubleshooting_layer_1_and_2.md)
+    - [物理层处的故障排除](d13/physical_layer.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
