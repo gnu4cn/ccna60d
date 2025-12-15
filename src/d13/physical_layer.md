@@ -12,7 +12,7 @@
 
 经由Google"Catalyst 2960 Switch Hardware Installation Guide"，来查看Catalyst 2960型号交换机的思科文档。该安装和配置手册包含了几百页的注记、建议和技术信息。通读一下该文档是值得的，但不要期望从该文档得到 CCNA 考试大纲的内容（ CCNA 考试大纲内容在这本书才有）。
 
-![思科 2960 交换机 LEDs ，图片版权归思科系统公司](images/1501.png)
+![思科 2960 交换机 LEDs ，图片版权归思科系统公司](../images/1501.png)
 
 | 编号 | 作用 | 编号 | 作用 |
 | :-- | :-- | :-- | :-- |
@@ -145,7 +145,7 @@ PoE LED只有在Catalyst 2960交换机型号上才能找到。
 
 光纤连接可在很长距离上运作，同时这些特定端口通常都是模块化的，需要一个兼容的 SFP （小型可插入发送和接收器），如图15.2中给出的那样。
 
-![SFP模块](images/1502.png)
+![SFP模块](../images/1502.png)
 
 *图15.2 -- SFP模块*
 
@@ -738,7 +738,7 @@ Fa0/12                0                  1                        0
 
 字段`Number of config revision errors`显示了交换机因其接收到带有相同配置修订号，却有着不同 MD5 散列值的数据包，而无法接受的通告数目。在同一 VTP 域中有两台以上的服务器交换机上的 VTP 信息同时发生变动，且*中间交换机*(an intermediate switch)于同一时间接收到来自这些服务器的通告时，这是常见会发生的。此概念在下图15.3中进行了演示，该图演示了一个基本的交换网络。
 
-![配置修订号错误的排错](images/1503.png)
+![配置修订号错误的排错](../images/1503.png)
 
 *图15.3 -- 配置修订号错误的排错*
 
@@ -752,7 +752,7 @@ Fa0/12                0                  1                        0
 
 最后，字段`VTP pruning statistics`将只在 VTP 域的 VLAN 修剪开启时，才会包含非零值。**修剪是在服务器上开启的，同时该配置在该 VTP 域中得以传播。**在某 VTP 域的修剪开启时，服务器将接收来自客户端的 Join 报文（the VTP Join messages）（pruning is enabled on servers and this configuration is propagated throughtout the VTP domain. Servers will receive joins from clients when pruning has been enabled for the VTP domain, [VTP pruning, InformIT](pdfs/VTP-Pruning_InformIT.pdf)）。
 
-![VTP Join报文及 VTP 修剪](images/03fig15.gif)
+![VTP Join报文及 VTP 修剪](../images/03fig15.gif)
 
 *VTP Join报文及 VTP 修剪*
 
