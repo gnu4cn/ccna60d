@@ -112,6 +112,7 @@
     - [物理层处的故障排除](d13/physical_layer.md)
     - [使用 CLI 排除链路故障](d13/cli.md)
     - [端口配置的故障排除](d13/port_conf.md)
+    - [VLAN 与中继的故障排除](d13/vlan_and_trunking.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
