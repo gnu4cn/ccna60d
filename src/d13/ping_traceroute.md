@@ -2,19 +2,6 @@
 
 IOS 中使用频率最高的工具莫过于 ping 和 traceroute 命令。每个网络管理员和工程师都使用过这些命令，但令人惊讶的是，很少有人知道它们的所有功能。本节将深入探讨 ping 和 traceroute 命令，这不仅是为了让你在考试中取得好成绩，更重要的是，让你可以利用这些信息来支持你所负责的网络。
 
-最后，字段`VTP pruning statistics`将只在 VTP 域的 VLAN 修剪开启时，才会包含非零值。**修剪是在服务器上开启的，同时该配置在该 VTP 域中得以传播。**在某 VTP 域的修剪开启时，服务器将接收来自客户端的 Join 报文（the VTP Join messages）（pruning is enabled on servers and this configuration is propagated throughtout the VTP domain. Servers will receive joins from clients when pruning has been enabled for the VTP domain, [VTP pruning, InformIT](pdfs/VTP-Pruning_InformIT.pdf)）。
-
-![VTP Join报文及 VTP 修剪](../images/03fig15.gif)
-
-*VTP Join报文及 VTP 修剪*
-
->
-> - RSPAN VLANs
->
-> - Private VLAN, PVLAN
->
-> -
-
 
 ## 第 15 天问题
 

@@ -571,6 +571,18 @@ Fa0/12                0                  1                        0
 
 最后，`VTP pruning statistics` 这个字段，只有在该 VTP 域的修剪被启用时，才会包含非零的值。修剪会于服务器上启用，同时这一配置会传播到整个 VTP 域。当 VTP 域的修剪已被启用时，服务器将收到自客户端的连接。
 
+
+> **译注**：
+>
+> - [VTP pruning, InformIT](../pdfs/VTP-Pruning_InformIT.pdf)
+>
+>
+> ![VTP Join报文及 VTP 修剪](../images/03fig15.gif)
+>
+> *VTP 的 `Join` 报文与 VTP 修剪*
+
+
+
 > *知识点*：
 >
 > - RSPAN VLANs
