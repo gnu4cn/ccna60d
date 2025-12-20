@@ -116,6 +116,8 @@
     - [`ping`、`traceroute` 及其扩展选项](d13/ping_traceroute.md)
     - [终端监视器](d13/terminal_monitor.md)
     - [事件日志记录](d13/logging.md)
+    - [第 13 天问题](d13/questions.md)
+    - [第 13 天实验](d13/labs.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)

@@ -31,7 +31,7 @@ Router1#
 26w3d: AAA/ACCT/EVENT/(003D3E51): COMMAND
 ```
 
-这些数据将继续，快速填满屏幕。当咱们想要关闭他时，咱们要输入以下命令：
+这些数据将继续，而快速填满屏幕。当咱们想要关闭他时，咱们要输入以下命令：
 
 ```console
 Router1#terminal no monitor
