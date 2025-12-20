@@ -114,6 +114,7 @@
     - [端口配置的故障排除](d13/port_conf.md)
     - [VLAN 与中继的故障排除](d13/vlan_and_trunking.md)
     - [`ping`、`traceroute` 及其扩展选项](d13/ping_traceroute.md)
+    - [终端监视器](d13/terminal_monitor.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
