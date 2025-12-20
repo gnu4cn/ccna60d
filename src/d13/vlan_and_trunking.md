@@ -40,6 +40,54 @@ Cisco 10S 软件中的多个计数器，均可用于识别某种潜在的不良 
 
 最后，与任何别的技术一样，不正确的配置同样会直接或间接地导致连通性问题。例如，根网桥不佳布置，就会导致用户的慢速连接。直接集成或添加一台将配置不当的交换机到生产网络中，就会导致部分或全部用户的网络完全中断。以下几个小节介绍了一些常见的 VLAN 相关问题、其可能原因，以及可以采取的补救措施。
 
+> *知识点*：
+>
+> - intra-VLAN connectivity issues
+>
+> - some other troubleshooting aspects
+>
+> - some common approaches to identifying and troubleshooting intra-VLAN connectivity issues
+>
+> - very slow network performance and connectivity
+>
+> - a valid practice
+>
+> - inter-switch links
+>
+> - NIC or cabling issues
+>
+> - network congestion
+>
+> - a common cause of network congetstion
+>
+> - aggregate bandwidth requirements for backbone connections
+>
+> - adding additional ports to existing EtherChannels
+>
+> - the switch fabric
+>
+> - oversubsribed platforms
+>
+> - the aggregate capacity of all ports
+>
+> - the switched LAN
+>
+> - physical indicators
+>
+> - Technical Assistance Center, TAC
+>
+> - faulty hardware
+>
+> - resources are oversubsribed
+>
+> - severe performance issues
+>
+> - high CPU utilization
+>
+> - slow connectivity
+>
+> - the actions that can be taken to remedy some common VLAN-related issues
+
 ## 动态 VLAN 通告故障排除
 
 Cisco Catalyst 交换机使用 VLAN 中继协议 (VTP)， 在整个交换域中动态传播 VLAN 信息。VTP 属于一种 Cisco 专有的，管理同一 VTP 域内交换机 VLAN 的添加、删除及重命名等的二层消息协议。
@@ -173,6 +221,65 @@ MD5 Digest                      : 0x26 0x99 0xB7 0x93 0xBE 0xDA 0x76 0x9C
 
 因此，当咱们想要明白为何咱们集成到 VTP 域的交换机，未在接收到任何 VLAN 信息时，那么其可能是这同一台交换机，有着较高的配置修订号，而导致所有别的交换机都要覆写他们本地的 VLAN 信息，而以接收自这台新交换机通告报文中的信息替换。要避免此类情形，就始终要确保在将某台新交换机集成到域前，其配置修订编号要被设置为 0。这可通过修改 VTP 模式，或修改该交换机上的 VTP 域名字完成。配置修订编号包含在 `show vtp status` 命令的输出中。
 
+> *知识点*：
+>
+> - propagate VLAN information dynamically throughtout the swithed domain
+>
+> - a Cisco proprietary Layer 2 messaging protocol
+>
+> - the addition, deletion, and renaming of VLANs for switches in the same VTP domain
+>
+> - configuration revision number
+>
+> - a Cisco proprietary trunking mechanism
+>
+> - provisioning trunking between switches
+>
+> - the trunking encapsulation protocol
+>
+> - basic port operational and administrative status
+>
+> - the number of frames transmitted and received on trunk ports
+>
+> - the trunking encapsulation protocol and mode
+>
+> - the VTP domain
+>
+> - VLAN propagation
+>
+> - the upstream switch
+>
+> - a port VLAN ID(PVID) inconsistent state
+>
+> - VTP configuration parameters
+>
+> - the VTP domain name
+>
+> - the VTP mode
+>
+> - the VTP password
+>
+> - the same version of VTP
+>
+> - VTP propagation
+>
+> - VTP transparent mode
+>
+> - VTP relay
+>
+> - the MD5 hash used for authentication purposes
+>
+> - the configuration revision number can wreak havoc when using VTP
+>
+> - to keep track of the most recent information in the VTP domain
+>
+> - a VTP advertisement
+>
+> - an advertisement message
+>
+> - stored VLAN information
+
+
 ## VLAN 内端到端连通性丢失故障排除
 
 有数种可能的 VLAN 内端到端连通性丢失原因。最常见的原因包括以下这些：
@@ -269,6 +376,39 @@ Appliance trust: none
 ```
 
 如前一小节所述，集成一台新交换机到网络，会导致该管理域中的 VLAN 信息丢失。而这种 VLAN 信息的丢失，又会导致该同一 VLAN 内的设备之间连通性的丢失。要确保在集成某台新交换机到局域网前，重置配置修订编号。
+
+
+> *知识点*：
+>
+> - end-to-end connectivity
+>
+> - VTP pruning
+>
+> - VLAN trunk filtering
+>
+> - the VLAN database of the local switch
+>
+> - VTP pruning increased the efficiency of trunks by eliminating unnecessary Broadcast, Multicast, and unknow traffic from being flooded across the network
+>
+> - a desirable feature to implement
+>
+> - client/server environments
+>
+> - transparent mode switches
+>
+> - globally disable pruning for the entire domain
+>
+> - the applicable interfaces
+>
+> - by default, all VLANs are allowed to traverse all trunk links
+>
+> - pruned and restricted VLANs on trunk links
+>
+> - the trunk status
+>
+> - an 802.1Q trunk link
+>
+> - the configuration revision number
 
 ## 使用 `show vlan` 命令
 
@@ -367,11 +507,12 @@ Primary Secondary Type              Ports
 ------- --------- ----------------- --------------------------------
 ```
 
-同样，VLAN 的名字，以及属于该 VLAN 的所有接入端口，均会包含在输出中。中继端口不会包括在此输出中，因为他们属于全体 VLAN。其他信息还包括 VLAN 的 MTU、RSPAN 配置（在适用时），以及 PVLAN 的配置参数（在适用时）等。
+同样，VLAN 名字会包含在输出中，以及属于这个 VLAN 的所有接入端口。中继端口不会包括在此输出中，因为他们属于全部 VLAN。一些额外信息还包括了 VLAN 的 MTU、RSPAN 配置（当适用时）及 PVLAN 配置参数（当适用时）。
+
 
 `name` 字段允许指定 VLAN 名字而不是 ID。这一命令会打印与 `show vlan id <number>` 命令同样的信息。`ifindex` 字段会显示该 VLAN 的 SNMP `IfIndex`（在适用时），而 `private-vlan` 和 `remote-span` 字段，则会分别打印 PVLAN 与 RSPAN 的配置信息。最后，`summary` 字段会打印该管理域中活动 VLAN 的数量摘要。这会包括标准 VLAN 及扩展的 VLAN。
 
-无论是否带参数，`show vlan` 命令在故障排除过程的以下方面，都是最有用的命令：
+无论是否带参数，`show vlan` 命令在故障排除过程的以下方面，都属于最有用的命令：
 
 - 找出那些配置在设备上的 VLAN
 - 检查端口的成员身份
@@ -411,80 +552,65 @@ Fa0/12                0                  1                        0
 
 在某项 VLAN 配置改变时，比如某个 VLAN 被添加、暂停、更改、删除，或其他特定于 VLAN 参数（如 VLAN MTU）等已改变时，VTP 的子集通告便会由 VTP 服务器发出。在 VTP 摘要通告之后，一个或多个子集通告将被发送。子集通告会包含一个 VLAN 信息列表。当有数个 VLAN 时，那么为了通告全部这些 VLAN，就可能需要一个以上的子集通告。
 
-`Number of config revision errors` 字段显示了由于交换机接收到带有同一配置修订编号，但 MD5 哈希值不同的数据包，而其无法接受的通告数量。这种情况常见于在对同一域中的两个或多个服务器交换机作出了一些变更，且某台中间交换机在同一时刻接收到这些通告时。这一概念在下图 13.3 中得以演示，该图演示了一个基本的交换网络。
+`Number of config revision errors` 字段显示了由于交换机接收到带有同一配置修订编号，但 MD5 哈希值不同的数据包，而其无法接受的通告数量。这种情况常见于在对同一域中的两个或多个服务器交换机作出了一些变更，而某台中间交换机在同一时刻接收到这些通告时。这一概念在下图 13.3 中得以演示，该图演示了一个基本的交换网络。
 
 
 ![配置修订号错误的排错](../images/1503.png)
 
 **图 13.3** -- **配置版本编号错误的故障排除**
 
-图 13.3 展示了一个包含冗余和负载分担的基本网络。假定 Sw1 和 Sw2 配置为服务器，而 Sw3 配置为客户端。Sw1 是 VLAN 10 和 30 的根，而 Sw2 是 VLAN 20 和 40 的根。假设在 Sw1 和 Sw2 上同时进行更改，在 Sw1 上添加 VLAN 50，在 Sw2 上添加 VLAN 60。两台交换机都会在向数据库发送更改后的广告。
+图 13.3 演示了个包含冗余及负载分担的基本网络。应假设 `Sw1` 和 `Sw2` 被配置为了服务器，而 `Sw3` 被配置为客户端。`Sw1` 是 `VLAN 10` 及 `VLAN 30` 的根桥，而 `Sw2` 是 `VLAN 20` 和 `VLAN 40` 的根桥。假设一项同时变更在 `Sw1` 和 `Sw2` 上实施，即将 `VLAN 50` 添加到 `Sw1`，将 `VLAN 60` 添加到 `Sw2`。那么这两台交换机在这种对数据库的变更后，均会发出一条通告。
+
+这项变更会被传播到整个域，覆写接收到该信息的其他交换机的先前数据库。假设 `Sw5` 于同一时刻，从两个邻居处接收到同一信息，并且两条通告包含着同一配置修订编号。在此类情形下，该交换机就将无法接受任一通告，因为他们有着同一配置修订编号，但 MD5 哈希值却不同。
+
+当这种情况出现时，交换机便会递增 `Number of config revision errors counter` 字段，且不会更新其数据库。这种情况会导致一或多个 VLAN 内连通性的丢失，因为 VLAN 信息未在该交换机上更新。要解决这个问题并确保交换机上的本地数据库得以更新，就要在服务器交换机之一上，配置一个空壳 VLAN，这样做会导致另一次配置修订编号递增的更新。这将覆写所有交换机的本地数据库，当然也允许 `Sw5` 更新其数据库。请记住，这种情况并不常见；但这是可能的，因此才有了这个计数器。
 
 
-
-变动在域中传播，覆写其它接收到该信息交换机先前的数据库。假设 Sw5 同时接收到来自邻居的同样信息，同时接收到的两条通告都包含了同样配置修订号。那么在此情况下，该交换机就无法接受这两条通告，因为它们有着同样配置修订号，但却有着不同的 MD5 散列值。
-
-当这种情况发生时，交换机就将`Number of config revision errors counter`字段加一，同时不更新其 VLANs 数据库。而这种情况可能导致一个或多个 VLANs 中连通性的丢失，因为在该交换机上的 VLAN 信息没有得到更新。为解决此问题并确保该交换机上的本地数据库保持更新，就要在其中一台服务器交换机上配置一个虚构的 VLAN （a dummy vlan），这样就导致对所有交换机本地数据库的覆写，从而允许 Sw5 也更新其数据库。切记这并不是一种常见现象（this is not a common occurance）; 但还是可能发生，因此，这里将这么多也是有必要的。
-
-在交换机接收到一条带有与其计算出的 MD5 散列值不一致的 MD5 散列值的通告时，`Number of config digest errors counter`字段就会增长。这是在交换机上配置了不同 VTP 密码的结果。可使用`show vtp password`命令检查所配置的 VTP 密码是正确的。同样重要的是记住在密码一致时，硬件或软件的问题或缺陷也会造成 VTP 数据包的数据错误，从而也会导致这样的错误出现。
-
-最后，字段`VTP pruning statistics`将只在 VTP 域的 VLAN 修剪开启时，才会包含非零值。**修剪是在服务器上开启的，同时该配置在该 VTP 域中得以传播。**在某 VTP 域的修剪开启时，服务器将接收来自客户端的 Join 报文（the VTP Join messages）（pruning is enabled on servers and this configuration is propagated throughtout the VTP domain. Servers will receive joins from clients when pruning has been enabled for the VTP domain, [VTP pruning, InformIT](pdfs/VTP-Pruning_InformIT.pdf)）。
-
-![VTP Join报文及 VTP 修剪](../images/03fig15.gif)
-
-*VTP Join报文及 VTP 修剪*
-
-## 第 15 天问题
-
-1. What is the colour of the system LED under normal system operations?
-2. What is the colour of the RPS LED during a fault condition?
-3. You can cycle through modes by pressing the Mode button until you reach the mode setting you require. This changes the status of the port LED colours. True or false?
-4. What port speed is represented by a blinking green LED?
-5. If you want to be sure that you are not dealing with a cabling issue, one of the simplest things to do is to `_______` the cable and run the same tests again.
-6. Which command is generally used to troubleshoot Layer 1 issues (besides show interfaces )?
-7. The `_______` status is reflected when the connected cable is faulty or when the other end of the cable is not connected to an active port or device (e.g., if a workstation connected to the switch port is powered off).
-8. What are runts?
-9. The `_______` command can also be used to view interface errors and facilitate Layer 1 troubleshooting.
-10. Which command prints a brief status of all active VLANs?
+只要交换机收到一条，带有与该交换机计算得到 MD5 哈希值不同的通告，那么 `Number of config digest errors counter` 就会递增。这是不同 VTP 口令配置在这些交换机上的结果。咱们可使用 `show vtp password` 命令，检查所配置的 VTP 口令是否正确。同样重要的是要记住，这些口令可能相同，但硬件或软件问题或 bug，可能会导致 VTP 数据包的数据损坏，而造成这些错误。
 
 
-## 第 15 天答案
+最后，`VTP pruning statistics` 这个字段，只有在该 VTP 域的修剪被启用时，才会包含非零的值。修剪会于服务器上启用，同时这一配置会传播到整个 VTP 域。当 VTP 域的修剪已被启用时，服务器将收到自客户端的连接。
 
-1. Green.
-2. Amber.
-3. True.
-4. 1000Mbps.
-5. Replace.
-6. The `show controllers` command.
-7. `notconnect`.
-8. Packets that are smaller than the minimum packet size (less than 64 bytes on Ethernet).
-9. `show interfaces [name] counters errors`.
-10. The `show vlan brief`command.
-
-## 第 15 天实验
-
-### 一层排错实验
-
-在真实设备上对本模块中提到的一层排错相关命令进行测试。
-
-    - 如同模块中所讲解的那样，检查不同场景下交换机系统及端口 LED 状态
-    - 执行一下`show interface`命令，并对本模块中所说明的有关信息进行查证
-    - 对`show controllers`及`show interface counters errors`进行同样的执行
-
-### 二层排错使用
-
-在真实设备上对本模块中提到的二层排错相关命令进行测试。
-
-    - 在交换机之间配置 VTP ，并将一些 VLANs 从 VTP 服务器通告到 VTP 客户端（查看第三天的 VTP 实验）
-    - 在两台交换机之间配置一条中继链路，并生成一些流量（ ping 操作）
-    - 测试`show vlan`命令
-    - 测试`show interface counters trunk`命令
-    - 测试`show interface switchport`命令
-    - 测试`show interface trunk`命令
-    - 测试`show VTP status`命令
-    - 测试`show VTP counter`命令
-
-
-（End）
-
-
+> *知识点*：
+>
+> - RSPAN VLANs
+>
+> - Private VLAN, PVLAN
+>
+> - the VLAN MTU
+>
+> - the management domain
+>
+> - information on VTP packet statistics
+>
+> - three types of VTP packets: advertisement requests, summary advertisements, and subset advertisements
+>
+> - a VTP advertisement request
+>
+> - a VTP summary advertisement frame with a higher configuration revision number than its own
+>
+> - the received counters
+>
+> - the transmitted counters
+>
+> - an adjacent switch
+>
+> - the time stamp
+>
+> - the MD5 hash
+>
+> - the number of subset advertisements to follow
+>
+> - a subset advertisement
+>
+> - an intermediate switch
+>
+> - a basic network that incorporates redundancy and load sharing
+>
+> - a simultaneous change
+>
+> - a dummy VLAN
+>
+> - data corruption of VTP packets
+>
+> - servers will receive joins from clients when pruning has been enabled fro the VTP domain
