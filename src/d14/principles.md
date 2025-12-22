@@ -628,4 +628,68 @@ IEEE 802.11（无尾字母）是第一个、最初的、标准化的无线局域
 
     - *半定向天线*
 
-    它能辐射信号，只是不像高定向天线那样极强。这种天线可用于需要覆盖某一方向而忽略其他方向的情况。高指向性 高指向性天线将波束聚焦发挥到极致。波束聚焦非常紧密，因此可以提供很大的范围。它通常用于点对点链接，例如两座建筑物之间的链接。它们能在很远的距离上辐射很窄的波束，通常用于专用链路。其辐射模式最好描述为抛物线，主要裂片朝向接收器。
+    他会辐射信号，只是不像高定向天线那样极端。这些天线可用于我们需要覆盖某一方向而忽略其他方向的情形种。
+
+    - **高指向性**
+
+    高指向性的天线，会将波束聚焦发挥到极致。波束被极为紧密聚焦，因此其会给到咱们极远距离。他通常用于点对点的链路，例如两座建筑物之间。他们能在远距离上辐射很窄的波束，而通常用于专用链路。该辐射方位图（模式）最好描述为主瓣朝向接收器的抛物线。
+
+
+    ![碟形天线](../images/dish_antenna.png)
+
+    **图 14.22** -- **高指向性的抛物面碟形天线**
+
+
+> *知识点*：
+>
+> - Wi-Fi antennas
+>
+> - to convert electrical signals to RF waves and then trasmit them(as a transmitter), and receive RF waves and convert them to electrical signals(as a receiver)
+>
+> - the physical characteristics of the antenna include dimensions and meterials
+>
+> - the frequence at which the antenna can send and receive waves
+>
+> - the waves emitted by the antenna, are called "electrical fields"
+>
+> - a radiation pattern
+>
+> - the variation of the power radiated by the antenna as a function of the direction away from the antenna
+>
+> - a function of the angle of arrivals is observed in the far field of the antenna
+>
+> - two views of the radiation pattern
+>
+> - the magnetizing field or H-plane, looking down on it from the top, the signal radiates ahead, behind, left and right, but not up or down
+>
+> - the electric field or E-plane, or the elevation chart, see if we were standing beside the antenna, the signal radiates ahead, behind, up and down, but not left and right
+>
+> - the radiated pattern is measured in dBi
+>
+> - polarization, describes the electrical field emitted from the antenna based on antenna position
+>
+> - vertical polarization, the waves move up and down in linear form
+>
+> - horizontal polarization, the waves move left and right in linear form
+>
+> - circular polarization, the waves moves forward
+>
+> - the main signal and reflected signals arrived at the remote antenna out-of-phase, causes signal degradation
+>
+> - implement antenna diversity by placing two antennas on the device
+>
+> - AP uses the preamble of the frame, to test both antennas and automatically switches the rest of the frame to the antenna whith the best signal
+>
+> - the radiation pattern determines the antenna types
+>
+> - Omnidirectional anttena, sends a signal of the same strength in all directions, radiates equal power in all directions, perpendicular to an azimuthal direction, with power verying with the angle to the elevation angle, declining to zero on the axis
+>
+> - the radiation pattern based on the use case, can be dipole, ceiling mount, mast mount, and dual patch
+>
+> - Semi Directional Antenna, radiates the signal just not as extemely as it would with a highly directional antenna, can be used in situations where we need to cover a certain direction and ignore other directions
+>
+> - Highly Directional antennas, take beam focusing to its extreme. The beam is very tightly focused, gives us some great range, used for point-to-point links, e.g., between two buildings.
+>
+> - a parabola with its major lobes facing the antenna
+>
+> - Highly Directional Parabolic Dish Antenna
