@@ -293,7 +293,7 @@
 
 美国联邦通信委员会发布了三个供公众使用的非授权频段 -- 900MHz、2.4GHz 与 5GHz。900MHz 和 2.4GHz 两个频段，被称为 ISM 频段，而 5GHz 频段被称为非授权国家信息基础设施 (UNII) 频段。下图 14.14 显示了这些非授权频段，在射频频谱中的位置。
 
-![射频频谱中的非许可频段](../images/unlicensed_bands.png)
+![射频频谱中的非许可频段](../images/unlicensend_bands.png)
 
 **图 14.14** -- **射频频谱内的非许可频段**（资料来源：[https://www.itu.int/en/ITU-D/Regional-Presence/AsiaPacific/SiteAssets/Pages/Events/2017/Oct2017CIIOT/CIIOT/8.Session3-3%20Bluetooth%20Technology%20and%20Applications-%E6%9D%A8%E6%B3%A2V3.pdf](https://www.itu.int/en/ITU-D/Regional-Presence/AsiaPacific/SiteAssets/Pages/Events/2017/Oct2017CIIOT/CIIOT/8.Session3-3%20Bluetooth%20Technology%20and%20Applications-%E6%9D%A8%E6%B3%A2V3.pdf)）
 
