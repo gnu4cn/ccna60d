@@ -328,4 +328,304 @@ IEEE 802.11（无尾字母）是第一个、最初的、标准化的无线局域
 | IEEE 802.11y | 3650-3700 MHz 在美国内的运行。参考： [Wikipedia: IEEE 802.11y-2008](https://en.wikipedia.org/wiki/IEEE_802.11y-2008) |
 
 
+下图 14.15 向咱们展示了 802.11 的时间表和其他重要数据。
 
+
+![802.11 时间线](../images/802.11ay-vs-802.11ad.png)
+
+**图 14.15** -- **802.11 时间线**（来源：[cnx-software.com](https://www.cnx-software.com/2018/10/17/qualcomm-qca64x8-qca64x1-802-11ay-wifi-10-gbps-bandwidth/)）
+
+
+> *知识点*：
+>
+> - wireless regulation bodies, standards
+>
+> - the RF spectrum
+>
+> - transmit power
+>
+> - a common set of protocols that ensures interoperability
+>
+> - the specific bodies that regulate the use of the wireless spectrum, as well as the organization that creates the protocols used in the wireless networks
+>
+> - a wireless domain
+>
+> - various modulation techniques to use
+>
+> - how a frame should be encoded
+>
+> - what types of headers need to be in the frame and types of physical transimission mechanisms
+>
+> - the Institute of Electrical & Electronics Engineers, IEEE
+>
+> - the 802 prefix, 80 stands for the year 1980, and 2 represents February
+>
+> - the IEEE 802.11 family of protocol specifications
+>
+> - transmitting a signal using the typical 802.11 specification works in a similar fashion to a basic Ethernet hub
+>
+> - 802.11 specifications were developed to avoid licensing requirements in most countries
+>
+> - the most globally authorized wireless agencies
+>
+> - Federal Communication Commission, FCC
+>
+> - European Telecommunications Standards Institute, ETSI
+>
+> - Wi-Fi Alliance
+>
+> - unlicensed bands
+>
+> - three unlicensed bands for public use -- 900MHz, 2.4GHz and 5 GHz
+>
+> - the ISM bands, 900MHz and 2.4GHz
+>
+> - the 5GHz band is known as the Unlicensed National Information Infrastructure(UNII) band
+>
+> - a specific license from the FCC(USA)
+>
+> - IEEE 802.11, the first, original, standardized WLAN at 1Mbps and 2Mbps, ran in the 2.4GHz radio frequence rang, ratified in 1997
+>
+> - bridge operation procedures
+>
+> - international roaming extensions
+>
+> - quality of service, QoS
+>
+> - packet bursting
+>
+> - Inter-Access Point Protocol
+>
+> - Dynamic Frequence Selection, DFS
+>
+> - Transmit Power Control, TPC
+>
+> - avoids radar interference
+>
+> - multiple input, multiple output antennas, MIMO antennas
+>
+> - Wireless Access in Vehicular Environment, WAVE
+>
+> - fast roaming
+>
+> - Extended Service Set(ESS) Mesh Networking
+>
+> - Wireless Performance Prediction, WPP
+
+
+
+## 无线数据帧
+
+无线网络设备以类似于以太网集线器的方式运行。单个冲突域被创建。当两台主机试图于同一时刻传输数据帧时，那么冲突将发生，而数据帧则将被丢弃。
+
+数据帧传输必须加以控制。分布式协调功能（DCF），是在数据链路层处，用到的一种通用介质访问方法 -- 这正是专为这一目的设计的工具。之所以称为 “分布式”，是因为这项工作通常由每台设备处理。
+
+当某一主机打算向正使用频率上传输时，该主机必须等待该频率上出现静默，确保任何多路径问题得以避免。该主机必须等待的时间长短不一，取决于数据帧的优先级。
+
+当有主机需要发送高优先级的数据帧时，那么短数据帧间距（SIFS）将用于倒计时等待发送的时间。通常情况下，所有数据帧都会以低优先级发送，这也是 DCF 网络所使用的方式。在 DCF 的协调下，站点在发送前务必等待的时长，由分布式的数据帧间空间（DIFS）决定。
+
+
+## CSMA/CA
+
+无线 802.11 网络，使用了带冲突避免的载波侦测多路访问（CSMA/CA）。当主机需要发送某个数据帧时，他会挑选 0 到 31 之间的某个随机数，然后开始倒计时。每种类型的 802.11 网络，都有着不同的倒计时速度，或插槽/间隙时间。比如，802.11b 会以 20 微秒间隔倒计时；802.11g 和 802.11a 则以 9 微秒间隔倒计时，而就像以太网半双工中的情形一样，我们称之为退避计时器。
+
+其间有个竞争窗口，其为主机在传送前，要等待的总时间，由累计倒计时时间，加上其等待别的主机停止传送的时间构成。无线主机必须监听，确保没有其他主机在该频率上传输，以防止碰撞。当另一主机正在传输时，发送主机必须停止倒计时，直到介质清空，且在其可再次开始倒计时前，其他主机已停止发送。然后，他便可最终开始传送到该频率上。
+
+整个 CSMA/CA 过程，如下图 14.16 中所示。
+
+
+![CSMA/CA 数据帧传输过程](../images/csma-ca-flowchart.png)
+
+
+**图 14.16** -- **CSMA/CA 数据帧传输过程**
+
+### 三种数据帧类型
+
+所有 802.11 帧都有着类似的结构 -- 与 802.3 以太网数据帧相比，他们的头部更长而有着更多控制信息。这是因为相比 802.3 网络，802.11 必须假定会有干扰，以及更多冲突要与之抗衡。
+
+下图 14.17 显示了 802.11 的数据帧结构。
+
+
+![802.11 数据帧结构](../images/802.11_frame_structure.png)
+
+**图 14.17** -- **802.11 数据帧结构**
+
+
+如下所示，三种类型的数据帧，共用了同一头部形式，但指示符有所不同。主要区别在于他们的主体中。数据帧控制字段内部，有三种主要的数据帧类型。
+
+- **管理** -- 这些数据帧作用是帮助管理连接。数据帧控制字段的 “类型” 部分，显示为 “管理”，进而这些类型就包括信标、探针及认证方式等；
+- **控制数据帧** -- 这些帧的目的，是帮助在网络介质上进行通信。例如，请求发送（RTS）数据帧，就会与控制数据帧一起使用；
+- **数据数据帧** -- 这种类型的数据帧，包含着信息数据包，因此得名，但也可以是空帧或 null 帧，通常称为 null 功能。
+
+
+下图 14.18 显示了一次带有扩展了数据控制字段的 Wireshark 数据帧捕获。捕获到的数据帧类型，是个数据数据帧。
+
+![802.11 的数据数据帧](../images/802.11_data_frame.png)
+
+
+**图 14.18** -- **802.11 的数据数据帧**
+
+下图 14.19 显示一次控制数据帧的捕获。
+
+
+![802.11 的控制数据帧](../images/802.11_control_frame.png)
+
+
+**图 14.19** -- **802.11 的控制数据帧**
+
+下表描述了 802.11 网络下用到的各种数据帧类型。
+
+**表 14.6** -- **802.11 的数据帧**
+
+| 管理数据帧 | 控制数据帧 | 数据数据帧 |
+| :-- | :-- | :-- |
+| 协调请求 | 请求发送（RTS） | 数据 |
+| 协调响应 | 清除发送（CTS） | 数据及 CF-确认 |
+| 重关联请求 | 确认 (ACK) | 数据及 CF-轮询 |
+| 重关联响应 | 省电轮询 | 数据及 CF-确认 与 CF-轮询 |
+| 探针请求 | 无竞争信标（CF-结束） | Null |
+| 信标 |  | 无数据的 CF-轮询 |
+| ATIM |  | 无数据的 CF-确认 及 CF-轮询 |
+| 解关联 |  |  |
+| 认证 |  |  |
+| 解除认证 |  |  |
+
+
+花些时间学习如何使用 Wireshark 软件捕获数据包，以便咱们对 TCP/IP 与数据帧类型有深入了解，是相当值得的。请访问 [howtonetwork.com](https://www.howtonetwork.com/)，了解 WCNA Wireshark 的课程。
+
+
+> *知识点*：
+>
+> - a single collision domain
+>
+> - the transmission of frames
+>
+> - the Distributed Coordination Function, DCF, is a common media access method that is used at the Data Link Layer, this job is usually handled by each device
+>
+> - tansmit onto the frequence being used
+>
+> - silence on the frequence
+>
+> - multipath issues
+>
+> - the priority of the frame
+>
+> - Short Interframe Space, SIFS
+>
+> - count down the period of time to wait before transmitting
+>
+> - the length of time a station has to wait before trasmitting
+>
+> - Distributed Interframe Space, DIFS
+>
+> - Carrier Sense Multiple Access with Collision Avoidence, CSMA/CA
+>
+> - a random number between 0 and 31
+>
+> - countdown speed
+>
+> - slot time
+>
+> - 802.11b counts down in 20-microsecond intervals
+>
+> - 802.11g and 802.11a can count down in 9-microsecond intervals
+>
+> - the back-off timer
+>
+> - a contention window, the total time for a host to wait before transmitting, consists of the accumulated countdown time plus the time it waited for other hosts to stop trasmitting
+>
+> - indicators
+>
+> - the Frame Control field
+>
+> - three types of frames: Management frames, Control Frames and Data Frames
+>
+> - the "type" section of the Frame Control field
+>
+> - Request to Send, RTS, frames
+>
+> - an empty or a null frame, a null function
+>
+> - Association Request
+>
+> - Association Response
+>
+> - Reassociation Request
+>
+> - Reassociation Response
+>
+> - Probe Request
+>
+> - Beacon
+>
+> - Announcement Traffic Indication Message, ATIM. Reference: [TIM/DTIM/ATIM](https://dot11ap.wordpress.com/timdtimatim/)
+>
+> - Disassociate
+>
+> - Authentication
+>
+> - Deauthentication
+>
+> - Request to Send, RTS
+>
+> - Clear to Send, CTS
+>
+> - Acknowledgement, ACK
+>
+> - Power-Save Poll
+>
+> - Contention-Free End Beacon, CF-End
+>
+> - Contention-Free  Acknowledgement Beacon, CF-ACK
+>
+> - Contention-Free Poll Beacon, CF-Poll
+
+## Wi-Fi 天线
+
+天线的主要功能，是将电信号转换为射频波，然后发射他们（作为发射器），并接收射频波，并将其转换为电信号（作为接收器）。天线的物理特性，包括决定了天线可发送与接收电波频率的尺寸及材料。由天线发射的电波，称为 “电场”。
+
+天线会创建辐射方向图（辐射模式），其将由天线辐射出的功率变化，定义为远离天线方向的一个函数。这种功率变化，是在天线的远场观察到的到达角的一个函数。
+
+
+辐射方向图（模式）有两种视图。一种磁场或 H 平面的视图，描绘了当咱们从顶部俯视时的情况，展示了信号是如何向前、后、左、右辐射，但不是向上或向下。电场或 E 平面，或仰角图，显示了是当咱们站在天线旁边，看到的图案（模式）。E 平面视图，演示了信号向前、后、上、下辐射，而不是左右辐射。下图 14.20 描述了辐射方向图（模式）的 E 平面和 H 平面视图。
+
+
+![E 平面与 H 平面的辐射方位图](../images/E-Plane_and_H-Plane.png)
+
+
+**图 14.20** -- **E 平面和 H 平面**
+
+辐射方位图以 dBi 度量。最强点可在天线的正前方测量到，值为 0dB。辐射随后会穿过空气到另一天线，在那里信号会减弱，直到以 -xdB 的值到达某个远端点位。
+
+
+### 天线特性
+
+了解天线的一些特性，及可用类型很有必要。
+
+- *极化*
+
+    所谓极化，描述了基于天线位置而从该天线发出的电场。天线可以三种不同的方式移动 -- 垂直（最常见的天线类型），其中电波以线性形式上下移动；水平极化，其中电波以线性形式左右移动；环形极化，即电波向前移动。
+
+    这里的要点，是（发射/接收）两端的极化类型必须一致，以避免信号衰减。
+
+- *天线分集*
+
+    在多路径情形下，主信号和反射信号到达远程天线时相位不一致，而这会导致信号衰减。为了解决这一问题，大多数接入点厂商都会通过在设备上安装两根天线，实现天线分集。当接入点接收到来自某个无线站点的数据帧时，他会使用该数据帧的前导码，同时测试这两根天线，并自动将该数据帧的其余部分，切换到信号最佳的天线。
+
++ *天线类型*
+
+    辐射方位图决定了天线类型，其主要分为三大类，他们影响着根据现场勘测，选择合适天线的决策。
+
+    可用于无线局域网的主要有三种天线类型：全向、半定向及高定向。
+
+    - *全向型*
+
+    全向天线会在所有方向发送同一强度的信号。他在垂直于方位角方向的所有方向上辐射同等功率，功率随与仰角的夹角变化而变化，在轴线上衰减为零。下图 14.21 显示了全向天线的辐射方位图（模式）。根据使用情形，这种辐射方位图（模式）可以是偶极子、吊顶安装、桅杆安装及双贴片等。
+
+    ![全向天线的辐射方位图](../images/L-over2-rad-pat-per.jpg)
+
+    (图片：《电动力学导论》，D. Griffiths 著，第 4 版）
+
+    - *半定向天线*
+
+    它能辐射信号，只是不像高定向天线那样极强。这种天线可用于需要覆盖某一方向而忽略其他方向的情况。高指向性 高指向性天线将波束聚焦发挥到极致。波束聚焦非常紧密，因此可以提供很大的范围。它通常用于点对点链接，例如两座建筑物之间的链接。它们能在很远的距离上辐射很窄的波束，通常用于专用链路。其辐射模式最好描述为抛物线，主要裂片朝向接收器。
