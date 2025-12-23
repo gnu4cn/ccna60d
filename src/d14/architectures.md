@@ -24,9 +24,9 @@
 
 ## 基于云的架构
 
-这种架构允许所有接入点从位于云上的某个单一管理界面管理，所谓云基本上是某种部署在厂商处所的平台。思科的 Meraki 解决方案，就是基于云架构的一个很好的示例。其简化了接入点的管理与初始配置，因为他们会自动与云联系，并根据指定设置加载配置。Meraki 并为在 CCNA 考试大纲中涉及。
+这种架构允许所有接入点从位于云上的某个单一管理接口管理，所谓云基本上是某种部署在厂商处所的平台。思科的 Meraki 解决方案，就是基于云架构的一个很好的示例。其简化了接入点的管理与初始配置，因为他们会自动与云联系，并根据指定设置加载配置。Meraki 并为在 CCNA 考试大纲中涉及。
 
-云界面的功能包括：
+云接口的功能包括：
 
 - 配置与管理接入点
 - 监控无线网络性能
@@ -150,3 +150,148 @@
 **图 14.38** -- **监视器模式下的 AP**
 
 ### FlexConnect 模式
+
+这种模式主要设计用于接入点位于远程分支机构，而 WLC 位于中心站点的情况。在这种模式下，接入点可在本地交换 SSID 与 VLAN 之间的流量，而没有需其发送到 WLC 的需求。这消除 WAN 电路中断对分支机构 Wi-Fi 业务运行的影响。
+
+![FlexConnect 模式下的 AP](../images/flexconnect_mode.png)
+
+
+**图 14.39** -- **FlexConnect 模式下的 AP**
+
+### 嗅探器模式
+
+在这一模式下，接入点将其无线电专用于接收 802.11 的无线流量。其允许将某个特定信道内的所有流量，捕获到某台运行了诸如 [Wild packets Omni peek](https://www.liveaction.com/products/omnipeek/)、[Airmagnet Enterprise Analyze](https://airmagnet.cz/) 或 [Wireshark](https://www.wireshark.org/) 等数据包分析软件的远程机器。
+
+
+![嗅探器模式下的 AP](../images/sniffer_mode.png)
+
+**图 14.40** -- **嗅探器模式下的 AP**
+
+### 流氓探测器
+
+这一模式会将接入点专用于检测恶意设备。其通过将经由有线连接的 ARP 请求中发现的 MAC 地址，与无线接收到的流量关联，实现该目的。当发现一次匹配时，其就会发出警报，将这个恶意接入点或客户端识别为威胁。
+
+![流氓探测器模式下的 AP](../images/rogue_detector_mode.png)
+
+**图 14.41** -- **流氓检测器模式下的 AP**
+
+### 桥接模式
+
+这一模式允许接入点作为某个本地 LAN 与某个远端接入点之间的专用网桥运行。在这一模式下，某个接入点会作为一个客户端，与另一接入点关联，并提供其其以太网接口和无线介质之间的桥接。
+
+**图 14.42** -- **桥接模式下的 AP**
+
+### Flex+桥接模式
+
+在这一模式下，FlexConnect 的运行，会在网状组网的接入点上启用。
+
+### SE 连接模式
+
+在这一模式下，接入点专用于对所有无线信道的频谱分析。接入点会分析传播质量及干扰检测。这些信息可通过使用 Cisco Spectrum Expert 软件，连接接入点收集。
+
+> *知识点*：
+>
+> - wireless architectures
+>
+> - three architectural approaches for implementing wireless networks: autonomous architecture, cloud-based architecture and split MAC architecture
+>
+> - a standalone access point
+>
+> - parameters such as VLAN tagging, channels, and other radio configurations must be individually replicated across all Autonomous APs
+>
+> + Steps how communication works with an Autonomous AP:
+>   - the clients associate to the AP with the available SSID
+>   - the SSID is mapped to a specific VLAN
+>   - the access point tags the data with the mapped VLAN before sending it to the switch interface, which operates in trunk mode
+>   - the switch forwards the traffic to the destination
+>
+> - cloud-based architecture
+>
+> - a single interface located in the cloud, basically a platform deployed on the vendor's premise, simplifies management and initial provisioning of Access Points, as they automatically contact the Cloud and load configurations as per specified settings
+>
+> + Functions of cloud interface include:
+>   - Configure and manage Access Points
+>   - Monitor performance of wireless networks
+>   - Generate Wireless reports
+>   - Perform Traffic Analytics and Layer 7 Visibility
+>   - Maintain Access Point and Client lists
+>   - Visualize Access Points on maps and floor plans
+>   - Perform SNMP and Syslog polling of Access Points
+>
+> - Split MAC Architecture, composed of a lightweight access point and a wireless LAN controller, allows the splitting of 802.11 functions between the lightweight access point and the wireless LAN controller
+>
+> - two functions: a real-time function, and management function
+>
+> + the real-time requirement of the protocol, handled by the AP
+>   - Frame exchange between the wireless client and the access point
+>   - Transition of beacons(802.11 frames)
+>   - Sending Signal Quality information to the Wireless LAN Controller
+>   - Monitoring radio channels and presences of other access-point
+>   - Encryption and Decryption of 802.11 frames
+>
+> + the management function of the protocol, handled by the WLC:
+>   - Security(PSK, EAP, etc.)
+>   - Association and Reassociation
+>   - Client IP Addressing
+>   - Layer 2 and Layer 3 roaming
+>   - Qos
+>   - Radio Management
+>   - Translation and bridging to networks such as 802.3(Wired LAN)
+>   - AP configuration management
+>   - AP image management
+>
+> - Control and Provisioning of Wireless Access Points, CAP/WAP, an industry-standard protocol for managing access points, faciliates the discovery and access points join process, access point configuration, access point software push, and wireless security
+>
+> + the WLC discovery-and-join process:
+>   - access point discovers the WLC
+>   - CAP/WAP tunnel is formed between the WLC and the access point. A CAP/WAP tunnel uses UDP port 5246 for Channel Plane, and UDP port 5247 for Data Plane
+>   - Access point joins the WLC
+>   - Access point downloads the software and configuration from the WLC
+>
+> + how communication works with a lightweight access point:
+>   - the access point discovers and joins the WLC
+>   - a CAP/WAP tunnel is created between the access point and the WLC
+>   - the access point gets configuration from the WLC and broadcast the available SSIDs
+>   - the wireless client associate to the access point with the SSID
+>   - the access point sends the client data marked with the SSID through the CAP/WAP tunnel to the WLC via Management VLAN
+>   - the WLC receives the traffic and sends it back to switch trunk port in VLAN, which corresponds to the client's SSID
+>   - the switch forwards the traffic to the destination
+>
+> + Once CAP/WAP tunnels built from a WLC to one or more lightweight APs, begin offering a variety of additional functions:
+>   - dynamic channel assignment
+>   - transmit power optimization
+>   - self-healing wireless coverage
+>   - flexible client roaming
+>   - dynamic client load balancing
+>   - RF monitoring
+>   - security management
+>   - wireless intrusion protection system
+>
+> + AP modes:
+>   - local
+>   - monitor
+>   - FlexConnect
+>   - sniffer
+>   - rogue detector
+>   - bridge
+>   - Flex + Bridge
+>   - SE-connect
+>
+> - local mode, the default mode for a lightweight AP, transmit all client traffic to WLC, both WLC and APs are located within a single physical location
+>
+> + monitor mode, the AP does not trasmit at all, operates as a dedicated sensor for:
+>   - detecting Intrusion Detection System, IDS, events
+>   - detecting rogue APs
+>   - determining the position of wireless stations using location-based services
+>
+> - FlexConnect mode, primarily designed for APs located in remote branch offices while the WLC is on the central site, AP can locally switch the traffic between the SSID and VLAN without having the need to send it to the WLC, eliminates the impact of WAN circuit disruptions for operating Wi-Fi services in branch locations
+>
+> - Sniffer mode, AP dedicates its radios to receive 802.11 wireless traffic, allows capturing all traffic within a particular channel to a remote machines that runs a packet analyzer software
+>
+> - Rogue Detector mode, dedicates the AP to detecting rogue devices, by correlating MAC addresses discovered from ARP requests via wired connctions with traffic received wirelessly. If a match is found, it generates an alarm identifying the rogue AP or client as a threat.
+>
+> - Bridge mode, allows an AP to operate as a dedicated bridge between a LAN and remote AP. An AP associates to another AP as a client, and provides bridging between its Ethernet interface and wireless media
+>
+> - Flex+Bridge mode, the FlexConnect operation is enabled on meshed APs.
+>
+> - SE Connect mode, AP is dedicated to the spectrum analysis of all wireless channels. AP analyzes air quality and interference detection.
