@@ -126,6 +126,7 @@
     - [无线拓扑结构](d14/topologies.md)
     - [无线架构](d14/architectures.md)
     - [WLAN 组件的物理基础设施连接](d14/physical_connection.md)
+    - [接入点与 WLC 的管理访问](d14/management_access.md)
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
 - [IP 地址分配](d05-IP-Addressing.md)
