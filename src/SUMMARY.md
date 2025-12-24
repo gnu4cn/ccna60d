@@ -33,7 +33,7 @@
     - [第 2 天实验](d02/labs.md)
 
 
-+ [IPv6 的一些概念](d03_IPv6_Concepts.md)
++ [第 3 天 IPv6 的一些概念](d03_IPv6_Concepts.md)
     - [IPv6 的历史](d03/history_of_IPv6.md)
     - [IPv6 分址](d03/IPv6_addressing.md)
     - [IPv6 地址表示法](d03/IPv6_Addr_representation.md)
@@ -44,8 +44,8 @@
     - [第 3 天问题](d03/questions.com)
     - [第 3 天实验](d03/labs.md)
 
-- [复习日](d04_review.md)
-- [阶段复习日](./d05-section_review.md)
+- [第 4 天 复习](d04_review.md)
+- [第 5 天 阶段复习](./d05-section_review.md)
 
 
 ---
@@ -108,7 +108,7 @@
     - [第 11 天问题](d11/questions.md)
     - [第 11 天实验](d11/labs.md)
 
-- [第 12 天 复习日](d12-review.md)
+- [第 12 天 复习](d12-review.md)
 
 + [第 13 天 一层与二层故障排除](d13_troubleshooting_layer_1_and_2.md)
     - [物理层处的故障排除](d13/physical_layer.md)
