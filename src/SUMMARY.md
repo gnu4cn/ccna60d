@@ -80,6 +80,8 @@
     - [LLDP](d08/lldp.md)
     - [CDP/LLDP 实验](d08/labs.md)
 
+- [第 9 天 复习](d09_review.md)
+
 + [生成树协议 STP](d10_stp.md)
     - [STP 的必要性](d10/the_need_for_stp.md)
     - [IEEE 802.1D 的配置 BPDU](d10/802.1d_conf_bpdu.md)
