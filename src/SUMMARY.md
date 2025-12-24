@@ -142,6 +142,8 @@
 + [路由的一些概念](d17-routing_concepts.md)
     - [基本路由](d17/basic_routing.md)
     - [有类协议与无类协议](d17/classless_protocols.md)
+    - [被动接口](d17/passive_int.md)
+    - [路由协议分类](d17/routing_protocol_classes.md)
 
 
 
