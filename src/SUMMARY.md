@@ -152,6 +152,10 @@
     - [第 17 天 实验](d17/labs.md)
 
 
++ [静态路由](d18-static_routing.md)
+    - [配置静态路由](d18/configuring_static_routes.md)
+
+
 
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
