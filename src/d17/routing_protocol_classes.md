@@ -118,4 +118,4 @@ SPF 算法创建了到某个区域中，或网络主干中所有主机的一棵�
 >
 > - Link State routing protocol only send incremental updates, when a change in the network topology is detected, this makes LS routing protocols more efficient in larger networks, also allows them to respond much faster to network changes, and thus converge in a shorter amount of time
 >
-> Interior Gateway Protocol, IGP
+> - Interior Gateway Protocol, IGP
