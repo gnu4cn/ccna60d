@@ -10,26 +10,26 @@
 4. 配置 RIP 并通告所有本地网络；
 
 
-**`R1`**:
+    **`R1`**:
 
-```console
-router rip
-version 2
-no auto
-network 10.10.10.0
-network 11.11.11.0
-```
+    ```console
+    router rip
+    version 2
+    no auto
+    network 10.10.10.0
+    network 11.11.11.0
+    ```
 
 
-**`R2`**:
+    **`R2`**:
 
-```console
-router rip
-version 2
-no auto
-network 10.10.10.0
-network 12.12.12.0
-```
+    ```console
+    router rip
+    version 2
+    no auto
+    network 10.10.10.0
+    network 12.12.12.0
+    ```
 
 
 5. 自 `R1` `ping` `R2` 的 `Loopback`，测试连通性；
