@@ -154,6 +154,7 @@
 
 + [静态路由](d18-static_routing.md)
     - [配置静态路由](d18/configuring_static_routes.md)
+    - [配置静态 IPv6 路由](d18/configuring_static_IPv6_routes.md)
 
 
 
