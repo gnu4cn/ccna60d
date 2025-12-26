@@ -70,7 +70,6 @@
     - [动态中继协议 DTP](d07/dtp.md)
     - [VLAN 中继协议 VTP](d07/vtp.md)
     - [中继与 VTP 故障排除](d07/troubleshooting.md)
-    - [VLAN 间路由](d07/route_inter-vlan.md)
     - [第 7 天问题](d07/questions.md)
     - [第 7 天实验](d07/labs.md)
 
@@ -165,6 +164,12 @@
     - [路由信息协议](d19/rip.md)
     - [RIP 故障排除](d19/troubleshooting.md)
     - [第 19 天实验](d19/labs.md)
+
+- [第 20 天 复习](d20-review.md)
+
+
++ [第 21 天 VLAN 间路由](d21-inter-VLAN_routing.md)
+    - [VLAN 间路由](d21/inter-vlan_routing.md)
 
 
 
