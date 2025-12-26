@@ -163,6 +163,8 @@
 
 + [路由信息协议](d19-rip.md)
     - [路由信息协议](d19/rip.md)
+    - [RIP 故障排除](d19/troubleshooting.md)
+    - [第 19 天实验](d19/labs.md)
 
 
 
