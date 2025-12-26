@@ -172,18 +172,18 @@
 7. 检查这些 IPv6 的静态路由条目。
 
 
-```console
-R1#show ipv6 route static
-IPv6 Routing Table - 6 entries
-Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
-       U - Per-user Static route, M - MIPv6
-       I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
-       O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
-       ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
-       D - EIGRP, EX - EIGRP external
-S   ::/0 [1/0]
-     via FE80::C004:8FF:FE2F:0, FastEthernet0/0
-```
+    ```console
+    R1#show ipv6 route static
+    IPv6 Routing Table - 6 entries
+    Codes: C - Connected, L - Local, S - Static, R - RIP, B - BGP
+           U - Per-user Static route, M - MIPv6
+           I1 - ISIS L1, I2 - ISIS L2, IA - ISIS interarea, IS - ISIS summary
+           O - OSPF intra, OI - OSPF inter, OE1 - OSPF ext 1, OE2 - OSPF ext 2
+           ON1 - OSPF NSSA ext 1, ON2 - OSPF NSSA ext 2
+           D - EIGRP, EX - EIGRP external
+    S   ::/0 [1/0]
+         via FE80::C004:8FF:FE2F:0, FastEthernet0/0
+    ```
 
 （End）
 

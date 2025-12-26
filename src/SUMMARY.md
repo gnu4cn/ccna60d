@@ -161,6 +161,10 @@
     - [第 18 天实验](d18/labs.md)
 
 
++ [路由信息协议](d19-rip.md)
+    - [路由信息协议](d19/rip.md)
+
+
 
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
