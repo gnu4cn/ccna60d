@@ -148,14 +148,17 @@
     - [路由问题规避机制](d17/avoidence_mechanisms.md)
     - [基于拓扑交换](d17/cef.md)
     - [路由故障排除](d17/troubleshooting.md)
-    - [第 17 天 问题](d17/questions.md)
-    - [第 17 天 实验](d17/labs.md)
+    - [第 17 天问题](d17/questions.md)
+    - [第 17 天实验](d17/labs.md)
 
 
 + [静态路由](d18-static_routing.md)
     - [配置静态路由](d18/configuring_static_routes.md)
     - [静态默认路由](d18/static_default_routes.md)
     - [配置静态 IPv6 路由](d18/configuring_static_IPv6_routes.md)
+    - [静态路由故障排除](d18/troubleshooting.md)
+    - [第 18 天问题](d18/questions.md)
+    - [第 18 天实验](d18/labs.md)
 
 
 

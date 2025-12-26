@@ -231,6 +231,56 @@ BranchRouter(config)#ip route 192.168.1.10 255.255.255.255 64.64.64.1
 
 咱们会打算使用主机路由还有很多别的原因，但咱们已经明白了。只要明白路由器将优选主机路由，而不是路由表中的其他选项，就可以了。
 
+> *知识点*：
+>
+> - static default routes
+>
+> - switches broadcast when the destination address is unknown, but routers drop the packets that have unknown destination address
+>
+> - routers store a table of routes to all of the relevant parts of the network
+>
+> - LAN routers don't have every route to the Internet in their routing table
+>
+> - default routing
+>
+> - a more powerfull Internet edge router carring a larger routing table
+>
+> - Default routes can be created manually, or learned dynamically
+>
+> - when we don't want to keeep the entire routing table for the Internet(using BGP) on our edge router, and preferred that our ISP does this work, we typically would receive a dynamic default route via BGP from our ISP
+>
+> - the edge router has a dynamic default route that learnt via BGP from the ISP router, whihc is pointing to the ISP router
+>
+> - the routers always forward traffic to the most specific route
+>
+> - the default route will only be used when there is no valid route to a destination. It's the "catch-all" route, "If I don't know where it goes, then I'm going to send it here as a last resort."
+>
+> - Default routing isn't limited to sending traffic to the Internet, it's being used to do selective routing, also inside enterprise networks with multiple sites/branches.
+>
+> + network routing
+>   - routing to specific networks, will be done using Interior Gateway(routing) Protocols
+>   - understanding how a static route works, provide us with a solid fundation
+>   - static routing to networks is normally not the preferred method, but static routes are still used
+>   - "network", in this context, is a remote network
+>   - if it's anything below `/31` subnet, then we ultimately would need to rely on a network route to reach it
+>   - a route is composed with: the subnet, the network mask, and the next hop address, that is the next step in the path toward the destination
+>   - In lieu of a next hop address, we may also use the outgoing interface
+>   - the route that used the next hop IP address, has a `via` keyword in the routing table entry
+>   - the route that references the outgoing `Serial0/0/1` interface, is listed as a connected route
+>   - engineers will think that, because a route is directly connected, the subnet must be hosted on the router itself, but as we can see, that's not always the case
+>   - If the outgoing interface went down due to a link failure, the static routed would no longer show up in the routing table
+>   - if the link that connected to the next hop IP address went down, that static route also would no longer show up in the routing table
+>   - If the downstream router stopped working, the router would continue to forward traffic to the next hop by using static routes, because static routes are not aware of whether there are issues further downstream. This is one reason why dynamic routing protocols are used
+>   - With dynamic routing protocols, the router experiencing the issue, would notify the other routers on the network that there was a problem, and the other routers should either stop passing traffic, or forward it via a different path
+>
+> + static host routes
+>   - a host route, is a route for a single host address
+>   - always have a `/32` subnet mask
+>   - as with network routes, the `ip route` command will creates static route for remote hosts, by using a mask of `255.255.255.255`
+>   - there may be times, when we have a redundant path to a host, and we only want traffic to that host flowing over only one path
+>   - selective routing
+>   - There are also many other reasons, why we may want to use a host route
+
 ## 浮动静态路由
 
 
@@ -242,6 +292,72 @@ BranchRouter(config)#ip route 192.168.1.10 255.255.255.255 64.64.64.1
 
 | 路由来源 | 默认距离值 |
 | :-- | :-- |
+| 直连接口  | 0 |
+| 静态路由 | 1 |
+| 增强型内部网关路由协议 (EIGRP) 的摘要路由 | 5 |
+| 外部边界网关协议 (eBGP) | 20 |
+| 内部 EIGRP | 90 |
+| IGRP | 100 |
+| OSPF | 110 |
+| 中间系统到中间系统（IS-IS） | 115 |
+| 路由信息协议 (RIP) | 120 |
+| 外部网关协议 (EGP) | 140 |
+| 按需路由 (ODR) | 160 |
+| 外部 EIGRP | 170 |
+| 内部 BGP | 200 |
+| 未知<sup>*</sup> | 255 |
+
+当咱们以 `ip route` 命令手动编程路由器时，他将自动优先于所有别的套同一目的地的路由（直连路由除外）。除非咱们计划周全，否则这会造成网络上的路由问题。
 
 
+例如，假设咱们再次在使用 Low Latency 和 Slow as You Go 两家网络提供商。咱们有条到 Low Latency 的 `GigabitEthernet` 主链路，而到 Slow as You Go 只是条 T1 的备用链路。已决定在这条千兆链路上运行路由协议（OSPF），而在 T1 上只使用静态路由，以降低流量开销，如下所示。
 
+```console
+BranchRouter(config)#ip route 192.168.1.0 255.255.255.0 172.16.5.3
+```
+
+这一决定实施后，咱们就开始接到咱们的终端用户的电话，说他们到中心站点的连接速度非常慢。发生了什么呢？
+
+在设计中，网络会使用主链路上的开放最短路径优先版本 2 (OSPFv2)，动态学习到中心站点的路由。分支路由器还定义了备份链路上到中心站点完全相同子网的静态路由。请记住，静态路由有着 1 的管理距离为，而 OSPF 路由有着 110 的管理距离。由于 Cisco IOS 会认为静态路由好于 OSPF 学习到的路由，因此分支路由器正经由那条 T1 线路，发送到中心站点的所有流量，如下面的虚线流量流所示。
+
+
+![静态路由优先于 OSPF 的路由](../images/static_routes_preferred_over_ospf.png)
+
+
+**图 18.9** -- **静态路由优先于 OSPF 路由**
+
+
+咱们需要解决这个问题。咱们仍然打算使用主链路上的 OSPF，以及备用链路的静态路由。咱们还仍然想要 T1 备用到，但仅作为当主链路失效时的备份。咱们可以做到这点，但咱们必须调整静态路，而并赋予其一个更高的管理距离，这样他只会在那条 OSPF 路由不可用时，才会被选中。
+
+要使路由器优先选择 OSPF 的路由，那么配置就需要更改管理距离设置，以创建一条浮动的静态路由。所谓浮动静态路由，会将那条 OSPF 路由 “浮上来” （从 AD 角度看），只有在这条 OSPF 路由消失时被用到。因此，即使存在一条静态路由，路由器也不会引用他，除非他是最后的选择，也就是说，除非所有其他选项都消失了。
+
+要实现一条浮动静态路由，咱们需要覆写该静态路由上的默认管理距离，并确保其高于咱们正运行的路由协议。由于 OSPF 有着 1 的 AD，因此就要修改该静态路由的 AD 到 115，如下所示：
+
+```console
+BranchRouter(config)#ip route 192.168.1.0 255.255.255.0 172.16.5.3 115
+```
+
+现在看看网络上这一变化的结果：
+
+正如咱们可在上图 18.10 看到的，OSPF 路由现在是首选，当若 OSPF 表明那条经由 Low Latency Networks 的路径不再有效（可能是因为接口或服务提供商失效），那么使用 T1 上使用静态路由的备份路径就将被用到。
+
+在现实场景中，咱们通常将看到路由浮动在 250 或接近 250。其逻辑为，当咱们打算将其作为最后选择时，那么就要一步到底，使该 AD 高于任何及所有路由协议。下面是一条浮动静态路由的典型安装：
+
+```console
+R1(config)#ip route 192.168.1.0 255.255.255.0 10.0.0.1 250
+```
+
+
+> *知识点*：
+>
+> - floating static routes
+>
+> - the administrative distance attribute of the routes
+>
+> - each type of route, is assigned a numerical value, tha tells the router which route should be preferred. The lower the number, the stronger the candicate for insertion into the routing table
+>
+> - the primary link, and the backup link
+>
+> - static route preferred over OSPF route
+>
+> - typically the route floating at or close to 250, to make it an option for last resort, we need to make the AD higher than any and all routing protocols.
