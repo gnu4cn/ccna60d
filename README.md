@@ -3,23 +3,10 @@
 **Cisco CCNA in 60 Days**
 
 
-- Github: [github.com/gnu4cn/ccna60d](https://github.com/gnu4cn/ccna60d)
-
-
-- Gitlab: [gitlab.com/unisko/ccna60d](https://gitlab.com/unisko/ccna60d/)
-
 
 在线阅读：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
 
 
-+ PDF 下载：
-    - [github.com: CCNA60D.zh-CN.v0.0.3.pdf](https://github.com/gnu4cn/ccna60d/releases/download/v0.0.2/CCNA60D.zh-CN.v0.0.3.pdf)
-    - [xfoss.com: CCNA60D.zh-CN.v0.0.3.pdf](https://ccna60d.xfoss.com/pdfs/CCNA60D.zh-CN.v0.0.3.pdf)
-
-+ EPUB 电子书下载：
-
-    - [github.com: CCNA60D.zh-CN.v0.0.3.epub](https://github.com/gnu4cn/ccna60d/releases/download/v0.0.2/CCNA60D.zh-CN.v0.0.3.epub)
-    - [xfoss.com: CCNA60D.zh-CN.v0.0.3.epub](https://ccna60d.xfoss.com/pdfs/CCNA60D.zh-CN.v0.0.3.epub)
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
@@ -29,13 +16,8 @@ ___
 
 ## 捐赠记录
 
-_2017-08-03_
+已移至 [xfoss.com：打赏记录](https://xfoss.com/#%E6%89%93%E8%B5%8F%E8%AE%B0%E5%BD%95)
 
-* “十円”通过支付宝进行了捐赠，并留言“谢谢译者的辛勤付出！”
-
-_2017-05-21_
-
-* “远”通过支付宝进行了捐赠，并留言 “60 天通过 ccna 对我帮助很大期待更新”
 
 ## 更新记录
 

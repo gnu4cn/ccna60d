@@ -64,14 +64,14 @@ RI(config-if)#exit
 
 !["采用路由器子接口的 VLAN 间路由"](../images/0304.png)
 
-
+<a name="f-21.2"></a>
 **图 21.2** -- **使用路由器子接口的 VLAN 间路由**
 
 图 21.2 描述了 [图 21.1](#f-21.1) 中所示的同一局域网。但在图 21.2 中，只有一个物理路由器接口被用到。为了实现一种 VLAN 间路由方案，通过使用 `interface [name] [subinterface number]` 这条全局配置命令，一些子接口就在那个主物理路由器接口上配置了出来。而使用 `encapsulation [isl|dot1Q] [vlan]` 这条子接口配置命令，每个子接口便与某个特定 VLAN 关联起来。最后一步是要在接口上，配置所需的 IP 地址。
 
 在交换机上，连接到路由器的单一链路，必须配置为一条中继链路，因为路由器不支持 DTP。当该中继被配置为 802.1Q 的中继时，那么当某个非默认的 VLAN，将被用作原生 VLAN 时，则某个原生 VLAN 就必须要定义出来。这个原生 VLAN，还必须使用 `encapsulation dot1Q [vlan] native` 这条子接口配置命令，配置在相应的路由器子接口上。
 
-以下输出演示了使用单个物理接口的 VLAN 间路由配置（也称为 ”单臂路由器“）。图 21.2 中描述的两个 VLAN 显示于下面的输出中，此外还有个用于管理的额外 VLAN； 这个 VLAN 将被配置为原生 VLAN。
+以下输出演示了使用单个物理接口的 VLAN 间路由配置（也称为 ”单臂路由器“）。[图 21.2](#f-21.2) 中描述的两个 VLAN 显示于下面的输出中，此外还有个用于管理的额外 VLAN； 这个 VLAN 将被配置为原生 VLAN。
 
 ```console
 VTP-Server-1(config)#vlan 10
@@ -107,7 +107,8 @@ VTP-Server-1(config-if)#exit
 VTP-Server-1(config)#ip default-gateway 10.30.30.1
 ```
 
-图 3.4 中的路由器之配置如下面的输出所示。
+[图 21.2](#f-21.2) 所示的路由器，配置为如下输出中这样：
+
 
 
 ```console
@@ -132,16 +133,16 @@ R1(config-subif)#ip add 10.30.30.1 255.255.255.0
 R1(config-subif)#exit
 ```
 
-此方案的主要优在于，路由器上仅需一个物理接口。主要的劣势在于，该物理端口的带宽，是为所配置的多个子接口所公用的。因此，如果存在很多 VLAN 间流量时，路由器就很快会成为网络的性能瓶颈。
+这种解决方案的主要优点，是路由器上只需要单个物理接口。主要缺点则是，这个物理接口带宽会在各个配置子接口间共享。因此，当有大量 VLAN 间流量时，那么路由器会很快成为网络的瓶颈。
 
-**采用交换机虚拟接口的 VLAN 间路由**
+## 使用交换虚拟接口进行 VLAN 间路由选择
 
-**多层交换机支持在物理接口上配置 IP 地址**。但要先用**接口配置命令 `no switchport`** 对这些接口进行配置，以允许管理员在其上配置 IP 地址。除开使用物理接口外，多层交换机还支持交换机虚拟接口（Switch Virtual Interfaces, SVIs
-）技术。
+多层交换机支持物理接口上的 IP 分址配置。不过，这些接口以 `no switchport` 接口配置命令配置，允许管理员在其上配置 IP 分址。除了使用物理接口，多层交换机还支持交换虚拟接口（SVI）。
 
-SVIs 是一系列代表了 VLAN 的逻辑接口。尽管某个交换机虚拟接口代表了一个 VLAN，它也不是在某个 VLAN 在交换机上配置出来时，就自动配置出来的；它必须要管理员通过执行 **`interface vlan [number]` 全局配置命令**，手动加以配置。而那些诸如 IP 分址等的三层配置参数，也要与在物理接口上一样，在交换机虚拟接口予以配置。
+所谓 SVI，属于表示某个 VLAN 的一些逻辑接口。虽然 SVI 表示某个 VLAN，但在某个 VLAN 于交换机上配置出来时，SVI 并不会自动得以配置；SVI 必须由管理员，使用 `interface vlan [number]` 这条全局配置命令手动予以配置。然后有关该 SVI 的一些诸如 IP 分址等三层配置参数，会以如同对某个物理接口的同样方式得以配置。
 
-以下输出演示了在单一交换机上实现 VLAN 间路由，做出的交换机虚拟接口配置。此输出引用了本小节前面的配置输出所用到的 VLANs。
+
+下面的输出演示了在某单个交换机上，实现 VLAN 间路由的 SVI 配置。此输出引用了这个小节前面配置输出中，用到的那些 VLAN。
 
 ```console
 VTP-Server-1(config)#vlan 10
@@ -172,9 +173,9 @@ VTP-Server-1(config-if)#no shutdown
 VTP-Server-1(config-if)#exit
 ```
 
-**在用到多层交换机时，交换机虚拟端口是推荐的配置方法，和实现 VLAN 间路由的首选方案**。
+在使用多层交换机时，SVI 是配置和实施 VLAN 间路由解决方案的推荐方式。
 
-你可通过使用 `show interface vlan x` 命令，来验证某个交换机虚拟接口是配置恰当的（IP 分址等）。下面的输出与 `show interface x` 命令等同。
+咱们可通过使用 `show interface vlan x` 命令，验证 SVI 是否配置正确（IP 分址等）。输出与 `show interface x` 命令完全一致。
 
 ```console
 Switch#show interfaces vlan 100
@@ -187,14 +188,16 @@ Vlan100 is up, line protocol is down
     ARP type: ARPA, ARP Timeout 04:00:00
 ```
 
-如你希望使用一台 2960 交换机来路由 IP 数据包，那么就需要对配置进行修改，然后进行重启。这是因为 2960 和更新型号的一些交换机进行了性能调优，实现一种明确的交换机资源分配方式。该资源管理方式叫做交换机数据库管理（Switch Database Managent, SDM）模板。你可以在以下几种 SDM 模板中进行选择。
+当咱们希望使用一台 2960 交换机路由 IP 数据包时，其将需要一项配置修改及重新加载。原因是 2960 交换机及一些较新型号的交换机，已调整为以某种确切方式分配资源。这种资源管理方式，称为交换机的数据库管理 (SDM) 模板。咱们的选择包括以下这些：
 
-- 默认（default） -- 各项功能的平衡
-- IPv4/IPv4 双协议支持（dual IPv4/IPv6） -- 用于双栈环境(dual-stack environments)
-- Lanbase-routing -- 支持各种单播路由（Unicast routes）
-- 服务质量（Quality of Service, QoS） -- 提供对各种服务质量特性的支持
+- 默认 -- 平衡所有功能
+- 双 IPv4/IPv6 -- 用于一些双协议栈环境
+- Lanbase 的路由 -- 支持单播路由
+- QoS -- 提供 QoS 特性的支持
 
-下面是在我的 3750 交换机上的输出。这些输出与 2960 上的选项不完全一致，但你明白了这个意思。同时，请记住，**交换机型号及 IOS 对 SDM 配置选项有影响，因此，你要查看你的型号的配置手册**。
+
+以下是我（作者）的 3750 交换机上的一些选项。他们与 2960 的选项并不完全一致，但咱们会明白这个概念。同样，请记住咱们的交换机型号和 IOS，会影响这些配置选项，因此请查看咱们型号的配置指南。
+
 
 ```console
 Switch(config)#sdm prefer ?
@@ -206,7 +209,8 @@ Switch(config)#sdm prefer ?
     vlan                    VLAN bias
 ```
 
-在你期望在 2960 交换机上配置 VLAN 间路由时，就需要开启 Lanbase-routing SDM 选项。同时在此变更生效前，需要重启交换机。下面是 `show sdm prefer` 命令的输出，该输出告诉你当前的 SDM 配置以及资源分配情况。
+当咱们希望在咱们的 2960 交换机上配置 VLAN 间路由时，那么 Lanbase 路由就需要开启。在更改生效前，咱们还将需要重新加载交换机。下面是 `show sdm prefer` 命令的输出，其告诉咱们当前的 SDM 配置与资源分配情况。
+
 
 ```console
 Switch#show sdm prefer
@@ -225,52 +229,65 @@ the switch to support this level of features for
 Switch#
 ```
 
+> *知识点*：
+>
+> - Inter-VLAN routing
+>
+> - VLANs can span the entire Layer 2 switched network
+>
+> - In order for hosts in one VLAN can communicate directly with the hosts in another VLAN, traffic must be routed between different VLANs
+>
+> + three methods for implementing inter-VLAN routing, in switched LANs
+>   - using physical router interfaces
+>   - using router sub interfaces
+>   - using switched virtual interfaces, SVIs
+>
+>
+> + Using Physical Router Interfaces
+>   - entails using a router with multiple physical interfaces, as the default gateway for each individually-configured VLAN
+>   - the router can then route packets from one VLAN to another by using these physical LAN interfaces
+>   - the packets within the same VLAN, are simply switched
+>   - it is simple and easy to implement
+>   - it is not scalable, the same number of physical interfaces as VLANs, would also be needed on the router, and this is technically not feasible
+>   - each switch link connected to the router, is configured as an access link in the desired VLAN
+>   - the physical interfaces on the router, are then configured with the appropriate IP address
+>   - the network hosts are either statically configured with IP addresses in the appropriate VLAN, by using the physical router interfaces as the default gateway, or dynamically configured by using DHCP
+>
+> + Using Router Sub Interfaces
+>   - addresses the scalablility issues, which are possible when using the multiple physical router interfaces
+>   - only a single physical interface is required on the router, and subsequent sub interfaces are configured off that physical interface
+>   - sub interfaces are configured off the main physical router interface, by using the `interface [name].[subinterface number]` global configuration command
+>   - each sub interface is associated with a particular VLAN, using the `encapsulation [isl|dotqQ]` sub interface configuration command
+>   - the final step, is to configure the desired IP address on the interface
+>   - the single switch link which is connected to the router, must be configured as a trunk link, because routers don't support DTP
+>   - when the trunk is configured as an 802.1Q trunk, a native VLAN must be defined, if a VLAN other than the default will be used as the native VLAN
+>   - this native VLAN, must also be configured on the respective router sub interface, by using the `encapsulation dot1Q [vlan] native` sub interface configuration command
+>   - an additional VLAN used for Management, this VLAN will be configured as the native VLAN
+>   - only a single physical interface is required on the router
+>   - the bandwidth of the physical interface, is shared between the various configured sub interfaces, the router can quickly become a bottleneck in the network
+>
+> + Using Switched Virtual Interfaces
+>   - multilayer switches support the configuration of IP addressing on physical interfaces
+>   - these interfaces must be configured with the `no switchport` interface configuration command, to allow administrators to configure IP addressing on them
+>   - multilayer switches also support Switched Virtual Interfaces, SVIs
+>   - SVIs are logical interfaces that represent a VLAN, is not automatically configured when a Layer 2 VLAN is configured on the switched
+>   - it must be manually configured by the administrators, by using the `interface vlan [number]` global configuration command
+>   - the Layer 3 configuration parameters, such as IP addressing, are then configured on the SVI, in the same manner as on a Physical interface
+>   - SVIs are the recommended method for configuring and implementing an inter-VLAN routing solution
+>
+> - When using a 2960 switch to route IP packets, a configuration change and reload are required, because the 2960 and newer model switches, are tunned to allocate resources in a certain way
+>
+> + the resource management, is called the Switch Database Management, SDM
+>   - Default -- balances all functions
+>   - Dual IPv4/IPv6 -- for use in dual-stack environments
+>   - Lanbase-routing -- supports Unicast routes
+>   - QoS -- gives support for QoS features
+>
+> - switch model and IOS will affect the configuration options
+>
+> - Lanbase-routing needs to be enabled, if we wish to configure inter-VLAN routing on 2960 switch, also a reload is needed to make the change taking effect
+>
+> - the current SDM configuration and resource allocation, being told with the output of `show sdm prefer` command
 
-
-
-
-## VLAN 间路由故障排除， Troubleshooting Inter-VLAN Routing
-
-VLAN 间路由故障可以多种形式出现，尤其是考虑在该过程中涉及多种设备（交换机、路由器等）。通过下面给出的适当故障排除方法论，你就能够将问题孤立在某台特定设备上，接着再其对应到一个错误配置的具体特性。
-
-从连通性立足点上看，下面这些情事都应该检查一下。
-
-- 检查一下终端主机连接了正确的交换机端口
-- 检查一下正确的交换机端口连接了正确的路由器端口（如使用了一台路由器做 VLAN 间路由）
-+ 检查一下在此过程中所涉及到的每个端口承载的是正确的 VLANs
-    - 连接终端站的那些端口，通常是被分配到一个特定 VLAN 的接入端口
-    - 而将交换机连接至路由器的那些端口，则通常是中继端口
-
-在确认设备之间的连通性无误后，逻辑上下一步就是检查二层配置了，**以所配置的中继端口上的封装方式开始**, 这通常是作为首选的 `802.1Q` 封装方式。接着就要确保中继链路两端都是配置了同样的封装方式。
-
-可用于查看封类型的一些命令有以下这些。
-
-- `show interface trunk`
-- `show interface <number> switchport`
-
-这里有个输出示例。
-
-```console
-Cat-3550-1#show interfaces trunk
-Port        Mode        Encapsulation       Status      Native vlan
-Fa0/1       on          802.1q              trunking    1
-Fa0/2       on          802.1q              trunking    1
-Port        Vlans allowed on trunk
-Fa0/1       1,10,20,30,40,50
-Fa0/2       1-99,201-4094
-```
-
-命令 `show interface trunk` 提供的另一重要细节是中继状态。从中继状态可以看出中继是否形成，同时在链路两端都要检查中继状态。如果接口未处于“中继”模式，那么接口的运行模式（on, auto, 等）是最重要的检查项，以弄清接口能否允许与链路另一端形成中继态（a trunking state）。
-
-中继端口上另外一个需要检查的重要元素便是原生 VLAN。原生 VLAN 错误配置可能带来功能缺失，抑或安全问题。中继链路的两端的原生 VLAN 需要匹配。
-
-假如在完成二层检查任务后，VLAN 间路由问题仍然存在，你就可以继续进行三层配置检查了。依据用于实现 VLAN 间路由的三层设备，可能会在下列设备上进行配置及配置检查。
-
-- 多层交换机，multilayer switch
-- 路由器 -- 物理接口， router -- physical interfaces
-- 路由器 -- 子接口，router -- subinterfaces
-
-
-三层设备上应该检查一下其各接口（或者交换机虚拟接口，SVI）都有分配的正确的子网，同时如有必要，你还应检查一下路由协议。通常情况下，各个 VLAN 都有分配不同的子网，所以你应确保你未曾错误配置了接口。而为检查此项，你可以对特定物理接口、子接口或是 SVI，使用 `show interface` 命令。
 
 

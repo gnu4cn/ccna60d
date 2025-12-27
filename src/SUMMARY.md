@@ -170,6 +170,7 @@
 
 + [第 21 天 VLAN 间路由](d21-inter-VLAN_routing.md)
     - [VLAN 间路由](d21/inter-vlan_routing.md)
+    - [VLAN 间路由的故障排除](d21/troubleshooting.md)
 
 
 
