@@ -1,4 +1,4 @@
-# 第三天的问题
+# 第 7 天的问题
 
 1. Name four advantages of using VLANs.
 2. Hosts in the same VLAN can be in different subnets. True or false?
@@ -13,7 +13,7 @@
 11. Which command configures VTP pruning on your switch?
 
 
-## 第三天问题的答案
+## 第 7 天问题的答案
 
 1. Containing Broadcasts within a smaller group of devices will make the network faster; saves resources on devices because they process less Broadcasts; added security by keeping devices in a certain group (or function) in a separate Broadcast domain; and flexibility in expanding a network across a geographical location of any size.
 2. True, but not recommended.
