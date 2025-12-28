@@ -176,6 +176,7 @@
 
 + [第 22 天 EIGRP](d22-eigrp.md)
     - [Cisco® EIGRP 概述与基础知识](d22/overview.md)
+    - [EIGRP 配置基础](d22/configuration_fundamentals.md)
 
 
 
