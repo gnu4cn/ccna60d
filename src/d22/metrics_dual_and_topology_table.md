@@ -1,39 +1,28 @@
 # 度量值、DUAL 及拓扑数据表
 
+实施 EIGRP 时，掌握路由被实际放入 IP 路由表前，在协议内部及由协议用到的各个方面非常重要。在这一小节中，咱们将了解 EIGRP 的综合度量值及其计算方法。咱们还将了解影响度量值计算，以及调整计算得到的度量值的不同方法。
 
-实施 EIGRP 时，在路由实际放入 IP 路由表之前，了解协议内部和协议使用的各个方面非常重要。在本节中，您将了解 EIGRP 综合度量及其计算方法。您还将了解影响度量计算以及调整计算度量的不同方法。随后，您将了解扩散更新算法 (DUAL) 和 EIGRP 拓扑表。本节最后将讨论在运行 EIGRP 的路由器上填充 IP 路由表时，所有这些信息是如何整合在一起的。EIGRP 综合度量计算
+随后，咱们将了解扩散更新算法 (DUAL) ，以及 EIGRP 的拓扑数据表。这一小节以对在运行 EIGRP 的路由器上产生 IP 路由表时，所有这些信息如何整合在一起的讨论结束。
 
-假设路由器`R3`响应了，`R2`却无法对此数据包进行响应。在 EIGRP 维护了一个未确认数据包传输窗口的情况下，就是说每个发出的单独可靠数据包，在发送下一个可靠数据包之前，都必须要邻居路由器进行显式的确认，而由于路由器`R1`将无法在收到来自`R2`的确认前，发出数据包，这样就在该多路访问网段上出现了一个可能的问题。因此路由器`R3`就间接受到`R2`上故障的影响了。
+## EIGRP 的综合度量值计算
 
-为了避免这种坑，路由器`R1`将等待连接到该多路访问网段上的以太网接口的多播流计时器超时（To avoid this potential pitfall, `R1` will wait for the Multicast Flow Timer(MFT) on the Ethernet interface connected to the Multi-access segment to expire）。多播流计时器，或简单的说就是流计时器（the Flow Timer），是发送方路由器等待自某个组成员的确认数据包的最长时间。在该计数器超时后，路由器`R1`将以多播方式，发出一个特殊的名为顺序 TLV 的 EIGRP 数据包（when the timer expires, `R1` will Multicast a special EIGRP packet called a Sequence TLV）。此数据包列出了路由器`R2`（也就是例外的那台路由器，the offender），且表明其是一个顺序错乱的多播数据包（this packet lists `R2`(the offender) and indicates an out-of-order Multicast packet）。而因为路由器`R3`未被列入到该数据包，所以其就进入到条件接收模式（the Conditional Receive(CR) mode）, 并继续侦听多播数据包。路由器`R1`此时就使用单播，将该数据包重传给`R2`。重传超时（the Retransmission Timeout, RTO）表示等待那个单播数据包的确认的时间。如在总共 16 次尝试后，仍没有来自路由器`R2`的响应， EIGRP 将重置该邻居。
 
-> **注意：** 当前的 CCNA 考试不要求对 MFT 及 RTO 有深入了解。
+增强型 IGRP 使用一种复合度量值，其中包含着一些称为 `K` 值的不同变量。所谓 `K` 值，是一些分配权重到路径不同方面的常数，这些方面可能就包含在综合 EIGRP 度量值中。`K` 值的默认值，为 `K1 = K3 =1` 及 `K2 = K4 = K5 = 0`。 换句话说，`K1` 与 `K3` 被设置为 1 的默认值，而 `K2`、`K4` 和 `K5` 被设置为 0 的默认值。
 
-## 各种度量值、弥散更新算法及拓扑表
+假设在默认的 K 值设置下，那么完整的 EIGRP 度量值，便可通过使用以下数学公式计算出来：
 
-**Metrics, DUAL, and the Topology Table**
+`[K1 * 带宽 + (K2 * 带宽)/(256 - 负载) + K3 * 延迟] * [K5 / (可靠性 + K4)]`
 
-在部署 EIGRP 时，对于路由被真正放入到 IP 路由表中之前，所用到的 EIGRP 本身及为其所用到的方方面面的概念、方法及数据结构等的掌握，是重要的。在本小节中，将学到有关 EIGRP 的综合度量值及其计算方式。还将学习影响度量值计算，及对计算出的度量值进行调整的不同方式（when implementing EIGRP, it is important to understand **the various aspects used within and by the protocol before routes are actually placed into the IP routing table**. In this section, you will learn about **the EIGRP composite metric and how it is calculated**. You will also learn about **the different ways to influence metric calculation, as well as to adjust the calculated metric**）。
 
-在那之后，将学习到**弥散更新算法**（the Diffusing Update Algorithm, DUAL）与**EIGRP的拓扑表**。此小节包括了一个有关如何在一台运行着 EIGRP 的路由器上，将所有这些信息进行配合，以最终产生出 IP 路由表的讨论。
+但是，由于默认情况下只有 `K1` 和 `K3` 有正值，因此默认的 EIGRP 度量值计算，是通过使用以下数学公式完成的：
 
-### EIGRP综合度量值的计算
+<code>[(10<sup>7</sup>/路径上最小带宽) + (所有延迟之和)] * 256</code>
 
-**EIGRP Composite Metric Calculation**
+这基本上意味着，默认情况下，EIGRP 使用到目的网络路径上的最小带宽，与总累积延迟计算路由度量值。不过，Cisco I0S 软件允许管理员，设置别的 K 值一些为非零值，以便将其他变量纳入这个综合度量值。这可使用 `metric weights [tos] k1 k2 k3 k4 k5` 这条路由器配置命令完成。
 
-增强的 EIGRP 使用了一种综合度量值（a composite metric）, 该度量值包含了以不同的 K 值所表示的不同变量（Enhanced IGRP uses a composite metric, which includes different variables referred to as the K values）。这些 K 值是一些常量，用于赋予路径的不同方面以不同的权重，这些路径的不同方面，都可能包含在该综合 EIGRP 度量值中。这些 K 值的默认值为 `K1=K3=1`, `K2=K4=K5=0`。也就是说， K1 与 K3 被默认被设置为1, 同时 K2 、 K4 和 K5 默认被设置为 0 。
 
-假定在这些默认的 K 值下，那么完整的 EIGRP 度量值就可以使用下面的数学公式算出来：
+使用 `metric weights` 命令时，`[tos]` 代表服务类型。虽然 Cisco IOS 软件显示 0 到 8 之间任何值均可使用，但在编写这本指南时，这一字段只可被设置为 0。而那些 `K` 值，则可设置为 0 至 255 之间的任意值。默认 EIGRP 的 `K` 值，可通过执行 `show ip protocols` 命令查看。这在以下输出中得以演示：
 
-`[K1*带宽 + (K2*带宽)/(256-负载) + K3*延迟] * [K5/(可靠性+K4)]`
-
-但在仅有 K1 和 K3 有着默认的正值的情况下，默认的 EIGRP 度量值是由下面的数学公式计算出来的：
-
-`[(10^7/路径上的最低带宽) + (所有延迟总和)] x 256`
-
-这实际上就是说， EIGRP 使用了到目的网络的路径上的最小带宽，以及总的累积延迟，来计算理由度量值。不过思科 IOS 软件允许管理员将其它 K 值设置为非零值，以将其它变量结合到该综合度量值中。通过使用路由器配置命令`metric weights [tos] k1 k2 k3 k4 k5`，就可完成此操作。
-
-在使用`metric weights`命令时，`[tos]`表示服务类型（Type of Service）。尽管思科 IOS 软件显示可以使用任何 0 到 8 之间的数值，但在撰写本手册时，该字段（`[tos]`）当前却只能被设置为 0 。而这些 K 值，就可以被设置为 0 到 255 之间的任何数值。通过执行`show ip protocols`命令，就可查看默认的这些EIGRP K值。下面的输出对此进行了演示：
 
 ```console
 R2#show ip protocols
@@ -57,20 +46,22 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-在对这些 EIGRP 的 K 值进行调整时，重要的是记住在 EIGRP 域中的所有路由器上，都要配置上同样的这些数值。如这些**K值不匹配，那么 EIGRP 的邻居关系就不会建立**。
+在调整 EIGRP 的 `K` 值时，重要的是要记住，同样的一些值，必须配置在该 EIGRP 域内的所有路由器上。当这些 `K` 值不匹配时，那么 EIGRP 的邻居关系就将无法建立。
 
-> **注意：** 不建议对这些默认的 K 值进行调整。对这些 K 值的调整，只应在那些对网络中这类行为造成的后果有扎实了解老练的高级工程师的指导下，或在思科公司技术支持中心的建议下完成。
+    **注意**：调整默认的 `K` 值设置不被推荐。这只应在对网络中此类操作的影响，有深入了解的经验丰富的高级工程师协助下，或者根据 Cisco 技术援助中心 (TAC) 的建议完成。
 
-### 使用接口带宽来影响 EIGRP 的度量值
+### 运用接口带宽影响 EIGRP 的度量值计算
 
-**Using Interface Bandwidth to Influence EIGRP Metric Calculation**
 
-可通过使用`bandwidth`命令对指定到那些单个接口的默认带宽进行调整，从而直接对 EIGRP 度量值计算施加影响。**通过此命令指定的带宽，是以千位（ Kilobits ）计的**。在 EIGRP 的度量值计算中，带宽也是以千位计的。下图36.8演示了一个由两台路由器通过两条带宽为1544Kbps, 的串行（ T1 ）链路连接所组成的网络。
+增强型 IGRP 的度量值结算，可通过使用 `bandwidth` 命令，调整指派给各个接口的默认带宽值直接施加影响。由这条命令指定的带宽值，以千位（kilobits）度量。而用于 EIGRP 度量值计算的带宽，也是以千位度量。下图 22.5 演示了一个由两台，经由两条有着 1544Kbps 带宽值的串行 (T1) 链路连接的路由器组成的网络。
+
 
 ![EIGRP度量值的带宽修改](../images/3608.png)
-*图 36.8 -- EIGRP度量值的带宽修改*
 
-参考图36.8中的图示，因为路由器`R1`与`R2`之间两条链路的带宽（及延迟）是相等的，所以从路由器`R2`到子网`172.16.100.0/24`将同时继承到这两条路径的相同 EIGRP 度量值（because of the equal bandwidth (and delay) values of the links between `R1` and `R2`, the same EIGRP metric will be derived for both paths from `R2` to the `172.16.100.0/24` subnet）。 EIGRP 将在这两条链路之间进行流量负载均衡，如下面路由器`R2`上的输出所示：
+**图 22.8** -- **EIGRP 度量值的带宽操作**
+
+参照图 22.8 中的图表，由于 `R1` 和 `R2` 之间两条链路相等的带宽（及延迟）值，因此从 `R2` 到 `172.16.100.0/24` 这个子网的两条路径的同一 EIGRP 度量值就将被推导出来。EIGRP 将在这两条串行链路之间，负载均衡流量，如 `R2` 上的以下输出所示：
+
 
 ```console
 R2#show ip route 172.16.100.0 255.255.255.0
@@ -91,9 +82,13 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops
 ```
 
-对两条链路中的任何一条的带宽进行调整，都会直接影响到 EIGRP 对到目的网络路径的度量值计算。**这样的操作，可用于更为大型网络中路径的控制（也就是基于管理员定义的数值与配置，对流量所要采行的路径进行控制）**（Such actions can be used for path control within larger networks(i.e., controlling the path that traffic takes based on administrator-defined values and configurations)）。比如这里要令到 EIGRP 优先使用`Serial0/0`作为前往目的网络的主要路径，而将`Serial0/1`作为到目的网络的备份路径，就要采取两种操作之一。
+调整两个接口中任一上的默认带宽值，都将直接影响这一到目的网络路径的 EIGRP 度量值计算。此类操作可用于大型网络中的路径控制（即，根据管理员定义的值与配置，控制流量所采取的路径）。例如，当优先选择 EIGRP 将 `Serial0/0` 作为到目的网络的主路径，而将 `Serial0/1` 作为到目的网络的备份路径时，那么咱们可采取以下两种操作之一：
 
-第一种操作，就是可以增加`Serial0/0`上的带宽值，造成该路径的一个更好（更低）的度量值。那么第二种方法，就是可以降低`Serial0/1`上的带宽值，造成该路径的一个更差（更高）的度量值。两种选项都是可接受的，同时都将达成所需的结果。下面的输出演示了如何将`Serial0/0`上的默认带宽进行降低，从而有效地确保`Serial0/0`作为路由器`R2`及`172.16.100.0/24`网络之间的主要路径。
+- `Serial0/0` 上的带宽值可被提升，得到哟该路径的一个更好（更低）度量值；
+- `Serial0/1` 上的带宽值可被降低，得到该路径的一个更差（更高）度量值。
+
+
+两个选项中任一都是可以接受的，并都将达到所要的结果。以下输出演示了如何降低 `Serial0/1` 上的默认带宽值，从而有效确保 `Serial0/0` 被用作 `R2` 与 `172.16.100.0/24` 网络之间的主路径：
 
 ```console
 R2(config)#interface Serial0/1
@@ -101,9 +96,11 @@ R2(config-if)#bandwidth 1024
 R2(config-if)#exit
 ```
 
-> **注意：** 如同在第 1 天指出的，该配置并不意味着接口`Serial0/1`上仅容许 1024Kbps 速率的流量通过该接口（As stated in Day 1, this configuration does not mean that `Serial0/1` is now capable of only 1024Kbps of throughput through this interface）。
 
-该配置的结果就是接口`Serial0/0`成为路由器`R2`到达目的网络`172.16.100.0/24`网络的主要路径。这在下面的输出中有所演示：
+    **注意**：这一配置并不意味着 `Serial0/1` 现在只具备通过此接口的 1024Kbps 吞吐量。
+
+这一配置的结果，便是 `Serial0/0` 是 `R2` 用于到达 `172.16.100.0/24` 这个目的网络的主要路径。这在以下输出中得以演示：
+
 
 ```console
 R2#show ip route 172.16.100.0 255.255.255.0
@@ -119,6 +116,17 @@ Routing entry for 172.16.100.0/24
       Loading 1/255, Hops 1
 ```
 
+    **注意**：其中星号 (`*`) 指向的是，下一个数据包将于其上发送的那个接口。在路由表中有多条等价路由的情况下，`*` 的位置会在这些等价路由中轮换。
+
+
+
+虽然经由 `Serial0/1` 接口的那条路径不会被安装到路由表中，但在使用 EIGRP 作为路由协议时，重要的是记住，这条路径不会被完全忽略。相反，这条路径被存储在 EIGRP 的拓扑数据表中，其包含着到远端目的网络的主路径和备用（备份）路径。EIGRP 的拓扑数据表，将在这一教学模组稍后详细介绍。
+
+
+注意：默认情况下，启用 EIGRP 后，它最多可以使用接口带宽的 50%来发送 EIGRP 数据包（EIGRP 是一个非常健谈的协议，因此它限制了自己可能使用的带宽）、
+所以它会限制自己可能的带宽使用）。EIGRP 根据带宽接口配置命令确定带宽量。
+命令来确定带宽大小。因此，在调整接口带宽值时，必须牢记这一点。可以通过
+使用 ip bandwidth-percent eigrp [ASN] [percentage] 接口配置命令来调整。总之，在使用带宽命令影响 EIGRP 指标计算时，一定要记住 EIGRP 使用通往目标网络路径上的最小带宽和累积延迟来计算路由指标。因此，必须充分了解网络拓扑结构，才能最好地确定在何处使用带宽命令来影响 EIGRP 指标计算。但在现实世界中，延迟是影响 EIGRP 指标的首选方法。使用接口延迟影响 EIGRP 指标计算
 > **注意：** 这里星号（the asterisk, `*`）指向的接口，就是下一数据包要发送出去的接口。而在路由表中有着多个开销相等的路由时，星号的位置就会在这些开销相等的路径之间轮转。
 
 在将 EIGRP 作为路由协议时，尽管经由`Serial0/1`接口的路径未被安装到**路由表**中, 重要的是记住该路径并未被完全忽略掉（Although the path via the `Serial0/1` interface is not installed into the routing table, when using EIGRP as the routing protocol, it is important to remember that this path is not completely ignored）。而是该路径被存储在**EIGRP的拓扑表**中， EIGRP 的拓扑表包含了到那些远端目网络的主要及替代（备份）路径。本课程模块后面将对 EIGRP 的拓扑表予以讲解。
