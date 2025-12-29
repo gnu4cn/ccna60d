@@ -178,6 +178,7 @@
     - [Cisco® EIGRP 概述与基础知识](d22/overview.md)
     - [EIGRP 配置基础](d22/configuration_fundamentals.md)
     - [EIGRP 的报文](d22/messages.md)
+    - [EIGRP 的邻居发现及维护](d22/neighbor_discovery_and_maint.md)
 
 
 
