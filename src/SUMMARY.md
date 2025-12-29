@@ -179,6 +179,7 @@
     - [EIGRP 配置基础](d22/configuration_fundamentals.md)
     - [EIGRP 的报文](d22/messages.md)
     - [EIGRP 的邻居发现及维护](d22/neighbor_discovery_and_maint.md)
+    - [度量值、DUAL 及拓扑数据表](d22/metrics_dual_and_topology_table.md)
 
 
 
