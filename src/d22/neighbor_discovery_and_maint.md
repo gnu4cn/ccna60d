@@ -358,4 +358,4 @@ Static Address           Interface
 >
 > - the Retransmission Timeout, RTO, indicates the time that the router waits for an acknowledgment of that Sequence TLV EIGRP packet
 >
-> if after 16 attempts there still no response from the offender router, then EIGRP will reset this neighbor
+> - if after 16 attempts there still no response from the offender router, then EIGRP will reset this neighbor
