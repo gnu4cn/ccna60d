@@ -180,6 +180,7 @@
     - [EIGRP 的报文](d22/messages.md)
     - [EIGRP 的邻居发现及维护](d22/neighbor_discovery_and_maint.md)
     - [度量值、DUAL 及拓扑数据表](d22/metrics_dual_and_topology_table.md)
+    - [等价与非等价的负载分担](d22/load_sharing.md)
 
 
 
