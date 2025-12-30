@@ -1,13 +1,14 @@
 # EIGRP 网络中的水平分割
 
-**Split Horizon in EIGRP Networks**
+早先咱们曾解到，水平分隔属于一项规定路由信息不能从经由其被接收的同一接口，再发送回去的距离矢量协议特性。这一特性防止了将信息重新通告回其被学习的来源处。虽然这一特性是种了不起的循环预防机制，但其也是一种重大缺陷，尤其是在中心辐射状的网络中。要更好地理解这一特性的缺点，请参阅下图 22.14 中的 EIGRP 中心辐射状网络。
 
-前面已获悉水平分割是一项距离矢量协议的特性，该特性强制路由信息无法从接收到的接口再发送回去，这样做就阻止了路由信息重新通告到学习到其的同一接口（Previously, you learned that split horizon is a Distance Vector protocol feature mandating that routing information cannot be sent back out of the same interface through which it was received. This prevents the re-advertising of information back to the source from which it was learned）。虽然这个特征是一种很好的环回防止机制（a great loop prevention mechanism），但其也是一项明显的缺陷，特别是在星形网络中（especially in hub-and-spoke networks）。为更好地理解此特性的不足，就要参考下面图36.14中的 EIGRP 星形网络：
 
-![EIGRP的水平分割](../images/3614.png)
-*图 36.14 -- EIGRP的水平分割*
+![EIGRP 的水平分割](../images/3614.png)
 
-图36.14中的拓扑，演示了一个典型的星形网络，其中的总部路由器（router HQ）是中心路由器（the hub router）, 路由器`S1`与`S2`则是分支路由器(the spoke router)。在该帧中继广域网上，每台分支路由器都有着一个在部分网状拓扑（a partial-mesh topology）中，各自与中心路由器之间的，所提供的数据链路层连接标识（Data Link Connection Identifier，这是个 6 位标识，表示正在进行的客户和服务器之间的连接。用于RFCOMM 层。On the Frame Relay WAN, each spoke router has a single DLCI provisioned between itself and the HQ router in a partial-mesh topology）。下面对这些路由器上的帧中继配置进行了检查：
+**图 22.14** -- **EIGRP 的追平分隔**
+
+图 22.14 中的拓扑结构，演示了一种经典的中心辐射状网络，其中路由器 `HQ` 作为中心路由器，同时路由器 `S1` 和 `S2` 作为两个分支路由器。在那个帧中继的 WAN 上，每个分支路由器都有着一个其自身，与部分网状拓扑中总部路由器间配置的 DLCI。这些路由器上的帧中继配置验证如下：
+
 
 ```console
 HQ#show frame-relay map
@@ -17,7 +18,9 @@ Serial0/0 (up): ip 172.16.1.2 dlci 102(0x66,0x1860), static,
 Serial0/0 (up): ip 172.16.1.1 dlci 103(0x67,0x1870), static,
               broadcast,
               CISCO, status defined, active
+```
 
+```console
 S1#show frame-relay map
 Serial0/0 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), static,
               broadcast,
@@ -25,7 +28,9 @@ Serial0/0 (up): ip 172.16.1.2 dlci 301(0x12D,0x48D0), static,
 Serial0/0 (up): ip 172.16.1.3 dlci 301(0x12D,0x48D0), static,
               broadcast,
               CISCO, status defined, active
+```
 
+```console
 S2#show frame-relay map
 Serial0/0 (up): ip 172.16.1.1 dlci 201(0xC9,0x3090), static,
               broadcast,
@@ -35,7 +40,9 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
               CISCO, status defined, active
 ```
 
-在后面的广域网章节，将涉及到帧中继。这里在所有三台路由器上都开启了 EIGRP ，使用了自治系统编号`150`。下面的输出演示了中心路由器与分支路由器之间的 EIGRP 邻居关系：
+稍后我们将在 [WAN 小节]() 介绍帧中继。增强型 IGRP 已在全部三台路由器上，使用 AS 150 启用。以下输出演示了总部路由器与两台分支路由器之间的 EIGRP 邻居关系：
+
+（帧中继已从 CCNA 教学大纲中删除。遗憾的是，它们导致的这个水平分隔问题却仍然存在。因此，我们将介绍这个问题，却不会介绍技术背后的理论。）
 
 ```console
 HQ#show ip eigrp neighbors
@@ -46,7 +53,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.2     Se0/0        153    00:01:25  124   744   0   2
 ```
 
-下面的输出对第一台分支路由器`S1`与中心路由器之间的 EIGRP 邻居关系：
+以下输出演示了第一个分支路由器 `S1`，与总部路由器之间的 EIGRP 邻居关系：
 
 ```console
 S1#show ip eigrp neighbors
@@ -56,7 +63,8 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        128    00:00:53  911   5000  0   4
 ```
 
-下面的输出对第二台分支路由器`S2`与中心路由器之间的 EIGRP 邻居关系：
+
+以下输出演示了第二个分支路由器 `S2`，与总部路由器之间的 EIGRP 邻居关系：
 
 ```console
 S2#show ip eigrp neighbors
@@ -66,9 +74,10 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        156    00:02:20  8     200   0   4
 ```
 
-默认 EIGRP 的水平分割是开启的，但在**局部网状网络的非广播多路访问网络**上， EIGRP 的水平分割是不合需要的（By default, EIGRP split horizon is enabled, which is undesirable in **partial-mesh NBMA networks**）。这就意味着对于那些在`Serial0/0`上学习到的路由信息，中心路由器不会再从相同接口（`Serial0/0`）进行通告。而这种默认行为的效果，就是中心路由器不会将接收自路由器`S1`的`10.1.1.0/24`前缀，通告给`S2`，因为该路由是经由`Serial0/0`接口接收到的，而水平分割特性阻止了该路由器对从该接口学习到的信息，在通告出同一接口。这一点对于中心路由器接收自路由器`S2`的`10.2.2.0/24`前缀同样适用。
+默认情况下，EIGRP 的水平分隔是启用的，这在部分网状的 NBMA 网络中是不可取的。这意味着 `HQ` 路由器不会把在 `Serial0/0` 上学习到的路由信息，再通告出该同一接口。这种默认行为的效果，便是 `HQ` 路由器不会把接收自 `S1` 的 `10.1.1.0/24` 前缀，通告给 `S2`，因为这条路由是经由 `Serial0/0` 接口接收到的，而水平分隔特性，会阻止该路由器将该接口上学习到的信息，再通告回该同一接口。同样的情况也适用于 `HQ` 路由器接收自 `S2` 的 `10.2.2.0/24` 前缀。
 
-这种默认行为意味着尽管中心路由器注意到了这两条前缀，但分支路由器却只有局部的路由表。中心路由器上的路由表如下：
+这种默认行为意味着，虽然 `HQ` 路由器知道这两个前缀，但两个分支路由器却只有着部分路由表。`HQ` 路由器上的路由表如下：
+
 
 ```console
 HQ#show ip route eigrp
@@ -77,7 +86,7 @@ D       10.1.1.0/24 [90/2195456] via 172.16.1.1, 00:12:04, Serial0/0
 D       10.2.2.0/24 [90/2195456] via 172.16.1.2, 00:12:06, Serial0/0
 ```
 
-分支路由器`S1`上的路由表如下：
+分支 `S1` 上的路由表如下：
 
 ```console
 S1#show ip route eigrp
@@ -85,7 +94,8 @@ S1#show ip route eigrp
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:53, Serial0/0
 ```
 
-分支路由器`S2`上的路由表如下：
+分支 `S2` 上的路由表如下：
+
 
 ```console
 S2#show ip route eigrp
@@ -99,6 +109,15 @@ D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
 - 从中心路由器往分支路由器通告一条默认路由, Advertising a default route from the HQ router to the spoke routers
 - 在路由器上手动配置 EIGRP 邻居, Mannually configuring EIGRP neighbours on the routers
 
+这种默认行为结果，便是虽然总部路由器能够到达两个分支路由器的那些网络，但两个分支路由器将都无法到达对方网络。此种情形可以数种方式加以解决，他们如下：
+
+- 在 `HQ`（中心）路由器上禁用水平分隔
+- 自 `HQ` 路由器通告一条默认路由到分支路由器
+- 在这些路由器上手动配置一些 EIGRP 邻居
+
+通过在中心路由器上使用 no ip split-horizon eigrp [AS] 接口配置命令，可以在接口级别禁用水平分割。 show ip split-horizo​​n interface_name 命令不会像 RIP 那样显示 EIGRP 水平分割的状态。要查看它是否被禁用，您必须检查接口配置部分（即 show run interface_name）。参考上面图 22.11 所示的网络拓扑，此接口配置命令将应用于总部路由器上的 Serial0/0 接口。这是按如下方式执行的：
+- 在路由器上手动配置 EIGRP 邻居。
+在路由器上手动配置 EIGRP 邻居 通过在集线器路由器上使用 no ip split-horizon eigrp [AS] interface 配置命令，在接口级禁用分裂水平。show ip split-horizon interface_name 命令不会像 RIP 那样显示 EIGRP 分裂水平线的状态。要查看它是否被禁用，必须检查接口配置部分（即 show run interface_name）。参照上图 22.11 所示的网络拓扑，该接口配置命令将应用于 HQ 路由器的 Serial0/0 接口。具体操作如下：
 通过在中心路由器的接口级别使用接口配置命令`no ip split-horizon eigrp [AS]`，就可以完成关闭水平分割。**命令`show ip split-horizon interface_name`不会显示 EIGRP 的水平分割状态，因为该命令是作用于 RIP 的**。所以要查看到 EIGRP 的水平分割状态，就必须对接口配置部分进行检查（也就是执行`show run interface_name`命令）。参考上面图36.14中所演示的网络拓扑，此接口配置命令就应在中心路由器上的`Serial0/0`接口上应用。应像下面这样完成：
 
 ```console
