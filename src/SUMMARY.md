@@ -182,6 +182,7 @@
     - [度量值、DUAL 及拓扑数据表](d22/metrics_dual_and_topology_table.md)
     - [等价与非等价的负载分担](d22/load_sharing.md)
     - [使用 EIGRP 的默认路由](d22/default_routing.md)
+    - [EIGRP 网络中的水平分隔](d22/split_horizon.md)
 
 
 
