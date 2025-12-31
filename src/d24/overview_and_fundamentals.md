@@ -54,31 +54,33 @@ OSPF 是种会将网络，逻辑划分为一些称为区域的子域的层次化
 
 ![一个多区域 OSPF 网络](../images/1201.png)
 
-*图12.1 -- 一个多区域 OSPF 网络*
+**图 24.1** -- **一个多区域的 OSPF 网络**
 
-图12.1演示了一个基本的多区域 OSPF 网络。`1`、`2`号区域连接到`0`号区域，也就是 OSPF 骨干上。`1`号区域中，路由器`R1`、`R2`和`R3`交换着区域内（intra-area）路由信息，并维护着那个区域的详细拓扑。`R3`作为 ABR ，生成一条区域间汇总路由（an inter-area summary route）, 并将该路由通告给 OSPF 骨干。
 
-`R4`，也就是`2`号区域的 ABR ，从`0`号区域接收到`R3`通告出的汇总信息，并将其扩散到其**邻接区域**。这样做就令到`R5`和`R6`知悉位处其本地区域外、但仍在 OSPF 域内的那些路由了。同样概念也适用于`2`号区域内的路由信息（`R4`, the ABR for Area 2, receives the summary informaiton from Area 0 and floods it into its **adjacent area**. This allows routers `R5` and `R6` to know of the routes that reside outside of their local area but within the OSPF domain. The same concept would also be applicable to the routing informaiton within Area 2）。
+图 24.1 演示了个基本的多区域 OSPF 网络。`Area 1` 和 `Area 2` 与 OSPF 主干 的 `Area 0` 相连。在 `Area 1` 中，路由器 `R1`、`R2` 及 `R3` 交换着区域内的路由信息，并维护着该区域的详细拓扑结构。R3 作为区域边界路由器（ABR），生成了一条区域间摘要路由，并通告了这条路由到 OSPF 的主干区域。
 
-总的来讲， ABRs 都维护着所有其各自连接区域的 LSDB 信息。而各个区域中的所有路由器，都有着属于其特定区域的详细拓扑信息。这些路由器交换着区域内的路由信息。 ABRs 则将所连接区域的汇总信息通告给其它 OSPF 区域，以实现域内各子域（区域）间的路由（In summation, the ABRs maintain LSDB informaiton for all the areas in which they are connected. All routers within each area have detailed topology informaiton pertaining to that specific area. These routers exchange intra-area routing informaiton. The ABRs advertise summary informaiton from each of their connected areas to other OSPF areas, allowing inter-area routing within the domain）。
+`R4` 作为 `Area 2` 的 ABR，会收到来自 `Area 0` 的摘要信息，并会将其泛洪到他的邻接区域（译注：这里应为邻接路由器？）。这便允许路由器 `R5` 和 `R6`，获悉位于他们本地区域外，却在这个 OSPF 域内的那些路由。同一概念也适用于 `Area 2` 内的路由信息。
 
-> **注意：** 本书后面会详细说明OSPF ABRs及其它 OSPF 路由器类型。
 
-### 组网类型
+总之，这些 ABR 维护着他们所连接的全部区域的 LSDB 信息。而各个区域内的全体路由器，都有着与该特定区域相关的详细拓扑信息。这些路由器会交换区域内的路由信息。而那些 ABR 则会通告每个他们所连接区域的摘要信息，到别的 OSPF 区域，从而实现这个域内的区域间路由。
 
-**Network Types**
+**注意**：OSPF 的区域边界路由器，与其他 OSPF 的路由器类型，将在这本指南稍后详细介绍。
 
-对不同传输介质， OSPF 采用不同默认组网类型，有下面这些:
+## 网络类型
 
-- 非广播组网（在多点非广播多路复用传输介质上，也就是 FR 和ATM, 默认采用此种组网类型， Non-Broadcast，default on Multipoint Non-Broadcast Multi-Access(FR and ATM)）
-- 点对点组网（在 HDLC 、 PPP 、 FR 及 ATM 的 P2P 子接口，以及 ISDN 介质上，默认采用此种组网类型， Point-to-Point，default on HDLC, PPP, P2P subinterface on FR and ATM, and ISDN）
-- 广播组网（在以太网和令牌环介质上，默认采用此种组网类型， Broadcast，default on Ethernet and Token Ring）
-- 点对多点组网（Point-to-Multipoint）
-- 环回组网（默认在环回接口上采用此种组网类型， Loopback，default on Loopback interfaces）
+OSPF 会针对不同介质，使用不同的默认网络类型，他们如下：
 
-**非广播网络**是指那些没有原生的广播或多播流量支持的网络类型。非广播类型网络的最常见实例就是帧中继网络。非广播类型网络**需要额外配置，以实现广播和多播支持**。在这种网络上， OSPF 选举出一台指定路由器(a Designate Router, DR), 及/或一台备用指定路由器（a Backup Designated Router, BDR）。在本书后面会对这两台路由器进行说明。
+- 非广播网络，多点 NBMA（FR 及 ATM）上的默认类型
+- 点对点网络，HDLC、PPP、FR 与 ATM 上的 P2P 子接口，以及 ISDN 的默认类型
+- 广播网络，以太网与令牌环的默认类型
+- 点对多点网络
+- 点对多点的非广播网络
+- 环回网络，环回接口上的默认类型
 
-思科 IOS 软件中，非广播类型网络上开启了 OSPF 的路由器，默认每`30`秒发出`Hello`数据包。若`4`个`Hello`间隔，也就是`120`秒中都没有收到`Hello`数据包，那么该邻居路由器就被认为是“死了”。下面的输出演示了在一个帧中继串行接口上`show ip ospf interface`命令的输出。
+所谓非广播的网络，属于一些未原生支持广播或组播流量的网络类型。最常见的非广播网络类型示例，便是帧中继。非广播网络类型，需要额外配置，才能同时实现广播与组播的支持。在此类网络上，OSPF 会选出一个指定路由器 (DR) ，和/或一个备份指定路由器 (BDR)。这两个路由器会在这本指南中稍后介绍。
+
+在 Cisco 10S 软件中，默认情况下，启用 OSPF 的路由器在非广播网络类型上，会每 30 秒发送 `Hello` 数据包。当 `Hello` 数据包在四倍 `Hello` 间隔，或 120 秒后都未收到时，那么这个邻居路由器就会被视为 “死亡”。以下输出演示了某个帧中继串行接口上的 `show ip ospf interface` 命令：
+
 
 ```console
 R2#show ip ospf interface Serial0/0
@@ -100,6 +102,9 @@ Serial0/0 is up, line protocol is up
 		Adjacent with neighbor 1.1.1.1 (Backup Designated Router)
 	Suppress Hello for 0 neighbor(s)
 ```
+
+
+---
 
 一条点对点连接, 简单来说就是一条两个端点之间的连接。 P2P 连接的实例，包括采用 HDLC 及 PPP 封装的物理 WAN 接口，以及 FR 和 ATM 的点对点子接口。**OSPF点对点组网类型中，不会选举出 DR 和BDR**。在 P2P 类型网络上， OSPF 每`10`秒发出`Hello`数据包。在这些网络上，”死亡“间隔是`Hello`间隔的`4`倍，也就是`40`秒（A Point-to-Point(P2P) connection is simply a connection between two endpoints only. Examples of P2P connections include physical WAN interfaces using HDLC and PPP encapsulation, and Frame Relay(FR) and Asynchronous Transfer Mode(ATM) Point-to-Point subinterfaces. No DR or BDR is elected on OSPF Point-to-Point network types. By default, OSPF sends Hello packets out every 10 seconds on P2P network types. The "dead" interval on these network types is four times the Hello interval, which is 40 seconds）。下面的输出演示了在一条 P2P 链路上的`show ip ospf interface`命令的输出。
 
