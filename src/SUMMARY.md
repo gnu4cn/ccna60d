@@ -186,6 +186,8 @@
     - [EIGRP 的路由汇总](d22/route_summarization.md)
     - [理解被动接口](d22/passive_interface.md)
     - [理解 EIGRP 路由器 ID 的用法](d22/router_id.md)
+    - [第 22 天问题](d22/questions.md)
+    - [第 22 天实验](d22/labs.md)
 
 
 
