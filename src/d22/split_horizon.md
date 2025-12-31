@@ -147,4 +147,20 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 考虑到EIGRP 的默认路由与静态邻居的配置，已在这一教学模组前几个小节中详细介绍过了，出于简洁原因，这些特性的配置便省略了。
 
 
-
+> *知识点*：
+>
+> + split horizon
+>   - is a Distance Vector protocol feature
+>   - mandating that routing information connot be sent back out of the same interface, through which it was received
+>   - prevents the re-advertising of information back to the source from which it was learnt
+>   - is a greate loop prevention mechanism
+>   - also a significant drawback, especially in hub-and-spoke networks
+>
+> - by default, EIGRP split horizon is enabled, which is undesirable in partial-mesh NBMA networks
+>
+> - the result of this default split horizon enabled behavior, is that while the HQ router will be able to reach both spoke router networks, neither spoke router will be able to reach the networks of the other.
+>
+> + To address such a situation, three methods are available:
+>   - disabling split horizon on the HQ(hub) router
+>   - advertise a default route from the HQ router to the spoke routers
+>   - manually configuring EIGRP neighbors on the routers
