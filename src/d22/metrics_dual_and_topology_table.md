@@ -488,6 +488,7 @@ P 172.16.100.0/24, 1 successors, FD is 1686016, serno 47
 >
 > However, if the EIGRP topology table lists the router sending the Query as the Successor for this route and there is no FS, then the router queries all of its EIGRP neighbors, except those that were sent out of the same interface as its former Successor. The router will not reply to the Query until it has received a Reply to all Queries that it originated for this route.
 
+<a name="query-boundary"></a>
 最后，当查询在某个并非该目的地接续者的邻居上收到的时，那么该路由器会回复以其自己的接续者信息。当这些相邻路由器都没有那条丢失路由的信息时，那么一些查询数据包，便会自这些相邻路由器，发送到其相邻路由器，直到到达查询边界。所谓查询边界，可以是网络末端、分发列表的边界，或者汇总的边界。
 
 

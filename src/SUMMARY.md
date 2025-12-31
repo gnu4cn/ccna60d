@@ -184,6 +184,8 @@
     - [使用 EIGRP 的默认路由](d22/default_routing.md)
     - [EIGRP 网络中的水平分隔](d22/split_horizon.md)
     - [EIGRP 的路由汇总](d22/route_summarization.md)
+    - [理解被动接口](d22/passive_interface.md)
+    - [理解 EIGRP 路由器 ID 的用法](d22/router_id.md)
 
 
 
