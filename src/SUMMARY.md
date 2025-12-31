@@ -192,6 +192,10 @@
 - [第 23 天 复习](d23-review.md)
 
 
++ [第 24 天 OSPF](d24-ospf.md)
+    - [OSPF 概述与基础知识](d24/overview_and_fundamentals.md)
+
+
 
 
 - [路由器和交换机安全](d04-Router-and-Switch-Security.md)
