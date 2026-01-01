@@ -194,6 +194,9 @@
 
 + [第 24 天 OSPF](d24-ospf.md)
     - [OSPF 概述与基础知识](d24/overview_and_fundamentals.md)
+    - [OSPF 的配置](d24/configuration.md)
+    - [指定路由器与后备指定路由器](d24/designated_and_backup_designated_routers.md)
+    - [其他路由器类型](d24/other_router_types.md)
 
 
 
