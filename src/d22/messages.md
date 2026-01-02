@@ -9,6 +9,7 @@
 
 ![EIGRP 数据包头部的字段](../images/3601.png)
 
+<a name="eigrp-packet_header"></a>
 **图 22.1** -- **EIGRP 数据包头部的字段**
 
 

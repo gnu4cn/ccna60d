@@ -198,6 +198,8 @@
     - [指定路由器与后备指定路由器](d24/designated_and_backup_designated_routers.md)
     - [其他路由器类型](d24/other_router_types.md)
     - [OSPF 的数据包类型](d24/packet_types.md)
+    - [第 24 天问题](d24/questions.md)
+    - [第 24 天实验](d24/labs.md)
 
 
 
