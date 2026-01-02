@@ -107,23 +107,23 @@
 3. 在两个路由器上均配置一个环回接口，并分配两个不同范围中的地址（`11.11.11.1/32` 与 `12.12.12.2/32`）；
 4. 配置标准的 OSPF `process 1`，并在 `Area 0` 中通告所有本地网络。同时，还要配置两个设备的路由器 ID：
 
-**`R1`**：
+    **`R1`**：
 
-```console
-router ospf 1
-router-id 1.1.1.1
-network 10.10.10.0 0.0.0.255 area 0
-network 11.11.11.1 0.0.0.0 area 0
-```
+    ```console
+    router ospf 1
+    router-id 1.1.1.1
+    network 10.10.10.0 0.0.0.255 area 0
+    network 11.11.11.1 0.0.0.0 area 0
+    ```
 
-**`R2`**：
+    **`R2`**：
 
-```console
-router ospf 1
-router-id 2.2.2.2
-network 10.10.10.0 0.0.0.255 area 0
-network 12.12.12.2 0.0.0.0 area 0
-```
+    ```console
+    router ospf 1
+    router-id 2.2.2.2
+    network 10.10.10.0 0.0.0.255 area 0
+    network 12.12.12.2 0.0.0.0 area 0
+    ```
 
 5. 自 `R1` `Ping` `R2` 的环回接口，测试连通性；
 6. 执行 `show ip route` 命令，验证路由是否经由 OSPF 得以接收；
