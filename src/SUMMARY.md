@@ -205,6 +205,7 @@
     - [OSPF 的链路状态通告与链路状态数据库](d25/LSAs_and_LSDB.md)
     - [OSPF 的区域](d25/areas.md)
     - [路由度量值与最优路由选择](d25/metrics_and_route_selection.md)
+    - [配置 OSPF](d25/configuring.md)
 
 
 
