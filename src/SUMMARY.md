@@ -201,6 +201,10 @@
     - [第 24 天问题](d24/questions.md)
     - [第 24 天实验](d24/labs.md)
 
++ [第 25 天 高级 OSPF 概念](d25-advanced_ospf_concepts.md)
+    - [OSPF 的链路状态通告与链路状态数据库](d25/LSAs_and_LSDB.md)
+    - [OSPF 的区域](d25/areas.md)
+
 
 
 

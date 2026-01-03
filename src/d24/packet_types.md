@@ -128,6 +128,7 @@
 
 **图 24.11** -- **OSPF 的链路状态请求数据包**
 
+<a name="lsa-types"></a>
 4 个字节的 `Link State Advertisement Type` 字段，包含正被请求的 LSA 类型。其可能包含以下字段之一：
 
 - `Type 1` = 路由器链路状态通告
