@@ -228,6 +228,9 @@
     - [第 28 天问题](d28/questions.md)
     - [第 28 天实验](d28/labs.md)
 
++ [第 29 天 IPv4 的访问列表](d29-IPv4_access_lists.md)
+    - [ACL 基础知识](d29/basics.md)
+
 
 
 
