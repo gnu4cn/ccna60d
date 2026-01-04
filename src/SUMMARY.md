@@ -225,6 +225,8 @@
     - [DNS 的运行](d28/DNS_operations.md)
     - [DNS 问题的故障排除](d28/troubleshooting_DNS.md)
     - [网络时间协议](d28/NTP.md)
+    - [第 28 天问题](d28/questions.md)
+    - [第 28 天实验](d28/labs.md)
 
 
 
