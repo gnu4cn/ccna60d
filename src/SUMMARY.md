@@ -223,6 +223,8 @@
     - [配置 DHCP](d28/configuring_DHCP.md)
     - [DHCP 问题的故障排除](d28/troubleshooting_DHCP.md)
     - [DNS 的运行](d28/DNS_operations.md)
+    - [DNS 问题的故障排除](d28/troubleshooting_DNS.md)
+    - [网络时间协议](d28/NTP.md)
 
 
 
