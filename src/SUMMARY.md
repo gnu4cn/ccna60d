@@ -221,6 +221,8 @@
 + [第 28 天 DHCP、DNS 与 NTP](d28-DHCP_DNS_and_NTP.md)
     - [DHCP 的功能](d28/DHCP_functionality.md)
     - [配置 DHCP](d28/configuring_DHCP.md)
+    - [DHCP 问题的故障排除](d28/troubleshooting_DHCP.md)
+    - [DNS 的运行](d28/DNS_operations.md)
 
 
 
