@@ -211,7 +211,17 @@
 
 
 - [第 26 天 复习](d26-review.md)
-- [第 27 天 复习](d27-section_review.md)
+- [第 27 天 阶段复习](d27-section_review.md)
+
+
+---
+
+# 基础设施业务
+
++ [第 28 天 DHCP、DNS 与 NTP](d28-DHCP_DNS_and_NTP.md)
+    - [DHCP 的功能](d28/DHCP_functionality.md)
+    - [配置 DHCP](d28/configuring_DHCP.md)
+
 
 
 
