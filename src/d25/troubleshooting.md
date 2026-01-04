@@ -158,6 +158,7 @@ R1#
 *Mar 18 20:03:34.687: RT: NET-RED 100.1.1.0/24
 *Mar 18 20:03:34.687: RT: interface Loopback100 added to routing table
 ...
+
 [Truncated Output]
 ```
 
@@ -265,15 +266,7 @@ O       10.0.1.0 [110/2] via 10.0.0.1, 00:01:08, FastEthernet0/0
 
 ## OSPF 路由的故障排除
 
----
-
-在本模块的最后一部分，我们将介绍一些更常用的 OSPF 调试命令。使用 debug ip ospf 命令可以启用 OSPF 调试。该命令可与以下附加关键字结合使用：
-
-除了上书三种常见原因，不良的设计、实现，以及错误配置，也是导致 OSPF 不如预期的那样对网络进行通告的一个原因。导致此类故障常见的设计问题，包括一个不连续或分区的骨干区域（a discontiguous or partitioned backbone）以及区域类型的错误配置，比如将区域配置为完全末梢的区域。对于这种原因，就要对 OSPF 的工作原理及其在自己的环境中如何部署有扎实掌握。这样的掌握将极大地简化故障排除过程，因为在故障排除之前，就已经赢得了战斗的一半了。
-
-### OSPF路由故障的调试（Debugging OSPF Routing Issues）
-
-在本课程模块的最后一节，将看看一些较为常用的 OSPF 调试命令。 OSPF 的调试，是通过使用`debug ip ospf`命令来开启的。该命令可结合下面这些额外关键字一起使用：
+在这个教学模组的最后部分，我们将介绍一些更常用到的 OSPF 调试命令。OSPF 的调试，是通过使用 `debug ip ospf` 命令启用的。这条命令可与以下一些额外关键字结合使用：
 
 ```console
 R1#debug ip ospf ?
@@ -291,7 +284,8 @@ R1#debug ip ospf ?
   tree            OSPF database tree
 ```
 
-命令`debug ip osfp adj`将打印有关临接事件的实时信息。在对 OSPF 的邻居临接故障进行故障排除时，这是一个有用的故障排除工具。下面是一个由该命令打印的信息示例。下面的示例演示了如何使用该命令，来判断 MTU 不匹配而导致的无法到达`Full`状态，从而阻止了邻居临接的建立：
+其中 `debug ip ospf adj` 命令会打印出邻接事件的实时信息。在 OSPF 邻居邻接关系问题的故障排除时，这是一项有用的故障排除工具。以下是由这条命令打印的示例信息。以下示例演示了这条命令可怎样用于确定出MTU 的不匹配，正阻止着邻居邻接关系达到 `Full` 状态：
+
 
 ```console
 R1#debug ip ospf adj
@@ -314,12 +308,16 @@ R1#
 *Mar 18 23:13:26.279: OSPF: Nbr 2.2.2.2 has smaller interface MTU
 *Mar 18 23:13:26.279: OSPF: Send DBD to 2.2.2.2 on FastEthernet0/0 seq 0xA65 opt 0x52 flag 0x2 len 192
 ...
+
 [Truncated Output]
 ```
 
-从上面的输出，可以推断出本地路由器上的 MTU 高于`1480`字节，因为该调试输出显示邻居有着较低的 MTU 值。推荐的解决方案将是调整该较低的 MTU 值，以令到两个邻居有着同样的接口 MTU 值。这就可以允许该临接达到`Full`状态。
 
-命令`debug ip ospf lsa-generation`将打印出有关 OSPF 链路状态通告的信息。该命令可用于在使用 OSPF 时对路由通告的故障排除。下面是由该命令所打印的输出信息的一个示例：
+从上面的输出，咱们可以得出结论，这个本地路由器上的 MTU 大于 1480 字节，因为这里的调试输出显示，邻居有着较小的 MTU 值。因此建议的解决方案，将是调整那个较小 MTU 值，从而使两个邻居有着同样的接口 MTU 值。这样做将将允许邻接关系达到 `Full` 状态。
+
+
+`debug ip ospf lsa-generation` 这条命令，会打印有关 OSPF LSA 的信息。这条命令可用于在使用 OSPF 时，排除路由通告故障。以下是由这条命令打印的信息输出示例：
+
 
 ```console
 R1#debug ip ospf lsa-generation
@@ -341,7 +339,7 @@ R1#
 *Mar 18 23:26:05.535: OSPF: Generate external LSA 192.168.5.0, mask 255.255.255.0, type 5, age 0, metric 20, tag 0, metric-type 2, seq 0x80000006
 ```
 
-命令`debug ip ospf spf`提供有有关最短路径优先算法事件的实时信息。该命令可以下面的关键字结合使用：
+`debug ip ospf spf` 这条命令，提供有关一些最短路径优先算法事件的实时信息。这条命令可与以下关键字结合使用：
 
 ```console
 R1#debug ip ospf spf ?
@@ -352,7 +350,7 @@ R1#debug ip ospf spf ?
 <cr>
 ```
 
-与所有`debug`命令一样，在对 SPF 事件进行调试之前，都应对诸如网络大小及路由器上资源占用等因素加以考虑。下面是自`debug ip ospf spf statistic`命令的输出示例：
+与所有 `debug` 命令下的情形一样，在调试 SPF 事件前，应给予诸如网络规模，与路由器资源利用率等因素一些考量。以下是 `debug ip ospf spf statistic` 这条命令的一个输出示例：
 
 ```console
 R1#debug ip ospf spf statistic
@@ -362,6 +360,7 @@ Reset ALL OSPF processes? [no]: y
 R1#
 *Mar 18 23:37:27.795: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from FULL to DOWN, Neighbor Down: Interface down or detached
 *Mar 18 23:37:27.859: %OSPF-5-ADJCHG: Process 1, Nbr 2.2.2.2 on FastEthernet0/0 from LOADING to FULL, Loading Done
+
 *Mar 18 23:37:32.859: OSPF: Begin SPF at 28081.328ms, process time 608ms
 *Mar 18 23:37:32.859:       spf_time 07:47:56.328, wait_interval 5000ms
 *Mar 18 23:37:32.859: OSPF: End SPF at 28081.328ms, Total elapsed time 0ms
@@ -372,34 +371,9 @@ R1#
 *Mar 18 23:37:32.863: SPF suspends: 0 intra, 0 total
 ```
 
-> **注意：** 在开始故障排除流程时，在开启 SPF 的`debug`命令之前，请优先考虑使用`show`命令，比如`show ip ospf statistics`与`show ip ospf`命令。
 
-## 第 39 天问题
-
-1. OSPF operates over IP number `_______`.
-2. OSPF does NOT support VLSM. True or false?
-3. Any router which connects to Area 0 and another area is referred to as an `_______` `_______` `_______` or `_______`.
-4. If you have a DR, you must always have a BDR. True or false?
-5. The DR/BDR election is based on which two factors?
-6. By default, all routers have a default priority value of `_______`. This value can be adjusted using the `_______` `_______` `_______` `<0-255>` interface configuration command.
-7. When determining the OSPF router ID, Cisco IOS selects the highest IP address of configured Loopback interfaces. True or false?
-8. What roles do the DR and the BDR carry out?
-9. Which command would put network `10.0.0.0/8` into `Area 0` on a router?
-10. Which command would set the router ID to `1.1.1.1`?
-11. Name the common troubleshooting issues for OSPF.
-
-## 第 39 天答案
-
-1. `89`.
-2. False.
-3. Area Border Router or ABR.
-4. False.
-5. The highest router priority and the highest router ID.
-6. 1, `ip ospf priority` .
-7. True.
-8. To reduce the number of adjacencies required on the segment; to advertise the routers on the Multi-Access segment; and to ensure that updates are sent to all routers on the segment.
-9. The `network 10.0.0.0 0.255.255.255 area 0` command.
-10. The `router-id 1.1.1.1` command.
-11. Neighbour relationships and route advertisement.
+**注意**：开始故障排除过程时，在启用 SPF 的 `debug` 命令前，要先考虑使用 `show` 命令，比如 `show ip ospf statistics` 及 `show ip ospf` 两个命令。
 
 
+
+请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 处今天的考试。

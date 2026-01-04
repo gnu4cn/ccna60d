@@ -206,6 +206,12 @@
     - [OSPF 的区域](d25/areas.md)
     - [路由度量值与最优路由选择](d25/metrics_and_route_selection.md)
     - [配置 OSPF](d25/configuring.md)
+    - [OSPF 的故障排除](d25/troubleshooting.md)
+    - [第 25 天问题](d25/questions.md)
+
+
+- [第 26 天 复习](d26-review.md)
+- [第 27 天 复习](d27-section_review.md)
 
 
 
