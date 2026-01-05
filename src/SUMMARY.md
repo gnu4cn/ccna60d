@@ -238,6 +238,9 @@
     - [ACL 的日志记录](d29/logging.md)
     - [使用 ACL 限制 Telnet 与 SSH 访问](d29/limit_telnete_and_ssh_access.md)
     - [ACL 的故障排除与验证](d29/troubleshooting_and_verifying.md)
+    - [第 29 天问题](d29/questions.md)
+    - [第 29 天实验](d29/labs.md)
+
 
 
 
