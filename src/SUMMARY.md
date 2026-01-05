@@ -230,6 +230,14 @@
 
 + [第 29 天 IPv4 的访问列表](d29-IPv4_access_lists.md)
     - [ACL 基础知识](d29/basics.md)
+    - [端口号](d29/port_numbers.md)
+    - [ACL 规则](d29/rules.md)
+    - [通配符掩码](d29/wildcard_masks.md)
+    - [配置 ACL](d29/configuring.md)
+    - [ACL 的序列编号](d29/sequence_number.md)
+    - [ACL 的日志记录](d29/logging.md)
+    - [使用 ACL 限制 Telnet 与 SSH 访问](d29/limit_telnete_and_ssh_access.md)
+    - [ACL 的故障排除与验证](d29/troubleshooting_and_verifying.md)
 
 
 
