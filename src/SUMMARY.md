@@ -244,6 +244,10 @@
 
 + [第 30 天 网络地址转换](d30-NAT.md)
     - [NAT 基础知识](d30/basics.md)
+    - [配置及验证 NAT](d30/configuring_and_verifying.md)
+    - [NAT 故障排除](d30/troubleshooting.md)
+    - [第 30 天问题](d30/questions.md)
+    - [第 30 天实验](d30/labs.md)
 
 
 
