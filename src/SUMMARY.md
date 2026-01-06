@@ -249,6 +249,18 @@
     - [第 30 天问题](d30/questions.md)
     - [第 30 天实验](d30/labs.md)
 
+- [第 31 天 复习](d31-review.md)
+
+
++ [第 32 天 第一跳冗余协议](d32-FHRP.md)
+    - [热备份路由器协议](d32/HSRP.md)
+    - [配置 HSRP](d32/configuring_HSRP.md)
+    - [虚拟路由器冗余协议](d32/VRRP.md)
+    - [网关负载均衡协议](d32/GLBP.md)
+    - [GLBP 的运行](d32/GLBP_operations.md)
+    - [第 32 天问题](d32/questions.md)
+    - [第 32 天实验](d32/labs.md)
+
 
 
 
