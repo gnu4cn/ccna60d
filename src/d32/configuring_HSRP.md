@@ -1,4 +1,11 @@
 # 配置 HSRP
+在网关上配置 HSRP
+在网关上配置 HSRP 需要以下步骤： 1. 使用 ip address [address] [mask] [secondary] interface 配置命令为网关接口配置正确的 IP 地址和掩码。2.2. 在网关接口上创建 HSRP 组，并通过 standby [number] ip [virtual address][secondary] 接口配置命令为该组分配虚拟 IP 地址。secondary] 关键字指定 IP 地址为指定组的辅助网关 IP 地址。3.可选择使用 standby [number] name [name] 接口配置命令为 HSRP 组指定名称。4.4. 如果要控制活动网关的选举，可使用 standby [number] priority [value] 接口配置命令配置组优先级。
+本节下面的 HSRP 配置输出将基于下图 32.17 中的网络。
+
+
+
+# 配置 HSRP
 
 
 ### 网关上 HSRP 的配置
