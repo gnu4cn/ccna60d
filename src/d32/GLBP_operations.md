@@ -23,84 +23,79 @@ AVG 会应答虚拟路由器地址的所有地址解析协议 (ARP) 请求。出
 
 ## GLBP 的虚拟 MAC 地址指派
 
-每个 GLBP 组最多允许四个虚拟 MAC 地址。AVG 负责为组的每个成员分配虚拟 MAC 地址。其他群组成员通过 Hello 消息发现 AVG 后，会请求一个虚拟 MAC 地址。网关按顺序被分配下一个虚拟 MAC 地址。由 AVG 分配虚拟 MAC 地址的网关称为主虚拟转发器，而学习到虚拟 MAC 地址的网关称为次虚拟转发器。
+GLBP 的分组，允许每个分组四个虚拟 MAC 地址。AVG 负责指派虚拟 MAC 地址到该组的每个成员。别的群成员会在他们发现 AVG 后，通过 `Hello` 报文请求虚拟 MAC 地址。
 
----
+这些网关会按顺序分配到下一虚拟 MAC 地址。由 AVG 分配虚拟 MAC 地址的网关，称为主虚拟转发器，而已学习到虚拟 MAC 地址的网关，则称为辅助虚拟转发器。
 
-一个 GLBP 允许每组有 4 个的虚拟 MAC 地址。由活动虚拟网关来负责将虚拟 MAC 地址分配给组中的各个成员。其它组成员是在它们发现了活动虚拟网关后，精油 Hello 报文，请求到虚拟 MAC 地址的。
+## GLBP 的冗余
 
-这些网关是依序分配到下一个虚拟 MAC 地址的。已通过活动虚拟网关分配到了虚拟 MAC 地址的网关，被称作主虚拟转发器（a primary virtual forwarder）, 而已学习到某个虚拟 MAC 地址的网关，被称作是从虚拟转发器（a secondary virtual forwarder）。
+在 GLBP 分组内，单一网关会被选为活动虚拟网关（AVG），而另一网关会被选为备用虚拟网关。分组中的全部其余网关，均被置于监听状态。当 AVG 失效时，那么备用虚拟网关将接管虚拟 IP 地址的职责。与此同时，一次选举得以举行，经而一个新的备用虚拟网关，会于随后从那些当前处于监听状态的网关中选出。
 
-### GLBP的冗余
+在 AVF 失效的情形下，处于监听状态的辅助虚拟转发器之一，会接管这一虚拟 MAC 地址的责任。但由于这个新的 AVF，已是一个正使用着另一虚拟 MAC 地址的转发器，GLBP 就需要确保那个旧的转发器 MAC 地址停止使用，以及那些主机要被迁离这个地址。这是通过以下两个计时器实现的：
 
-在 GLBP 组中，是单一一台网关被选举为活动虚拟网关，有另一网关被选举为备份虚拟网关（the standby virtual gateway）的。组中剩下的其它网关，都被置于侦听状态（a Listen state）。在活动虚拟网关失效时，备份虚拟网关将接过该虚拟 IP 地址的角色。于此同时，又会再进行一次选举，此时将从那些处于侦听状态的网关中选出一个新的备份虚拟网关。
+1. 重定向计时器
+2. 超时计时器
 
-在该活动虚拟网关失效时，处于侦听状态的某台从虚拟转发器，会接过该虚拟 MAC 地址的职责。但是因为新的活动虚拟转发器已是使用了另一虚拟 MAC 地址的转发器， GLBP 就需要确保原有的转发器 MAC 地址停止使用，同时那些主机已从此 MAC 地址迁移。这是通过使用下面的两个计时器实现的（in the event the AVF fails, one of the secondary virtual forwarders in the Listen state assumes responsibility for the virtual MAC address. However, because the new AVF is already a forwarder using another virtual MAC address, GLBP needs to ensure that the old forwarder MAC address ceases being used and hosts are migrated away from this address. This is archived using the following two timers）：
+所谓重定向计时器，是 AVG 继续将那些主机，重定向至那个旧的虚拟转发器 MAC 地址的时间间隔。在这个计时器超时后，AVG 会在 ARP 应答中停止使用那个旧的虚拟转发器 MAC 地址，但这个虚拟转发器将继续转发那些发往到这个旧的虚拟转发器 MAC 地址的数据包。
 
-- 重定向计时器，the redirect timer
-
-- 超时计时器，the timeout timer
+在超时计时器到期后，那么这个虚拟转发器就会从该 GLBP 组中的全体网关中移除。任何仍在其 ARP 缓存中，使用着那个旧 MAC 地址的客户端，都必须刷新该条目，获取新的虚拟 MAC 地址。GLBP 使用 `Hello` 报文，传递这两个计时器的当前状态。
 
 
-重定向时间是指在活动虚拟网关持续将主机重新到原有该虚拟转发器 MAC 地址的间隔。在此计时器超时后，活动虚拟网关就在 ARP 应答中停止使用原有的虚拟转发器 MAC 地址了，就算该虚拟转发器仍将持续发送到原有虚拟转发器 MAC 地址的数据包（the redirect time is the interval during which the AVG continues to redirect hosts to the old virtual forwarder MAC address. When this timer expires, the AVG stops using the old virtual forwarder MAC address in ARP replies, although the virtual forwarder will continue to forward packets that were sent to the old virtual forwarder MAC address）。
+## GLBP 的负载抢占
 
-而在超时计时器超时后，该虚拟转发器就被从该 GLBP 组的所有网关中移除。那些仍在使用 ARP 缓存中原有 MAC 地址的客户端，就必须刷新此项项目，以获取到新的虚拟 MAC 地址。 GLBP 使用 Hello 报文，来就这两个计时器的当前状态进行通信（when the timeout timer expires, the virtual forwarder is removed from all gateways in the GLBP group. Any clients still using the old MAC address in their ARP caches must refresh the entry to obtain the new virtual MAC address. GLBP uses Hello messages to communicate the current state of these two timers）。
+默认情况下，GLBP 的抢占是关闭的，这意味着某个备份虚拟网关只能在当前 AVG 失效时，才能成为AVG，而无关指派给这些虚拟网关的优先级。这种运行方式，类似于 HSRP 用到的。
 
-### GLBP的负载抢占
+Cisco 10S 软件允许管理员启用抢占，这允许某个备份网关在其被指派了一个相比当前 AVG 更高的优先级时，成为 AVG。默认情况下，GLBP 的虚拟转发器抢占方案，会以 30 秒的延迟启用。但这个可被管理员可手动调整。
 
-GLBP抢占默认是关闭的，也就是说仅在当前活动虚拟网关失效时，备份虚拟网关才能成为活动虚拟网关，这与分配给那些虚拟网关的优先级无关。这种运作方式，与 HSRP 中用到的类似。
 
-思科 IOS 软件允许管理员开启 GLBP 的抢占特性，这就令到在备份虚拟网关被指派了一个比当前活动虚拟网关更高的优先级值时，成为活动虚拟网关。默认 GLBP 的虚拟转发器抢占性方案是开启的，有一个 30 秒的延迟（By default, the GLBP virtual forwarder preemptive scheme is enabled with a delay of 30 seconds）。但这个延迟可由管理员手动调整。
+## GLBP 的权重
 
-### GLBP的权重
+GLBP 使用了一种权重方案，确定 GLBP 组中每个网关的转发能力。指派给某个 GLBP 组中某个网关的权重，可用于确定其是否将转发数据包，以及在转发时其将为 LAN 中多少比例的主机转发数据包。
 
-**GLBP Weighting**
+默认情况下，每个网关会被指派一个 100 的权重。管理员可通过与 GLBP 结合，配置诸如接口及 IP 前缀的对象跟踪，额外地将这些网关配置为实现动态的权重调整。当某个接口失效时，那么权重便会根据指定值，被动态地降低，从而允许那些有着更高权重值的网关，能被用于相比那些有着更低权重值的网关，转发更多流量。
 
-GLBP采用了一种权重方案（a weighting scheme），来确定 GLBP 组中各台网关的转发容量。指派给 GLBP 组中某台网关的权重，可用于确定其是否要转发数据包，因此就可以依比例来确定该网关所要转发的 LAN 中主机的数据包了（the weighting assigned to a gateway in the GLBP group can be used to determine whether it will forward packets and, if so, the proportion of hosts in the LAN for which it will forward packets）。
+除此以外，阈值也可被设置，以在某个 GLBP 分组的权重掉至某个值以下时禁用转发，当其回升至另一阈值时转发自动重新启用。在当前 AVF 的权重掉在低权重阈值以下达到 30 秒时，某个备用虚拟转发器便可成为 AVF。
 
-每台网关都默认指派了 100 的权重。管理员可通过配置结合了 GLBP 的对象跟踪，比如接口及 IP 前缀跟踪，来进一步将网关配置为动态权重调整。在某个接口失效时，权重就被动态地降低一个指定数值，如此令到那些有着更高权重值的网关，用于转发比那些有着更低权重值的网关更多的流量。
 
-此外，在某个 GLBP 组（成员）的权重降低到某个值时，还可设置一个阈值，用于关闭数据包的转发，且在权重值上升到另一与之时，又可自动开启转发。在当前活动虚拟转发器的权重掉到低权重阈值 30 秒时，备份虚拟转发器将成为活动虚拟转发器。
+## GLBP 的负载分担
 
-### GLBP负载共同分担
+GLBP 支持以下三种负载分担方式：
 
-**GLBP Load Sharing**
+1. 主机依赖
+2. 循环轮询
+3. 加权
 
-GLBP支持以下三种方式的负载分担：
+在主机依赖的负载分担下，生成虚拟路由器地址 ARP 请求的每个客户端，都会始终在应答中，收到同一个虚拟 MAC 地址。这种方式提供到客户端一个一致的网关 MAC 地址。
 
-- 有赖于主机的，Host-dependent
-
-- 轮转调度的，Round-robin
-
-- 加权的，Weighted
-
-在有赖于主机的负载共担下，生成虚拟路由器地址 ARP 请求的各台客户端，总是会在响应中收到同样的虚拟 MAC 地址。此方式为客户端提供了一致的网关 MAC 地址。
-
-而轮询的负载共担机制，将流量平均地分发到组中作为活动虚拟转发器的所有网关（the round-robin load-sharing mechanism distributes the traffic evenly across all gateways participating as AVFs in the group）。这是默认的负载分担机制。
+循环轮询的负载分担机制，会将流量平均分配给分组中作为 AVF 参与的全部网关。这是默认的负载分担机制。
 
 加权的负载分担机制，使用权重值来确定发送到某个特定 AVF 的流量比例。较高的权重值会带来更频繁的包含那台网关虚拟 MAC 地址的 ARP 响应。
 
-### GLBP的客户端缓存
+加权的负载分担机制，会使用权重值确定应发送到某个特定 AVF 的流量比例。更高的权重值，会导致包含该网关虚拟 MAC 地址的 ARP 响应更频繁。
 
-GLBP的客户端缓存，包含了使用到某个 GLBP 组作为默认网关的那些网络主机的信息。此缓存项目包含了关于发送了IPv4 ARP或IPv6 邻居发现（Neighbor Discovery, ND）请求主机，以及 AVG 指派了哪个转发器给它的信息，还有每台网络主机已被分配的 GLBP 转发器的编号，和当前分配给 GLBP 组中各台转发器的网络主机总数。
 
-可以开启某个 GLBP 组的活动虚拟网关，来存储一个使用到此 GLBP 组的所有 LAN 客户端的客户端缓存数据库（a client cache database）。客户端缓存数据库最多可以存储 2000 个条目，但建议条目数不要超过 1000 。同时 GLBP 缓存的配置，是超出 CCNA 考试要求的，此特性可使用命令`glbp client-cache`进行配置，使用命令`show glbp detail`进行验证。
+## GLBP 的客户端缓存
 
-### 在网关上配置GLBP
+GLBP 的客户端缓存，包含着那些正将 GLBP 分组用作默认网关的网络主机的信息。缓存条目包含着有关该主机发送 IPv4 ARP 或 IPv6 邻居发（ND）请求的信息、AVG 已分配给他的转发器、每个网络主机已被分配的 GLBP 转发器的编号，以及指派给 GLBP 分组中每个转发器的网络主机总数等。
 
-在网关上配置 GLBP ，需要以下步骤：
+GLBP 分组的 AVG 可被启用为存储所有使用这一组的 LAN 客户端的一个客户端缓存数据库。可缓存的条目最大数目，可最多达到 2000 条，但建议这一数目永远不要超过 1000。虽然 GLBP 的缓存配置超出了 CCNA 考试要求范围，但这一特性可通过使用 `glbp client-cache` 命令加以配置，随后可使用 `show glbp detail` 命令加以验证。
 
-1. 使用接口配置命令`ip address [address] [mask] [secondary]`，为网关接口配置正确的 IP 地址与子网掩码。
+## 在网关上配置 GLBP
 
-2. 通过接口配置命令`glbp [number] ip [virtual address] [secondary]`, 在网关接口上建立一个 GLBP 组，并给该组指派上虚拟 IP 地址。关键字`[secondary]`将该虚拟 IP 地址配置为指定组的第二网关地址。
+要网关上配置 GLBP，需要以下的步骤：
 
-3. 作为可选项，可通过接口配置命令`glbp [number] name [name]`，为该 GLBP 组指派一个名称。
+1. 使用 `ip address [address] [mask] [secondary]` 这条接口配置命令，配置网关的正确 IP 地址及掩码；
+2. 经由 `glbp [number] ip [virtual address][secondary]` 这条接口配置命令，在网关接口上创建 GLBP 分组。其中 `[secondary]` 关键字会将该虚拟 IP 地址，配置为指定分组的辅助网关地址；
+3. 作为可选项，使用 `glbp [number] name [name]` 这条接口配置命令，给这个 GLBP 分组取个名字（译注：这里原文作者误将 GLBP 写作了 VRRP）；
+4. 作为可选项，当咱们打算控制 AVG 的选举，那么就要经由 `glbp [number] priority [value]` 这条接口配置命令，设置分组优先级。
 
-4. 作为可选项，如打算对活动虚拟网关的选举进行控制，就要通过接口配置命令`glbp [number] priority [value]`，配置该组的优先级。
 
-本小节中的 GLBP 示例，将基于下图34.26的网络：
+这一小节中的那些 GLBP 配置示例，都将基于下图 32.26。
 
 ![GLBP配置示例的拓扑](../images/3426.png)
+
+
+---
 
 *图 34.26 -- GLBP配置示例的拓扑*
 
