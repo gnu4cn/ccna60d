@@ -350,18 +350,18 @@ HSRP 的接口跟踪，允许管理员配置 HSRP 为跟踪某个接口的状态
 
 假定 `Switch 2` 已被配置为抢占，在这种情况下这是强制性的，那么他就会意识到，他有着更高的优先级（100 对 95）而发动一次政变，承担起这一 HSRP 分组的主动网关角色。
 
-    **真实世界的部署**
+**真实世界的部署**
 
-    在生产网络中，Cisco Catalyst 交换机还支持增强的对象跟踪 (EOT)，其可与任何的 FHRP（即 HSRP、VRRP 及 GLBP）一起使用。增强的对象跟踪，允许管理员配置交换机以跟踪以下的一些参数：
+在生产网络中，Cisco Catalyst 交换机还支持增强的对象跟踪 (EOT)，其可与任何的 FHRP（即 HSRP、VRRP 及 GLBP）一起使用。增强的对象跟踪，允许管理员配置交换机以跟踪以下的一些参数：
 
-    - 某个接口的 IP 路由状态
-    - IP 路由的可达性
-    - IP 路由度量值阈值
-    - IP SLA 的运行
+- 某个接口的 IP 路由状态
+- IP 路由的可达性
+- IP 路由度量值阈值
+- IP SLA 的运行
 
-    > *译注*：服务等级协议，参见 [Service-Level Agreements](http://www.cisco.com/c/en/us/tech/ip/ip-service-level-agreements-ip-slas/index.html)
+> *译注*：服务等级协议，参见 [Service-Level Agreements](http://www.cisco.com/c/en/us/tech/ip/ip-service-level-agreements-ip-slas/index.html)
 
-    比如 HSRP 的这些 FHRP，可被配置为跟踪这些增强对象，从而实现部署 FHRP 故障切换时的更大灵活性。例如，运用 EOT，那么 HSRP 路由器就可被配置为，当某个网络或主机的路由（即出现于路由表中）不可达时，根据某一定量降低其优先级值。EOT 超出了 CCNA 考试要求的范围，而将不在配置示例中加以演示。
+比如 HSRP 的这些 FHRP，可被配置为跟踪这些增强对象，从而实现部署 FHRP 故障切换时的更大灵活性。例如，运用 EOT，那么 HSRP 路由器就可被配置为，当某个网络或主机的路由（即出现于路由表中）不可达时，根据某一定量降低其优先级值。EOT 超出了 CCNA 考试要求的范围，而将不在配置示例中加以演示。
 
 ## HSRP 的负载均衡
 
@@ -385,32 +385,32 @@ HSRP允许管理员在物理接口上配置多个 HSRP 分组，以实现负载�
 通过将 `Switch 1` 配置为 HSRP `Group 1` 的活动网关，将 `Switch 2` 配置为 HSRP `Group 2` 的活动网关，管理员便可允许来自这两个分组的流量，在 `Switch 1` 和 `Switch` 间实现负载均衡，并最终通过这两条专用 T3/E3 WAN 连接。两台交换机随后都会为另一分组提供备份。例如，当 `Switch 2` 失效时，那么 `Switch 1` 就将承担 `Group 2` 的活动网关角色，反之亦然。
 
 
-    **真实世界的部署**
+**真实世界的部署**
 
-    在生产网络中，重要的是要记住，创建多个 HSRP 分组可能导致网关的 CPU 利用率增加，以及由于 HSRP 报文交换导致的网络实用率增加。Cisco Catalyst 交换机，比如 Catalyst 4500 及 6500 系列交换机，均支持 HSRP 的客户端组部署。
+在生产网络中，重要的是要记住，创建多个 HSRP 分组可能导致网关的 CPU 利用率增加，以及由于 HSRP 报文交换导致的网络实用率增加。Cisco Catalyst 交换机，比如 Catalyst 4500 及 6500 系列交换机，均支持 HSRP 的客户端组部署。
 
-    在前面的一个小节中，咱们曾了解到，HSRP 允许于单个网关接口多个分组的配置。在网关接口上运行多个不同 HSRP 分组的主要问题，是其会增加该网关的 CPU 使用率，并考虑 HSRP 用到 3 秒 `Hello` 时间间隔，而潜在地也会增加网络流量。
+在前面的一个小节中，咱们曾了解到，HSRP 允许于单个网关接口多个分组的配置。在网关接口上运行多个不同 HSRP 分组的主要问题，是其会增加该网关的 CPU 使用率，并考虑 HSRP 用到 3 秒 `Hello` 时间间隔，而潜在地也会增加网络流量。
 
-    为解决这一潜在问题，HSRP 还允许客户端或从属分组的配置。这些分组只是一些被配置为跟随某个主 HSRP 分组，而不参与 HSRP 选举的 HSRP 分组。这些客户端或从属分组，会跟随主分组的运行及 HSRP 状态，因此，他们无需定期交换 `Hello` 数据包。在使用多个 HSRP 分组时，这一特征降低了 CPU 及网络的使用率。
+为解决这一潜在问题，HSRP 还允许客户端或从属分组的配置。这些分组只是一些被配置为跟随某个主 HSRP 分组，而不参与 HSRP 选举的 HSRP 分组。这些客户端或从属分组，会跟随主分组的运行及 HSRP 状态，因此，他们无需定期交换 `Hello` 数据包。在使用多个 HSRP 分组时，这一特征降低了 CPU 及网络的使用率。
 
-    但应注意的是，客户端的分组，为了刷新他们在交换机中的虚拟 MAC 地址，而会发送一些定期报文。这些刷新报文，会以相较于与主分组所发送的协议选举报文，低得多的频率发送。虽然客户端分组的配置超出了 CCNA 考试要求范围，但以下输出演示了两个客户端分组的配置，他们被配置为跟随主分组的 HSRP `Group 1`，也被命名为 `SWITCH-HSRP` 分组：
+但应注意的是，客户端的分组，为了刷新他们在交换机中的虚拟 MAC 地址，而会发送一些定期报文。这些刷新报文，会以相较于与主分组所发送的协议选举报文，低得多的频率发送。虽然客户端分组的配置超出了 CCNA 考试要求范围，但以下输出演示了两个客户端分组的配置，他们被配置为跟随主分组的 HSRP `Group 1`，也被命名为 `SWITCH-HSRP` 分组：
 
-    ```console
-    Gateway-1(config)#interface vlan100
-    Gateway-1(config-if)#ip address 192.168.1.1 255.255.255.0
-    Gateway-1(config-if)#ip address 172.16.31.1 255.255.255.0 secondary
-    Gateway-1(config-if)#ip address 10.100.10.1 255.255.255.0 secondary
-    Gateway-1(config-if)#standby 1 ip 192.168.1.254
-    Gateway-1(config-if)#standby 1 name SWITCH-HSRP
-    Gateway-1(config-if)#standby 2 ip 172.16.31.254
-    Gateway-1(config-if)#standby 2 follow SWITCH-HSRP
-    Gateway-1(config-if)#standby 3 ip 10.100.10.254
-    Gateway-1(config-if)#standby 3 follow SWITCH-HSRP
-    Gateway-1(config-if)#exit
-    ```
+```console
+Gateway-1(config)#interface vlan100
+Gateway-1(config-if)#ip address 192.168.1.1 255.255.255.0
+Gateway-1(config-if)#ip address 172.16.31.1 255.255.255.0 secondary
+Gateway-1(config-if)#ip address 10.100.10.1 255.255.255.0 secondary
+Gateway-1(config-if)#standby 1 ip 192.168.1.254
+Gateway-1(config-if)#standby 1 name SWITCH-HSRP
+Gateway-1(config-if)#standby 2 ip 172.16.31.254
+Gateway-1(config-if)#standby 2 follow SWITCH-HSRP
+Gateway-1(config-if)#standby 3 ip 10.100.10.254
+Gateway-1(config-if)#standby 3 follow SWITCH-HSRP
+Gateway-1(config-if)#exit
+```
 
 
-    在上面输出的配置中，`Group 1` 被配置为主 HSRP 分组，而 `Group 2` 与 `Group 3` 则被配置为客户端，或从 HSRP 分组。
+在上面输出的配置中，`Group 1` 被配置为主 HSRP 分组，而 `Group 2` 与 `Group 3` 则被配置为客户端，或从 HSRP 分组。
 
 
 
