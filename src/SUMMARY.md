@@ -265,6 +265,7 @@
 + [第 33 天 QoS](d33-QoS.md)
     - [基本的 QoS 概念](d33/concepts.md)
     - [QoS 的模型](d33/models.md)
+    - [Catalyst 的入站 QoS 机制](d33/ingress_qos_mechanisms.md)
 
 
 
