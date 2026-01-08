@@ -262,6 +262,11 @@
     - [第 32 天实验](d32/labs.md)
 
 
++ [第 33 天 QoS](d33-QoS.md)
+    - [基本的 QoS 概念](d33/concepts.md)
+    - [QoS 的模型](d33/models.md)
+
+
 
 
 
