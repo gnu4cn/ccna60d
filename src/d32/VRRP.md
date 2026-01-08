@@ -101,7 +101,7 @@ VRRP 允许以类似 HSRP 的方式的负载均衡。例如，在多个虚拟路
 
 **图 32.23** -- **VRRP 配置示例的拓扑结构**
 
-**注意**：这里假设了 `VTP-Server-1` 与 `VTP-Server-2` 之间的 VLAN 及中继配置已就位，同时两台交换机能成功通过 `VLAN 172` 互相 `ping` 通。出于简洁目的，这些配置输出，将在这些配置示例省略。
+**注意**：这里假设了 `VTP-Server-1` 与 `VTP-Server-2` 之间的 VLAN 及中继配置已就位，同时两台交换机能成功通过 `VLAN 172` 互相 `ping` 通。出于简洁目的，这些配置输出，将在这些配置示例中省略。
 
 ```console
 VTP-Server-1(config)#interface vlan192
