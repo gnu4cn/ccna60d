@@ -268,6 +268,10 @@
     - [Catalyst 的入站 QoS 机制](d33/ingress_qos_mechanisms.md)
 
 
++ [第 34 天 SNMP、Syslog 与 IOS](d34-SNMP_Syslog_and_IOS.md)
+    - [简单网络管理协议](d34/SNMP.md)
+
+
 
 
 
