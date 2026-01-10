@@ -275,7 +275,9 @@
     - [Cisco® 的口令恢复](d34/password_recovery.md)
     - [文件系统管理](d34/filesystem_management.md)
     - [IOS 的授权](d34/licensing.md)
+    - [系统日志记录](d34/logging.md)
     - [第 34 天问题](d34/questions.md)
+    - [第 34 天实验](d34/labs.md)
 
 
 
