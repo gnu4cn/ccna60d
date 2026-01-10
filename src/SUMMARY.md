@@ -272,6 +272,9 @@
     - [简单网络管理协议](d34/SNMP.md)
     - [路由器的存储与文件](d34/memory_n_files.md)
     - [管理 IOS](d34/managing_IOS.md)
+    - [Cisco® 的口令恢复](d34/password_recovery.md)
+    - [文件系统管理](d34/filesystem_management.md)
+    - [IOS 的授权](d34/licensing.md)
 
 
 
