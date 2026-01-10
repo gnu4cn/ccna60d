@@ -50,17 +50,17 @@
 2. 检查路由器上的 IOS 闪存文件；
 
 
-```console
-Router#dir flash:
-Directory of flash0:/
+    ```console
+    Router#dir flash:
+    Directory of flash0:/
 
-    3  -rw-  33591768 <no date> c1900-universalk9-mz.SPA.151-4.M4.bin
-    2  -rw-       28282          <no date>  sigdef-category.xml
-    1  -rw-      227537          <no date>  sigdef-default.xml
+        3  -rw-  33591768 <no date> c1900-universalk9-mz.SPA.151-4.M4.bin
+        2  -rw-       28282          <no date>  sigdef-category.xml
+        1  -rw-      227537          <no date>  sigdef-default.xml
 
-255744000 bytes total (221896413 bytes free)
-Router#
-```
+    255744000 bytes total (221896413 bytes free)
+    Router#
+    ```
 
 3. 检查服务器上是否 TFTP 服务器软件已启用（请注意，其上没有 1900 路由器的 IOS 镜像）；
 
