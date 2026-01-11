@@ -1,23 +1,27 @@
 # MPLS
 
+多协议标签交换（MPLS），通过追加一个标签到任意数据类型发挥作用。数据包随后会基于这一标签值，而非任何三层信息，通过网络基础设施转发。数据包的标签化，提供了极为高效的转发，并允许 MPLS 与很大范围底层技术一起工作。通过简单地在数据包头部添加一个标签，MPLS 即可用于许多的物理层与数据链路层 WAN 实现中。
 
-多协议标签交换，是通过将一个标签追加到任意类型的数据包上，而运作的（Multiprotocol Label Switching(MPLS) functions by appending a label to any type of packet）。随后数据包就根据该标签的值，而非任何`Layer 3`信息，经由网络设施得以转发。给数据包打上标签，提供了非常高效的转发，且令到 MPLS 可工作在极大范围的现有技术上。通过简单地将一个标签添加到数据包头部中， MPLS 就可在许多物理与数据链路层的广域网实现中使用（The labeling of the packet provides very efficient forwarding and allows MPLS to work with a wide range of undelying technologies. By simply adding a label in the packet header, MPLS can be used in many Physical and Data Link Layer WAN implementations）。
+MPLS 的标签被放在二层头部与三层头部之间。通过使用 MPLS，开销仅在数据包进入业务提供商云时增加。在进入 MPLS 网络后，数据包的交换会以远超传统三层网络的速度完成，因为其只是基于交换 MPLS 标签，而不是剥离整个三层的头部。
 
-MPLS的标签，是放在`Layer 2`头部与`Layer 3`头部之间的。使用 MPLS 技术，仅在数据包进入服务提供商云时，才会加入额外开销。在进入 MPLS 网络后，相比传统的`Layer 3`网络，数据包交换的完成要快得多，因为 MPLS 的包交换只是基于 MPLS 标签的交换，而不是要拆封整个的`Layer 3`头部（By using MPLS, overhead is added only when the packet enters the service provider cloud. After entering the MPLS network, packet switching is done much faster than in traditional Layer 3 networks because it is based only on swapping the MPLS label, instead of stripping the entire Layer 3 header）。
 
-MPLS有两种不同样式（MPLS comes in two different flavours）：
+MPLS 有两种不同风格：
 
-- 帧模式的 MPLS （Frame Mode MPLS）
-- （数据）单元模式的 MPLS （Cell Mode MPLS）
+- 数据帧模式的 MPLS
+- 单元模式的 MPLS
 
-帧模式的 MPLS 是最为流行的 MPLS 类型，而在此场景中，标签是放在`Layer 2`头部与`Layer 3`头部之间的（因此 MPLS 通常被视为一种`Layer 2.5`的技术）。单元模式的 MPLS 用在`ATM`网络中，并使用`ATM`头部中的一些字段，作为标签。
+数据帧模式的 MPLS，是最主流的 MPLS 类型，在这种情景下，标签被置于二层头部与三层头部之间（出于这一原因，MPLS 常被视为一种 2.5 层技术）。单元模式的 MPLS，用于 ATM 网络，并会使用 ATM 头部中用作标签的一些字段。
 
-兼容 MPLS 的路由器（MPLS-capable routers），也被叫做标签交换路由器（Label Switched Routers, LSRs），同时这些路由器也有两种样式：
+具备 MPLS 能力的路由器，也称为标签交换路由器（LSR），这些路由器有两种类型：
 
-- 边沿标签交换路由器（服务提供商边沿路由器，Edge LSR(PE<Provider Edge> routers)）
-- 服务提供商标签交换路由器（P(Provider) LSR）
+- 边缘LSR (PE 路由器)
+- LSR (P 路由器)
 
-`PE routers`（服务提供商边沿路由器），是那些关注标签分布的服务提供商边沿设备（`PE routers` are Provider Edge devices that take care of label distribution）；它们根据标签对数据包进行转发，并负责标签的插入与移除。`P routers`就是服务提供商路由器，它们的职责包括 _标签式转发_，以及基于标签的高效率包转发（`P routers` are Provider routers and their responsibility consists of _label forwarding_ and efficient packet forwarding based labels）。
+
+所谓 PE 路由器，属于负责标签分发的业务提供商边缘设备；他们会依据标签转发数据包，同时他们承担标签插入与移除。所谓 P 路由器，属于业务提供商路由器，而他们职责由标签转发及基于标签的高效数据包转发构成。
+
+---
+
 
 > **注**：请参考[这里](http://blog.51cto.com/sirstma/1860720)。
 
