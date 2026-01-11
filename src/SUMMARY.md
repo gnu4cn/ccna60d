@@ -295,6 +295,8 @@
     - [WAN 的组件](d37/components.md)
     - [WAN 的协议](d37/protocols.md)
     - [WAN 业务](d37/services.md)
+    - [VPN 技术](d37/VPN.md)
+    - [MPLS](d37/MPLS.md)
 
 
 
