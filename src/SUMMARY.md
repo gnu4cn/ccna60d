@@ -280,57 +280,20 @@
     - [第 34 天实验](d34/labs.md)
 
 
+- [第 35 天 复习](d35-review.md)
+- [第 36 天 阶段复习](d36-section_review.md)
 
-
-
-
-- [路由器和交换机安全](d04-Router-and-Switch-Security.md)
-- [IP 地址分配](d05-IP-Addressing.md)
 
 ---
 
-# 进阶
+# WAN 技术
 
 
-- [网络地址转换](d06-NAT.md)
-- [互联网协议版本6](d07-IPv6.md)
-- [IPv4与IPv6共存的网络环境](d08-Integrating-IPv4-and-IPv6-Network-Environments.md)
-- [访问控制清单](d09-ACL.md)
-- [路由的一些概念](d10-Routing-Concepts.md)
-- [静态路由](d11-Static-Routing.md)
-- [OSPF基础知识](d12-OSPF-Basics.md)
-- [OSPF版本3](d13-OSPFv3.md)
-
----
-
-# 实操
 
 
-- [DHCP及DNS](d14-DHCP-and-DNS.md)
-- [一二层排错](d15-Layer_1-and-Layer_2-Troubleshooting.md)
-- [生成树协议](d31-Spanning-Tree-Protocol.md)
-- [快速生成树协议](d32-Rapid-Spanning-Tree-Protocol.md)
-- [以太网通道及链路聚合协议](d33-EtherChannels-and-Link-Aggregation-Protocols.md)
-- [第一跳冗余协议](d34-First-Hop-Redundancy-Protocols.md)
-- [启动与IOS](d35-booting-and-IOS.md)
-
----
-
-# EIGRP
 
 
-- [EIGRP](d36-EIGRP.md)
-- [EIGRP故障排除](d37-Rroubleshooting-EIGRP.md)
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
-
----
-
-# OSPF
-
-
-- [开放最短路径优先协议](d39-OSPF.md)
-
----
 
 # SNMP 与 NetFlow
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
