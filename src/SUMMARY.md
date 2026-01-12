@@ -311,6 +311,8 @@
 
 
 + [第 38 天 云计算与虚拟化](d38-cloud_computing_and_virtualization.md)
+    - [云计算](d38/cloud_computing.md)
+    - [虚拟化](d38/virtualization.md)
 
 
 
