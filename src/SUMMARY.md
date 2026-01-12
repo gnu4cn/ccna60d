@@ -310,6 +310,9 @@
     - [第 37 天实验](d37/labs.md)
 
 
++ [第 38 天 云计算与虚拟化](d38-cloud_computing_and_virtualization.md)
+
+
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
