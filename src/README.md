@@ -6,7 +6,7 @@
 译者已开始根据原书第 4 版，更新本书内容。敬请关注。
 
 
-在线阅读：[ccna60d.xfoss.com](https://ccna60d.xfoss.com/)
+在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
 
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
