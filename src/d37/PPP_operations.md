@@ -31,7 +31,7 @@ PPP 可分解为以下的三个二层的子层：
 
 ![PPP 连接](../images/PPP_conn.png)
 
-**图 37.7** -— **PPP 连接**
+**图 37.13** -— **PPP 连接**
 
 
 ```console
@@ -58,7 +58,7 @@ PPP 已内置了口令认证协议（PAP）形式的认证，与挑战握手认�
 
 ![带有 CHAP 的 PPP](../images/PPP_with_CHAP.png)
 
-**图 37.8** -— **带有 CHAP 的 PPP**
+**图 37.14** -— **带有 CHAP 的 PPP**
 
 
 ```console
