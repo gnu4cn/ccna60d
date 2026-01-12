@@ -297,6 +297,12 @@
     - [WAN 业务](d37/services.md)
     - [VPN 技术](d37/VPN.md)
     - [MPLS](d37/MPLS.md)
+    - [基本的串行线路配置](d37/serial_line_conf.md)
+    - [PPP 的运行](d37/PPP_operations.md)
+    - [PPPoE](d37/PPPoE.md)
+    - [WAN 连接故障排除](d37/troubleshooting.md)
+    - [第 37 天问题](d37/questions.md)
+    - [第 37 天实验](d37/labs.md)
 
 
 
