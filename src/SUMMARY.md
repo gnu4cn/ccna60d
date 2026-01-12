@@ -301,6 +301,7 @@
     - [FR 的运行](d37/FR_operations.md)
     - [关于 FR 技术](d37/FR_technologies.md)
     - [配置 FR](d37/configuring_FR.md)
+    - [FR 的故障排除](d37/troubleshooting_FR.md)
     - [PPP 的运行](d37/PPP_operations.md)
     - [PPP 的故障排除](d37/troubleshooting_PPP.md)
     - [PPPoE](d37/PPPoE.md)
