@@ -331,16 +331,7 @@
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
 
-# SNMP 与 NetFlow
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
-
----
-
-# 广域网 WAN
-
-
-- [广域组网](d41-Wide-Area-Networking.md)
-- [帧中继与点对点协议](d42-Frame-Relay-and-PPP.md)
 
 ---
 
