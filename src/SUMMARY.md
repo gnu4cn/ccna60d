@@ -319,6 +319,13 @@
 - [第 40 天 阶段复习](d40-section_review.md)
 
 
+---
+
+# 基础设施安全
+
++ [安全计划要素](d41-security_program_elements.md)
+
+
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
