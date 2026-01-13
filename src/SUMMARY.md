@@ -324,6 +324,7 @@
 # 基础设施安全
 
 + [安全计划要素](d41-security_program_elements.md)
+    - [风险相关概念](d41/concepts.md)
 
 
 
