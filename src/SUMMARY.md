@@ -315,6 +315,10 @@
     - [虚拟化](d38/virtualization.md)
 
 
+- [第 39 天 复习](d39-review.md)
+- [第 40 天 阶段复习](d40-section_review.md)
+
+
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
