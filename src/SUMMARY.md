@@ -33,7 +33,7 @@
     - [第 2 天实验](d02/labs.md)
 
 
-+ [第 3 天 IPv6 的一些概念](d03_IPv6_Concepts.md)
++ [IPv6 的一些概念](d03_IPv6_Concepts.md)
     - [IPv6 的历史](d03/history_of_IPv6.md)
     - [IPv6 分址](d03/IPv6_addressing.md)
     - [IPv6 地址表示法](d03/IPv6_Addr_representation.md)
@@ -44,8 +44,8 @@
     - [第 3 天问题](d03/questions.com)
     - [第 3 天实验](d03/labs.md)
 
-- [第 4 天 复习](d04_review.md)
-- [第 5 天 阶段复习](./d05-section_review.md)
+- [复习](d04_review.md)
+- [阶段复习](./d05-section_review.md)
 
 
 ---
@@ -77,9 +77,9 @@
 + [CDP 与 LLDP](d08_cdp_and_lldp.md)
     - [CDP](d08/cdp.md)
     - [LLDP](d08/lldp.md)
-    - [CDP/LLDP 实验](d08/labs.md)
+    - [第 8 天实验](d08/labs.md)
 
-- [第 9 天 复习](d09_review.md)
+- [复习](d09_review.md)
 
 + [生成树协议 STP](d10_stp.md)
     - [STP 的必要性](d10/the_need_for_stp.md)
@@ -107,9 +107,9 @@
     - [第 11 天问题](d11/questions.md)
     - [第 11 天实验](d11/labs.md)
 
-- [第 12 天 复习](d12-review.md)
+- [复习](d12-review.md)
 
-+ [第 13 天 一层与二层故障排除](d13_troubleshooting_layer_1_and_2.md)
++ [一层与二层故障排除](d13_troubleshooting_layer_1_and_2.md)
     - [物理层处的故障排除](d13/physical_layer.md)
     - [使用 CLI 排除链路故障](d13/cli.md)
     - [端口配置的故障排除](d13/port_conf.md)
@@ -121,7 +121,7 @@
     - [第 13 天实验](d13/labs.md)
 
 
-+ [第 14 天 无线网络原理](d14_wireless_networking_principles.md)
++ [无线网络原理](d14_wireless_networking_principles.md)
     - [无线网络组件](d14/components.md)
     - [无线原理](d14/principles.md)
     - [无线拓扑结构](d14/topologies.md)
@@ -130,8 +130,8 @@
     - [接入点与 WLC 的管理访问](d14/management_access.md)
     - [第 14 天实验](d14/labs.md)
 
-- [第 15 天 复习](d15_review.md)
-- [第 16 天 阶段复习](d16_section_review.md)
+- [复习](d15_review.md)
+- [阶段复习](d16_section_review.md)
 
 
 ---
@@ -165,16 +165,16 @@
     - [RIP 故障排除](d19/troubleshooting.md)
     - [第 19 天实验](d19/labs.md)
 
-- [第 20 天 复习](d20-review.md)
+- [复习](d20-review.md)
 
 
-+ [第 21 天 VLAN 间路由](d21-inter-VLAN_routing.md)
++ [VLAN 间路由](d21-inter-VLAN_routing.md)
     - [VLAN 间路由](d21/inter-vlan_routing.md)
     - [VLAN 间路由的故障排除](d21/troubleshooting.md)
     - [第 21 天 实验](d21/labs.md)
 
 
-+ [第 22 天 EIGRP](d22-eigrp.md)
++ [EIGRP](d22-eigrp.md)
     - [Cisco® EIGRP 概述与基础知识](d22/overview.md)
     - [EIGRP 配置基础](d22/configuration_fundamentals.md)
     - [EIGRP 的报文](d22/messages.md)
@@ -189,10 +189,10 @@
     - [第 22 天问题](d22/questions.md)
     - [第 22 天实验](d22/labs.md)
 
-- [第 23 天 复习](d23-review.md)
+- [复习](d23-review.md)
 
 
-+ [第 24 天 OSPF](d24-ospf.md)
++ [OSPF](d24-ospf.md)
     - [OSPF 概述与基础知识](d24/overview_and_fundamentals.md)
     - [OSPF 的配置](d24/configuration.md)
     - [指定路由器与后备指定路由器](d24/designated_and_backup_designated_routers.md)
@@ -201,7 +201,7 @@
     - [第 24 天问题](d24/questions.md)
     - [第 24 天实验](d24/labs.md)
 
-+ [第 25 天 高级 OSPF 概念](d25-advanced_ospf_concepts.md)
++ [高级 OSPF 概念](d25-advanced_ospf_concepts.md)
     - [OSPF 的链路状态通告与链路状态数据库](d25/LSAs_and_LSDB.md)
     - [OSPF 的区域](d25/areas.md)
     - [路由度量值与最优路由选择](d25/metrics_and_route_selection.md)
@@ -210,15 +210,15 @@
     - [第 25 天问题](d25/questions.md)
 
 
-- [第 26 天 复习](d26-review.md)
-- [第 27 天 阶段复习](d27-section_review.md)
+- [复习](d26-review.md)
+- [阶段复习](d27-section_review.md)
 
 
 ---
 
 # 基础设施业务
 
-+ [第 28 天 DHCP、DNS 与 NTP](d28-DHCP_DNS_and_NTP.md)
++ [DHCP、DNS 与 NTP](d28-DHCP_DNS_and_NTP.md)
     - [DHCP 的功能](d28/DHCP_functionality.md)
     - [配置 DHCP](d28/configuring_DHCP.md)
     - [DHCP 问题的故障排除](d28/troubleshooting_DHCP.md)
@@ -228,7 +228,7 @@
     - [第 28 天问题](d28/questions.md)
     - [第 28 天实验](d28/labs.md)
 
-+ [第 29 天 IPv4 的访问列表](d29-IPv4_access_lists.md)
++ [IPv4 的访问列表](d29-IPv4_access_lists.md)
     - [ACL 基础知识](d29/basics.md)
     - [端口号](d29/port_numbers.md)
     - [ACL 规则](d29/rules.md)
@@ -242,17 +242,17 @@
     - [第 29 天实验](d29/labs.md)
 
 
-+ [第 30 天 网络地址转换](d30-NAT.md)
++ [网络地址转换](d30-NAT.md)
     - [NAT 基础知识](d30/basics.md)
     - [配置及验证 NAT](d30/configuring_and_verifying.md)
     - [NAT 故障排除](d30/troubleshooting.md)
     - [第 30 天问题](d30/questions.md)
     - [第 30 天实验](d30/labs.md)
 
-- [第 31 天 复习](d31-review.md)
+- [复习](d31-review.md)
 
 
-+ [第 32 天 第一跳冗余协议](d32-FHRP.md)
++ [第一跳冗余协议](d32-FHRP.md)
     - [热备份路由器协议](d32/HSRP.md)
     - [配置 HSRP](d32/configuring_HSRP.md)
     - [虚拟路由器冗余协议](d32/VRRP.md)
@@ -262,13 +262,13 @@
     - [第 32 天实验](d32/labs.md)
 
 
-+ [第 33 天 QoS](d33-QoS.md)
++ [QoS](d33-QoS.md)
     - [基本的 QoS 概念](d33/concepts.md)
     - [QoS 的模型](d33/models.md)
     - [Catalyst 的入站 QoS 机制](d33/ingress_qos_mechanisms.md)
 
 
-+ [第 34 天 SNMP、Syslog 与 IOS](d34-SNMP_Syslog_and_IOS.md)
++ [SNMP、Syslog 与 IOS](d34-SNMP_Syslog_and_IOS.md)
     - [简单网络管理协议](d34/SNMP.md)
     - [路由器的存储与文件](d34/memory_n_files.md)
     - [管理 IOS](d34/managing_IOS.md)
@@ -280,8 +280,8 @@
     - [第 34 天实验](d34/labs.md)
 
 
-- [第 35 天 复习](d35-review.md)
-- [第 36 天 阶段复习](d36-section_review.md)
+- [复习](d35-review.md)
+- [阶段复习](d36-section_review.md)
 
 
 
@@ -289,7 +289,7 @@
 
 # WAN 技术
 
-+ [第 37 天 WAN 业务](d37-WAN_services.md)
++ [WAN 业务](d37-WAN_services.md)
     - [WAN 概述](d37/overview.md)
     - [非广播多路访问技术](d37/NBMA.md)
     - [WAN 的组件](d37/components.md)
@@ -310,13 +310,13 @@
     - [第 37 天实验](d37/labs.md)
 
 
-+ [第 38 天 云计算与虚拟化](d38-cloud_computing_and_virtualization.md)
++ [云计算与虚拟化](d38-cloud_computing_and_virtualization.md)
     - [云计算](d38/cloud_computing.md)
     - [虚拟化](d38/virtualization.md)
 
 
-- [第 39 天 复习](d39-review.md)
-- [第 40 天 阶段复习](d40-section_review.md)
+- [复习](d39-review.md)
+- [阶段复习](d40-section_review.md)
 
 
 ---
@@ -325,6 +325,7 @@
 
 + [安全计划要素](d41-security_program_elements.md)
     - [风险相关概念](d41/concepts.md)
+    - [恰当的风险缓解策略](d41/mitigation_stratigies.md)
 
 
 
