@@ -326,6 +326,7 @@
 + [安全计划要素](d41-security_program_elements.md)
     - [风险相关概念](d41/concepts.md)
     - [恰当的风险缓解策略](d41/mitigation_stratigies.md)
+    - [适当的事件响应流程](d41/incident_response_procedures.md)
 
 
 
