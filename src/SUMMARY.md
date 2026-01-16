@@ -330,6 +330,8 @@
     - [安全相关意识与培训的重要性](d41/importance.md)
     - [业务连续性的各方面](d41/business_continuty.md)
     - [环境控制的影响与正确运用](d41/environment_controls.md)
+    - [灾难恢复计划与流程](d41/disaster_recovery.md)
+    - [机密性、完整性与可用性的概念](d41/cia_concepts.md)
 
 
 
