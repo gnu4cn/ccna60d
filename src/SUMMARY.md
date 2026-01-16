@@ -334,6 +334,10 @@
     - [机密性、完整性与可用性的概念](d41/cia_concepts.md)
 
 
++ [威胁、漏洞与利用](d42-threats_vulnerabilities_n_exploits.md)
+    - [恶意软件的类型](d42/malware_types.md)
+
+
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
