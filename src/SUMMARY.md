@@ -337,6 +337,7 @@
 + [威胁、漏洞与利用](d42-threats_vulnerabilities_n_exploits.md)
     - [恶意软件的类型](d42/malware_types.md)
     - [攻击类型](d42/types_of_attacks.md)
+    - [社会工程的类型](d42/types_of_social_attacks.md)
 
 
 
