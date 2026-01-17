@@ -339,6 +339,7 @@
     - [攻击类型](d42/types_of_attacks.md)
     - [社会工程的类型](d42/types_of_social_attacks.md)
     - [无线攻击的类型](d42/types_of_wireless_attacks.md)
+    - [应用攻击的类型](d42/types_of_app_attacks.md)
 
 
 
