@@ -342,6 +342,7 @@
     - [应用攻击的类型](d42/types_of_app_attacks.md)
     - [缓解与威慑技术的类型](d42/types_of_migigation_n_deterrent_techs.md)
     - [用于发现安全威胁与漏洞的评估工具与技术](d42/tools_n_techiniques.md)
+    - [渗透测试的正确使用与漏洞扫描](d42/proper_use_of_penteration_testing_vs_vul_scanning.md)
 
 
 
