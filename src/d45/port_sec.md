@@ -85,4 +85,150 @@ CAM 数据表攻击易于进行，因为诸如 MACOF、DSNIFF 等一些常见工
 
 保护这个选项，会强制该端口进入受保护端口模式，`Protected Port` mode。在这种模式下，交换机将直接丢弃所有有着不明源 MAC 地址的单播或多播数据帧。在交换机被配置为要保护某一端口后，那么该交换机将不会在运行于受保护端口模式期间发出通知，这就意味着管理员永远不会知晓，何时有流量已被某个运行于这一模式下的交换机端口阻止了。
 
-关闭这个选项，会在某一端口安全事件发生时，将其置于于 `err-disabled` 状态（稍后会介绍）。启用此配置模式时，交换机对应端口的LED指示灯也将熄灭。关闭模式下，交换机会发送SNMP陷阱和系统日志消息，同时违规计数器递增。这是启用接口端口安全时的默认处理机制。 限制选项用于在安全MAC地址数量达到管理员定义的端口上限时，丢弃未知MAC地址的数据包。在此模式下，交换机将持续阻止新增MAC地址发送帧，直至移除足够数量的安全MAC地址或增加最大允许地址数。与关闭选项类似，交换机将发送SNMP陷阱和系统日志消息，并递增违规计数器。
+关闭这个选项，会在某一端口安全事件发生时，将其置于 `err-disabled` 状态（会在稍后介绍）。在这种配置的模式在用时，交换机上对应的端口 LED 也会被关闭。在 `Shutdown` 模式下，交换机会发出一条 SNMP 陷阱及一条 `syslog` 消息，同时违规计数器将被递增。这是端口安全在某一接口上启用后，会采取的默认行为。
+
+限制选项用于在安全 MAC 地址数量，达到管理员针对该端口定义的最大限制后，丢弃有着未知 MAC 地址的数据包。在这一模式下，交换机将持续阻止那些其他 MAC 地址发送数据帧，直至移除足够数量的安全 MAC 地址被移除，最大允许地址数量得以增加。与关闭选项下的情形一样，交换机会发出一条 SNMP 陷阱及一条 `syslog` 消息，同时违规计数器会被递增。
+
+
+关闭 VLAN 这一选项类似于关闭选项；但是，这一选项会关闭某一 VLAN 而非整个交换机端口。这种配置可应用于那些被指派了多个 VLAN 的端口，比如语音 VLAN 与某个数据 VLAN，以及交换机上的中继链路。
+
+## 配置端口安全
+
+在配置端口安全前，建议将交换机端口静态地配置为二层的接入端口（端口安全只能在静态接入端口，或中继端口上配置，而不可配置于动态端口）。这一配置如下输出中所示：
+
+```console
+Switch-1(config)#interface FastEthernet0/1
+Switch-1(config-if)#switchport
+Switch-1(config-if)#switchport mode access
+```
+
+
+**注意**：`switchport` 这条命令在仅二层的交换机上并不需要，比如 Catalyst 2950 及 Catalyst 2960 系列等。但是，在多层交换机上其务必要用到，比如 Catalyst 3750、Catalyst 4500 及 Catalyst 6500 系列等。
+
+默认情况下，端口安全是关闭的；但是，这一特性可通过使用 `switchport port-security [mac-address {mac-address} | vlan {vlan-id | {access | voice}}] | mac-address {sticky} [mac-address | vlan {vlan-id | {access | voice}}] [maximum {value} [VLAN {vlan-list | {access | voice}}]]` 这条接口配置命令予以启用。这一命令下的可用选项，在下表 45.2 中得以描述。
+
+**表 45.2** -— **端口安全的配置关键字**
+
+
+| 关键字 | 描述 |
+| :-- | :-- |
+| `mac-address [mac-address]` |  这个关键字用于指定某一静态的安全 MAC 地址。咱们可添加一些额外的安全 MAC 地址，数量不超过所配置的最大值。 |
+| `vlan {vlan id}`  | 这个关键字只应用于某一中继端口，指定 `VLAN ID` 及 MAC 地址。当没有指定 `VLAN ID` 时，那么原生 VLAN 即被使用。 |
+| `vlan {access}`  | 这一关键字应仅用于某个接入端口，将该 VLAN 指定为一个接入 VLAN。 |
+| `vlan {voice}`  | 这个关键字仅应用于某个接入端口，将该 VLAN 指定为一个语音 VLAN。这个选项只有在某一语音 VLAN 配置在该指定端口上才可用。 |
+| `mac-address {sticky} [mac-address]`  | 这一关键字用于在指定接口上启用动态或粘滞的学习，或用于配置一个静态的安全 MAC 地址。 |
+| `maximum {value}` | 这个关键字用于可在某一接口上学习到的安全地址最大数量，默认值为 1。 |
+
+
+## 配置静态的安全 MAC 地址
+
+以下输出演示了如何在某一接口上启用端口安全，以及如何在某个交换机的接入端口上，配置一个静态的安全 MAC 地址 `001f:3¢59:d63b`：
+
+```console
+Switch-1(config)#interface GigabitEthernet0/2
+Switch-1(config-if)#switchport
+Switch-1(config-if)#switchport mode access
+Switch-1(config-if)#switchport port-security
+Switch-1(config-if)#switchport port-security mac-address 001f.3c59.d63b
+```
+
+以下输出演示了如何在某个接口上启用端口安全，以及在某一交换机的中继端口上，配置一个 `VLAN 5` 中的静态安全 MAC 地址 `001f:3¢59:d63b`：
+
+
+```console
+Switch-1(config)#interface GigabitEthernet0/2
+Switch-1(config-if)#switchport
+Switch-1(config-if)#switchport trunk encapsulation dot1q
+Switch-1(config-if)#switchport mode trunk
+Switch-1(config-if)#switchport port-security
+Switch-1(config-if)#switchport port-security mac-address 001f.3c59.d63b  vlan 5
+```
+
+以下输出演示了如何在某一接口上启用端口安全，以及在某个交换机的接入端口上，配置一个 `VLAN 5`（数据 VLAN）的静态安全 MAC 地址 `001f:3¢59:5555`，及配置一个 `VLAN 7`（语音 VLAN）的静态安全 MAC 地址 `001f:3c59:7777`：
+
+```console
+Switch-1(config)#interface GigabitEthernet0/2
+Switch-1(config-if)#switchport
+Switch-1(config-if)#switchport mode access
+Switch-1(config-if)#switchport access vlan 5
+Switch-1(config-if)#switchport voice vlan 7
+Switch-1(config-if)#switchport port-security
+Switch-1(config-if)#switchport port-security maximum 2
+Switch-1(config-if)#switchport port-security mac-address 001f.3c59.5555  vlan access
+Switch-1(config-if)#switchport port-security mac-address 001f.3c59.7777 vlan voice
+```
+
+要务必记住，在于某一同时配置以一个和数据 VLAN 结合的语音 VLAN 的接口上，启用端口安全时，该端口上的最大允许安全地址数，应被设置为 2。这是经由 `switchport port-security maximum 2` 接口配置命令完成的，其包含于上面的输出中。
+
+
+其中两个 MAC 地址之一由 IP 话机使用，而交换机会在那个语音 VLAN 上获悉这个地址。另一 MAC 地址则会被某一会被连接到这个 IP 话机的主机（比如某个 PC）使用。这个地址将由交换机在那个数据 VLAN 上学习到。
+
+## 验证静态安全 MAC 地址的配置
+
+
+全局的端口安全配置参数，可通过执行 `show port-security` 这条命令加以验证。下面显示了由这条命令，根据一些默认值打印的输出：
+
+```console
+Switch-1#show port-security
+Secure Port MaxSecureAddr  CurrentAddr SecurityViolation  Security Action
+           (Count)        (Count)      (Count)
+-------------------------------------------------------
+Gi0/2       1               1             0              Shutdown
+------------------------------------------------------------------
+Total Addresses in System : 1
+Max Addresses limit in System : 1024
+```
+
+正如在上面的输出所看到的，默认情况下，每个端口仅允许一个的安全 MAC 地址。此外，在某一违规的情形下，默认的操作是关闭该端口。`Total Addresses in System : 1` 表明已知只有一个安全地址，即配置于那个接口上的静态地址。同样结果也可通过执行 `show port-security interface [name]` 这条命令予以确认，如下输出中所示：
+
+```console
+Switch-1#show port-security interface gi0/2
+Port Security : Enabled
+Port status : SecureUp
+Violation mode : Shutdown
+Maximum MAC Addresses : 1
+Total MAC Addresses : 1
+Configured MAC Addresses : 1
+Sticky MAC Addresses : 0
+Aging time : 0 mins
+Aging type : Absolute
+SecureStatic address aging : Disabled
+Security Violation count : 0
+```
+
+**注意**：上面输出中一些其他默认参数的修改，将在我们继续这一小节时详细描述。
+
+要查看端口上实际配置的静态安全 MAC 地址，就必须使用 `show port-security address` 或 `show running-config interface [name]` 两条命令。以下输出演示了 `show port-security address` 这条命令：
+
+```console
+Switch-1#show port-security address
+          Secure Mac Address Table
+------------------------------------------------------------------
+Vlan    Mac Address       Type                Ports   Remaining Age
+                                                         (mins)
+----    -----------       ----                -----   -----------
+   1    001f.3c59.d63b    SecureConfigured    Gi0/2       -
+-------------------------------------------------------------------
+Total Addresses in System : 1
+Max Addresses limit in System : 1024
+```
+
+## 配置动态的安全 MAC 地址
+
+默认情况下，在端口安全于某一端口上启用后，该端口将在无需管理员的任何进一步配置下，动态地学习并保护一个 MAC 地址。要允许端口学习并保护多个 MAC 地址，那么就必须使用 `switchport port-security maximum [number]` 这条命令。要记住，其中的 `[number]` 关键字取决于平台，而将在不同 Cisco Catalyst 交换机型号上有所不同。
+
+**真实世界的部署**
+
+在 Cisco Catalyst 3750 交换机下的生产网络中，先确定出交换机将用于何种目的始终是个好主意，随后再经由 `sdm prefer {access | default | dual-ipv4-and-ipv6 {default | routing | vlan} | routing | vlan} [desktop]` 这条全局配置命令，选择适当的交换机数据库管理（SDM）模板。
+
+每种模板均会分配系统资源以最佳支持那些正使用的特性，或那些将用到的特性。默认情况下，交换机会尝试提供一种所有特性间的平衡。但是，这样做可能对其他可用特性及功能的可能最大值，施加某种限制。一个示例便是，在使用端口安全时，可学习或配置的安全 MAC 地址的最大可能数量。
+
+以下输出演示了在接口 `GigabitEthernet0/2` 上，如何将某个交换机端口配置为动态学习并保护最多两个 MAC 地址：
+
+```console
+Switch-1(config)#interface GigabitEthernet0/2
+Switch-1(config-if)#switchport
+Switch-1(config-if)#switchport mode access
+Switch-1(config-if)#switchport port-security
+Switch-1(config-if)#switchport port-security maximum 2
+```
