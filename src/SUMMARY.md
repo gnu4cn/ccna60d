@@ -351,6 +351,8 @@
 - [复习](d44-review.md)
 
 + [交换机安全](d45-switch_security.md)
+    - [加固交换机](d45/securing.md)
+    - [交换机的端口安全](d45/port_sec.md)
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
