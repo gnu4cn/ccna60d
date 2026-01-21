@@ -356,8 +356,8 @@
 
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
-
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
+- [第 4 天 路由器与交换机安全](d04-Router-and-Switch-Security.md)
 
 ---
 
