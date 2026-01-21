@@ -355,6 +355,10 @@
     - [交换机的端口安全](d45/port_sec.md)
     - [第 45 天实验](d45/labs.md)
 
++ [路由器安全](d46-router_security.md)
+    - [加固路由器](d46/securing.md)
+    - [第 46 天问题](d46/questions.md)
+    - [第 46 天实验](d46/labs.md)
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
