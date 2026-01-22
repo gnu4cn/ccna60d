@@ -374,6 +374,8 @@
 + [网络的可编程性](d50-programmability.md)
     - [网络自动化](d50/about.md)
     - [传统组网与基于控制器的组网](d50/trad_networking_vs_controller-based_networking.md)
+    - [基于控制器及软件定义的架构（Overlay、Underlay 与 Fabric）](d50/arch.md)
+    - [传统园区的设备管理与思科 DNA 中心的设备管理](d50/dev_management.md)
 
 ---
 
