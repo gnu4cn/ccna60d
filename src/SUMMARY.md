@@ -360,6 +360,10 @@
     - [第 46 天问题](d46/questions.md)
     - [第 46 天实验](d46/labs.md)
 
++ [二层缓解技术](d47-layer_2_mitigation.md)
+    - [常见的接入层威胁缓解技术](d47/technix.md)
+    - [第 47 天实验](d47/labs.md)
+
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
 - [第 4 天 路由器与交换机安全](d04-Router-and-Switch-Security.md)
