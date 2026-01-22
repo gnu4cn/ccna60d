@@ -26,3 +26,6 @@
 - 基于控制器的架构与软件定义的架构（叠层、底层与结构）
 - 传统的园区设备管理与思科 DNA 中心的设备管理
 - 基于 REST 的API（CRUD、HTTP 动词，与数据编码）
+
+
+> *译注*：译者此前曾了解过 Ansible，其中亦涉及到 “网络自动化” 这一主题，参见：[网络自动化有何不同？](https://ansible.xfoss.com/network/difference.html)。

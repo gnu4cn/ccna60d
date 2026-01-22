@@ -371,6 +371,10 @@
 
 # 网络自动化
 
++ [网络的可编程性](d50-programmability.md)
+    - [网络自动化](d50/about.md)
+    - [传统组网与基于控制器的组网](d50/trad_networking_vs_controller-based_networking.md)
+
 ---
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
