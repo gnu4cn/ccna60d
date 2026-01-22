@@ -76,3 +76,40 @@ OpenFlow 通过构建名为流数据表的网络流数据库运行。所谓流�
 
 同样过程会于客户端发送回复时发生。
 
+![针对反向流量的 OpenFlow 通信](../images/openflow_comm_for_reverse_traffic.png)
+
+**图 50.17** -— **针对反向流量的 OpenFlow 通信**
+
+目前，OpenFlow 应用于流量工程、可编程网络探针、服务插入等领域。
+
+
+> *知识点*：
+>
+> - network automation turns this paradigm on its head, turns the focus of the network into one that serves the business.
+>
+> + the three networking plances
+>   - Data Plane
+>   - Control Plane
+>   - Management Plane
+>
+> - In a traditional network, both the Control Plane and Data Plane, reside inside each network device.
+>
+> - The centralized Control Plane, is called a controller.
+>
+> - OpenFlow is a standard protocol, that allows a controller to influence network devices about where to send network traffic.
+>
+> - OpenFLow operates by building a database of network flows called the flow table.
+>
+> - A flow is a sequence of packets, sent from a particular source, to a particular destination.
+>
+> - When the switch receives the message from the client for the first time, it sends a message to the controller. This message is called `PACKET-IN`.
+>
+> - When the controller receives a `PACKET-IN` message, it responds with an action or a list of actions, telling the switch what to do. This message is called `PACKET-OUT`.
+>
+> - In some cases, the controller sends the `FLOW MOD` messsage.
+>
+> + Currently, OpenFlow is used in
+>   - traffic engineering,
+>   - programmable network taps,
+>   - service insertion,
+>   - etc.
