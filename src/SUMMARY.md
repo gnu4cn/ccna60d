@@ -364,6 +364,15 @@
     - [常见的接入层威胁缓解技术](d47/technix.md)
     - [第 47 天实验](d47/labs.md)
 
+- [复习](d48-review.md)
+- [阶段复习](d49-section_review.md)
+
+---
+
+# 网络自动化
+
+---
+
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
 - [第 4 天 路由器与交换机安全](d04-Router-and-Switch-Security.md)
