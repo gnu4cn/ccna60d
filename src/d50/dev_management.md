@@ -13,11 +13,6 @@
 
 DNA Center 会执行三项主要功能：
 
-- 策略
-- 自动化
-- 保证
-
-
 - **策略**
 
     策略的控制依赖于 [Cisco ISE](https://www.cisco.com/c/zh_tw/support/security/identity-services-engine-3-0/model.html)，其会对终端身份验证、指派终端到其相应安全组，并管理终端间的通信。

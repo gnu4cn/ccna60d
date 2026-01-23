@@ -378,6 +378,10 @@
     - [传统园区的设备管理与思科 DNA 中心的设备管理](d50/dev_management.md)
     - [基于 REST 的 API（CRUD、HTTP 动词与数据编码）](d50/apis.md)
 
+
++ [JSON 与配置管理](d51-json_n_conf_mgmt.md)
+    - [配置管理 —— Puppet、Chef 与 Ansible](d51/conf_mgmt.md)
+
 ---
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
