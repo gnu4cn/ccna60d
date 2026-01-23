@@ -381,6 +381,7 @@
 
 + [JSON 与配置管理](d51-json_n_conf_mgmt.md)
     - [配置管理 —— Puppet、Chef 与 Ansible](d51/conf_mgmt.md)
+    - [解析 JSON 编码的数据](d51/interpreting_JSON_data.md)
 
 ---
 
