@@ -383,6 +383,12 @@
     - [配置管理 —— Puppet、Chef 与 Ansible](d51/conf_mgmt.md)
     - [解析 JSON 编码的数据](d51/interpreting_JSON_data.md)
 
+- [复习](d52-review.md)
+- [复习](d53-review.md)
+- [复习](d54-review.md)
+- [复习](d55-review.md)
+- [复习](d56-review.md)
+
 ---
 
 - [IPv6下的EIGRP](d38-EIGRP-For-IPv6.md)
