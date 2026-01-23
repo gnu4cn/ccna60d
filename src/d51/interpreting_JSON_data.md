@@ -432,7 +432,7 @@ permit tcp host 2.2.2.2 host 3.3.3.3 eq 80
 添加上各个键的值后，最终会得到如下内容：
 
 
-````json
+```json
 {  
     “access-list”: [{      
         “action”: “permit”,      
