@@ -209,6 +209,7 @@
     - [OSPF 的故障排除](d25/troubleshooting.md)
     - [OSPF 版本 3](d25/version3.md)
     - [思科 IOS 软件下 OSPFv2 与 OSPFv3 的配置差异](d25/conf_diff_between_v2_n_v3.md)
+    - [思科 IOS 软件中 OSPFv3 的配置与验证](d25/conf_n_verifying_v3.md)
     - [第 25 天问题](d25/questions.md)
     - [第 25 天实验](d25/labs.md)
 
