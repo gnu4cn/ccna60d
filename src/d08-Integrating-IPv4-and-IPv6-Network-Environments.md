@@ -73,8 +73,8 @@ ___
 
 - 那么第二种方式就需要使用某种命名服务，比如 DNS 。使用此种方法，就要同时使用 IPv4 和 IPv6 地址，来配置完全合格的域名（Full Qualified Domain Names, FQDNs），比如[www.howtonetwork.com](http://www.howtonetwork.com)。 FQDN 是由一个 IPv4 协议栈的`A`记录（an `A` record for the IPv4 protocol stack）, 以及一个 IPv6 协议栈的`AAAA`记录表示的，这样的 FQDN 就令到 DNS 服务器既可使用IPv4, 又可使用 IPv6 进行查询了。
 
-### 在思科 IOS 路由器中部署双栈支持 
- 
+### 在思科 IOS 路由器中部署双栈支持
+
 尽管对那些不同厂商的具备双栈部署支持的不同类型主机的不同配置方式的讨论，是超出 CCNA 考试要求范围的。但作为一名未来的网络工程师，掌握如何在思科 IOS 软件下部署各种双栈方案，是强制性的（imperative to understand how to implement dual-stack solutions in Cisco IOS software）。在思科 IOS 路由器中，双栈运作的启用，通过简单地在路由器接口上配置好 IPv4 及 IPv6 即可。
 
 通过在接口配置命令`ip address [address] [mask]`后添加`[secondary]`关键字，就可以为接口指定多个的 IPv4 地址。对于 IPv6 来说，是不需要`[secondary]`关键字的，因为使用第`7`天课程中所介绍的接口配置命令`ipv6 address`，就可以为每个接口配置多个前缀。下面的配置示例，演示了如何在单一的路由器接口上配置多个 IPv4 地址和 IPv6 地址及前缀：
