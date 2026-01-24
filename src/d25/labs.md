@@ -9,27 +9,27 @@
 - 在两台路由器上分别配置一个环回接口，并从两个不同范围分配地址（`2002::1/128`及`2002::2/128`）
 - 配置标准的OSPFv3 `1`号进程并将所有本地网络在`0`号区域进行通告。同时为各设备配置一个路由器 ID 。
 
-**R1**：
+    **R1**：
 
-```console
-ipv6 router ospf 1
-router-id 1.1.1.1
-int fa0/0(或特定接口编号)
-ipv6 ospf 1 area 0
-int lo0(或特定接口编号)
-ipv6 ospf 1 area 0
-```
+    ```console
+    ipv6 router ospf 1
+    router-id 1.1.1.1
+    int fa0/0(或特定接口编号)
+    ipv6 ospf 1 area 0
+    int lo0(或特定接口编号)
+    ipv6 ospf 1 area 0
+    ```
 
-**R2**：
+    **R2**：
 
-```console
-ipv6 router ospf 1
-router-id 2.2.2.2
-int fa0/0(或特定接口编号)
-ipv6 ospf 1 area 0
-int lo0(或特定接口编号)
-ipv6 ospf 1 area 0
-```
+    ```console
+    ipv6 router ospf 1
+    router-id 2.2.2.2
+    int fa0/0(或特定接口编号)
+    ipv6 ospf 1 area 0
+    int lo0(或特定接口编号)
+    ipv6 ospf 1 area 0
+    ```
 
 - 自`R1`向`R2`的 IPv6 环回接口发出`ping`操作，以测试连通性
 - 执行一个`show ipv6 route`命令，来验证有通过 OSPFv3 接收到路由
