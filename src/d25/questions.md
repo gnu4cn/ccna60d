@@ -11,6 +11,15 @@
 9. Which command would put network `10.0.0.0/8` into `Area 0` on a router?
 10. Which command would set the router ID to `1.1.1.1`?
 11. Name the common troubleshooting issues for OSPF.
+12. Both OSPFv2 and OSPFv3 can run on the same router. True or false?
+13. OSPFv2 and OSPFv3 use different LSA flooding and aging mechanisms. True or false?
+14. Which is the equivalent of `224.0.0.5` in the IPv6 world?
+15. As is required for EIGRPv6, the router ID for OSPFv3 must be either specified manually or configured as an operational interface with an IPv4 address. True or false?
+16. Which command would you use to enable the OSPFv3 routing protocol?
+17. Which command would you use to specify an OSPFv3 neighbour over an NBMA interface?
+18. Which command would you use to see the OSPFv3 LSDB?
+19. A significant difference between OSPFv2 and OSPFv3 is that the OSPFv3 Hello packet now contains no address information at all but includes an interface ID, which the originating router has assigned to uniquely identify its interface to the link. True or false?
+
 
 ## 第 25 天答案
 
@@ -25,5 +34,11 @@
 9. The `network 10.0.0.0 0.255.255.255 area 0` command.
 10. The `router-id 1.1.1.1` command.
 11. Neighbour relationships and route advertisement.
-
-
+12. True.
+13. False.
+14. `FF02::5`.
+15. True.
+16. The `ipv6 router ospf <id>`
+17. The `ipv6 ospf neighbor`
+18. The `show ipv6 ospf database`
+19. True.
