@@ -388,6 +388,11 @@
 - [复习](d54-review.md)
 - [复习](d55-review.md)
 - [复习](d56-review.md)
+- [复习](d57-review.md)
+- [复习](d58-review.md)
+- [复习](d59-review.md)
+- [复习](d60-review.md)
+- [更多挑战实验](more_challenge_labs.md)
 
 ---
 
