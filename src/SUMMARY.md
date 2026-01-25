@@ -41,6 +41,12 @@
     - [IPv6 的协议与机制](d03/IPv6_protocols_and_mechanisms.md)
     - [IPv6 下的子网划分](d03/subnetting_with_IPv6.md)
     - [IPv6 与 IPv4 的比较](d03/compared_to_IPv4.md)
+    - [整合 IPv4 与 IPv6 的网络环境](d03/dual_stack.md)
+    - [IPv4 与 IPv6 的双栈部署](d03/dual_stack_impl.md)
+    - [在思科 IOS 路由器中部署双栈支持](d03/dual_stack_impl_steps.md)
+    - [在思科 IOS 软件中配置静态的 IPv4 及 IPv6 主机地址](d03/conf_static_addresses.md)
+    - [在思科 IOS 软件中配置 IPv4 及 IPv6 的 DNS 服务器](d03/conf_dual_stack_dns_server.md)
+    - [在 IPv4 网络上隧道传输 IPv6 的数据报](d03/tunnelling.md)
     - [第 3 天问题](d03/questions.com)
     - [第 3 天实验](d03/labs.md)
 

@@ -66,12 +66,12 @@ R1#show ip interface brief
 
 - 在两台路由器上都开启 IPv6 全球单播路由
 + 在每个连接的接口上手动配置一个 IPv6 地址，比如下面这样。
-	- 在路由器 R1 的连接接口上配置`2001:100::1/64`
-	- 在路由器 R2 的连接接口上配置`2001:100::2/64`
-- 使用命令`show ipv6 interface`和`show ipv6 interface prefix`对配置进行验证
-- 测试直接`ping`的连通性
+	- 在路由器 R1 的连接接口上配置 `2001:100::1/64`
+	- 在路由器 R2 的连接接口上配置 `2001:100::2/64`
+- 使用命令 `show ipv6 interface` 和 `show ipv6 interface prefix` 对配置进行验证
+- 测试直接 `ping` 的连通性
 - 使用 IPv6 无状态自动配置（`ipv6 address autoconfig default`）进行重新测试
-- 使用`EUI-64`地址（ IPv6 地址`2001::/64` `EUI-64`）进行重新测试
+- 使用 `EUI-64` 地址（ IPv6 地址 `2001::/64` `EUI-64`）进行重新测试
 - 硬编码一个借口本地链路地址: `ipv6 address fe80:1234:adcd:1::3 link-local`
 - 查看 IPv6 路由表
 
@@ -86,6 +86,21 @@ R1#show ip interface brief
 - IPv6子网划分（随机网络和场景）
 
 
-（End）
+
+## IPv4 - IPv6 的基础整合实验
+
+在两台直连的思科路由器上，测试这一教学模组中详细讲到的那些 IPv6 概念与命令：
+
+- 在两台设备上启用 IPv6 的单播路由，并在两个直连接口上同时配置 IPv4 和 IPv6 的地址
+- 使用 `show interface` 和 `show ipv6 interface` 两条命令，验证配置；
+- 配置一些 IPv4 与 IPv6 的主机，作为远端接口地址；
+- 在设备上验证主机配置（`show` 命令）;
+- 通过使用主机名，在设备间 `ping`；
+- 在两台设备上分别配置 IPv4 与 IPv6 的 DNS 服务器；
+
+## IPv4 - IPv6 的隧道实验
+
+在家庭网络环境中，重复在 [IPv4 上隧道传输 IPv6](tunnelling.md) 小节中的场景（包括所有的机制）。要按照该小节中所呈现的事件顺序。
+
 
 
