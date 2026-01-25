@@ -10,6 +10,12 @@
 8. The `_______` `_______` includes both the metric of a network as advertised by the connected neighbour, plus the cost of reaching that particular neighbour.
 9. Cisco IOS software supports equal cost load sharing for a default of up to four paths for all routing protocols. True or false?
 10. What EIGRP command can be used to enable unequal cost load sharing?
+11. IPv6 security for EIGRPv6 is built-in. True or false?
+12. Because EIGRPv6 uses the Link-Local address of the neighbour as the next-hop address, the global IPv6 Unicast subnets do not need to be the same in order for a neighbour relationship to be established between two routers that reside within the same autonomous system and are on a common network segment. True or false?
+13. Which command do you use to enter EIGRP for IPv6 Router Configuration mode?
+14. Which state is the EIGRP for IPv6 initially in (active or shutdown)?
+15. How do you enable EIGRP for IPv6 on a router interface?
+
 
 ## 第 36 天问题答案
 
@@ -23,5 +29,9 @@
 8. Feasible Distance.
 9. True.
 10. The `variance` command.
-
+11. True.
+12. True.
+13. The `ipv6 router eigrp [ASN]` command.
+14. The shutdown state.
+15. Issue the `ipv6 eigrp [ASN]` command.
 

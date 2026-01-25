@@ -134,7 +134,7 @@
 ## EIGRP 的故障排除实验
 
 
-再次重复上面的 EIGRP 实验。此外，测试那些这一课中介绍过的 EIGRP 故障排除命令：
+重复上面的 EIGRP 实验。此外，测试那些这一课中介绍过的 EIGRP 故障排除命令：
 
 1. 通过使用 `show ip protocol` 命令查看 EIGRP 的那些参数；
 2. 同时修改两个路由器上的那些 `K` 值，并再次执行 `show ip protocol` 命令；
@@ -146,7 +146,16 @@
 8. 将网络通告到 EIGRP 中前，启动 `debug ip routing`；注意所生成的那些调试更新（数据包）。
 
 
-（End）
+## EIGRPv6 实验
 
+再次重复第一个实验，不过这次使用 IPv6 的地址，并针对 IPv6 激活 EIGRP：
 
-
+- 在两台路由器上同时启用 IPv6 的单播路由；
+- 在接口上配置 IPv6 的地址；
+- 使用 `ipv6 router eigrp 100` 这一命令，配置 EIGRP 的进程；
+- 使用 `eigrp router-id 10.10.10.10` 这一命令，配置 RID；
+- 使用 `no shutdown` 这一命令，激活 EIGRP 进程；
+- 使用 `ipv6 eigrp 10` 这条命令，在那些 IPv6 接口上启用 EIGRP；
+- 使用 `show ipv6 eigrp neighbors [detail]` 这条命令，验证邻居关系；
+- 使用 `show ipv6 route eigrp` 这条命令，验证已通告的路由；
+- 使用 `show ipv6 eigrp topology` 这一命令，验证 EIGRP 的拓扑结构。
