@@ -1,11 +1,10 @@
-# 60 天通过 CCNA 考试 🖧
+# 60 天通过 CCNA® 考试 🖧
 
-**Cisco CCNA in 60 Days**
+**Cisco® CCNA in 60 Days**
 
 在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
-
 
 ## 关于新版本（第 4 版）中的更新
 
@@ -30,8 +29,11 @@
 - EIGRPv6
 - OSPFv3
 - Frame Relay，帧中继技术
+- Cisco® IOS 的 NetFlow
 
 译者已将这些新版移除的内容，补充到相应的章节中。
+
+
 
 
 ## 捐赠记录
