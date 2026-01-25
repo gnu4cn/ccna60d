@@ -289,6 +289,7 @@
     - [文件系统管理](d34/filesystem_management.md)
     - [IOS 的授权](d34/licensing.md)
     - [系统日志记录](d34/logging.md)
+    - [Cisco® IOS 的 NetFlow](d34/netflow.md)
     - [第 34 天问题](d34/questions.md)
     - [第 34 天实验](d34/labs.md)
 
@@ -406,9 +407,6 @@
 - [复习](d59-review.md)
 - [复习](d60-review.md)
 - [更多挑战实验](more_challenge_labs.md)
-
----
-- [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
 
 ---
 

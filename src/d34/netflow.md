@@ -1,4 +1,5 @@
-# 思科 IOS 的 NetFlow （Cisco IOS NetFlow）
+# 思科 IOS 的 NetFlow
+
 
 与 SNMP 一样，思科 IOS 的 NetFlow 是一个强大的维护与监控工具，可用于对网络性能进行基准测量及辅助故障排除。但其与 SNMP 之间有着一些显著的区别。第一个不同就是 SNMP 主要报告的是有关设备统计数据（比如资源使用情况等），而思科 IOS 的 NetFlow 则是就流量统计数据进行报告（比如数据包与字节）。
 
@@ -129,7 +130,7 @@ R1(config)#exit
 
 根据此配置，就可在那台NetFlow Collector上，使用某种应用报告工具，查看到收集的信息。而尽管有数据的导出，仍然可以在本地设备上，使用`show ip cache flow`命令来查看统计数据，在对网络故障进行排除或报告问题时，此命令可作为一个有用的工具。
 
-### 使用 NetFlow 的数据进行故障排除（Troubleshooting Utilising NetFlow Data）
+## 使用 NetFlow 的数据进行故障排除（Troubleshooting Utilising NetFlow Data）
 
 典型的企业网络，有着成千上万的、仅在很短时间内就生成海量 NetFlow 数据的连接。 NetFlow 数据可转换为帮助管理员弄清楚网络中正在发生什么的，有用图形与表格。 NetFlow 数据可辅助于以下方面：
 
