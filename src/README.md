@@ -40,6 +40,42 @@
 译者已将这些新版移除的内容，补充到相应的章节中。
 
 
+## 组织结构
+
+
+### 网络基础知识
+
+{{#include ./SUMMARY.md:11:54}}
+
+
+### LAN 交换
+
+{{#include ./SUMMARY.md:61:104}}
+
+### 路由技术
+
+{{#include ./SUMMARY.md:147:227}}
+
+## 基础设施业务
+
+{{#include ./SUMMARY.md:234:298}}
+
+
+### WAN 技术
+
+
+{{#include ./SUMMARY.md:306:333}}
+
+
+### 基础设施安全
+
+
+{{#include ./SUMMARY.md:340:382}}
+
+
+### 网络自动化
+
+{{#include ./SUMMARY.md:388:398}}
 
 
 
