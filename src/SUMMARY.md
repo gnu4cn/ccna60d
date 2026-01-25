@@ -408,8 +408,6 @@
 - [更多挑战实验](more_challenge_labs.md)
 
 ---
-
-- [第 8 天 IPv4 与 IPv6 共存的网络环境](d08-Integrating-IPv4-and-IPv6-Network-Environments.md)
 - [系统日志、简单网络管理协议与NetFlow软件](d40-Syslog-SNMP-and-Netflow.md)
 
 ---

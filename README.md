@@ -2,17 +2,37 @@
 
 **Cisco CCNA in 60 Days**
 
-
-
 在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
-
-
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
 
-___
-本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
+## 关于新版本（第 4 版）中的更新
+
+### 新增内容
+
+- 无线组网与组件
+- 园区网络的拓扑结构
+- 无线网络原理
+- QoS
+- 云计算与虚拟化
+- 安全计划要素
+- 威胁、漏洞与利用
+- AAA
+- 二层缓解技术
+- 网络的可编程性（SDN）
+- JSON 与配置管理
+
+
+### 移除内容
+
+- IPv4 与 IPv6 共存的环境
+- EIGRPv6
+- OSPFv3
+- Frame Relay，帧中继技术
+
+译者已将这些新版移除的内容，补充到相应的章节中。
+
 
 ## 捐赠记录
 
