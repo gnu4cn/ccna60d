@@ -9,11 +9,8 @@
 
 ## 用于 IPv6 的 ICMP
 
-ICMP 用于向源主机报告有关 IP 数据包向预定目的地的传送的错误及其他信息。定义在 [RFC 2463](https://datatracker.ietf.org/doc/html/rfc2463) 中作为第 58 号协议的 ICMPv6，支持 ICMPv4 的报文，并包括了一些 ICMPv6 的额外报文。ICMPv6 用在基本 IPv6 数据包头部的下一头部字段中。与 IPv4 不同，IPv6 会将 ICMPv6 视为一种诸如 TCP 的上层协议，这意味着 ICMPv6 是放在 IPv6 数据包中，所有可能的扩展头部后的。包含在 ICMPv6 数据包中的字段，如下图 3.11 中所示。
+ICMP 用于向源主机报告，有关 IP 数据包向预定目的地投送的错误及其他信息。定义在 [RFC 2463](https://datatracker.ietf.org/doc/html/rfc2463) 中，作为协议编号 58 的 ICMPv6，支持 ICMPv4 的消息，并包含一些 ICMPv6 的额外消息。ICMPv6 用在基本 IPv6 数据包头部的 `Next Header` 字段中。不同于 IPv4 下，IPv6 会将 ICMPv6 视为比如 TCP 的一种上层协议，这意味着 ICMPv6 是放在 IPv6 数据包中，所有可能的扩展头部后的。包含在 ICMPv6 数据包中的字段，如下图 3.11 中所示。
 
-> *知识点*：
->
-> the Next Header field of the basic IPv6 packet header
 
 ![ICMPv6数据包头部](../images/0711.png)
 
