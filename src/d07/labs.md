@@ -19,89 +19,89 @@
 
 1. 检查咱们交换机上的当前 DTP 设置；
 
-```console
-Switch#show int g0/1 switchport
-Name: Gig0/1
-Switchport: Enabled
-Administrative Mode: dynamic auto
-Operational Mode: static access
-Administrative Trunking Encapsulation: dot1q
-Operational Trunking Encapsulation: native
-Negotiation of Trunking: On
-Access Mode VLAN: 1 (default)
-Trunking Native Mode VLAN: 1 (default)
-Voice VLAN: none
-Administrative private-vlan host-association: none
-Administrative private-vlan mapping: none
-Administrative private-vlan trunk native VLAN: none
-Administrative private-vlan trunk encapsulation: dot1q
-Administrative private-vlan trunk normal VLANs: none
-Administrative private-vlan trunk private VLANs: none
-Operational private-vlan: none
-Trunking VLANs Enabled: ALL
-Pruning VLANs Enabled: 2-1001
-Capture Mode Disabled Capture VLANs Allowed: ALL
-Protected: false
-Appliance trust: none
-```
+    ```console
+    Switch#show int g0/1 switchport
+    Name: Gig0/1
+    Switchport: Enabled
+    Administrative Mode: dynamic auto
+    Operational Mode: static access
+    Administrative Trunking Encapsulation: dot1q
+    Operational Trunking Encapsulation: native
+    Negotiation of Trunking: On
+    Access Mode VLAN: 1 (default)
+    Trunking Native Mode VLAN: 1 (default)
+    Voice VLAN: none
+    Administrative private-vlan host-association: none
+    Administrative private-vlan mapping: none
+    Administrative private-vlan trunk native VLAN: none
+    Administrative private-vlan trunk encapsulation: dot1q
+    Administrative private-vlan trunk normal VLANs: none
+    Administrative private-vlan trunk private VLANs: none
+    Operational private-vlan: none
+    Trunking VLANs Enabled: ALL
+    Pruning VLANs Enabled: 2-1001
+    Capture Mode Disabled Capture VLANs Allowed: ALL
+    Protected: false
+    Appliance trust: none
+    ```
 
-这些设置告诉咱们，该端口已动态地成为一个接入端口（而非手动配置）。他正以一个接入端口运行，同时由于 “中继协商”（Negotiation of Trunking）而开启了 DTP：`On Output`。
+    这些设置告诉咱们，该端口已动态地成为一个接入端口（而非手动配置）。他正以一个接入端口运行，同时由于 “中继协商”（Negotiation of Trunking）而开启了 DTP：`On Output`。
 
 
 2. 将该端口的设置，从动态 `on`（被动成为中继）设置为动态 `desirable`（寻求主动成为中继）。我（作者）已添加了个问号，以便咱们可以查看这个平台上的那些可用选项；
 
-```console
-Switch(config-if)#switchport mode ?
-access Set trunking mode to ACCESS unconditionally
-dynamic Set trunking mode to dynamically negotiate access or trunk mode
-trunk Set trunking mode to TRUNK unconditionally
-Switch(config-if)#switchport mode dynamic ?
-auto Set trunking mode dynamic negotiation parameter to AUTO
-desirable Set trunking mode dynamic negotiation parameter to DESIRABLE
-Switch(config-if)#switchport mode dynamic desirable
-```
+    ```console
+    Switch(config-if)#switchport mode ?
+    access Set trunking mode to ACCESS unconditionally
+    dynamic Set trunking mode to dynamically negotiate access or trunk mode
+    trunk Set trunking mode to TRUNK unconditionally
+    Switch(config-if)#switchport mode dynamic ?
+    auto Set trunking mode dynamic negotiation parameter to AUTO
+    desirable Set trunking mode dynamic negotiation parameter to DESIRABLE
+    Switch(config-if)#switchport mode dynamic desirable
+    ```
 
 3. 再次检查该接口的设置。什么东西改变了？我（作者）截断了输出节省空间；
 
-```console
-Switch#show int g0/1 switchport
-Name: Gig0/1
-Switchport: Enabled
-Administrative Mode: dynamic desirable
-Operational Mode: trunk
-Administrative Trunking Encapsulation: dot1q
-Operational Trunking Encapsulation: dot1q
-Negotiation of Trunking: On
-Access Mode VLAN: 1 (default)
-Trunking Native Mode VLAN: 1 (default)
-Voice VLAN: none
-```
+    ```console
+    Switch#show int g0/1 switchport
+    Name: Gig0/1
+    Switchport: Enabled
+    Administrative Mode: dynamic desirable
+    Operational Mode: trunk
+    Administrative Trunking Encapsulation: dot1q
+    Operational Trunking Encapsulation: dot1q
+    Negotiation of Trunking: On
+    Access Mode VLAN: 1 (default)
+    Trunking Native Mode VLAN: 1 (default)
+    Voice VLAN: none
+    ```
 
 4. 最后一步是关闭该接口的 DTP。咱们将看到，当该端口被设置为 `dynamic` 时，这条命令将不被接受。
 
 
-```console
-Switch(config-if)#switchport nonegotiate
-Command rejected: Conflict between ‘nonegotiate’ and ‘dynamic’ status.
-Switch(config-if)#switchport mode trunk
-Switch(config-if)#switchport nonegotiate
-Switch(config-if)#
-Switch(config-if)#end
-Switch#
-%SYS-5-CONFIG_I: Configured from console by console
+    ```console
+    Switch(config-if)#switchport nonegotiate
+    Command rejected: Conflict between ‘nonegotiate’ and ‘dynamic’ status.
+    Switch(config-if)#switchport mode trunk
+    Switch(config-if)#switchport nonegotiate
+    Switch(config-if)#
+    Switch(config-if)#end
+    Switch#
+    %SYS-5-CONFIG_I: Configured from console by console
 
-Switch#show int g0/1 switchport
-Name: Gig0/1
-Switchport: Enabled
-Administrative Mode: trunk
-Operational Mode: trunk
-Administrative Trunking Encapsulation: dot1q
-Operational Trunking Encapsulation: dot1q
-Negotiation of Trunking: Off
-Access Mode VLAN: 1 (default)
-Trunking Native Mode VLAN: 1 (default)
-Voice VLAN: none
-```
+    Switch#show int g0/1 switchport
+    Name: Gig0/1
+    Switchport: Enabled
+    Administrative Mode: trunk
+    Operational Mode: trunk
+    Administrative Trunking Encapsulation: dot1q
+    Operational Trunking Encapsulation: dot1q
+    Negotiation of Trunking: Off
+    Access Mode VLAN: 1 (default)
+    Trunking Native Mode VLAN: 1 (default)
+    Voice VLAN: none
+    ```
 
 
 ## VTP 实验
@@ -116,9 +116,5 @@ Voice VLAN: none
 5. 在两台交换机上配置 VTP 修剪；
 6. 验证（显示）两台交换机上的 VTP 配置；
 7. 配置一个不同的 VTP 域名及口令，重复该过程；查看结果有何不同。
-
-
-
-
 
 
