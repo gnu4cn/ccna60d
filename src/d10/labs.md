@@ -130,7 +130,7 @@
 
     `0010.1123.D245`
 
-6.将另一交换机设置为 `VLAN 2` 和 `VLAN 3` 的根桥。对 `VLAN 2` 使用 `spanning-tree vlan 2 priority 4096` 命令，对 `VLAN 3` 使用 `spanning-tree vlan 3 root primary` 命令。
+6. 将另一交换机设置为 `VLAN 2` 和 `VLAN 3` 的根桥。对 `VLAN 2` 使用 `spanning-tree vlan 2 priority 4096` 命令，对 `VLAN 3` 使用 `spanning-tree vlan 3 root primary` 命令。
 
     ```console
     SwitchA(config)#spanning-tree vlan 2 priority 4096
