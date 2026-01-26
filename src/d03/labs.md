@@ -15,35 +15,35 @@
 
 1. 在两侧同时启用 IPv6 路由。下面是如何 R1 上启用；
 
-```console
-R1(config)#ipv6 unicast-routing
-```
+    ```console
+    R1(config)#ipv6 unicast-routing
+    ```
 
 2. 将以下 IPv6 地址添加到 R1 的 `FO/0`。对于 R2 要添加 `:2` 的地址。确保不关闭这两个接口；
 
-```console
-R1(config)#int f0/0
-R1(config-if)#ipv6 address 2001:aaaa:bbbb:cccc::1/64
-R1(config-if)#no shut
-```
+    ```console
+    R1(config)#int f0/0
+    R1(config-if)#ipv6 address 2001:aaaa:bbbb:cccc::1/64
+    R1(config-if)#no shut
+    ```
 
 3. 从 R1 `ping` R2，或相反；
 
-```console
-R2#ping 2001:aaaa:bbbb:cccc::1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 2001:AAAA:BBBB:CCCC::1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/0 ms
-```
+    ```console
+    R2#ping 2001:aaaa:bbbb:cccc::1
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 2001:AAAA:BBBB:CCCC::1, timeout is 2 seconds:
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/0 ms
+    ```
 
 4. 请尝试执行以下命令，并注意各种输出。要注意 MAC 地址被怎样用于创建链路本地地址。`show ipv6 interface brief` 命令将揭示 MAC 地址。
 
-```console
-R1#show ipv6 interface brief
-R1#show ipv6 interface f0/0
-R1#show ip interface brief
-```
+    ```console
+    R1#show ipv6 interface brief
+    R1#show ipv6 interface f0/0
+    R1#show ip interface brief
+    ```
 
 
 ## IPv6 概念实验
