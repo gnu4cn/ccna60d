@@ -18,11 +18,11 @@
 2. `show mac-address-table`
 3. The `interface vlan x` command and the `ip address x.x.x.x`command.
 4.
-```console
-Switch1(config)#line vty 0 15
-Switch1(config-line)#password cisco
-Switch1(config-line)#login
-```
+    ```console
+    Switch1(config)#line vty 0 15
+    Switch1(config-line)#password cisco
+    Switch1(config-line)#login
+    ```
 5. Use the `Switch1(config-line)#transport input ssh` command.
 6. The authentication method is not defined on another switch.
 7. True.
