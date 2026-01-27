@@ -27,6 +27,11 @@ DTP 是一种协商出两台交换机之间的共同中继模式的，思科专�
 
 **注意**：重要的是要知道，当两台交换机都被设置为动态 `auto` 模式时，他们将无法建立他们之间的中继链路。这是因为，与动态 `desirable` 模式不同，动态 `auto` 模式是种会等待对方发起中继建立的被动模式。同样，当某个静态配置的交换机端口，还配置了 `switchport nonegotiate` 命令时，那么他将不会使用 DTP 与相邻交换机形成中继，因为者会这将阻止 DISL 和 DTP 数据包从该端口发出。
 
+
+> *译注*：
+>
+> 参考：[Disable DTP on a switch](https://community.cisco.com/t5/switching/disable-dtp-on-a-switch/td-p/3328521)
+
 在某个交换式局域网中使用 DTP 时，`show dtp [interface <name>]` 命令可用于显示交换机全局，或指定接口的 DTP 信息。以下输出显示了由 `show dtp` 命令打印的信息：
 
 ```console
