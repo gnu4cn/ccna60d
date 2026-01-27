@@ -71,8 +71,9 @@ FastEthernet1/0/1 is down, line protocol is down (notconnect)
 
 > 自动协商问题可能由不合格实现、硬件能力或软件缺陷等造成。当网卡或供应商交换机不完全符合 IEEE 规范 802.3u 时，问题就会造成。硬件的不兼容及其他问题，也会由一些特定于供应商的高级特性造成，诸如自动极性或线缆完整性等，这些特性并未在 IEEE 802.3u 的 10/100 Mbps 自动协商描述 (Cisco.com)。
 >
-> - [Troubleshoot Catalyst Switches to NIC Compatibility Issues](https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html)
->
+> -- [Troubleshoot Catalyst Switches to NIC Compatibility Issues](https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/17053-46.html)
+
+
 > *知识点*：
 >
 > - non-confirming implementation
