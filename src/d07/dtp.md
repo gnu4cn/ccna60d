@@ -6,6 +6,15 @@ DTP 是一种协商出两台交换机之间的共同中继模式的，思科专�
 - 动态 `desirable` 模式
 - 动态 `auto` 模式
 
+> **译注**：这两种 DTP 模式，是在接口配置模式下配置的，如下所示。
+>
+> ```console
+> Switch(config-if)#switchport mode dynamic ?
+>   auto       Set trunking mode dynamic negotiation parameter to AUTO
+>   desirable  Set trunking mode dynamic negotiation parameter to DESIRABLE
+>
+> ```
+
 
 在两台相邻交换机上使用 DTP 时，若交换机端口默认为动态 `desirable` 状态，那么该端口将主动尝试成为中继端口。而若交换机端口默认为动态 `auto` 状态时，则只有当相邻交换机被设置为动态 `desirable` 模式时，该端口才会恢复为中继端口。
 
