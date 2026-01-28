@@ -190,7 +190,6 @@ Switch1(config-if)#switchport access vlan 5
 
 ```console
 Switch2(config)#int fa0/1
-
 Switch2(config-if)#switchport access vlan 5
 ```
 
@@ -250,6 +249,8 @@ Fa0/15  on      isl             trunking    1
 
 **重要提示**：在将交换机端口设置为中继模式前，中继封装需要在其上配置好。请注意，这不适用于 2960 型交换机（目前用于 CCNA 教学大纲的型号），他只能使用 `dot1q`（802.1Q 的另一名称）封装。出于这一原因，`switchport trunk encapsulation` 这条命令在 2960 型交换机上将不起作用。
 
+> **译注**：译者在 GNS3 中使用 IOU 的 15.2 镜像时，观察到 ISL 的中继封装下，无法于 VPCS 之间、交换机之间及 VPCS 与交换机之间 `ping` 通；在更换到 dot1q 的中继冯庄后，即可 `ping` 通。
+
 同样，咱们也可将交换机端口配置为使用 802.1Q 而不是 ISL，如下输出中所示。
 
 
@@ -274,7 +275,7 @@ Port    Mode    Encapsulation   Status      Native vlan
 Fa0/15  on      802.1q          trunking    1
 ```
 
-注意，原生 VLAN 为 `VLAN 1`。这是 802.1Q 中继上的默认原生 VLAN，而其可使用 `switchport trunk native vlan <vlan#>` 命令更改。中继上两个端口的原生 VLAN 必须匹配。该命令是 CCNA 考试大纲的一部分，并被视为一项安全措施。
+注意，原生 VLAN 为 `VLAN 1`。这是 802.1Q 中继上的默认原生 VLAN，而其可使用 `switchport trunk native vlan <vlan#>` 命令更改。中继上两个端口的原生 VLAN 必须匹配。该命令是 CCNA 考试大纲的一部分，并被视为 [一项安全措施](../d45/securing.md#修改原生-vlan)。
 
 **重要提示**：交换机会记住所有 VLAN 信息，即使重新加载后也是如此。当咱们想要咱们的交换机以空白配置启动，那么咱们将需要在咱们的交换机上，执行 `delete vlan.dat` 命令，如下输出中所示。这一操作只适用实物交换机，而不适用于诸如 Packet Tracer 等交换机模拟器。
 
