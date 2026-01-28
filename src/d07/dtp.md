@@ -86,9 +86,9 @@ DTP information for FastEthernet0/1:
 
 ## IEEE 802.1Q 原生 VLAN
 
-在 [上一教学模组](../d06/vlan.md#vlan-标记) 中，咱们已经了解 802.1Q 或 VLAN 的打标签，会将某个标签插入除原生 VLAN 中的数据帧外的所有数据帧。IEEE 定义了原生 VLAN，提供对原有的那些不理解 VLAN 标签的 802.3 端口连通性。
+在 [上一教学模组](../d06/vlan.md#vlan-标记) 中，咱们已经了解 802.1Q 或 VLAN 的打标签，会将某个标签插入除原生 VLAN 中数据帧外的所有数据帧。IEEE 定义了原生 VLAN，以提供到原有的那些不理解 VLAN 标签的 802.3 端口以连通性。
 
-默认情况下，802.1Q 的中继会使用 `VLAN 1` 作为原生 VLAN。802.1Q 中继链路上的默认原生 VLAN，可经由执行 `show interfaces [name] switchport` 或 `show interfaces trunk` 命令查看，如下输出中所示：
+默认情况下，802.1Q 的中继会使用 `VLAN 1` 作为原生 VLAN。某一 802.1Q 中继链路上的默认原生 VLAN，可通过执行 `show interfaces [name] switchport` 或 `show interfaces trunk` 命令查看，如以下输出中所示：
 
 
 ```console
