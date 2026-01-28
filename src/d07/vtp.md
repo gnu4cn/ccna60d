@@ -20,7 +20,7 @@ VLAN 中继协议（VTP）是一种管理同一 VTP 域中，交换机上 VLAN �
 
 
 ```console
-Switch(config)#vtp mode server  ←this is on by default
+Switch(config)#vtp mode server  ← this is on by default
 Switch(config)#vtp domain in60days
 Changing VTP domain name from NULL to in60days
 
@@ -49,7 +49,7 @@ Setting device VLAN database password to Cisco321
 
 有三个版本的 VTP，即版本 1、2 及 3。在撰写本文时，由 Cisco Catalyst 交换机所使用的默认版本为 VTP 版本 1。如上所示，这可以从 `show vtp status` 命令的输出中验证。
 
-其中粗体字的第一行令人困惑，因为他显示 VTP 版本是 `VTP version 2`。然而，这行只是表示了该交换机具备版本 2 能力。要确定 VTP 版本 2 是否已启用，应参考 `VTP V2 Mode` 这一行。在上面打印的输出中，该行显示 `Disabled`，这意味着即使该交换机具备版本 2 的能力，如第一行中指出的那样，他仍运行着默认的版本 (1)，而版本 2 是禁用的。
+其中 `VTP Version :` 行令人困惑，因为他显示 VTP 版本是 VTP 版本 2。然而，这行只是表示了该交换机具备版本 2 能力。要确定 VTP 版本 2 是否已启用，应参考 `VTP V2 Mode` 这一行。在上面打印的输出中，该行显示 `Disabled`，这意味着即使该交换机具备版本 2 的能力，如第一行中指出的那样，他仍运行着默认的版本 （1），而版本 2 是禁用的。
 
 VTP 版本 2 在基本操作方面与版本 1 类似，但比版本 1 提供了额外能力与特性。VTP 版本 2 下第一个受支持的额外特性，是令牌环的支持。VTP 版本 2 支持令牌环的交换、令牌环的网桥中继功能（TrBRF），以及令牌环的集中器中继功能（TrCRF）。令牌环超出了 SWITCH 考试要求范围，而不会在本指南中详述。
 
