@@ -7,31 +7,34 @@
 - 接口必须是 `up/up` 的；
 - 两侧的封装方式必须匹配。
 
-
-```console
-SwitchA#show interface fa1/1 switchport
-Name: Fa1/1
-Switchport: Enabled
-Administrative Mode: trunk
-Operational Mode: trunk
-Administrative Trunking Encapsulation: dot1q
-Operational Trunking Encapsulation: dot1q
-Negotiation of Trunking: Disabled
-Access Mode VLAN: 0 ((Inactive))
-```
+    ```console
+    SwitchA#show interface fa1/1 switchport
+    Name: Fa1/1
+    Switchport: Enabled
+    Administrative Mode: trunk
+    Operational Mode: trunk
+    Administrative Trunking Encapsulation: dot1q
+    Operational Trunking Encapsulation: dot1q
+    Negotiation of Trunking: Disabled
+    Access Mode VLAN: 0 ((Inactive))
+    ```
 
 VLAN 信息未在传输？
 
 - 该 VLAN 在中继链路上被阻止了吗？
 
-`Switch#show interface trunk`
+    ```console
+    Switch#show interface trunk
+    ```
 
 
 VTP 信息未到达客户端？
 
 - 域和 VTP 口令是否正确？
 
-`show vtp status / show vtp password`
+    ```console
+    show vtp status / show vtp password
+    ```
 
 增加一台新交换机后，所有 VTP 信息都更改了？
 
