@@ -1,15 +1,11 @@
 # 60 天通过 CCNA® 考试 🖧
 
-**Cisco® CCNA in 60 Days**
-
 
 在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
-
 
 本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
 
 
-本书结合了学习技巧，包括阅读、复习、背书、测试以及 hands-on 实验。
 
 
 ## 关于新版本（第 4 版）中的更新
