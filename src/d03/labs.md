@@ -62,19 +62,6 @@
 - 将某个接口的链接本地地址，硬编码为：IPv6 的链路本地地址 `fe80:1234:abcd:1::3`；
 - 检查 IPv6 路由表。
 
-在一对直接连接的思科路由器上，对在本模块中提到的 IPv6 概念和命令，进行测试。
-
-- 在两台路由器上都开启 IPv6 全球单播路由
-+ 在每个连接的接口上手动配置一个 IPv6 地址，比如下面这样。
-	- 在路由器 R1 的连接接口上配置 `2001:100::1/64`
-	- 在路由器 R2 的连接接口上配置 `2001:100::2/64`
-- 使用命令 `show ipv6 interface` 和 `show ipv6 interface prefix` 对配置进行验证
-- 测试直接 `ping` 的连通性
-- 使用 IPv6 无状态自动配置（`ipv6 address autoconfig default`）进行重新测试
-- 使用 `EUI-64` 地址（ IPv6 地址 `2001::/64` `EUI-64`）进行重新测试
-- 硬编码一个借口本地链路地址: `ipv6 address fe80:1234:adcd:1::3 link-local`
-- 查看 IPv6 路由表
-
 ## 十六进制转换及子网划分练习
 
 **Hex Conversion and Subnetting Practice**
