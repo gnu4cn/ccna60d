@@ -6,6 +6,48 @@
 > [Getting Started with GNS3](https://docs.gns3.com/docs/)
 
 
+## `libcrypto.so.4` 未找到问题
+
+```console
+$ ldd ~/GNS3/images/IOU/i86bi-linux-l2-ipbasek9-15.1g.bin
+        linux-gate.so.1 (0xf7fbd000)
+        libcrypto.so.4 => not found
+        libpthread.so.0 => /usr/lib32/libpthread.so.0 (0xf7f7c000)
+        libm.so.6 => /usr/lib32/libm.so.6 (0xf7e91000)
+        libgcc_s.so.1 => /usr/lib32/libgcc_s.so.1 (0xf7e5d000)
+        libc.so.6 => /usr/lib32/libc.so.6 (0xf7c2b000)
+        libdl.so.2 => /usr/lib32/libdl.so.2 (0xf7c26000)
+        /lib/ld-linux.so.2 => /usr/lib/ld-linux.so.2 (0xf7fc0000)
+
+# ldd ~/GNS3/images/IOU/i86bi-linux-l2-upk9-12.2.bin
+        linux-gate.so.1 (0xf7ecf000)
+        libcrypto.so.4 => not found
+        libm.so.6 => /usr/lib32/libm.so.6 (0xf7da8000)
+        libgcc_s.so.1 => /usr/lib32/libgcc_s.so.1 (0xf7d74000)
+        libc.so.6 => /usr/lib32/libc.so.6 (0xf7b42000)
+        libdl.so.2 => /usr/lib32/libdl.so.2 (0xf7b3d000)
+        /lib/ld-linux.so.2 => /usr/lib/ld-linux.so.2 (0xf7ed2000)
+```
+
+上面的输出显示这两个 IOU 镜像所依赖的 `libcrypto.so.4` 缺失。
+
+- 尝试 `ln -s /usr/lib32/libcrypto.so.3 /usr/lib32/libcrypto.so.4` 后，运行仍会报出 `segfault` 错误；
+- 安装 `yay -S lib32-openssl-1.0` 后，执行 `ln -s /usr/lib32/libcrypto.so.1.0.0 /usr/lib32/libcrypto.so.4` 后，仍报出 `IOU VM "IOU1" process has stopped with return code: -11 (segfault).` 错误。
+
+    安装该软件包并建立软连接后的 `ldd` 输出：
+
+    ```console
+    $ ldd ~/GNS3/images/IOU/i86bi-linux-l2-upk9-12.2.bin
+            linux-gate.so.1 (0xf7f60000)
+            libcrypto.so.4 => /usr/lib32/libcrypto.so.4 (0xf7d18000)
+            libm.so.6 => /usr/lib32/libm.so.6 (0xf7c2d000)
+            libgcc_s.so.1 => /usr/lib32/libgcc_s.so.1 (0xf7bf9000)
+            libc.so.6 => /usr/lib32/libc.so.6 (0xf79c7000)
+            libdl.so.2 => /usr/lib32/libdl.so.2 (0xf79c2000)
+            /lib/ld-linux.so.2 => /usr/lib/ld-linux.so.2 (0xf7f63000)
+    ```
+
+
 
 
 ## 更新（2025 年 3 月）
