@@ -84,6 +84,12 @@ Fa0/15     Desg  FWD    19     128.15    P2p
 Fa0/18     Desg  FWD    19     128.18    P2
 ```
 
+> **译注**：译者在 GNS3 下完成了下面图片中的实验。
+>
+> ![STP 根桥选举及根桥与备份根桥设置图示](../images/d10_stp_root_bridge_election.png)
+
+
+
 > *知识点*：
 >
 > - Spanning Tree Root Bridge Election
