@@ -6,7 +6,7 @@
 - EtherChannel 中的所有接口，必须以同样速率及双工模式运行。但请记住，与 PAgP 不同，LACP 不支持半双工的端口；
 - 确保 EtherChannel 中的所有接口都被启动。在某些情况下，当接口未启用时，那么逻辑端口通道接口将不会被自动创建；
 - 首次配置某个 EtherChannel 组时，重要的是要记住，端口要依照第一个添加的组端口所设置的参数；
-- 当交换机端口分析器 (SPAN) 在 EtherChannel 中某个成员端口上配置了时，那么该端口将从 EtherChannel 组中移除；
+- 当 [交换端口分析器 (Switched Port Analyzer, SPAN)](https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6500-series-switches/10570-41.html) 在 EtherChannel 中某个成员端口上配置了时，那么该端口将从 EtherChannel 组中移除；
 - 将 EtherChannel 中的所有接口，都分配到同一 VLAN，或将他们配置为中继链路非常重要。若这些参数不同，那么通道将无法形成；
 - 请记住，有着不同 STP 路径开销（由管理员控制）的类似接口，仍可用于形成 EtherChannel。
 
