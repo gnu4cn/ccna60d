@@ -1,6 +1,10 @@
 # 理解 EtherChannel
 
-一个 EtherChannel，由捆绑在一起成为一条逻辑链路的物理、单条的一些 `FastEthernet`、`GigabitEthernet` 或 `Ten-GigabitEthernet`（10Gbps）链路组成，如下图 11.1 所示。由 `FastEthernet` 链路组成的 EtherChannel，称为快速以太网通道 (FEC)；由 `GigabitEthernet` 链路组成的 EtherChannel，称为千兆以太网通道 (GEC)；而最后，由万兆以太网链路组成的 EtherChannel，就称为万兆以太网通道 (10GEC)。
+所谓 EtherChannel，是由捆绑在一起成为一条逻辑链路的，一些物理、单条的一些 `FastEthernet`、`GigabitEthernet` 或 `Ten-GigabitEthernet`（10Gbps）链路构成，如下图 11.1 所示。
+
+- 由 `FastEthernet` 链路组成的 EtherChannel，称为快速以太网通道 (FEC)；
+- 由 `GigabitEthernet` 链路组成的 EtherChannel，称为千兆以太网通道 (GEC)；
+- 最后，由万兆以太网链路组成的 EtherChannel，就称为万兆以太网通道 (10GEC)。
 
 每条 EtherChannel 最多可由八个端口组成。EtherChannel 中的物理链路，必须共有一些相似特性，例如，要被定义在同一 VLAN 下，或要有着同样的速率及双工设置等。在 Cisco Catalyst 交换机上配置 EtherChannel 时，重要的是记住，不同的 Catalyst 交换机型号间，所支持的 EtherChannel 数量将有所不同。
 
