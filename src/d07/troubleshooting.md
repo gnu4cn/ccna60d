@@ -46,7 +46,9 @@ VTP 修剪不起作用？
 - 该 VLAN 在中继上是否被放行？
 
 
-（译者补充）接入交换机端口未开启？
+接入交换机端口未开启（译者补充）？
+
+在进行 VLAN 与 VTP 实验时，译者遇到跨交换机的同一 VLAN 上两个 PC 互相 `ping` 不通的情况。后面通过 Wireshark 抓包，发现一台交换机连接 PC 的接入端口上因为没有用 `no shut` 开启，抓包不显示任何报文。随后执行 `no shut` 命令后，Wireshark 中立即显示有报文发出，同时 `ping` 不通的问题解决。
 
 ![接入端口未开启下导致跨交换机的某一 VLAN 内主机 `ping` 不通](../images/vtp_n_vlan_demo_topology.png)
 
