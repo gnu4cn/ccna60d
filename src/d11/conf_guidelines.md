@@ -199,6 +199,7 @@ Administrative private-vlan trunk private VLANs: none
 Operational private-vlan: none
 Trunking VLANs Enabled: ALL
 Pruning VLANs Enabled: 2-1001
+
 Protected: false
 Appliance trust: none
 ```
