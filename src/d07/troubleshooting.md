@@ -27,7 +27,6 @@ VLAN 信息未在传输？
     Switch#show interface trunk
     ```
 
-
 VTP 信息未到达客户端？
 
 - 域和 VTP 口令是否正确？
@@ -45,6 +44,11 @@ VTP 修剪不起作用？
 
 - 中间是否有台透明交换机？
 - 该 VLAN 在中继上是否被放行？
+
+
+（译者补充）接入交换机端口未开启？
+
+![接入端口未开启下导致跨交换机的某一 VLAN 内主机 `ping` 不通](../images/vtp_n_vlan_demo_topology.png)
 
 
 请参加 [Free CCNA Training Bonus – Cisco CCNA in 60 Days v4](https://www.in60days.com/free/ccnain60days/) 处第 7 天的考试。
