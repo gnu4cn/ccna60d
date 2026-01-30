@@ -87,6 +87,38 @@ Fa0/18     Desg  FWD    19     128.18    P2
 > **译注**：译者在 GNS3 下完成了下面图片中的实验。
 >
 > ![STP 根桥选举及根桥与备份根桥设置图示](../images/d10_stp_root_bridge_election.png)
+>
+> 此拓扑结构用于说明 STP 的根桥选举。
+>
+> 其中的 VLAN：
+>
+>
+> ```console
+> VLAN 1:    the Default VLAN, may not be deleted.
+> VLAN 10:   data
+> VLAN 20:   RnD
+> VLAN 999:  administrative
+> VLAN 1001: native
+> ```
+>
+> 初始桥优先级在每个交换机上都一样，并可按 VLAN 手动修改以影响根桥选举。
+>
+> ```console
+> VLAN 1:    32768 + 1
+> VLAN 10:   32768 + 10
+> VLAN 20:   32768 + 20
+> VLAN 999:  32768 + 999
+> VLAN 1001: 32768 + 1001
+> ```
+>
+>
+> 1. BID 值越低，那么优先级就越高；
+> 2. 默认情况下，sw3 将被选举为 VLAN 10/999/1001 的根桥，因为他有着优先级最高的桥 ID，Bridge ID。此时所有 VLAN 的根桥都在 sw3 这一个交换机上，会造成其上较高的资源使用，形成次优的交换网络；
+> 3. STP 选举完全是在二层上通过交换携带 BID 等数据的 STP 报文完成，因此无需配置 IP 地址；
+> 4. 在 sw3 失效的情形下，sw2 将成为所有 VLAN 网段的根桥，因为他有着第二高的优先级。sw3 恢复上线后，他会从 sw2 抢夺这些 VLAN 的根桥角色；
+> 5. 通过修改 sw2 或 sw3 上 VLAN 10/20 网段的两个交换机的网桥优先级，便可影响这两个网段上根桥的选举，从而将他们的根桥和备份根桥置于sw2 与 sw3 之间的不同交换机上，得到优化设计的网络拓扑；
+> 6. 在通过在 sw2 执行 `spanning-tree vlan 10 root primary` 和 `spanning-tree vlan 20 root secondary` 使其成为 VLAN 10 的根桥和VLAN 20 的备份根桥，在 sw3 上执行 `spanning-tree vlan 10 root secondary` 和 `spanning-tree vlan 20 root primary` 使其成为 VLAN 20 的根桥和 VLAN 10 的备份根桥后，这个交换网络得以优化；
+> 7. 当 sw2 或 sw3 其中一个失效后，另一个交换机便会承担 VLAN 10/20 的根桥角色。
 
 
 
