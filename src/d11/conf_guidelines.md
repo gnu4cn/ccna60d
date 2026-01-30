@@ -23,6 +23,11 @@
 5. 下一配置步骤是要经由 `channel-group [number] mode on` 这个接口配置命令，将这些接口配置为无条件中继。
 
 
+> **译注**：在 NX-OSv 7k Titanium 中，执行 `channel-group [number] mode on` 命令时，会报出 `Stub Library could not be opened` 错误，表明所需的支持库（比如 `libdstats_eth.so` 或 `libdot1xshow.so` 等）未在这一版本或较低版本的虚拟机镜像中实现，或不可用。
+>
+> 需要使用更新的 NX-OSv 镜像，或升级现有镜像，或使用支持这些二层特性其他平台，比如 dynamips 的镜像。
+
+
 通过使用上述步骤的无条件 EtherChannel 配置，将基于下图 11.5 中所示的网络拓扑结构。
 
 
