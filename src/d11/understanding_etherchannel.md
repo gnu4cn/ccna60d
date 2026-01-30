@@ -6,6 +6,8 @@
 - 由 `GigabitEthernet` 链路组成的 EtherChannel，称为千兆以太网通道 (GEC)；
 - 最后，由万兆以太网链路组成的 EtherChannel，就称为万兆以太网通道 (10GEC)。
 
+> **译注**：需要知道的是，不仅交换机间可以建立 EtherChannel，在数据中心的算力服务器、存储服务器亦会通过建立 EtherChannel 获取更高的吞吐带宽与可用性。
+
 每条 EtherChannel 最多可由八个端口组成。EtherChannel 中的物理链路，必须共有一些相似特性，例如，要被定义在同一 VLAN 下，或要有着同样的速率及双工设置等。在 Cisco Catalyst 交换机上配置 EtherChannel 时，重要的是记住，不同的 Catalyst 交换机型号间，所支持的 EtherChannel 数量将有所不同。
 
 例如，在 Catalyst 3750 系列交换机上，这个范围是 1 到 48；在 Catalyst 4500 系列交换机上，该范围是 1 到 64；而而在旗舰版的 Catalyst 6500 系列交换机上，EtherChannel 配置的有效值数量，取决于软件版本。对于 12.1(3a)E3 版之前的版本，有效值范围是 1 至 256；对于 12.1(3a)E3、12.1(3a)E4 及 12.1(4)E1 版本，有效值范围为 1 至 64。12.1(5c)EX 及以后版本，支持最大 64 个值，范围从 1 到 256。
