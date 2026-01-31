@@ -1,6 +1,5 @@
 # 60 天通过 CCNA® 考试 🖧
 
-**Cisco® CCNA in 60 Days**
 
 在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
 
