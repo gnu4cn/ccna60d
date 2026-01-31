@@ -237,8 +237,8 @@ Appliance trust: none
 1. 第一个配置步骤，是经由 `interface [name]` 或 `interface range [range]` 的全局配置命令，进入想要的 EtherChannel 接口的接口配置模式；
 2. 第二个配置步骤，是经由 `switchport` 这个接口配置命令，将这些接口配置为二层的交换机端口；
 3. 第三个配置步骤，是经由 `switchport mode [access|trunk]` 这个接口配置命令，将这些交换机端口配置为中继或接入链路；
-4. 作为可选项，当该接口或这些接口，已被配置为接入端口时，就要使用 `switchport access vlan [number]` 命令，将他们分配到统一 VLAN。当该接口或这些接口已被配置为中继端口时，就要通过使用 `switchport trunk allowed vlan [range]` 这个接口配置命令，选取允许穿越该中继的 VLAN。当 `VLAN 1` 将不被用作原生 VLAN（对于 802.1Q）时，则要使用 `switchport trunk native vlan [number]` 这个配置命令输入原生 VLAN。在所有端口通道的成员接口上，这一配置必须一样；
-5. 作为可选项，要通过执行 `channel-protocol pagp` 这条接口配置命令，配置 PAgP 为 EtherChannel 的协议。由于 EtherChannel 默认为 PAgP，因此这条命令被认为是可选的，而不是必需的。执行这一命令只是为了绝对确定咱们的配置，是一种良好做法。
+4. 作为可选项，当该接口或这些接口，已被配置为接入端口时，就要使用 `switchport access vlan [number]` 命令，将他们分配到同一 VLAN。当该接口或这些接口已被配置为中继端口时，就要通过使用 `switchport trunk allowed vlan [range]` 这个接口配置命令，选取允许穿越该中继的 VLAN。当 `VLAN 1` 将不被用作原生 VLAN（对于 802.1Q）时，则要使用 `switchport trunk native vlan [number]` 这个配置命令输入原生 VLAN。在所有端口通道的成员接口上，这一配置必须一样；
+5. 作为可选项，要通过执行 `channel-protocol pagp` 这条接口配置命令，配置 PAgP 为 EtherChannel 的协议。由于 EtherChannel 默认为 PAgP，因此这条命令被认为是可选的，而不是必需的。执行这一命令只是为了绝对确定咱们的配置，是一种良好做法；
 6. 下一配置步骤，是经由 `channel-group [number] mode` 这条接口配置命令，将这些接口配置为无条件中继。
 
 以下输出演示了如何根据上述 [图 11.5](#f-11.5) 中描述的网络拓扑，在 `Switch 1` 和 `Switch 2` 上配置 PAgP 通道。这条 EtherChannel 将使用默认参数，配置为一条二层的 802.1Q 中继链路。
@@ -256,7 +256,7 @@ Creating a port-channel interface Port-channel 1
 Switch-1(config-if-range)#exit
 ```
 
-**注意**： 在上述输出中，端口通道的 `desirable` 模式已被选取。一个额外关键字 `[non-silent]` 可被追加到这条命令末尾。这是因为默认情况下， PAgP的 `auto` 模式和 `desirable` 模式均默认为静默模式。当交换机连接到一台不具备 PAgP 能力，且很少，若有的话，传输数据包的设备时，静默模式就会被用到。静默方的一个示例，便是不产生流量的文件服务器，或数据包分析仪。当某个设备不会发送 PAP 数据包（如在 `auto` 模式下）时，静默模式也会被用到。
+**注意**： 在上述输出中，端口通道的 `desirable` 模式已被选取。一个额外关键字 `[non-silent]` 可被追加到这条命令末尾。这是因为默认情况下， PAgP的 `auto` 模式和 `desirable` 模式均默认为静默模式。当交换机连接到一台不具备 PAgP 能力，而很少，若有的话，传输数据包的设备时，静默模式就会被用到。一个对方静默的示例，便是不产生流量的文件服务器，或数据包分析仪。当某个设备不会发送 PAgP 数据包（如在 `auto` 模式下）时，静默模式也会被用到。
 
 在这种情况下，在某个连接到静默方的物理端口上运行 PAgP，便会该阻止交换机端口投入运行；但是，这种静默设置，会允许 PAgP 运行，以将该接口纳入某个通道组，并将该接口用于传输。在这个示例中，由于 `Switch 2` 将配置为 `auto` 模式（`passive` 模式），因此端口最好使用默认的静默模式运行。这在下面的 PAgP EtherChannel 配置输出中得以演示。
 
