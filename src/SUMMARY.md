@@ -151,7 +151,7 @@
     - [路由协议分类](d17/routing_protocol_classes.md)
     - [路由协议的目标](d17/objectives.md)
     - [路由问题规避机制](d17/avoidence_mechanisms.md)
-    - [基于拓扑交换](d17/cef.md)
+    - [基于拓扑的 CEF 交换](d17/cef.md)
     - [路由故障排除](d17/troubleshooting.md)
     - [第 17 天问题](d17/questions.md)
     - [第 17 天实验](d17/labs.md)
