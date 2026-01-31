@@ -685,6 +685,9 @@ Switch-1#show lacp sys-id
 1    ,000d.bd06.4100
 ```
 
+**译注**：译者在实验完成这一配置时，在 `interface Port-channel1` 建立后修改 `int range e0/0-3` 下 `switchport trunk allowed vlan 10,20,999,1001`（增加该中继链路放行 `VLAN 20`）时，发现 `int Port-channel1` 这个建立的 EtherChannel 逻辑接口下的中继放行 VLAN 信息并未更新，进而这一 EtherChannel 出于暂停状态而无法恢复。此时需要同时在建立这一 EtherChannel 的两个交换机上，使用接口配置命令 `int Port-channel1` 进入这个逻辑接口下，运行 `switchport trunk vlan allowed 10,20,999,1001` 手动更新配置。随后该 EtherChannel 成功得以恢复。
+
+
 > *知识点*：
 >
 > - an LACP EtherChannel
