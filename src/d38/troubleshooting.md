@@ -12,7 +12,7 @@
 ![nxosv9k 的 loader](../images/nxosv9000_loader.png)
 
 
-这时可运行 `help` 命令，查看这一环境下可用的命令，接着运行 `dir` 查看 `bootflash::` 下的文件，然后运行 `boot nxos64-cs-10.5.1.F.bin` 即可正常其中所指定的系统镜像了。这一过程就是 Linux 系统引导的过程。
+这时可运行 `help` 命令，查看这一环境下可用的命令，接着运行 `dir` 查看 `bootflash::` 下的文件，然后运行 `boot nxos64-cs-10.5.1.F.bin` 即可正常启动所指定的系统镜像了。这一过程就是 Linux 系统引导的过程。
 
 
 ![Nexus OSv 9k 引导修复](../images/nxosv_9k_boot_fix.png)
@@ -54,7 +54,6 @@
 - 在全局配置模式下，使用 `boot nxos bootflash:///nxos64-cs.10.5.1.F.bin` 命令指定要引导的镜像文件并保存配置，随后这一问题解决。
 
     ```console
-
     sw2(config)# boot nxos bootflash:///nxos64-cs.10.5.1.F.bin
     Performing image verification and compatibility check, please wait....
     sw2(config)#
