@@ -1,8 +1,8 @@
 # 配置静态的 IPv6 路由
 
-静态 IPv6 路由的配置，遵循了静态 IPv4 路由类似的逻辑。在 Cisco IOS 中，`ipv6 route [ipv6-prefix/prefix-length] [next- hop-address | interface] [distance <1-254> | multicast | tag | unicast]` 这条全局配置命令，用于配置静态 IPv6 路由。
+静态 IPv6 路由的配置，遵循了静态 IPv4 路由类似的逻辑。在 Cisco IOS 中，`ipv6 route [ipv6-prefix/prefix-length] [next-hop-address | interface] [distance <1-254> | multicast | tag | unicast]` 这条全局配置命令，用于配置静态 IPv6 路由。
 
-虽然其他一些关键字很熟悉，因为他们同样适用于 IPv4 的静态路由，但 `[multicast]` 这个关键字是 IPv6 独有的，用于配置某条 IPv6 的静态路由。当这一关键字用到时，那么该路由就将不会被输入到单播路由表中，而将绝不会用于转发单播流量。要确保该路由绝不安装到单播的 RIB 中，Cisco 10S 软件会将该路由的管理距离值，设为 255。
+虽然其他一些关键字很熟悉，因为他们同样适用于 IPv4 的静态路由，但 `[multicast]` 这个关键字是 IPv6 独有的，用于配置 IPv6 静态组播路由。当这一关键字用到时，那么该路由就将不会被输入到单播路由数据表中，而将绝不会用于转发单播流量。要确保该路由绝不安装到单播的 RIB 中，Cisco 10S 软件会将这条路由的管理距离值设为 255。
 
 相反，`[unicast]` 这个关键字则用于配置某条 IPv6 的静态单播路由。当这一关键字用到时，那么该路由将不会被输入到组播的路由表中，而将仅用于转发单播流量。当 `[multicast]` 及 `[unicast]` 两个关键字均未用到时，那么默认情况下，这条路由将同时用于单播与组播数据包。
 
