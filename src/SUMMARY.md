@@ -327,6 +327,7 @@
 + [云计算与虚拟化](d38-cloud_computing_and_virtualization.md)
     - [云计算](d38/cloud_computing.md)
     - [虚拟化](d38/virtualization.md)
+    - [虚拟化故障排除](d38/troubleshooting.md)
 
 
 - [复习](d39-review.md)
