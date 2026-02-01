@@ -6,8 +6,7 @@
 
 当咱们无法在某条直连链路上 `ping` 通时，那么咱们在检查路由问题前，先解决这个问题。接下来，要检查咱们的路由配置。咱们需要确保，其中没有一些不想要的被动接口，并确保咱们已配置正确网络。
 
-
-当咱们有个诸如下面的不连续网络时，那么咱们将需要确保咱们已在 **每个** 路由器上，都配置了 `no auto-summary`。在下图 19.5 中，网络设计者做得很糟糕，在另一网络类的两端划分了 `172.16.x.x` 这个网络。当自动摘要特性启用时，路由问题就不可避免。
+当咱们有个诸如下面的不连续网络时，那么咱们将需要确保咱们已在 **每个** 路由器上，都配置了 `no auto-summary`。在下图 19.5 中，网络设计者做得很糟糕，在另一网络类的两端划分了 `172.16.x.x` 这个网络。当自动摘要特性启用时，路由问题就不可避免。(In Figure 19.5 below, the network designer hs done a poor job, splitting the 172.16.x.x network on either side of another class. If the auto summary feature is enabled, routing issues are guaranteed.)
 
 ![一个不连续网络](../images/a_discontinuous_network.png)
 
