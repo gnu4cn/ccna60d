@@ -300,42 +300,43 @@ auto-summary
 
 如上面的配置中所示，在 Cisco 10S 软件中，不论使用通配符掩码还是子网掩码，都会得到同样的操作与 `network` 语句配置。
 
-> **真实世界的部署**
->
-> 当在生产网络中配置 EIGRP 时，通常的做法是使用全为 0 的通配符掩码，或全为 1 的子网掩码。例如，`network 10.1.1.1 0.0.0.0` 与 `network 10.1.1.1 255.255.255.255` 两条命令，会执行同一操作。在通配符掩码中使用全 0，或在子网掩码中使用全 1，均会将 Cisco IOS 软件，配置为匹配某个与准确接口地址，而不论该接口本身配置的子网掩码。例如，这两条命令中的任何一条，都将匹配以 `10.1.1.1/8`、`10.1.1.1/16`、`10.1.1.1/24` 及 `10.1.1.1/30` 地址配置的那些接口。这两条命令的用法，在以下输出中得以演示：
->
-> ```console
-> R1(config)#router eigrp 150
-> R1(config-router)#network 10.0.0.1 0.0.0.0
-> R1(config-router)#network 10.1.1.1 255.255.255.255
-> R1(config-router)#exit
-> ```
-> 如下所示，`show ip protocols` 这条命令，验证了这两条 `network` 语句的配置，在路由器上是否以类似方式得以处理。
->
->
-> ```console
-> R1#show ip protocols
-> Routing Protocol is “eigrp 150”
->     Outgoing update filter list for all interfaces is not set
->     Incoming update filter list for all interfaces is not set
->     Default networks flagged in outgoing updates
->     Default networks accepted from incoming updates
->     EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
->     EIGRP maximum hopcount 100
->     EIGRP maximum metric variance 1
->     Redistributing: eigrp 150
->     EIGRP NSF-aware route hold timer is 240s
->     Automatic network summarization is in effect
->     Maximum path: 4
->     Routing for Networks:
->         10.0.0.1/32
->         10.1.1.1/32
->     Routing Information Sources:
->         Gateway     Distance        Last Update
-> Distance: internal 90 external 170
-> ```
->
-> 当全为 1 的子网掩码，或全为 0 的通配符掩码被用到时，那么针对指定的（匹配的）接口，EIGRP 即被启用，同时该接口所在的网络即被通告。换句话说，EIGRP 将不通告上述输出中的 `/32` 地址，相反，他会根据配置在匹配接口上的子网掩码，通告具体的网络。这中配置的用法，与匹配的具体接口上配置的子网掩码无关。
+ **真实世界的部署**
+
+当在生产网络中配置 EIGRP 时，通常的做法是使用全为 0 的通配符掩码，或全为 1 的子网掩码。例如，`network 10.1.1.1 0.0.0.0` 与 `network 10.1.1.1 255.255.255.255` 两条命令，会执行同一操作。在通配符掩码中使用全 0，或在子网掩码中使用全 1，均会将 Cisco IOS 软件，配置为匹配某个与准确接口地址，而不论该接口本身配置的子网掩码。例如，这两条命令中的任何一条，都将匹配以 `10.1.1.1/8`、`10.1.1.1/16`、`10.1.1.1/24` 及 `10.1.1.1/30` 地址配置的那些接口。这两条命令的用法，在以下输出中得以演示：
+
+```console
+R1(config)#router eigrp 150
+R1(config-router)#network 10.0.0.1 0.0.0.0
+R1(config-router)#network 10.1.1.1 255.255.255.255
+R1(config-router)#exit
+```
+
+如下所示，`show ip protocols` 这条命令，验证了这两条 `network` 语句的配置，在路由器上是否以类似方式得以处理。
+
+```console
+R1#show ip protocols
+Routing Protocol is “eigrp 150”
+    Outgoing update filter list for all interfaces is not set
+    Incoming update filter list for all interfaces is not set
+    Default networks flagged in outgoing updates
+    Default networks accepted from incoming updates
+    EIGRP metric weight K1=1, K2=0, K3=1, K4=0, K5=0
+    EIGRP maximum hopcount 100
+    EIGRP maximum metric variance 1
+    Redistributing: eigrp 150
+    EIGRP NSF-aware route hold timer is 240s
+    Automatic network summarization is in effect
+    Maximum path: 4
+    Routing for Networks:
+        10.0.0.1/32
+        10.1.1.1/32
+    Routing Information Sources:
+        Gateway     Distance        Last Update
+Distance: internal 90 external 170
+```
+
+
+当全一的子网掩码，或全零的通配符掩码被用到时，那么 EIGRP 即会针对指定的（匹配的）接口启用，同时该接口所在的网络即被通告。换句话说，EIGRP 将不通告上述输出中的 `/32` 地址，相反，他会根据配置在匹配接口上的子网掩码，通告具体的网络。这种配置的用法，与配置在那个实际匹配接口上的子网掩码无关。
 
 
 
