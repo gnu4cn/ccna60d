@@ -1,7 +1,6 @@
 # 等价与非等价的负载分担
 
-
-Cisco 10S 软件支持所有路由协议，默认情况下最多 4 条路径的等价负载分担。这在下面的 `show ip protocols` 命令输出中得以演示。
+针对所有的路由q协议，Cisco 10S 软件都支持默认最多 4 条路径的等价负载分担。这在下面 `show ip protocols` 命令的输出中得以演示。（`Maximum path` 字段）
 
 
 ```console
