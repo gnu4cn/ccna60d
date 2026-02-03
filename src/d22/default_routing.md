@@ -159,7 +159,7 @@ IP-EIGRP (AS 150): Topology entry for 0.0.0.0/0
 
 ## `ip summary-address eigrp [asn] [network] [mask]`
 
-最后一种通告默认路由的方式，是通过使用 `ip summary-address eigrp [asn] [network] [mask]` 这条接口配置命令。EIGRP 的路由汇总，将在这一教学模组稍后详细介绍。目前，要着重于在使用 EIGRP 时，这条命令的通告默认路由用法。
+最后一种通告默认路由的方式，是通过使用 `ip summary-address eigrp [asn] [network] [mask]` 这条接口配置命令。[EIGRP 的路由汇总](./route_summarization.md)，将在这一教学模组稍后详细介绍。目前，要着重于在使用 EIGRP 时，这条命令的通告默认路由用法。
 
 参考上 [图 22.13](#f-22.13) 中所示的网络拓扑图示，`R1` 会配置以 `ip summary-address eigrp [asn] [network] [mask]` 这条接口配置命令，通告默认路由到 `R2`，如下所示：
 

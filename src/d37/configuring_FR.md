@@ -44,3 +44,4 @@ Router#show frame-relay route
 ```
 
 
+> **译注**：未更好的理解帧中继的配置，请参考：[Frame Relay – GNS3 Lab](https://www.9tut.com/frame-relay-gns3-lab)。
