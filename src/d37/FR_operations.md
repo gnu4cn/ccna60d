@@ -11,7 +11,7 @@
 
 ### LMI
 
-本地管理接口（LMI），是个运行在 FR 交换机上的保活接口。这种交换机归属咱们的业务提供商，并位于他们的场地。除非使用默认 `CISCO` 接口类型，否则咱们将需要于咱们的路由器上指定出 LMI 的类型。有如下三种可用的 LMI 类型：
+本地管理接口（Local Management Interface, LMI），是个运行在 FR 交换机上的保活接口。这种交换机归属咱们的业务提供商，并位于他们的场地。咱们将需要于咱们的路由器上指定 LMI 类型，除非使用默认的 `CISCO` 接口类型。有如下三种可用的 LMI 类型：
 
 - `CISCO`
 - `ANSI`
@@ -40,19 +40,19 @@ LMI 消息会每 10 秒发送，而第六条消息便是一次完整的状态更
 
 ### PVC
 
-所谓永久虚拟电路（PVC），便是自咱们的帧中继网络一端到另一端所形成的逻辑端到端连接，如下图 37.9 中所示。两个端点都会被赋予一个 DLCI 编号（见下一小节），用于各个端点。
+所谓永久虚拟电路（Permanent Virtual Circuit，PVC），是自咱们帧中继网络一端到另一端所形成的逻辑端到端连接，如下图 37.9 中所示。两个端点都会被赋予一个 DLCI 编号（见下一小节），用于识别二者。
 
 ![永久虚拟电路](../images/4203.png)
 
 **图 37.9** -- **一条永久虚拟电路**
 
 
-> **译注**： NNI，Network-to-Network Interface, 网络到网络接口, 参考[wikipedia: NNI](https://en.wikipedia.org/wiki/Network-to-network_interface)。
+> **译注**： NNI，Network-to-Network Interface, 网络到网络接口, 参考 [wikipedia: NNI](https://en.wikipedia.org/wiki/Network-to-network_interface)。
 
 
 ### DLCI
 
-数据链路的连接标识符（DLCI），是个用于标识咱们到帧中继交换机连接的本地有效编号，如下图 37.10 中所示。这一编号可以是 10 到 1007中的任意数字（含 10 和 1007）。
+数据链路的连接标识符（Data Link Connection Identifier, DLCI），是个用于标识咱们到帧中继交换机连接的本地有效编号，如下图 37.10 中所示。这一编号可以是 10 到 1007中的任意数字（含 10 和 1007）。
 
 ![数据链路连接标识符将用户路由器标识给电信公司](../images/4204.png)
 
@@ -71,6 +71,6 @@ LMI 消息会每 10 秒发送，而第六条消息便是一次完整的状态更
 
 ### NNI
 
-网络到网络接口（NNI），属于帧中继交换机之间的连接。
+网络到网络接口（Network-to-Network Interface, NNI），属于帧中继交换机之间的连接。
 
 
