@@ -37,6 +37,16 @@ RouterA#debug frame-relay lmi
 
 LMI 会每 10 秒发送，每六条消息便是一次完整的状态更新。如上所示，咱们希望他报告 `status 0x2`，即一条活动链路。
 
+> **译注**：下面分别是一次 LMI 报文捕获，及一个帧中继封装的 ICMP `request` 报文捕获。
+>
+> ![一次 ANSI 的帧中继 LMI 报文捕获](../images/FR_ANSI_LMI_cap.png)
+>
+> **一次 ANSI 的帧中继 LMI 报文捕获**
+>
+> ![一个帧中继封装的 ICMP `request` 报文捕获](../images/ping_FR_frame_cap.png)
+>
+> **一个帧中继封装的 ICMP `request` 报文捕获**
+
 
 ### PVC
 
@@ -64,6 +74,8 @@ LMI 会每 10 秒发送，每六条消息便是一次完整的状态更新。如
 2. DLCI 等待网络地址回复
 3. 远端路由器的映射得以创建
 4. `Active`/`Inactive`/`Deleted` 的 DLCI 状态
+
+> **译注**：DLCI 是通过在业务提供商处的帧中继交换机（路由器）上，使用 `frame-relay route` 命令配置的。比如，`frame-relay route 102 interface Serial0/1 201` 这条接口配置命令，表示到该路由器的有着 102 DLCI 的帧中继流量，将以 201 的 DLCI 发送到接口 `Serial0/1`。
 
 ### NNI
 
