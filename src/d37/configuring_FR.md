@@ -44,6 +44,6 @@ Router#show frame-relay route
 
 > **译注**：
 >
-> - 上面的示例配置中，在添加第二个 `frame-relay route 121 interface s1/2 111` 时，会报出 `Can't use same dlci on overlapping circuits` 错误；
+> - 上面的示例配置中，在添加第二个 `frame-relay route 121 interface s1/2 111` 时，会报出 `Can't use same dlci on overlapping circuits` 错误，因此这个示例配置是错误的；
 >
 > - 为更好的理解帧中继的配置，请参考：[Frame Relay – GNS3 Lab](https://www.9tut.com/frame-relay-gns3-lab)。
