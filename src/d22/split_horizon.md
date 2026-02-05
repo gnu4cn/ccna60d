@@ -41,7 +41,7 @@ Serial0/0 (up): ip 172.16.1.3 dlci 201(0xC9,0x3090), static,
               CISCO, status defined, active
 ```
 
-> **译注**：原文此处有误。若按原文的这种帧中继映射关系，那么将是完全网状拓扑结构，而非中心分支的部分拓扑结构。在完全网状拓扑结构下，就不存在这一小节所讨论的 NBMA 网络下的水平分割问题了！
+> **译注**：原文此处有误。若按原文的这种帧中继映射关系，那么将是完全网状拓扑结构，而非中心分支的部分拓扑结构。在完全网状拓扑结构下，就不存在这一小节所讨论的 NBMA 网络下的水平分割问题了。
 
 稍后我们将在 [WAN 部分](../d37/FR_operations.md) 介绍帧中继。增强型 IGRP 已在全部三台路由器上，使用 `AS 150` 启用。以下输出演示了总部路由器与两台分支路由器之间的 EIGRP 邻居关系：
 
@@ -66,7 +66,6 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 0   172.16.1.3     Se0/0        128    00:00:53  911   5000  0   4
 ```
 
-
 以下输出演示了第二个分支路由器 `S2`，与总部路由器之间的 EIGRP 邻居关系：
 
 ```console
@@ -79,7 +78,7 @@ H   Address        Interface     Hold  Uptime    SRTT  RTO   Q   Seq
 
 默认情况下，EIGRP 的水平分隔是启用的，这在部分网状的 NBMA 网络中是不可取的。这意味着 `HQ` 路由器不会把在 `Serial0/0` 上学习到的路由信息，再通告出该同一接口。这种默认行为的效果，便是 `HQ` 路由器不会把接收自 `S1` 的 `10.1.1.0/24` 前缀通告给 `S2`，因为这条路由是经由 `Serial0/0` 接口接收到的，而水平分隔特性，会阻止该路由器将该接口上学习到的信息，再通告回该同一接口。同样的情况也适用于 `HQ` 路由器接收自 `S2` 的 `10.2.2.0/24` 前缀。
 
-这种默认行为意味着，虽然 `HQ` 路由器知道这两个前缀，但两个分支路由器却只有着部分路由表。`HQ` 路由器上的路由表如下：
+这种默认行为意味着，虽然 `HQ` 路由器同时知晓这两个前缀，但两个分支路由器却只有部分路由表。`HQ` 路由器上的路由表如下：
 
 
 ```console
@@ -106,13 +105,15 @@ S2#show ip route eigrp
 D       192.168.1.0 [90/2195456] via 172.16.1.3, 00:10:55, Serial0/0
 ```
 
-这种默认行为的结果，便是虽然总部路由器能够到达两个分支路由器的那些网络，但两个分支路由器将都无法到达对方网络。此种情形可以数种方式加以解决，他们如下：
+这种默认行为的结果，便是虽然总部路由器能够同时到达两个分支路由器的网络，但两个分支路由器将都无法到达对方网络。此种情形可以数种方式得以解决，他们如下：
 
-- 禁用 `HQ`（中心）路由器的水平分隔
-- 通告一条 `HQ` 路由器上的默认路由，到分支路由器
-- 在这些路由器上手动配置 EIGRP 邻居
+- 在 `HQ`（中心）路由器上禁用水平分割
+- 在 `HQ` 路由器上通告一条默认路由到分支路由器
+- 在这些路由器上手动配置 EIGRP 的邻居
 
-禁用水平分隔，是在接口级别，通过在这个中心路由器上，使用 `no ip split-horizon eigrp [AS]` 这条接口配置命令完成的。`show ip split-horizon interface_name` 命令不会其针对 RIP 那样，显示 EIGRP 的水平分割状态。要查看其是否被禁用，咱们必须检查接口配置小节（即 `show run interface_name`）。参考上面 [图 22.14](#f-22.14) 中所示的网络拓扑，这一接口配置命令将应用到总部路由器上的 `Serial0/0` 接口。这会如下执行：
+## 禁用水平分割
+
+禁用水平分隔，是在中心路由器上，于接口级别使用 `no ip split-horizon eigrp [AS]` 这条接口配置命令完成的。`show ip split-horizon interface_name` 命令不会像其针对 RIP 那样，显示 EIGRP 的水平分割状态。要查看其是否被禁用，咱们必须检查接口配置小节（即 `show run interface_name`）。参考上面 [图 22.14](#f-22.14) 中所示的网络拓扑，这一接口配置命令会应用到总部路由器上的 `Serial0/0` 接口。这是按如下执行的：
 
 
 ```console
@@ -140,13 +141,94 @@ Sending 5, 100-byte ICMP Echos to 10.1.1.2, timeout is 2 seconds:
 Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 ```
 
+> **译注**：译者按照上面的帧中继映射关系，并未从路由器 `S1` `ping` 通 `S2`。
+>
+> - 路由器 `HQ` 上的路由表如下：
+>
+>
+> ```console
+> HQ#sh ip route
+> Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+>        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+>        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+>        E1 - OSPF external type 1, E2 - OSPF external type 2
+>        i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+>        ia - IS-IS inter area, * - candidate default, U - per-user static route
+>        o - ODR, P - periodic downloaded static route
+>
+> Gateway of last resort is 192.168.122.1 to network 0.0.0.0
+>
+> C    192.168.122.0/24 is directly connected, FastEthernet0/0
+>      10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+> D       10.2.2.0/24 [90/2297856] via 10.0.0.3, 01:04:52, Serial1/0
+> D       10.1.1.0/24 [90/2297856] via 10.0.0.2, 01:00:54, Serial1/0
+> C       10.0.0.0/29 is directly connected, Serial1/0
+> C    192.168.1.0/24 is directly connected, Loopback0
+> S*   0.0.0.0/0 [254/0] via 192.168.122.1
+> ```
+>
+> - 路由器 `S1` 上的路由表：
+>
+> ```console
+> S1#sh ip route
+> Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+>        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+>        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+>        E1 - OSPF external type 1, E2 - OSPF external type 2
+>        i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+>        ia - IS-IS inter area, * - candidate default, U - per-user static route
+>        o - ODR, P - periodic downloaded static route
+>
+> Gateway of last resort is not set
+>
+>      10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+> D       10.2.2.0/24 [90/2809856] via 10.0.0.1, 00:43:32, Serial1/0
+> C       10.1.1.0/24 is directly connected, Loopback0
+> C       10.0.0.0/29 is directly connected, Serial1/0
+> D    192.168.1.0/24 [90/2297856] via 10.0.0.1, 01:04:50, Serial1/0
+> ```
+>
+> - 路由器 `S2` 上的路由表：
+>
+> ```console
+> S2#sh ip route
+> Codes: C - connected, S - static, R - RIP, M - mobile, B - BGP
+>        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+>        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+>        E1 - OSPF external type 1, E2 - OSPF external type 2
+>        i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+>        ia - IS-IS inter area, * - candidate default, U - per-user static route
+>        o - ODR, P - periodic downloaded static route
+>
+> Gateway of last resort is not set
+>
+>      10.0.0.0/8 is variably subnetted, 3 subnets, 2 masks
+> C       10.2.2.0/24 is directly connected, Loopback0
+> D       10.1.1.0/24 [90/2809856] via 10.0.0.1, 00:44:25, Serial1/0
+> C       10.0.0.0/29 is directly connected, Serial1/0
+> D    192.168.1.0/24 [90/2297856] via 10.0.0.1, 01:09:53, Serial1/0
+> ```
+>
+>
+> - 路由器软件版本 `Cisco IOS Software, 3600 Software (C3660-A3JK9S-M), Version 12.4(25d), RELEASE SOFTWARE (fc1)`。
+>
+> 路由器 `S1` 之所以 `ping` 不通 `S2`，是在 `HQ` 路由器上 ICMP 报文无法进一步被路由。具体原因较为复杂。
+
+
+
+
+## 在中心路由器上通告一条默认路由到分支路由器
+
 禁用水平分隔的第二种方法，是简单地通告一条总部路由器的默认路由，到分支路由器。在这种情形下，`ip summary-address eigrp 150 0.0.0.0 0.0.0` 这条接口配置命令，可应用到 `HQ` 路由器的 `Serial0/0` 接口。这一操作便将允许两台分支路由器，经由包含着完整路由表的 `HQ` 路由器到达对方，而无需禁用水平分隔。
 
 > *译注*：原文这里表述前后矛盾，前面讲了 “禁用水平分隔的第二种方法”，后面有说到 “negating the need to disable split horizon”，译者认为这里应表述为：“解决 NBMA 传输介质下 EIGRP 水平分隔造成问题的第二种方法”。
 
+
+## 手动配置 EIGRP 邻居
+
 禁用水平分隔的最后一种替代方法，是通过使用 `neighbor` 这条路由器配置命令，在全部路由器上手动配置一些 EIGRP 邻居语句。由于这种配置被用到时，邻居之间的更新属于单播（数据包），因此水平分隔的局限便被去掉了。这一选项在小型网络中工作良好；但随着网络增长及路由器数量增加，配置开销也会增加。
 
-考虑到EIGRP 的默认路由与静态邻居的配置，已在这一教学模组前几个小节中详细介绍过了，出于简洁原因，这些特性的配置便省略了。
+考虑到 EIGRP 的默认路由与静态邻居的配置，已在这一教学模组前几个小节中详细介绍过了，出于简洁原因，这些特性的配置便省略了。
 
 
 > *知识点*：
