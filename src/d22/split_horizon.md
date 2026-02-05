@@ -213,15 +213,22 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 > - 路由器软件版本 `Cisco IOS Software, 3600 Software (C3660-A3JK9S-M), Version 12.4(25d), RELEASE SOFTWARE (fc1)`。
 >
 > 路由器 `S1` 之所以 `ping` 不通 `S2`，是在 `HQ` 路由器上 ICMP 报文无法进一步被路由。具体原因较为复杂。
-
+>
+> ![帧中继下禁用水平分隔后分支路由器之间无法 `ping` 通的 ICMP 报文捕获](../images/FR_split-horizon_ping_problem.png)
+>
+> **帧中继下禁用水平分隔后分支路由器之间无法 `ping` 通的 ICMP 报文捕获**
+>
+> 参考:
+>
+> - [Unable to ping from spoke to spoke as already disable split horizon on Hub](https://community.cisco.com/t5/switching/unable-to-ping-from-spoke-to-spoke-as-already-disable-split/td-p/2418028)
 
 
 
 ## 在中心路由器上通告一条默认路由到分支路由器
 
-禁用水平分隔的第二种方法，是简单地通告一条总部路由器的默认路由，到分支路由器。在这种情形下，`ip summary-address eigrp 150 0.0.0.0 0.0.0` 这条接口配置命令，可应用到 `HQ` 路由器的 `Serial0/0` 接口。这一操作便将允许两台分支路由器，经由包含着完整路由表的 `HQ` 路由器到达对方，而无需禁用水平分隔。
+禁用水平分隔的第二种方法，是简单地在总部路由器上通告一条默认路由到分支路由器。在这种情形下，`ip summary-address eigrp 150 0.0.0.0 0.0.0` 这条接口配置命令，便可应用到 `HQ` 路由器的 `Serial0/0` 接口。这将允许两台分支路由器，经由包含着完整路由表的 `HQ` 路由器到达对方，而无需禁用水平分隔。
 
-> *译注*：原文这里表述前后矛盾，前面讲了 “禁用水平分隔的第二种方法”，后面有说到 “negating the need to disable split horizon”，译者认为这里应表述为：“解决 NBMA 传输介质下 EIGRP 水平分隔造成问题的第二种方法”。
+> *译注*：译者在应用这条接口配置命令到 `HQ` 路由器的 `Serial0/0` 接口后，与第一种方法一样，仍然无法从 `S1` 路由器 `ping` 通 `S2`。原因同样是 ICMP 数据包到达 `HQ` 路由器后无法进一步被转发到 `S2` 路由器上。
 
 
 ## 手动配置 EIGRP 邻居
@@ -229,6 +236,8 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 禁用水平分隔的最后一种替代方法，是通过使用 `neighbor` 这条路由器配置命令，在全部路由器上手动配置一些 EIGRP 邻居语句。由于这种配置被用到时，邻居之间的更新属于单播（数据包），因此水平分隔的局限便被去掉了。这一选项在小型网络中工作良好；但随着网络增长及路由器数量增加，配置开销也会增加。
 
 考虑到 EIGRP 的默认路由与静态邻居的配置，已在这一教学模组前几个小节中详细介绍过了，出于简洁原因，这些特性的配置便省略了。
+
+> **译注**：译者使用静态的 EIGRP 邻居配置，仍无法从路由器 `S1` `ping` 通 `S2`。
 
 
 > *知识点*：
