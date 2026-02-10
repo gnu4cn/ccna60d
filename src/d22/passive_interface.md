@@ -1,8 +1,8 @@
 # 理解被动接口
 
-正如这一教学 [早先](route_summarization.md#passive-interface) 曾提到的，当 EIGRP 对某个网络启用时，路由器就会开始在位于指定网络范围内的所有接口上，发出 `Hello` 数据包。这样做允许 EIGRP 动态地发现邻居，进而建立网络关系。在那些实际连接到诸如以太网及串行接口等物理介质的接口上，这样做是需要的。但是，这种默认行为也会在一些诸如环回接口的，永远不会有路由器可与之建立 EIGRP 邻居关系的任何其他设备，连接到他们的逻辑接口上，造成不必要的路由器资源浪费。
+如这一教学模组 [前面](route_summarization.md#被动接口) 曾提到的，当针对某个网络启用 EIGRP 时，路由器将开始在所有属于这一指定网络范围的接口上发送 `Hello` 报文。这使得 EIGRP 能够动态发现邻居并建立网络关系。对于那些比如以太网及串行接口等实际连接到物理介质的接口而言，这种行为是理想的。然而，这种默认行为也会导致路由器资源在比如环回接口等逻辑接口上路由器资源的不必要浪费，这些接口永远不会连接其他设备，因此路由器也无法与其他设备建立 EIGRP 邻居关系。
 
-Cisco IOS 软件允许管理员，使用 `passive-interface [name|default]` 这条路由器配置命令，指定所命名的接口为被动接口，或指定所有接口为被动接口。EIGRP 的数据包，不会在被动接口上发出；因此，就不会有邻居关系在被动接口之间建立。以下输出演示了，如何在某个路由器上配置两个 EIGRP 已启用的接口为被动接口：
+Cisco IOS 软件允许管理员，使用 `passive-interface [name|default]` 这条路由器配置命令，指定命名接口为被动，或指定所有接口为被动。EIGRP 的数据包不会在被动接口上发出；因此，就不会有邻居关系在被动接口之间建立。以下输出演示了，如何在某个路由器上将两个 EIGRP 已启用的接口，配置为被动接口：
 
 ```console
 R1(config)#interface Loopback0
@@ -24,8 +24,7 @@ R1(config-router)#passive-interface Loopback1
 R1(config-router)#exit
 ```
 
-基于这一配置，`Loopback0` 和 `Loopback]` 均已启用 EIGRP 路由，进而这两个直连网络就将被通告到 EIGRP 的邻居。但是，没有 EIGRP 数据包，将由 `R1` 从这两个接口上发出。另一方面，`Serial0/0` 也配置了 EIGRP 路由，但 EIGRP 被允许在这个接口上发送数据包，因为他不是个被动接口。所有三个网络条目，都会被安装在 EIGRP 的拓扑数据表中，如下所示。
-
+基于这一配置，`Loopback0` 和 `Loopback1` 均已启用 EIGRP 路由，进而这两个直连网络就将被通告到 EIGRP 的邻居。但是，不会有 EIGRP 数据包，将由 `R1` 从这两个接口上发出。另一方面，`Serial0/0` 也配置了 EIGRP 路由，但 EIGRP 被允许在这个接口上发送数据包，因为他不是个被动接口。所有三个网络条目被安装在了 EIGRP 的拓扑数据表中，如下所示。
 
 ```console
 R1#show ip eigrp topology
@@ -42,7 +41,7 @@ P 150.1.1.0/24, 1 successors, FD is 2169856
         via Connected, Serial0/0
 ```
 
-但是，`show ip eigrp interfaces` 命令的输出显示，EIGRP 路由只针对 `Serial0/0` 接口启用，如下所示。
+但是，`show ip eigrp interfaces` 命令的输出显示，EIGRP 的路由只针对 `Serial0/0` 接口启用，如下所示。
 
 ```console
 R1#show ip eigrp interfaces
@@ -81,7 +80,7 @@ Routing Protocol is “eigrp 150”
   Distance: internal 90 external 170
 ```
 
-`[default]` 关键字会使所有接口都成为被动接口。假设某个路由器配置了 50 个 `Loopback` 接口。当咱们打算使每个 `Loopback` 接口都成为被动接口时，那么咱们就需要添加 50 行代码。`passive-interface default` 这条命令，便可用于使所有接口都成为被动接口。而那些咱们确实想要其发送 EIGRP 数据包的接口，此时便可以 `no passive-interface [name]` 命令加以配置。以下输出演示了 `passive-interface default` 这条命令的用法：
+`[default]` 关键字会使所有接口都成为被动接口。假设某个路由器配置了 50 个 `Loopback` 接口。当咱们打算使每个 `Loopback` 接口都成为被动接口时，那么咱们就需要添加 50 行代码。`passive-interface default` 这条命令，便可用于使所有接口都成为被动。而那些咱们确实想要其发送 EIGRP 数据包的接口，此时便可以 `no passive-interface [name]` 命令加以配置。以下输出演示了 `passive-interface default` 这条命令的用法：
 
 ```console
 R1(config)#interface Loopback0
@@ -143,7 +142,7 @@ Routing Protocol is “eigrp 150”
 ```
 
 
-通过使用 `passive-interface default` 这条命令，多个被动接口的配置便得以简化与减少。在与 `no passive-interface Serialo/0` 命令结合使用时，ERGRP 数据包仍会在 `Serial0/0` 上发出，从而允许 EIGRP 的邻居关系在该接口上得以建立，如下所示。
+通过使用 `passive-interface default` 这条命令，多个被动接口的配置得以简化与减少。在与 `no passive-interface Serialo/0` 命令结合使用时，ERGRP 数据包仍会在 `Serial0/0` 上发出，从而允许 EIGRP 的邻居关系在该接口上得以建立，如下所示。
 
 ```console
 R1#show ip eigrp neighbors
