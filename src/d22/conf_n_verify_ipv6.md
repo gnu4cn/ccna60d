@@ -53,8 +53,7 @@ R3(config-if)#ipv6 eigrp 1
 R3(config-if)#exit
 ```
 
-
-EIGRPv6 的验证过程与 EIGRPv4 的相同。首先，要验证 EIGRP 的邻居关系是否已成功建立。对于 EIGRPvS，这一步是使用 `show ipv6 eigrp neighbors` 命令完成的，如下所示：
+EIGRPv6 的验证过程与 EIGRPv4 的相同。首先，要验证 EIGRP 的邻居关系是否已成功建立。对于 EIGRPv6，这一步是使用 `show ipv6 eigrp neighbors` 命令完成的，如下所示：
 
 
 ```console
@@ -66,7 +65,7 @@ H   Address              Interface Hold Uptime    SRTT   RTO Q   Seq
     FE80::1AEF:63FF:FE63:1B00
 ```
 
-正如早先所指出的，要注意到，下一跳地址（即 EIGRP 的邻居地址）被指定为了链路本地地址，而非全球单播地址。由这条命令打印处的所有其他信息，均与 `show ip eigrp neighbors` 命令所打印的相同。要查看详细的邻居信息，咱们只要追加 `[detail]` 关键字到 `show ipv6 eigrp neighbors` 命令末尾即可。使用这一选项，就会打印有关 EIGRP 版本的信息，以及接收自该特定邻居的前缀数量，如下所示：
+正如早先所指出的，要注意到，下一跳地址（即 EIGRP 邻居的地址）被指定为链路本地地址，而非全球单播地址。由这条命令打印出的所有其他信息，均与 `show ip eigrp neighbors` 命令所打印的相同。要查看详细的邻居信息，咱们只要追加 `[detail]` 关键字到 `show ipv6 eigrp neighbors` 命令末尾即可。使用这一选项，就会打印有关 EIGRP 版本的信息，以及接收自该特定邻居的前缀数量，如下所示：
 
 
 ```console
@@ -96,7 +95,7 @@ D   3FFF:1234:ABCD:3::/64 [90/3072]
      via FE80::1AEF:63FF:FE63:1B00, GigabitEthernet0/0
 ```
 
-要再次注意，接收到的所有前缀，都包含了邻居的链路本地地址，作为所有接收到前缀的下一跳 IPv6 地址。要查看 EIGRPv6 的拓扑数据表，那么应使用 `show ipv6 eigrp topology` 这条命令。这一命令支持与可用于查看 EIGRPv4 拓扑数据表的 `show ip eigrp topology` 命令同样的那些选项。根据所实施的配置，`R1` 上的拓扑数据表会显示以下这些 IPv6 前缀的信息：
+要再次注意，所接收到的前缀，全都包含邻居的链路本地地址，作为所有接收到的前缀的下一跳 IPv6 地址。要查看 EIGRPv6 的拓扑数据表，`show ipv6 eigrp topology` 这条命令就要用到。这一命令支持与可用于查看 EIGRPv4 拓扑数据表的 `show ip eigrp topology` 命令同样的那些选项。根据所实施的配置，`R1` 上的拓扑数据表会显示以下这些 IPv6 前缀的信息：
 
 
 ```console
@@ -132,7 +131,7 @@ flag is 0x0
         Originating router is 3.3.3.3
 ```
 
-最后，一次简单的 `ping` 就可以，且应当用于验证子网之间的连通性。以下便是一次从 `R1` `ping` 向 `R3` 上的 `3FFF:1234:ABCD:2::3` 地址：
+最后，一次简单的 `ping` 就可以，且应当用于验证子网之间的连通性。以下便是一次从 `R1` `ping` 向 `R3` 上的 `3FFF:1234:ABCD:2::3` 这个地址：
 
 ```console
 R1#ping 3FFF:1234:ABCD:2::3 repeat 10
@@ -142,7 +141,7 @@ Sending 10, 100-byte ICMP Echos to 3FFF:1234:ABCD:2::3, timeout is 2 seconds:
 Success rate is 100 percent (10/10), round-trip min/avg/max = 0/0/4 ms
 ```
 
-正如 EIGRPv4 下的情形一样，EIGRPv6 的默认协议值，可使用 `show ipv6 protocols` 这一命令加以验证，其输出结果已在下面打印出来。这条命令包含了那些启用了 EIGRP 实例的接口、路由重分发的信息（在适用时），以及手动指定或配置的点分十进制 EIGRPv6 路由器 ID。
+正如 EIGRPv4 下的情形，EIGRPv6 的默认协议值，可使用 `show ipv6 protocols` 命令加以验证，其输出结果已在下面打印出来。这条命令包含了那些启用了 EIGRP 实例的接口、路由重分发的信息（在适用时），以及手动指定或配置的点分十进制 EIGRPv6 路由器 ID。
 
 ```console
 R1#show ipv6 protocols
