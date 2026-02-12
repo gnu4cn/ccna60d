@@ -240,6 +240,247 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 24/27/32 ms
 > **译注**：译者使用静态的 EIGRP 邻居配置，仍无法从路由器 `S1` `ping` 通 `S2`。
 
 
+## 使用子接口解决水平分割问题（译者补充）
+
+
+![使用子接口解决帧中继中心-分支拓扑下的水平分割问题拓扑结构](../images/using_subinterfaces_to_solve_split_horizon_problem.png)
+
+**使用子接口解决帧中继中心-分支拓扑下的水平分割问题**
+
+如这个拓扑结构示意图，中间的路由器 `FR` 为帧中继交换机，上面的路由器 `HQ` 为总部中心路由器，底下两个路由器 `S1` 和 `S2` 为两个分支路由器。
+
+
+### 帧中继的配置
+
+`FR` 路由器上的配置如下：
+
+
+```console
+!
+frame-relay switching
+
+...
+
+
+!
+interface Serial1/0
+ no ip address
+ encapsulation frame-relay
+ serial restart-delay 0
+ clock rate 128000
+ frame-relay lmi-type ansi
+ frame-relay intf-type dce
+ frame-relay route 102 interface Serial1/1 201
+ frame-relay route 103 interface Serial1/2 301
+!
+interface Serial1/1
+ no ip address
+ encapsulation frame-relay
+ serial restart-delay 0
+ clock rate 128000
+ frame-relay lmi-type ansi
+ frame-relay intf-type dce
+ frame-relay route 201 interface Serial1/0 102
+!
+interface Serial1/2
+ no ip address
+ encapsulation frame-relay
+ serial restart-delay 0
+ clock rate 128000
+ frame-relay lmi-type ansi
+ frame-relay intf-type dce
+ frame-relay route 301 interface Serial1/0 103
+!
+```
+
+其中 `frame-relay switching` 启用了帧中继的交换，`s1/0`、`s1/1` 与 `s1/2` 都是以 `frame-relay` 封装，并以指定的不同 DLCI 连接到 `HQ`、`S1` 与 `S2` 路由器。
+
+路由器 `HQ` 上帧中继的相关配置如下。
+
+```console
+!
+interface Serial1/0
+ no ip address
+ encapsulation frame-relay
+ serial restart-delay 0
+!
+interface Serial1/0.1 point-to-point
+ ip address 10.0.0.1 255.255.255.252
+ frame-relay interface-dlci 102
+!
+interface Serial1/0.2 point-to-point
+ ip address 10.0.0.5 255.255.255.252
+ frame-relay interface-dlci 103
+```
+
+这里首先在 `s1/0` 上设置了封装方式 `frame-relay`，随后建立了两个点对点的子接口，两个子接口位于两个不同网段，并指定了不同 DLCI。
+
+
+路由器 `S1` 上帧中继的相关配置如下。
+
+```console
+!
+interface Serial1/0
+ ip address 10.0.0.2 255.255.255.252
+ encapsulation frame-relay
+ serial restart-delay 0
+ frame-relay lmi-type ansi
+```
+
+路由器 `S2` 上帧中继的相关配置如下。
+
+```console
+!
+interface Serial1/0
+ ip address 10.0.0.6 255.255.255.252
+ encapsulation frame-relay
+ serial restart-delay 0
+ frame-relay lmi-type ansi
+```
+
+通过上述 `FR`、`HQ`、`S1` 及 `S2` 上的相关帧中继配置，我们就得到一种在中心路由器上有着点对点子接口的中心-分支网络拓扑。`HQ` 与 `S1`、`S2` 之间可以互相 `ping` 通，`S1` 与 `S2` 之间无法 `ping` 通，这是因为 `S1` 与 `S2` 之间没有对方的路由。
+
+
+```console
+HQ#ping 10.0.0.2
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/20/24 ms
+HQ#ping 10.0.0.6
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.6, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 20/28/40 ms
+```
+
+### EIGRP 配置
+
+现在就要在 `HQ`、`S1` 与 `S2` 上启用 EIGRP，并通告他们各自上的网络，如下所示。
+
+`HQ` 路由器上：
+
+```console
+!
+router eigrp 150
+ network 10.0.0.0 0.0.0.3
+ network 10.0.0.4 0.0.0.3
+ network 10.0.1.0 0.0.0.255
+ no auto-summary
+```
+
+`S1` 路由器上：
+
+```console
+!
+router eigrp 150
+ network 10.0.0.0 0.0.0.3
+ network 172.16.0.0 0.0.0.255
+ no auto-summary
+```
+
+`S2` 路由器上：
+
+```console
+!
+router eigrp 150
+ network 10.0.0.4 0.0.0.3
+ network 192.168.0.0
+ no auto-summary
+```
+
+在 EIGRP 收敛后，三台路由器上的 EIGRP 拓扑数据表如下。
+
+
+`HQ` 路由器上：
+
+```console
+HQ#sh ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.0.0.5)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+
+P 10.0.0.0/30, 1 successors, FD is 2169856
+        via Connected, Serial1/0.1
+P 10.0.1.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 10.0.0.4/30, 1 successors, FD is 2169856
+        via Connected, Serial1/0.2
+P 192.168.0.0/24, 1 successors, FD is 2297856
+        via 10.0.0.6 (2297856/128256), Serial1/0.2
+P 172.16.0.0/24, 1 successors, FD is 2297856
+        via 10.0.0.2 (2297856/128256), Serial1/0.1
+```
+
+
+`S1` 路由器上：
+
+```console
+S1#sh ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.0.0.2)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+
+P 10.0.0.0/30, 1 successors, FD is 2169856
+        via Connected, Serial1/0
+P 10.0.1.0/24, 1 successors, FD is 2297856
+        via 10.0.0.1 (2297856/128256), Serial1/0
+P 10.0.0.4/30, 1 successors, FD is 2681856
+        via 10.0.0.1 (2681856/2169856), Serial1/0
+P 192.168.0.0/24, 1 successors, FD is 2809856
+        via 10.0.0.1 (2809856/2297856), Serial1/0
+P 172.16.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+```
+
+
+`S2` 路由器上：
+
+```console
+S2#sh ip eigrp topology
+IP-EIGRP Topology Table for AS(150)/ID(10.0.0.6)
+Codes: P - Passive, A - Active, U - Update, Q - Query, R - Reply,
+       r - reply Status, s - sia Status
+
+P 10.0.0.0/30, 1 successors, FD is 2681856
+        via 10.0.0.5 (2681856/2169856), Serial1/0
+P 10.0.1.0/24, 1 successors, FD is 2297856
+        via 10.0.0.5 (2297856/128256), Serial1/0
+P 10.0.0.4/30, 1 successors, FD is 2169856
+        via Connected, Serial1/0
+P 192.168.0.0/24, 1 successors, FD is 128256
+        via Connected, Loopback0
+P 172.16.0.0/24, 1 successors, FD is 2809856
+        via 10.0.0.5 (2809856/2297856), Serial1/0
+```
+
+
+### 验证
+
+
+在 `S1` 上分别 `ping` 向 `HQ` 与 `S2` 上的环回接口地址：
+
+```console
+S1>ping 10.0.1.254
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.1.254, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/33/44 ms
+S1>ping 192.168.0.254
+
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.0.254, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 40/43/52 ms
+```
+
+结果显示早先存在的水平分割导致的分支路由器之间网络不通的问题得到解决。
+
+
+
 > *知识点*：
 >
 > + split horizon
