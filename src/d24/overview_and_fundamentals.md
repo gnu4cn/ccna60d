@@ -150,13 +150,13 @@ FastEthernet0/0 is up, line protocol is up
 
 所谓点对多点，属于一种非默认的 OSPF 网络类型。换句话说，这种网络，必须通过使用 `ip ospf network point-to-multipoint [non-broadcast]` 这条接口配置命令，手动加以配置。默认情况下，这条命令默认应用到广播的点到多点网络类型。这种默认的网络类型，允许 OSPF 使用组播数据包，动态地发现其邻居路由器。此外，在广播的点到多点网络类型上，没有 DR/BDR 的选举。
 
-上述命令中的 `[non-broadcast]` 关键字，可将这些点到多点的网络类型，配置为非广播的点到多点网络。这一做法需要静态的 OSPF 邻居配置，因为 OSPF 将不使用组播数据包，动态地发现其邻居路由器。此外，这种网络类型不需要指定网段的一个 DR 和/或一个 BDR 路由器的选举。这种网络类型的主要用途，是允许指派邻居开销给邻居，而不是使用接收自全体邻居的路由的接口指派的开销。
+上述命令中的 `[non-broadcast]` 关键字，可将这些点到多点的网络类型，配置为非广播的点到多点网络。这一做法需要静态的 OSPF 邻居配置，因为 OSPF 将不使用组播数据包，动态地发现其邻居路由器。此外，这种网络类型不需要指定网段的一个 DR 和/或一个 BDR 路由器的选举。这种网络类型的主要用途，是实现将邻居开销指派给邻居，而不是对接收自全体邻居的路由，使用接口指派的开销。
 
 > *译注*：
 >
 > - the primary use of this Non-Broadcast Point-to-Multipoint network type, is to allow neighbor costs to be assigned, instead of using the interface-assigned cost for routes received from all neighbors.
 
-点对多点的网络类型，通常用于部分网状的中心分支的非广播多路访问（NBMA）网络。不过，这种网络类型也可被指定给其他网络类型，比如广播的多路访问网络（如以太网）。默认情况下，OSPF 在点对多点网络上，会每 30 秒发送 `Hello` 数据包。默认死亡间隔，是四倍 `Hello` 间隔即 120 秒。
+点对多点的网络类型，通常用于部分网状的中心-分支非广播多路访问（NBMA）网络。不过，这种网络类型也可被指定给其他网络类型，比如广播的多路访问网络（如以太网）。默认情况下，OSPF 在点对多点网络上，会每 30 秒发送 `Hello` 数据包。默认死亡间隔，是四倍 `Hello` 间隔即 120 秒。
 
 以下输出演示了在某个被手动配置为点到多点网络的，帧中继串行接口上的 `show ip ospf interface` 命令：
 
@@ -180,9 +180,9 @@ Serial0/0 is up, line protocol is up
 ```
 
 
-定时器值，是 OSPF 要求两个路由器上的网络类型必须相同的主要原因（这意味着他们要么举行选举，要么不举行选举）。正如上面的那些输出中所示，不同网络类型，会用到不同的 `Hello` 与 `Dead` 定时器间隔。为了 OSPF 邻接能成功建立，那么这些定时器值在两个路由器上就必须匹配。
+定时器值，是 OSPF 要求两个路由器上网络类型必须相同的主要原因（这意味着他们要么举行选举，要么不举行选举）。正如上面的那些输出中所示，不同网络类型，会用到不同的 `Hello` 与 `Dead` 定时器间隔。为了 OSPF 邻接能成功建立，这些定时器值在两个路由器上就必须匹配。
 
-Cisco 10S 软件允许这些默认 `Hello` 及 `Dead` 定时器，通过使用 `ip ospf hello-interval <1-65535>` 及 `ip ospf dead-interval [<1-65535>|minimal]` 两个接口配置命令更改。`ip ospf hello-interval <1-65535>` 这条命令，用于指定以秒为单位的 `Hello` 间隔。在被执行后，软件会自动将 `Dead` 间隔，配置一个四倍于所配置的 `Hello` 间隔的四倍。例如，假设某个路由器被配置如下：
+Cisco 10S 软件允许通过使用 `ip ospf hello-interval <1-65535>` 及 `ip ospf dead-interval [<1-65535>|minimal]` 两个接口配置命令，修改默认 `Hello` 及 `Dead` 定时器。`ip ospf hello-interval <1-65535>` 这条命令，用于指定以秒为单位的 `Hello` 间隔。在被执行后，软件会自动将 `Dead` 间隔，配置为四倍于所配置的 `Hello` 间隔。例如，假设某个路由器被配置如下：
 
 
 ```console
