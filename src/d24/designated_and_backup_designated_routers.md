@@ -215,7 +215,7 @@ R3#show ip ospf database network
 >   - Area Scope Opaque, `Type 10`
 >   - AS Scope Opaque, `Type 11`
 >
->   [参考链接](https://www.firewall.cx/networking/routing-protocols/ospf-lsa-types-explained.html)
+>   参考：[OSPF - Part 6: OSPF LSA Types - Purpose and Function of Every OSPF LSA](https://www.firewall.cx/networking/routing-protocols/ospf-lsa-types-explained.html)
 
 网络 LSA 的功能，及其与另一 LSA 的关联，尤其是路由器 LSA （`Type 1`），将在这一教学模组稍后详细介绍。这一小节的主要重点，应放在是理解多路访问网段上，DR 会生成并通告网络 LSA，以通告位于同一网段上的其他路由器。这是因为该网段上的路由器，只会与 DR 及 BDR 路由器建立邻接关系，而不会相互建立邻接关系。在没有相互之间邻接关系下，这些路由器将永远不会清楚，该多路访问网段上的其他非 DR/BDR 路由器。
 
