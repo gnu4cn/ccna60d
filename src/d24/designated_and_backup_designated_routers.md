@@ -114,7 +114,7 @@ R4#show ip ospf database network self-originate
 ```
 
 
-参考上面的输出，DR（`R4`）发起了表示 `192.168.1.0/24` 这个子网的 `Type 2`（网络）LSA。由于多个路由器存在于这一子网上，因此这个 `192.168.1.0/24` 子网，就叫做 OSPF 术语中的一条传输链路, a transit link in OSPF terminology。其中的 `Advertising Router`（通告路由器）字段，显示了发起这一 LSA 的路由器。`Network Mask` 字段，显示了这个传输网络的子网掩码，即 `24-bit` 或 `255.255.255.0`。
+参考上面的输出，DR（`R4`）发起了表示 `192.168.1.0/24` 这个子网的 `Type 2`（网络）LSA。由于多个路由器存在于这一子网上，因此这个 `192.168.1.0/24` 子网，就叫做 OSPF 术语中的一条传输链路, a transit link in OSPF terminology。其中的 `Advertising Router`（通告路由器）字段，显示了发起这一 LSA 的路由器。`Network Mask` 字段，显示了这个传输网络，the transit network, 的子网掩码，即 `24-bit` 或 `255.255.255.0`。
 
 
 其中 `Attached Router` 字段，列出了该网段上所有路由器的路由器 ID。这允许该网段上的所有路由器，均可获悉还有哪些其他路由器位于该网段上。如以下输出中所示，`show ip ospf database network [link state ID]` 这一命令在 `R1`、`R2` 和 `R3` 上的输出，反映了相同的信息：
