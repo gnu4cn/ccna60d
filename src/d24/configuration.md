@@ -19,8 +19,8 @@ OSPF 的进程 ID，是个介于 1 和 65535 之间的整数。每个 OSPF 进�
 
 ```console
 R3#show ip interface brief
-Interface		IP-Address	OK?	Method	Status					Protocol
-FastEthernet0/0	unassigned	YES	manual	administratively down	down
+Interface       IP-Address	OK?	Method	Status					Protocol
+FastEthernet0/0 unassigned	YES	manual	administratively down	down
 Serial0/0		unassigned	YES	NVRAM	administratively down	down
 Serial0/1		unassigned	YES	unset	administratively down	down
 ```
