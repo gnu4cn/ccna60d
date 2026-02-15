@@ -10,7 +10,9 @@
 
 > **译注**：上面示意图中只有 20 个八位组，而非上面提到的 24 个八位组。EIGRP 的共用数据头部：[EIGRP 数据包头部的字段](../d22/messages.md#eigrp-packet_header)，以兹对比参考。
 
+![OSPF 数据包头部](../images/OSPF_packet_headers.png)
 
+**图，OSPF 数据包头部**
 
 其中 8 位的 `Version` 字段指定了 OSPF 的版本。这一字段的默认值为 2，但在 OSPFv3 启用时，那么这个字段也会被设置为 3。
 
