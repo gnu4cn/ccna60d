@@ -134,6 +134,6 @@
 8. 验证接口的那些特定于 OSPF 的参数：`show ip ospf interface` 及 `show ip ospf interface brief`；
 9. 在两个路由器（直连接口）上，修改 OSPF 的 `Hello` 与 `Dead` 定时器：`ip ospf hello 和 ip ospf dead`；
 10. 执行 `show ip ospf 1` 命令，查看那些路由进程的参数；
-11. 重复这个实验，但这次要使用 `ip ospf 1 area 0 interface specific` 命令，而不是 `router OSPF` 下的 `network` 命令，以 OSPF 方式通告这些网络。
+11. 重复这个实验，但这次要使用 `ip ospf 1 area 0` 这条特定于接口的命令，而不是 `router OSPF` 下的 `network` 命令，在 OSPF 中通告这些网络。
 
 
