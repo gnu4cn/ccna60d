@@ -1,18 +1,18 @@
-# OSPF 的链路状态通告与链路状态数据库
+# OSPF 的链路状态通告 LSA 与链路状态数据库 LSDB
 
 
-正如如 [上一小节](../d24/packet_types.md#lsa-types) 曾提到的，OSPF 会用到数种链路状态通告类型。每条 LSA 都以一个标准的 20 字节 LSA 头部开始。这个头部包含以下字段：
+正如如 [上一小节](../d24/packet_types.md#lsa-types) 曾提到的，OSPF 会用到数种 LSA 类型。每条 LSA 都以一个标准的 20 字节 LSA 头部开始。这一头部包含以下字段：
 
-- 链路状态年龄
-- 一些选项
-- 链路状态类型
-- 链路状态 ID
-- 通告路由器
-- 链路状态的序列编号
-- 链路状态的校验和
-- 长度
+- 链路状态年龄，`Link State Age`
+- 一些选项，`Options`
+- 链路状态类型，`Link State Type`
+- 链路状态 ID，`Link State ID`
+- 通告路由器，`Advertising Router`
+- 链路状态的序列编号，`Link State Sequence Number`
+- 链路状态的校验和，`Link State Checksum`
+- 长度，`Length`
 
-自中 2 字节的 `Link State Age` 字段，表示自这条 LSA 发起以来的时间（以秒为单位）。LSA 的最大年龄为 3600 秒，这意味着当年龄达到 3600 秒后，这条 LSA 就会自数据库中被移除。要避免这种情况，LSA 每 1800 秒刷新。
+自中 2 字节的 `Link State Age` 字段，表示自这条 LSA 发起以来的时间（以秒为单位）。LSA 的最大寿命为 3600 秒，这意味着当年龄达到 3600 秒后，这条 LSA 就会从数据库中移除。为了避免这种情况，LSA 会每 1800 秒刷新。
 
 1 个字节的 `Options` 字段，包含与 OSPF `Hello` 数据包中那些相同的选项。
 

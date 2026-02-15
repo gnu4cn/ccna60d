@@ -8,7 +8,7 @@
 
 **图 24.7** -- **OSPF 数据包的头部**
 
-> *译注*：上面示意图中只有 20 个八位组，而非上面提到的 24 个八位组。EIGRP 的共用数据头部：[EIGRP 数据包头部的字段](../d22/messages.md#eigrp-packet_header)，以兹对比参考。
+> **译注**：上面示意图中只有 20 个八位组，而非上面提到的 24 个八位组。EIGRP 的共用数据头部：[EIGRP 数据包头部的字段](../d22/messages.md#eigrp-packet_header)，以兹对比参考。
 
 
 
