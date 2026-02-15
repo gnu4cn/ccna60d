@@ -78,12 +78,15 @@
     ...
     [Truncated Output]
 
-         10.0.0.0/30 is subnetted, 1 subnets
-    C       10.0.0.0 is directly connected, Serial0/1/0
-         172.20.0.0/24 is subnetted, 1 subnets
-    C       172.20.1.0 is directly connected, Loopback0
-         192.168.1.0/32 is subnetted, 1 subnets
-    O IA    192.168.1.1 [110/65] via 10.0.0.2, 00:01:36, Serial0/1/0
+
+          10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+    C        10.0.0.0/30 is directly connected, Serial2/0
+    L        10.0.0.1/32 is directly connected, Serial2/0
+          172.20.0.0/16 is variably subnetted, 2 subnets, 2 masks
+    C        172.20.1.0/24 is directly connected, Loopback0
+    L        172.20.1.1/32 is directly connected, Loopback0
+          192.168.1.0/32 is subnetted, 1 subnets
+    O IA     192.168.1.1 [110/65] via 10.0.0.2, 00:04:15, Serial2/0
     RouterA#
     ```
 
