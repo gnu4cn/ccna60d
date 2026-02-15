@@ -10,9 +10,6 @@
 
 > **译注**：上面示意图中只有 20 个八位组，而非上面提到的 24 个八位组。EIGRP 的共用数据头部：[EIGRP 数据包头部的字段](../d22/messages.md#eigrp-packet_header)，以兹对比参考。
 
-![OSPF 数据包头部](../images/OSPF_packet_headers.png)
-
-**图，OSPF 数据包头部**
 
 其中 8 位的 `Version` 字段指定了 OSPF 的版本。这一字段的默认值为 2，但在 OSPFv3 启用时，那么这个字段也会被设置为 3。
 
@@ -43,7 +40,7 @@
 
 最后，64 位的 `Authentication Data` 字段，用于当认证已启用时，具体认证信息或数据。重要的是要记住，这一字段仅对 OSPFv2 有效。当纯文本的认证正被用到时，那么这一字段就包含了认证密钥。但是，当 MD5 的认证正被用到时，那么这一字段就会被重新定义到若干别的几个字段中，这超出了 CCNA 考试要求的范围。下图 24.8 显示了当其出现在一次 OSPF 数据包线路捕获中时的这些不同字段：
 
-![OSPF数据包头部的线上捕获](../images/3907.png)
+![OSPF 数据包头部](../images/OSPF_packet_headers.png)
 
 **图 24.8** -- **OSPF 数据包头部的线路捕获**
 
@@ -65,7 +62,7 @@
 
 在广播链路上，OSPF 的 `Hello` 数据包还用于选举 DR 和 BDR。DR 会专门监听组播地址 `224.0.0.6` (`AllDRRouters`)。DR 和 BDR [早先](./designated_and_backup_designated_routers.md) 已在这一教学模组中详细介绍过。下图 24.9 展示了包含于 OSPF `Hello` 数据包中的字段：
 
-![OSPF的`Hello`数据包](../images/3908.png)
+![OSPF 的 `Hello` 数据包](../images/3908.png)
 
 **图 24.9** -- **OSPF 的 `Hello` 数据包**
 
