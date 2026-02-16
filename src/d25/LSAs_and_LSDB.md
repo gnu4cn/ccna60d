@@ -92,9 +92,9 @@ OSPF 使用网络 LSA（`Type 2` 的 LSA），通告多路访问网段上的路�
 `Type 4` 的 LSA，描述有关自治系统边界路由器（ASBR）的信息。这种 LSA 包含着与 `Type 3` LSA 相同的数据包格式，完成同一基本功能，但有一些显著差异。与 `Type 3` 的 LSA 一样，`Type 4` 的 LSA 由 ABR 生成。对于这两种 LSA，`Advertising Router` 字段都包含生成摘要 LSA 的 ABR 的 RID。但是，`Type 4` 的 LSA 是由 ABR 针对某条路由器 LSA（`Type 1`） 可达的 ASBR 创建。这个 ABR 随后会将这条 `Type 4` 的 LSA，注入相应区域。这条 LSA 提供了有关这个 ASBR 本身的可达性信息。咱们应熟悉的 `Type 3` 与 `Type 4` LSA 之间的关键区别，列出于下表 25.1 中。
 
 
-**表 25.1** -- **`Type 3` 与 `Type 4` 的汇总 LSA**
+**表 25.1** -- **`Type 3` 与 `Type 4` 的摘要 LSA**
 
-| `Type 3` 的汇总 LSA | `Type 4` 的摘要 LSA |
+| `Type 3` 的摘要 LSA | `Type 4` 的摘要 LSA |
 | :-- | :-- |
 | 提供有关网络链路的信息。 | 提供有关 ASBR 的信息。 |
 | `Network Mask` 字段包含网络的子网掩码值。 | `Network Mask` 字段将始终包含一个 `0.0.0.0` 的值，或者干脆就是 `0`。 |
