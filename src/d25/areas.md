@@ -28,7 +28,7 @@
 
 - 默认路由是由 ABR，作为 [`Type 3` 的 LSA](./LSAs_and_LSDB.md#网络摘要-lsa-type-3) 注入到末梢区域中
 - 来自其他区域的 `Type 3` LSA，允许进入这些区域
-- 外部路由的 LSA（即 [`Type 4`](./LSAs_and_LSDB.md#asbr-摘要-lsa-type-4) 及 `Type 5` 的 LSA），则不被允许
+- 外部路由的 LSA（即 [`Type 4`](./LSAs_and_LSDB.md#asbr-摘要-lsa-type-4) 及 [`Type 5` LSA](./LSAs_and_LSDB.md#as-外部-lsa-type-5)），则不被允许
 
 
 ## 完全末梢区域, TSA
