@@ -4,7 +4,7 @@
 
 ## 计算 OSPF 度量值
 
-OSPF 的度量值，通常称为开销。开销是使用计算公式为 <code>10<sup>8</sup> / 带宽</code>（以 bps 为单位），从链路带宽推导出的。这意味着不同链路，会根据其带宽分配不同的开销值。使用这个公式，`10Mbps` 以太网接口的 OSPF 开销将计算如下：
+OSPF 的度量值，通常称为开销。开销是使用公式 <code>10<sup>8</sup> / 带宽</code>（以 bps 为单位），从链路带宽推导出的。这意味着不同链路，会根据其带宽分配不同的开销值。使用这个公式，`10Mbps` 以太网接口的 OSPF 开销将计算如下：
 
 <code>
 <li>开销 = 10<sup>8</sup> / 带宽（ bps ）</li>
@@ -22,7 +22,7 @@ OSPF 的度量值，通常称为开销。开销是使用计算公式为 <code>10
 
 **注意**：计算 OSPF 度量值时，浮点数不会用到。因此，任何此类值都会四舍五入到最接近整数。因此对于前面这个示例，`T1` 链路的实际开销，将向下舍入为 64。
 
-正如早先曾演示过的，某个接口的 OSPF 开销，可通过使用 `show ip ospf interface [name]` 命令查看。用于度量值计算中的默认参考带宽，可在 `show ip protocols` 命令的输出中查看，如下输出中所示：
+正如早先曾演示过的，接口的 OSPF 开销可通过使用 `show ip ospf interface [name]` 命令查看。用于度量值计算中的默认参考带宽，可在 `show ip protocols` 命令的输出中查看，如下输出中所示：
 
 ```console
 R4#show ip protocols
@@ -42,9 +42,9 @@ Reference bandwidth unit is 100 mbps
 ```
 
 
-用于 OSPF 开销计算中的默认参考带宽，可通过使用 `auto-cost reference-bandwidth <1-4294967>` 这条路由器配置命令，以及指定以 Mbps 为单位的参考带宽值调整。这种做法对于那些有着超过 100Mbps 带宽值链路，例如 `GigabitEthernet` 链路的网络尤为重要。在此类网络中，指派给 `GigabitEthernet` 链路的默认值，将与 `FastEthernet` 的默认值相同。在大多数情况下，这肯定是不可取的，尤其是当 OSPF 试图在两条链路上负载均衡时。
+用于 OSPF 开销计算的默认参考带宽，可通过使用 `auto-cost reference-bandwidth <1-4294967>` 这条路由器配置命令，并指定以 Mbps 为单位的参考带宽值调整。在那些有着超过 100Mbps 带宽值，例如 `GigabitEthernet` 链路的网络中，这一做法尤为重要。在此类网络中，指派给 `GigabitEthernet` 链路的默认值，将与 `FastEthernet` 的默认值相同。大多数情况下，这肯定是不可取的，尤其是当 OSPF 试图在两条链路上负载均衡时。
 
-要防止这种开销值计算偏差，`auto-cost reference-bandwidth 1000` 这条路由器配置命令就应在路由器上执行。这样做就会造成一次该路由器上，使用新的参考带宽值的开销值重新计算。例如，这一配置之后，`T1` 链路的开销将重新计算如下：
+要防止这种开销值计算偏差，`auto-cost reference-bandwidth 1000` 这条路由器配置命令就应在路由器上执行。这会导致该路由器上，使用新参考带宽值的一次开销值重新计算。例如，这一配置之后，`T1` 链路的开销将重新计算如下：
 
 
 <code>
@@ -73,7 +73,7 @@ Serial0/0 is up, line protocol is up
   Suppress Hello for 0 neighbor(s)
 ```
 
-当 `auto-cost reference-bandwidth 1000` 这条路由器配置命令被执行后，Cisco 10S 软件会打印以下信息，表明这同一个值应被应用到该 OSPF 域内的所有路由器。这在以下输出中得以演示：
+当 `auto-cost reference-bandwidth 1000` 这条路由器配置命令被执行后，Cisco 10S 软件会打印以下信息，表明这同一个值应被应用到 OSPF 域内的所有路由器。这在以下输出中得以演示：
 
 
 ```console
@@ -83,7 +83,7 @@ R4(config-router)#auto-cost reference-bandwidth 1000
         Please ensure reference bandwidth is consistent across all routers.
 ```
 
-虽然这看起来像是条重要告警，但请记住，这条命令的使用，只会影响本地路由器。并不强制要求要在所有路由器上配置这条命令；但出于考试目的，要某种一致的配置，在所有路由器上部署。
+虽然这看起来像是条重要告警，但请记住，这条命令的使用只会影响本地路由器。并不强制要求要在所有路由器上配置这条命令；但出于考试目的，要确保一致配置在所有路由器上得以部署。
 
 ## 影响 OSPF 的度量值计算
 
