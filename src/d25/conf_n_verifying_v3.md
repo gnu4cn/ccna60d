@@ -42,7 +42,8 @@ R3(config-rtr)#router-id 3.3.3.3
 R3(config-rtr)#exit
 R3(config)#interface FastEthernet0/0
 R3(config-if)#ipv6 address 3fff:1234:abcd:1::3/64
-R3(config-if)#ipv6 enableR3(config-if)#ipv6 ospf 3 Area 0
+R3(config-if)#ipv6 enable
+R3(config-if)#ipv6 ospf 3 Area 0
 R3(config-if)#exit
 R3(config)#interface Loopback0
 R3(config-if)#ipv6 address 3fff:1234:abcd:2::3/128
@@ -81,6 +82,4 @@ Neighbor 3.3.3.3
 ```
 
 在上面的输出中，要注意到，实际的邻接接口地址，是链路本地地址，而非所配置的那个全局 IPv6 单播地址。
-
-
 
