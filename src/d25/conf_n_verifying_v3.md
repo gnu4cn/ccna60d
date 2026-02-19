@@ -6,11 +6,13 @@
 1. 使用 `ipv6 unicast-routing` 这条全局配置命令，全局地启用 IPv6 的路由。默认情况下，IPv6 的路由在 Cisco 10S 软件中是禁用的；
 2. 使用 `ipv6 router ospf [process ID]` 这条全局配置命令，配置一个或多个 OSPFv3 的进程；
 3. 若路由器上未配置有着 IPv4 地址的运行接口，那么就要使用 `router-id [IPv4 address]` 这条路由器配置命令，手动配置 OSPFv3 的 RID；
-4. 使用 `ipv6 address` 与 `ipv6 enable` 这两条接口配置命令，在所需接口上启用 IPv6；（译注：原文这里误将 "interface" 作为了配置命令，而写作了 the `ipv6 address` and `ipv6 enable interface` configuration commands）
+4. 使用 `ipv6 address` 与 `ipv6 enable` 这两条接口配置命令，在所需接口上启用 IPv6；（译注：原文这里误将 "interface" 作为了配置命令，而写作了 “the `ipv6 address` and `ipv6 enable interface` configuration commands”。）
 5. 使用 `ipv6 ospf [process ID] area [area ID]` 这条接口配置命令，在该接口下启用一个或多个 OSPFv3 的进程。
 
-这第一个基本的多区域 OSPFv3 配置示例，基于下图 25.4 中所示的拓扑结构：
 
+## 配置示例
+
+这第一个基本的多区域 OSPFv3 配置示例，基于下图 25.4 中所示的拓扑结构：
 
 ![在思科 IOS 软件中配置基本多区域OSPFv3](../images/1301.png)
 
