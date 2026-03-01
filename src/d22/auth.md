@@ -3,7 +3,7 @@
 路由协议可配置为防止接收虚假路由更新，EIGRP也不例外。当咱们未启用身份验证，而运行着 EIGRP 时，那么攻击者就会试图与咱们的某台路由器建立 EIGRP 邻接关系，进而干扰咱们的网络......我们当然不希望这种情况发生，对吧？
 
 
-EIGRP支持 MD5 的身份验证，与 [SHA 的身份验证](#sha-的身份验证)。没有明文的身份验证。
+EIGRP 支持 MD5 的身份验证，与 [SHA 的身份验证](#sha-的身份验证)。没有明文的身份验证。
 
 身份验证能带来什么？
 
@@ -105,6 +105,17 @@ R2(config-if)#ip authentication key-chain eigrp 12 MY_KEY_CHAIN
 
 
 EIGRP 最初仅支持 MD5 认证，但自 IOS 15.1(2)S 和 15.2(1)T 版本起，我们也可使用 SHA-256 的认证。如今这种认证方式比 MD5 安全得多。
+
+> **译注**：译者在 GNS3 中使用了 IOU 的 `i86bi-linux-l3-adventerprisek9-ms.155-2.T.bin` 镜像完成示例配置。
+>
+>
+> ```console
+> R1>sh ver
+> Cisco IOS Software, Linux Software (I86BI_LINUX-ADVENTERPRISEK9-M), Version 15.5(2)T, DEVELOPMENT TEST SOFTWARE
+> Technical Support: http://www.cisco.com/techsupport
+> Copyright (c) 1986-2015 by Cisco Systems, Inc.
+> Compiled Thu 26-Mar-15 07:36 by prod_rel_team
+> ```
 
 MD5 认证可在经典模式或命名模式下配置，而 SHA 认证仅支持命名模式下配置。在咱们配置 SHA 认证时，可选择仅使用接口口令或包含某一密钥链。仅使用口令的优势在于配置更简便（仅需一条命令），但缺点是当需要修改口令时，只要咱们修改了咱们一台路由器上的口令，那么邻居邻接关系就会立即中断。
 
