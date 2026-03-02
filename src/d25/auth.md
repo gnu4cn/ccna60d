@@ -272,3 +272,139 @@ end
 ```
 
 要记住，如今 MD5 哈希算法已被认为 **在密码学上不安全** 而可被破解。因此，在生产环境中实施该算法，并不能保证网络域免受路由攻击。正因如此，思科引入了另一种认证类型 —— HMAC-SHA，该算法被认为更具安全性。
+
+
+## OSPF 的 HMAC-SHA 扩展认证
+
+
+OSPF 过去仅支持明文和 MD5 认证，但自 IOS 15.4(1)T 版本起，OSPF 还支持 HMAC-SHA（消息认证码的安全哈希算法，Hash Message Authentication Code Secure Hash Algorithm）。除新增算法外，咱们配置认证的方式也发生了变化。OSPF 现采用类似 RIP 和 EIGRP 的密钥链机制。
+
+为演示 HMAC-SHA 的认证，我们将使用以下两台路由器：
+
+![OSPF 的 HMAC-SHA 认证拓扑结构](../images/ospf-r1-r2-topology.png)
+
+
+## 配置
+
+我们来通过在两台路由器上启用 OSPF 开始：
+
+```console
+R1(config)#router ospf 1
+R1(config-router)#network 192.168.12.1 0.0.0.3 area 0
+```
+
+```console
+R2(config)#router ospf 1
+R2(config-router)#network 192.168.12.2 0.0.0.3 area 0
+```
+
+
+现在我们可以专注于身份验证了。
+
+### `R1` 的配置
+
+首先，我们需要创建一个密钥链。密钥链的名称仅在本地有效，因此咱们可随意命名。但两个路由器上的密钥 ID 必须相同。我（作者）将其命名为 `R1` 并使用 `key 1`：
+
+```console
+R1(config)#key chain R1
+R1(config-keychain)#key 1
+```
+
+在密钥链配置下，我们需要完成两项操作。首先，我们必须告知路由器，我们希望使用某种不同加密算法：
+
+```console
+R1(config-keychain-key)#cryptographic-algorithm ?
+  hmac-sha-1    HMAC-SHA-1 authentication algorithm
+  hmac-sha-256  HMAC-SHA-256 authentication algorithm
+  hmac-sha-384  HMAC-SHA-384 authentication algorithm
+  hmac-sha-512  HMAC-SHA-512 authentication algorithm
+  md5           MD5 authentication algorithm
+```
+
+正如咱们在上面看到的，我们可以选择其中一种 HMAC-SHA 选项。这一新密钥链方法也支持 MD5。我们来使用最安全的 HMAC-SHA 选项：
+
+
+```console
+R1(config-keychain-key)#cryptographic-algorithm hmac-sha-512
+```
+
+另一件事便是密钥字符串，即我们打算使用的口令：
+
+
+```console
+R1(config-keychain-key)#key-string xfossdotcom
+```
+
+现在唯一剩下的事情，就是启用身份验证。这只能在接口上操作，咱们无法通过此方法为整个区域启用：
+
+```console
+R1(config)#interface GigabitEthernet 0/1
+R1(config-if)#ip ospf authentication key-chain R1
+```
+
+我们来完成 `R2` 上的同样操作：
+
+### `R2` 上的配置
+
+```console
+R2(config)#key chain R2
+R2(config-keychain)#key 1
+R2(config-keychain-key)#cryptographic-algorithm hmac-sha-512
+R2(config-keychain-key)#key-string xfossdotcom
+
+R2(config)#interface GigabitEthernet 0/1
+R2(config-if)#ip ospf authentication key-chain R2
+```
+
+这就是我们必须配置的所有内容。
+
+## OSPF HMAC-SHA 认证的验证
+
+我们来验证我们的工作。
+
+首先，我（作者）将检查身份验证是否已启用：
+
+
+```console
+R1#show ip ospf interface GigabitEthernet 0/1 | begin auth
+  Cryptographic authentication enabled
+    Sending SA: Key 1, Algorithm HMAC-SHA-512 - key chain R1
+```
+
+```console
+R2#show ip ospf interface GigabitEthernet 0/1 | begin auth
+  Cryptographic authentication enabled
+    Sending SA: Key 1, Algorithm HMAC-SHA-512 - key chain R1
+```
+
+正如咱们可在上面看到的，使用 `HMAC-SHA-512` 的身份验证已启用。咱们要确保两台路由器已属于邻居：
+
+```console
+R1#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.12.2      1   FULL/DR         00:00:31    192.168.12.2    GigabitEthernet0/1
+```
+
+```console
+R2#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+192.168.12.1      1   FULL/BDR        00:00:33    192.168.12.1    GigabitEthernet0/1
+```
+
+
+似乎确实如此。事情就是这样。
+
+### 结论
+
+咱们现已掌握如何启用 OSPF 的 HMAC-SHA 认证：
+
+- 自 IOS 15.4(1)T 版本起，OSPF 支持 HMAC-SHA 认证；
+- 认证配置是使用密钥链机制配置的，与 RIP 和 EIGRP 类似；
+- 除密钥字符串外，咱们还必须配置密钥链使用的加密算法。
+
+
+
+> **参考**：[OSPF HMAC-SHA Extended Authentication](https://networklessons.com/ospf/ospf-hmac-sha-extended-authentication)
+
