@@ -216,6 +216,7 @@
     - [OSPF 的区域](d25/areas.md)
     - [路由度量值与最优路由选择](d25/metrics_and_route_selection.md)
     - [配置 OSPF](d25/configuring.md)
+    - [OSPF 认证（译者补充）](d25/auth.md)
     - [OSPF 的故障排除](d25/troubleshooting.md)
     - [OSPF 版本 3](d25/version3.md)
     - [思科 IOS 软件下 OSPFv2 与 OSPFv3 的配置差异](d25/conf_diff_between_v2_n_v3.md)
