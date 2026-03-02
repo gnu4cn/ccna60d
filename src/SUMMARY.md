@@ -195,7 +195,7 @@
     - [用于 IPv6 的 EIGRP](d22/ipv6.md)
     - [思科 IOS 软件 EIGRPv4 与 EIGRPv6 配置差异](d22/conf_diff.md)
     - [思科 IOS 软件中 EIGRPv6 的配置与验证](d22/conf_n_verify_ipv6.md)
-    - [EIGRP 的身份验证（译者补充）](d22/auth.md)
+    - [EIGRP 的身份验证与命名模式（译者补充）](d22/auth.md)
     - [第 22 天问题](d22/questions.md)
     - [第 22 天实验](d22/labs.md)
 

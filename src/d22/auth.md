@@ -1,9 +1,9 @@
-# EIGRP 认证配置
+# EIGRP 认证配置与命名模式
 
 路由协议可配置为防止接收虚假路由更新，EIGRP也不例外。当咱们未启用身份验证，而运行着 EIGRP 时，那么攻击者就会试图与咱们的某台路由器建立 EIGRP 邻接关系，进而干扰咱们的网络......我们当然不希望这种情况发生，对吧？
 
 
-EIGRP 支持 MD5 的身份验证，与 [SHA 的身份验证](#sha-的身份验证)。没有明文的身份验证。
+EIGRP 支持 MD5 的身份验证，与 [SHA 的身份验证](#eigrp-sha-的身份验证) 没有明文的身份验证。
 
 身份验证能带来什么？
 
@@ -117,7 +117,7 @@ EIGRP 最初仅支持 MD5 认证，但自 IOS 15.1(2)S 和 15.2(1)T 版本起，
 > Compiled Thu 26-Mar-15 07:36 by prod_rel_team
 > ```
 
-MD5 认证可在经典模式或命名模式下配置，而 SHA 认证仅支持命名模式下配置。在咱们配置 SHA 认证时，可选择仅使用接口口令或包含某一密钥链。仅使用口令的优势在于配置更简便（仅需一条命令），但缺点是当需要修改口令时，只要咱们修改了咱们一台路由器上的口令，那么邻居邻接关系就会立即中断。
+MD5 认证可在经典模式或 [命名模式](#关于命名模式) 下配置，而 SHA 认证仅支持命名模式下配置。在咱们配置 SHA 认证时，可选择仅使用接口口令或包含某一密钥链。仅使用口令的优势在于配置更简便（仅需一条命令），但缺点是当需要修改口令时，只要咱们修改了咱们一台路由器上的口令，那么邻居邻接关系就会立即中断。
 
 在咱们使用密钥链时，咱们则可使用在允许咱们不破坏邻居邻接下切换口令的轮换密钥。在这一小节中，我（作者）将演示两种配置方案的具体操作。
 
@@ -263,6 +263,85 @@ R2#show eigrp address-family ipv4 interfaces detail Gi0/1 | include Auth
 *EIGRP 密钥链的 SHA 身份验证数据包捕获*
 
 
-
-
 > **参考**：[EIGRP SHA Authentication](https://networklessons.com/eigrp/eigrp-sha-authentication)
+
+
+
+## EIGRP 命名模式配置
+
+自 IOS 15 版本起，EIGRP 就有了一种名为命名模式 EIGRP 的新配置方式。在 IOS 15 之前的 “经典” 版本中，我们需全局配置 EIGRP，并在接口上配置其他选项（如身份验证）。在命名模式 EIGRP 下，我们就会全局地完成所有事情。
+
+当咱们尝试在 IOS 15.x 的路由器上配置 EIGRP，咱们将看到如下提示：
+
+```console
+R1(config)#router eigrp ?
+  <1-65535>  Autonomous System
+  WORD       EIGRP Virtual-Instance Name
+```
+
+除 AS 编号，我们还可以选择一个名字。我们来试试这个，针对这一演示，我（作者）将使用两台路由器：
+
+
+![命名模式 EIGRP 演示拓扑结构](../images/eigrp-r1-r2.png)
+
+
+咱们从 `R1` 开始：
+
+
+```console
+R1(config)#router eigrp XFOSSDOTCOM
+R1(config-router)#?
+Router configuration commands:
+  address-family  Enter Address Family command mode
+  default         Set a command to its defaults
+  exit            Exit from routing protocol configuration mode
+  no              Negate a command or set its defaults
+  service-family  Enter Service Family command mode
+  shutdown        Shutdown this instance of EIGRP
+```
+
+配置现在要使用地址族完成。我们来选择他：
+
+```console
+R1(config-router)#address-family ?
+  ipv4  Address family IPv4
+  ipv6  Address family IPv6
+```
+
+EIGRP 命名模式涵盖 IPv4 和 IPv6。我们来尝试一下 IPv4：
+
+```console
+R1(config-router)#address-family ipv4 autonomous-system 12
+```
+
+这便是我（作者）配置所有内容的地方。例如通告某个网络：
+
+```console
+R1(config-router-af)#network 192.168.12.1 0.0.0.3
+```
+
+所有曾在接口上配置的内容，现在都在同一全局配置下了：
+
+
+```console
+R1(config-router-af)#af-interface FastEthernet 0/0
+R1(config-router-af-interface)#?
+Address Family Interfaces configuration commands:
+  authentication      authentication subcommands
+  bandwidth-percent   Set percentage of bandwidth percentage limit
+  bfd                 Enable Bidirectional Forwarding Detection
+  dampening-change    Percent interface metric must change to cause update
+  dampening-interval  Time in seconds to check interface metrics
+  default             Set a command to its defaults
+  exit-af-interface   Exit from Address Family Interface configuration mode
+  hello-interval      Configures hello interval
+  hold-time           Configures hold time
+  next-hop-self       Configures EIGRP next-hop-self
+  no                  Negate a command or set its defaults
+  passive-interface   Suppress address updates on an interface
+  shutdown            Disable Address-Family on interface
+  split-horizon       Perform split horizon
+  summary-address     Perform address summarization
+```
+
+> **参考**：[EIGRP Named Mode Configuration](https://networklessons.com/eigrp/eigrp-named-mode-configuration)
