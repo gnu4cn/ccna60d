@@ -393,8 +393,11 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 192.168.12.1      1   FULL/BDR        00:00:33    192.168.12.1    GigabitEthernet0/1
 ```
 
-
 似乎确实如此。事情就是这样。
+
+![OSPF 的 HMAC-SHA 认证数据包捕获](../images/ospf_hmac-sha_auth_packet_cap.png)
+
+> **译注**：从上面的数据包捕获 `Auth Type` 字段可以看出，配置了 HMAC-SHA 身份验证的 OSPF 数据包 `Auth Type` 字段值仍为 2，而非本文最开始指出的 3。这可能与思科的 OSPF 实现有关。
 
 ### 结论
 
