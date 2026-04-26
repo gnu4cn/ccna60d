@@ -30,7 +30,7 @@
 6. True.
 7. False.
 8. True.
-9. By using Anycast.
+9. By using Multicast.
 10. One time.
 11. Dual-stack implementation, tunnelling, and protocol translation.
 12. Dual-stack.
