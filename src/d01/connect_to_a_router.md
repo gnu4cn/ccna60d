@@ -685,7 +685,7 @@ Router#terminal history size 20
     - 数据包大小
     - 超时
     - 源接口
-    -服务类型
+    - 服务类型
 
     早先我们已介绍了扩展的 ping 输出，本指南中还将执行多次扩展的 ping。
 
