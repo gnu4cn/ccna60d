@@ -49,7 +49,7 @@ window.addEventListener('load', function() {
 window.addEventListener("scroll", updateFunction);
 
 if(document.querySelector("#document-not-found404")) {
-  let timeLeft = 10;
+  let timeLeft = 3;
 
   var timerId = setInterval(() => {
     if(timeLeft == -1) {
@@ -69,7 +69,7 @@ if(document.querySelector("#document-not-found404")) {
 var f = document.getElementById("last-change");
 if (f) {
   var text = f.innerHTML;
-  text = text.replace("Last change", "知识共享许可协议，CC - 最后修改")
+  text = text.replace("Last change", "知识共享许可协议 - CC, unisko # gmail.com - 最后修改")
   text = text.replace("commit", "于提交")
 
   f.innerHTML = text
