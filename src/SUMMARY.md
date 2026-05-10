@@ -392,7 +392,7 @@
     - [网络自动化](d50/about.md)
     - [传统组网与基于控制器的组网](d50/trad_networking_vs_controller-based_networking.md)
     - [基于控制器及软件定义的架构（Overlay、Underlay 与 Fabric）](d50/arch.md)
-    - [SD-WAN，软件定义的 WAN](d37/sd-wan.md)
+    - [译者补充：SD-WAN，软件定义的 WAN](d37/sd-wan.md)
     - [传统园区的设备管理与思科 DNA 中心的设备管理](d50/dev_management.md)
     - [基于 REST 的 API（CRUD、HTTP 动词与数据编码）](d50/apis.md)
 
