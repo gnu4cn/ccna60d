@@ -195,7 +195,7 @@
     - [用于 IPv6 的 EIGRP](d22/ipv6.md)
     - [思科 IOS 软件 EIGRPv4 与 EIGRPv6 配置差异](d22/conf_diff.md)
     - [思科 IOS 软件中 EIGRPv6 的配置与验证](d22/conf_n_verify_ipv6.md)
-    - [EIGRP 的身份验证与命名模式（译者补充）](d22/auth.md)
+    - [译者补充：EIGRP 的身份验证与命名模式](d22/auth.md)
     - [第 22 天问题](d22/questions.md)
     - [第 22 天实验](d22/labs.md)
 
@@ -392,7 +392,7 @@
     - [网络自动化](d50/about.md)
     - [传统组网与基于控制器的组网](d50/trad_networking_vs_controller-based_networking.md)
     - [基于控制器及软件定义的架构（Overlay、Underlay 与 Fabric）](d50/arch.md)
-    - [译者补充：SD-WAN，软件定义的 WAN](d37/sd-wan.md)
+    - [译者补充：SD-WAN，软件定义的 WAN](d50/sd-wan.md)
     - [传统园区的设备管理与思科 DNA 中心的设备管理](d50/dev_management.md)
     - [基于 REST 的 API（CRUD、HTTP 动词与数据编码）](d50/apis.md)
 
