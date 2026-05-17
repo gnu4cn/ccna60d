@@ -3,7 +3,7 @@
 
 在线阅读：[netcomm.xfoss.com](https://netcomm.xfoss.com/)
 
-本地阅读：[`mdbook` 本地运行](./src/howto_read_locally.md)
+本地阅读：[`mdbook` 本地运行](./howto_read_locally.md)
 
 
 
