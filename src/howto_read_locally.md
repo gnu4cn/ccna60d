@@ -7,7 +7,7 @@
 
 ```console
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cargo install mdbook
+cargo install mdbook --version 0.4.29
 ```
 
 ### 在 Windows 上

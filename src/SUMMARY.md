@@ -2,6 +2,7 @@
 
 
 [60 天通过 CCNA 考试](README.md)
+[在本地阅读](howto_read_locally.md)
 [前言](preface.md)
 
 ---
