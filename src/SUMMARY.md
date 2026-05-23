@@ -382,6 +382,9 @@
     - [常见的接入层威胁缓解技术](d47/technix.md)
     - [第 47 天实验](d47/labs.md)
 
+
+- [OT 标准与模型](./OT_standards_n_models.md)
+
 - [复习](d48-review.md)
 - [阶段复习](d49-section_review.md)
 
@@ -424,4 +427,3 @@
 - [附录 IV：网络故障排除](network_troubleshooting.md)
 - [附录 V：`dot1x` 认证下的动态 VLAN 实现](22_dot1x_port_dynamic_vlan.md)
 - [附录 VI：Cacti 流量监控系统部署笔记](59_Cacti_deployment_notes.md)
-- [OT 标准与模型概述](./OT_standards_n_models.md)
