@@ -11,7 +11,12 @@ tauri-build = { version = "2", features = [] }
 
 [dependencies]
 tauri = { version = "2", features = [] }
-tauri-plugin-window-state = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+futures-util = "0.3"
+keyring = "3"
+# rustls 很关键：Linux AppImage 交叉编译时避免 openssl-sys
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
 
 # 发布后要做自动更新时取消注释，并在 tauri.conf.json 里配置 plugins.updater
 # tauri-plugin-updater = "2"
