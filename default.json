@@ -1,0 +1,9 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "离线阅读器所需的最小权限集",
+  "windows": ["main"],
+  "permissions": [
+    "core:default"
+  ]
+}

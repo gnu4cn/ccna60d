@@ -1,0 +1,72 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # AppImage 在最老的受支持 Ubuntu 上构建，产物的 glibc 依赖才够低，
+          # 否则在旧发行版上会报 GLIBC_2.xx not found。
+          - platform: ubuntu-22.04
+            bundles: appimage
+            label: linux-x86_64
+          - platform: windows-latest
+            bundles: nsis,msi
+            label: windows-x86_64
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Linux 依赖
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            libgtk-3-dev \
+            libxdo-dev \
+            libssl-dev \
+            patchelf \
+            build-essential \
+            file wget
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: ./src-tauri -> target
+          key: ${{ matrix.platform }}
+
+      - name: 安装 mdBook
+        uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook
+
+      # 站点里用到的 mdBook 预处理器，按 book.toml 的实际情况增删
+      # - name: 安装 mdBook 预处理器
+      #   uses: taiki-e/install-action@v2
+      #   with:
+      #     tool: mdbook-toc,mdbook-mermaid
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "CCNA60D ${{ github.ref_name }}"
+          releaseBody: "见 CHANGELOG。Windows 装 .exe 或 .msi，Linux 下载 .AppImage 后 chmod +x 直接运行。"
+          releaseDraft: true
+          prerelease: false
+          args: --bundles ${{ matrix.bundles }}

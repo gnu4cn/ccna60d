@@ -1,0 +1,24 @@
+[package]
+name = "ccna60d"
+version = "4.0.0"
+description = "CCNA 60 天备考教材离线阅读器"
+authors = ["xfoss.com"]
+edition = "2021"
+rust-version = "1.77"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-window-state = "2"
+
+# 发布后要做自动更新时取消注释，并在 tauri.conf.json 里配置 plugins.updater
+# tauri-plugin-updater = "2"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
